@@ -10,6 +10,7 @@ class Tabs extends Widget
 
     public function run()
     {
+        // Вывести закладки
         return $this->render('tabs', ['items' => $this->items]);
     }
 }

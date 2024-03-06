@@ -21,7 +21,6 @@ use yii\web\UploadedFile;
 
 class CrudController extends BaseController
 {
-
     public function behaviors()
     {
         return [
@@ -43,15 +42,18 @@ class CrudController extends BaseController
         ];
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         $searchModel  = new PageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index',
-                [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+        // Вывести страницу
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -64,15 +66,15 @@ class CrudController extends BaseController
             $parent = Page::findOne($parentId);
         }
 
+        // Если данные модели успешно загружены из формы в браузере и модель сохарнилась в БД
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
+            // Перенаправить на страницу редактирвоания
             return $this->redirect(['update', 'id' => $model->id]);
         } else {
-
-            return $this->render('create',
-                    [
-                    'model' => $model,
-                    'parent' => $parent
+            // Вывести страницу
+            return $this->render('create', [
+                'model' => $model,
+                'parent' => $parent
             ]);
         }
     }
@@ -113,6 +115,7 @@ class CrudController extends BaseController
             }
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         return $result;
@@ -120,6 +123,7 @@ class CrudController extends BaseController
 
     public function actionImagesList($pageId)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $page = Page::findOne($pageId);
@@ -130,10 +134,10 @@ class CrudController extends BaseController
         $result = [];
         if (!empty($page->attachments)) {
             foreach ($page->attachments as $attach) {
-                $url      = Url::toRoute([
-                        'default/attachment-download',
-                        'id' => $attach->id,
-                        'inline' => true
+                $url = Url::toRoute([
+                    'default/attachment-download',
+                    'id' => $attach->id,
+                    'inline' => true
                 ]);
                 $result[] = [
                     'title' => $attach->title,
@@ -148,42 +152,36 @@ class CrudController extends BaseController
 
     public function actionUpdate($id)
     {
+        // Получить из БД страницу с указанным id
         $model = $this->findModel($id);
 
+        // Если данные модели успешно загружены из формы в браузере и модель сохранилась в БД
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
+            // Поместить в сессию флаг сообщения об успешном сохранении страницы
             Yii::$app->session->addFlash('success', WikiModule::t('default', 'Page updated'));
-
+            // Перенаправить на страницу по умолчанию
             return $this->redirect('');
         } else {
-            return $this->render('update', [
-                    'model' => $model,
-            ]);
+            // Вывести страницу редактирования
+            return $this->render('update', compact('model'));
         }
     }
 
     public function actionDelete($id)
     {
+        // Получить из БД страницу с указанным id
         $model = $this->findModel($id);
-
-//        if ($model->hasChildDocs()) {
-//            Yii::$app->session->setFlash(
-//                    'error',
-//                    WikiModule::t('default', 'Page has related records and can not be deleted')
-//            );
-//
-//            return $this->redirect(Yii::$app->request->referrer);
-//        }
-
         $deleteList = $this->getRecursiveDeleteList($model);
         $attachmentList = Attachment::findAll(['page_id' => $deleteList]);
 
         foreach($attachmentList as $attachment) {
+            // Удалить вложение из БД
             $attachment->delete();
         }
 
         Page::deleteAll(['id' => $deleteList]);
 
+        // Перенаправить на страницу вики
         return $this->redirect(['/wiki']);
     }
 
@@ -199,15 +197,6 @@ class CrudController extends BaseController
         return $deleteList;
     }
 
-    private function findModel($id)
-    {
-        if (($model = Page::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
     public function actionAttachmentUpdate($id)
     {
         $model = Attachment::findOne($id);
@@ -216,14 +205,15 @@ class CrudController extends BaseController
             throw new NotFoundHttpException();
         }
 
+        // Если данные модели успешно загружены из формы в браузере и модель сохранилась в БД
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // Поместить в сессию флаг сообщения об успешном сохранении вложения
             Yii::$app->session->addFlash('success', WikiModule::t('default', 'Attachment updated'));
-
+            // Перенаправить на страницу по умолчанию
             return $this->redirect('');
         } else {
-            return $this->render('attachment/update', [
-                    'model' => $model,
-            ]);
+            // Вывести страницу
+            return $this->render('attachment/update', ['model' => $model]);
         }
     }
 
@@ -237,12 +227,17 @@ class CrudController extends BaseController
 
         $pageId = $model->page->id;
 
+        // Удалить вложение из БД
         if (!$model->delete()) {
+            // Поместить в сессию флаг сообщения об ошибке удаления вложения
             Yii::$app->session->addFlash('error', WikiModule::t('default', 'Cannot delete attachment'));
+            // Перенаправить на страницу по умолчанию
             return $this->redirect('');
         }
 
+        // Поместить в сессию флаг сообщения об успешном удалении вложения
         Yii::$app->session->addFlash('success', WikiModule::t('default', 'Attachment deleted'));
+        // Перенаправить на страницу редактирования
         return $this->redirect(['crud/update', 'id' => $pageId]);
     }
 
@@ -258,25 +253,24 @@ class CrudController extends BaseController
                 throw new ServerErrorHttpException(WikiModule::t('default', 'Error while setting export job'));
             }
 
+            // Сохранить модель в БД
             $model->save();
         }
 
         if (!$model->isReady()) {
-
+            // Вывести страницу ожидания экспорта
             return $this->render('export-wait');
         } else {
-
             return \Yii::$app->response->sendStreamAsFile(
-                    $model->getTargetStream(), $model->getTargetFilename(),
-                    [
-                    'mimeType' => $model->getTargetMimeType(),
-                    ]
+                $model->getTargetStream(), $model->getTargetFilename(),
+                ['mimeType' => $model->getTargetMimeType()]
             );
         }
     }
 
     public function actionImport()
     {
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $file = UploadedFile::getInstanceByName('file');
             if (empty($file)) {
@@ -286,18 +280,34 @@ class CrudController extends BaseController
             $result = FileHelper::storeTempFile($file->tempName, $file->name);
 
             if (false === $result) {
+                // Поместить в сессию флаг сообщения об ошибке сохранения временного файла
                 Yii::$app->session->addFlash('error', WikiModule::t('default', 'Cannot store temp file'));
             } else {
                 Yii::$app->resque->enqueue('common\modules\wiki\jobs\ImportJob', [
                     'tempFile'  => $result,
                 ]);
+                // Поместить в сессию флаг сообщения об успешной загрузке архива
                 Yii::$app->session->addFlash('success', WikiModule::t('default', 'Archive uploaded, work in progress'));
             }
-            
+
+            // Перенаправить на страницу по умолчанию
             return $this->redirect('');
         }
+        // Вывести страницу импорта
+        return $this->render('import', []);
+    }
 
-        return $this->render('import', [
-        ]);
+    /**
+     * Метод ищет модель страницы в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
+    private function findModel($id)
+    {
+        // Получить из БД страницу с указанным id
+        $model = Page::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested page does not exist');
+        }
+        return $model;
     }
 }

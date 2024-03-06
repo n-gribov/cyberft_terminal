@@ -37,14 +37,14 @@ class IBankV1Parser
                 } else {
                     throw new \Exception("Invalid document header: $row");
                 }
-            } elseif ($row === ';end') {
+            } else if ($row === ';end') {
                 $documents[] = new IBankV1Document($type, $data, $fileName);
                 $type = null;
                 $data = [];
                 $isInsideDocument = false;
-            } elseif ($row === ';NestedTable') {
+            } else if ($row === ';NestedTable') {
                 $isTable = true;
-            } elseif ($row === ';EndNestedTable') {
+            } else if ($row === ';EndNestedTable') {
                 $isTable = false;
                 if (!empty($tableRow)) {
                     $table[] = $tableRow;
@@ -52,15 +52,15 @@ class IBankV1Parser
                 $data[] = $table;
                 $table = [];
                 $tableRow = [];
-            } elseif ($row === ';EndNestedTableRow') {
+            } else if ($row === ';EndNestedTableRow') {
                 $table[] = $tableRow;
                 $tableRow = [];
-            } elseif ($row === ';attachment') {
+            } else if ($row === ';attachment') {
                 $isAttachment = true;
-            } elseif ($row === ';endattachmentfile') {
+            } else if ($row === ';endattachmentfile') {
                 $attachment[] = $attachmentRow;
                 $attachmentRow = [];
-            } elseif ($row === ';endattachment') {
+            } else if ($row === ';endattachment') {
                 $isAttachment = false;
                 if (!empty($attachmentRow)) {
                     $attachment[] = $attachmentRow;
@@ -68,9 +68,9 @@ class IBankV1Parser
                 $data[] = $attachment;
                 $attachment = [];
                 $attachmentRow = [];
-            } elseif ($isTable) {
+            } else if ($isTable) {
                 $tableRow[] = static::decodeValue($row);
-            } elseif ($isAttachment) {
+            } else if ($isAttachment) {
                 $attachmentRow[] = static::decodeValue($row);
             } else {
                 $data[] = static::decodeValue($row);

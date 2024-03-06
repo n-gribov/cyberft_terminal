@@ -87,16 +87,16 @@ $commissions = [
         <tr>
             <td>Комиссию и расходы по переводу отнести на:</td>
             <td>
-                <?php foreach($commissions as $id => $commission): ?>
+                <?php foreach($commissions as $id => $commission) : ?>
                     <div class="fcp-print-commission-block">
                         <div class="fcp-print-commission-field">
-                            <?php if ($id == $typeModel->commission) :?>
+                            <?php if ($id == $typeModel->commission) : ?>
                                 <div class="line1"></div><div class="line2"></div>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </div>
                         <?=$commission?>
                     </div>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </td>
         </tr>
     </table>
@@ -241,12 +241,13 @@ $commissions = [
 </div>
 
 <?php if (count($signatures) > 0) : ?>
-    <hr />
-    <?= $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
+    <hr>
+    <?= // Вывести страницу
+        $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
 <?php endif ?>
 
 <?php
-    $this->registerCss('
+    $this->registerCss(<<<CSS
         .table-print {
             border: 2px solid #000;
         }
@@ -377,5 +378,4 @@ $commissions = [
         .table-payment-content-one {
             margin-bottom: 30px;
         }
-    ');
-?>
+    CSS);

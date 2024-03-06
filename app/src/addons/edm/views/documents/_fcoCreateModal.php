@@ -44,7 +44,7 @@ $this->registerCss('
 $currentTabMode = Yii::$app->request->get('tabMode');
 
 // JS
-$script = <<< JS
+$script = <<<JS
     $('#fcoCreateButton').on('click', function(e) {
 
         $('#realCreateSubmitFlag').attr('value', 1);

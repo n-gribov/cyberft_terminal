@@ -15,8 +15,9 @@ use yii\helpers\Url;
                 <?=Html::a(Yii::t('app/iso20022', 'Add certificate'), ['/VTB/cryptopro-cert/create'], ['class' => 'btn btn-primary']);?>
             </div>
         </div>
-
-        <?= GridView::widget([
+        <?php
+        // Создать таблицу для вывода
+        echo GridView::widget([
             'summary' => '',
             'dataProvider' => $cryptoproCert,
             'filterModel' => $cryptoproCertSearch,
@@ -150,7 +151,7 @@ use yii\helpers\Url;
                     'value' => function ($item, $params) {
                         // Если сертификат активен, то его нельзя редактировать
                         if ($item->status == CryptoproCert::STATUS_READY) {
-                            return "";
+                            return '';
                         } else {
                             return Html::a('<span class="glyphicon glyphicon-cog"></span>',
                                 Url::toRoute(['/VTB/cryptopro-cert/update', 'id' => $item->id]));

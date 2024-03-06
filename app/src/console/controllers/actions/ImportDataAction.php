@@ -211,6 +211,7 @@ class ImportDataAction extends Action
 
             $document = new Document($docAttributes);
 
+            // Сохранить модель в БД
             $document->save();
 
             if (isset($item['extModel'])) {
@@ -233,6 +234,7 @@ class ImportDataAction extends Action
                     }
 
                     $extModel->setAttributes($extAttributes);
+                    // Сохранить модель в БД
                     $extModel->save();
                 }
             }
@@ -351,7 +353,7 @@ class ImportDataAction extends Action
                 }
 
                 $document = new PaymentRegisterPaymentOrder($docAttributes);
-
+                // Сохранить модель в БД
                 $document->save();
 
                 $currentCnt++;
@@ -360,5 +362,5 @@ class ImportDataAction extends Action
             echo "Done.\n";
         }
     }
-
 }
+

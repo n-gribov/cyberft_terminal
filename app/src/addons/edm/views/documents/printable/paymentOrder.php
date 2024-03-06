@@ -12,14 +12,15 @@ use common\modules\certManager\models\Cert;
 /** @var $model Document */
 
 if (isset($model)) {
-    $checkboxJS = '
-    $("#showSignature").click(function() {
-        if ($(this).is(":checked")) {
-            $("#signList").show();
-        } else {
-            $("#signList").hide();
-        }
-    });';
+    $checkboxJS = <<<JS
+        $('#showSignature').click(function() {
+            if ($(this).is(':checked')) {
+                $('#signList').show();
+            } else {
+                $('#signList').hide();
+            }
+        });
+    JS;
 
     $this->registerJs($checkboxJS, View::POS_READY);
     if ($model instanceof addons\edm\models\PaymentOrder\PaymentOrderType) {
@@ -30,11 +31,9 @@ if (isset($model)) {
             $paymentOrder = CyberXmlDocument::getTypeModel($model->getValidStoredFileId());
         } else if ($model->status == $model::STATUS_CREATING) {
             echo 'Документ еще не создан';
-
             return;
         } else {
-            echo 'К сожалению, нет возможности отобразить документ данного типа';
-
+            echo 'Нет возможности отобразить документ данного типа';
             return;
         }
     }
@@ -43,12 +42,12 @@ if (isset($model)) {
 /* @var $form ActiveForm */
 /* @var $model Document */
 ?>
-<?php if (isset($model)) :?>
+<?php if (isset($model)) : ?>
     <div class="form-group no-print">
         <?= Html::checkbox('showSignature', true, ['id' => 'showSignature']); ?>
         <?= Yii::t('doc', 'Show details of digital signature'); ?>
     </div>
-    <hr/>
+    <hr>
 <?php endif ?>
 
 <?php
@@ -60,11 +59,10 @@ if (isset($model)) {
         <?= Yii::t('app', 'Received by CyberFT') ?>
     </div>
 
-    <?php if (isset($data['businessStatus'])) { ?>
+    <?php if (isset($data['businessStatus'])) : ?>
         <div class="print-info-column pull-right">
             <?= Yii::t('edm', 'Business status') ?>:
             <?php
-
                 $businessStatus = $data['businessStatus']['statusTranslation'];
 
                 if (!empty($data['businessStatus']['description'])) {
@@ -78,12 +76,9 @@ if (isset($model)) {
                 echo $businessStatus;
             ?>
         </div>
-    <?php } ?>
+    <?php endif ?>
 </div>
-
-<hr/>
-
-<!--<div class="col-lg-8">-->
+<hr>
 <table>
     <tr>
         <td width="10%" style="text-align:center;"><b><?= (!empty($paymentOrder->dateProcessingFormatted)) ? $paymentOrder->dateProcessingFormatted : ''; ?></b></td>
@@ -117,16 +112,9 @@ if (isset($model)) {
         </td>
     </tr>
     <tr>
-
         <?php
-        if ($isPaymentRequirement) {
-            $tableWidth = 15;
-        } else {
-            $tableWidth = 30;
-        }
+            $tableWidth = $isPaymentRequirement ? 15 : 30;
         ?>
-
-
         <td width="<?=$tableWidth?>%" style="text-align:center; border-top:1px solid black"><?= Yii::t('doc', 'Received by the payer\'s bank'); ?></td>
         <td>&nbsp;</td>
         <?php if ($isPaymentRequirement) {?>
@@ -168,11 +156,10 @@ if (isset($model)) {
         </table>
     </div>
 <?php endif ?>
-
 <table>
     <tr>
         <td width="65%"><span style="font-family:arial; font-weight:bold; font-size:150%">
-                <span class="text-decoration: uppercase;"><?=$paymentOrder->documentTypeExt?> №</span><?=$paymentOrder->number?>
+            <span class="text-decoration: uppercase;"><?=$paymentOrder->documentTypeExt?> №</span><?=$paymentOrder->number?>
             </span></td>
         <td>
             <table>
@@ -196,10 +183,8 @@ if (isset($model)) {
                 </tr>
             </table>
         </td>
-        <?php /*<td width="15%"><?=$paymentOrder->senderStatus?></td>*/?>
     </tr>
 </table>
-
 <table class="inner">
     <tr valign="top">
         <td style="border-right: 1px solid black; padding-right:2em">Сумма<br/>прописью</td>
@@ -355,7 +340,7 @@ if (isset($model)) {
     </tr>
 </table>
 
-<?php if(isset($savePdf) && $savePdf): ?>
+<?php if (!empty($savePdf)) : ?>
 
 <table class="inner" border="0" cellspacing="0" cellpadding="0" style="margin:0;padding:0">
     <tr valign="top">
@@ -418,9 +403,7 @@ if (isset($model)) {
     </tr>
 </table>
 
-
-<?php else: ?>
-
+<?php else : ?>
 
 <table class="inner" border="0" cellspacing="0" cellpadding="0" style="margin:0;padding:0">
     <tr valign="top">
@@ -483,7 +466,7 @@ if (isset($model)) {
     </tr>
 </table>
 
-<?php endif; ?>
+<?php endif ?>
 
 <table class="inner budget-table" style="min-height: 2em;">
     <tr>
@@ -521,8 +504,7 @@ if (isset($model)) {
     </tr>
 </table>
 
-
-<?php if(isset($savePdf) && $savePdf): ?>
+<?php if (!empty($savePdf)) : ?>
     <table class="stamp-table">
         <tr style="height:8em" align="center">
             <td width="23%" class="text-center">М.П.</td>
@@ -543,8 +525,7 @@ if (isset($model)) {
             </td>
         </tr>
     </table>
-
-<?php else: ?>
+<?php else : ?>
     <table class="stamp-table">
         <tr style="height:8em" align="center">
             <td width="33%">М.П.</td>
@@ -565,10 +546,10 @@ if (isset($model)) {
             </td>
         </tr>
     </table>
-<?php endif; ?>
+<?php endif ?>
 
 
-<?php if ($isPaymentRequirement) {?>
+<?php if ($isPaymentRequirement) : ?>
     <div class="clearfix">
         <table class="table table-bordered" style="float: left; width: 90%;">
             <tr>
@@ -592,7 +573,7 @@ if (isset($model)) {
                 </td>
             </tr>
 
-            <?php for ($i = 1; $i <= 6; $i++) {?>
+            <?php for ($i = 1; $i <= 6; $i++) : ?>
                 <tr>
                     <td style="border:1px solid black; border-bottom: 0; border-top: 0;"></td>
                     <td style="border:1px solid black; border-bottom: 0; border-top: 0;"></td>
@@ -601,46 +582,40 @@ if (isset($model)) {
                     <td style="border:1px solid black; border-bottom: 0; border-top: 0;"></td>
                     <td style="border:1px solid black; border-bottom: 0; border-top: 0;"></td>
                 </tr>
-            <?php } ?>
+            <?php endfor ?>
         </table>
         <div style="float: right; height: 132px; background-color: #fff">
             <p style="margin-bottom: 35px;">Дата помещения в картотеку</p>
             <p>Отметки банка плательщика</p>
         </div>
     </div>
-<?php } ?>
-
+<?php endif ?>
 <?php
-
     // Вывод подписей только для реестра платежных поручений
     $signatures = [];
 
-    if (isset($data['paymentOrderModel']) && !empty($data['paymentOrderModel']->registerId)
-    ) {
+    if (isset($data['paymentOrderModel']) && !empty($data['paymentOrderModel']->registerId)) {
         $signatures = EdmHelper::getPaymentRegisterSignaturesList(
             $data['paymentOrderModel']->registerId, Cert::ROLE_SIGNER
         );
     }
 
     if (count($signatures) > 0) : ?>
-        <hr />
-        <?= $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
-
+        <hr>
+        <?= // Вывести блок подписей
+            $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
     <?php endif ?>
-<!--</div>-->
-
-<?php if ($paymentOrder->swiftMessage): ?>
+<?php if ($paymentOrder->swiftMessage) : ?>
     <div style="page-break-before: always; font-size: 150%">
         <p>
             <strong><?= Yii::t('edm', 'Attached SWIFT-document') ?></strong>
         <p><?= nl2br(Html::encode($paymentOrder->swiftMessage)) ?></p>
         </p>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
 <?php
-
-    $this->registerCss('
+    $this->registerCss(<<<CSS
         @media print {
             .no-print, .no-print * {
                 display: none !important;
@@ -654,11 +629,6 @@ if (isset($model)) {
 
             @page {
                 size: portrait;
-            }
-
-            body {
-//                padding-left: 5mm;
-//                padding-right: 5mm;
             }
         }
 
@@ -688,6 +658,4 @@ if (isset($model)) {
         .static-header {
             width: 100%;
         }
-    ');
-
-?>
+    CSS);

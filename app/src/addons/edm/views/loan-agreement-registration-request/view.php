@@ -49,7 +49,7 @@ function formatPercentValue($value)
 ?>
 
 <div class="action-buttons-block">
-    <?php
+<?php
     echo Html::a(
         Yii::t('app', 'Back'),
         ['/edm/documents/foreign-currency-control-index', 'tabMode' => 'tabCRR'],
@@ -82,7 +82,7 @@ function formatPercentValue($value)
             Url::to(['send', 'id' => $document->id]),
             ['class' => 'btn btn-success']
         );
-    } elseif ($isSignable) {
+    } else if ($isSignable) {
         $buttonText = $document->signaturesCount == $document->signaturesRequired - 1
             ? Yii::t('document', 'Sign and send')
             : Yii::t('edm', 'Sign');
@@ -91,7 +91,7 @@ function formatPercentValue($value)
             'buttonText' => $buttonText,
             'documentsIds' => [$document->id],
         ]);
-    } elseif ($userCanCreateDocuments && $isCancellableVTBDocument) {
+    } else if ($userCanCreateDocuments && $isCancellableVTBDocument) {
         echo Html::a(Yii::t('edm', 'Call off the document'),
             ['/edm/vtb-documents/view', 'id' => $document->id, 'triggerCancellation' => 1],
             ['class' => 'btn btn-danger']
@@ -105,7 +105,9 @@ function formatPercentValue($value)
 </div>
 
 <h4>Сведения о резиденте</h4>
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model->organization,
     'attributes' => [
         [
@@ -127,10 +129,12 @@ function formatPercentValue($value)
             'label' => 'Дата внесения записи в государственный реестр',
         ],
     ]
-]) ?>
-
+]);
+?>
 <h4>Реквизиты нерезидента (нерезидентов)</h4>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->nonResidents,
         'modelClass' => LoanAgreementRegistrationRequestForm\NonResident::class,
@@ -146,7 +150,9 @@ function formatPercentValue($value)
 
 <h4>Сведения о кредитном договоре</h4>
 <h5>Общие сведения о кредитном договоре</h5>
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         [
@@ -202,7 +208,9 @@ function formatPercentValue($value)
 ]) ?>
 
 <h5>Сведения о сумме и сроках привлечения (предоставления) траншей по кредитному договору</h5>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->tranches,
         'modelClass' => LoanAgreementRegistrationRequestForm\Tranche::class,
@@ -230,7 +238,9 @@ function formatPercentValue($value)
 ]) ?>
 
 <h4>Специальные сведения о кредитном договоре</h4>
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         [
@@ -261,7 +271,9 @@ function formatPercentValue($value)
 
 <h4>Справочная информация о кредитном договоре</h4>
 <h5>Описание графика платежей по возврату основного долга и процентных платежей</h5>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->paymentScheduleItems,
         'modelClass' => LoanAgreementRegistrationRequestForm\PaymentScheduleItem::class,
@@ -293,7 +305,9 @@ function formatPercentValue($value)
     ],
 ]) ?>
 
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'paymentScheduleReasonName',
@@ -313,7 +327,9 @@ function formatPercentValue($value)
 ]) ?>
 
 <h5>Информация о привлечении резидентом кредита (займа), предоставленного нерезидентами на синдицированной (консорциональной) основе</h5>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->receipts,
         'modelClass' => LoanAgreementRegistrationRequestForm\Receipt::class,
@@ -341,7 +357,9 @@ function formatPercentValue($value)
 ]) ?>
 
 <h4>Приложенные документы</h4>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->attachedFiles,
         'modelClass' => AttachedFile::class,
@@ -379,6 +397,7 @@ function formatPercentValue($value)
 
 $signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
 
+// Вывести блок подписей
 echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
 
 ?>

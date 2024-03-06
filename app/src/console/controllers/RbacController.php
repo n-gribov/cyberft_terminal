@@ -12,30 +12,27 @@ use yii\helpers\Console;
  */
 class RbacController extends ConsoleController
 {
-	public $color = true;
+    public $color = true;
 
-	/**
-	 * Help message
-	 */
-	public function actionIndex()
-	{
-		$this->run('/help', ['rbac']);
-	}
+    /**
+     * Метод выводит текст подсказки
+     */
+    public function actionIndex()
+    {
+        $this->run('/help', ['rbac']);
+    }
 
 
-	public function actionInit()
-	{
+    public function actionInit()
+    {
         $auth = Yii::$app->authManager;
 
-		// Default role rule
+        // Default role rule
         $groupRule = new \common\rbac\rules\RoleGroupRule();
-
-		$auth->add($groupRule);
-
+        $auth->add($groupRule);
         $this->output("Building roles");
-
         $rbacConfig = require Yii::getAlias('@common/rbac/config.php');
-		$roles = [];
+        $roles = [];
 
         foreach ($rbacConfig['roles'] as $roleName) {
             $role = $auth->createRole($roleName);
@@ -44,14 +41,14 @@ class RbacController extends ConsoleController
             $roles[$roleName] = $role;
         }
 
-		foreach ($rbacConfig['permissions'] as $group => $permissions) {
+        foreach ($rbacConfig['permissions'] as $group => $permissions) {
 
-			foreach ($permissions as $permission => $settings) {
+            foreach ($permissions as $permission => $settings) {
 
-				$ruleName = $group.ucfirst($permission);
+                $ruleName = $group . ucfirst($permission);
 
-				$rule = $auth->createPermission($ruleName);
-				$rule->description = (isset($settings['description']) ? $settings['description'] : null );
+                $rule = $auth->createPermission($ruleName);
+                $rule->description = (isset($settings['description']) ? $settings['description'] : null );
 
                 if (isset($settings['rule'])) {
                     if (class_exists($settings['rule'])) {
@@ -59,26 +56,25 @@ class RbacController extends ConsoleController
                         $auth->add($ruleClass);
                         $rule->ruleName = $ruleClass->name;
                     } else {
-                        Console::output('Error! For rule "'. $ruleName .'" not found class "'. $settings['rule'] .'"');
+                        Console::output('Error! For rule "' . $ruleName . '" not found class "' . $settings['rule'] . '"');
                     }
                 }
 
-				$auth->add($rule);
+                $auth->add($rule);
 
-				foreach ($settings['access'] as $roleName) {
+                foreach ($settings['access'] as $roleName) {
                     if (!$auth->hasChild($roles[$roleName], $rule)) {
-    					$auth->addChild($roles[$roleName], $rule);
+                        $auth->addChild($roles[$roleName], $rule);
                     } else {
                         echo "no add child\n";
                     }
-				}
-			}
-		}
+                }
+            }
+        }
 
         Console::output('RBAC initialized');
-
-		return ConsoleController::EXIT_CODE_NORMAL;
-	}
+        return ConsoleController::EXIT_CODE_NORMAL;
+    }
 
     public function actionAssign()
     {
@@ -86,26 +82,24 @@ class RbacController extends ConsoleController
         $auth = Yii::$app->authManager;
         $role = $auth->getRole('admin');
         foreach ($users as $user) {
-
             $auth->assign($role, $user->id);
             $this->output("User # {$user->id} assigned");
         }
     }
 
-	public function actionPurge()
-	{
-		$auth = Yii::$app->authManager;
-		$auth->removeAll();
+    public function actionPurge()
+    {
+        $auth = Yii::$app->authManager;
+        $auth->removeAll();
 
-		Console::output('RBAC related tables truncated');
+        Console::output('RBAC related tables truncated');
 
-		return ConsoleController::EXIT_CODE_NORMAL;
-	}
+        return ConsoleController::EXIT_CODE_NORMAL;
+    }
 
-	public function actionReload()
-	{
-		$this->actionPurge();
-		$this->actionInit();
-	}
-
+    public function actionReload()
+    {
+        $this->actionPurge();
+        $this->actionInit();
+    }
 }

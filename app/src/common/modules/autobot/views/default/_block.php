@@ -23,7 +23,7 @@ Modal::begin([
 <?php
 
 // JS
-$script = <<< JS
+$script = <<<JS
 
 $('.btn-block-autobot').on('click', function(e) {
     e.preventDefault();

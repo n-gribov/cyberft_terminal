@@ -25,9 +25,8 @@ $myView = $this;
 
 $checkerDataProvider = $data['checkerDataProvider'];
 
-?>
-
-<?= GridView::widget([
+// Создать таблицу для вывода
+echo GridView::widget([
     'showOnEmpty' => false,
     'summary' => false,
     'emptyText'    => Yii::t('monitor/mailer', 'Notifications are not available'),
@@ -96,7 +95,7 @@ $modal = Modal::begin([
 
 <?php
 
-$script = <<< JS
+$script = <<<JS
     // Открытие модального окна
     $('.show-notification-list').on('click', function(e) {
         e.preventDefault();
@@ -164,5 +163,3 @@ $script = <<< JS
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
-
-?>

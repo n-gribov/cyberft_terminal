@@ -85,7 +85,7 @@ class UserHelper
                         if ($lastCommand) {
                             Yii::$app->commandBus->cancelCommand($lastCommand->id);
                         }
-
+                        // Поместить в сессию флаг сообщения об условиях разблокировки пользователя
                         Yii::$app->session->setFlash('info', Yii::t('app/user', 'User will be unblocked after security officers\' confirmation'));
 
                         return true;
@@ -119,13 +119,16 @@ class UserHelper
                     }
 
                     if (!User::canUseSecurityOfficers()) {
+                        // Поместить в сессию флаг сообщения о статусе пользователя
                         Yii::$app->session->setFlash('info', Yii::t('app/user', 'User is awaiting activation'));
                     } else {
+                        // Поместить в сессию флаг сообщения о статусе пользователя
                         Yii::$app->session->setFlash('info', Yii::t('app/user', 'User will be activated after security officers\' confirmation!'));
                     }
 
                     return true;
                 } else {
+                    // Поместить в сессию флаг сообщения ою ошибке активации пользователя
                     Yii::$app->session->setFlash('error', Yii::t('app/user', 'Failed to start the activation process!'));
                 }
             }
@@ -194,9 +197,10 @@ class UserHelper
      */
     public static function getAdminAvailableTerminalsForSelect($userId)
     {
-        // Список доступных текущему администратору терминалов
+        // Получить модель пользователя из активной сессии
         $adminIdentity = Yii::$app->user->identity;
 
+        // Список доступных текущему администратору терминалов
         if ($adminIdentity->role == User::ROLE_ADMIN) {
 
             // Главный администратор
@@ -259,7 +263,7 @@ class UserHelper
     public static function userProfileAccess($user, $ownerPermission = false)
     {
         $isAccess = false;
-
+        // Получить модель пользователя из активной сессии
         $adminIdentity = Yii::$app->user->identity;
 
         if (in_array($adminIdentity->role, [User::ROLE_ADMIN, User::ROLE_LSO, User::ROLE_RSO])

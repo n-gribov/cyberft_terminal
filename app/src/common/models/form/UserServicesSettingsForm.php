@@ -145,6 +145,7 @@ class UserServicesSettingsForm extends BaseObject
 
             $userExt->canAccess = !empty($allPermissions) ? 1 : 0;
             $userExt->permissions = $allPermissions;
+            // Сохранить модель в БД
             $userExt->save();
         }
     }

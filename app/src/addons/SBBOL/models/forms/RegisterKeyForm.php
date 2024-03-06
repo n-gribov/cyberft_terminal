@@ -139,6 +139,7 @@ class RegisterKeyForm extends Model
             'bicryptId'          => static::createBicryptId($keyOwner),
 
         ]);
+        // Сохранить модель в БД
         $isSaved = $key->save();
         if (!$isSaved) {
             Yii::info('Failed to save key to database, errors: ' . var_export($key->getErrors(), true));
@@ -154,11 +155,13 @@ class RegisterKeyForm extends Model
 
         if (!$isSent) {
             Yii::info('Failed to send certificate request to SBBOL, key will be deleted');
+            // Удалить ключ из БД
             $key->delete();
             return [false, Yii::t('app/sbbol', 'Failed to get send certificate request'), null, null];
         }
 
         $key->status = SBBOLKey::STATUS_CERTIFICATE_REQUEST_IS_SENT;
+        // Сохранить модель в БД
         $key->save();
 
         return [true, null, $requestId, $key->id];

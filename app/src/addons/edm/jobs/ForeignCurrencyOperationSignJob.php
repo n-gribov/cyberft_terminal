@@ -82,15 +82,16 @@ class ForeignCurrencyOperationSignJob extends Job
                 $this->_document->signaturesCount++;
 
                 // Здесь надо поставить дефолтный STATUS_FORSIGNING,
-                // т.к. в джоб модель попала в нестабильном статусе STATUS_SIGNING,
+                // т.к. в задание модель попала в нестабильном статусе STATUS_SIGNING,
                 // который нарушил бы логику isSignable
 
                 $this->_document->status = Document::STATUS_FORSIGNING;
                 $this->_document->save(false, ['signaturesCount', 'status']);
-                // модуль должен решить, что делать дальше
+                // Обработать документ в модуле аддона
                 $this->_module->processDocument($this->_document);
 
                 // Если документ приобрел статус STATUS_ACCEPTED, произойдет его отправка
+                // Отправить документ на обработку в транспортном уровне
                 DocumentTransportHelper::processDocument($this->_document);
             } else {
                  $this->log('Unable to sign ForeignCurrencyOperation ' . $this->_typeModel->id);

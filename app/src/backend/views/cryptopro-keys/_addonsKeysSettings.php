@@ -10,7 +10,6 @@ use yii\helpers\ArrayHelper;
 
 <div class="row" style="margin-top: 15px;">
     <div class="col-sm-12">
-
         <div class="row">
             <div class="col-sm-2">
                 <?=Html::a(Yii::t('app/settings', 'Add key'), '#',
@@ -26,7 +25,9 @@ use yii\helpers\ArrayHelper;
             </div>
         </div>
 
-        <?= GridView::widget([
+        <?php
+        // Создать таблицу для вывода
+        echo GridView::widget([
             'summary' => '',
             'dataProvider' => $cryptoproKeys,
             'filterModel' => $cryptoproKeysSearch,
@@ -133,7 +134,7 @@ use yii\helpers\ArrayHelper;
 				return 'Любой';
 			}
 
-                        return implode(", ", $terminals);
+                        return implode(', ', $terminals);
                     }
                 ],
                 [
@@ -143,10 +144,10 @@ use yii\helpers\ArrayHelper;
                     'filter' => true
                 ],
                 [
-                    'attribute'     => 'status',
-                    'filter'		=> $cryptoproKeysSearch->getActiveLabels(),
-                    'format'        => 'html',
-                    'value'         => function ($item, $params) {
+                    'attribute' => 'status',
+                    'filter' => $cryptoproKeysSearch->getActiveLabels(),
+                    'format' => 'html',
+                    'value' => function ($item, $params) {
                         return $item->getActiveLabel();
                     }
                 ],
@@ -169,7 +170,7 @@ use yii\helpers\ArrayHelper;
 
                         // Если сертификат активен, то его нельзя редактировать
                         if ($item->active) {
-                            return "";
+                            return '';
                         } else {
                             return Html::a('<span class="glyphicon glyphicon-cog"></span>',
                                 Url::toRoute(['/cryptopro-keys/update', 'id' => $item->id]));
@@ -181,10 +182,9 @@ use yii\helpers\ArrayHelper;
                     'attribute' => '',
                     'format' => 'raw',
                     'value' => function ($item, $params) {
-
                         // Если сертификат активен, то его нельзя удалить
                         if ($item->active) {
-                            return "";
+                            return '';
                         } else {
                             return Html::a('<span class="glyphicon glyphicon-trash"></span>',
                                 Url::toRoute(['/cryptopro-keys/delete', 'id' => $item->id]), [
@@ -196,6 +196,7 @@ use yii\helpers\ArrayHelper;
                     }
                 ]
             ],
-        ]); ?>
+        ]);
+        ?>
     </div>
 </div>

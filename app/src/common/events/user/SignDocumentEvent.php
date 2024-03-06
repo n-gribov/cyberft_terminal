@@ -38,7 +38,7 @@ class SignDocumentEvent extends BaseEvent
 
             if ($this->docType == 'edmPaymentOrder') {
                 $href = '/edm/payment-register/payment-order-view';
-            } elseif ($this->docType == 'edmPaymentRegister') {
+            } else if ($this->docType == 'edmPaymentRegister') {
                 $href = '/edm/payment-register/view';
             }
         }

@@ -34,18 +34,18 @@ use function iconv;
  */
 class EdmExportJob extends Job
 {
-	const RESOURCE_ID = 'export';
+    const RESOURCE_ID = 'export';
 
-	private $_id;
-	private $_exportFileId;
-	private $_type;
-	private $_module;
-	private $_storedFile;
-	private $_descriptor = null;
+    private $_id;
+    private $_exportFileId;
+    private $_type;
+    private $_module;
+    private $_storedFile;
+    private $_descriptor = null;
 
-	public function setUp()
-	{
-		parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
 
         $this->_module = Yii::$app->addon->getModule('edm');
 
@@ -63,21 +63,22 @@ class EdmExportJob extends Job
             $this->log("Cannot find stored file with ID[{$this->_exportFileId}]");
             throw new Resque_Job_DontPerform("Cannot find stored file with ID[{$this->_exportFileId}]");
         }
-	}
+    }
 
     public function perform()
     {
-	    try {
-	        $this->export();
+        try {
+            $this->export();
         } catch (\Exception $exception) {
-	        $this->log("Export has failed, caused by: $exception", true);
+            $this->log("Export has failed, caused by: $exception", true);
             $this->_storedFile->status = StoredFile::STATUS_PROCESSING_ERROR;
+            // Сохранить модель в БД
             $this->_storedFile->save();
         }
     }
 
-	private function export()
-	{
+    private function export()
+    {
         $descriptorParts = explode(':', $this->_descriptor);
         $descriptorEntity = $descriptorParts[0];
         $signatures = [];
@@ -85,14 +86,14 @@ class EdmExportJob extends Job
         if ($descriptorEntity == 'PaymentRegisterPaymentOrder') {
             $model = PaymentRegisterPaymentOrder::findOne(['id' => $this->_id]);
             $typeModel = (new PaymentOrderType())->loadFromString($model->body);
-        } elseif ($descriptorEntity == 'ForeignCurrencyOperationInformation') {
+        } else if ($descriptorEntity == 'ForeignCurrencyOperationInformation') {
             $model = Document::findOne($this->_id);
             $typeModel = ForeignCurrencyOperationInformationExt::findOne(['documentId' => $model->id]);
-        } elseif ($descriptorEntity == 'ConfirmingDocumentInformation') {
+        } else if ($descriptorEntity == 'ConfirmingDocumentInformation') {
             $model = Document::findOne($this->_id);
             $signatures = $model->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
             $typeModel = ConfirmingDocumentInformationExt::findOne(['documentId' => $model->id]);
-        } elseif ($descriptorEntity == 'ContractRegistrationRequest') {
+        } else if ($descriptorEntity == 'ContractRegistrationRequest') {
             $model = Document::findOne($this->_id);
             $typeModel = ContractRegistrationRequestExt::findOne(['documentId' => $model->id]);
         } else {
@@ -104,11 +105,11 @@ class EdmExportJob extends Job
             }
         }
 
-		switch ($this->_type) {
-			case 'excel':
-				$result	 = $this->exportExcel($typeModel, $signatures);
-				break;
-			case '1c':
+        switch ($this->_type) {
+            case 'excel':
+                $result = $this->exportExcel($typeModel, $signatures);
+                break;
+            case '1c':
                 switch ($descriptorEntity) {
                     case 'debit':
                         $result	 = $this->export1C($typeModel, 'debit');
@@ -120,7 +121,7 @@ class EdmExportJob extends Job
                         $result	 = $this->export1C($typeModel);
                         break;
                 }
-				break;
+                break;
             case 'pdf':
                 $result = $this->exportStatementToPdf($model, $descriptorEntity);
                 break;
@@ -128,22 +129,23 @@ class EdmExportJob extends Job
                 $result = false;
         }
 
-		$newStatus = ($result === false) ? StoredFile::STATUS_PROCESSING_ERROR : StoredFile::STATUS_READY;
+        $newStatus = ($result === false) ? StoredFile::STATUS_PROCESSING_ERROR : StoredFile::STATUS_READY;
 
-		$this->_storedFile->status = $newStatus;
-		$this->_storedFile->save();
+        $this->_storedFile->status = $newStatus;
+        // Сохранить модель в БД
+        $this->_storedFile->save();
 
-		if ($result !== false) {
-			$this->log("EDM document [{$this->_id}] was exported to format [{$this->_type}]");
-		} else {
-			$this->log("EDM document [{$this->_id}] export error", true);
-		}
-	}
+        if ($result !== false) {
+            $this->log("EDM document [{$this->_id}] was exported to format [{$this->_type}]");
+        } else {
+            $this->log("EDM document [{$this->_id}] export error", true);
+        }
+    }
 
-	private function exportExcel($typeModel, $signatures)
-	{
-		try {
-			if ($typeModel->type == PaymentOrderType::TYPE) {
+    private function exportExcel($typeModel, $signatures)
+    {
+        try {
+            if ($typeModel->type == PaymentOrderType::TYPE) {
 
                 $typeModel->unsetParticipantsNames();
 
@@ -168,64 +170,64 @@ class EdmExportJob extends Job
                     $xlsView = $this->_module->basePath . '/xlsViews/contractregistrationrequestloan.xls';
                     $dataExcel = Converter::contractRegistrationRequestLoanToXls($typeModel, $xlsView);
                 }
-			} elseif (in_array($typeModel->type, [
-                    StatementType::TYPE, 
-                    VTBStatementRuType::TYPE, 
-                    SBBOLStatementType::TYPE, 
-                    RaiffeisenStatementType::TYPE, 
-                    Camt052Type::TYPE, 
-                    Camt053Type::TYPE, 
-                    Camt054Type::TYPE
-                ])) {
+            } else if (in_array($typeModel->type, [
+                StatementType::TYPE, 
+                VTBStatementRuType::TYPE, 
+                SBBOLStatementType::TYPE, 
+                RaiffeisenStatementType::TYPE, 
+                Camt052Type::TYPE, 
+                Camt053Type::TYPE, 
+                Camt054Type::TYPE
+            ])) {
                 $statementTypeModel = StatementTypeConverter::convertFrom($typeModel);
-				$xlsView = $this->_module->basePath . '/xlsViews/statement.xls';
-				$dataExcel = Converter::statementToXls($statementTypeModel, $xlsView);
-			} else {
-			    throw new Exception("Unsupported document type: {$typeModel->type}");
+                $xlsView = $this->_module->basePath . '/xlsViews/statement.xls';
+                $dataExcel = Converter::statementToXls($statementTypeModel, $xlsView);
+            } else {
+                throw new Exception("Unsupported document type: {$typeModel->type}");
             }
 
-			$writer = IOFactory::createWriter($dataExcel, 'Xlsx');
+            $writer = IOFactory::createWriter($dataExcel, 'Xlsx');
 
-			ob_start();
-			$writer->save('php://output');
-			$data = ob_get_clean();
+            ob_start();
+            $writer->save('php://output');
+            $data = ob_get_clean();
 
-			return $this->updateExportFile($data);
-		} catch (ErrorException $ex) {
-			$this->log('Error while exporting EDM document to excel format: ' . $ex->getMessage());
-			Yii::warning($ex->getMessage());
+            return $this->updateExportFile($data);
+        } catch (ErrorException $ex) {
+            $this->log('Error while exporting EDM document to excel format: ' . $ex->getMessage());
+            Yii::warning($ex->getMessage());
 
             return false;
-		}
-	}
+        }
+    }
 
     private function export1C($typeModel = null, $mode = 'all')
-	{
-		try {
+    {
+        try {
             if ($typeModel->type == PaymentOrderType::TYPE) {
                 $typeModel->beforeExport1c();
-				$data = iconv('UTF-8', 'cp1251', $typeModel->getModelDataAsString());
-			} else {
+                $data = iconv('UTF-8', 'cp1251', $typeModel->getModelDataAsString());
+            } else {
                 $statementTypeModel = StatementTypeConverter::convertFrom($typeModel);
 
                 // Режим вывода операций - только по дебету, только кредиту, все
                 if ($mode == 'debit') {
                     $data = Converter::statementTo1C($statementTypeModel, 'debit');
-                } elseif ($mode == 'credit') {
+                } else if ($mode == 'credit') {
                     $data = Converter::statementTo1C($statementTypeModel, 'credit');
                 } else {
                     $data = Converter::statementTo1C($statementTypeModel);
                 }
-			}
+            }
 
             return $this->updateExportFile($data);
-		} catch (ErrorException $ex) {
-			$this->log('Error while exporting EDM document to 1C format: ' . $ex->getMessage());
-			Yii::warning($ex->getMessage());
+        } catch (ErrorException $ex) {
+            $this->log('Error while exporting EDM document to 1C format: ' . $ex->getMessage());
+            Yii::warning($ex->getMessage());
 
             return false;
-		}
-	}
+        }
+    }
 
     private function exportStatementToPdf(Document $document, ?string $mode)
     {
@@ -252,41 +254,38 @@ class EdmExportJob extends Job
         }
     }
 
-	private function updateExportFile($data)
-	{
-		return Yii::$app->storage->updateData($this->_storedFile, $data);
-	}
+    private function updateExportFile($data)
+    {
+        return Yii::$app->storage->updateData($this->_storedFile, $data);
+    }
 
-	private function checkArgs()
-	{
-		if (!isset($this->args['id'])) {
-			$this->log('EDM document ID must be set', true);
-
-			return false;
-		}
+    private function checkArgs()
+    {
+        if (!isset($this->args['id'])) {
+            $this->log('EDM document ID must be set', true);
+            return false;
+        }
 
         $this->_id = $this->args['id'];
 
-		if (!isset($this->args['exportId'])) {
-			$this->log('Export file path must be set', true);
-
-			return false;
-		}
+        if (!isset($this->args['exportId'])) {
+            $this->log('Export file path must be set', true);
+            return false;
+        }
 
         $this->_exportFileId = $this->args['exportId'];
 
-		if (!isset($this->args['type'])) {
-			$this->log('Type must be set', true);
-
-			return false;
-		}
+        if (!isset($this->args['type'])) {
+            $this->log('Type must be set', true);
+            return false;
+        }
 
         $this->_type = $this->args['type'];
 
         if (isset($this->args['descriptor'])) {
-			$this->_descriptor = $this->args['descriptor'];
-		}
+            $this->_descriptor = $this->args['descriptor'];
+        }
 
-		return true;
-	}
+        return true;
+    }
 }

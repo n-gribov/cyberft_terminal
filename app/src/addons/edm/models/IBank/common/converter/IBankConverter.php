@@ -7,6 +7,14 @@ use common\base\BaseType;
 
 interface IBankConverter
 {
+    /**
+     * Метод создаёт тайп-модель
+     * @param IBankDocument $ibankDocument
+     * @param type $senderTerminalId
+     * @param type $recipientTerminalId
+     * @param type $attachmentsFilesPaths
+     * @return BaseType
+     */
     public function createTypeModel(
         IBankDocument $ibankDocument,
         $senderTerminalId,

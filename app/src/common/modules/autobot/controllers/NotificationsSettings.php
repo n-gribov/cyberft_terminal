@@ -46,10 +46,9 @@ trait NotificationsSettings
 
         if (!$terminal) {
             // если такой терминал не найден
+            // Перенаправить на предыдущую страницу
             return $this->redirect(Yii::$app->request->referrer);
         }
-
-        $selection = Yii::$app->request->post('selection', []);
 
         $module = $this->getMonitorModule();
 
@@ -60,15 +59,17 @@ trait NotificationsSettings
 
             $checker = $module->getChecker($checkerCode);
             $checker->loadData();
+            // Сохранить модель в БД
             $checker->save();
 
             // Запись настроек чекера
             MonitorLogHelper::saveCheckerSettings($checker, $post, $terminal->id);
         }
 
-        // Регистрация события изменения настроек оповещений
+        // Зарегистрировать событие изменения настроек оповещений в модуле мониторинга
         Yii::$app->monitoring->extUserLog('EditNotifySettings');
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect(Yii::$app->request->referrer);
     }
 

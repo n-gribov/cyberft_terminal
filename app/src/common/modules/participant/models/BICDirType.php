@@ -86,9 +86,13 @@ class BICDirType extends BaseType
         return '';
     }
 
-	public function getSearchFields()
-	{
-		return [];
-	}
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields()
+    {
+        return false;
+    }
 
 }

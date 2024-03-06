@@ -5,8 +5,7 @@ namespace common\widgets\FastPrint;
 use yii\base\Widget;
 
 /*
- * Виджет для вызова окна печати,
- * какой-либо страницы
+ * Виджет для вызова окна печати какой-либо страницы
  */
 class FastPrint extends Widget
 {
@@ -18,6 +17,7 @@ class FastPrint extends Widget
     public function run()
     {
         if ($this->printUrl && $this->printBtn) {
+            // Вывести страницу
             echo $this->render('index', [
                 'printUrl' => $this->printUrl,
                 'printBtn' => $this->printBtn,

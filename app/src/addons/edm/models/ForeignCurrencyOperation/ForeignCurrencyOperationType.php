@@ -157,9 +157,13 @@ class ForeignCurrencyOperationType extends BaseType
         return $this->_operationType;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
-        return [];
+        return false;
     }
 
     public function getOperationType()
@@ -234,7 +238,7 @@ class ForeignCurrencyOperationType extends BaseType
     public function getDebitAccountOrganizationName()
     {
         if (empty($this->organization)) {
-            return "";
+            return '';
         }
 
         $organizationName = $this->organization->name;

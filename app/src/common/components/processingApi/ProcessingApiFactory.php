@@ -28,7 +28,7 @@ class ProcessingApiFactory extends Component
 
     private function getBaseUri(): string
     {
-        $processingAddress = Yii::$app->terminals->getProcessingAddress();
+        $processingAddress = Yii::$app->exchange->getProcessingAddress();
         $processing = Processing::findOne(['address' => $processingAddress]);
         return $processing->apiUrl . '/v1/';
     }

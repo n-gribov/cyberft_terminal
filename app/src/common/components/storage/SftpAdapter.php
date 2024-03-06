@@ -95,7 +95,7 @@ class SftpAdapter extends BaseAdapter
     /**
      * Get ssh2 prefix
      *
-     * @return string|boolean Return ssh2 prefix or FALSE
+     * @return string|boolean Return ssh2 prefix or false
      */
     private function getSSH2Prefix()
     {
@@ -299,6 +299,7 @@ class SftpAdapter extends BaseAdapter
 
     private function logSFTPError()
     {
+        // Зарегистрировать событие ошибки SFTP в модуле мониторинга
         return Yii::$app->monitoring->log('transport:sftpOpenFailed', 'sftp', 0, [
             'logLevel' => LogLevel::ERROR,
             'serviceId' => $this->serviceId,

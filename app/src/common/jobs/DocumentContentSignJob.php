@@ -6,9 +6,7 @@ use addons\ISO20022\helpers\ISO20022Helper;
 use common\base\interfaces\SignableType;
 
 /**
- * Class DocumentContentSignJob
- *
- * Джоб для добавления данных подписи в документы, у которых подпись находится в теле документа
+ * Класс задания для добавления данных подписи в документы, у которых подпись находится в теле документа
  *
  * @package common\jobs
  */
@@ -26,6 +24,7 @@ class DocumentContentSignJob extends BaseDocumentSignJob
             return false;
         }
 
+        // Если модель использует сжатие в zip
         if (!empty($typeModel->useZipContent)) {
             ISO20022Helper::updateZipContent($typeModel);
         }

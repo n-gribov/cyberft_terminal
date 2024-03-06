@@ -70,28 +70,20 @@ $columns['senderParticipantName'] = [
 	],
 	'pluginOptions' => [
 		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'user-verification-index']),
+		'ajax' => [
+		    'url' => Url::to(['documents/list', 'type' => 'sender', 'page' => 'user-verification-index']),
 		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+		    'delay' => 250,
+		    'data' => new JsExpression('function(params) { return {q:params.term}; }'),
 		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
+		'templateResult' => new JsExpression('function(item) { return item.name; }'),
+		'templateSelection' => new JsExpression('function(item) { return item.name; }'),
 		'allowClear' => true,
 		'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
-            'select2:unselect' => 'function(e) {
-
-	      }'
+	    'select2:select' => 'function(e) { searchForField(e.params.data) }',
+            'select2:unselect' => 'function(e) {}'
 	],
     ]),
     'contentOptions' => [
@@ -121,19 +113,13 @@ $columns['receiverParticipantName'] = [
 		    'delay'    => 250,
 		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
 		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
+		'templateResult' => new JsExpression('function(item) { return item.name; }'),
+		'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
 		'allowClear' => true,
 		'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
+	    'select2:select' => 'function(e) { searchForField(e.params.data); }',
 	],
     ]),
     'contentOptions' => [
@@ -153,21 +139,21 @@ $columns['status'] = [
         'class' => 'form-control selectpicker',
         'data-none-selected-text' => ''
     ],
-    'value'         => function ($item, $params) {
+    'value' => function ($item, $params) {
         $status = DocumentHelper::getStatusLabel($item);
         return "<span title=\"Status: {$status['name']}\">{$status['label']}</span>";
     }
 ];
 
 $columns['dateCreate'] = [
-    'attribute'          => 'dateCreate',
+    'attribute' => 'dateCreate',
     'headerOptions' => [
         'class' => 'text-right',
     ],
     'contentOptions' => [
         'class' => 'text-right',
     ],
-    'label'              => Yii::t('doc', 'Date'),
+    'label' => Yii::t('doc', 'Date'),
     'filter' => kartik\widgets\DatePicker::widget([
         'model' => $searchModel,
         'attribute' => 'dateCreate',
@@ -196,7 +182,7 @@ $columns['operationReference'] = [
         'theme' => Select2::THEME_BOOTSTRAP,
         'options' => [
             'prompt' => '',
-    ],
+        ],
         'pluginOptions' => [
             'allowClear' => true,
             'containerCssClass' => 'select2-cyberft',
@@ -264,9 +250,9 @@ $columns['valueDate'] = [
 
 if ($searchModel->highlights) {
     $columns['body'] = [
-        'label'     => Yii::t('doc', 'Document body'),
-        'format'        => 'html',
-        'value'         => function($item, $params) use($searchModel) {
+        'label' => Yii::t('doc', 'Document body'),
+        'format' => 'html',
+        'value' => function($item, $params) use($searchModel) {
             if (isset($searchModel->highlights[$item->id]['body'])) {
                 return $searchModel->highlights[$item->id]['body'][0];
             } else {
@@ -311,13 +297,17 @@ if ($userCanCreateDocuments) {
         ],
     ];
 }
-
+// Создать таблицу для вывода
 $myGridWidget = GridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary' => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
     'layout' => '<div class="row">
         <div class="col-xs-6">{summary}</div>
-        <div class="col-xs-6 text-right">'. Html::a(Yii::t('app/swiftfin', 'Download XLS'), ArrayHelper::merge([''], ['mode' => 'xls'], Yii::$app->request->queryParams), ['class' => 'btn btn-default btn-xs btn-success']) ."</div>
+        <div class="col-xs-6 text-right">'. Html::a(
+            Yii::t('app/swiftfin',
+            'Download XLS'), ArrayHelper::merge([''],
+            ['mode' => 'xls'], Yii::$app->request->queryParams),
+            ['class' => 'btn btn-default btn-xs btn-success']) ."</div>
         </div>
         {items}\n{pager}",
     'dataProvider' => $dataProvider,
@@ -325,7 +315,6 @@ $myGridWidget = GridView::begin([
     'filterModel'  => $searchModel,
     'rowOptions' => function ($model, $key, $index, $grid) use ($urlParams) {
         $options['ondblclick'] = "window.location='". Url::toRoute(array_merge(['view', 'id' => $model->id], $urlParams)) ."'";
-
         return $options;
     },
     'pager' => [
@@ -345,17 +334,13 @@ $myGridWidget->end();
 
 echo ToTopButtonWidget::widget();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
 $this->registerJS(<<<JS
     stickyTableHelperInit();
 JS
 );
-
-?>

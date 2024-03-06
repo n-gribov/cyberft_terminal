@@ -72,14 +72,16 @@ $transportInfoAttributes[] = [
 </a>
 
 <div class="transport-info">
-    <?=DetailView::widget([
-        'model' => $document,
-        'attributes' => $transportInfoAttributes,
-    ])?>
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
+    'model' => $document,
+    'attributes' => $transportInfoAttributes,
+]);
+?>
 </div>
 
 <?php
-
 $this->registerCss('
     .transport-info {
         display: none;
@@ -100,7 +102,7 @@ $this->registerCss('
     }
 ');
 
-$script = <<< JS
+$script = <<<JS
     $('.btn-transport-info').on('click', function(e) {
         e.preventDefault();
         $('.transport-info').slideToggle('400');

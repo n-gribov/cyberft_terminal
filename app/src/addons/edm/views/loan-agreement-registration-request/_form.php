@@ -129,7 +129,7 @@ $form = ActiveForm::begin(['id' => 'loan-agreement-registration-request-form']);
     ->field($model, 'organizationId')
     ->dropDownList($organizationSelectOptions, ['prompt' => count($organizationSelectOptions) > 1 ? '-' : null])
 ?>
-<?php foreach ($availableOrganizations as $organization): ?>
+<?php foreach ($availableOrganizations as $organization) : ?>
     <div class="organization-info hidden" data-id="<?= Html::encode($organization->id) ?>">
         <p>
             <strong><?= Yii::t('edm', 'INN') ?></strong>
@@ -149,7 +149,7 @@ $form = ActiveForm::begin(['id' => 'loan-agreement-registration-request-form']);
             <span class="value"><?= Html::encode($organization->fullAddress) ?></span>
         </p>
     </div>
-<?php endforeach; ?>
+<?php endforeach ?>
 
 <fieldset class="form-inline">
     <?= $form->field($model, 'contactPerson')->textInput(['maxlength' => 40, 'size' => 42]) ?>
@@ -164,7 +164,8 @@ $form = ActiveForm::begin(['id' => 'loan-agreement-registration-request-form']);
 <hr>
 
 <h4><?= Yii::t('edm', 'Non-residents requisites') ?></h4>
-<?= $this->render('form/grid-views/_nonResidentsGridView', ['models' => $model->nonResidents]) ?>
+<?= // Вывести страницу
+    $this->render('form/grid-views/_nonResidentsGridView', ['models' => $model->nonResidents]) ?>
 <?= Html::button(
     Yii::t('app', 'Add'),
     [
@@ -255,7 +256,8 @@ $form = ActiveForm::begin(['id' => 'loan-agreement-registration-request-form']);
 <hr>
 
 <h4><?= Yii::t('edm', 'Information about amounts and dates of used tranches') ?></h4>
-<?= $this->render(
+<?= // Вывести страницу
+    $this->render(
     'form/grid-views/_tranchesGridView',
     [
         'models' => $model->tranches,
@@ -322,7 +324,8 @@ $form = ActiveForm::begin(['id' => 'loan-agreement-registration-request-form']);
 <hr>
 
 <h4><?= Yii::t('edm', 'Information about main debt and interest payments schedule') ?></h4>
-<?= $this->render('form/grid-views/_paymentScheduleGridView', ['models' => $model->paymentScheduleItems]) ?>
+<?= // Вывести страницу
+    $this->render('form/grid-views/_paymentScheduleGridView', ['models' => $model->paymentScheduleItems]) ?>
 <?= Html::button(
     Yii::t('app', 'Add'),
     [
@@ -353,7 +356,8 @@ $form = ActiveForm::begin(['id' => 'loan-agreement-registration-request-form']);
 <hr>
 
 <h4><?= Yii::t('edm', 'Information about receiving syndicated loan by resident') ?></h4>
-<?= $this->render('form/grid-views/_receiptsGridView', ['models' => $model->receipts]) ?>
+<?= // Вывести страницу
+    $this->render('form/grid-views/_receiptsGridView', ['models' => $model->receipts]) ?>
 <?= Html::button(
     Yii::t('app', 'Add'),
     [
@@ -364,7 +368,8 @@ $form = ActiveForm::begin(['id' => 'loan-agreement-registration-request-form']);
 <hr>
 
 <h4><?= Yii::t('edm', 'Attached files') ?></h4>
-<?= $this->render('form/grid-views/_attachedFilesGridView', ['models' => $model->attachedFiles]) ?>
+<?= // Вывести страницу
+    $this->render('form/grid-views/_attachedFilesGridView', ['models' => $model->attachedFiles]) ?>
 <?= Html::button(
     Yii::t('app', 'Add'),
     [
@@ -374,29 +379,28 @@ $form = ActiveForm::begin(['id' => 'loan-agreement-registration-request-form']);
     ]
 ) ?>
 <hr>
-
 <?= $form->field($model, 'nonResidentsJson', ['template' => '{input}'])->hiddenInput() ?>
 <?= $form->field($model, 'paymentScheduleItemsJson', ['template' => '{input}'])->hiddenInput() ?>
 <?= $form->field($model, 'receiptsJson', ['template' => '{input}'])->hiddenInput() ?>
 <?= $form->field($model, 'tranchesJson', ['template' => '{input}'])->hiddenInput() ?>
 <?= $form->field($model, 'attachedFilesJson', ['template' => '{input}'])->hiddenInput() ?>
-
 <div>
     <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 </div>
-
 <?php ActiveForm::end(); ?>
-
 <form action="upload-attached-file" id="upload-attached-file-form" enctype="multipart/form-data">
     <input type="file" name="file" class="hidden" />
 </form>
-
-<?= $this->render('form/modals/_nonResidentFormModal', ['model' => new LoanAgreementRegistrationRequestForm\NonResident()]) ?>
-<?= $this->render('form/modals/_paymentScheduleItemFormModal', ['model' => new LoanAgreementRegistrationRequestForm\PaymentScheduleItem()]) ?>
-<?= $this->render('form/modals/_receiptFormModal', ['model' => new LoanAgreementRegistrationRequestForm\Receipt()]) ?>
-<?= $this->render('form/modals/_trancheFormModal', ['model' => new LoanAgreementRegistrationRequestForm\Tranche()]) ?>
-
 <?php
+// Вывести модальное окно
+echo $this->render('form/modals/_nonResidentFormModal', ['model' => new LoanAgreementRegistrationRequestForm\NonResident()]);
+// Вывести модальное окно
+echo $this->render('form/modals/_paymentScheduleItemFormModal', ['model' => new LoanAgreementRegistrationRequestForm\PaymentScheduleItem()]);
+// Вывести модальное окно
+echo $this->render('form/modals/_receiptFormModal', ['model' => new LoanAgreementRegistrationRequestForm\Receipt()]);
+// Вывести модальное окно
+echo $this->render('form/modals/_trancheFormModal', ['model' => new LoanAgreementRegistrationRequestForm\Tranche()]);
+
 $this->registerJsFile(
     '@web/js/edm/loan-agreement-registration-request/loan-agreement-registration-request-form.js',
     ['depends' => [JqueryAsset::className()]]

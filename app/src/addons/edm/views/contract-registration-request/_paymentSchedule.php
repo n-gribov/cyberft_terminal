@@ -25,7 +25,7 @@ use common\helpers\Html;
         <th></th>
         <th></th>
     </tr>
-    <?php foreach($childObjectData as $uuid => $paymentSchedule): ?>
+    <?php foreach($childObjectData as $uuid => $paymentSchedule) : ?>
         <tr>
             <td><?=$paymentSchedule->mainDeptDate?></td>
             <td><?=$paymentSchedule->mainDeptAmount?></td>
@@ -45,5 +45,5 @@ use common\helpers\Html;
                     ]
                 ])?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>

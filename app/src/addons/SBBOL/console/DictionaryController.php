@@ -13,6 +13,9 @@ use common\models\sbbolxml\SBBOLTransportConfig;
 
 class DictionaryController extends BaseController
 {
+    /**
+     * Метод выводит текст с подсказкой
+     */
     public function actionIndex()
     {
         $this->run('/help', ['SBBOL/dictionary']);

@@ -15,23 +15,23 @@ class m220111_220446_processing_update extends Migration
 {
     public function up()
     {
-		Processing::deleteAll(['address' => 'CYBERUM@TEST']);
+        Processing::deleteAll(['address' => 'CYBERUM@TEST']);
         Processing::updateAll(['isDefault' => 1], ['address' => 'PSGTEST@APRC']);
 
-		/** @var AppSettings $appSettings */
+        /** @var AppSettings $appSettings */
         $appSettings = Yii::$app->settings->get('app');
 
         if ($appSettings->processing['address'] == 'CYBERUM@TEST') {
             $appSettings->processing['address'] = 'PSGTEST@APRC';
             $appSettings->processing['dsn'] = 'tcp://localhost:40092';
-			$appSettings->save();
+            // Сохранить модель в БД
+            $appSettings->save();
         }
     }
 
     public function down()
     {
         echo "This migration cannot be reverted but can be run again.\n";
-
-		return true;
+        return true;
     }
 }

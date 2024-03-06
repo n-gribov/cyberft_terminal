@@ -12,6 +12,7 @@ use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class KeyController extends BaseServiceController
 {
@@ -30,6 +31,9 @@ class KeyController extends BaseServiceController
         ];
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         $query = SBBOLKey::find()
@@ -41,6 +45,7 @@ class KeyController extends BaseServiceController
             'query' => $query,
             'sort'  => false,
         ]);
+        // Вывести страницу
         return $this->render(
             'index',
             compact('dataProvider')
@@ -49,14 +54,17 @@ class KeyController extends BaseServiceController
 
     public function actionGenerateCertificateRequestParams()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // Включить формат вывода JSON
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
         if (!Yii::$app->request->isAjax) {
             throw new BadRequestHttpException();
         }
 
         $model = new RegisterKeyForm(['scenario' => RegisterKeyForm::SCENARIO_GENERATE_CERTIFICATE_REQUEST_PARAMS]);
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
+            // Загрузить данные модели из формы в браузере
             $model->load(Yii::$app->request->post());
             if ($model->validate()) {
                 $csrParams = $model->generateCertificateRequestParams();
@@ -74,13 +82,15 @@ class KeyController extends BaseServiceController
 
     public function actionCreate()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // Включить формат вывода JSON
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
         if (!Yii::$app->request->isAjax || !Yii::$app->request->isPost) {
             throw new BadRequestHttpException();
         }
 
         $model = new RegisterKeyForm(['scenario' => RegisterKeyForm::SCENARIO_CREATE_KEY]);
+        // Загрузить данные модели из формы в браузере
         $model->load(Yii::$app->request->post());
         $csrParams = $model->generateCertificateRequestParams();
         if ($model->validate()) {
@@ -105,7 +115,8 @@ class KeyController extends BaseServiceController
 
     public function actionCheckCertificateRequestStatus()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // Включить формат вывода JSON
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
         if (!Yii::$app->request->isPost || !Yii::$app->request->isAjax) {
             throw new BadRequestHttpException();
@@ -126,6 +137,7 @@ class KeyController extends BaseServiceController
         }
 
         if ($importRequest->isFailed()) {
+            // Удалить ключ из БД
             $key->delete();
             return [
                 'isFinished' => true,
@@ -136,7 +148,9 @@ class KeyController extends BaseServiceController
 
         if ($importRequest->status === SBBOLRequest::STATUS_DELIVERED) {
             $key->status = SBBOLKey::STATUS_CERTIFICATE_REQUEST_IS_SENT;
+            // Сохранить модель в БД
             $key->save();
+            // Поместить в сессию флаг сообщения об успешной отправке запроса
             Yii::$app->session->setFlash('success', Yii::t('app/sbbol', 'Certificate request is sent to Sberbank'));
             return $this->redirect('index');
         }

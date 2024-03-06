@@ -10,7 +10,7 @@ use Yii;
  */
 class Lock
 {
-    /*
+    /**
      * @return true if lock acquired or null
      *
      * if lock failed, caller must wait for random time and repeat

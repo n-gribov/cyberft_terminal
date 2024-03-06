@@ -6,7 +6,7 @@
 $this->title = Yii::t('app', 'Create');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/participant', 'Members'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-?>
-<?= $this->render('_form', [
+// Вывести форму
+echo $this->render('_form', [
     'model' => $model,
-]) ?>
+]);

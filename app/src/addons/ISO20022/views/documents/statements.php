@@ -39,6 +39,7 @@ if ($userCanDeleteDocuments) {
     echo DeleteSelectedDocumentsButton::widget(['checkboxesSelector' => '.delete-checkbox, .select-on-check-all']);
 }
 
+// Вывести форму поиска
 echo $this->render('_search', [
     'model' => $searchModel,
     'filterStatus' => $filterStatus,
@@ -77,7 +78,7 @@ $columns['type'] = [
     'filterInputOptions' => [
         'class' => 'form-control selectpicker',
         'style' => 'width: 100%;',
-        'data-none-selected-text' => ""
+        'data-none-selected-text' => ''
     ],
     'headerOptions' => [
         'style' => 'width:1%;',
@@ -118,29 +119,21 @@ $columns[$senderColumnAttr] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'statements']),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax'               => [
+                'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'statements']),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
-            'select2:unselect' => 'function(e) {
-
-	      }'
+	    'select2:select' => 'function(e) { searchForField(e.params.data) }',
+            'select2:unselect' => 'function(e) {}'
 	],
     ]),
     'contentOptions' => [
@@ -162,21 +155,17 @@ $columns[$receiverColumnAttr] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => 'statements']),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax'               => [
+                'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => 'statements']),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
 	    'select2:select' => 'function(e) {
@@ -198,22 +187,20 @@ $columns['dateCreate'] = [
     'value' => function($model) {
         return DateHelper::formatDate($model->dateCreate, 'datetime');
     },
-    'filter' => kartik\widgets\DatePicker::widget(
-        [
-            'model' => $searchModel,
-            'attribute' => 'dateCreate',
-            'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'orientation' => 'bottom'
-            ],
-            'options' => [
-                'class' => 'form-control'
-            ],
-        ]
-    ),
+    'filter' => kartik\widgets\DatePicker::widget([
+        'model' => $searchModel,
+        'attribute' => 'dateCreate',
+        'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'orientation' => 'bottom'
+        ],
+        'options' => [
+            'class' => 'form-control'
+        ],
+    ]),
     'filterInputOptions' => [
         'style' => 'width: 100%;',
     ],
@@ -251,22 +238,20 @@ $columns['periodBegin'] = [
     'attribute' => 'periodBegin',
     'value' => 'documentExtISO20022.periodBegin',
     'format' => 'date',
-    'filter' => kartik\widgets\DatePicker::widget(
-        [
-            'model' => $searchModel,
-            'attribute' => 'periodBegin',
-            'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'orientation' => 'bottom'
-            ],
-            'options' => [
-                'class' => 'form-control',
-            ],
-        ]
-    ),
+    'filter' => kartik\widgets\DatePicker::widget([
+        'model' => $searchModel,
+        'attribute' => 'periodBegin',
+        'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'orientation' => 'bottom'
+        ],
+        'options' => [
+            'class' => 'form-control',
+        ],
+    ]),
     'filterInputOptions' => [
         'style' => 'width: 100%;',
     ],
@@ -279,22 +264,20 @@ $columns['periodEnd'] = [
     'attribute' => 'periodEnd',
     'value' => 'documentExtISO20022.periodEnd',
     'format' => 'date',
-    'filter' => kartik\widgets\DatePicker::widget(
-        [
-            'model' => $searchModel,
-            'attribute' => 'periodEnd',
-            'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'orientation' => 'bottom'
-            ],
-            'options' => [
-                'class' => 'form-control',
-            ],
-        ]
-    ),
+    'filter' => kartik\widgets\DatePicker::widget([
+        'model' => $searchModel,
+        'attribute' => 'periodEnd',
+        'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'orientation' => 'bottom'
+        ],
+        'options' => [
+            'class' => 'form-control',
+        ],
+    ]),
     'filterInputOptions' => [
         'style' => 'width: 100%;',
     ],
@@ -334,7 +317,7 @@ $columns['status'] = [
             'containerCssClass' => 'select2-cyberft'
         ],
     ]),
-    'value'         => function ($item, $params) {
+    'value' => function ($item, $params) {
         return "<span title=\"Status: {$item->status}\">{$item->getStatusLabel()}</span>";
     },
 ];
@@ -344,7 +327,7 @@ $columnsEnabled = [];
 if ($userCanDeleteDocuments && count($deletableDocumentsIds) > 0) {
     // Колонка с чекбоксом удаления
     $columnsEnabled['delete'] = [
-        'class'           => 'yii\grid\CheckboxColumn',
+        'class' => 'yii\grid\CheckboxColumn',
         'checkboxOptions' => function ($model, $key, $index, $column) use ($deletableDocumentsIds) {
             $hidden = !in_array($model->id, $deletableDocumentsIds);
             return [
@@ -393,7 +376,7 @@ $columnsEnabled['actions'] = [
         'style'     => 'width: 100px',
     ]
 ];
-
+// Создать таблицу для вывода с бесконечным скроллингомw
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'dataProvider' => $dataProvider,
@@ -413,19 +396,13 @@ $myGridWidget = InfiniteGridView::begin([
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
-?>
-
-<?php
-
-$script = <<< JS
+$script = <<<JS
     // Возвращает символ нажатой клавиши
     function getChar(event) {
         return String.fromCharCode(event.keyCode || event.charCode);
@@ -452,7 +429,6 @@ JS;
 echo ToTopButtonWidget::widget();
 
 $this->registerJs($script, View::POS_READY);
-
 $this->registerCss('#delete-selected-documents-button {display: none;}');
 
 ?>

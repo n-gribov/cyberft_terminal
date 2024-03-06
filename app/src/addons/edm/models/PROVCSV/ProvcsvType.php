@@ -23,10 +23,14 @@ class ProvcsvType extends BaseType
     {
         return $this->_rawData;
     }
-
-	public function getSearchFields()
-	{
-		return [
+    
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields()
+    {
+        return [
             'sender'   => $this->sender,
             'receiver' => $this->recipient,
             'body'     => $this->getModelDataAsString()

@@ -11,8 +11,9 @@ $this->title = Yii::t('app/terminal', 'Terminals');
 $this->beginBlock('pageAdditional');
 
 $settings = Yii::$app->settings->get('app');
-$userIsMainAdmin = Yii::$app->user->identity->role ==User::ROLE_ADMIN;
-$userIsAdditionalAdmin = Yii::$app->user->identity->role ==User::ROLE_ADDITIONAL_ADMIN;
+// Получить роль пользователя из активной сессии
+$userIsMainAdmin = Yii::$app->user->identity->role == User::ROLE_ADMIN;
+$userIsAdditionalAdmin = Yii::$app->user->identity->role == User::ROLE_ADDITIONAL_ADMIN;
 
 // Кнопка управления процессом обмена
 // доступна только главному администратору
@@ -111,7 +112,7 @@ $data = [
     ],
 ];
 
-if (Yii::$app->user->identity->role === User::ROLE_ADMIN) {
+if ($userIsMainAdmin) {
     $data['tabs']['tabApiIntegration'] = [
         'label'   => Yii::t('app/autobot', 'API integration'),
         'content' => '@common/modules/autobot/views/settings/_apiIntegration',
@@ -150,4 +151,3 @@ $this->registerCss('
     }
 ');
 
-?>

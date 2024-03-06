@@ -11,8 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app/fileact', 'Cryptopro ke
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fileact-cryptopro-keys-create">
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+    <?= // Вывести форму
+        $this->render('_form', ['model' => $model]) ?>
 </div>

@@ -54,11 +54,6 @@ class Sbbol2Module extends BaseBlock
     {
         $statementRequest = $cyxDoc->getContent()->getTypeModel();
 
-//        Yii::info((string) $typeModel);
-
-//        <StatementAccount><AccountNumber>40702840500000003031</AccountNumber>
-//        <StatementPeriod><StartDate>2019-06-28</StartDate><EndDate>2019-06-28</EndDate>
-//        </StatementPeriod>
         $customer = Sbbol2Customer::findOne(['terminalAddress' => $cyxDoc->senderId]);
         if (!$customer) {
             return true;
@@ -138,6 +133,7 @@ class Sbbol2Module extends BaseBlock
             'status' => Sbbol2DocumentImportRequest::STATUS_PENDING
         ]);
 
+        // Сохранить модель в БД и вернуть результат сохранения
         return $request->save();
     }
 

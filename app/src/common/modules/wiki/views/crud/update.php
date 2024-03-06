@@ -14,11 +14,11 @@ $this->beginBlock('pageActions');
 echo common\helpers\Html::a(Yii::t('app', 'View'), $model->getUrl(), ['class' => 'btn btn-primary']);
 $this->endBlock('pageActions');
 
-
+// Вывести форму
 echo $this->render('_form', ['model' => $model]);
 
-echo "<h3>" . WikiModule::t('default', 'Attachments'). "</h3>";
-
+echo '<h3>' . WikiModule::t('default', 'Attachments'). '</h3>';
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider'  => new ArrayDataProvider([
         'allModels' => $model->attachments

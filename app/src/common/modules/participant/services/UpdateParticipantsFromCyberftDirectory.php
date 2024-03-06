@@ -24,6 +24,7 @@ class UpdateParticipantsFromCyberftDirectory
         $changedCount = $this->updateParticipants();
         $deletedCount = $this->deleteOldParticipants();
 
+        // Зарегистрировать событие изменения участника в модуле мониторинга
         Yii::$app->monitoring->log(
             'participant:participantUpdated',
             null,
@@ -70,6 +71,7 @@ class UpdateParticipantsFromCyberftDirectory
             $participant->documentFormatGroup = BICDirParticipant::getDefaultDocumentFormatGroup($participantFromDirectory->getSwiftCode());
         }
         $isDirty = !empty($participant->dirtyAttributes);
+        // Сохранить модель в БД
         $isSaved = $participant->save();
         if (!$isSaved) {
             throw new \Exception(

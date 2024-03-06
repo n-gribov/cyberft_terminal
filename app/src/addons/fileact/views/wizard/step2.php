@@ -43,10 +43,8 @@ BTN
 BTN
 ;
 
-
-?>
-
-<?= \yii\widgets\DetailView::widget([
+// Создать детализированное представление
+echo \yii\widgets\DetailView::widget([
     'model' => $model,
     'attributes' => [
         [

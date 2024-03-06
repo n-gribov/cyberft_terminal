@@ -8,7 +8,7 @@ $this->title                   = Yii::t('app', 'About');
 $this->params['breadcrumbs'][] = $this->title;
 
 // Основной терминал
-$primaryTerminal = Yii::$app->terminals->getPrimaryTerminal();
+$primaryTerminal = Yii::$app->exchange->getPrimaryTerminal();
 ?>
 
 <?=

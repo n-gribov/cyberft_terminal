@@ -22,6 +22,7 @@ $fieldsPresenter = new BSDocumentFieldsPresenter($bsDocument::TYPE, $bsDocument-
 <div class="row">
     <div class="col-xs-12">
         <?php
+        // Создать детализированное представление
         echo DetailView::widget([
             'model'      => $bsDocument,
             'template'   => '<tr><th width="50%">{label}</th><td>{value}</td></tr>',
@@ -100,6 +101,7 @@ $attachmentFields = array_filter(
 <?php
     foreach($attachmentFields as $fieldName => $value) {
         $attachments = $bsDocument->$fieldName;
+        // Создать таблицу для вывода
         echo GridView::widget([
             'dataProvider' => new ArrayDataProvider([
                 'allModels' => $attachments,

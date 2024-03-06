@@ -2,7 +2,6 @@
 
 namespace addons\raiffeisen\states\in\raiffeisenDocument\processErrorSteps;
 
-use addons\raiffeisen\helpers\raiffeisenModuleHelper;
 use addons\raiffeisen\models\RaiffeisenRequest;
 use addons\raiffeisen\states\BaseStep;
 use addons\raiffeisen\states\in\raiffeisenDocument\ProcessErrorState;
@@ -35,8 +34,7 @@ class HandleErrorStep extends BaseStep
         if ($error->getCode() === static::BAD_SESSION_ERROR_CODE) {
             $this->log('Bad session, will delete cached session and try next time with a new one');
             $this->state->module->sessionManager->deleteSession($request->customer->holdingHeadId);
-        } elseif (!static::isTemporaryError($error)) {
-
+        } else if (!static::isTemporaryError($error)) {
             if ($request->incomingDocumentId) {
                 RaiffeisenModuleHelper::sendStatusReport(
                     $request->incomingDocument,
@@ -45,7 +43,6 @@ class HandleErrorStep extends BaseStep
                     StatusReportType::ERROR_CODE_RECIPIENT_REJECTION
                 );
             }
-
             RaiffeisenRequest::updateStatus($this->state->requestId, RaiffeisenRequest::STATUS_REJECTED);
         }
 

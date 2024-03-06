@@ -156,7 +156,7 @@ $columnsSettings = UserColumnsSettings::getEnabledColumnsByType($columns, $listT
 foreach($columnsSettings as $setting => $value) {
     $columnsEnabled[$setting] = $value;
 }
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'id' => 'forSigning',
     'emptyText'    => Yii::t('other', 'No documents matched your query'),

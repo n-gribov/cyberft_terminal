@@ -64,7 +64,9 @@ $certData = $model->getCertificate();
     $statusFullLabel = $status . $statusDescription;
 ?>
 
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'id',
@@ -94,37 +96,38 @@ $certData = $model->getCertificate();
         'roleLabel',
         'signAccess',
     ],
-]) ?>
-
+]);
+?>
 <div class="panel-heading"><?=Yii::t('other', 'Certificate file')?></div>
-
-    <?php if (!empty($certData)) : ?>
-        <?= DetailView::widget([
-            'model' => $certData,
-            'attributes' => [
-                'filePath',
-                'fingerprint',
-                'serialNumber',
-                [
-                    'attribute' => 'subjectName',
-                    'value'     => nl2br(Html::encode(Cert::formatCertAttributes($certData->subjectName))),
-                    'format'    => 'html',
-                ],
-                [
-                    'attribute' => 'issuerName',
-                    'value'     => nl2br(Html::encode(Cert::formatCertAttributes($certData->issuerName))),
-                    'format'    => 'html',
-                ],
-                'validTo:datetime',
-                'validFrom:datetime',
-                'version',
-                'body:pre'
+<?php if (!empty($certData)) : ?>
+    <?php
+    // Создать детализированное представление
+    echo DetailView::widget([
+        'model' => $certData,
+        'attributes' => [
+            'filePath',
+            'fingerprint',
+            'serialNumber',
+            [
+                'attribute' => 'subjectName',
+                'value'     => nl2br(Html::encode(Cert::formatCertAttributes($certData->subjectName))),
+                'format'    => 'html',
             ],
-        ]) ?>
-    <?php else: ?>
-        <div class="alert alert-dismissable alert-danger"><?=Yii::t('app/cert', 'Cannot find the file');?></div>
-    <?php endif ?>
-
+            [
+                'attribute' => 'issuerName',
+                'value'     => nl2br(Html::encode(Cert::formatCertAttributes($certData->issuerName))),
+                'format'    => 'html',
+            ],
+            'validTo:datetime',
+            'validFrom:datetime',
+            'version',
+            'body:pre'
+        ],
+    ]);
+    ?>
+<?php else : ?>
+    <div class="alert alert-dismissable alert-danger"><?=Yii::t('app/cert', 'Cannot find the file');?></div>
+<?php endif ?>
 <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -148,8 +151,7 @@ $certData = $model->getCertificate();
 </div>
 <?php
     if ($certModalButtonId) {
-        $this->registerJS(
-<<<JS
+        $this->registerJS(<<<JS
             function deactivateCertModalConfirm() {
                 $('#statusModal').modal('show');
             }
@@ -157,9 +159,8 @@ $certData = $model->getCertificate();
             function getModelRole() {
                 return '$model->role';
             }
-JS
-        , yii\web\View::POS_READY);
+        JS, yii\web\View::POS_READY);
 
+        // Вывести модальное окно деактивации сертификата
         echo $this->render('_deactivateCertModal', ['model' => $model, 'buttonId' => $certModalButtonId]);
     }
-?>

@@ -1,32 +1,29 @@
 <?php
 namespace common\base\interfaces;
+
 /**
- * Для документов, которые хотят индексироваться в Elastic Search
- *
- * @author a.nikolaenko
+ * Интерфейс для документов, которые могут индексироваться в ElasticSearch
  */
 interface ElasticSearchable
 {
-	//public $uuid;
+    /**
+     * Метод получает уникальный ид для хранения
+     * @return string
+     */
+    public function getSearchId();
 
-	/**
-	 * Получить уникальный ид для хранения
-	 * @return string
-	 */
-	public function getSearchId();
+    /**
+     * Метод получает тип документа для хранения
+     * Тип является как бы "таблицей" в базе Elastic, т.е. это
+     * не обязательно исконный тип документа, а скорее serviceId модуля документа
+     * @return string
+     */
+    public function getSearchType();
 
-	/**
-	 * Получить тип документа для хранения
-	 * Тип является как бы "таблицей" в базе Elastic, т.е. это
-	 * не обязательно исконный тип документа, а скорее serviceId модуля документа
-	 * @return string
-	 */
-	public function getSearchType();
-
-	/**
-	 * Получить набор полей для хранения
-	 * @return array
-	 */
-	public function getSearchFields();
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields();
 
 }

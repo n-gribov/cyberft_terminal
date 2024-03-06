@@ -24,7 +24,7 @@ class IBankV2DocumentPrepareStep extends BaseIBankDocumentPrepareStep
 
         if ($accountNumber) {
             $recipientTerminalId = $this->getTerminalIdByAccountNumber($accountNumber);
-        } elseif ($bik) {
+        } else if ($bik) {
             $recipientTerminalId = $this->getTerminalIdByBik($bik);
         }
 

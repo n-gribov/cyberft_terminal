@@ -27,4 +27,5 @@ if ($model->getValidStoredFileId()) {
   </ul>
 </div>
 
-<?= $this->render('readable/paymentOrder', ['paymentOrder' => $paymentOrder]) ?>
+<?= // Вывести страницу
+    $this->render('readable/paymentOrder', ['paymentOrder' => $paymentOrder]) ?>

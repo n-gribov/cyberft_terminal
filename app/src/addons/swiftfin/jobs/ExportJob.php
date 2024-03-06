@@ -29,7 +29,7 @@ class ExportJob extends DocumentJob
     /**
      * @var boolean $revertHeaders Revert headers
      */
-	public $revertHeaders = true;
+    public $revertHeaders = true;
 
     /**
      * @inheritdoc
@@ -50,10 +50,10 @@ class ExportJob extends DocumentJob
     /**
      * @inheritdoc
      */
-	public function perform()
-	{
-	    if (!$this->isExportRequired()) {
-	        return;
+    public function perform()
+    {
+        if (!$this->isExportRequired()) {
+            return;
         }
 
         $exportResource = $this->getExportResource();
@@ -64,17 +64,17 @@ class ExportJob extends DocumentJob
 
         $typeModel = $this->_cyxDocument->getContent()->getTypeModel();
 
-		switch($typeModel->sourceFormat) {
-			case SwiftfinHelper::FILE_FORMAT_SWIFT:
-				// Трансформируем свифтовку
-				$this->processSwt($typeModel->source);
-				break;
-			case SwiftfinHelper::FILE_FORMAT_SWIFT_PACKAGE:
-				$this->processSwa($typeModel->source);
-				break;
-		}
+        switch($typeModel->sourceFormat) {
+            case SwiftfinHelper::FILE_FORMAT_SWIFT:
+                // Трансформируем свифтовку
+                $this->processSwt($typeModel->source);
+                break;
+            case SwiftfinHelper::FILE_FORMAT_SWIFT_PACKAGE:
+                $this->processSwa($typeModel->source);
+                break;
+        }
 
-		if (empty($typeModel->sourceData)) {
+        if (empty($typeModel->sourceData)) {
             $this->_document->updateStatus(Document::STATUS_NOT_EXPORTED, 'Export');
             $this->log("Error exporting document {$this->_documentId}: empty sourceData", true);
         }
@@ -89,37 +89,37 @@ class ExportJob extends DocumentJob
             
             ApiModule::addToExportQueueIfRequired($this->_document->uuidRemote, $exportResult['path'], $this->_document->receiver);
         }
-	}
+    }
 
-	/**
-	 * @param SwtContainer $swt
-	 * @return bool
-	 */
-	protected function processSwt(SwtContainer &$swt)
-	{
-		if ($this->revertHeaders) {
-			$swt->direction = SwtContainer::DIRECTION_OUT;
-		}
+    /**
+     * @param SwtContainer $swt
+     * @return bool
+     */
+    protected function processSwt(SwtContainer &$swt)
+    {
+        if ($this->revertHeaders) {
+            $swt->direction = SwtContainer::DIRECTION_OUT;
+        }
 
-		if ($this->_document) {
-			$swt->inputSequenceNumber = DocumentHelper::getDayUniqueCount('mir');
-			$swt->outputSequenceNumber = DocumentHelper::getDayUniqueCount('mor');
+        if ($this->_document) {
+            $swt->inputSequenceNumber = DocumentHelper::getDayUniqueCount('mir');
+            $swt->outputSequenceNumber = DocumentHelper::getDayUniqueCount('mor');
             $swt->setInputDateTime($this->_document->dateCreate);
-		}
+        }
 
         $swt->updateMessageFields();
-	}
+    }
 
-	/**
-	 * @param SwaPackage $swa
-	 * @return bool
-	 */
-	protected function processSwa(SwaPackage &$swa)
-	{
-		foreach ($swa->swtDocuments as $swt) {
-			$this->processSwt($swt);
-		}
-	}
+    /**
+     * @param SwaPackage $swa
+     * @return bool
+     */
+    protected function processSwa(SwaPackage &$swa)
+    {
+        foreach ($swa->swtDocuments as $swt) {
+            $this->processSwt($swt);
+        }
+    }
 
     private function isExportRequired(): bool
     {
@@ -132,7 +132,7 @@ class ExportJob extends DocumentJob
             $terminalExportSettings = Yii::$app->settings->get('export', $this->getTerminalAddress());
             return (bool)$terminalExportSettings->useSwiftfinFormat;
         }
-	}
+    }
 
     private function getExportResource()
     {
@@ -145,7 +145,7 @@ class ExportJob extends DocumentJob
     {
         /** @var AppSettings $terminalSettings */
         $terminalSettings = Yii::$app->settings->get('app', $this->getTerminalAddress());
-        return (bool)$terminalSettings->useGlobalExportSettings;
+        return (bool) $terminalSettings->useGlobalExportSettings;
     }
 
     private function getTerminalAddress()

@@ -16,35 +16,38 @@ use yii\helpers\Url;
 
 class DefaultController extends BaseServiceController
 {
-	public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => [DocumentPermission::VIEW],
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [DocumentPermission::VIEW],
                         'roleParams' => ['serviceId' => FinZipModule::SERVICE_ID],
-					],
-				],
-			],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
             ],
+        ];
+    }
 
-		];
-	}
-
-	public function actionIndex()
+    /**
+     * Метод обрабатывает страницу индекса
+     */
+    public function actionIndex()
     {
         $searchModel = new FinZipSearch();
         $model       = new Document();
         Url::remember();
 
+        // Вывести страницу
         return $this->render('index', [
             'searchModel'  => $searchModel,
             'model'        => $model,
@@ -65,16 +68,16 @@ class DefaultController extends BaseServiceController
         return $actions;
     }
 
-	/**
-	 * Метод для показа родных моделей по id
-	 * @param int $id finzip id
-	 * @param string $mode render mode
-	 */
-	public function actionView($id, $mode = '')
-	{
-		$model = $this->findModel($id);
+    /**
+     * Метод для показа родных моделей по id
+     * @param int $id finzip id
+     * @param string $mode render mode
+     */
+    public function actionView($id, $mode = '')
+    {
+        $model = $this->findModel($id);
 
-        // Регистрация события просмотра документа
+        // Зарегистрировать событие просмотра документа
         // только если это новый просмотр (т.е., не переход по вкладкам)
 
         if (empty($mode)) {
@@ -92,7 +95,7 @@ class DefaultController extends BaseServiceController
                     $model->viewed = 1;
                     $model->save(false, ['viewed']);
                 }
-
+                // Зарегистрировать событие просмотра документа в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'user:viewDocument',
                     'document',
@@ -105,28 +108,34 @@ class DefaultController extends BaseServiceController
             }
         }
 
-		return $this->viewModel($model, $mode, $id);
-	}
+        return $this->viewModel($model, $mode, $id);
+    }
 
-	protected function viewModel(FinZipSearch $model, $mode, $routeId)
-	{
-		$referencingDataProvider = new ActiveDataProvider([
-			'query' => $model->findReferencingDocuments(),
-			'pagination' => [
-				'pageSize' => 20,
-			],
-		]);
+    protected function viewModel(FinZipSearch $model, $mode, $routeId)
+    {
+        $referencingDataProvider = new ActiveDataProvider([
+            'query' => $model->findReferencingDocuments(),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
 
-		return $this->render('view', [
-			'model' => $model,
-			'mode' => $mode,
-			'referencingDataProvider' => $referencingDataProvider,
-            'urlParams'    => $this->getSearchUrl('FinZipSearch'),
-		]);
-	}
+        // Вывести страницу
+        return $this->render('view', [
+            'model' => $model,
+            'mode' => $mode,
+            'referencingDataProvider' => $referencingDataProvider,
+            'urlParams' => $this->getSearchUrl('FinZipSearch'),
+        ]);
+    }
 
-	protected function findModel($id)
-	{
+    /**
+     * Метод ищет модель документа в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
+    protected function findModel($id)
+    {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         return Yii::$app->terminalAccess->findModel(FinZipSearch::className(), $id);
     }
 

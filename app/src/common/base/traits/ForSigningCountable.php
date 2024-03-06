@@ -29,7 +29,7 @@ trait ForSigningCountable
         $query = $this->find();
 
         $terminalId = false;
-
+        // Получить роль пользователя из активной сессии
         if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             // Если пользователь не админ, получаем список доступных ему терминалов
             $terminalId = Yii::$app->user->identity->terminalId;

@@ -35,7 +35,9 @@ class ApiDocumentExportQueue extends ActiveRecord
 
     public function deleteWithFile(): void
     {
+        // Удалить запись о файле из БД
         if ($this->delete()) {
+            // Удалить файл
             unlink($this->path);
         }
     }

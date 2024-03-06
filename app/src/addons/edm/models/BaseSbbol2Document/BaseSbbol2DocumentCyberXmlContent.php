@@ -8,9 +8,9 @@ use common\models\cyberxml\CyberXmlContent;
 
 class BaseSbbol2DocumentCyberXmlContent extends CyberXmlContent implements TypeCyberXmlContentInterface
 {
-	const ROOT_ELEMENT = 'Statement';
-	const DEFAULT_NS_URI = 'http://cyberft.ru/xsd/sbbol02';
-	const DEFAULT_NS_PREFIX = 'sbbol2';
+    const ROOT_ELEMENT = 'Statement';
+    const DEFAULT_NS_URI = 'http://cyberft.ru/xsd/sbbol02';
+    const DEFAULT_NS_PREFIX = 'sbbol2';
 
     private $_typeModel;
 
@@ -24,17 +24,18 @@ class BaseSbbol2DocumentCyberXmlContent extends CyberXmlContent implements TypeC
             $this->_typeModel = $this->_parent->_typeModel;
         }
 
+        // Сформировать XML
         $this->_rootElement = $this->_typeModel->buildXml();
     }
 
-	public function getDocumentData()
-	{
+    public function getDocumentData()
+    {
         $this->_rootElement = $this->_typeModel->buildXml();
 
         return [
-			'mimeType'	=> 'application/xml',
-		];
-	}
+            'mimeType' => 'application/xml',
+        ];
+    }
 
     public function boundAttributes()
     {

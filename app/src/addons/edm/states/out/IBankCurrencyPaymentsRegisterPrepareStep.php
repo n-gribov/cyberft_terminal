@@ -61,6 +61,8 @@ class IBankCurrencyPaymentsRegisterPrepareStep extends BaseDocumentStep
         foreach ($ibankDocumentsPack as $iBankDocument) {
             $receiver = $this->getTerminalIdByAccountNumber($iBankDocument->getSenderAccountNumber());
             $converter = IBankV1ConverterFactory::create($iBankDocument->getType(), $receiver);
+
+            // Создать тайп-модель
             $typeModels[] = $converter->createTypeModel(
                 $iBankDocument,
                 $this->state->sender,
@@ -95,7 +97,7 @@ class IBankCurrencyPaymentsRegisterPrepareStep extends BaseDocumentStep
         $account = $this->getAccountByNumber($accountNumber);
         $currency = $this->getCurrencyNameByAccount($account);
         $terminalId = Terminal::getIdByAddress($sender);
-
+        // Атрибуты документа
         $docAttributes = [
             'sender' => $sender,
             'receiver' => $receiver,
@@ -110,23 +112,26 @@ class IBankCurrencyPaymentsRegisterPrepareStep extends BaseDocumentStep
             'debitAccount' => $accountNumber,
         ];
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext($registerTypeModel, $docAttributes, $extAttributes);
 
         if (!$context) {
             throw new \Exception(\Yii::t('app', 'Save document error'));
         }
 
+        // Получить документ из контекста
         $document = $context['document'];
 
         foreach ($registerTypeModel->paymentOrders as $typeModel) {
             $fcoExt = new ForeignCurrencyOperationDocumentExt(['documentId' => $document->id]);
             $fcoExt->loadContentModel($typeModel);
+            // Сохранить модель в БД
             $isSaved = $fcoExt->save();
             if (!$isSaved) {
                 throw new \Exception('Failed to save payment order to database, errors: ' . var_export($fcoExt->getErrors(), true));
             }
         }
-
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($context['document'], true);
     }
 

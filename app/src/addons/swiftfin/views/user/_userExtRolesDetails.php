@@ -9,7 +9,9 @@ use yii\widgets\DetailView;
 
 <div class="panel panel-gray">
     <div class="panel-body">
-        <?= DetailView::widget([
+        <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $userExtModel,
             'attributes' => [
                 [

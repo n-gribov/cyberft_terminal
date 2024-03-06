@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\web\JsExpression;
 use addons\edm\models\DictContractor;
 use yii\widgets\MaskedInput;
 use yii\helpers\ArrayHelper;
@@ -22,17 +21,19 @@ if ($model->bankBik) {
 
 if (!DictBank::find()->exists()) {
     $link = "<a href='".Url::to(['dict-bank/index'])."'>".Yii::t('edm', 'Load')."</a>";
-    Yii::$app->session->addFlash('error', Yii::t('edm', 'It is not possible to specify the bank for the account! The bank directory is not loaded! {link}', ['link' => $link]));
+    // Поместить в сессию флаг сообщения о ненайденном банке
+    Yii::$app->session->addFlash('error', Yii::t('edm', 'The bank for the account is not available - bank directory is not loaded {link}', ['link' => $link]));
     $dictBankList = [];
 } else if (DictBank::allTerminalIdIsNull()) {
     $link = "<a href='".Url::to(['dict-bank/index'])."'>".Yii::t('edm', 'Define codes')."</a>";
-    Yii::$app->session->addFlash('error', Yii::t('edm', 'It is not possible to indicate the bank! In the directory of banks are not defined codes of participants! {link}', ['link' => $link]));
+    // Поместить в сессию флаг сообщения об отсутствии кодов в справочнике банков
+    Yii::$app->session->addFlash('error', Yii::t('edm', 'The bank cannot be used - bank directory does not contain participant codes {link}', ['link' => $link]));
     $dictBankList = [];
 } else {
     $dictBank = DictBank::getDictBankListWithTerminalId();
     $dictBankList = [];
     foreach ($dictBank as $dictBankLine) {
-        $dictBankList[$dictBankLine->bik] = Yii::t('edm', 'BIK').': '.$dictBankLine->bik.' '.Yii::t('edm', 'Bank').': '.$dictBankLine->name;
+        $dictBankList[$dictBankLine->bik] = Yii::t('edm', 'BIK') . ': ' . $dictBankLine->bik . ' ' . Yii::t('edm', 'Bank') . ': ' . $dictBankLine->name;
     }
 }
 
@@ -106,7 +107,7 @@ $organizationsList = ArrayHelper::map($organizations, 'id', 'name');
 <?php
 
 // JS-скрипты для представления
-$script = <<< JS
+$script = <<<JS
 
         // Получение валюты по номеру счета
         // при изменении номера счета
@@ -115,7 +116,7 @@ $script = <<< JS
             var accountNumber = $(this).val();
 
             // Удаляем лишние символы из строки
-            var accountRaw = accountNumber.replace(/[_.]/g, "");
+            var accountRaw = accountNumber.replace(/[_.]/g, '');
 
             // Количество символов получившегося номера счета
             var accountLength = accountRaw.length;

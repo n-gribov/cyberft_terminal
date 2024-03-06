@@ -155,6 +155,7 @@ class BankLetterSearch extends DocumentSearch
 
     private static function applyBankAccessFilter(ActiveQuery $query)
     {
+        // Получить модель пользователя из активной сессии
         $currentUser = Yii::$app->user->identity;
         if (!in_array($currentUser->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN])) {
             $accountsIds = EdmPayerAccountUser::getUserAllowAccounts($currentUser->id);

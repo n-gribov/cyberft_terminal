@@ -133,6 +133,7 @@ class m161213_114332_drop_dict_contactor_table extends Migration
                 $account->currencyId = $currency->id;
             }
 
+            // Сохранить модель в БД
             $account->save();
         }
     }
@@ -163,9 +164,9 @@ class m161213_114332_drop_dict_contactor_table extends Migration
             $beneficiary->currencyId = $currency->id;
         }
 
+        // Сохранить модель в БД
         $beneficiary->save();
     }
-
 
     /**
      * Метод получает элемент

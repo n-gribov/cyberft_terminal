@@ -9,7 +9,7 @@ use yii\helpers\Url;
 $this->title = Yii::t('app/menu', 'Customers dictionary');
 
 echo Html::a(Yii::t('app/vtb', 'Request update'), ['request-update'], ['class' => 'btn btn-success', 'style' => 'margin-bottom: 15px']);
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'rowOptions' => function ($model, $key, $index, $grid) {

@@ -1,9 +1,7 @@
 <?php
-
 use addons\fileact\FileActModule;
 use common\document\Document;
 use common\document\DocumentPermission;
-use common\helpers\DocumentHelper;
 use common\widgets\documents\DeleteSelectedDocumentsButton;
 use yii\helpers\Url;
 
@@ -16,12 +14,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Documents'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 
 /**
- * Параметр необходимый для
- * корректной работы кнопки Назад
+ * Параметр, необходимый для корректной работы кнопки Назад
  * на странице просмотра документа
  */
 
-$urlParams['from'] = "forSigning";
+$urlParams['from'] = 'forSigning';
 
 $userCanDeleteDocuments = Yii::$app->user->can(DocumentPermission::DELETE, ['serviceId' => FileActModule::SERVICE_ID]);
 $deletableDocumentsIds = [];
@@ -43,11 +40,13 @@ if ($userCanDeleteDocuments) {
     }
 }
 
+// Вывести форму поиска
 echo $this->render('_search', [
     'model' => $filterModel,
     'filterStatus' => $filterStatus,
 ]);
 
+// Вывести список
 echo $this->render('_list', [
     'filterModel'  => $filterModel,
     'dataProvider' => $dataProvider,

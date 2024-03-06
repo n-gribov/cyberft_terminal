@@ -80,7 +80,7 @@ class ForeignCurrencyConversion extends BaseType
         if ($account && $account->edmDictCurrencies) {
             return $account->edmDictCurrencies->name;
         } else {
-            return "";
+            return '';
         }
     }
 
@@ -91,7 +91,7 @@ class ForeignCurrencyConversion extends BaseType
         if ($account && $account->bank) {
             return $account->bank->name;
         } else {
-            return "";
+            return '';
         }
     }
 
@@ -102,7 +102,7 @@ class ForeignCurrencyConversion extends BaseType
         if ($account && $account->bank) {
             return $account->bank->bik;
         } else {
-            return "";
+            return '';
         }
     }
 
@@ -113,7 +113,7 @@ class ForeignCurrencyConversion extends BaseType
         if ($account && $account->edmDictCurrencies) {
             return $account->edmDictCurrencies->name;
         } else {
-            return "";
+            return '';
         }
     }
 
@@ -124,5 +124,13 @@ class ForeignCurrencyConversion extends BaseType
         return $account;
     }
 
-    public function getSearchFields() {}
+        /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields()
+    {
+        return false;
+    }
+
 }

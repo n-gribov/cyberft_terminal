@@ -3,6 +3,7 @@
 namespace common\helpers;
 
 use common\modules\certManager\models\Cert;
+use Yii;
 
 class TerminalAddressResolver
 {
@@ -19,16 +20,15 @@ class TerminalAddressResolver
      */
     public function resolve($swiftCode)
     {
-        $swiftCodeLength = strlen($swiftCode);
-        switch ($swiftCodeLength) {
+        switch (strlen($swiftCode)) {
             case 12:
-                return $this->resolveTwelveCharactersSwiftCode($swiftCode);
+                return $this->resolve12($swiftCode);
             case 11:
-                return $this->resolveElevenCharactersSwiftCode($swiftCode);
+                return $this->resolve11($swiftCode);
             case 8:
-                return $this->resolveEightCharactersSwiftCode($swiftCode);
+                return $this->resolve8($swiftCode);
             default:
-                \Yii::info("Cannot resolve terminal address, unsupported swift code length: $swiftCode");
+                Yii::info("Cannot resolve terminal address, unsupported swift code length: $swiftCode");
                 return null;
         }
     }
@@ -39,6 +39,7 @@ class TerminalAddressResolver
      */
     public static function resolveReceiver($receiverSwiftCode)
     {
+        // Получатель ищется по имеющимся сертификатам
         $controllersCerts = Cert::find()
             ->where(['status' => Cert::STATUS_C10, 'role' => Cert::ROLE_SIGNER_BOT])
             ->all();
@@ -60,18 +61,18 @@ class TerminalAddressResolver
         $resolver = new static($availableReceiversAddresses);
         $address = $resolver->resolve($receiverSwiftCode);
         if ($address === null) {
-            \Yii::info("Failed to resolve receiver terminal address for swift code $receiverSwiftCode");
+            Yii::info("Failed to resolve receiver terminal address for swift code $receiverSwiftCode");
         }
 
         return $address;
     }
 
-    private function resolveTwelveCharactersSwiftCode(string $swiftCode)
+    private function resolve12(string $swiftCode)
     {
         return $swiftCode;
     }
 
-    private function resolveElevenCharactersSwiftCode(string $swiftCode)
+    private function resolve11(string $swiftCode)
     {
         $knownAddresses = $this->getSortedKnownAddresses();
         list($firstEight, $lastThree) = str_split($swiftCode, 8);
@@ -86,7 +87,7 @@ class TerminalAddressResolver
         return null;
     }
 
-    private function resolveEightCharactersSwiftCode(string $swiftCode)
+    private function resolve8(string $swiftCode)
     {
         $knownAddresses = $this->getSortedKnownAddresses();
         $firstEight = substr($swiftCode, 0, 8);
@@ -100,7 +101,7 @@ class TerminalAddressResolver
             $endsWithXxx = substr($address, -3) === 'XXX';
             if ($endsWithXxx) {
                 return $address;
-            } elseif ($matchingAddress === null) {
+            } else if ($matchingAddress === null) {
                 $matchingAddress = $address;
             }
         }

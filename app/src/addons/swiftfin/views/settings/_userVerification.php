@@ -25,6 +25,7 @@ use yii\helpers\Html;
 <div class="row">
     <div class="col-sm-6">
         <?php
+        // Создать таблицу для вывода
         $myGridWidget = GridView::begin([
             'emptyText'    => Yii::t('other', 'No document types found'),
             //'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),

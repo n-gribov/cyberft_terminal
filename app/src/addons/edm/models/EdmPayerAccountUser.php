@@ -147,6 +147,7 @@ class EdmPayerAccountUser extends ActiveRecord
             $record = new self(['userId' => $userId, 'accountId' => $accountId]);
         }
         $record->canSignDocuments = $canSignDocuments;
+        // Сохранить модель в БД
         return $record->save();
     }
 

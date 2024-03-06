@@ -12,6 +12,7 @@ class DocumentsSigningController extends BaseServiceController
 {
     public function beforeAction($action)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         return parent::beforeAction($action);
@@ -51,7 +52,9 @@ class DocumentsSigningController extends BaseServiceController
 
         if (!$success) {
             $flashMessage = $this->renderPartial('_signing-errors', ['errors' => $form->getErrorsList()]);
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $flashMessage);
+            // Перенаправить на предыдущую страницу
             return $this->redirect(Yii::$app->request->referrer);
         }
 
@@ -86,6 +89,8 @@ class DocumentsSigningController extends BaseServiceController
         $flashMessage = $documentsCount > 1
             ? Yii::t('document', 'Documents were signed')
             : Yii::t('document', 'Document was signed');
+
+        // Поместить в сессию флаг сообщения о результате подписания
         Yii::$app->session->setFlash('success', $flashMessage);
 
         $redirectUrl = Yii::$app->request->referrer;
@@ -93,6 +98,7 @@ class DocumentsSigningController extends BaseServiceController
             $redirectUrl = $successRedirectUrl;
         }
 
+        // Перенаправить на страницу перенаправления
         return $this->redirect($redirectUrl);
     }
 }

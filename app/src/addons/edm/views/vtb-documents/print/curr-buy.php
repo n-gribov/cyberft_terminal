@@ -9,8 +9,8 @@ use yii\helpers\Html;
 /** @var \addons\edm\models\BaseVTBDocument\BaseVTBDocumentType $typeModel */
 /** @var \addons\edm\models\DictOrganization $senderOrganization */
 /** @var \common\document\DocumentStatusReportsData $statusReportsData */
-
 /** @var \common\models\vtbxml\documents\CurrBuy $bsDocument */
+
 $bsDocument = $typeModel->document;
 
 $dateFormat = 'php:d.m.Y';
@@ -43,9 +43,7 @@ $creditBank = DictBank::findOne([
 ]);
 
 Yii::$app->formatter->nullDisplay = '';
-
 ?>
-
 <h1>
     <em>Поручение № <?= Html::encode($bsDocument->DOCUMENTNUMBER) ?></em><br>
     от <?= Yii::$app->formatter->asDate($bsDocument->DOCUMENTDATE, '«d» MMMM y') ?><br>
@@ -65,9 +63,9 @@ Yii::$app->formatter->nullDisplay = '';
 <div class="row">
     <div class="col-xs-8">
         <strong>вид операции: </strong>
-        <?php foreach ($supplyConditions as $id => $title): ?>
+        <?php foreach ($supplyConditions as $id => $title) : ?>
             <span class="no-wrap"><?= $checkBox($bsDocument->SUPPLYCONDITION == $id) . " $title" ?></span>&nbsp;
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </div>
     <div class="col-xs-4">
         по курсу <?= Html::encode($bsDocument->REQUESTRATE ?: '_______________________') ?>
@@ -161,13 +159,13 @@ Yii::$app->formatter->nullDisplay = '';
                     <th class="width-33-percent">Номер документа</th>
                     <th>Дата документа</th>
                 </tr>
-                <?php foreach ($bsDocument->GROUNDRECEIPTSBLOB as $groundReceipt): ?>
+                <?php foreach ($bsDocument->GROUNDRECEIPTSBLOB as $groundReceipt) : ?>
                     <tr>
                         <td><?= Html::encode($groundReceipt->DOCUMENTTYPE) ?></td>
                         <td><?= Html::encode($groundReceipt->DOCUMENTNUMBER) ?></td>
                         <td><?= Yii::$app->formatter->asDate($groundReceipt->DOCUMENTDATE, $dateFormat) ?></td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </table>
         </td>
     </tr>
@@ -192,7 +190,8 @@ Yii::$app->formatter->nullDisplay = '';
     </tr>
 </table>
 
-<?= $this->render(
+<?= // Вывести колонтитул
+    $this->render(
     '_bottom',
     [
         'typeModel' => $typeModel,

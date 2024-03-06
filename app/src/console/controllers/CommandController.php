@@ -15,11 +15,8 @@ use yii\console\Controller;
  */
 class CommandController extends Controller
 {
-
     /**
-     * Help message
-     *
-     * @return integer Return success exit code.
+     * Метод выводит текст подсказки
      */
     public function actionIndex()
     {
@@ -35,7 +32,7 @@ class CommandController extends Controller
      * @param string $paramValue  Command param value
      * @return integer Return exit code. 0 - success, 1 - error.
      */
-    public function actionAdd($command = NULL, $entity = NULL, $paramName = NULL, $paramValue = NULL)
+    public function actionAdd($command = null, $entity = null, $paramName = null, $paramValue = null)
     {
         if (is_null($command)) {
             echo "Command is empty\n";
@@ -70,15 +67,15 @@ class CommandController extends Controller
      * @param integer $commandId Command ID
      * @return intger Return exit code. 0 - success, 1 - error.
      */
-    public function actionPerform($commandId = NULL)
+    public function actionPerform($commandId = null)
     {
-        if(is_null($commandId)){
+        if (is_null($commandId)){
             echo "Command ID is empty\n";
             return self::EXIT_CODE_NORMAL;
         }
 
         $result = Yii::$app->commandBus->perform($commandId);
-        if(!$result){
+        if (!$result){
             echo "Perform command status: error. See information in log\n";
             return self::EXIT_CODE_ERROR;
         }

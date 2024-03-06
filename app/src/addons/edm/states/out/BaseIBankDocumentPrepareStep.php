@@ -69,12 +69,15 @@ abstract class BaseIBankDocumentPrepareStep extends BaseDocumentStep
             $senderTerminalId = $this->state->sender;
             $recipientTerminalId = $this->getRecipientTerminalId($ibankDocument, $senderTerminalId);
             $converter = $this->createConverter($ibankDocument->getType(), $recipientTerminalId);
+
+            // Создать тайп-модель
             $typeModel = $converter->createTypeModel(
                 $ibankDocument,
                 $senderTerminalId,
                 $recipientTerminalId,
                 $this->state->attachmentsPaths
             );
+            // Атрибуты расширяющей модели
             $extModelAttributes = $converter->createExtModelAttributes($typeModel);
 
             $extModelClass = $converter->getExtModelClass();
@@ -185,6 +188,7 @@ abstract class BaseIBankDocumentPrepareStep extends BaseDocumentStep
     protected function sendDocument(BaseType $typeModel, $senderTerminalId, $recipientTerminalId, $accountNumber, $extModelAttributes)
     {
         $terminalId = Terminal::getIdByAddress($senderTerminalId);
+        // Атрибуты документа
         $docAttributes = [
             'sender'     => $senderTerminalId,
             'receiver'   => $recipientTerminalId,
@@ -200,12 +204,13 @@ abstract class BaseIBankDocumentPrepareStep extends BaseDocumentStep
             $docAttributes['signaturesRequired'] = $account->requireSignQty;
         }
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext($typeModel, $docAttributes, $extModelAttributes);
 
         if (!$context) {
             throw new \Exception(\Yii::t('app', 'Save document error'));
         }
-
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($context['document'], true);
     }
 

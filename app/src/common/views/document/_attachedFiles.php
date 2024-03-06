@@ -4,7 +4,7 @@ use common\widgets\GridView;
 use yii\helpers\Html;
 
 /** @var \yii\web\View $this */
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'id' => 'attached-files-grid-view',
     'dataProvider' => new ArrayDataProvider([

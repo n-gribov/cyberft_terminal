@@ -76,7 +76,8 @@ class DocumentController extends BaseServiceController
                     ],
                     [
                         'allow'   => true,
-                        'actions' => ['download-attachment', 'delete'] // access is checked in common\actions\documents\DeleteAction
+                        // access is checked in common\actions\documents\DeleteAction
+                        'actions' => ['download-attachment', 'delete'] 
                     ]
                 ],
             ],
@@ -141,6 +142,7 @@ class DocumentController extends BaseServiceController
                 ];
 
                 $queryParams = http_build_query($params);
+                // Перенаправить на страницу индекса
                 $this->redirect(Url::toRoute(['/document/index?' . $queryParams]));
             }
         }
@@ -156,16 +158,17 @@ class DocumentController extends BaseServiceController
 
         $filterStatus = count($nonEmptySearchParamsValues) > 0;
 
+        // Вывести страницу
         return $this->render(
-			'index',
-			[
+            'index',
+            [
                 'searchModel'  => $searchModel,
                 'dataProvider' => $dataProvider,
                 'filterStatus' => $filterStatus,
-				'urlParams'    => $this->getSearchUrl('DocumentSearch'),
+                'urlParams'    => $this->getSearchUrl('DocumentSearch'),
                 'listType' => 'documentCommon'
-			]
-		);
+            ]
+        );
     }
 
     /**
@@ -184,6 +187,7 @@ class DocumentController extends BaseServiceController
 
         $filterStatus = count($nonEmptySearchParamsValues) > 0;
 
+        // Вывести страницу
         return $this->render(
             'errors',
             [
@@ -196,16 +200,17 @@ class DocumentController extends BaseServiceController
         );
     }
 
-	public function actionView($id, $mode = '')
-	{
-		$model = $this->findModel($id);
+    public function actionView($id, $mode = '')
+    {
+        // Получить из БД документ с указанным id
+        $model = $this->findModel($id);
 
-		$referencingDataProvider = new ActiveDataProvider([
-			'query' => $model->findReferencingDocuments(),
-			'pagination' => [
-				'pageSize' => 20,
-			],
-		]);
+        $referencingDataProvider = new ActiveDataProvider([
+            'query' => $model->findReferencingDocuments(),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
 
         // (CYB-4587) Временный костыль: при открытии camt отображаем вьюху для выписок, а не для ISO20022
         if (in_array($model->type, [
@@ -230,7 +235,7 @@ class DocumentController extends BaseServiceController
             ])
             ->one();
 
-        // Регистрация события просмотра документа
+        // Зарегистрировать событие просмотра документа
         // только если это новый просмотр (т.е. не переход по вкладкам)
 
         if (empty($mode)) {
@@ -248,6 +253,7 @@ class DocumentController extends BaseServiceController
                     $model->save(false, ['viewed']);
                 }
 
+                // Зарегистрировать событие просмотра документа в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'user:viewDocument',
                     'document',
@@ -260,16 +266,17 @@ class DocumentController extends BaseServiceController
             }
         }
 
-		return $this->render('view', [
-			'model' => $model,
-			'mode' => $mode,
-			'dataView' => $dataView,
+        // Вывести страницу
+        return $this->render('view', [
+            'model' => $model,
+            'mode' => $mode,
+            'dataView' => $dataView,
             'actionView' => $actionView,
             'autobot' => $autobot,
-			'urlParams' => $this->getSearchUrl('DocumentSearch'),
-			'referencingDataProvider' => $referencingDataProvider
-		]);
-	}
+            'urlParams' => $this->getSearchUrl('DocumentSearch'),
+            'referencingDataProvider' => $referencingDataProvider
+        ]);
+    }
 
     /**
      * List of documents for sending
@@ -294,6 +301,7 @@ class DocumentController extends BaseServiceController
 
         $dataProvider = $searchModel->searchForVerification($queryParams);
 
+        // Вывести страницу
         return $this->render('forControllerVerification',
         [
             'searchModel'  => $searchModel,
@@ -307,6 +315,7 @@ class DocumentController extends BaseServiceController
 
     public function actionVerify()
     {
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $action = Yii::$app->request->post('action', 'reject');
             $status = $action == 'reject' ? Document::STATUS_CONTROLLER_VERIFICATION_FAIL : Document::STATUS_FOR_MAIN_AUTOSIGNING;
@@ -320,8 +329,10 @@ class DocumentController extends BaseServiceController
             $this->clearCheckedDocuments();
 
             if (empty($checkedDocuments)) {
+                // Поместить в сессию флаг сообщения об отсутствии помеченных документов
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Documents not selected'));
 
+                // Перенаправить на страницу индекса
                 return $this->redirect(['controller-verification']);
             }
 
@@ -332,13 +343,15 @@ class DocumentController extends BaseServiceController
             ]);
 
             if (is_null($autobot)) {
+                // Перенаправить на страницу индекса
                 return $this->redirect(['controller-verification']);
             }
 
             foreach ($checkedDocuments as $docId) {
+                // Получить из БД документ с указанным id
                 $doc = $this->findModel($docId);
 
-                if (is_null($doc) || $doc->sender !== $autobot->terminalId) {
+                if ($doc->sender !== $autobot->terminalId) {
                     continue;
                 }
 
@@ -348,6 +361,7 @@ class DocumentController extends BaseServiceController
             }
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect(['controller-verification']);
     }
 
@@ -388,27 +402,33 @@ class DocumentController extends BaseServiceController
      */
     public function actionCorrection()
     {
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
-            $model             = new DocumentCorrectionForm();
+            $model = new DocumentCorrectionForm();
             $model->documentId = \Yii::$app->request->post('documentId');
             $model->load(\Yii::$app->request->post());
             if ($model->validate() && $model->toCorrection(\Yii::$app->user->id)) {
+                // Поместить в сессию флаг сообщения об успешной передаче документа на корректировку
                 Yii::$app->session->setFlash('success', \Yii::t('doc', 'The document was sent for correction'));
-
-                return $this->redirect(['index']);
+                // Перенаправить на страницу индекса
+                return $this->redirect('index');
             }
 
+            // Поместить в сессию флаг сообщения об ошибке передачи документа на корректировку
             Yii::$app->session->setFlash('error', \Yii::t('doc', 'The document was not sent for correction'));
 
+            // Перенаправить на страницу просмотра
             return $this->redirect(['view', ['id' => $model->documentId]]);
         }
 
         $referer = Url::previous('edit');
 
         if (empty($referer)) {
-            return $this->redirect(['index']);
+            // Перенаправить на страницу индекса
+            return $this->redirect('index');
         }
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect([$referer]);
     }
 
@@ -418,13 +438,9 @@ class DocumentController extends BaseServiceController
          * Если мы пытаемся скачать вложение в ISO-шном документе из раздела "Документы",
          * нужно перенаправлять на соответствующий action
          */
+        // Перенаправить на страницу скачивания файла
         return $this->redirect(['/'.$mode.'/documents/download-attachment', 'id' => $id]);
     }
-
-	protected function findModel($id)
-	{
-		return Yii::$app->terminalAccess->findModel(Document::className(), $id);
-	}
 
     public function actionSaveColumnSettings()
     {
@@ -448,8 +464,10 @@ class DocumentController extends BaseServiceController
             $record->settingsData = $settings;
         }
 
+        // Сохранить модель в БД
         $record->save();
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -491,6 +509,7 @@ class DocumentController extends BaseServiceController
         $model = new ImportError();
         $searchModel = new ImportErrorSearch();
 
+        // Вывести страницу
         return $this->render('importErrors', [
             'dataProvider' => $searchModel->search(Yii::$app->request->queryParams),
             'searchModel' => $searchModel,
@@ -501,9 +520,11 @@ class DocumentController extends BaseServiceController
 
     public function actionGetStatuses()
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $documentsIds = Yii::$app->request->post('ids', []);
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $documents = Yii::$app->terminalAccess
             ->query(Document::className(), ['id' => $documentsIds])
             ->all();
@@ -543,4 +564,15 @@ class DocumentController extends BaseServiceController
             $documents
         );
     }
+
+    /**
+     * Метод ищет модель документа в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
+    protected function findModel($id)
+    {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
+        return Yii::$app->terminalAccess->findModel(Document::className(), $id);
+    }
+
 }

@@ -137,9 +137,9 @@ class CommandBus extends Component
                 return false;
             }
 
-
-            $result = $commandAccept->save();
-            if (!$result) {
+            // Сохранить модель в БД
+            $isSaved = $commandAccept->save();
+            if (!$isSaved) {
                 $this->log('Add command accept status: error. Info[' . json_encode($commandAccept->getErrors()) . ']');
                 return false;
             }
@@ -190,8 +190,9 @@ class CommandBus extends Component
         $commandAR->status = ($result === false) ? CommandAR::STATUS_FAILED : CommandAR::STATUS_EXECUTED;
         $commandAR->setResultData($result);
 
-        $saveResult = $commandAR->save();
-        if (!$saveResult) {
+        // Сохранить модель в БД
+        $isSaved = $commandAR->save();
+        if (!$isSaved) {
             $this->log('Save command result status: error['.json_encode($commandAR->getErrors()).']');
 
             return false;
@@ -279,6 +280,7 @@ class CommandBus extends Component
 
         $commandAR->status = CommandAR::STATUS_NOT_ACCEPTED;
 
+        // Сохранить модель в БД и вернуть результат сохранения
         return $commandAR->save();
     }
 

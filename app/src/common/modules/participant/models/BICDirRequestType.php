@@ -74,10 +74,14 @@ class BICDirRequestType extends BaseType
         $this->setStartDate((string) $this->_xmlDom->StartDate);
     }
 
-	public function getSearchFields()
-	{
-		return false;
-	}
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields()
+    {
+        return false;
+    }
 
     public function setStartDate($str)
     {

@@ -23,6 +23,7 @@ class m160609_073329_convert_settings_from_redis_to_mysql extends Migration
         $redisSettings = $redis->get($key);
         $redisSettings = unserialize($redisSettings);
         $module->settings->setAttributes($redisSettings);
+        // Сохранить настройки в БД
         $module->settings->save();
 
         return true;

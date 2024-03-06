@@ -51,9 +51,9 @@ if (!isset($fieldGroups) || !is_array($fieldGroups)) {
 	return;
 } ?>
 <?php // Цикл по всем возможным опциям, представленным группами полей
-foreach ($radioList as $optionName => $optionValue):?>
+foreach ($radioList as $optionName => $optionValue) : ?>
 	<?php
-	if (isset($fieldGroups[$optionName]) && is_array($fieldGroups[$optionName])):?>
+	if (isset($fieldGroups[$optionName]) && is_array($fieldGroups[$optionName])) : ?>
 		<?=$form->beginField($model, $name.$optionName, [
 			'options' => [
 				'data-bind' => $name.$nameSuffix.$optionName,
@@ -65,7 +65,7 @@ foreach ($radioList as $optionName => $optionValue):?>
 			<div class="input-group">
 				<span class="input-group-addon"><?=$model->getAttributeTag($name.$optionName)?></span>
 				<?php // Цикл по всем полям, составляющим группу полей, соответствующую опции
-				foreach ($fieldGroups[$optionName] as $index => $myCurrentField):?>
+				foreach ($fieldGroups[$optionName] as $index => $myCurrentField) : ?>
 					<?php // Выбор типа поля, которое требуется сгененрировать
 					switch ($myCurrentField['type']) {
 						case 'text': // Текстовое поле
@@ -89,9 +89,9 @@ foreach ($radioList as $optionName => $optionValue):?>
 							]);
 							break;
 					}?>
-				<?php endforeach; ?>
+				<?php endforeach ?>
 			</div>
 		</div>
 		<?=$form->endField()?>
-	<?php endif; ?>
-<?php endforeach; ?>
+	<?php endif ?>
+<?php endforeach ?>

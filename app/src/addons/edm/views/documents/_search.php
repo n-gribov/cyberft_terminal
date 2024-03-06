@@ -42,13 +42,12 @@ use yii\widgets\ActiveForm as ActiveForm2;
         ]
     );
 
-
     // Получение номера виджета помощи в зависимости от страницы
     $widgetId = null;
 
     if ($model instanceOf StatementSearch) {
         $widgetId = 'edm-statement-journal';
-    } elseif ($model instanceOf ForeignCurrencyOperationSearch) {
+    } else if ($model instanceOf ForeignCurrencyOperationSearch) {
         $widgetId = 'edm-foreign-currency-operation-journal';
     }
 
@@ -67,7 +66,7 @@ $this->registerCss('
     }
 ');
 
-$script = <<< JS
+$script = <<<JS
     // Вызов модальной формы поиска по журналу выписок
     $('.btn-find-modal').on('click', function(e) {
         e.preventDefault();
@@ -77,4 +76,3 @@ JS;
 //маркер конца строки, обязательно сразу, без пробелов и табуляции
 $this->registerJs($script, View::POS_READY);
 
-?>

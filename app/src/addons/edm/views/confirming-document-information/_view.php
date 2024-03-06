@@ -73,7 +73,7 @@ Yii::$app->formatter->nullDisplay = '';
             </tr>
             </thead>
             <tbody>
-            <?php foreach($model->items as $index => $document): ?>
+            <?php foreach($model->items as $index => $document) : ?>
                 <tr>
                     <td><?= $index + 1 ?></td>
                     <td><?=$document->number?></td>
@@ -88,7 +88,7 @@ Yii::$app->formatter->nullDisplay = '';
                     <td><?= $document->numericCountryCode ?></td>
                     <td><?= $document->originalDocumentDate ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tbody>
         </table>
     </div>
@@ -109,18 +109,18 @@ Yii::$app->formatter->nullDisplay = '';
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($model->items as $index => $document): ?>
+            <?php foreach ($model->items as $index => $document) : ?>
                 <tr>
                     <td><?= $index + 1 ?></td>
                     <td><?= $document->comment ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tbody>
         </table>
     </div>
 </div>
 
-<?php if ($attachedFiles && array_merge(...$attachedFiles)): ?>
+<?php if ($attachedFiles && array_merge(...$attachedFiles)) : ?>
     <div class="row">
         <div class="col-sm-12">
             <h4 class="color-black"><?= Yii::t('edm', 'Attached documents') ?></h4>
@@ -129,8 +129,8 @@ Yii::$app->formatter->nullDisplay = '';
     <div class="row margin-bottom-25">
         <div class="col-sm-12">
             <ul>
-                <?php foreach (array_keys($model->items) as $itemIndex): ?>
-                    <?php foreach ($attachedFiles[$itemIndex] as $fileIndex => $attachedFile): ?>
+                <?php foreach (array_keys($model->items) as $itemIndex) : ?>
+                    <?php foreach ($attachedFiles[$itemIndex] as $fileIndex => $attachedFile) : ?>
                         <li>
                             <?= Html::a(
                                 $attachedFile->name,
@@ -142,20 +142,21 @@ Yii::$app->formatter->nullDisplay = '';
                                 ]
                             ) ?>
                         </li>
-                    <?php endforeach; ?>
-                <?php endforeach; ?>
+                    <?php endforeach ?>
+                <?php endforeach ?>
             </ul>
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
-<?php if ($signatures): ?>
+<?php if ($signatures) : ?>
     <div class="row">
         <div class="col-sm-12">
-            <?= $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
+            <?= // Вывести блок подписей
+                $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
 <?php
 

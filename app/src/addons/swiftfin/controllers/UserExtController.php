@@ -22,26 +22,26 @@ class UserExtController extends BaseUserExtController
     private $_user;
 
     public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => ['commonUsers'],
-					],
-				],
-			],
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['post'],
-					'update' => ['post'],
-				],
-			],
-		];
-	}
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['commonUsers'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                    'update' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Get user extened data
@@ -49,8 +49,8 @@ class UserExtController extends BaseUserExtController
      * @param integer $id User ID
      * @return mixed
      */
-	public function actionIndex($id)
-	{
+    public function actionIndex($id)
+    {
         // Пользователю-администратору нельзя
         // давать возможность выбирать swiftfin-роль
 
@@ -74,61 +74,70 @@ class UserExtController extends BaseUserExtController
             throw new \yii\web\HttpException('404');
         }
 
-		$extModel = $this->getUserExtModel($id);
+        $extModel = $this->getUserExtModel($id);
 
-		$dataProvider = new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'query' => SwiftFinUserExtAuthorization::find()->where(['userExtId' => $extModel->id])
-		]);
+        ]);
 
-		$model = new SwiftFinUserExtAuthorization(['userExtId' => $extModel->id]);
+        $model = new SwiftFinUserExtAuthorization(['userExtId' => $extModel->id]);
 
-		return $this->render('index', [
-			'model'          => $model,
-			'extModel'       => $extModel,
-			'dataProvider'   => $dataProvider,
-			'currencySelect' => Currencies::getCodeLabels(),
-			'docTypeSelect'  => $this->getDocumentTypes(),
+        // Вывести страницу
+        return $this->render('index', [
+            'model'          => $model,
+            'extModel'       => $extModel,
+            'dataProvider'   => $dataProvider,
+            'currencySelect' => Currencies::getCodeLabels(),
+            'docTypeSelect'  => $this->getDocumentTypes(),
             'serviceName'    => $this->getServiceName()
-		]);
-	}
+        ]);
+    }
 
-	public function actionUpdateRole()
-	{
-		$id = (int) Yii::$app->request->post('id');
-		$extModel = SwiftFinUserExt::findOne($id);
+    public function actionUpdateRole()
+    {
+        $id = (int) Yii::$app->request->post('id');
+        $extModel = SwiftFinUserExt::findOne($id);
 
         if (empty($extModel)) {
+            // Поместить в сессию флаг сообщения о ненайденном пользователе
             Yii::$app->session->setFlash('error', Yii::t('app/user', 'Unknown user - data was not updated'));
+            // Перенаправить на страницу индекса
             return $this->redirect(['/user']);
         }
 
         if (UserHelper::canUpdateProfile($extModel->userId)) {
 
             if (!empty($extModel)) {
+                // Загрузить данные модели из формы в браузере
                 $extModel->load(Yii::$app->request->post());
+                // Сохранить модель в БД
                 $extModel->save();
                 if ($extModel->role == SwiftFinUserExt::ROLE_PREAUTHORIZER) {
                     $result = SwiftFinUserExt::find()
                         ->where(['role' => SwiftFinUserExt::ROLE_AUTHORIZER])->one();
                     if (empty($result)) {
+                        // Поместить в сессию флаг сообщения о необходимости авторизующего пользователя
                         Yii::$app->session->setFlash(
                             'warning',
                             Yii::t(
                                 'app/user',
-                                'At least one authorizer is needed for preliminary authorizers to be effective')
+                                'At least one authorizer is needed for preliminary authorizers to be effective'
+                            )
                         );
                     }
 
                     UserHelper::sendUserToSecurityOfficersAcceptance($extModel->userId);
                 }
 
-                // Регистрация события смены swift-роли пользователя
+                // Зарегистрировать событие смены swift-роли пользователя в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('EditSwiftUserSettings', ['id' => $extModel->userId]);
             }
         } else {
+            // Поместить в сессию флаг сообщения о запрете редактирования пользователя
             Yii::$app->session->addFlash('error', Yii::t('app/user', 'Editing user is not allowed'));
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect(['index', 'id' => $extModel->userId]);
     }
 
@@ -137,15 +146,18 @@ class UserExtController extends BaseUserExtController
      *
      * @return mixed
      */
-	public function actionUpdateRoleSettings()
-	{
-		$model = new SwiftFinUserExtAuthorization();
-		$model->load(Yii::$app->request->post());
+    public function actionUpdateRoleSettings()
+    {
+        $model = new SwiftFinUserExtAuthorization();
+        // Загрузить данные модели из формы в браузере
+        $model->load(Yii::$app->request->post());
         $extModel = SwiftFinUserExt::findOne($model->userExtId);
 
         if (empty($extModel)) {
+            // Поместить в сессию флаг сообщения о ненайденном пользователе
             Yii::$app->session->setFlash('error', Yii::t('app/user', 'Unknown user - data was not updated'));
 
+            // Перенаправить на страницу индекса
             return $this->redirect(['/user']);
         }
 
@@ -153,6 +165,7 @@ class UserExtController extends BaseUserExtController
             if (!$model->validate()) {
                 $errors = $model->getErrors();
                 foreach ($errors as $attr => $message) {
+                    // Поместить в сессию флаг сообщения об ошибке
                     Yii::$app->session->setFlash(
                         'error',
                         $model->getAttributeLabel($attr) . ': ' . implode('<br>', $message)
@@ -168,21 +181,30 @@ class UserExtController extends BaseUserExtController
                 ]);
 
                 if (empty($result)) {
+                    // Если модель успешно сохранена в БД
                     if ($model->save()) {
                         UserHelper::sendUserToSecurityOfficersAcceptance($extModel->userId);
                     } else {
+                        // Поместить в сессию флаг сообщения об ошибке сохранения настроек пользователя
                         Yii::$app->session->setFlash('error', Yii::t('app/user', 'Failed to save user settings'));
                     }
                 } else {
+                    // Поместить в сессию флаг сообщения об уже заданных условиях
                     Yii::$app->session->setFlash('info', Yii::t('app/user', 'These conditions are already defined'));
                 }
             }
         } else {
+            // Поместить в сессию флаг сообщения о запрете редактирования пользователя
             Yii::$app->session->addFlash('error', Yii::t('app/user', 'Editing user is not allowed'));
         }
 
-        return $this->redirect(['index', 'id' => $extModel->userId, 'tabMode' => Yii::$app->request->post('tabMode')]);
-	}
+        // Перенаправить на страницу индекса
+        return $this->redirect([
+            'index',
+            'id' => $extModel->userId,
+            'tabMode' => Yii::$app->request->post('tabMode')
+        ]);
+    }
 
     /**
      * Delete role setting
@@ -191,26 +213,28 @@ class UserExtController extends BaseUserExtController
      * @param string  $tabMode Tab mode
      * @return mixed
      */
-	public function actionDeleteRoleSetting($userId, $id, $tabMode = '')
-	{
-		$model = SwiftFinUserExtAuthorization::findOne($id);
-		if (!empty($model)) {
+    public function actionDeleteRoleSetting($userId, $id, $tabMode = '')
+    {
+        $model = SwiftFinUserExtAuthorization::findOne($id);
+        if (!empty($model)) {
             $userExt = SwiftFinUserExt::findOne($model->userExtId);
             if (!empty($userExt) && $userExt->userId == $userId) {
-    			$model->delete();
+                // Удалить документ из БД
+                $model->delete();
                 $this->setApproveCommand($userId);
             }
-		}
+        }
 
-		return $this->redirect(['index', 'id' => $userId, 'tabMode' => $tabMode]);
-	}
+        // Перенаправить на страницу индекса
+        return $this->redirect(['index', 'id' => $userId, 'tabMode' => $tabMode]);
+    }
 
-	public function getDocumentTypes()
-	{
-		$documentTypes = array_keys(Yii::$app->registry->getModuleTypes($this->module->serviceId));
+    public function getDocumentTypes()
+    {
+        $documentTypes = array_keys(Yii::$app->registry->getModuleTypes($this->module->serviceId));
 
         return array_combine($documentTypes, $documentTypes);
-	}
+    }
 
     /**
      * Set user ID
@@ -254,8 +278,7 @@ class UserExtController extends BaseUserExtController
 
         $this->_user->updateStatus(User::STATUS_APPROVE);
 
-        $lastCommand = Yii::$app->commandBus->findCommandId('UserSettingApprove',
-            [
+        $lastCommand = Yii::$app->commandBus->findCommandId('UserSettingApprove', [
             'entityId' => $userId,
             'status'   => CommandAR::STATUS_FOR_ACCEPTANCE
         ]);

@@ -5,19 +5,17 @@ use yii\widgets\ActiveForm;
 use yii\web\View;
 
 $form = ActiveForm::begin();
-
 ?>
-
 <div class="form-group">
     <div class="row">
         <div class="col-md-8">
             <div class="terminals-block">
                 <?php
+                // Получить модель пользователя из активной сессии
+                $adminIdentity = Yii::$app->user->identity;
 
                 // Если пользователь доп. администратор и открывает собственную страницу,
                 // не отображаем форму выбора терминалов
-                $adminIdentity = Yii::$app->user->identity;
-
                 if (($adminIdentity->role == User::ROLE_ADMIN) ||
                     ($adminIdentity->role == User::ROLE_ADDITIONAL_ADMIN && $adminIdentity->id != $model->id)) {
                     echo $this->render('@backend/views/user/terminals/_userTerminalList', [
@@ -31,11 +29,8 @@ $form = ActiveForm::begin();
         </div>
     </div>
 </div>
-
-<?php ActiveForm::end();?>
-
 <?php
-
+ActiveForm::end();
 $this->registerJs(<<<JS
 
 // События добавления нового терминала пользователя
@@ -83,16 +78,10 @@ function renderHtmlTerminalAnswer(html) {
      $('.terminals-block').find('[name="_csrf"]').detach();
 }
 
-JS
-    , View::POS_READY);
+JS, View::POS_READY);
 
-$this->registerCss(
-    "#add-user-terminal {
+$this->registerCss(<<<CSS
+    #add-user-terminal {
       margin-top: 22px;
-    }"
-);
-
-
-
-
-?>
+    }
+CSS);

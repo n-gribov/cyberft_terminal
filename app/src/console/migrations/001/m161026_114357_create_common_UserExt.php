@@ -32,6 +32,7 @@ class m161026_114357_create_common_UserExt extends Migration
             $commonExtUser->userId = $user->id;
             $commonExtUser->type = CommonUserExt::CERTIFICATES;
             $commonExtUser->canAccess = 1;
+            // Сохранить модель в БД
             $commonExtUser->save();
         }
     }

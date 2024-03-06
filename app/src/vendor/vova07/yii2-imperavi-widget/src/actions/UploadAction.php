@@ -119,6 +119,7 @@ class UploadAction extends Action
      */
     public function run()
     {
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $file = UploadedFile::getInstanceByName($this->uploadParam);
             $model = new DynamicModel(compact('file'));

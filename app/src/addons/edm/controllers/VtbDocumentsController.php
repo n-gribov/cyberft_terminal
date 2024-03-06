@@ -64,6 +64,7 @@ class VtbDocumentsController extends BaseServiceController
         $cancellationForm = new VTBPrepareCancellationRequestForm(['document' => $document]);
         $isPrintable = $this->isPrintableDocument($document);
 
+        // Вывести страницу
         return $this->render(
             'view',
             compact('document', 'bsDocument', 'cancellationForm', 'isPrintable')
@@ -80,6 +81,7 @@ class VtbDocumentsController extends BaseServiceController
         $statusReportsData = new DocumentStatusReportsData($document);
         $view = $this->getPrintableView($document);
 
+        // Вывести страницу
         return $this->render(
             "print/$view",
             compact('typeModel', 'senderOrganization', 'statusReportsData')
@@ -105,6 +107,7 @@ class VtbDocumentsController extends BaseServiceController
         $senderOrganization = DictOrganization::findOne(['terminalId' => $document->terminalId]);
         $statusReportsData = new DocumentStatusReportsData($document);
 
+        // Вывести страницу
         return $this->render(
             'print/pay-doc-cur',
             compact('typeModel', 'senderOrganization', 'statusReportsData')
@@ -126,6 +129,7 @@ class VtbDocumentsController extends BaseServiceController
 
         $bsDocument = $vtbRegisterCur->paymentOrders[$paymentIndex]->document;
 
+        // Вывести страницу
         return $this->render('viewRegisterCurPayDocCur', compact('document', 'bsDocument'));
     }
 
@@ -198,6 +202,7 @@ class VtbDocumentsController extends BaseServiceController
 
     private function findDocument($id): Document
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
         $this->authorizePermission(
             DocumentPermission::VIEW,
@@ -217,7 +222,6 @@ class VtbDocumentsController extends BaseServiceController
 
     private function extractTypeModel(Document $document): BaseType
     {
-
         /** @var VTBPrepareCancellationRequestExt $prepareRequestExt */
         $prepareRequestExt = $prepareRequestDocument->extModel;
 
@@ -260,6 +264,7 @@ class VtbDocumentsController extends BaseServiceController
 
         $senderTerminal = Terminal::findOne(['terminalId' => $targetDocument->sender]);
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             [
@@ -284,7 +289,9 @@ class VtbDocumentsController extends BaseServiceController
             throw new Exception('Failed to create document context');
         }
 
+        // Получить документ из контекста
         $requestDocument = $context['document'];
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($requestDocument, true);
 
         return $requestDocument;

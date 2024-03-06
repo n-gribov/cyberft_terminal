@@ -9,35 +9,36 @@ use yii\filters\AccessControl;
 
 class LogController extends BaseServiceController
 {
-	public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => ['admin'],
-					],
-				],
-			],
-		];
-	}
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
-        $query = $logRecord = SBBOLRequestLogRecord::find()
-            ->orderBy(['id' => SORT_DESC]);
+        $query = SBBOLRequestLogRecord::find()->orderBy(['id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort'  => false,
         ]);
 
+        // Вывести страницу
         return $this->render(
             'index',
             ['dataProvider' => $dataProvider]
         );
     }
-
 }

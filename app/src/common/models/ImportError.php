@@ -119,6 +119,7 @@ class ImportError extends ActiveRecord
             $error->errorDescriptionData = $params['errorDescriptionData'];
         }
 
+        // Сохранить модель в БД
         return $error->save();
     }
 

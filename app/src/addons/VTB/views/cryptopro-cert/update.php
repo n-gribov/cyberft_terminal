@@ -18,8 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?=Html::a(Yii::t('app', 'Back'), Yii::$app->request->referrer, ['class' => 'btn btn-default']);?>
     </p>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <?= // Вывести форму
+        $this->render('_form', ['model' => $model]) ?>
 
 </div>

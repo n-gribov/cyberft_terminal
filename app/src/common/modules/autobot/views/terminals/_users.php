@@ -1,12 +1,9 @@
 <?php
 
-use backend\models\search\UserSearch;
 use common\helpers\DateHelper;
 use common\helpers\Html;
 use common\models\User;
 use common\widgets\GridView;
-use yii\data\ActiveDataProvider;
-use yii\web\View;
 use yii\helpers\Url;
 
 $searchModel = $data['searchModel'];
@@ -14,22 +11,21 @@ $dataProvider = $data['dataProvider'];
 $terminalId = $data['terminalId'];
 
 
-// Очистка кэша обратной ссылки для настроек пользователя
+// Очистить кэш обратной ссылки для настроек пользователя
 if (Yii::$app->cache->exists('user/settings-' . Yii::$app->session->id)) {
     Yii::$app->cache->delete('user/settings-' . Yii::$app->session->id);
 }
-
 ?>
-
 <p>
     <?= Html::a(Yii::t('app', 'Create'), ['/user/create?addTerminalId=' . $terminalId], ['class' => 'btn btn-success']) ?>
 </p>
-
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'rowOptions'	=> function($model, $key, $index, $grid) {
-        if(User::STATUS_DELETED === $model->status) {
+        if (User::STATUS_DELETED === $model->status) {
             return ['class'=>'danger'];
         }
         return[];
@@ -85,4 +81,5 @@ if (Yii::$app->cache->exists('user/settings-' . Yii::$app->session->id)) {
             ]
         ]
     ],
-]); ?>
+]);
+

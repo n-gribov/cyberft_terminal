@@ -23,6 +23,7 @@ class m170421_074803_set_additional_administrators extends Migration
             }
 
             $user->role = User::ROLE_ADDITIONAL_ADMIN;
+            // Сохранить модель в БД
             $user->save();
         }
 

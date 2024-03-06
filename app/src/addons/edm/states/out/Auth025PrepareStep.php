@@ -37,7 +37,7 @@ final class Auth025PrepareStep extends ISO20022DocumentPrepareStep
             $document = $this->createDocument($typeModel);
             $extModel = $this->createExtModel($typeModel, $document->id);
             $this->saveExtModel($extModel);
-
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($document, true);
 
             $transaction->commit();
@@ -88,7 +88,9 @@ final class Auth025PrepareStep extends ISO20022DocumentPrepareStep
     {
         $bank = $this->getReceiverBank($typeModel);
         if (empty($bank->terminalId)) {
-            throw new \DomainException(Yii::t('edm', 'Bank with BIK {bik} does not have terminal id'), ['bik' => $bank->bik]);
+            throw new \DomainException(
+                Yii::t('edm', 'Bank with BIK {bik} does not have terminal id', ['bik' => $bank->bik])
+            );
         }
         return $bank->terminalId;
     }
@@ -97,7 +99,7 @@ final class Auth025PrepareStep extends ISO20022DocumentPrepareStep
     {
         $terminal = Terminal::findOne(['terminalId' => $typeModel->sender]);
 
-        $documentContext = FCCHelper::createCyx(
+        $documentContext = FCCHelper::createCyberXml(
             $typeModel,
             [
                 'sender'     => $terminal->terminalId,
@@ -156,7 +158,7 @@ final class Auth025PrepareStep extends ISO20022DocumentPrepareStep
         $this->saveImportError($errorMessage);
     }
 
-    private function saveImportError($errorMessage): void
+    protected function saveImportError($errorMessage, $documentNumber = null): void
     {
         $importErrorMessage = Yii::t(
             'edm',
@@ -264,6 +266,7 @@ final class Auth025PrepareStep extends ISO20022DocumentPrepareStep
 
     private function saveExtModel(ConfirmingDocumentInformationExt $extModel): void
     {
+        // Сохранить модель в БД
         $isSaved = $extModel->save();
         if (!$isSaved) {
             throw new \Exception('Failed to save ' . get_class($extModel) . ' to database');
@@ -273,6 +276,7 @@ final class Auth025PrepareStep extends ISO20022DocumentPrepareStep
     private function addZipContent(Auth025Type $typeModel): void
     {
         if ($this->state->isImportingZipArchive) {
+            // Использовать сжатие в zip
             $typeModel->useZipContent = true;
             $typeModel->zipContent = file_get_contents($this->state->filePath);
             $typeModel->zipFilename = basename($this->state->filePath);

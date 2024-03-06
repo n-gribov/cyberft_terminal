@@ -41,7 +41,7 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-	const PASSWORD_LENGTH   = 12;
+    const PASSWORD_LENGTH   = 12;
     const STATUS_DELETED    = 0;
     const STATUS_ACTIVE     = 10;
     const STATUS_ACTIVATING = 5;
@@ -72,7 +72,7 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_ADDITIONAL_ADMIN = 100;
     const ROLE_USER           = 10;
 //	const ROLE_SIGNER = 20;
-	const ROLE_CONTROLLER     = 30;
+    const ROLE_CONTROLLER     = 30;
     const ROLE_LSO            = 50;
     const ROLE_RSO            = 60;
 //    const ROLE_EDM_OPERATOR   = 40;
@@ -82,51 +82,48 @@ class User extends ActiveRecord implements IdentityInterface
     public $terminalsList;
 
     /**
-	 * @inheritdoc
-	 */
-	public function behaviors()
-	{
-		return [
-			TimestampBehavior::className(),
-		];
-	}
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName()
-	{
-		return 'user';
-	}
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'user';
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules()
-	{
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['failedLoginCount', 'default', 'value' => 0],
             ['status', 'in', 'range' => array_keys($this->getStatusLabels())],
-
-			['authType', 'default', 'value' => self::AUTH_TYPE_PASSWORD],
-			['authType', 'in', 'range' => array_keys($this->getAuthTypeLabels())],
-
-			['isReset', 'default', 'value' => self::IS_RESET_FALSE],
-			['isReset', 'in', 'range' => [self::IS_RESET_FALSE, self::IS_RESET_TRUE]],
-			['disableTerminalSelect', 'boolean'],
-
-			['role', 'default', 'value' => self::ROLE_USER],
+            ['authType', 'default', 'value' => self::AUTH_TYPE_PASSWORD],
+            ['authType', 'in', 'range' => array_keys($this->getAuthTypeLabels())],
+            ['isReset', 'default', 'value' => self::IS_RESET_FALSE],
+            ['isReset', 'in', 'range' => [self::IS_RESET_FALSE, self::IS_RESET_TRUE]],
+            ['disableTerminalSelect', 'boolean'],
+            ['role', 'default', 'value' => self::ROLE_USER],
             ['role', 'in', 'range' => array_keys($this->getEditableRoleLabels()), 'except' => ['setPassword', 'create', 'install']],
             ['role', 'in', 'range' => array_keys($this->getRoleLabels()), 'on' => ['setPassword', 'create', 'install']],
             [['signatureNumber', 'signatureLevel', 'failedLoginCount'], 'integer'],
             ['signatureNumber', 'in', 'range' => array_keys($this->getSignatureNumberLabels())],
             ['signatureLevel', 'in', 'range' => array_keys($this->getSignatureLevelLabels())],
-			[['lastName', 'firstName', 'middleName'], 'required', 'except' => ['setPassword', 'install']],
+            [['lastName', 'firstName', 'middleName'], 'required', 'except' => ['setPassword', 'install']],
             [['email', 'lastName', 'firstName', 'middleName'], 'string', 'max' => 45],
-			[['email'], 'required'],
+            [['email'], 'required'],
             [['email'], 'email'],
-			[['email'], 'unique'],
+            [['email'], 'unique'],
             ['ownerId', 'safe'],
             ['terminalId',
                 'safe',
@@ -136,8 +133,8 @@ class User extends ActiveRecord implements IdentityInterface
                 'whenClient' => 'function (attribute, value) {
                     return rolesList.val() != ' . self::ROLE_ADMIN . ';}'
             ],
-		];
-	}
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -152,10 +149,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $scenarios;
     }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels()
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
     {
         return [
             'id'                    => Yii::t('app', 'ID'),
@@ -181,7 +178,7 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-	public function getSignatureNumberLabels(): array
+    public function getSignatureNumberLabels(): array
     {
         return [
             null => Yii::t('app/user', 'Not a signer'),
@@ -195,7 +192,7 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-	public function getSignatureLevelLabels(): array
+    public function getSignatureLevelLabels(): array
     {
         return [
             1    => Yii::t('app/user', 'Level') . ' 1',
@@ -208,33 +205,33 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-	public function getSignatureNumberLabel(): string
-	{
-		$labels = $this->getSignatureNumberLabels();
+    public function getSignatureNumberLabel(): string
+    {
+        $labels = $this->getSignatureNumberLabels();
 
-		return isset($labels[$this->signatureNumber]) ? $labels[$this->signatureNumber] : Yii::t('app/user', 'Not a signer');
-	}
+        return isset($labels[$this->signatureNumber]) ? $labels[$this->signatureNumber] : Yii::t('app/user', 'Not a signer');
+    }
 
-	public function getSignatureLevelLabel(): ?string
-	{
-		$labels = $this->getSignatureLevelLabels();
+    public function getSignatureLevelLabel(): ?string
+    {
+        $labels = $this->getSignatureLevelLabels();
 
-		return isset($labels[$this->signatureLevel]) ? $labels[$this->signatureLevel] : null;
-	}
+        return isset($labels[$this->signatureLevel]) ? $labels[$this->signatureLevel] : null;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getRoleLabels()
+    /**
+     * @return array
+     */
+    public function getRoleLabels()
     {
         return [
             self::ROLE_USER           => Yii::t('app', 'User'),
             self::ROLE_ADMIN          => Yii::t('app', 'Administrator'),
             self::ROLE_ADDITIONAL_ADMIN => Yii::t('app', 'Additional administrator'),
-//			self::ROLE_SIGNER => Yii::t('app', 'Signer'),
-			self::ROLE_CONTROLLER => Yii::t('app', 'Controller'),
-//            self::ROLE_EDM_OPERATOR   => Yii::t('app', 'Operator'),
-//            self::ROLE_EDM_CONTROLLER => Yii::t('app', 'Controller'),
+            // self::ROLE_SIGNER => Yii::t('app', 'Signer'),
+            self::ROLE_CONTROLLER => Yii::t('app', 'Controller'),
+            // self::ROLE_EDM_OPERATOR   => Yii::t('app', 'Operator'),
+            // self::ROLE_EDM_CONTROLLER => Yii::t('app', 'Controller'),
             self::ROLE_LSO            => Yii::t('app', 'LSO security officer'),
             self::ROLE_RSO            => Yii::t('app', 'RSO security officer'),
         ];
@@ -247,25 +244,25 @@ class User extends ActiveRecord implements IdentityInterface
             self::ROLE_ADMIN          => Yii::t('app', 'Administrator'),
             self::ROLE_ADDITIONAL_ADMIN => Yii::t('app', 'Additional administrator'),
             self::ROLE_CONTROLLER => Yii::t('app', 'Controller'),
-//            self::ROLE_EDM_OPERATOR   => Yii::t('app', 'Operator'),
-//            self::ROLE_EDM_CONTROLLER => Yii::t('app', 'Controller'),
+            //  self::ROLE_EDM_OPERATOR   => Yii::t('app', 'Operator'),
+            //  self::ROLE_EDM_CONTROLLER => Yii::t('app', 'Controller'),
         ];
     }
 
     /**
-	 * @return string|null
-	 */
-	public function getRoleLabel()
-	{
-		$labels = $this->getRoleLabels();
+     * @return string|null
+     */
+    public function getRoleLabel()
+    {
+        $labels = $this->getRoleLabels();
 
-		return isset($labels[$this->role]) ? $labels[$this->role] : Yii::t('app', 'Undefined');
-	}
+        return isset($labels[$this->role]) ? $labels[$this->role] : Yii::t('app', 'Undefined');
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getStatusLabels()
+    /**
+     * @return array
+     */
+    public function getStatusLabels()
     {
         $labels = [
             self::STATUS_INACTIVE   => Yii::t('app/user', 'Inactive'),
@@ -327,21 +324,21 @@ class User extends ActiveRecord implements IdentityInterface
 
 
     /**
-	 * @return string
-	 */
-	public function getStatusLabel()
+     * @return string
+     */
+    public function getStatusLabel()
     {
-		$labels = $this->getStatusLabels();
+        $labels = $this->getStatusLabels();
 
-		return isset($labels[$this->status]) ? $labels[$this->status] : Yii::t('app', 'Undefined');
-	}
+        return isset($labels[$this->status]) ? $labels[$this->status] : Yii::t('app', 'Undefined');
+    }
 
-	/**
-	 * Get auth type labels
-	 *
-	 * @return array
-	 */
-	public function getAuthTypeLabels()
+    /**
+     * Get auth type labels
+     *
+     * @return array
+     */
+    public function getAuthTypeLabels()
     {
         return [
             self::AUTH_TYPE_PASSWORD => \Yii::t('app/user', 'By password'),
@@ -350,33 +347,33 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-	 * Get auth type label
-	 *
-	 * @return string
-	 */
-	public function getAuthTypeLabel()
-	{
-		$labels = $this->getAuthTypeLabels();
+     * Get auth type label
+     *
+     * @return string
+     */
+    public function getAuthTypeLabel()
+    {
+        $labels = $this->getAuthTypeLabels();
 
-		return isset($labels[$this->authType]) ? $labels[$this->authType] : Yii::t('app', 'Undefined');
-	}
+        return isset($labels[$this->authType]) ? $labels[$this->authType] : Yii::t('app', 'Undefined');
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function beforeSave($insert)
-	{
-		if (parent::beforeSave($insert)) {
-			if ($this->isNewRecord) {
-				$this->auth_key = Yii::$app->getSecurity()->generateRandomString();
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->auth_key = Yii::$app->getSecurity()->generateRandomString();
                 $this->activateKey = substr(str_replace(['-', '_'], '', Yii::$app->getSecurity()->generateRandomString(10)), 0, 4);
-			}
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
     public function afterSave($insert, $changedAttributes)
     {
@@ -388,6 +385,7 @@ class User extends ActiveRecord implements IdentityInterface
             $commonExtUser->userId = $this->id;
             $commonExtUser->type = CommonUserExt::CERTIFICATES;
             $commonExtUser->canAccess = 1;
+            // Сохранить модель в БД
             $commonExtUser->save();
         }
 
@@ -396,6 +394,7 @@ class User extends ActiveRecord implements IdentityInterface
                 'userId' => $this->id,
                 'passwordHash' => $changedAttributes['password_hash'],
             ]);
+            // Сохранить модель в БД
             $isSaved = $prevPassword->save();
             if (!$isSaved) {
                 Yii::warning('Failed to store previous password, errors: ' . var_export($prevPassword->getErrors(), true));
@@ -403,78 +402,77 @@ class User extends ActiveRecord implements IdentityInterface
         }
     }
 
-	/**
-	 * @return null|Cert
-	 */
-	public function getActiveCert()
-	{
-		return $this
-			->hasMany(Cert::className(), ['id' => 'certId'])
-//			->where() @todo добавить условия по которым сертификат будет считаться гарантированно активным
-			->viaTable('userHasCert', ['userId' => 'id'])
-			->one();
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public static function findIdentity($id)
+    /**
+     * @return null|Cert
+     */
+    public function getActiveCert()
     {
-		return static::findOne(['id' => $id, 'status' => [self::STATUS_ACTIVATED, self::STATUS_ACTIVE]]);
-	}
+        return $this
+            ->hasMany(Cert::className(), ['id' => 'certId'])
+            ->viaTable('userHasCert', ['userId' => 'id'])
+            ->one();
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function findByLogin($login)
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentity($id)
     {
-		return static::findOne([
+        return static::findOne(['id' => $id, 'status' => [self::STATUS_ACTIVATED, self::STATUS_ACTIVE]]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findByLogin($login)
+    {
+        return static::findOne([
             'email' => $login,
             'status' => [self::STATUS_ACTIVATED, self::STATUS_ACTIVE, self::STATUS_ACTIVATING, self::STATUS_INACTIVE]
         ]);
-	}
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function findIdentityByAccessToken($token, $type = null)
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
     {
-		throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
-	}
+            throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function getId()
+    /**
+     * @inheritdoc
+     */
+    public function getId()
     {
-		return $this->getPrimaryKey();
-	}
+        return $this->getPrimaryKey();
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function getAuthKey()
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey()
     {
-		return $this->authKey;
-	}
+        return $this->authKey;
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function validateAuthKey($authKey)
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey)
     {
-		return $this->getAuthKey() === $authKey;
-	}
+        return $this->getAuthKey() === $authKey;
+    }
 
-	/**
-	 * Generates "remember me" authentication key
-	 */
-	public function generateAuthKey()
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
     {
-		$this->auth_key = Yii::$app->security->generateRandomString();
-	}
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
 
-	/**
+    /**
      * Finds user by password reset token
      *
      * @param string $token password reset token
@@ -546,10 +544,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
         $this->passwordUpdateDate = date('Y-m-d H:i:s');
-		/**
-		 * Set reset status
-		 */
-		$this->isReset = self::IS_RESET_TRUE;
+        /**
+         * Set reset status
+         */
+        $this->isReset = self::IS_RESET_TRUE;
     }
 
     public function checkPasswordExpired()
@@ -570,64 +568,64 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
-	/**
-	 * Get user screen name
-	 *
-	 * @return string
-	 */
-	public function getScreenName()
-	{
-		return !empty($this->getName()) ? $this->getName() : $this->email;
-	}
-
-	/**
-	 * Get user roles
-	 *
-	 * @return array
-	 */
-	public function getRoles()
-	{
-		$roles = Yii::$app->authManager->getRolesByUser($this->id);
-
-		return !empty($roles) ? array_keys($roles) : [];
-	}
-
-	function __toString()
-	{
-		return $this->getName();
-	}
-
-	/**
-	 * Функция ищет Пользователя исключительно по его email
-	 * @param string $email
-	 * @return User
-	 */
-	public static function findByEmailOnly($email)
+    /**
+     * Get user screen name
+     *
+     * @return string
+     */
+    public function getScreenName()
     {
-		return static::findOne(['email' => $email]);
-	}
+        return !empty($this->getName()) ? $this->getName() : $this->email;
+    }
 
-	/**
-	 * Get user certifications for auth action
-	 *
-	 * @return array|NULL
-	 */
-	public function getUserCerts()
-	{
-		$cert = new UserAuthCert();
+    /**
+     * Get user roles
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        $roles = Yii::$app->authManager->getRolesByUser($this->id);
 
-		return $cert::find()->where(['userId' => $this->getId()])->all();
-	}
+        return !empty($roles) ? array_keys($roles) : [];
+    }
 
-	/**
-	 * Get isReset property
-	 *
-	 * @return boolean
-	 */
-	public function getIsReset()
-	{
-		return ($this->isReset === 1);
-	}
+    function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * Функция ищет Пользователя исключительно по его email
+     * @param string $email
+     * @return User
+     */
+    public static function findByEmailOnly($email)
+    {
+        return static::findOne(['email' => $email]);
+    }
+
+    /**
+     * Get user certifications for auth action
+     *
+     * @return array|null
+     */
+    public function getUserCerts()
+    {
+        $cert = new UserAuthCert();
+
+        return $cert::find()->where(['userId' => $this->getId()])->all();
+    }
+
+    /**
+     * Get isReset property
+     *
+     * @return boolean
+     */
+    public function getIsReset()
+    {
+        return ($this->isReset === 1);
+    }
 
     public function getServiceExtModel($serviceId)
     {
@@ -654,7 +652,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         if (self::STATUS_ACTIVATED == $this->status && $currentUrl != $activateUrl) {
             return $activateUrl;
-        } elseif (self::STATUS_ACTIVE == $this->status && $this->getIsReset() && $currentUrl != $passwordResetUrl) {
+        } else if (self::STATUS_ACTIVE == $this->status && $this->getIsReset() && $currentUrl != $passwordResetUrl) {
             return $passwordResetUrl;
         }
 
@@ -774,7 +772,7 @@ class User extends ActiveRecord implements IdentityInterface
                 if (!Yii::$app->user->identity->canActivateApprove($this->id)) {
                     if (Yii::$app->user->identity->role === self::ROLE_LSO) {
                         $this->_activationUserKey = substr($this->activateKey, 0, 2) . '**';
-                    } elseif (Yii::$app->user->identity->role === self::ROLE_RSO) {
+                    } else if (Yii::$app->user->identity->role === self::ROLE_RSO) {
                         $this->_activationUserKey = '**' . substr($this->activateKey, -2);
                     }
                 }
@@ -835,5 +833,4 @@ class User extends ActiveRecord implements IdentityInterface
             return $mainAdmin->id == $this->id;
         }
     }
-
 }

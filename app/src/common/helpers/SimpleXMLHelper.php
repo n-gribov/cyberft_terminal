@@ -2,9 +2,11 @@
 
 namespace common\helpers;
 
+use SimpleXMLElement;
+
 class SimpleXMLHelper
 {
-    public static function insertAfterTags(\SimpleXMLElement $element, \SimpleXMLElement $parent, array $tags): \SimpleXMLElement
+    public static function insertAfterTags(SimpleXMLElement $element, SimpleXMLElement $parent, array $tags): SimpleXMLElement
     {
         $sibling = null;
         foreach ($tags as $tag) {
@@ -22,7 +24,7 @@ class SimpleXMLHelper
         return $parent->$elementTagName;
     }
 
-    public static function prependChild(\SimpleXMLElement $element, \SimpleXMLElement $parent): \SimpleXMLElement
+    public static function prependChild(SimpleXMLElement $element, SimpleXMLElement $parent): SimpleXMLElement
     {
         $parentDom = dom_import_simplexml($parent);
         $elementDom = $parentDom->ownerDocument->importNode(dom_import_simplexml($element), true);
@@ -36,14 +38,21 @@ class SimpleXMLHelper
         return $parent->$elementTagName;
     }
 
-    private static function insertAfter(\SimpleXMLElement $element, \SimpleXMLElement $sibling): void
+    /**
+     * Метод добавляет элемент к XML
+     * 
+     * @param \SimpleXMLElement $from
+     * @param \SimpleXMLElement $to
+     */
+    public static function insertAfter(SimpleXMLElement $from, SimpleXMLElement $to): void
     {
-        $siblingDom = dom_import_simplexml($sibling);
-        $elementDom = $siblingDom->ownerDocument->importNode(dom_import_simplexml($element), true);
-        if ($siblingDom->nextSibling) {
-            $siblingDom->parentNode->insertBefore($elementDom, $siblingDom->nextSibling);
+        $toDom = dom_import_simplexml($to);
+        $fromDom = $toDom->ownerDocument->importNode(dom_import_simplexml($from), true);
+        if ($toDom->nextSibling) {
+            $toDom->parentNode->insertBefore($fromDom, $toDom->nextSibling);
         } else {
-            $siblingDom->parentNode->appendChild($elementDom);
+            $toDom->parentNode->appendChild($fromDom);
         }
     }
+
 }

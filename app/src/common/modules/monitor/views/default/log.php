@@ -4,7 +4,6 @@ use common\helpers\DateHelper;
 use common\modules\monitor\models\MonitorLogAR;
 use common\widgets\InfiniteGridView;
 use kartik\widgets\Select2;
-use yii\jui\DatePicker;
 
 $this->title = Yii::t('monitor', 'Events log');
 $this->params['breadcrumbs'][] = $this->title;
@@ -13,7 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="col-xs-12">
 
-<?= InfiniteGridView::widget([
+<?php
+// Создать таблицу для вывода
+echo InfiniteGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'rowOptions' => function ($model, $key, $index, $grid) {
@@ -65,8 +66,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'filter' => MonitorLogAR::getComponentLabels(),
             'filterInputOptions' => [
                 'class' => 'form-control selectpicker',
-                'data-width' => "180px",
-                'data-none-selected-text' => ""
+                'data-width' => '180px',
+                'data-none-selected-text' => ''
             ],
         ],
         [
@@ -79,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterInputOptions' => [
                 'class' => 'form-control selectpicker',
                 'data-width' => "150px",
-                'data-none-selected-text' => ""
+                'data-none-selected-text' => ''
             ],
         ],
         [
@@ -92,8 +93,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'filter'    => $eventCodes,
             'filterInputOptions' => [
                 'class' => 'form-control selectpicker',
-                'data-width' => "150px",
-                'data-none-selected-text' => ""
+                'data-width' => '150px',
+                'data-none-selected-text' => ''
             ],
         ],
         [
@@ -113,8 +114,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'filter' => MonitorLogAR::getInitiatorTypelLabels(),
             'filterInputOptions' => [
                 'class' => 'form-control selectpicker',
-                'data-width' => "150px",
-                'data-none-selected-text' => ""
+                'data-width' => '150px',
+                'data-none-selected-text' => ''
             ],
         ],
         [
@@ -150,7 +151,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'ip',
             'filterInputOptions' => ['style' => 'width:140px;'],
             'value' => function($model) {
-                return $model->ip ?: "";
+                return $model->ip ?: '';
             }
         ],
     ]

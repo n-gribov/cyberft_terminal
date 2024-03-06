@@ -1,10 +1,12 @@
 <?php
 return [
-	'class' => 'addons\ISO20022\ISO20022Module',
-	'serviceName' => 'ISO20022',
-
+    // Класс модуля аддона
+    'class' => 'addons\ISO20022\ISO20022Module',
+    // Имя сервиса
+    'serviceName' => 'ISO20022',
+    // Меню
     'menu' => include __DIR__.'/menu.php',
-
+    // Регулярные задания
     'regularJobs' => [
 //        [
 //            'descriptor' => 'ISO20022Sign',
@@ -12,8 +14,11 @@ return [
 //            'interval' => 5,
 //        ],
         [
+            // Дескриптор задания
             'descriptor' => 'ISO20022Import',
+            // Класс задания
             'class' => '\addons\ISO20022\jobs\ImportJob',
+            // Интервал запуска
             'interval' => 10,
         ],
         [
@@ -27,29 +32,29 @@ return [
             'interval' => 5,
         ],
     ],
-
-	'resources' => [
-		'storage' => [
-			'path' => '@storage/ISO20022',
+    // Используемые ресурсы
+    'resources' => [
+        'storage' => [
+            'path' => '@storage/ISO20022',
             'dirs' => [
                 'in' => ['directory' => 'in'],
                 'out' => ['directory' => 'out'],
             ]
-		],
-		'temp' => [
-			'path' => '@storage/ISO20022/temp',
+        ],
+        'temp' => [
+            'path' => '@storage/ISO20022/temp',
             'dirs' => [
                 'default' => ['directory' => '', 'usePartition' => false],
             ]
-		],
-		'export' => [
-			'path' => '@export/ISO20022',
+        ],
+        'export' => [
+            'path' => '@export/ISO20022',
             'dirs' => [
                 'default' => ['directory' => '', 'useUniqueName' => false],
             ]
-		],
-		'import' => [
-			'path' => '@import/ISO20022',
+        ],
+        'import' => [
+            'path' => '@import/ISO20022',
             'dirs' => [
                 'default' => ['directory' => ''],
                 //'in' => ['directory' => 'in'],
@@ -62,10 +67,10 @@ return [
                     'useUniqueName' => false, 'ignoreSftp' => true
                 ]
             ]
-		]
-	],
-
-	'docTypes' => [
+        ]
+    ],
+    // Обрабатываемые типы документов
+    'docTypes' => [
         // Платеж
         'pain.001' => [
             'contentClass' => '\addons\ISO20022\models\Pain001CyberXmlContent',
@@ -136,5 +141,5 @@ return [
             ],
             'dataView' => '@addons/ISO20022/views/documents/_view',
         ],
-	],
+    ],
 ];

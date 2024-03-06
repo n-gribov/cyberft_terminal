@@ -131,17 +131,17 @@ class SwiftFinType extends BaseType
         return $this->rawText;
     }
 
-	public function getSource()
-	{
-		return $this->_source;
-	}
+    public function getSource()
+    {
+        return $this->_source;
+    }
 
     public function getSourceData()
     {
         if ($this->_source && !$this->_sourceData) {
             if (SwiftfinHelper::FILE_FORMAT_SWIFT === $this->sourceFormat) {
                 $this->_sourceData = $this->source->pack();
-            } elseif (SwiftfinHelper::FILE_FORMAT_SWIFT_PACKAGE === $this->sourceFormat) {
+            } else if (SwiftfinHelper::FILE_FORMAT_SWIFT_PACKAGE === $this->sourceFormat) {
                 $this->_sourceData = $this->source->export();
             }
         }
@@ -170,19 +170,23 @@ class SwiftFinType extends BaseType
         return $this->_swtDocuments;
     }
 
-	public function getSearchType()
-	{
-		return 'swiftfin';
-	}
+    public function getSearchType()
+    {
+        return 'swiftfin';
+    }
 
-	public function getSearchFields()
-	{
-		return [
-			'sender' => $this->sender,
-			'receiver' => $this->recipient,
-			'body' => $this->getModelDataAsString()
-		];
-	}
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return array|bool
+     */
+    public function getSearchFields()
+    {
+        return [
+            'sender' => $this->sender,
+            'receiver' => $this->recipient,
+            'body' => $this->getModelDataAsString()
+        ];
+    }
 
     public function validateRecipient()
     {
@@ -193,10 +197,10 @@ class SwiftFinType extends BaseType
     public function validateSender($sessionLess = false)
     {
         if ($sessionLess) {
-            return !empty(Yii::$app->terminals->findTerminalData($this->sender));
+            return !empty(Yii::$app->exchange->findTerminalData($this->sender));
         }
 
-        return $this->sender === Yii::$app->terminals->defaultTerminalId;
+        return $this->sender === Yii::$app->exchange->defaultTerminalId;
     }
 
     /**

@@ -28,6 +28,7 @@ class m180906_110904_migrate_processing_settings extends Migration
                 $appSettings->processing['dsn'] = 'tcp://localhost:40091';
                 $appSettings->processing['address'] = 'CYBERUM@AFTX';
             }
+            // Сохранить модель в БД
             $appSettings->save();
         }
     }

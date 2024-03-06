@@ -39,7 +39,7 @@ $this->registerCss('
     }
 ');
 
-$script = <<< JS
+$script = <<<JS
     // Вызов модальной формы поиска по журналу выписок
     $('.btn-find-modal').on('click', function(e) {
         e.preventDefault();

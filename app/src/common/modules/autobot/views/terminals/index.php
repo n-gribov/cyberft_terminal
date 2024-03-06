@@ -35,7 +35,7 @@ echo Html::a(
     ]
 );
 
-if (Yii::$app->terminals->isRunning($terminal->terminalId)) {
+if (Yii::$app->exchange->isRunning($terminal->terminalId)) {
     $title = Yii::t('app/autobot', 'Stop exchange');
     echo Html::a(
         $title,
@@ -82,6 +82,7 @@ $tabs = [
 ];
 
 if ($terminal->status == Terminal::STATUS_INACTIVE) {
+    // Поместить в сессию флаг сообщения о неактивном терминале
     Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Terminal {terminal} is inactive. Can\'t modify settings', [
         'terminal' => $terminal->terminalId
     ]));

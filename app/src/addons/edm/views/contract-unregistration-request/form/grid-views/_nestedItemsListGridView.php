@@ -23,7 +23,7 @@ $createButton = function ($title, $class, $iconName) {
         );
     };
 };
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'id' => $id,
     'dataProvider' => new ArrayDataProvider([

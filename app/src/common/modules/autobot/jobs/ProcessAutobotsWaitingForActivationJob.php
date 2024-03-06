@@ -32,7 +32,7 @@ class ProcessAutobotsWaitingForActivationJob extends RegularJob
             if ($exception->getCode() === 404) {
                 $this->log("Certificate {$autobot->code} is not found in processing and will be blocked in terminal");
                 $autobot->block();
-            } elseif ($exception->getCode() === 403) {
+            } else if ($exception->getCode() === 403) {
                 $this->log("Failed to get certificate {$autobot->code} from processing, certificate will be blocked in terminal");
                 $autobot->block();
             }
@@ -41,7 +41,7 @@ class ProcessAutobotsWaitingForActivationJob extends RegularJob
         if ($certificate->status === 'blocked') {
             $this->log("Certificate {$autobot->code} is blocked in processing, certificate will be blocked in terminal");
             $autobot->block();
-        } elseif ($certificate->status === 'active') {
+        } else if ($certificate->status === 'active') {
             $this->log("Certificate {$autobot->code} is active in processing, certificate will be activated in terminal");
             $autobot->activate($keyPassword);
         } else {
@@ -70,7 +70,7 @@ class ProcessAutobotsWaitingForActivationJob extends RegularJob
 
     private function getAutobotKeyPassword(Autobot $autobot): string
     {
-        $terminalData = Yii::$app->terminals->findTerminalData($autobot->controller->terminal->terminalId);
+        $terminalData = Yii::$app->exchange->findTerminalData($autobot->controller->terminal->terminalId);
         return $terminalData['passwords'][$autobot->id];
     }
 }

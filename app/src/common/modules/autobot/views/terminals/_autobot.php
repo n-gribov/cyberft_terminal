@@ -9,25 +9,22 @@ use yii\helpers\Html;
 
 $controllers = $data['controllers'];
 $terminalId = $data['terminalId'];
-
 ?>
-
-    <div style="margin-bottom: 15px;">
-        <?= Html::a(
-            Yii::t('app/autobot', 'Create controller'),
-            ['/autobot/terminal-controller/create', 'terminalId' => $terminalId],
-            [
-                'class' => 'btn btn-success',
-                'data' => ['load-modal' => true],
-            ]
-        ); ?>
-    </div>
-
-<?php foreach ($controllers as $controller): ?>
+<div style="margin-bottom: 15px">
+    <?= Html::a(
+        Yii::t('app/autobot', 'Create controller'),
+        ['/autobot/terminal-controller/create', 'terminalId' => $terminalId],
+        [
+            'class' => 'btn btn-success',
+            'data' => ['load-modal' => true],
+        ]
+    ); ?>
+</div>
+<?php foreach ($controllers as $controller) : ?>
     <div class="panel panel-default controller-panel">
         <div class="panel-heading">
             <h2><?= Html::encode($controller->fullName ?: Yii::t('app/autobot', '(no name)')) ?></h2>
-            <?php if ($controller->isDeletable): ?>
+            <?php if ($controller->isDeletable) : ?>
                 <?= Html::a(
                     '<span class="glyphicon glyphicon-trash"></span>',
                     ['/autobot/terminal-controller/delete', 'id' => $controller->id],
@@ -39,8 +36,8 @@ $terminalId = $data['terminalId'];
                         ]
                     ]
                 ); ?>
-            <?php endif; ?>
-            <?php if ($controller->isEditable): ?>
+            <?php endif ?>
+            <?php if ($controller->isEditable) : ?>
                 <?= Html::a(
                     '<span class="glyphicon glyphicon-pencil"></span>',
                     ['/autobot/terminal-controller/update', 'id' => $controller->id],
@@ -49,9 +46,9 @@ $terminalId = $data['terminalId'];
                         'data' => ['load-modal' => true],
                     ]
                 ); ?>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
-        <?php if (count($controller->autobots) > 0): ?>
+        <?php if (count($controller->autobots) > 0) : ?>
             <table class="table table-hover autobots-table">
                 <colgroup>
                     <col>
@@ -68,12 +65,12 @@ $terminalId = $data['terminalId'];
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($controller->autobots as $autobot): ?>
+                <?php foreach ($controller->autobots as $autobot) : ?>
                     <?php
                     $rowClass = '';
                     if ($autobot->status === Autobot::STATUS_USED_FOR_SIGNING) {
                         $rowClass = 'success';
-                    } elseif ($autobot->isExpired()) {
+                    } else if ($autobot->isExpired()) {
                         $rowClass = 'danger';
                     }
                     ?>
@@ -97,10 +94,10 @@ $terminalId = $data['terminalId'];
                             ) ?>
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </tbody>
             </table>
-        <?php endif; ?>
+        <?php endif ?>
         <div class="buttons-block">
             <?= Html::a(
                 '<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app/autobot', 'Create key'),
@@ -108,90 +105,86 @@ $terminalId = $data['terminalId'];
                 [
                     'data' => ['load-modal' => true],
                 ]
-            ); ?>
+            ) ?>
             <?= Html::a(
                 '<span class="glyphicon glyphicon-import"></span> ' . Yii::t('app/autobot', 'Import key'),
                 ['/autobot/import', 'controllerId' => $controller->id],
                 [
                     'data' => ['load-modal' => true],
                 ]
-            ); ?>
+            ) ?>
         </div>
     </div>
-<?php endforeach; ?>
+<?php endforeach ?>
 
 <div id="modal-placeholder"></div>
 
 <?php
-//echo $this->render('_activate');
-
 $this->registerCss(<<<CSS
-.controller-panel {
-    margin-bottom: 3em;
-}
-.buttons-block {
-    height: 40px;
-    padding: 3px 8px;
-}
-.buttons-block a {
-    margin-right: 10px;
-    margin-left: 5px;
-    line-height: 35px;
-}
-.buttons-block a .glyphicon {
-    font-size: 16px;
-}
-.controller-panel .panel-heading {
-    padding: 5px;
-    min-height: 35px;
-    box-sizing: content-box;
-}
-.controller-panel .panel-heading h2 {
-    margin: 8px;
-    font-size: 18px;
-    float: left;
-    color: black;
-}
-.controller-panel .panel-heading > .btn,
-.controller-panel .panel-heading > .btn-group {
-    float: right;
-    margin-left: 5px;
-}
-.controller-panel .table {
-    font-size: 13px;
-    border-bottom: 1px solid #ddd;
-}
-.autobots-table tbody tr {
-    cursor: pointer;
-}
-.btn-link.text-success {
-    color: #2b8f0e;
-}
-.controller-panel .btn-link{
-    padding: 7px 0;
-}
-.autobots-table tbody > tr > td, .autobots-table > thead > tr th {
-    height: 40px;
-    padding: 4px 8px;
-    vertical-align: middle;
-    line-height: 15px;
-}
-.autobots-table .action-column {
-    white-space: nowrap;
-    text-align: right;
-}
-.autobots-table .action-column a {
-    margin-left: 10px;
-}
-.autobots-table .action-column .btn-success {
-    padding: 5px 10px !important;
-}
-CSS
-);
+    .controller-panel {
+        margin-bottom: 3em;
+    }
+    .buttons-block {
+        height: 40px;
+        padding: 3px 8px;
+    }
+    .buttons-block a {
+        margin-right: 10px;
+        margin-left: 5px;
+        line-height: 35px;
+    }
+    .buttons-block a .glyphicon {
+        font-size: 16px;
+    }
+    .controller-panel .panel-heading {
+        padding: 5px;
+        min-height: 35px;
+        box-sizing: content-box;
+    }
+    .controller-panel .panel-heading h2 {
+        margin: 8px;
+        font-size: 18px;
+        float: left;
+        color: black;
+    }
+    .controller-panel .panel-heading > .btn,
+    .controller-panel .panel-heading > .btn-group {
+        float: right;
+        margin-left: 5px;
+    }
+    .controller-panel .table {
+        font-size: 13px;
+        border-bottom: 1px solid #ddd;
+    }
+    .autobots-table tbody tr {
+        cursor: pointer;
+    }
+    .btn-link.text-success {
+        color: #2b8f0e;
+    }
+    .controller-panel .btn-link{
+        padding: 7px 0;
+    }
+    .autobots-table tbody > tr > td, .autobots-table > thead > tr th {
+        height: 40px;
+        padding: 4px 8px;
+        vertical-align: middle;
+        line-height: 15px;
+    }
+    .autobots-table .action-column {
+        white-space: nowrap;
+        text-align: right;
+    }
+    .autobots-table .action-column a {
+        margin-left: 10px;
+    }
+    .autobots-table .action-column .btn-success {
+        padding: 5px 10px !important;
+    }
+CSS);
 
 $this->registerJs(<<<JS
-$('.autobots-table tbody tr').on('click', function() {
-    location.href = '/autobot/default/view?id=' + $(this).data('id');  
-});
-JS
-);
+    $('.autobots-table tbody tr').on('click', function() {
+        location.href = '/autobot/default/view?id=' + $(this).data('id');  
+    });
+JS);

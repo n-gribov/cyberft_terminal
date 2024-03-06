@@ -16,7 +16,7 @@ use common\helpers\FileHelper;
  */
 class AppController extends Controller
 {
-	protected $_setup;
+    protected $_setup;
 
     public function init()
     {
@@ -34,14 +34,13 @@ class AppController extends Controller
     }
 
     /**
-	 * Help message
-	 */
-	public function actionIndex()
+     * Метод выводит текст подсказки
+     */
+    public function actionIndex()
     {
-		$this->run('/help', ['app']);
-
-		return Controller::EXIT_CODE_NORMAL;
-	}
+        $this->run('/help', ['app']);
+        return Controller::EXIT_CODE_NORMAL;
+    }
 
     /**
      * Delete redis keys by pattern
@@ -52,11 +51,11 @@ class AppController extends Controller
         passthru("redis-cli keys \"{$pattern}\" | xargs -L1 -I '$' echo '\"$\"' | xargs redis-cli del");
     }
 
-	/**
-	 * After update application
-	 */
-	public function actionUpdate()
-	{
+    /**
+     * After update application
+     */
+    public function actionUpdate()
+    {
         $this->output(PHP_EOL . '****** Applying DB migrations ******', Console::FG_GREEN);
 
         $migrationPath = Yii::getAlias('@console/migrations');
@@ -99,8 +98,8 @@ class AppController extends Controller
             Yii::getAlias('@common/config/assets-config.php'), Yii::getAlias('@common/config/assets-prod.php')
         ]);
 
-		return Controller::EXIT_CODE_NORMAL;
-	}
+	return Controller::EXIT_CODE_NORMAL;
+    }
 
     /**
      * Use migration addon
@@ -123,15 +122,14 @@ class AppController extends Controller
         }
     }
 
-	/**
-	 * Before remove application
-	 */
-	public function actionBeforeRemove()
+    /**
+     * Before remove application
+     */
+    public function actionBeforeRemove()
     {
-		$this->run('user/rbac-purge');
-
-		return Controller::EXIT_CODE_NORMAL;
-	}
+	$this->run('user/rbac-purge');
+        return Controller::EXIT_CODE_NORMAL;
+    }
 
     /**
      * Init storage
@@ -150,10 +148,10 @@ class AppController extends Controller
         ];
 
         foreach ($dirs as $dir) {
-			$path = Yii::getAlias($dir);
+            $path = Yii::getAlias($dir);
             FileHelper::createDirectory($path, 0755, true);
-			chown($path, 'www-data');
-			chgrp($path, 'www-data');
+            chown($path, 'www-data');
+            chgrp($path, 'www-data');
         }
 
         $resources = Yii::$app->registry->getResources();
@@ -219,7 +217,6 @@ class AppController extends Controller
         return Controller::EXIT_CODE_NORMAL;
     }
 
-
     public function actionConfig($dataFilePath = '')
     {
         if (file_exists($dataFilePath)) {
@@ -251,9 +248,9 @@ class AppController extends Controller
         }
 
         if (
-               empty($predefinedData['noSecurityOfficers'])
-               && $this->confirm(PHP_EOL . PHP_EOL . 'Activate security officers application mode?', false)
-            ) {
+           empty($predefinedData['noSecurityOfficers'])
+           && $this->confirm(PHP_EOL . PHP_EOL . 'Activate security officers application mode?', false)
+        ) {
             $this->output('Creating LSO account', Console::FG_YELLOW);
             $lsoEmail= empty($predefinedData['lsoEmail'])
                     ? $this->prompt('Email:', ['required' => true])
@@ -292,7 +289,6 @@ class AppController extends Controller
     public function actionFlushAssets()
     {
         $path = Yii::getAlias('@backend/web/assets');
-
         $files = glob($path . '/all-*');
 
         foreach($files as $file) {
@@ -302,7 +298,7 @@ class AppController extends Controller
         $this->output('Flush assets finished', Console::FG_GREEN);
     }
 
-	protected function output($string)
+    protected function output($string)
     {
         $args = func_get_args();
         $string .= PHP_EOL;
@@ -316,5 +312,4 @@ class AppController extends Controller
     {
         $this->output($message, Console::FG_RED);
     }
-
 }

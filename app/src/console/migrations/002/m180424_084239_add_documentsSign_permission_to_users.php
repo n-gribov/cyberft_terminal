@@ -37,6 +37,7 @@ class m180424_084239_add_documentsSign_permission_to_users extends Migration
 
                 $permissions[] = 'documentSign';
                 $userExt->permissions = $permissions;
+                // Сохранить модель в БД
                 $userExt->save();
             }
         }
@@ -67,6 +68,7 @@ class m180424_084239_add_documentsSign_permission_to_users extends Migration
 
                 unset($permissions[$permissionIndex]);
                 $userExt->permissions = $permissions;
+                // Сохранить модель в БД
                 $userExt->save();
             }
         }

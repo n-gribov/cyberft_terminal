@@ -27,7 +27,6 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\MethodNotAllowedHttpException;
-use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 class ContractRegistrationRequestController extends BaseServiceController
@@ -67,7 +66,7 @@ class ContractRegistrationRequestController extends BaseServiceController
     public $nonresidentCreditCacheKey = 'edm/crr/nonresident-credit';
 
     // Ссылка на журнал документоа
-    public $crrJournal = '/edm/documents/foreign-currency-control-index?tabMode=tabCRR';
+    public $crrJournalUrl = '/edm/documents/foreign-currency-control-index?tabMode=tabCRR';
 
     public function __construct($id, $module, array $config = [])
     {
@@ -152,6 +151,7 @@ class ContractRegistrationRequestController extends BaseServiceController
             // Очистка кэша создания документа и редирект
             if (Yii::$app->request->get('clearWizardCache')) {
                 WizardCacheHelper::deleteCRRWizardCache();
+                // Перенаправить на страницу создания
                 return $this->redirect('/edm/contract-registration-request/create');
             }
 
@@ -224,9 +224,11 @@ class ContractRegistrationRequestController extends BaseServiceController
 
         // если документ уже отправлен, с ним ничего нельзя делать
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Modify error. Contract registration request is already sent'));
 
-            return $this->redirect([$this->crrJournal]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->crrJournalUrl);
         }
 
         $model = ContractRegistrationRequestExt::findOne(['documentId' => $document->id]);
@@ -294,6 +296,7 @@ class ContractRegistrationRequestController extends BaseServiceController
             $backUrl = '/edm/documents/foreign-currency-control-index?tabMode=tabCRR';
         }
 
+        // Вывести страницу
         return $this->render('view', compact('model', 'document', 'backUrl'));
     }
 
@@ -312,10 +315,10 @@ class ContractRegistrationRequestController extends BaseServiceController
 
         // Шаблон в зависимости от типа документа
         if ($model->passportType == $model::PASSPORT_TYPE_TRADE) {
-            // контракт
+            // Вывести страницу контракта
             return $this->render('printable/printTrade', ['model' => $model]);
         } else if ($model->passportType == $model::PASSPORT_TYPE_LOAN) {
-            // кредитный договор
+            // Вывести страницу кредитного договора
             return $this->render('printable/printLoan', ['model' => $model]);
         }
     }
@@ -332,22 +335,28 @@ class ContractRegistrationRequestController extends BaseServiceController
 
         // если документ уже отправлен, с ним ничего нельзя делать
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Modify error. Contract registration request is already sent'));
-            return $this->redirect([$this->crrJournal]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->crrJournalUrl);
         }
 
         $model = ContractRegistrationRequestExt::findOne(['documentId' => $document->id]);
 
-        if ($document->delete() && $model->delete()) {
+        // Удалить экст-модель и документ из БД
+        if ($model->delete && $document->delete()) {
             if ($document->extModel->storedFileId) {
                 Yii::$app->storage->remove($document->extModel->storedFileId);
             }
+            // Поместить в сессию флаг сообщения об успешном удалении документа
             Yii::$app->session->setFlash('success', Yii::t('document', 'Document deleted'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке удаления документа
             Yii::$app->session->setFlash('error', Yii::t('document', 'Failed to delete document'));
         }
 
-        return $this->redirect([$this->crrJournal]);
+        // Перенаправить на страницу индекса
+        return $this->redirect($this->crrJournalUrl);
     }
 
     /**
@@ -366,22 +375,28 @@ class ContractRegistrationRequestController extends BaseServiceController
 
         // если документ уже отправлен, с ним ничего нельзя делать
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Modify error. Contract registration request is already sent'));
 
-            return $this->redirect([$this->crrJournal]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->crrJournalUrl);
         }
 
         $signResult = $this->signCryptoPro($document);
 
         if (!$signResult) {
-            return $this->redirect([$this->fccJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->crrJournalUrl);
         }
 
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($document, true);
 
+        // Поместить в сессию флаг сообщения об успешной отправке документа
         Yii::$app->session->setFlash('success', 'Документ отправлен');
 
-        return $this->redirect([$this->crrJournal]);
+        // Перенаправить на страницу индекса
+        return $this->redirect($this->crrJournalUrl);
     }
 
     /**
@@ -404,12 +419,14 @@ class ContractRegistrationRequestController extends BaseServiceController
 
         $this->crrCache->clear();
 
+        // Поместить в сессию флаг сообщения о количестве удалённых документов
         Yii::$app->session->setFlash(
             'info',
             Yii::t('edm', 'Deleted {count} contract registration requests', ['count' => count($idList)])
         );
 
-        return $this->redirect([$this->crrJournal]);
+        // Перенаправить на страницу индекса
+        return $this->redirect($this->crrJournalUrl);
     }
 
     /**
@@ -633,24 +650,29 @@ class ContractRegistrationRequestController extends BaseServiceController
     private function processContractRegistrationRequest(ContractRegistrationRequestExt $extModel)
     {
         if (!Yii::$app->request->isPost) {
+            // Вывести форму
             return $this->render('_form', ['model' => $extModel]);
         }
 
         $validation = $this->validateForm($extModel);
 
         if (!$validation) {
+            // Поместить в сессию флаг сообщения об ошибке создания паспорта сделки
             Yii::$app->session->setFlash('error', 'Ошибка создания паспорта сделки');
 
+            // Вывести форму
             return $this->render('_form', ['model' => $extModel]);
         }
 
         $auth018Type = $this->createAuth018Type($extModel);
 
         if ($auth018Type->errors) {
+            // Поместить в сессию флаг сообщения об ошибке XSD-валидации
             Yii::$app->session->setFlash('error', Yii::t('app/iso20022', 'Auth.018 validation against XSD-scheme failed'));
             Yii::info('Auth.018 validation against XSD-scheme failed');
             Yii::info($auth018Type->errors);
 
+            // Вывести форму
             return $this->render('_form', ['model' => $extModel]);
         }
 
@@ -658,11 +680,14 @@ class ContractRegistrationRequestController extends BaseServiceController
             $context = $this->createCyberXml($extModel, $auth018Type);
 
             if (!$context) {
+                // Поместить в сессию флаг сообщения об ошибке создания паспорта сделки
                 Yii::$app->session->setFlash('error', Yii::t('edm', 'Ошибка создания паспорта сделки'));
 
+                // Вывести форму
                 return $this->render('_form', ['model' => $extModel]);
             }
 
+            // Получить документ из контекста
             $document = $context['document'];
             // Модификация ext-модели
             $extModel->documentId = $document->id;
@@ -671,16 +696,19 @@ class ContractRegistrationRequestController extends BaseServiceController
             FCCHelper::updateCyberXml($document, $extModel, $auth018Type);
         }
 
+        // Сохранить модель в БД
         $extModel->save();
         DocumentTransportHelper::extractSignData($document);
 
         WizardCacheHelper::deleteCRRWizardCache();
 
+        // Перенаправить на страницу просмотра
         return $this->redirect(['view', 'id' => $extModel->documentId]);
     }
 
     private function validateForm($model)
     {
+        // Загрузить данные модели из формы в браузере
         $model->load(Yii::$app->request->post());
 
         // Модель модифицирована из формы
@@ -736,7 +764,6 @@ class ContractRegistrationRequestController extends BaseServiceController
             'receiver' => $account->bank->terminalId,
             'terminal' => $terminal,
             'account' => $account,
-//            'attachFile' => null
         ];
 
         return FCCHelper::createCyberXml($typeModel, $params);
@@ -752,13 +779,16 @@ class ContractRegistrationRequestController extends BaseServiceController
         );
 
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Modify error. Contract registration request is already sent'));
-            return $this->redirect([$this->crrJournal]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->crrJournalUrl);
         }
 
         if ($document->extModel->extStatus == ISO20022DocumentExt::STATUS_FOR_CRYPTOPRO_SIGNING) {
             if (!$this->signCryptoPro($document)) {
-                return $this->redirect([$this->crrJournal]);
+                // Перенаправить на страницу индекса
+                return $this->redirect($this->crrJournalUrl);
             }
 
             DocumentTransportHelper::extractSignData($document);
@@ -772,8 +802,9 @@ class ContractRegistrationRequestController extends BaseServiceController
         $signResult = FCCHelper::signCryptoPro($document);
 
         if (!$signResult) {
+            // Поместить в сессию флаг сообщения об ошибке подписания Криптопро
             Yii::$app->session->setFlash('error', Yii::t('document', 'CryptoPro signing error'));
-
+            // Зарегистрировать событие ошибки подписания Криптопро в модуле мониторинга
             Yii::$app->monitoring->log('document:CryptoProSigningError', 'document', $document->id, [
                 'terminalId' => $document->terminalId
             ]);
@@ -788,10 +819,9 @@ class ContractRegistrationRequestController extends BaseServiceController
 
     private function findDocument($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
-        if ($document === null) {
-            throw new NotFoundHttpException();
-        }
+
         return $document;
     }
 }

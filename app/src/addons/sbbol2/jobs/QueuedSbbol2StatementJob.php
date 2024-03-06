@@ -60,6 +60,7 @@ class QueuedSbbol2StatementJob extends BaseJob
                     $request->attempt++;
                     $request->updateStatus(Sbbol2ScheduledRequest::STATUS_PENDING);
                 } else {
+                    // Удалить документ из БД
                     $request->delete();
                 }
             } else if ($request->status == Sbbol2ScheduledRequest::STATUS_PROCESSING) {
@@ -101,6 +102,7 @@ class QueuedSbbol2StatementJob extends BaseJob
         $result = $this->receiveStatement($request);
 
         if ($result !== false) {
+            // Удалить документ из БД
             $request->delete();
         } else {
             $request->updateStatus(Sbbol2ScheduledRequest::STATUS_PROCESSING_ERROR);
@@ -134,8 +136,9 @@ class QueuedSbbol2StatementJob extends BaseJob
             $model->statementPeriodStart = date('d.m.Y', strtotime($startDate));
             $model->statementPeriodEnd = $model->statementPeriodStart;
 
-            $terminal = Yii::$app->terminals->defaultTerminal;
+            $terminal = Yii::$app->exchange->defaultTerminal;
 
+            // Создать контекст документа
             $context = DocumentHelper::createDocumentContext(
                 $model,
                 [
@@ -155,7 +158,9 @@ class QueuedSbbol2StatementJob extends BaseJob
                 return false;
             }
 
+            // Получить документ из контекста
             $document = $context['document'];
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($document, true);
 
             return true;

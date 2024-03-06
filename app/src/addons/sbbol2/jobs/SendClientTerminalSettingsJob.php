@@ -52,7 +52,6 @@ class SendClientTerminalSettingsJob extends BaseJob
 
     public function perform()
     {
-
         foreach ($this->inns as $inn) {
             try {
                 $this->sendToClient($inn);
@@ -63,7 +62,7 @@ class SendClientTerminalSettingsJob extends BaseJob
     }
 
     /**
-     * @param integer $id
+     * @param integer $inn
      * @throws \Exception
      */
     private function sendToClient($inn)
@@ -79,6 +78,8 @@ class SendClientTerminalSettingsJob extends BaseJob
             ->where(['customerId' => $customer->id])
             ->orderBy(['number' => SORT_ASC])
             ->all();
+
+        // Создать тайп-модель
         $typeModel = $this->createTypeModel($customer, $accounts);
 
         $senderTerminal = Terminal::getDefaultTerminal();
@@ -86,6 +87,7 @@ class SendClientTerminalSettingsJob extends BaseJob
             throw new Exception('Default terminal is not found');
         }
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             [
@@ -99,11 +101,11 @@ class SendClientTerminalSettingsJob extends BaseJob
                 'signaturesRequired' => 0,
             ]
         );
-
+        // Если контекст не создался, выбросить исключение
         if ($context === false) {
             throw new Exception('Failed to create document context');
         }
-        
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($context['document'], true);
     }
 

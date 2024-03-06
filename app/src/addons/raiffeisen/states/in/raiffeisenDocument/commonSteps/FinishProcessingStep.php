@@ -16,6 +16,7 @@ class FinishProcessingStep extends BaseStep
         $request = RaiffeisenRequest::findOne($this->state->requestId);
         if (!$request->hasFinalStatus()) {
             $request->status = RaiffeisenRequest::STATUS_PROCESSED;
+            // Сохранить модель в БД
             $request->save();
         }
 

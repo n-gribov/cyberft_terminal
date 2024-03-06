@@ -26,13 +26,13 @@ $reasons = [
     <div class="section-header">9. Справочная информация о кредитном договоре</div>
     <div class="section-subheader section-subheader-9-1">9.1. Основания заполнения пункта 9.2</div>
     <div class="section-9-1">
-        <?php foreach($reasons as $id => $reason): ?>
+        <?php foreach($reasons as $id => $reason) : ?>
             <div class="section-9-1-item">
                 <div class="section-9-1-item-number"><?=$reason['number']?></div>
                 <div class="section-9-1-item-title"><?=$reason['label']?></div>
                 <div class="section-9-1-item-field"><?=$model->reasonFillPaymentsSchedule == $id ? '+' : ""?></div>
             </div>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </div>
     <div class="section-9-2">
         <div class="section-subheader">9.2. Описание графика платежей по возврату основного долга и процентных платежей</div>
@@ -63,7 +63,7 @@ $reasons = [
                 <td>6</td>
                 <td>7</td>
             </tr>
-            <?php foreach($model->paymentScheduleItems as $id => $payment): ?>
+            <?php foreach($model->paymentScheduleItems as $id => $payment) : ?>
                 <td><?=++$id?></td>
                 <td><?=$model->currency->name?></td>
                 <td><?=$payment->mainDeptDate?></td>
@@ -71,7 +71,7 @@ $reasons = [
                 <td><?=$payment->interestPaymentsDate?></td>
                 <td><?=$payment->interestPaymentsAmount?></td>
                 <td><?=$payment->comment?></td>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </table>
     </div>
     <div class="section-9-3">
@@ -99,13 +99,13 @@ $reasons = [
                 <td>4</td>
                 <td>5</td>
             </tr>
-            <?php foreach($model->nonresidentsCreditItems as $id => $nonresident): ?>
+            <?php foreach($model->nonresidentsCreditItems as $id => $nonresident) : ?>
                 <td><?=++$id?></td>
                 <td><?=$nonresident->name?></td>
                 <td><?=$nonresident->numericCountryCode?></td>
                 <td><?=$nonresident->amount?></td>
                 <td><?=$nonresident->percent?></td>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </table>
     </div>
 </div>

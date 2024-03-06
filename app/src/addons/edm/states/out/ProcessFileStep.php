@@ -89,7 +89,7 @@ class ProcessFileStep extends BaseDocumentStep
         $stream = $zipArchive->getStream($fileName);
         try {
             $targetFileName = iconv('cp866', 'UTF-8', iconv('UTF-8', 'cp437', $fileName));
-        } catch (\Exception $exception) {
+        } catch (\Exception $ex) {
             $targetFileName = $fileName;
         }
 

@@ -25,6 +25,9 @@ use yii\helpers\VarDumper;
 
 class CertificateController extends BaseController
 {
+    /**
+     * Метод выводит текст с подсказкой
+     */
     public function actionIndex()
     {
         $this->run('/help', ['SBBOL/certificate']);
@@ -263,9 +266,9 @@ class CertificateController extends BaseController
         $getCertificateTypeName = function (CertificateType $certificate) {
             if ($certificate->getClient()) {
                 return 'Client';
-            } elseif ($certificate->getRoot()) {
+            } else if ($certificate->getRoot()) {
                 return 'Root';
-            } elseif ($certificate->getBank()) {
+            } else if ($certificate->getBank()) {
                 return 'Bank';
             }
             return 'Unknown type';
@@ -326,6 +329,7 @@ class CertificateController extends BaseController
             'status'                 => SBBOLKey::STATUS_ACTIVE,
         ]);
 
+        // Сохранить модель в БД
         $isSaved = $key->save();
         if (!$isSaved) {
             echo 'Failed to save key to database, errors: ' . VarDumper::dumpAsString($key->errors) . "\n";

@@ -56,6 +56,7 @@ $deleteButtonOptions = [
     'url' => '/edm/foreign-currency-control/delete-foreign-currency-informations'
 ];
 
+// Вывести заголовок
 echo $this->render('@addons/edm/views/documents/_fccIndexHeader', [
     'userCanCreateDocuments' => $userCanCreateDocuments,
     'userCanDeleteDocuments' => $userCanDeleteDocuments,
@@ -108,17 +109,6 @@ $columns = [
             return $item->accountNumber;
         }
     ],
-
-//    'bankBik' => [
-//        'attribute' => 'bankBik',
-//        'label' => Yii::t('edm', 'Bank BIK'),
-//        'filter' => $bankFilter,
-//        'filterInputOptions' => [
-//            'class' => 'form-control selectpicker',
-//            'data-width' => '200px',
-//            'data-none-selected-text' => ''
-//        ],
-//    ],
 
     'bankName' => [
         'attribute' => 'bankName',
@@ -268,7 +258,7 @@ $columnsSettings['actions'] = [
                 ? '/edm/vtb-documents/view'
                 : '/edm/foreign-currency-control/view';
             return Url::to([$url, 'id' => $model->id]);
-        } elseif ($action === 'update') {
+        } else if ($action === 'update') {
             return Url::to(['/edm/foreign-currency-control/update', 'id' => $model->id]);
         }
     },
@@ -294,8 +284,9 @@ $columnsSettings['actions'] = [
         },
     ]
 ];
-?>
-<?= InfiniteGridView::widget([
+
+// Создать таблицу для вывода
+echo InfiniteGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
     'rowOptions' => function ($model, $key, $index, $grid) {
@@ -334,19 +325,15 @@ $columnsSettings['actions'] = [
     'options' => ['class' => 'grid-view documents-journal-grid'],
 ]);
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
 $this->registerJS(<<<JS
     $('#foreigncurrencycontrolsearch-date').inputmask('99.99.9999', { placeholder: 'дд.мм.гггг' });
     stickyTableHelperInit();
-JS
-);
+JS);
 
 echo ToTopButtonWidget::widget();
-?>

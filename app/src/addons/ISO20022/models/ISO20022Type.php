@@ -5,6 +5,7 @@ use addons\ISO20022\helpers\ISO20022Helper;
 use addons\ISO20022\ISO20022Module;
 use common\base\BaseType;
 use common\helpers\CryptoProHelper;
+use common\helpers\SimpleXMLHelper;
 use common\helpers\StringHelper;
 use Exception;
 use SimpleXMLElement;
@@ -125,10 +126,9 @@ class ISO20022Type extends BaseType
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),
-            [
-                [array_values($this->attributes()), 'safe'],
-            ]);
+        return ArrayHelper::merge(parent::rules(), [
+            [array_values($this->attributes()), 'safe'],
+        ]);
     }
 
     public function getType()
@@ -340,10 +340,14 @@ class ISO20022Type extends BaseType
         return $this->_filePath;
     }
 
-	public function getSearchFields()
-	{
-        return [];
-	}
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields()
+    {
+        return false;
+    }
 
     public function getSignatureTemplate($signatureId, $fingerprint, $algo = null, $certBody = null)
     {
@@ -398,9 +402,9 @@ class ISO20022Type extends BaseType
             $rootElement->SplmtryData->Envlp->addChild('SgntrSt');
         }
 
-        $this->appendSimpleXML(
-            $rootElement->SplmtryData->Envlp->SgntrSt,
-            new SimpleXMLElement($signatureTemplate)
+        SimpleXMLHelper::insertAfter(
+            new SimpleXMLElement($signatureTemplate),
+            $rootElement->SplmtryData->Envlp->SgntrSt
         );
 
         $xml = $this->_xml->asXML();
@@ -411,13 +415,6 @@ class ISO20022Type extends BaseType
     public function getPrefixSignature()
     {
         return 'id_';
-    }
-
-    protected function appendSimpleXML(SimpleXMLElement $to, SimpleXMLElement $from)
-    {
-        $toDom = dom_import_simplexml($to);
-        $fromDom = dom_import_simplexml($from);
-        $toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
     }
 
     public function __sleep()

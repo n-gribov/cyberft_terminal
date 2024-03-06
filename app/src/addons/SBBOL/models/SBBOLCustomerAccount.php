@@ -81,6 +81,7 @@ class SBBOLCustomerAccount extends \yii\db\ActiveRecord
             }
             $account->setAttributes($accountAttribute, false);
             $account->customerId = $customerId;
+            // Сохранить модель в БД
             $isSaved = $account->save();
             if (!$isSaved) {
                 \Yii::info("Failed to save account {$account->number}, errors: " . var_export($account->getErrors(), true));

@@ -18,6 +18,7 @@ if (!$cyxDoc) {
     $attachableTypes = [Auth024Type::TYPE, Auth025Type::TYPE, Auth026Type::TYPE, Auth018Type::TYPE];
     $hasAttachment = in_array($model->type, $attachableTypes)
         && (
+            // Если модель использует сжатие в zip
             $typeModel->useZipContent
             || ($typeModel instanceof Auth026Type && !empty($typeModel->embeddedAttachments))
         );

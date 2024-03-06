@@ -116,13 +116,14 @@ class ConfirmingDocumentInformationExt extends ActiveRecord implements DocumentE
     public function afterSave($insert, $changedAttributes){
         parent::afterSave($insert, $changedAttributes);
 
-        // Удаляем существующие документы
+        // Удалить существующие документы
         ConfirmingDocumentInformationItem::deleteAll(['documentId' => $this->documentId]);
 
         foreach($this->documents as $document) {
             $document->id = null;
             $document->isNewRecord = true;
             $document->documentId = $this->documentId;
+            // Сохранить модель в БД
             $document->save();
         }
     }
@@ -138,6 +139,7 @@ class ConfirmingDocumentInformationExt extends ActiveRecord implements DocumentE
         }
 
         foreach($this->items as $document) {
+            // Удалить документ из БД
             $document->delete();
         }
 

@@ -11,10 +11,9 @@ class CertsViewPermissionRule extends Rule
 {
     public $name = 'certViewPermissionRule';
 
-    public function execute($user, $item, $params)
+    public function execute($userId, $item, $params)
     {
-        // Если пользователь не идентифицирован,
-        // дальнейшее не имеет смысла
+        // Если пользователь не идентифицирован, дальнейшее не имеет смысла
         if (empty(Yii::$app->user) || empty(Yii::$app->user->identity)) {
             return false;
         }
@@ -25,18 +24,15 @@ class CertsViewPermissionRule extends Rule
                 return true;
             }
 
-            // Если пользователь может управлять статусом сертификата,
-            // то ему доступно меню сертификатов
+            // Если пользователь может управлять статусом сертификата, то ему доступно меню сертификатов
 
-            // Проверяем возможность пользователя
-            // управлять статусом сертификатов
-            $userSetting = CommonUserExt::findOne(['userId' => $user, 'type' => CommonUserExt::CERTIFICATES]);
+            // Проверяем возможность пользователя управлять статусом сертификатов
+            $userSetting = CommonUserExt::findOne(['userId' => $userId, 'type' => CommonUserExt::CERTIFICATES]);
 
             // Если настройки управления сертификатами доступны и активны
             return $userSetting && $userSetting->canAccess;
 
-        } catch (Exception $e) {
-
+        } catch (Exception $ex) {
             return false;
         }
 

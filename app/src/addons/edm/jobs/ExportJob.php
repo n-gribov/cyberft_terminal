@@ -44,7 +44,7 @@ class ExportJob extends DocumentJob
 
     public function perform()
     {
-        // Этот джоб может поддерживать несколько типов документов. Нужно по имеющемуся типу определить,
+        // Это задание может поддерживать несколько типов документов. Нужно по имеющемуся типу определить,
         // в какой ресурс его надо экспортировать. Для этого в пропертостях модуля у каждого типа хранится
         // ид ресурса для экспорта
         $docType = $this->_cyxDocument->docType;
@@ -150,10 +150,12 @@ class ExportJob extends DocumentJob
                         }
                     }
 
+                    // Сохранить модель в БД
                     $extModel->save();
 
                     Yii::info("Receive PaymentStatusReport for {$document->type} {$document->uuid}");
 
+                    // Зарегистрировать событие изменения бизнес-статуса документа в модуле мониторинга
                     Yii::$app->monitoring->log(
                         'document:documentBusinessStatusChange', 'document', $document->id, [
                             'businessStatus' => $status,
@@ -162,9 +164,7 @@ class ExportJob extends DocumentJob
                         ]
                     );
                 }
-
                 $result = ExportResult::exported();
-
             } else {
                 $result = ExportResult::failed();
                 $this->log(
@@ -177,7 +177,7 @@ class ExportJob extends DocumentJob
         if ($result->isFailed()) {
             $this->log("Error exporting document ID {$this->_documentId}", true);
             $this->_document->updateStatus(Document::STATUS_NOT_EXPORTED, 'Export');
-        } elseif ($result->isExported()) {
+        } else if ($result->isExported()) {
             // PaymentStatusReportType через API не экспортируем
             if ($docType != PaymentStatusReportType::TYPE) {
                 ApiModule::addToExportQueueIfRequired($this->_document->uuidRemote, $result->getFilePath(), $this->_document->receiver);
@@ -189,12 +189,10 @@ class ExportJob extends DocumentJob
     private function updateTransactionStatus($registerDocument, $typeModel)
     {
         foreach ($typeModel->transactionStatus as $docNumber => $item) {
-            $paymentOrder = PaymentRegisterPaymentOrder::findOne(
-                [
-                    'registerId' => $registerDocument->id,
-                    'number' => $docNumber,
-                ]
-            );
+            $paymentOrder = PaymentRegisterPaymentOrder::findOne([
+                'registerId' => $registerDocument->id,
+                'number' => $docNumber,
+            ]);
 
             if ($paymentOrder) {
                 $isUpdated = $paymentOrder->updateBusinessStatus(
@@ -206,7 +204,7 @@ class ExportJob extends DocumentJob
                 if ($isUpdated) {
                     $this->log('Updated PaymentOrder #' . $docNumber . ' from PaymentRegister id='
                         . $registerDocument->id . ' with status=' . $item['statusCode']);
-
+                    // Зарегистрировать событие изменения бизнес-статуса документа в модуле мониторинга
                     Yii::$app->monitoring->log(
                         'document:documentBusinessStatusChange', 'document', $paymentOrder->id, [
                             'businessStatus' => $item['statusCode'],
@@ -243,6 +241,7 @@ class ExportJob extends DocumentJob
                     $paymentOrder->businessStatus = 'ACSP';
                 }
 
+                // Если модель успешно сохранена в БД
                 if ($paymentOrder->save()) {
                     $this->log('Payment order number ' . $paymentOrder->number . ' updated from Statement number ' . $statement->statementNumber);
                 } else {
@@ -317,6 +316,7 @@ class ExportJob extends DocumentJob
             $extModel->save(false, ['businessStatus', 'businessStatusDescription', 'businessStatusComment']);
 
             if ($status == 'RJCT' && $document->type != VTBRegisterCurType::TYPE) {
+                // Зарегистрировать событие отказа в обработке документа в модуле мониторинга
                 Yii::$app->monitoring->log('edm:PaymentStatusError', 'PaymentRegister', $document->id,
                     [
                         'status' => 'RJCT',
@@ -327,6 +327,7 @@ class ExportJob extends DocumentJob
                     ]
                 );
             } else {
+                // Зарегистрировать событие изменения бизнес-статуса документа в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'document:documentBusinessStatusChange', 'document', $document->id, [
                         'businessStatus' => $status,
@@ -371,7 +372,7 @@ class ExportJob extends DocumentJob
 
         if ($exportTo1CResult->isExported() || $exportToISOResult->isExported()) {
             return ExportResult::exported($exportTo1CResult->getFilePath() ?? $exportToISOResult->getFilePath());
-        } elseif ($exportTo1CResult->isFailed() || $exportToISOResult->isFailed()) {
+        } else if ($exportTo1CResult->isFailed() || $exportToISOResult->isFailed()) {
             return ExportResult::failed();
         } else {
             return ExportResult::notRequired();

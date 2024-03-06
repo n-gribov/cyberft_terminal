@@ -29,7 +29,7 @@ class TerminalId extends Component
     protected $_type = self::TYPE_UNDEFINED;
 
     /**
-     * @param string          $value
+     * @param string $value
      * @param TerminalId|null $item
      * @return TerminalId|null
      */
@@ -58,7 +58,7 @@ class TerminalId extends Component
     }
 
     /**
-     * @param string          $value
+     * @param string $value
      * @param TerminalId|null $item
      * @return TerminalId|null
      */
@@ -70,14 +70,15 @@ class TerminalId extends Component
             return null;
         }
 
-        $item        = self::extractByArray($res, $item);
+        $item = self::extractByArray($res, $item);
         $item->_type = self::TYPE_PARTICIPANT;
 
         return $item;
     }
 
     /**
-     * @param string          $value
+     * Метод извлекает BIC из адреса терминала
+     * @param string $value
      * @param TerminalId|null $item
      * @return TerminalId|null
      */
@@ -86,12 +87,23 @@ class TerminalId extends Component
         if (!($res = self::parse($value, ['terminalCode', 'participantUnitCode']))) {
             return null;
         }
-        $item        = self::extractByArray($res, $item);
+        $item = self::extractByArray($res, $item);
         $item->_type = self::TYPE_BIC;
 
         return $item;
     }
 
+    /**
+     * Extract 8 letter BIC
+     *
+     * @param string $name BIC name
+     * @return string
+     */
+    public static function extractBIC8($name)
+    {
+        return strtolower(substr($name, 0, 8));
+    }
+    
     /**
      * @param array $ignore
      * @return string
@@ -128,7 +140,7 @@ class TerminalId extends Component
     public function init()
     {
         $this->_attr = array_merge(
-                array_fill_keys(array_keys(self::getScheme()), null), $this->_attr
+            array_fill_keys(array_keys(self::getScheme()), null), $this->_attr
         );
     }
 
@@ -193,7 +205,6 @@ class TerminalId extends Component
     protected static function getScheme()
     {
         return [
-            // CYB-893
             'participantCode' => '[A-z0-9]{4}',
             'countryCode' => '([A-z0-9]{2})',
             'sevenSymbol' => '[A-z0-9]{1}',
@@ -299,5 +310,4 @@ class TerminalId extends Component
 
         return null;
     }
-
 }

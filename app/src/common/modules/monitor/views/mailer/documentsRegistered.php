@@ -5,10 +5,10 @@ use common\helpers\NumericHelper;
 /** @var array $documents */
 
 ?>
-<h3><?= $participantName ? "$participantName, " : '' ?><?= $terminalId; ?>:</h3>
+<h3><?= $participantName ? "$participantName, " : '' ?><?= $terminalId ?>:</h3>
 <?php $listStyle = count($documents) > 1 ? '' : 'style="list-style: none; padding-left: 0;"' ?>
 <ul <?= $listStyle ?>>
-    <?php foreach ($documents as $type => $count): ?>
+    <?php foreach ($documents as $type => $count) : ?>
     <li>
         <?= Yii::t(
             'monitor/mailer',
@@ -20,5 +20,5 @@ use common\helpers\NumericHelper;
             ]
         ) ?>.
     </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </ul>

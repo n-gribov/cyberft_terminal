@@ -10,7 +10,7 @@ class m180109_131333_add_common_notification_settings extends Migration
         // @CYB-3734
         // Создание настроек общих настроек оповещения (для всех терминалов)
         // из настроек терминала по-умолчанию
-        $defaultTerminal = Yii::$app->terminals->getDefaultTerminalId();
+        $defaultTerminal = Yii::$app->exchange->getDefaultTerminalId();
         $code = 'monitor:Notification';
 
         $settings = SettingsAR::findOne(['code' => $code, 'terminalId' => $defaultTerminal]);
@@ -20,6 +20,7 @@ class m180109_131333_add_common_notification_settings extends Migration
             $defaultSettings->code = $settings->code;
             $defaultSettings->data = $settings->data;
             $defaultSettings->terminalId = null;
+            // Сохранить модель в БД
             $defaultSettings->save();
         }
     }

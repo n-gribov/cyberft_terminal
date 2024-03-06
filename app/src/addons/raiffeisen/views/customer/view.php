@@ -21,7 +21,9 @@ $this->title = $model->fullName;
     ); ?>
 </div>
 
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'shortName',
@@ -67,7 +69,9 @@ $this->title = $model->fullName;
         ['class' => 'btn btn-success']
     ); ?>
 </div>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->accounts,
         'modelClass' => RaiffeisenCustomerAccount::class,
@@ -94,9 +98,9 @@ $this->title = $model->fullName;
             'contentOptions' => ['class' => 'text-right'],
         ],
     ],
-]) ?>
+]);
 
-<?php $this->registerCss(
+$this->registerCss(
     '.buttons-block {
         margin-bottom: 1em;
     }

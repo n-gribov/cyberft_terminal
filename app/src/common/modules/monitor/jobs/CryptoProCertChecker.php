@@ -13,6 +13,7 @@ class CryptoProCertChecker extends Job
         $cpLicense = CryptoProHelper::checkCPLicense();
 
         if (!$cpLicense) {
+            // Зарегистрировать событие просроченной лицензии Криптопро в модуле мониторинга
             Yii::$app->monitoring->log('user:CryptoProCertExpired', '', '');
         }
 

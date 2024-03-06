@@ -25,6 +25,7 @@ Url::remember(Url::to(), 'edit');
 
 /** @var View $this */
 
+// Получить роль пользователя из активной сессии
 $isAdmin = in_array(Yii::$app->user->identity->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN]);
 $serviceId = $this->context->module instanceof BaseBlock ? $this->context->module->getServiceId() : null;
 
@@ -63,12 +64,14 @@ $processingExtStatus = [
     SwiftFinDocumentExt::STATUS_INAUTHORIZATION,
 ];
 
-$isVolatile = in_array($model->status, $processingStatus)
-        || ($model->status == Document::STATUS_SERVICE_PROCESSING && isset($model->extModel->extStatus)
-            && in_array($model->extModel->extStatus, $processingExtStatus));
+$isVolatile = 
+    in_array($model->status, $processingStatus)
+    || (
+        $model->status == Document::STATUS_SERVICE_PROCESSING && isset($model->extModel->extStatus)
+        && in_array($model->extModel->extStatus, $processingExtStatus)
+    );
 
-// Рисуем общие данные документа
-
+// Вывести общие данные документа
 if (!isset($backUrl) || !is_array($backUrl)) {
     $backUrl = ['index'];
 }
@@ -82,17 +85,15 @@ if ($from === 'controller-verification') {
 }
 
 $items = [
-	[
-		'label' => Yii::t('doc', 'View'),
-		'url' => Url::to(array_merge($urlParams, ['view', 'id' => $model->id, 'mode' => 'source'])),
-		'active' => ($mode === 'source' || empty($mode))
-	],
+    [
+        'label' => Yii::t('doc', 'View'),
+        'url' => Url::to(array_merge($urlParams, ['view', 'id' => $model->id, 'mode' => 'source'])),
+        'active' => ($mode === 'source' || empty($mode))
+    ]
 ];
 
 // Check admin role
-
 if ($isAdmin) {
-
     if ($model->type == FinZipType::TYPE) {
         $items = [];
         $dataView = '_events';
@@ -119,15 +120,11 @@ if ($isAdmin) {
     $items = ArrayHelper::merge($items, $itemsAdmin);
 }
 ?>
-
 <div class="panel-body" style="padding-top: 5px; padding-bottom: 5px;">
-
-<div class="pull-right">
-    <?= TransportInfoButton::widget() ?>
-</div>
+<div class="pull-right"><?= TransportInfoButton::widget() ?></div>
 
 <?php
-	echo Html::a(
+    echo Html::a(
         Yii::t('app', 'Back'),
         $backUrl,
         ['class' => 'btn btn-default btn-back-button']
@@ -143,9 +140,9 @@ if ($isAdmin) {
     if ($userCanDeleteDocuments && $model->isDeletable()) {
         echo DeleteDocumentButton::widget(['documentId' => $model->id]);
     }
-?>
 
-<?php if (isset($actionView) && $actionView == 'viewStatement') {?>
+    if (isset($actionView) && $actionView == 'viewStatement') :
+?>
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -204,29 +201,7 @@ if ($isAdmin) {
             </li>
         </ul>
     </div>
-<?php } ?>
-
-<?php
-    // Кнопка Подписантов для вывода модального окна
-    // Для админа и зашифрованных документов не отображать
-//    if ($isAdmin && $model->isEncrypted) {
-//        $showSignatories = false;
-//    } else {
-//        $showSignatories = true;
-//    }
-//    if ($showSignatories) {
-//        echo '&nbsp;' . Html::a(
-//            Yii::t('app', 'Signatories'),
-//            '#',
-//            [
-//                'class' => 'btn btn-default btn-signers-button',
-//                'data' => [
-//                    'document-id' => $model->id
-//                ]
-//            ]
-//        );
-//    }
-?>
+<?php endif ?>
 
 <?php
     if (Yii::$app->user->can('documentControllerVerification')
@@ -262,7 +237,7 @@ if ($isAdmin) {
     $isVerifiable = Yii::$app->user->identity->role !== User::ROLE_ADMIN
         && in_array($model->status, Document::getUserVerifiableStatus());
 
-	if ($model->isSignableByUserLevel($serviceId)) {
+    if ($model->isSignableByUserLevel($serviceId)) {
         // Проверяем на наличие параметра адреса переадресации после подписания
         $redirectUrl = Yii::$app->request->get('redirectUrl');
         echo SignDocumentsButton::widget([
@@ -270,28 +245,28 @@ if ($isAdmin) {
             'documentsIds' => [$model->id],
             'successRedirectUrl' => $redirectUrl
         ]);
-	} else if ($isVerifiable) {
-		echo ' ' . Html::a(Yii::t('app/message', 'User verify'),
-			['/swiftfin/documents/user-verify', 'id' => $model->id],
-			['class' => 'btn btn-success']);
-	} else if ($model->isSendable()) {
-		echo ' ' . Html::a(Yii::t('app/message', 'Send'),
-			['/documents/send', 'id' => $model->id], ['class' => 'btn btn-primary']);
-	}
-
-    if ($model->isResendable() && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
-		echo ' ' . Html::a(Yii::t('app/message', 'Resend'),
-			['/document/resend', 'id' => $model->id], ['class' => 'btn btn-primary']);
-
+    } else if ($isVerifiable) {
+        echo ' ' . Html::a(Yii::t('app/message', 'User verify'),
+            ['/swiftfin/documents/user-verify', 'id' => $model->id],
+            ['class' => 'btn btn-success']);
+    } else if ($model->isSendable()) {
+        echo ' ' . Html::a(Yii::t('app/message', 'Send'),
+                ['/documents/send', 'id' => $model->id], ['class' => 'btn btn-primary']);
     }
 
-	if (isset($customModuleActionView) && !empty($customModuleActionView)) {
-        echo $this->render($customModuleActionView, ['model' => $model]);
-	}
+    if ($model->isResendable() && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+        echo ' ' . Html::a(
+            Yii::t('app/message', 'Resend'),
+            ['/document/resend', 'id' => $model->id], ['class' => 'btn btn-primary']
+        );
+    }
 
+    if (isset($customModuleActionView) && !empty($customModuleActionView)) {
+        // Вывести страницу
+        echo $this->render($customModuleActionView, ['model' => $model]);
+    }
 ?>
 </div>
-
 <?php
 // Если пункты доп. меню содержат только 1 элемент, то вообще их не отображаем
 if (count($items) > 1):
@@ -333,7 +308,7 @@ if (count($items) > 1):
             }
     }
 
-    // Рендерим выбранное отображение
+    // Вывести выбранное отображение
     echo $this->render(
         $viewName,
         [
@@ -347,8 +322,8 @@ if (count($items) > 1):
     if (!($isAdmin && $model->isEncrypted)
         && ($viewName == $dataView || $viewName == '_defaultView')
     ) {
-        //$mask = isset($showSignaturesMask) ? $showSignaturesMask : Document::SIGNATURES_TYPEMODEL;
         $mask = Document::SIGNATURES_ALL;
+        // Вывести блок подписей
         echo $this->render('@common/views/document/_signatures', [
             'signatures' => $model->getSignatures($mask, Cert::ROLE_SIGNER)
         ]);
@@ -361,76 +336,28 @@ if (count($items) > 1):
         }
         echo '</div>';
     }
-
 ?>
 </div>
 
 <?php if ($isVolatile) : ?>
-	<script type="text/javascript">
-		setTimeout(function () {
-			window.location.reload(1);
-            var loc = window.location.toString();
-		}, 5000);
-	</script>
+    <script type="text/javascript">
+        setTimeout(function () {
+                window.location.reload(1);
+            },
+            5000
+        );
+    </script>
 <?php endif ?>
-
 <?php
-
-//$this->registerCss('
-//    #signersModal .modal-dialog {
-//        width: 700px;
-//    }
-//');
-
-
-//$request = Url::toRoute('/document/get-signers-info');
-//
-//$script = <<< JS
-//    // Вызов всплывающего окна с информацией о подписантах
-//    $('.btn-signers-button').on('click', function(e) {
-//        e.preventDefault();
-//
-//        var documentId = $(this).data('document-id');
-//
-//        // Получение информации о подписантах
-//        $.ajax({
-//            url: '$request',
-//            type: 'get',
-//            data: {documentId: documentId},
-//            success: function(answer){
-//                // Загрузка даннных
-//                $('#signersModal .modal-body').html(answer);
-//
-//                // Отображение окна
-//                $('#signersModal').modal('show');
-//            }
-//        });
-//    });
-//JS;
-//
-//$this->registerJs($script, View::POS_READY);
-
-// Форма с модальным окном вывода списка подписантов
-//$header = '<h4 class="modal-title" id="myModalLabel">' . Yii::t('app', 'Signatories') . '</h4>';
-//
-//$modal = Modal::begin([
-//    'id' => 'signersModal',
-//    'header' => $header,
-//    'footer' => null,
-//]);
-//$modal::end();
-
 $errorDescription = null;
 
 if ($model->status == Document::STATUS_REJECTED) {
     $uuid = $model->direction == Document::DIRECTION_OUT ? $model->uuid : $model->uuidRemote;
     if ($uuid) {
-
     	$statusReport = Document::find()
             ->where(['uuidReference' => $uuid])
             ->andWhere(['type' => CFTStatusReportType::TYPE])
             ->one();
-
         if ($statusReport) {
             $typeModel = CyberXmlDocument::getTypeModel($statusReport->actualStoredFileId);
             $errorDescription = $typeModel->errorDescription;

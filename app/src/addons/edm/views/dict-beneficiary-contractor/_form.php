@@ -52,23 +52,39 @@ if (!$model->terminalId) {
             'dataType' => 'json',
             'data'     => new JsExpression('function(params) { return {q:params.term}; }')
         ],
-        'templateResult'     => new JsExpression('function(item) { if (!item.bik) return item.text; return "БИК: " + item.bik + " Банк:" + item.name; }'),
-        'templateSelection'  => new JsExpression('function(item) { if (!item.bik) return item.text; return "БИК: " + item.bik + " Банк: " + item.name; }'),
+        'templateResult'     => new JsExpression(<<<JS
+            function(item) {
+                if (!item.bik) {
+                    return item.text;
+                }
+                return 'БИК: ' + item.bik + ' Банк: ' + item.name;
+            }
+        JS),
+        'templateSelection'  => new JsExpression(<<<JS
+            function(item) {
+                if (!item.bik) {
+                    return item.text;
+                }
+                return 'БИК: ' + item.bik + ' Банк: ' + item.name;
+            }
+        JS),
     ],
     'pluginEvents'  => [
-        'select2:select' => 'function(e) {
-           if ($("#dictbeneficiarycontractor-terminalid").val().length === 0) {
-                $("#dictbeneficiarycontractor-terminalid").val(e.params.data.terminalId);
-           }
-		}',
-        'select2:unselect' => 'function(e) {
-           if ($("#dictbeneficiarycontractor-terminalid").val().length === 0) {
-                $("#dictbeneficiarycontractor-terminalid").val("");
-           }
-		}',
-        'change' => 'function(e) {
-           checkFieldAccessibility();
-		}',
+        'select2:select' => <<<JS
+            function(e) {
+                if ($('#dictbeneficiarycontractor-terminalid').val().length === 0) {
+                   $('#dictbeneficiarycontractor-terminalid').val(e.params.data.terminalId);
+                }
+            }
+        JS,
+        'select2:unselect' => <<<JS
+            function(e) {
+                if ($('#dictbeneficiarycontractor-terminalid').val().length === 0) {
+                    $('#dictbeneficiarycontractor-terminalid').val('');
+                }
+            }
+        JS,
+        'change' => 'function(e) { checkFieldAccessibility(); }',
     ],
 ]);?>
 
@@ -150,7 +166,7 @@ if (!$emptyLayout) { ?>
 
 <?php
 // JS-скрипты для представления
-$script = <<< JS
+$script = <<<JS
     var modelClassPrefix = 'dictbeneficiarycontractor';
     checkFieldAccessibility();
 

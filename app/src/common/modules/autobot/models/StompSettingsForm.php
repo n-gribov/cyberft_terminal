@@ -17,12 +17,12 @@ class StompSettingsForm extends Model
     const STATUS_PENDING_CONFIRMATION = 'pendingConfirmation';
     const STATUS_CONFIRMED = 'confirmed';
 
-	public $terminalId;
-	public $login;
-	public $password;
+    public $terminalId;
+    public $login;
+    public $password;
     public $status;
 
-	public function rules()
+    public function rules()
     {
         return [
             [['terminalId', 'password'], 'required'],
@@ -31,21 +31,21 @@ class StompSettingsForm extends Model
         ];
     }
 
-	public function attributeLabels()
-	{
-		return [
-			'terminalId'	 => Yii::t('app/terminal', 'Terminal ID'),
-			'login'			 => Yii::t('app/autobot', 'Login'),
-			'password'		 => Yii::t('app/autobot', 'Password'),
-		];
-	}
+    public function attributeLabels()
+    {
+        return [
+            'terminalId' => Yii::t('app/terminal', 'Terminal ID'),
+            'login' => Yii::t('app/autobot', 'Login'),
+            'password' => Yii::t('app/autobot', 'Password'),
+        ];
+    }
 
     private function statusesLabels()
     {
         return [
-            self::STATUS_WAITING_TO_SEND	        => Yii::t('app/autobot', 'Waiting to send'),
-            self::STATUS_PENDING_CONFIRMATION   => Yii::t('app/autobot', 'Pending confirmation'),
-            self::STATUS_CONFIRMED		        => Yii::t('app/autobot', 'Confirmed'),
+            self::STATUS_WAITING_TO_SEND => Yii::t('app/autobot', 'Waiting to send'),
+            self::STATUS_PENDING_CONFIRMATION => Yii::t('app/autobot', 'Pending confirmation'),
+            self::STATUS_CONFIRMED => Yii::t('app/autobot', 'Confirmed'),
         ];
     }
 
@@ -64,27 +64,27 @@ class StompSettingsForm extends Model
         }
     }
 
-	public function save()
-	{
+    public function save()
+    {
         $appSettings = Yii::$app->settings->get('app', $this->terminalId);
 
-		$appSettings->stomp[$this->terminalId] = [
-			'login' => $this->login,
-			'password' => $this->password,
+        $appSettings->stomp[$this->terminalId] = [
+            'login' => $this->login,
+            'password' => $this->password,
             'status' => $this->status ?? self::STATUS_PENDING_CONFIRMATION
-		];
+        ];
 
+        // Сохранить модель в БД и вернуть результат сохранения
         return $appSettings->save();
-	}
+    }
 
-	public function getPasswordHash()
-	{
-		return (!empty($this->password)) ? md5($this->password) : '';
-	}
+    public function getPasswordHash()
+    {
+        return (!empty($this->password)) ? md5($this->password) : '';
+    }
 
     public function validatePassword($attribute, $params)
     {
-
         if (strlen($this->$attribute) < 8) {
             $this->addError($attribute, Yii::t('app/error', 'The password must contain at least {number} characters', ['number' => '8']));
             return;
@@ -95,17 +95,17 @@ class StompSettingsForm extends Model
             return;
         }
 
-        if (preg_match("/[a-z]+/", $this->$attribute) === 0) {
+        if (preg_match('/[a-z]+/', $this->$attribute) === 0) {
             $this->addError($attribute, Yii::t('app/error', 'The password must contain at least one lowercase letter'));
             return;
         }
 
-        if (preg_match("/[A-Z]+/", $this->$attribute) === 0) {
+        if (preg_match('/[A-Z]+/', $this->$attribute) === 0) {
             $this->addError($attribute, Yii::t('app/error', 'The password must contain at least one uppercase letter'));
             return;
         }
 
-        if (preg_match("/[0-9]+/", $this->$attribute) === 0) {
+        if (preg_match('/[0-9]+/', $this->$attribute) === 0) {
             $this->addError($attribute, Yii::t('app/error', 'The password must contain at least one digit'));
             return;
         }
@@ -114,5 +114,4 @@ class StompSettingsForm extends Model
             $this->addError($attribute, Yii::t('app/error', 'The password must contain at least one special character'));
         }
     }
-
 }

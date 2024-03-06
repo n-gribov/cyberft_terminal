@@ -71,7 +71,7 @@
                 <td>4</td>
                 <td>5</td>
             </tr>
-            <?php foreach($model->tranchesItems as $tranche): ?>
+            <?php foreach($model->tranchesItems as $tranche) : ?>
                 <tr>
                     <td><?=$model->currencyDescription?></td>
                     <td><?=$model->currencyCode?></td>
@@ -79,7 +79,7 @@
                     <td><?=$tranche->termCodePrintable?></td>
                     <td><?=$tranche->datePrintable?></td>
                 </tr>
-            <?php endforeach;?>
+            <?php endforeach ?>
         </table>
     </div>
 </div>

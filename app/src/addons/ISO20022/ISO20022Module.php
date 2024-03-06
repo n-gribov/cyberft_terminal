@@ -73,6 +73,7 @@ class ISO20022Module extends BaseBlock
                 $params['terminalId'] = $document->terminalId;
             }
 
+            // Зарегистрировать событие ошибки обработки документа в модуле мониторинга
             Yii::$app->monitoring->log(
                 'document:documentProcessError', 'document', $documentId, $params
             );
@@ -140,6 +141,7 @@ class ISO20022Module extends BaseBlock
                 && $document->status == Document::STATUS_ATTACHMENT_UNDELIVERED
         ) {
             try {
+                // Отправить Status Report
                 DocumentTransportHelper::statusReport($document, [
                     'statusCode' => 'ATDE',
                     'errorCode' => '555',
@@ -236,7 +238,7 @@ class ISO20022Module extends BaseBlock
         $documentPain002->uuidReference = $extDocUuid;
         $documentPain002->save(false);
 
-        // Регистрация события получения статуса документа ISO
+        // Зарегистрировать событие получения статуса документа ISO в модуле мониторинга
         Yii::$app->monitoring->log(
             'user:ISOReceiveStatus',
             'document',
@@ -312,7 +314,7 @@ class ISO20022Module extends BaseBlock
         $documentAuth027->uuidReference = $extDocUuid;
         $documentAuth027->save(false);
 
-        // Регистрация события получения статуса документа ISO
+        // Зарегистрировать событие получения статуса документа ISO в модуле мониторинга
         Yii::$app->monitoring->log(
             'user:ISOReceiveStatus',
             'document',
@@ -344,6 +346,7 @@ class ISO20022Module extends BaseBlock
         }
 
         if ($fileName) {
+            // Если модель использует сжатие в zip
             if ($typeModel->useZipContent) {
                 // если используется единый конверт
                 $fileName = $typeModel->zipFilename;

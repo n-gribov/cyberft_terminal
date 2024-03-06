@@ -284,7 +284,7 @@ $columnsEnabled['actions'] = [
         );
     }
 ];
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'id' => 'documents-grid',
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
@@ -335,10 +335,10 @@ echo ColumnsSettingsWidget::widget(
 );
 
 echo ToTopButtonWidget::widget();
-
+// Вывести модальное окно с формой редактирования
 echo $this->render('_fcoUpdateModal');
 
-// Всплывающее окно с просмотром
+// Вывести модальное окно с просмотром
 echo $this->render('_fcoViewModal');
 
 $this->registerJs(<<<JS
@@ -370,8 +370,7 @@ $this->registerJs(<<<JS
     }
     $('body').on('click', '.view-modal-btn', onViewPaymentClick);
     $('body').on('dblclick', '#documents-grid tbody tr', onViewPaymentClick);
-JS
-);
+JS);
 ?>
 
 <style>

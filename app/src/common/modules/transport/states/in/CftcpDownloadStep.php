@@ -76,6 +76,7 @@ class CftcpDownloadStep extends BaseDocumentStep
 
         $document->updatestatus(Document::STATUS_DOWNLOAD_FAIL);
 
+        // Сохранить модель в БД и вернуть результат сохранения
         return $this->state->save();
     }
 

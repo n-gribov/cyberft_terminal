@@ -49,9 +49,7 @@ class TerminalRemoteId extends ActiveRecord
     public function getTerminalReceiverTitle()
     {
         $terminalReceiver = $this->terminalReceiver;
-
         $fixedAddress = Address::truncateAddress($terminalReceiver);
-
         $participant = BICDirParticipant::findOne(['participantBIC' => $fixedAddress]);
 
         if ($participant) {
@@ -63,13 +61,13 @@ class TerminalRemoteId extends ActiveRecord
         return $terminalReceiverTitle;
     }
 
-    public static function getRemoteIdByTerminal($terminalId, $bankTerminalId = null)
+    public static function getRemoteIdByTerminal($terminalId, $bankTerminalId = null, $default = null)
     {
         $data = self::find()
-                    ->where(['terminalId' => $terminalId])
-                    ->andFilterWhere(['terminalReceiver' => $bankTerminalId])
-                    ->one();
+            ->where(['terminalId' => $terminalId])
+            ->andFilterWhere(['terminalReceiver' => $bankTerminalId])
+            ->one();
 
-        return $data ? $data->remoteId : null;
+        return $data ? $data->remoteId : $default;
     }
 }

@@ -102,6 +102,7 @@ class ExportJob extends DocumentJob
 
             ApiModule::addToExportQueueIfRequired($this->_document->uuidRemote, $savedPath, $this->_document->receiver);
 
+            // Зарегистрировать событие экспорта документа в модуле мониторинга
             Yii::$app->monitoring->log(
                 'document:DocumentExport',
                 'document',
@@ -119,6 +120,7 @@ class ExportJob extends DocumentJob
             // повторные попытки экспорта не нужны
             if ($this->_useMaxAttemptsCount) {
                 $this->_document->attemptsCount = RegularExportCheck::MAX_ATTEMPTS_COUNT;
+                // Сохранить модель в БД
                 $this->_document->save();
             }
 
@@ -128,10 +130,11 @@ class ExportJob extends DocumentJob
 
                 if ($this->_document->extModel) {
                     $this->_document->extModel->extStatus = ISO20022DocumentExt::STATUS_SFTP_ERROR;
+                    // Сохранить модель в БД
                     $this->_document->extModel->save();
                 }
 
-                // Создание события
+                // Зарегистрировать событие ошибки SFTP в модуле мониторинга
                 Yii::$app->monitoring->log('transport:sftpOpenFailed', 'sftp', 0, [
                     'logLevel' => LogLevel::ERROR,
                     'serviceId' => ISO20022Module::SERVICE_ID,
@@ -227,17 +230,18 @@ class ExportJob extends DocumentJob
             $zipFileName .= '.zip';
         }
 
-		$targetZip = null;
-		$zipArchive = null;
-		/** @var common\settings\AppSettings $settings */
-		$settings = Yii::$app->settings->get('app', $this->getTerminalAddress());
-		$encoding = $settings->useUtf8ZipFilenameEncoding ? null : 'cp866';
+        $targetZip = null;
+        $zipArchive = null;
+        /** @var common\settings\AppSettings $settings */
+        $settings = Yii::$app->settings->get('app', $this->getTerminalAddress());
+        $encoding = $settings->useUtf8ZipFilenameEncoding ? null : 'cp866';
 
+        // Если модель использует сжатие в zip
         if ($typeModel->useZipContent) {
             $zipArchive = ZipHelper::createArchiveFileZipFromString($typeModel->zipContent);
-			if (!$encoding) {
-				$targetZip = ZipHelper::createTempArchiveFileZip();
-			}
+            if (!$encoding) {
+                $targetZip = ZipHelper::createTempArchiveFileZip();
+            }
         } else {
             $extModel = $this->_document->extModel;
             if ($extModel && $extModel->storedFileId) {
@@ -259,16 +263,16 @@ class ExportJob extends DocumentJob
             }
         }
 
-		if ($targetZip) {
-			$fileList = $zipArchive->getFileList('cp866');
-			foreach ($fileList as $pos => $name) {
-				$content = $zipArchive->getFromIndex($pos);
-				$targetZip->addFromString($content, $name);
-			}
-			$targetZip->close();
-		} else {
-			$targetZip = $zipArchive;
-		}
+        if ($targetZip) {
+            $fileList = $zipArchive->getFileList('cp866');
+            foreach ($fileList as $pos => $name) {
+                $content = $zipArchive->getFromIndex($pos);
+                $targetZip->addFromString($content, $name);
+            }
+            $targetZip->close();
+        } else {
+            $targetZip = $zipArchive;
+        }
 
         $zipArchive->close();
         $savedPath = $this->atomicWrite($targetZip->getPath(), $this->_senderDir . '/' . $zipFileName, true);

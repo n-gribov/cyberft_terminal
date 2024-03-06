@@ -53,7 +53,7 @@ class SendVTBDocumentsJob extends BaseJob
         $result = $this->sendDocumentImportRequest($request);
         if (!$result->hasError()) {
             $request->updateStatus(VTBDocumentImportRequest::STATUS_SENT);
-        } elseif (!$result->canRetry()) {
+        } else if (!$result->canRetry()) {
             $request->updateStatus(VTBDocumentImportRequest::STATUS_SENDING_ERROR);
         }
     }
@@ -101,6 +101,7 @@ class SendVTBDocumentsJob extends BaseJob
 
         if (empty($wsResponse->getBSErrorCode())) {
             $importRequest->externalRequestId = $wsResponse->getRecordID();
+            // Сохранить модель в БД
             $importRequest->save();
         } else {
             $this->log(

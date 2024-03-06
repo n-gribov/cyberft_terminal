@@ -5,7 +5,8 @@ use yii\helpers\Url;
 ?>
 <div class="row">
     <div class="col-sm-6">
-        <?php
+    <?php
+        // Создать таблицу для вывода
         $myGridWidget = GridView::begin([
             'emptyText'    => Yii::t('other', 'No enabled users found'),
             'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -29,8 +30,8 @@ use yii\helpers\Url;
             ],
         ]);
         $myGridWidget->end();
-        ?>
-	</div>
+    ?>
+    </div>
 </div>
 
 

@@ -127,7 +127,7 @@ class CftcpTransport extends Component
 
         if ($return_var === 0) {
             return true;
-        } elseif ($return_var === 1) {
+        } else if ($return_var === 1) {
             $this->addError('File not sent');
 
             return false;
@@ -159,7 +159,7 @@ class CftcpTransport extends Component
 
         if ($return_var === 0) {
             return true;
-        } elseif ($return_var === 1) {
+        } else if ($return_var === 1) {
             $this->addError('File not received');
 
             return false;
@@ -188,7 +188,7 @@ class CftcpTransport extends Component
      */
     public function getErrors()
     {
-        return $this->_errors === NULL ? [] : $this->_errors;
+        return $this->_errors === null ? [] : $this->_errors;
     }
 
     /**

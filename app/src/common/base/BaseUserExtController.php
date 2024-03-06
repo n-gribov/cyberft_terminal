@@ -17,19 +17,19 @@ use yii\web\NotFoundHttpException;
 class BaseUserExtController extends BaseController
 {
     public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => ['commonUsers'],
-					],
-				],
-			]
-		];
-	}
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['commonUsers'],
+                    ],
+                ],
+            ]
+        ];
+    }
 
     /**
      * Get user extended data
@@ -37,30 +37,30 @@ class BaseUserExtController extends BaseController
      * @param integer $id User ID
      * @return mixed
      */
-	public function actionIndex($id)
-	{
-		$model = $this->getUserExtModel($id);
-		return $this->render(
-		    '@common/views/user-ext/index',
-            [
-                'extModel'    => $model,
-                'serviceName' => $this->getServiceName()
-            ]
-        );
-	}
+    public function actionIndex($id)
+    {
+        $model = $this->getUserExtModel($id);
+        // Вывести страницу
+        return $this->render('@common/views/user-ext/index', [
+            'extModel'    => $model,
+            'serviceName' => $this->getServiceName()
+        ]);
+    }
 
     protected function getServiceName()
     {
         return $this->module->config['menu']['label'];
     }
 
-	public function actionUpdatePermissions()
-	{
-		$id = (int) Yii::$app->request->get('id');
-		$extModel = $this->getUserExtModel($id);
+    public function actionUpdatePermissions()
+    {
+        $id = (int) Yii::$app->request->get('id');
+        $extModel = $this->getUserExtModel($id);
 
         if (empty($extModel)) {
+            // Поместить в сессию флаг сообщения о ненайденном пользователе
             Yii::$app->session->setFlash('error', Yii::t('app/user', 'Unknown user - data was not updated'));
+            // Перенаправить на страницу пользователей
             return $this->redirect(['/user']);
         }
 
@@ -72,12 +72,15 @@ class BaseUserExtController extends BaseController
             $extModel->permissions = array_values($permissions);
 
             if (!$extModel->save()) {
+                // Поместить в сессию флаг сообщения об ошибке сохранения доступов пользователя
                 Yii::$app->session->addFlash('error', Yii::t('app/user', 'Could not save user permissions'));
             }
         } else {
+            // Поместить в сессию флаг сообщения о запрете редактирования пользователя
             Yii::$app->session->addFlash('error', Yii::t('app/user', 'Editing user is not allowed'));
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect(['index', 'id' => $extModel->userId, 'tabMode' => 'tabPermissions']);
     }
 
@@ -91,16 +94,17 @@ class BaseUserExtController extends BaseController
     protected function getUserExtModel($userId)
     {
         $extModel = $this->module->getUserExtmodel($userId);
-		if ($extModel->getIsNewRecord()) {
+        if ($extModel->getIsNewRecord()) {
             $user = User::findOne($userId);
             if (empty($user)) {
                 throw new NotFoundHttpException(Yii::t('app/user', 'Requested page not found'));
             }
 
             $extModel->userId = $userId;
-            $extModel->canAccess = TRUE;
-			$extModel->save();
-		}
+            $extModel->canAccess = true;
+            // Сохранить модель в БД
+            $extModel->save();
+        }
 
         return $extModel;
     }

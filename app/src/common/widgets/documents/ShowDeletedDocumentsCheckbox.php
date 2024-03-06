@@ -12,6 +12,7 @@ class ShowDeletedDocumentsCheckbox extends Widget
 
     public function run()
     {
+        // Вывести чекбокс показа удалённых документов
         return $this->render('showDeletedDocumentsCheckbox', ['filterModel' => $this->filterModel]);
     }
 }

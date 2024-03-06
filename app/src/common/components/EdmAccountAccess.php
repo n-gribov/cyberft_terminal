@@ -80,6 +80,7 @@ class EdmAccountAccess extends Component
 
     private function applyCondition(ActiveQuery $query, string $field, callable $getValues): void
     {
+        // Получить модель пользователя из активной сессии
         $user = Yii::$app->user->identity;
 
         // Главным администраторам доступны все счета (поправка CYB-4493)

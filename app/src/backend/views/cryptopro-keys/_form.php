@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
         <div class="terminals-block">
             <?php
-                // Подгружаем представление для организации работы со списком терминалов
+                // Вывести блок для организации работы со списком терминалов
                 echo $this->render('_keysTerminalList', [
                     'keyId' => $keyId,
                     'terminalList' => $terminalList,
@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="beneficiary-block">
             <?php
-                // Подгружаем представление для организации работы со списком получателей
+                // Вывести блок для организации работы со списком получателей
                 echo $this->render('_keysBeneficiaryList', [
                     'keyId' => $keyId,
                     'beneficiaryList' => $beneficiaryList,
@@ -53,13 +53,9 @@ use yii\widgets\ActiveForm;
 
     </div>
 </div>
-
-
 <?php
 // Начальное значение для инициализации списка кодов терминалов
-
 $this->registerJs(<<<JS
-
 // События добавления нового терминала пользователя
 $('body').on('click', '#add-user-terminal', function(e) {
     e.preventDefault();
@@ -149,13 +145,10 @@ function renderHtmlBeneficiaryAnswer(html) {
      $('.beneficiary-block').find('[name="_csrf"]').detach();
 }
 
-JS
-    , View::POS_READY);
+JS, View::POS_READY);
 
-$this->registerCss(
-    "#add-user-terminal {
+$this->registerCss(<<<CSS
+    #add-user-terminal {
       margin-top: 23px;
-    }"
-);
-
-?>
+    }
+CSS);

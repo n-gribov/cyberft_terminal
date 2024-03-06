@@ -34,6 +34,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class OrganizationController extends BaseServiceController
 {
@@ -54,6 +55,9 @@ class OrganizationController extends BaseServiceController
         ];
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         $query = SBBOLOrganization::find()->orderBy(['fullName' => SORT_ASC]);
@@ -63,6 +67,7 @@ class OrganizationController extends BaseServiceController
             'sort'  => false,
         ]);
 
+        // Вывести страницу
         return $this->render(
             'index',
             compact('dataProvider')
@@ -82,6 +87,7 @@ class OrganizationController extends BaseServiceController
             'sort'  => false,
         ]);
 
+        // Вывести страницу
         return $this->render('view', compact('model', 'customersDataProvider'));
     }
 
@@ -95,11 +101,15 @@ class OrganizationController extends BaseServiceController
 
         $model->scenario = SBBOLOrganization::SCENARIO_WEB_UPDATE;
 
+        // Если данные модели успешно загружены из формы в браузере
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
+                // Поместить в сессию флаг сообщения об успешном сохранении данных организации
                 Yii::$app->session->setFlash('success', Yii::t('app/sbbol', 'Organization data is updated'));
                 return $this->redirect('index');
             } else {
+                // Поместить в сессию флаг сообщения об ошибке сохранения данных организации
                 Yii::info("Failed to update SBBOL organization $inn, errors: " . var_export($model->errors, true));
                 Yii::$app->session->setFlash('error', Yii::t('app/sbbol', 'Failed to update organization data'));
             }
@@ -111,6 +121,7 @@ class OrganizationController extends BaseServiceController
             'terminal'
         );
 
+        // Вывести страницу
         return $this->render(
             'update',
             compact('model', 'terminalAddressSelectOptions')
@@ -125,6 +136,7 @@ class OrganizationController extends BaseServiceController
             throw new NotFoundHttpException();
         }
 
+        // Вывести страницу
         return $this->render('viewCustomer', compact('model'));
     }
 
@@ -161,23 +173,28 @@ class OrganizationController extends BaseServiceController
         }
 
         if ($isSent) {
+            // Поместить в сессию флаг сообщения об успешной отправке запроса
             Yii::$app->session->setFlash('success', Yii::t('app/sbbol', 'Update request is sent'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке отправки запроса
             Yii::$app->session->setFlash('error', Yii::t('app/sbbol', 'Failed to send customer information request'));
         }
 
+        // Перенаправить на страницу просмотра организации
         return $this->redirect(['view-customer', 'id' => $id]);
     }
 
     public function actionRequestHoldingInfo()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // Включить формат вывода JSON
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
         if (!Yii::$app->request->isPost || !Yii::$app->request->isAjax) {
             throw new BadRequestHttpException();
         }
 
         $model = new RegisterHoldingForm();
+        // Загрузить данные модели из формы в браузере
         $model->load(Yii::$app->request->post());
         if (!$model->validate()) {
             $validationErrors = [];
@@ -234,7 +251,9 @@ class OrganizationController extends BaseServiceController
 
         $activeKey = SBBOLKey::findActiveByCustomer($customer->id);
         if ($activeKey === null) {
+            // Поместить в сессию флаг сообщения о необходимости наличия активного ключа
             Yii::$app->session->setFlash('error', Yii::t('app/sbbol', 'In order to perform this action customer must have active key'));
+            // Перенаправить на страницу просмотра организации
             return $this->redirect(['view-customer', 'id' => $customer->id]);
         }
 
@@ -266,11 +285,14 @@ class OrganizationController extends BaseServiceController
         }
 
         if ($isSent) {
+            // Поместить в сессию флаг сообщения об успешной отправке запроса
             Yii::$app->session->setFlash('success', Yii::t('app/sbbol', 'Branches information request is sent'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке отправки запроса
             Yii::$app->session->setFlash('error', Yii::t('app/sbbol', 'Failed to send customer information request'));
         }
 
+        // Перенаправить на страницу просмотра организации
         return $this->redirect(['view-customer', 'id' => $id]);
     }
 
@@ -359,7 +381,8 @@ class OrganizationController extends BaseServiceController
         /** @var SBBOLTransport $transport */
         $transport = $this->module->transport;
 
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // Включить формат вывода JSON
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
         if (!Yii::$app->request->isPost || !Yii::$app->request->isAjax) {
             throw new BadRequestHttpException();
@@ -415,11 +438,14 @@ class OrganizationController extends BaseServiceController
         $isEnqueued = Yii::$app->resque->enqueue(SendClientTerminalSettingsJob::class, ['organizationInn' => $inn]);
 
         if ($isEnqueued) {
+            // Поместить в сессию флаг сообщения об успешной постановке запроса в очередь на отправку
             Yii::$app->session->setFlash('success', Yii::t('app/sbbol', 'Sending settings'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке постановки в очередь запроса на отправку
             Yii::$app->session->setFlash('error', Yii::t('app/sbbol', 'Failed to schedule sending job'));
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect('index');
     }
 }

@@ -46,6 +46,7 @@ class m170628_074123_add_create_documents_permissions_to_users extends Migration
                 $permissions[] = 'documentCreate';
 
                 $settings->permissions = $permissions;
+                // Сохранить модель в БД
                 $settings->save();
             }
         }

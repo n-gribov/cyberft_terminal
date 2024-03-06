@@ -78,8 +78,9 @@ $this->title = Yii::t('edm', 'Contract unregistration request');
         <?= TransportInfoButton::widget() ?>
     </div>
 </div>
-
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'documentNumber',
@@ -99,10 +100,12 @@ $this->title = Yii::t('edm', 'Contract unregistration request');
             'label' => Yii::t('edm', 'Authorized bank'),
         ]
     ]
-]) ?>
-
+]);
+?>
 <h4><?= Yii::t('edm', 'Contracts (loan agreements)') ?></h4>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->contracts,
         'modelClass' => ContractUnregistrationRequestForm\Contract::class,
@@ -118,10 +121,12 @@ $this->title = Yii::t('edm', 'Contract unregistration request');
         'unregistrationGroundCode',
     ],
     'layout' => '{items}',
-]) ?>
-
+]);
+?>
 <h4>Приложенные документы</h4>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->attachedFiles,
         'modelClass' => AttachedFile::class,
@@ -153,17 +158,17 @@ $this->title = Yii::t('edm', 'Contract unregistration request');
         'class' => 'yii\i18n\Formatter',
         'decimalSeparator' => '.',
     ],
-]) ?>
+]);
 
-<?= FastPrint::widget([
+echo FastPrint::widget([
     'printUrl'     => Url::to(['print', 'id' => $document->id]),
     'printBtn'     => '#print-button',
     'documentId'   => $document->id,
     'documentType' => $document->type,
-]) ?>
+]);
 
-<?= TransportInfoModal::widget(['document' => $document]) ?>
-
+echo TransportInfoModal::widget(['document' => $document]);
+?>
 <style>
     .detail-view td {
         width: 50%;

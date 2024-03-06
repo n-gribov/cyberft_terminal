@@ -71,7 +71,6 @@ class SBBOLRequest extends ActiveRecord
 
         if ($request === null) {
             Yii::info("Request $id is not found");
-
             return false;
         }
         $request->status = $status;

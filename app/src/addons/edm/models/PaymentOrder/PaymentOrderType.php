@@ -1361,12 +1361,16 @@ class PaymentOrderType extends BaseType
         return (bool) $this->getAttributeByTag($tag);
     }
 
-	public function getSearchFields()
-	{
-		return [
-			'body' => $this->getModelDataAsString()
-		];
-	}
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields()
+    {
+        return [
+            'body' => $this->getModelDataAsString()
+        ];
+    }
 
     public function setDateFormat($format)
     {

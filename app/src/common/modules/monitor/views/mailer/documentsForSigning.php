@@ -44,7 +44,7 @@ $suffix = NumericHelper::getPluralSuffix($count);
         </tr>
     </thead>
     <tbody>
-        <?php foreach($documentsData as $document): ?>
+        <?php foreach($documentsData as $document) : ?>
             <tr>
                 <td>
                     <?=Html::a($document['id'], Url::base() . "/document/view?id=" . $document['id']) ?>
@@ -55,6 +55,6 @@ $suffix = NumericHelper::getPluralSuffix($count);
                 <td><?=ExpiringCert::getTerminalName($document['receiver'])?></td>
                 <td><?=$document['signaturesRequired']?></td>
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </tbody>
 </table>

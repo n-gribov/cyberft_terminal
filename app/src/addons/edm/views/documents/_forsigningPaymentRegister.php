@@ -262,7 +262,7 @@ $columnsEnabled['actions'] = [
         }
     ],
 ];
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'id' => 'forSigning',
     'emptyText'    => Yii::t('other', 'No documents matched your query'),

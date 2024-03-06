@@ -41,7 +41,7 @@ $this->registerCss('
 ');
 
 // JS
-$script = <<< JS
+$script = <<<JS
     $('#fcoUpdateButton').on('click', function(e) {
         var form = $('#fcoUpdateForm');
         $('#realUpdateSubmitFlag').attr('value', 1);

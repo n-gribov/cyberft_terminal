@@ -100,7 +100,7 @@ $this->registerCss('
 ');
 
 // JS
-$script = <<< JS
+$script = <<<JS
 
 $('body').on(
     'click',

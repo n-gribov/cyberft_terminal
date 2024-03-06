@@ -8,9 +8,7 @@ use yii\widgets\DetailView;
 $this->title = $model->participantBIC;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/participant', 'CyberFT Members'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-?>
 
-<?php
 if (Yii::$app->user->can('admin')) {
     echo Html::a(
         Yii::t('app', 'Edit'),
@@ -18,9 +16,9 @@ if (Yii::$app->user->can('admin')) {
         ['class' => 'btn btn-primary mb-1', 'style' => 'margin-bottom: 15px;']
     );
 }
-?>
 
-<?= DetailView::widget([
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'participantBIC',
@@ -32,4 +30,5 @@ if (Yii::$app->user->can('admin')) {
         'documentFormatGroupLabel',
         'maxAttachmentSize',
     ],
-]) ?>
+]);
+

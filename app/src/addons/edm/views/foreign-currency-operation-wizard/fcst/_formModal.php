@@ -223,14 +223,30 @@ $form = ActiveForm::begin([
                     'url'      => $urlTransitAccount,
                     'dataType' => 'json',
                     'delay'    => 250,
-                    'data'     => new JsExpression('function(params) { return { q: params.term, bankBik: $("#foreigncurrencyselltransit-bankbik").val() }; }'),
+                    'data'     => new JsExpression(<<<JS
+                        function(params) {
+                            return {
+                                q: params.term, bankBik: $('#foreigncurrencyselltransit-bankbik').val()
+                            };
+                        }
+                    JS),
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
-                'templateSelection'=> new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
+                'templateSelection'=> new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
             ],
         ]) ?>
     </div>
@@ -259,18 +275,31 @@ $form = ActiveForm::begin([
                     'url' => $urlForeignAccount,
                     'dataType' => 'json',
                     'delay'    => 250,
-                    'data'     => new JsExpression('function(params) { return { q: params.term, bankBik: $("#foreigncurrencyselltransit-bankbik").val() }; }'),
+                    'data'     => new JsExpression(<<<JS
+                        function(params) {
+                            return {
+                                q: params.term, bankBik: $('#foreigncurrencyselltransit-bankbik').val()
+                            };
+                        }
+                    JS),
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
-                'templateSelection'=> new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
+                'templateSelection' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
             ],
-//            'pluginEvents'  => [
-//                'select2:select' => 'function(e) { fcst_foreignAccountStatus(); }',
-//            ],
         ]) ?>
     </div>
     <div class="col-md-3">
@@ -336,16 +365,32 @@ $form = ActiveForm::begin([
                     'url' => $urlFcstAccount,
                     'dataType' => 'json',
                     'delay'    => 250,
-                    'data'     => new JsExpression('function(params) { return { q: params.term, bankBik: $("#foreigncurrencyselltransit-bankbik").val() }; }'),
+                    'data'     => new JsExpression(<<<JS
+                        function(params) {
+                            return {
+                                q: params.term, bankBik: $('#foreigncurrencyselltransit-bankbik').val()
+                            };
+                        }
+                    JS),
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-               }'),
-                'templateSelection'=> new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-               }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
+                'templateSelection'=> new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
             ],
-        ])  ?>
+        ]) ?>
     </div>
 </div>
 </div>
@@ -359,7 +404,7 @@ $form = ActiveForm::begin([
 
 <div class="row">
     <div class="col-md-9">
-        <?php
+    <?php
         if (isset($model->commissionAccount)) {
             $commissionAccount = EdmPayerAccount::findOne(['number' => $model->commissionAccount]);
         } else {
@@ -382,31 +427,46 @@ $form = ActiveForm::begin([
                     'url' => $urlCommissionAccount,
                     'dataType' => 'json',
                     'delay'    => 250,
-                    'data'     => new JsExpression('function(params) { return { q: params.term, bankBik: $("#foreigncurrencyselltransit-bankbik").val() }; }'),
+                    'data'     => new JsExpression(<<<JS
+                        function(params) {
+                            return {
+                                q: params.term, bankBik: $('#foreigncurrencyselltransit-bankbik').val()
+                            };
+                        }
+                    JS),
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-               }'),
-                'templateSelection'=> new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-               }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
+                'templateSelection'=> new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
             ],
         ])  ?>
     </div>
 </div>
 
-<?php if (isset($id)) { ?>
+<?php if (isset($id)) : ?>
     <input type="hidden" name="isRealSubmit" id="realUpdateSubmitFlag" value="0"/>
-<?php } else { ?>
+<?php else : ?>
     <input type="hidden" name="isRealSubmit" id="realCreateSubmitFlag" value="0"/>
-<?php } ?>
+<?php endif ?>
 
 <?php ActiveForm::end(); ?>
 
 <?php
 
 $script = <<<JS
-
     var fieldBankBik = '#foreigncurrencyselltransit-bankbik';
     var fieldOrgId = '#foreigncurrencyselltransit-organizationid';
 
@@ -511,4 +571,3 @@ JS;
 
 $this->registerJs($script, View::POS_READY);
 
-?>

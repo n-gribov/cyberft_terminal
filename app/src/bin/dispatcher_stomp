@@ -148,7 +148,7 @@ class DispatcherStompDaemon extends Daemon
     private function updateTerminalData()
     {
         $currentTime = time();
-        foreach (Yii::$app->terminals->addresses as $terminalAddress) {
+        foreach (Yii::$app->exchange->addresses as $terminalAddress) {
             if (!isset($this->_lastUpdated[$terminalAddress])) {
                 $this->_lastUpdated[$terminalAddress] = $currentTime;
             }
@@ -159,7 +159,7 @@ class DispatcherStompDaemon extends Daemon
             $hasConnection = isset($this->_connections[$terminalAddress]);
 
             try {
-                if (!Yii::$app->terminals->isRunning($terminalAddress)) {
+                if (!Yii::$app->exchange->isRunning($terminalAddress)) {
                     // терминал остановлен, проверить, не открыто ли соединение
                     // если открыто, то закрыть
                     if ($hasConnection) {

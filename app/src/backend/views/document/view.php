@@ -28,15 +28,15 @@ if (!isset($autobot)) {
 }
 
 echo $this->render(
-	'@common/views/document/_header',
-	[
-		'model' => $model,
-		'referencingDataProvider' => $referencingDataProvider,
-		'urlParams' => $urlParams,
+    '@common/views/document/_header',
+    [
+        'model' => $model,
+        'referencingDataProvider' => $referencingDataProvider,
+        'urlParams' => $urlParams,
         'backUrl' => $backUrl,
-		'mode' => $mode,
-		'autobot' => $autobot,
-		'dataView' => $dataView,
+        'mode' => $mode,
+        'autobot' => $autobot,
+        'dataView' => $dataView,
         'actionView' => $actionView,
-	]
+    ]
 );

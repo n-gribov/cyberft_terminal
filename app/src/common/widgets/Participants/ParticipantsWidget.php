@@ -21,9 +21,11 @@ class ParticipantsWidget extends Widget
         // Иначе список доступных ему терминалов будет содержать только одно значение
         $senderTerminalList = [];
 
-        // Получаем список доступных пользователю терминалов
+        // Получить модель пользователя из активной сессии
         $userModel = Yii::$app->user->identity;
         $userId = $userModel->id;
+
+        // Получаем список доступных пользователю терминалов
         $query = UserTerminal::find()->with('terminal')->where(['userId' => $userId]);
 
         /**
@@ -63,7 +65,7 @@ class ParticipantsWidget extends Widget
 
             // Если терминал отсутствует в списке участников, то наименование показывать не нужно
             if ($participantData) {
-                $participantTitle = $participantData->name . " (" . $participantId . ")";
+                $participantTitle = $participantData->name . " ($participantId)";
             } else {
                 $participantTitle = $participantId;
             }
@@ -71,6 +73,7 @@ class ParticipantsWidget extends Widget
             $recepientsList[$participantId] = $participantTitle;
         }
 
+        // Вывести страницу
         return $this->render('participants', [
             'form' => $this->form,
             'model' => $this->model,

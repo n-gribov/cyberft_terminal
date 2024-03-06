@@ -73,34 +73,22 @@ class DocumentTransportHelper
             return true;
         }
 
-//        $state = new CFTStatusReportOutState([
-//            'origin' => Document::ORIGIN_WEB,
-//            'refDocId' => $remoteDocId,
-//            'senderId' => $cyxDoc->senderId,
-//            'receiverId' => $cyxDoc->receiverId,
-//            'statusCode' => $errorInfo['statusCode'],
-//            'errorCode' => $errorInfo['errorCode'],
-//            'errorDescription' => $errorInfo['errorDescription'],
-//        ]);
-//
-//        return StateRunner::run($state);
-
         return Yii::$app->resque->enqueue(
-                        'common\jobs\StateJob',
-                        [
-                            'stateClass' => '\common\modules\transport\states\out\CFTStatusReportOutState',
-                            'params' => serialize([
-                                'origin' => Document::ORIGIN_WEB,
-                                'refDocId' => $document->uuidRemote,
-                                'senderId' => $document->sender,
-                                'receiverId' => $document->receiver,
-                                'statusCode' => $errorInfo['statusCode'],
-                                'errorCode' => $errorInfo['errorCode'],
-                                'errorDescription' => $errorInfo['errorDescription'],
-                            ])
-                        ],
-                        true,
-                        Resque::OUTGOING_QUEUE
+            'common\jobs\StateJob',
+            [
+                'stateClass' => '\common\modules\transport\states\out\CFTStatusReportOutState',
+                'params' => serialize([
+                    'origin' => Document::ORIGIN_WEB,
+                    'refDocId' => $document->uuidRemote,
+                    'senderId' => $document->sender,
+                    'receiverId' => $document->receiver,
+                    'statusCode' => $errorInfo['statusCode'],
+                    'errorCode' => $errorInfo['errorCode'],
+                    'errorDescription' => $errorInfo['errorDescription'],
+                ])
+            ],
+            true,
+            Resque::OUTGOING_QUEUE
         );
     }
 
@@ -113,19 +101,6 @@ class DocumentTransportHelper
         ]);
 
         return StateRunner::run($state);
-
-//        Yii::$app->resque->enqueue(
-//            'common\jobs\StateJob',
-//            [
-//                'stateClass' => '\common\modules\transport\states\out\CFTResendOutState',
-//                'params' => serialize([
-//                    'refDocId' => $chkTypeModel->refDocId,
-//                    'refSenderId' => $chkTypeModel->refSenderId,
-//                ])
-//            ],
-//            true,
-//            \common\components\Resque::SERVICE_QUEUE
-//        );
     }
 
     public static function createSendingState(Document $document)
@@ -177,11 +152,15 @@ class DocumentTransportHelper
         ) {
             $info = '';
             if ($report->errorCode != 0) {
-                $info = Yii::t('app/error', 'An error has occurred {errorDescription} (status code:{statusCode}, error code: {errorCode})', [
-                            'statusCode' => $report->statusCode,
-                            'errorCode' => $report->errorCode,
-                            'errorDescription' => $report->errorDescription
-                ]);
+                $info = Yii::t(
+                    'app/error',
+                    'An error has occurred {errorDescription} (status code:{statusCode}, error code: {errorCode})',
+                    [
+                        'statusCode' => $report->statusCode,
+                        'errorCode' => $report->errorCode,
+                        'errorDescription' => $report->errorDescription
+                    ]
+                );
             }
 
             switch ($report->statusCode) {
@@ -232,7 +211,7 @@ class DocumentTransportHelper
                 if (!empty($report->errorCode)) {
                     $extModel->businessStatusComment = $report->errorDescription;
                 }
-
+                // Сохранить модель в БД
                 $extModel->save();
             } else if ($targetDocument->type == FinZipType::TYPE) {
                 $extModel->businessStatus = $report->statusCode;
@@ -241,7 +220,7 @@ class DocumentTransportHelper
                 if ($report->errorCode != 0) {
                     $extModel->businessStatusDescription = $report->errorDescription;
                 }
-
+                // Сохранить модель в БД
                 $extModel->save();
             } else if (
                 $extModel instanceof VTBCancellationRequestExt
@@ -268,7 +247,7 @@ class DocumentTransportHelper
                     // заполнение даты исполнения
                     if ($report->statusCode === 'ACSC') {
                         $extModel->dateDue = date('Y-m-d H:i:s');
-                    } elseif ($report->statusCode === 'RJCT') {
+                    } else if ($report->statusCode === 'RJCT') {
                         // если документ отклонен, очищаем дату исполнения
                         $extModel->dateDue = null;
                     }
@@ -282,7 +261,7 @@ class DocumentTransportHelper
                 $extModel->statusCode = $report->statusCode;
                 $extModel->errorCode = $report->errorCode;
                 $extModel->errorDescription = $report->errorDescription;
-
+                // Сохранить модель в БД
                 $extModel->save();
             } else {
                 Yii::info('Unsupported document type, business status is not saved');
@@ -294,6 +273,7 @@ class DocumentTransportHelper
     {
         Yii::info("Received StatusReport for {$targetDocument->type} {$targetDocument->id}, {$targetDocument->uuid}");
 
+        // Зарегистрировать событие изменения бизнес-статуса документа в модуле мониторинга
         Yii::$app->monitoring->log(
             'document:documentBusinessStatusChange', 'document', $targetDocument->id, [
                 'businessStatus' => $report->statusCode,
@@ -338,8 +318,8 @@ class DocumentTransportHelper
         }
 
         /**
-         * Если у документа нет ActualStoredFileId, значит ему не требовалась расшифровка и его тело хранится
-         * в encryptedStoredFileId.
+         * Если у документа нет ActualStoredFileId, значит ему не требовалась расшифровка
+         * и его тело хранится в encryptedStoredFileId.
          * @todo в таких случаях нужно encrypted переносить в actual на каком-то шаге обработки документа
          */
         $cyxDoc = CyberXmlDocument::read($document->actualStoredFileId ?: $document->encryptedStoredFileId);
@@ -356,8 +336,8 @@ class DocumentTransportHelper
      * Если подписание не требуется, документ сразу отправляется
      *
      * Параметр $immediate отвечает за то, чтобы выполнять экстракцию данных немедленно
-     * или запускать джоб. В случаях, когда немедленная экстракция не нужна,
-     * предпочтительно делать это в джобе
+     * или запускать задание. В случаях, когда немедленная экстракция не нужна,
+     * предпочтительно делать это в задании
      *
      * @param Document $document
      * @param type $immediate
@@ -365,6 +345,7 @@ class DocumentTransportHelper
     public static function processDocument(Document $document, $immediate = false)
     {
         if ($document->status == Document::STATUS_ACCEPTED) {
+            // Создать стейт отправки документа
             static::createSendingState($document);
         } else if (
             $document->signaturesRequired > 0
@@ -391,7 +372,7 @@ class DocumentTransportHelper
         try {
             if (!$cyxDoc) {
                 if ($document->isEncrypted) {
-                    Yii::$app->terminals->setCurrentTerminalId($document->sender);
+                    Yii::$app->exchange->setCurrentTerminalId($document->sender);
                     $data = Yii::$app->storage->decryptStoredFile($document->actualStoredFileId);
                     $cyxDoc = new CyberXmlDocument();
                     $cyxDoc->loadXml($data);

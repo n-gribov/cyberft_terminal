@@ -43,6 +43,7 @@ abstract class localCachedModel
     }
 }
 
+// Вывести блок закладок
 echo $this->render('_tabs');
 
 $this->title = Yii::t('edm', 'Rouble payments');
@@ -74,6 +75,7 @@ if ($userCanCreateDocument) {
         ]
     );
 
+    // Вывести форму загрузки
     echo $this->render('_uploadPaymentRegisterForm');
 }
 
@@ -172,8 +174,6 @@ JS;
     }
     echo SelectedDocumentsCountLabel::widget(['initialCount' => $selectedDocumentsCount]);
 }
-
-
 ?>
 <div class="pull-right">
 <?= Html::a('',
@@ -185,11 +185,8 @@ JS;
 ) ?>
 <?= InlineHelp::widget(['widgetId' => 5, 'setClassList' => ['edm-journal-wiki-widget']]) ?>
 </div>
-
 <?= ShowDeletedDocumentsCheckbox::widget(['filterModel' => $model]) ?>
-
 <?php
-
 $columns['id'] = [
     'attribute' => 'id',
     'headerOptions' => [
@@ -212,7 +209,6 @@ $columns['type'] = [
 
 $columns['payer'] = [
     'attribute'     => 'payer',
-//    'filter' => $payers,
     'format' => 'html',
     'filter' => Select2::widget([
         'model' => $model,
@@ -243,7 +239,6 @@ $columns['bankBik'] = [
 
 $columns['accountNumber'] = [
     'attribute'     => 'accountNumber',
-    //'filter' => $accounts,
     'format' => 'html',
     'filter' => Select2::widget([
         'model' => $model,
@@ -397,9 +392,7 @@ $columns['dateUpdate'] = [
 
 $columns['businessStatus'] = [
     'attribute' => 'businessStatus',
-
     'filter'    => PaymentRegisterDocumentExt::getBusinessStatusLabels(),
-
     'headerOptions' => [
         'style' => 'width: 220px'
     ],
@@ -413,7 +406,6 @@ $columns['businessStatus'] = [
 
 $columns['beneficiaryName'] = [
     'attribute' => 'beneficiaryName',
-
     'headerOptions' => [
         'style' => 'width: 220px'
     ],
@@ -424,7 +416,6 @@ $columns['beneficiaryName'] = [
         if ($item->count > 1) {
             return '';
         }
-
         return localCachedModel::getModel($item)->beneficiaryName;
     }
 ];
@@ -451,7 +442,6 @@ $columnsEnabled = [];
 
 // Колонка с чекбоксом удаления
 if ($userCanDeleteDocuments) {
-
     if (count($deletableDocumentsIds) > 0) {
         $columnsEnabled['deleted'] = [
             'class' => 'yii\grid\CheckboxColumn',
@@ -460,7 +450,8 @@ if ($userCanDeleteDocuments) {
                 $hidden = false;
                 if (!in_array($model->id, $deletableDocumentsIds)) {
                     $hidden = true;
-                } else if (!empty($cachedEntries['entries'])
+                } else if (
+                    !empty($cachedEntries['entries'])
                     && array_key_exists($key, $cachedEntries['entries'])
                 ) {
                     $checked = true;
@@ -494,14 +485,14 @@ $columnsEnabled['view'] = [
     'attribute' => '',
     'format' => 'html',
     'filterInputOptions' => [
-        'style'     => 'width: 20px'
+        'style' => 'width: 20px'
     ],
-    'value'	=> function ($item, $params) {
+    'value' => function ($item, $params) {
         return Html::a('<span class="ic-eye"></span>',
             Url::toRoute(['view', 'id' => $item->id, 'redirectUrl' => 'index']), ['title' => 'Просмотр']);
     }
 ];
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -530,26 +521,19 @@ $myGridWidget = InfiniteGridView::begin([
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $model,
-        'columnsDisabledByDefault' => ['beneficiaryName', 'paymentPurpose']
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $model,
+    'columnsDisabledByDefault' => ['beneficiaryName', 'paymentPurpose']
+]);
 
-$this->registerCss('
+$this->registerCss(<<<CSS
     .edm-payment-order-journal {
         margin-left: 5px;
     }
-');
+CSS);
 
-$this->registerJS(<<<JS
-    stickyTableHelperInit();
-JS
-);
+$this->registerJS('stickyTableHelperInit()');
 
 echo ToTopButtonWidget::widget();
-
-?>

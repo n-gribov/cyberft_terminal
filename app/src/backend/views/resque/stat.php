@@ -4,6 +4,7 @@
 if (empty($stat['failed'])) {
     echo "<p>No failed jobs</p>";
 } else {
+    // Создать таблицу для вывода
     echo \common\widgets\GridView::widget([
         'dataProvider' => new \yii\data\ArrayDataProvider([
             'allModels' => $stat['failed'],
@@ -19,6 +20,7 @@ if (empty($stat['queued'])) {
     echo "<p>No queued jobs</p>";
 } else {
     foreach ($stat['queued'] as $queue => $jobs) {
+        // Создать таблицу для вывода
         echo \common\widgets\GridView::widget([
             'caption' => $queue,
             'dataProvider' => new \yii\data\ArrayDataProvider([

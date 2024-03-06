@@ -87,7 +87,11 @@ abstract class BaseType extends Model implements ElasticSearchable
         parent::onUnsafeAttribute($name, $value);
     }
 
-	public abstract function getSearchFields();
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return array|bool
+     */
+    public abstract function getSearchFields();
 
     public function getTransportType()
     {

@@ -101,6 +101,7 @@ class UserColumnsSettings extends ActiveRecord
 
                 // Записываем настройки колонок
                 $settings->settingsData = $settingsData;
+                // Сохранить модель в БД
                 $settings->save();
             }
         }
@@ -154,6 +155,7 @@ class UserColumnsSettings extends ActiveRecord
 
                 // Записываем новые настройки полей
                 $settings->settingsData = $settingsArr;
+                // Сохранить модель в БД
                 $settings->save();
             }
 

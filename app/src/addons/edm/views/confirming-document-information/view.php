@@ -11,7 +11,7 @@ use yii\helpers\Url;
 
 $this->title = Yii::t('app/menu', 'Confirming document information') . ' #' . $model->id;
 
-// Шаблон отображения управляющих кнопок
+// Вывести шаблон отображения управляющих кнопок
 echo $this->render('@addons/edm/views/documents/_fccViewContent', [
     'model'              => $model,
     'document'           => $document,
@@ -28,6 +28,7 @@ echo $this->render('@addons/edm/views/documents/_fccViewContent', [
     'beforeSigningUrl'   => Url::to(['/edm/confirming-document-information/before-signing', 'id' => $document->id]),
 ]);
 
+// Вывести страницу
 echo $this->render('_view', compact('model', 'attachedFiles', 'signatures'));
 
 echo TransportInfoModal::widget(['document' => $document, 'isVolatile' => false]);

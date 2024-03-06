@@ -93,6 +93,7 @@ class ProcessAsyncSBBOLRequestsJob extends BaseJob
     {
         $this->log("Processing response for {$request->documentType}, {$request->id}...", false);
         $request->responseCheckDate = date('Y-m-d H:i:s');
+        // Сохранить модель в БД
         $request->save();
 
         list($hasResponse, $canRetry) = $this->checkResponse($request, $responseBody);
@@ -100,9 +101,9 @@ class ProcessAsyncSBBOLRequestsJob extends BaseJob
         if (!$hasResponse) {
             if (!$canRetry) {
                 $request->status = SBBOLRequest::STATUS_REJECTED;
+                // Сохранить модель в БД
                 $request->save();
             }
-
             return;
         }
 

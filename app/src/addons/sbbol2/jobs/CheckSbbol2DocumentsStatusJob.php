@@ -61,7 +61,7 @@ class CheckSbbol2DocumentsStatusJob extends BaseJob
         $result = $this->getBankDocumentStatus($request);
         if (!$result->hasError()) {
             $request->updateStatus(Sbbol2DocumentImportRequest::STATUS_PROCESSED);
-        } elseif (!$result->canRetry()) {
+        } else if (!$result->canRetry()) {
             $request->updateStatus(Sbbol2DocumentImportRequest::STATUS_PROCESSING_ERROR);
         }
     }
@@ -87,6 +87,7 @@ class CheckSbbol2DocumentsStatusJob extends BaseJob
 
         $importRequest->bankDocumentStatus = $bankStatus;
         $importRequest->bankComment = $bankComment;
+        // Сохранить модель в БД
         $importRequest->save();
 
         $sbbol2DocumentStatus = new Sbbol2DocumentStatus($bankStatus);

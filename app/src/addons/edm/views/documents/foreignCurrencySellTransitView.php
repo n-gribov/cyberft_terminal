@@ -78,15 +78,17 @@ $transportInfoAttributes[] = [
 </a>
 
 <div class="transport-info">
-    <?=DetailView::widget([
-        'model' => $document,
-        'attributes' => $transportInfoAttributes,
-    ])?>
-</div>
-
-<?=$this->render('readable/foreignCurrencySellTransit', ['model' => $model, 'signatureList' => $signatureList])?>
-
 <?php
+// Создать детализированное представление
+echo DetailView::widget([
+    'model' => $document,
+    'attributes' => $transportInfoAttributes,
+]);
+?>
+</div>
+<?php
+// Вывести страницу
+echo $this->render('readable/foreignCurrencySellTransit', ['model' => $model, 'signatureList' => $signatureList]);
 
 // Формирование url для обратного редиректа
 $referrer = parse_url(Yii::$app->request->referrer);
@@ -96,9 +98,7 @@ $referrerUrl = $referrer['path'];
 if (isset($referrer['query'])) {
     $referrerUrl .= '?' . $referrer['query'];
 }
-
 ?>
-
 <script>
     $('#fcoViewModal .modal-header h4').text('<?= Yii::t('edm', 'Sell of foreign currency from the transit account') ?>');
 
@@ -121,10 +121,6 @@ if (isset($referrer['query'])) {
 </script>
 
 <?php
-//$signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
-
-//echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
-
 echo FastPrint::widget([
     'printUrl' => "/edm/documents/foreign-currency-operation-print?id={$document->id}&type={$document->type}",
     'printBtn' => '.print-link',
@@ -132,7 +128,7 @@ echo FastPrint::widget([
     'documentType' => $document->type
 ]);
 
-$this->registerCss('
+$this->registerCss(<<<CSS
     .transport-info {
         display: none;
     }
@@ -150,9 +146,9 @@ $this->registerCss('
     .btn-transport-info:focus {
        text-decoration: none;
     }
-');
+CSS);
 
-$script = <<< JS
+$script = <<<JS
     $('.btn-transport-info').on('click', function(e) {
         e.preventDefault();
         $('.transport-info').slideToggle('400');

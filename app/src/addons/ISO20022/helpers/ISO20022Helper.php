@@ -105,7 +105,7 @@ class ISO20022Helper
      */
     public static function getFreeFormatDocTypeLabels()
     {
-        // @todo Добавить отбор по Auth.024
+        /** @todo Добавить отбор по Auth.024 */
 
         $typeLabels = [Auth026Type::TYPE, Auth024Type::TYPE];
         $freeFormat = [];
@@ -298,7 +298,7 @@ class ISO20022Helper
 
         if (in_array($paymentOrder->indicatorDate, [0, '0', '00'], true)) {
             $tax->Mtd = $paymentOrder->indicatorDate;
-        } elseif ($paymentOrder->indicatorDate) {
+        } else if ($paymentOrder->indicatorDate) {
             $indicatorDate = date('Y-m-d', strtotime($paymentOrder->indicatorDate));
             $tax->Dt = $indicatorDate;
         }
@@ -522,8 +522,8 @@ class ISO20022Helper
     public static function createCamt053XmlFromIBankStatement(IBankStatementType $typeModel)
     {
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>'
-                . "\n"
-                . '<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></Document>');
+            . "\n"
+            . '<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></Document>');
         $xml->BkToCstmrStmt->GrpHdr->MsgId = self::cleanUuid();
         $xml->BkToCstmrStmt->GrpHdr->CreDtTm = date('c');
 
@@ -1089,7 +1089,7 @@ class ISO20022Helper
             }
             if (in_array($paymentOrder->indicatorDate, [0, '0', '00'], true)) {
                 $tax->Mtd = $paymentOrder->indicatorDate;
-            } elseif ($paymentOrder->indicatorDate) {
+            } else if ($paymentOrder->indicatorDate) {
                 $indicatorDate = date('Y-m-d', strtotime($paymentOrder->indicatorDate));
                 $tax->Dt = $indicatorDate;
             }
@@ -1349,8 +1349,8 @@ class ISO20022Helper
         $useEmbeddedAttachments = RosbankHelper::isTerminalUsingRosbankFormat($model->bank->terminalId);
 
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>'
-                . "\n"
-                . '<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:auth.025.001.01"></Document>');
+            . "\n"
+            . '<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:auth.025.001.01"></Document>');
 
         $msgId = $model->uuid ?: self::cleanUuid();
 
@@ -1521,6 +1521,7 @@ class ISO20022Helper
             throw new \Exception('Failed to create temp zip archive');
         }
 
+        // Сформировать XML
         $typeModel->buildXML();
         $modelName = $typeModel->createFileName();
         $zip->addFromString((string) $typeModel, $modelName . '.xml', 'cp866');
@@ -1530,6 +1531,7 @@ class ISO20022Helper
         }
 
         $typeModel->zipContent = $zip->asString();
+        // Использовать сжатие в zip
         $typeModel->useZipContent = true;
         $typeModel->zipFilename = $modelName . '.zip';
 
@@ -1789,8 +1791,8 @@ class ISO20022Helper
         }
 
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>'
-                . "\n"
-                . '<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.06"></Document>');
+            . "\n"
+            . '<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.06"></Document>');
 
         $uuid = self::cleanUuid();
         $xml->CstmrCdtTrfInitn->GrpHdr->MsgId = $uuid;
@@ -2218,6 +2220,7 @@ class ISO20022Helper
         }
 
         $typeModel->zipFilename = $zipFilename;
+        // Использовать сжатие в zip
         $typeModel->useZipContent = true;
 
         $zip->purge();
@@ -2225,6 +2228,7 @@ class ISO20022Helper
 
     public static function updateZipContent($typeModel)
     {
+        // Если модель не использует сжатие в zip
         if (!$typeModel->useZipContent) {
             return true;
         }
@@ -2297,6 +2301,7 @@ class ISO20022Helper
             throw new \Exception('Failed to create temp zip archive');
         }
 
+        // Сформировать XML
         $typeModel->buildXML();
         $modelName = $typeModel->createFileName();
         $zip->addFromString((string) $typeModel, $modelName . '.xml', 'cp866');
@@ -2306,6 +2311,7 @@ class ISO20022Helper
         }
 
         $typeModel->zipContent = $zip->asString();
+        // Использовать сжатие в zip
         $typeModel->useZipContent = true;
         $typeModel->zipFilename = $modelName . '.zip';
 

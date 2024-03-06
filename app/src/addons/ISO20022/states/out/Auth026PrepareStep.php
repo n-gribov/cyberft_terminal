@@ -163,6 +163,7 @@ class Auth026PrepareStep extends BaseDocumentStep
         if ($this->shouldValidateXml()) {
            if (!$auth026Model->validateXSD()) {
                $this->log("Source document validation against XSD failed\n" . print_r($auth026Model->errors, true));
+               // Зарегистрировать событие ошибки XSD валидации в модуле мониторинга
                Yii::$app->monitoring->log('ISO20022:FailedXsdValidation', null, null, ['docPath' => $filePath]);
                $this->_errorData[] = ['text' => 'Source document validation against XSD failed'];
 

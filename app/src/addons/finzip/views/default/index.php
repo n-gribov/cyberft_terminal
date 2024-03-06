@@ -5,7 +5,6 @@ use addons\finzip\models\FinZipDocumentExt;
 use common\document\Document;
 use common\document\DocumentPermission;
 use common\helpers\Html;
-use common\models\User;
 use common\models\UserColumnsSettings;
 use common\widgets\ColumnsSettings\ColumnsSettingsWidget;
 use common\widgets\documents\DeleteSelectedDocumentsButton;
@@ -21,7 +20,8 @@ $userCanDeleteDocuments = \Yii::$app->user->can(DocumentPermission::DELETE, ['se
 $userCanCreateDocuments = Yii::$app->user->can(DocumentPermission::CREATE, ['serviceId' => FinZipModule::SERVICE_ID]);
 $deletableDocumentsIds = [];
 
-$isAdmin = in_array(Yii::$app->user->identity->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN]);
+// Получить роль пользователя из активной сессии
+$isAdmin = Yii::$app->user->can('admin');
 
 if ($userCanDeleteDocuments) {
     $deletableDocumentsIds = array_reduce(
@@ -38,6 +38,7 @@ if ($userCanDeleteDocuments) {
     echo DeleteSelectedDocumentsButton::widget(['checkboxesSelector' => '.delete-checkbox, .select-on-check-all']);
 }
 
+// Вывести форму поиска
 echo $this->render('_search', [
     'model' => $searchModel,
     'filterStatus' => $filterStatus,
@@ -59,13 +60,13 @@ $columns['direction'] = [
     'format' => 'html',
     'filter' => Document::getDirectionLabels(),
     'enableSorting' => true,
-    'value' => function ($item, $params) {
+    'value' => function ($item) {
         return '<span title="' . $item->direction . '">' . Document::directionLabel($item->direction) . '</span>';
     },
     'filterInputOptions' => [
         'class' => 'form-control selectpicker',
-        'data-width' => "110px",
-        'data-none-selected-text' => ""
+        'data-width' => '110px',
+        'data-none-selected-text' => ''
     ],
     'width' => 'middle',
 ];
@@ -89,29 +90,21 @@ $columns[$sender] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'index']),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax' => [
+                'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'index']),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
-            'select2:unselect' => 'function(e) {
-
-	      }'
+	    'select2:select' => 'function(e) { searchForField(e.params.data); }',
+            'select2:unselect' => 'function(e) {}'
 	],
     ]),
     'contentOptions' => [
@@ -140,19 +133,13 @@ $columns[$receiver] = [
 		    'delay'    => 250,
 		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
 		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
+		'templateResult' => new JsExpression('function(item) { return item.name; }' ),
+		'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
 		'allowClear' => true,
 		'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
+	    'select2:select' => 'function(e) { searchForField(e.params.data); }',
 	],
     ]),
     'contentOptions' => [
@@ -164,8 +151,8 @@ $columns[$receiver] = [
 ];
 
 $columns['status'] = [
-    'attribute'     => 'status',
-    'format'        => 'html',
+    'attribute' => 'status',
+    'format' => 'html',
     'filter' => Select2::widget([
         'model' => $searchModel,
         'attribute' => 'status',
@@ -187,23 +174,21 @@ $columns['status'] = [
 
 $columns['dateCreate'] = [
     'attribute' => 'dateCreate',
-    'filter' => kartik\widgets\DatePicker::widget(
-        [
-            'model' => $searchModel,
-            'attribute' => 'dateCreate',
-            'type' => kartik\widgets\DatePicker::TYPE_INPUT,
-            'pluginOptions' => [
-               'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'orientation' => 'bottom'
-            ],
-            'options' => [
-                'class' => 'form-control',
-                'style' => 'width: 130px; text-align: right;',
-            ],
-        ]
-    ),
+    'filter' => kartik\widgets\DatePicker::widget([
+        'model' => $searchModel,
+        'attribute' => 'dateCreate',
+        'type' => kartik\widgets\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+           'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'orientation' => 'bottom'
+        ],
+        'options' => [
+            'class' => 'form-control',
+            'style' => 'width: 130px; text-align: right;',
+        ],
+    ]),
 ];
 
 $columns['subject'] = [
@@ -211,7 +196,7 @@ $columns['subject'] = [
     'value' => function($model) use ($isAdmin) {
         if (!$isAdmin && $model->documentExtFinZip) {
             if ($model->isEncrypted) {
-                Yii::$app->terminals->setCurrentTerminalId($model->originTerminalId);
+                Yii::$app->exchange->setCurrentTerminalId($model->originTerminalId);
                 return $model->documentExtFinZip->getEncryptedSubject();
             } else {
                 return $model->documentExtFinZip->subject;
@@ -221,7 +206,6 @@ $columns['subject'] = [
     'filter' => false,
     'width' => 'middle',
 ];
-
 
 $columns['fileCount'] = [
     'attribute' => 'fileCount',
@@ -249,8 +233,8 @@ $columns['businessStatus'] = [
     'value' => function($item) {
         $extModel = $item->extModel;
         return $extModel
-                ? FinZipDocumentExt::getBusinessStatusTranslation($extModel->businessStatus)
-                : null;
+            ? FinZipDocumentExt::getBusinessStatusTranslation($extModel->businessStatus)
+            : null;
     }
 ];
 
@@ -289,9 +273,8 @@ if ($userCanCreateDocuments) {
         'buttons'  => [
             'create' => function ($url, $model, $key) {
                 if ($model->direction != Document::DIRECTION_OUT) {
-                    return "";
+                    return '';
                 }
-
                 return Html::a('<span class="glyphicon glyphicon-plus"></span>',
                     Url::toRoute(['/finzip/wizard/step2', 'fromId' => $key]),
                     ['title' => Yii::t('app', 'Create')]
@@ -300,9 +283,7 @@ if ($userCanCreateDocuments) {
         ],
     ];
 }
-
-$isAdmin = Yii::$app->user->can('admin');
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -316,12 +297,8 @@ $myGridWidget = InfiniteGridView::begin([
            $options['class'] = 'danger';
        }
 
-        // Выделение непросмотренных
-        // документов за сегодняшний день
+        // Выделение непросмотренных документов за сегодняшний день
         if (!$isAdmin) {
-            $date = new DateTime($model->dateCreate);
-            $dateFormat = $date->format('Y-m-d');
-
             if ($model->viewed == 0) {
                 $options['style'] = 'font-weight: bold;';
             }
@@ -341,24 +318,17 @@ $myGridWidget = InfiniteGridView::begin([
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
 echo ToTopButtonWidget::widget();
 
-// Модальное окно формы поиска
+// Вывести модальное окно формы поиска
 echo $this->render('@addons/edm/views/documents/_searchModal', ['model' => $searchModel]);
 
 $this->registerCss('#delete-selected-documents-button {display: none;}');
 
-$this->registerJS(<<<JS
-    stickyTableHelperInit();
-JS
-);
-
-?>
+$this->registerJS('stickyTableHelperInit();');

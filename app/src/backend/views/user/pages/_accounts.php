@@ -5,7 +5,7 @@ use common\widgets\GridView;
 /** @var \yii\web\View $this */
 /** @var \common\models\User $model */
 /** @var array $accounts */
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'emptyText'    => Yii::t('other', 'No entries found'),
     'id' => 'accounts-access-grid-view',

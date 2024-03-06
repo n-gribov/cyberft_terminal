@@ -113,6 +113,7 @@ class StatusChecker
         }
         $importRequest->externalDocumentStatus = $documentStatus->getCode();
         $importRequest->externalDocumentInfo = $documentInfoXml;
+        // Сохранить модель в БД
         $importRequest->save();
     }
 

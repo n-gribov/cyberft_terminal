@@ -21,15 +21,16 @@ trait Exchange
      */
     public function actionStopExchange()
     {
-        $componentTerminal = Yii::$app->terminals;
+        $componentTerminal = Yii::$app->exchange;
 
         // Получаем все активные терминалы
         $terminals = Terminal::find()->where(['status' => Terminal::STATUS_ACTIVE]);
 
-        // Для дополнительного администратора
-        // останавливаем только доступные ему терминалы
+        // Получить модель пользователя из активной сессии
         $adminIdentity = Yii::$app->user->identity;
 
+        // Для дополнительного администратора
+        // останавливаем только доступные ему терминалы
         if ($adminIdentity->role == User::ROLE_ADDITIONAL_ADMIN) {
 
             $allTerminalsList = UserTerminal::getUserTerminalIndexes($adminIdentity->id);
@@ -53,13 +54,14 @@ trait Exchange
                 }
             }
 
-            // Сообщение об успешной остановке обмена
+            // Поместить в сессию флаг сообщения об успешной остановке обмена
             Yii::$app->session->setFlash('success', Yii::t('app/autobot', 'CyberFT exchange stop completed successfully'));
         } catch (\Exception $e) {
-            // Сообщение об ошибке остановки обмена
+            // Поместить в сессию флаг сообщения об ошибке остановки обмена
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'CyberFT exchange stop failed'));
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect('index');
     }
 
@@ -80,12 +82,16 @@ trait Exchange
 
         $settings->jobsEnabled = false;
 
+        // Если модель успешно сохранена в БД
         if ($settings->save()) {
+            // Поместить в сессию флаг сообщения об успешной остановке автопроцессов
             Yii::$app->session->setFlash('success', Yii::t('app/autobot', 'Automatic processes stopped successfully. Wait for the current jobs to finish.'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке остановки автопроцессов
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Automatic processes could not be stopped'));
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect('index');
     }
 
@@ -94,10 +100,11 @@ trait Exchange
      */
     public function actionStartJobs()
     {
-        // Действие выполняется только если
-        // текущий пользователь - главный администратор
+        // Получить модель пользователя из активной сессии
         $adminIdentity = Yii::$app->user->identity;
 
+        // Действие выполняется только если
+        // текущий пользователь - главный администратор
         if ($adminIdentity->role == User::ROLE_ADDITIONAL_ADMIN) {
             throw new ForbiddenHttpException;
         }
@@ -106,15 +113,18 @@ trait Exchange
 
         $settings->jobsEnabled = true;
 
+        // Если модель успешно сохранена в БД
         if ($settings->save()) {
+            // Поместить в сессию флаг сообщения об успешном запуске автопроцессов
             Yii::$app->session->setFlash('success', Yii::t('app/autobot', 'Automatic processes started'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке запуска автопроцессов
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Automatic processes could not be started'));
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect('index');
     }
-
 
     /**
      * Метод останавливает конкретный терминал
@@ -127,6 +137,7 @@ trait Exchange
 
         // Если терминал не найден
         if (!$terminal) {
+            // Поместить в сессию флаг сообщения об отсутствующем терминале
             Yii::$app->session->setFlash('error',
                 Yii::t(
                     'app/autobot',
@@ -134,13 +145,15 @@ trait Exchange
                     ['terminal' => $terminalId]
                 )
             );
+            // Перенаправить на страницу индекса
             return $this->redirect('index');
         }
 
-        $componentTerminal = Yii::$app->terminals;
+        $componentTerminal = Yii::$app->exchange;
 
         // Если терминал не запущен
         if (!$componentTerminal->isRunning($terminalId)) {
+            // Поместить в сессию флаг сообщения о незапущенном терминале
             Yii::$app->session->setFlash('error',
                 Yii::t(
                     'app/autobot',
@@ -148,27 +161,27 @@ trait Exchange
                     ['terminal' => $terminalId]
                 )
             );
+            // Перенаправить на страницу индекса
             return $this->redirect('index');
         }
 
-        // Во всех остальных случаях
-        // останавливаем указанный терминал
+        // Во всех остальных случаях останавливаем указанный терминал
         try {
             $componentTerminal->stop($terminalId);
 
-            // Сообщение об успешной остановке обмена
+            // Поместить в сессию флаг сообщения об успешной остановке обмена
             Yii::$app->session->setFlash('success', Yii::t('app/autobot', '{terminal} stop completed successfully', ['terminal' => $terminalId]));
         } catch (\Exception $e) {
-            // Сообщение об ошибке остановки обмена
+            // Поместить в сессию флаг сообщения об ошибке остановки обмена
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', '{terminal} exchange stop failed', ['terminal' => $terminalId]));
         }
-
+        // Перенаправить на страницу индекса
         return $this->redirect('index');
     }
 
     protected function start($terminalId)
     {
-        $terminals = Yii::$app->terminals;
+        $terminals = Yii::$app->exchange;
 
         // Подсчитываем число автоботов, участвовавших в запросе
         $count = count(Yii::$app->request->post('Autobot', []));
@@ -191,10 +204,10 @@ trait Exchange
         }
         // Верифицируем все пароли при помощи компонента Terminals
         try {
-            if(true === $terminals->verifyKeyPasswords($terminalId, $keys)) {
+            if (true === $terminals->verifyKeyPasswords($terminalId, $keys)) {
                 $terminals->start($terminalId, $keys);
 
-                // Регистрация события запуска обмена с CyberFT
+                // Зарегистрировать событие запуска обмена с CyberFT в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('StartAutoprocesses');
 
                 return [
@@ -234,10 +247,11 @@ trait Exchange
 
     public function actionCheckTerminalRunning($terminalId)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
         $response = [];
 
-        $componentTerminal = Yii::$app->terminals;
+        $componentTerminal = Yii::$app->exchange;
 
         if ($componentTerminal->isRunning($terminalId)) {
             $response['status'] = 'error';
@@ -253,7 +267,7 @@ trait Exchange
     public function actionStopTerminalBlockKey($autobotId, $terminalId)
     {
         // Остановка обмена терминала
-        $componentTerminal = Yii::$app->terminals;
+        $componentTerminal = Yii::$app->exchange;
 
         $redirectUrl = Url::to([
             '/autobot/terminals/index',
@@ -264,7 +278,9 @@ trait Exchange
         try {
             $componentTerminal->stop($terminalId);
         } catch (\Exception $e) {
+            // Поместить в сессию флаг сообщения об ошибке остановки терминала
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', '{terminal} exchange stop failed', ['terminal' => $terminalId]));
+            // Перенаправить на страницу перенаправления
             return $this->redirect($redirectUrl);
         }
 
@@ -274,12 +290,16 @@ trait Exchange
             $autobotService = new AutobotService();
             $autobotService->block($autobot);
         } catch (\Exception $e) {
+            // Поместить в сессию флаг сообщения об ошибке деактивации ключа контролёра
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Failed to block controller key'));
+            // Перенаправить на страницу перенаправления
             return $this->redirect($redirectUrl);
         }
-
+        
+        // Поместить в сессию флаг сообщения об успешной деактивации ключа контролёра
         Yii::$app->session->setFlash('success', Yii::t('app/autobot', 'Controller key successfully blocked'));
 
+        // Перенаправить на страницу перенаправления
         return $this->redirect($redirectUrl);
     }
 

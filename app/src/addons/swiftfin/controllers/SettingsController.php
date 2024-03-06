@@ -12,45 +12,45 @@ use yii\filters\VerbFilter;
 
 class SettingsController extends BaseServiceController
 {
-	public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => ['documentManage'],
-					],
-				],
-			],
-			'verbs' => [
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['documentManage'],
+                    ],
+                ],
+            ],
+            'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'update-approvers' => ['post'],
-					'switch-approval-enabled' => ['post'],
+                    'switch-approval-enabled' => ['post'],
                 ],
             ],
-		];
-	}
+        ];
+    }
 
-	/**
-	 * Lists all Settings.
-	 * @return mixed
-	 */
-	public function actionIndex()
-	{
-		$tabMode = Yii::$app->request->get('tabMode');
-		$dataProvider = null;
-		switch($tabMode) {
-			case 'tabPrint':
-				$dataProvider = $this->setupPrint();
-				break;
-			case 'tabAccess':
-				$dataProvider = new ArrayDataProvider([
-					'allModels' => $this->module->getEnabledUsers()
-				]);
-				break;
+    /**
+     * Lists all Settings.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $tabMode = Yii::$app->request->get('tabMode');
+        $dataProvider = null;
+        switch($tabMode) {
+            case 'tabPrint':
+                $dataProvider = $this->setupPrint();
+                break;
+            case 'tabAccess':
+                $dataProvider = new ArrayDataProvider([
+                        'allModels' => $this->module->getEnabledUsers()
+                ]);
+                break;
             case 'tabUserVerification':
                 $dataProvider = $this->setupUserVerification();
                 break;
@@ -59,161 +59,164 @@ class SettingsController extends BaseServiceController
                     'query' => Participant::find(),
                 ]);
                 break;
-			case 'tabGeneral':
-			default:
-				$dataProvider = $this->setupGeneral();
-				break;
+            default:
+                $dataProvider = $this->setupGeneral();
+                break;
+        }
 
-		}
+        // Вывести страницу
+        return $this->render('index', [
+            'tabMode' => $tabMode,
+            'settings' => $this->module->settings,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
-		return $this->render('index', [
-			'tabMode' => $tabMode,
-			'settings' => $this->module->settings,
-			'dataProvider' => $dataProvider,
-		]);
-	}
-
-	public function setupGeneral()
-	{
+    public function setupGeneral()
+    {
         $settings = $this->module->settings;
 
         // Получение текущих значений настроек для логирования изменений
         $swiftRouting = $settings->swiftRouting;
         $deliveryExport = $settings->deliveryExport;
 
-		if (Yii::$app->request->isPost && $settings->load(Yii::$app->request->post())) {
-
+        // Если данные модели успешно загружены из формы в браузере
+        if (Yii::$app->request->isPost && $settings->load(Yii::$app->request->post())) {
             $settings->validate();
-
-			if ($settings->hasErrors()) {
-				Yii::$app->session->setFlash('error', Yii::t('app/error', 'Error! Settings not saved!'));
-			} else {
-
-				if ($settings->save()) {
-
+            if ($settings->hasErrors()) {
+                // Поместить в сессию флаг сообщения об ошибке сохранения настроек
+                Yii::$app->session->setFlash('error', Yii::t('app/error', 'Error! Settings not saved!'));
+            } else {
+                // Если настройки успешно сохранены в БД
+                if ($settings->save()) {
                     if (!$swiftRouting && $settings->swiftRouting) {
-                        // Регистрация события активации роутинга
+                        // Зарегистрировать событие активации роутинга в модуле мониторинга
                         Yii::$app->monitoring->extUserLog('ActivateSwiftRouting');
-                    } elseif ($swiftRouting && !$settings->swiftRouting) {
-                        // Регистрация события деактивации роутинга
+                    } else if ($swiftRouting && !$settings->swiftRouting) {
+                        // Зарегистрировать событие деактивации роутинга в модуле мониторинга
                         Yii::$app->monitoring->extUserLog('DeactivateSwiftRouting');
                     }
 
                     if (!$deliveryExport && $settings->deliveryExport) {
-                        // Регистрация события активации экспорта документов mt011
+                        // Зарегистрировать событие активации экспорта документов mt011 в модуле мониторинга
                         Yii::$app->monitoring->extUserLog('ActivateSwiftDocumentMTExport');
-                    } elseif ($deliveryExport && !$settings->deliveryExport) {
-                        // Регистрация события деактивации экспорта документов mt011
+                    } else if ($deliveryExport && !$settings->deliveryExport) {
+                        // Зарегистрировать событие деактивации экспорта документов mt011 в модуле мониторинга
                         Yii::$app->monitoring->extUserLog('DeactivateSwiftDocumentMTExport');
                     }
 
                     /**
                      * @todo monitor event for export checksum
                      */
-					Yii::$app->session->setFlash('info', Yii::t('app', 'Terminal configuration saved'));
-				}
-			}
-		}
+                    // Поместить в сессию флаг сообщения об успешном сохранении настроек
+                    Yii::$app->session->setFlash('info', Yii::t('app', 'Terminal configuration saved'));
+                }
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public function setupPrint()
-	{
-		if (Yii::$app->request->isPost) {
+    public function setupPrint()
+    {
+        // Если отправлены POST-данные
+        if (Yii::$app->request->isPost) {
 
             $settings = $this->module->settings;
-			$printSetup = Yii::$app->request->post('mt');
-			// Запоминаем вектор настроек в settings модуля
+            $printSetup = Yii::$app->request->post('mt');
+            // Запоминаем вектор настроек в settings модуля
             $settings->autoPrintMt = is_array($printSetup) ? array_flip($printSetup) : [];
-			if ($settings->save()) {
+            if ($settings->save()) {
                 if (!empty($settings->autoPrintMt)) {
-                    // Регистрация события активации печати документов
+                    // Зарегистрировать событие активации печати документов в модуле мониторинга
                     Yii::$app->monitoring->extUserLog('ActivateSwiftDocumentPrint', ['types' => $printSetup]);
                 }
 
-				Yii::$app->session->setFlash('info', Yii::t('app', 'Document print configuration saved'));
-			}
-		}
+                // Поместить в сессию флаг сообщения об успешном сохранении настроек
+                Yii::$app->session->setFlash('info', Yii::t('app', 'Document print configuration saved'));
+            }
+        }
 
-		return $this->getDocumentTypes();
-	}
+        return $this->getDocumentTypes();
+    }
 
-	public function setupApproval()
-	{
+    public function setupApproval()
+    {
         $settings = $this->module->settings;
 
-		if (Yii::$app->request->isPost) {
+        // Если отправлены POST-данные
+        if (Yii::$app->request->isPost) {
+            $approvalSetup = Yii::$app->request->post('mt');
+            if (is_array($approvalSetup)) {
+                $approvalSetup = array_flip($approvalSetup);
+            } else {
+                $approvalSetup = [];
+            }
 
-			$approvalSetup = Yii::$app->request->post('mt');
-			if (is_array($approvalSetup)) {
-				$approvalSetup = array_flip($approvalSetup);
-			} else {
-				$approvalSetup = [];
-			}
+            $formats = $settings->approvalFormats;
+            foreach(array_keys($approvalSetup) as $format) {
+                if (!isset($formats[$format])) {
+                    $formats[$format] = [];
+                }
+            }
+            foreach(array_keys($formats) as $format) {
+                $formats[$format]['enabled'] = array_key_exists($format, $approvalSetup);
+            }
 
-			$formats = $settings->approvalFormats;
-			foreach(array_keys($approvalSetup) as $format) {
-				if (!isset($formats[$format])) {
-					$formats[$format] = [];
-				}
-			}
-			foreach(array_keys($formats) as $format) {
-				$formats[$format]['enabled'] = array_key_exists($format, $approvalSetup);
-			}
-
-			// Запоминаем вектор настроек в settings модуля
+            // Запоминаем вектор настроек в settings модуля
             $settings->approvalFormats = $formats;
-			if ($settings->save()) {
-				Yii::$app->session->setFlash('info', Yii::t('app', 'Document approval configuration saved'));
-			}
-		}
 
-		return $this->getApprovalFormats();
-	}
+            // Если настройки успешно сохранены в БД
+            if ($settings->save()) {
+                // Поместить в сессию флаг сообщения об успешном сохранении настроек
+                Yii::$app->session->setFlash('info', Yii::t('app', 'Document approval configuration saved'));
+            }
+        }
 
-	public function getDocumentTypes()
-	{
-		$documentTypesArray = [];
-		// Текущие настройки печати из Терминала для отображения текущего состояния формы
-		$currentSetup = $this->module->settings->autoPrintMt;
+        return $this->getApprovalFormats();
+    }
 
-		// Формируем данные для dataProvider
-		foreach (array_keys(Yii::$app->registry->getModuleTypes($this->module->serviceId)) as $docTypeName) {
-			$documentTypesArray[] = [
-				'type' => $docTypeName,
-				'name' => $docTypeName,
-				'checked' => array_key_exists($docTypeName, $currentSetup),
-			];
-		}
+    public function getDocumentTypes()
+    {
+        $documentTypesArray = [];
+        // Текущие настройки печати из Терминала для отображения текущего состояния формы
+        $currentSetup = $this->module->settings->autoPrintMt;
 
-		return new ArrayDataProvider([
-			'allModels' => $documentTypesArray,
-			'key' => 'type',
-			'pagination' => false
-		]);
-	}
+        // Формируем данные для dataProvider
+        foreach (array_keys(Yii::$app->registry->getModuleTypes($this->module->serviceId)) as $docTypeName) {
+            $documentTypesArray[] = [
+                'type' => $docTypeName,
+                'name' => $docTypeName,
+                'checked' => array_key_exists($docTypeName, $currentSetup),
+            ];
+        }
 
-	public function getApprovalFormats()
-	{
-		$documentTypesArray = [];
+        return new ArrayDataProvider([
+            'allModels' => $documentTypesArray,
+            'key' => 'type',
+            'pagination' => false
+        ]);
+    }
 
-		$approvalFormats = $this->module->settings->approvalFormats;
+    public function getApprovalFormats()
+    {
+        $documentTypesArray = [];
+        $approvalFormats = $this->module->settings->approvalFormats;
 
-		foreach (array_keys(Yii::$app->registry->getModuleTypes($this->module->serviceId)) as $docTypeName) {
-			$documentTypesArray[] = [
-				'type' => $docTypeName,
-				'name' => $docTypeName,
-				'checked' => isset($approvalFormats[$docTypeName]['enabled']) ? $approvalFormats[$docTypeName]['enabled'] : false
-			];
-		}
+        foreach (array_keys(Yii::$app->registry->getModuleTypes($this->module->serviceId)) as $docTypeName) {
+            $documentTypesArray[] = [
+                'type' => $docTypeName,
+                'name' => $docTypeName,
+                'checked' => isset($approvalFormats[$docTypeName]['enabled']) ? $approvalFormats[$docTypeName]['enabled'] : false
+            ];
+        }
 
-		return new ArrayDataProvider([
-			'allModels' => $documentTypesArray,
-			'key' => 'type',
-			'pagination' => false
-		]);
-	}
+        return new ArrayDataProvider([
+            'allModels' => $documentTypesArray,
+            'key' => 'type',
+            'pagination' => false
+        ]);
+    }
 
     public function setupUserVerification()
     {
@@ -233,13 +236,13 @@ class SettingsController extends BaseServiceController
             $rules = Yii::$app->request->post('mt');
             $settings->userVerificationRules = (is_array($rules) ? array_values($rules) : []);
 
+            // Если настройки успешно сохранены в БД
             if ($settings->save()) {
-
                 if (!empty($settings->userVerificationRules)) {
-                    // Регистрация события активации верификации документов
+                    // Зарегистрировать событие активации верификации документов в модуле мониторинга
                     Yii::$app->monitoring->extUserLog('ActivateSwiftDocumentVerification', ['types' => $rules]);
                 }
-
+                // Поместить в сессию флаг сообщения об успешном сохранении настроек
                 Yii::$app->session->setFlash('info', Yii::t('doc', 'Document verification configuration saved'));
             }
         }

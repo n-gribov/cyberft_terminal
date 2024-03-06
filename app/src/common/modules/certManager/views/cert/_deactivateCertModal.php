@@ -18,7 +18,7 @@ use yii\web\View;
 </div>
 <?php
     $botRole = Cert::ROLE_SIGNER_BOT;
-    $script = <<< JS
+    $script = <<<JS
     $('#$buttonId').on('click', function(e) {
         e.preventDefault();
         var role = getModelRole();

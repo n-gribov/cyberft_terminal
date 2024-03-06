@@ -72,7 +72,7 @@ class FinZipType extends BaseType
     /**
      * Get Zip as binary
      *
-     * @return mixed Return binary zip or FALSE
+     * @return mixed Return binary zip or false
      */
     protected function getZipAsString()
     {
@@ -139,16 +139,20 @@ class FinZipType extends BaseType
         return true;
     }
 
-	public function getSearchFields()
-	{
-		return [
-			'sender' => $this->sender,
-			'receiver' => $this->recipient,
-			'subject' => $this->subject,
-			'descr' => $this->descr,
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return array|bool
+     */
+    public function getSearchFields()
+    {
+        return [
+            'sender' => $this->sender,
+            'receiver' => $this->recipient,
+            'subject' => $this->subject,
+            'descr' => $this->descr,
             'attachmentUUID' => $this->attachmentUUID,
-		];
-	}
+        ];
+    }
 
     public function getMessage()
     {

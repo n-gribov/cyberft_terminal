@@ -21,6 +21,7 @@ class Pain002CheckStep extends BaseDocumentStep
 
             $originalExtModel = $document->extModel;
             $originalExtModel->originalFilename = $typeModel->originalFilename;
+            // Сохранить модель в БД
             $originalExtModel->save();
 
             // Поиск в ExtModel документа по его message id и запись туда нужной информации
@@ -53,7 +54,7 @@ class Pain002CheckStep extends BaseDocumentStep
                     $this->log('Could not find pain.002 linked document ' . $extModel->documentId);
                 }
 
-                // Регистрация события получения статуса документа ISO
+                // Зарегистрировать событие получения статуса документа ISO в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'user:ISOReceiveStatus',
                     'document',

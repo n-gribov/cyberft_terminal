@@ -137,11 +137,11 @@ class EdmModule extends BaseBlock
 
             if (!$document) {
                 $this->log('Could not load document for document ID ' . $documentId);
-
                 return false;
             }
 
             $document->uuidReference = $refDocId;
+            // Сохранить модель в БД
             $document->save();
         }
 
@@ -166,7 +166,6 @@ class EdmModule extends BaseBlock
         ];
         if (in_array($cyx->docType, $vtbModuleTypes)) {
             $vtbModule = Yii::$app->addon->getModule('VTB');
-
             return $vtbModule->registerMessage($cyx, $documentId);
         }
 
@@ -176,14 +175,11 @@ class EdmModule extends BaseBlock
         ];
         if (in_array($cyx->docType, $sbbolModuleTypes)) {
             $sbbolModule = Yii::$app->addon->getModule('SBBOL');
-
             return $sbbolModule->registerMessage($cyx, $documentId);
         }
 
         if ($cyx->docType === Sbbol2PayDocRuType::TYPE) {
-
             $sbbol2Module = Yii::$app->addon->getModule('sbbol2');
-
             return $sbbol2Module->registerMessage($cyx, $documentId);
         }
         $sbbol2ModuleTypes = [
@@ -228,7 +224,7 @@ class EdmModule extends BaseBlock
             $this->updateAccountBalanceFromStatement($documentId);
         }
 
-        // Пробуем найти экспорт-джоб для данного типа документа, если нашли, то запускаем.
+        // Пробуем найти задание экспорта для данного типа документа, если нашли, то запускаем.
         if (isset($this->_config->docTypes[$cyx->docType]['jobs']['export'])) {
             Yii::$app->resque->enqueue(
                 $this->_config->docTypes[$cyx->docType]['jobs']['export'],
@@ -255,7 +251,7 @@ class EdmModule extends BaseBlock
     {
         $typeModel = $cyx->content->getTypeModel();
 
-		$mySignVerifier = \Yii::$app->xmlsec;
+        $mySignVerifier = \Yii::$app->xmlsec;
 
         $dom = new DOMDocument();
         $dom->loadXML((string) $typeModel);
@@ -269,7 +265,6 @@ class EdmModule extends BaseBlock
                     . '/' . XMLSeclibsHelper::nsNode('cftsign', 'Signature');
 
         $signatures = $xpath->query($query, $dom);
-		//$myCertManager = Yii::$app->getModule('certManager');
 
         $address = $cyx->senderId;
 
@@ -280,14 +275,12 @@ class EdmModule extends BaseBlock
             if (($fingerprint = $mySignVerifier->getFingerprint($signature)) === false) {
                 Yii::info('Unable to find fingerprint inside XMLDSIG signature');
                 $result = false;
-
                 break;
             }
 
-      		if (!($terminalId = TerminalId::extract($address))) {
+            if (!($terminalId = TerminalId::extract($address))) {
                 Yii::info("Terminal identifier '$address' has wrong format");
                 $result = false;
-
                 break;
             }
 
@@ -300,6 +293,7 @@ class EdmModule extends BaseBlock
             if (!$myCert) {
                 Yii::info('No certificate found: ' . $fingerprint);
                 $result = false;
+                // Зарегистрировать событие отсутствия сертификата в модуле мониторинга
                 Yii::$app->monitoring->log(
                    'cert:certificateNotFound', 'document', $document->id,
                     [
@@ -308,13 +302,13 @@ class EdmModule extends BaseBlock
                         'terminalId' => $document->terminalId
                     ]
                 );
-
                 break;
             }
 
             if ($myCert->status != Cert::STATUS_C10) {
                 Yii::info('Cert is not active: ' . $fingerprint);
                 $result = false;
+                // Зарегистрировать событие ошибочного сертификата в модуле мониторинга
                 Yii::$app->monitoring->log(
                    'cert:invalidCertificate', 'document', $document->id,
                     [
@@ -324,19 +318,13 @@ class EdmModule extends BaseBlock
                         'terminalId' => $document->terminalId
                     ]
                 );
-
                 break;
             }
-
-//            if (($myCert = $myCertManager->getCertificateByAddress($cyx->senderId, $fingerprint)) === null) {
-//                Yii::info('No certificate found: ' . $fingerprint);
-//
-//                return false;
-//            }
 
             if (!$myCert->isActive) {
                 Yii::info('Certificate expired: ' . $fingerprint);
                 $result = false;
+                // Зарегистрировать событие истекшего сертификата в модуле мониторинга
                 Yii::$app->monitoring->log(
                    'cert:certificateExpired', 'document', $document->id,
                     [
@@ -346,19 +334,12 @@ class EdmModule extends BaseBlock
                         'terminalId' => $document->terminalId
                     ]
                 );
-
                 break;
             }
-
-//            if (!$mySignVerifier->verifySignature($signature, $myCert->body)) {
-//                // Не продолжаем проверку, если произошла ошибка верификации
-//                Yii::info('Verification failed');
-//
-//                return false;
-//            }
         }
 
         if (!$result) {
+            // Отправить Status Report
             DocumentTransportHelper::statusReport($document, [
                 'statusCode' => 'RJCT',
                 'errorCode' => '9999',
@@ -397,7 +378,7 @@ class EdmModule extends BaseBlock
                     );
                 }
             }
-        } elseif ($typeModel->type == SBBOLPayDocRuType::TYPE) {
+        } else if ($typeModel->type == SBBOLPayDocRuType::TYPE) {
             $paymentOrderType = PaymentOrderType::createFromSBBOLPayDocRu($typeModel);
             $paymentOrderType->setDate(date('d.m.Y', strtotime($paymentOrderType->dateCreated)));
 
@@ -413,7 +394,7 @@ class EdmModule extends BaseBlock
                     . print_r($paymentOrder->errors, true)
                 );
             }
-        } elseif ($typeModel->type === VTBRegisterRuType::TYPE) {
+        } else if ($typeModel->type === VTBRegisterRuType::TYPE) {
             foreach ($typeModel->paymentOrders as $vtbPayDocRuTypeModel) {
                 $paymentOrderType = PaymentOrderType::createFromVTBPayDocRu($vtbPayDocRuTypeModel);
                 $paymentOrderType->setDate(date('d.m.Y', strtotime($paymentOrderType->dateCreated)));
@@ -441,7 +422,7 @@ class EdmModule extends BaseBlock
      *
      * @param string $path Data to save
      * @param string $filename File name
-     * @return StoredFile|NULL
+     * @return StoredFile|null
      */
     public function storeFileOut($path, $filename = '')
     {
@@ -453,7 +434,7 @@ class EdmModule extends BaseBlock
      *
      * @param string $data Data to save
      * @param string $filename File name
-     * @return StoredFile|NULL
+     * @return StoredFile|null
      */
     public function storeDataOut($data, $filename = '')
     {
@@ -469,7 +450,7 @@ class EdmModule extends BaseBlock
      *
      * @param string $data Data to save
      * @param string $filename Filename
-     * @return StoredFile|NULL
+     * @return StoredFile|null
      */
     public function storeDataExport($data, $filename = '')
     {
@@ -480,7 +461,7 @@ class EdmModule extends BaseBlock
      * Get document
      *
      * @param integer $id Document ID
-     * @return Edm|NULL
+     * @return Edm|null
      */
     public function getDocument($id)
     {
@@ -591,6 +572,7 @@ class EdmModule extends BaseBlock
                 'documentId' => $document->id,
                 'status'     => CryptoproSigningRequest::STATUS_FOR_SIGNING,
             ]);
+            // Сохранить модель в БД
             $signingRequest->save();
         }
 
@@ -622,6 +604,7 @@ class EdmModule extends BaseBlock
                         ]
                     )->one();
                 if ($finZipDocument !== null) {
+                    // Создать стейт отправки документа
                     DocumentTransportHelper::createSendingState($finZipDocument);
                 }
             }
@@ -631,7 +614,7 @@ class EdmModule extends BaseBlock
             $isoModule->onDocumentStatusChange($document);
 
             return;
-        } elseif ($document->extModel instanceof PaymentRegisterDocumentExt) {
+        } else if ($document->extModel instanceof PaymentRegisterDocumentExt) {
             if ($document->status === Document::STATUS_DELETED) {
                 PaymentRegisterPaymentOrder::updateAll(
                     ['registerId' => null],
@@ -670,6 +653,7 @@ class EdmModule extends BaseBlock
 
         $extModel->storedFileId = $storedFile->id;
         $extModel->fileName = $attachment->fileName;
+        // Сохранить модель в БД
         $isSaved = $extModel->save();
         if (!$isSaved) {
             $this->log('Cannot update ext model for document');
@@ -695,7 +679,7 @@ class EdmModule extends BaseBlock
         $requestExtModel->status = $typeModel->status;
         $requestExtModel->targetDocumentInfo = $typeModel->documentInfo;
         $requestExtModel->targetDocumentVTBReferenceId = $typeModel->vtbReferenceId;
-
+        // Сохранить модель в БД
         $isSaved = $requestExtModel->save();
         if (!$isSaved) {
             $this->log('Failed to update VTBPrepareCancellationRequest ext model, errors: ' . var_export($requestExtModel->getErrors(), true));
@@ -790,6 +774,7 @@ class EdmModule extends BaseBlock
                 false
             );
 
+            // Сохранить модель в БД
             $isSaved = $edmAccount->save();
             if (!$isSaved) {
                 Yii::info("Failed to save account {$account->number}, errors: " . var_export($edmAccount->getErrors(), true));
@@ -806,6 +791,7 @@ class EdmModule extends BaseBlock
             $terminalRemoteId = new TerminalRemoteId($terminalRemoteIdAttributes);
         }
         $terminalRemoteId->remoteId = $typeModel->customer->id;
+        // Сохранить модель в БД
         $isSaved = $terminalRemoteId->save();
         if (!$isSaved) {
             Yii::info('Failed to save account terminal remote id, errors: ' . var_export($terminalRemoteId->getErrors(), true));
@@ -904,32 +890,37 @@ class EdmModule extends BaseBlock
                 false
             );
 
-            $accountIsSaved = $edmAccount->save();
+            // Сохранить модель в БД
+            $isSaved = $edmAccount->save();
+            if (!$isSaved) {
+                Yii::info("Failed to save account {$account->number}, errors: " . var_export($edmAccount->getErrors(), true));
+            }
 
             // 2.1. Обновляем терминал у банка, к которому привязан счет
             $bank = $edmAccount->bank;
             $bank->terminalId = SBBOLHelper::getGatewayTerminalAddress();
+            // Сохранить модель в БД
             $bank->save();
-
-            if (!$accountIsSaved) {
-                Yii::info("Failed to save account {$account->number}, errors: " . var_export($edmAccount->getErrors(), true));
-            }
 
             // 2.2. Сохраняем в справочник счетов SBBOL
             $edmSbbolAccount = EdmSBBOLAccount::find()
                 ->where(['id' => $account->id])
                 ->orWhere(['number' => $account->number])
                 ->one();
+
             if ($edmSbbolAccount === null) {
                 $edmSbbolAccount = new EdmSBBOLAccount();
             }
+
             $edmSbbolAccount->setAttributes([
                 'id'         => $account->id,
                 'number'     => $account->number,
                 'customerId' => $account->customerId,
             ]);
-            $sbbolAccountIsSaved = $edmSbbolAccount->save();
-            if (!$sbbolAccountIsSaved) {
+
+            // Сохранить модель в БД
+            $isSaved = $edmSbbolAccount->save();
+            if (!$isSaved) {
                 Yii::info("Failed to save SBBOL account {$account->number}, errors: " . var_export($edmSbbolAccount->getErrors(), true));
             }
         }
@@ -937,6 +928,8 @@ class EdmModule extends BaseBlock
         // 3. Записываем в настройки терминала информации из sbbol_customer
         $terminalSettings = Yii::$app->settings->get('app', $cyxDocument->receiverId);
         $terminalSettings->sbbolCustomerSenderName = $customer->senderName;
+        
+        // Сохранить модель в БД
         $terminalSettings->save();
 
         return true;
@@ -1018,11 +1011,13 @@ class EdmModule extends BaseBlock
                 false
             );
 
+            // Сохранить модель в БД
             $accountIsSaved = $edmAccount->save();
 
-            // 4. Обновляем терминал у банка, к которому привязан счет
+            // 4. Обновить терминал у банка, к которому привязан счет
             $bank = $edmAccount->bank;
             $bank->terminalId = Sbbol2Helper::getGatewayTerminalAddress();
+            // Сохранить модель в БД
             $bank->save();
 
             if (!$accountIsSaved) {
@@ -1041,13 +1036,15 @@ class EdmModule extends BaseBlock
                 'number'     => $account->number,
                 'customerId' => $account->customerId,
             ]);
-            $sbbolAccountIsSaved = $edmSbbolAccount->save();
-            if (!$sbbolAccountIsSaved) {
+            // Сохранить модель в БД
+            $isSaved = $edmSbbolAccount->save();
+            if (!$isSaved) {
                 Yii::info("Failed to save SBBOL account {$account->number}, errors: " . var_export($edmSbbolAccount->getErrors(), true));
             }
         }
 
         $terminalSettings = Yii::$app->settings->get('app', $cyxDocument->receiverId);
+        // Сохранить модель в БД
         $terminalSettings->save();
 
         return true;
@@ -1135,16 +1132,17 @@ class EdmModule extends BaseBlock
                 false
             );
 
-            $accountIsSaved = $edmAccount->save();
+            // Сохранить модель в БД
+            $isSaved = $edmAccount->save();
+            if (!$isSaved) {
+                Yii::info("Failed to save account {$account->number}, errors: " . var_export($edmAccount->getErrors(), true));
+            }
 
             // 2.1. Обновляем терминал у банка, к которому привязан счет
             $bank = $edmAccount->bank;
             $bank->terminalId = RaiffeisenHelper::getGatewayTerminalAddress();
+            // Сохранить модель в БД
             $bank->save();
-
-            if (!$accountIsSaved) {
-                Yii::info("Failed to save account {$account->number}, errors: " . var_export($edmAccount->getErrors(), true));
-            }
         }
 
         return true;
@@ -1161,6 +1159,7 @@ class EdmModule extends BaseBlock
         $vtbData = [];
 
         foreach($typeModel->paymentOrders as $paymentOrder) {
+            // Атрибуты документа
             $docAttributes = [];
             $docAttributes['type'] = $paymentOrder->type;
             $docAttributes['uuid'] = Uuid::generate();
@@ -1254,6 +1253,7 @@ class EdmModule extends BaseBlock
             }
 
             // Создание PayDocCur
+            // Атрибуты документа
             $docAttributes = [];
             $docAttributes['type'] = $typeModel->type;
             $docAttributes['uuid'] = Uuid::generate();
@@ -1306,6 +1306,7 @@ class EdmModule extends BaseBlock
         $extModel->debitAccount = $debitAccount;
         $extModel->paymentsCount = count($registerCur->paymentOrders);
         $extModel->uuid = (string)Uuid::generate();
+        // Сохранить модель в БД
         $extModel->save();
 
         $vtbModule = Yii::$app->addon->getModule('VTB');
@@ -1435,8 +1436,8 @@ class EdmModule extends BaseBlock
         if ($typeModel->errorDescriptionGrp) {
             $extModel->businessStatusDescription = $typeModel->errorDescriptionGrp;
         }
+        // Сохранить модель в БД
         $extModel->save();
-        //$documentPain002->uuidReference = $extDocUuid;
 
         /** @var \SimpleXMLElement $xml */
         $xml = $typeModel->getRawXml();
@@ -1475,6 +1476,7 @@ class EdmModule extends BaseBlock
 
                 if ($isUpdated) {
                     Yii::info("Updated payment order #{$paymentOrder->numberDocument} from {$document->type} id={$document->id} with status=$statusCode");
+                    // Зарегистрировать событие изменения бизнес-статуса документа в модуле мониторинга
                     Yii::$app->monitoring->log(
                         'document:documentBusinessStatusChange',
                         'document',
@@ -1526,8 +1528,9 @@ class EdmModule extends BaseBlock
             $extModel->businessStatusDescription = $typeModel->errorDescription;
         }
 
-        $isUpdated = $extModel->save();
-        if (!$isUpdated) {
+        // Сохранить модель в БД
+        $isSaved = $extModel->save();
+        if (!$isSaved) {
             $this->log("Failed to update business status for bank letter ext model, document: {$referencedDocument->id}, errors: " . var_export($extModel->getErrors(), true));
             return;
         }
@@ -1536,6 +1539,7 @@ class EdmModule extends BaseBlock
         $document->save(false);
 
         Yii::info("Updated bank letter document {$referencedDocument->id} from auth.027 document {$document->id} with status=$statusCode");
+        // Зарегистрировать событие изменения бизнес-статуса документа в модуле мониторинга
         Yii::$app->monitoring->log(
             'document:documentBusinessStatusChange',
             'document',
@@ -1575,6 +1579,7 @@ class EdmModule extends BaseBlock
             $extModel->businessStatusDescription = $typeModel->errorDescriptionGrp;
         }
 
+        // Сохранить модель в БД
         $extModel->save();
 
         /** @var \SimpleXMLElement $xml */
@@ -1614,6 +1619,7 @@ class EdmModule extends BaseBlock
 
                 if ($isUpdated) {
                     Yii::info("Updated PaymentOrder #{$paymentOrder->number} from ISOPaymentRegister id={$document->id} with status=$statusCode");
+                    // Зарегистрировать событие изменения бизнес-статуса документа в модуле мониторинга
                     Yii::$app->monitoring->log(
                         'document:documentBusinessStatusChange',
                         'document',
@@ -1653,6 +1659,7 @@ class EdmModule extends BaseBlock
         if ($typeModel->errorDescriptionGrp) {
             $extModel->businessStatusDescription = $typeModel->errorDescriptionGrp;
         }
+        // Сохранить модель в БД
         $extModel->save();
 
         /** @var \SimpleXMLElement $xml */
@@ -1692,6 +1699,7 @@ class EdmModule extends BaseBlock
 
                 if ($isUpdated) {
                     Yii::info("Updated payment order #{$paymentOrder->numberDocument} from {$document->type} id={$document->id} with status=$statusCode");
+                    // Зарегистрировать событие изменения бизнес-статуса документа в модуле мониторинга
                     Yii::$app->monitoring->log(
                         'document:documentBusinessStatusChange',
                         'document',

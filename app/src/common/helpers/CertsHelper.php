@@ -71,13 +71,11 @@ class CertsHelper
         $query->andWhere(['status' => Cert::STATUS_C10]);
         $query->andFilterWhere(['role' => $ownerRole]);
 
-        if($terminalCode) {
-            $query->andWhere(
-                [
-                    "concat_ws('', participantCode, countryCode, sevenSymbol, delimiter, terminalCode, participantUnitCode)"
-                    => $terminalCode
-                ]
-            );
+        if ($terminalCode) {
+            $query->andWhere([
+                "concat_ws('', participantCode, countryCode, sevenSymbol, delimiter, terminalCode, participantUnitCode)"
+                => $terminalCode
+            ]);
         }
 
         $certs = $query->all();

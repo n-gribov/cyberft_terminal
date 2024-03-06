@@ -72,27 +72,28 @@ class MultiprocessesController extends BaseController
         if (!$tabMode || $tabMode == 'tabProcessing') {
             // Данные про процессам обмена
             $data = $this->processingData();
-        } elseif ($tabMode == 'tabExportXml') {
+        } else if ($tabMode == 'tabExportXml') {
             // Экспорт xml
             $data = $this->exportXmlData();
-        } elseif ($tabMode == 'tabSecurity') {
+        } else if ($tabMode == 'tabSecurity') {
             // Безопасность
             $data = $this->securityData();
-        } elseif ($tabMode == 'tabVerificationRule') {
+        } else if ($tabMode == 'tabVerificationRule') {
             // Верификация входящих
             $data = $this->verificationData();
-        } elseif ($tabMode == 'tabAdditionalSettings') {
+        } else if ($tabMode == 'tabAdditionalSettings') {
             // Дополнительные настройки
             $data = $this->additionalSettingsData();
-        } elseif ($tabMode == 'tabProcessingSettings') {
+        } else if ($tabMode == 'tabProcessingSettings') {
             // Настройки подключения к процессингу
             $data = $this->processingSettingsData();
-        } elseif ($tabMode === 'tabProxy') {
+        } else if ($tabMode === 'tabProxy') {
             $data = $this->proxyData();
-        } elseif ($tabMode == 'tabApiIntegration') {
+        } else if ($tabMode == 'tabApiIntegration') {
             $data = $this->apiIntegrationSettings();
         }
 
+        // Вывести страницу
         return $this->render(
             'index',
             ['params' => $data]
@@ -104,6 +105,7 @@ class MultiprocessesController extends BaseController
      */
     protected function processingData()
     {
+        // Получить модель пользователя из активной сессии
         $adminIdentity = Yii::$app->user->identity;
 
         // Массив для формирования dataProvider
@@ -137,7 +139,7 @@ class MultiprocessesController extends BaseController
                 'organization' => $terminal->title,
                 'hasActiveControllerKeys' => $this->hasTerminalActiveControllerKeys($terminal->terminalId),
                 'hasUseForSigningControllerKey' => Autobot::hasUsedForSigningAutobot($terminal->terminalId),
-                'exchangeStatus' => Yii::$app->terminals->isRunning($terminal->terminalId),
+                'exchangeStatus' => Yii::$app->exchange->isRunning($terminal->terminalId),
                 'status' => $terminal->status == Terminal::STATUS_ACTIVE,
             ];
         }
@@ -181,6 +183,7 @@ class MultiprocessesController extends BaseController
 
         $allModels = [];
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             // Обработка запроса
             $post = Yii::$app->request->post();
@@ -200,11 +203,13 @@ class MultiprocessesController extends BaseController
                 $module =  Yii::$app->addon->getModule($addon::SERVICE_ID);
                 $settings = $module->settings;
                 $settings->exportXml = $value;
+                // Сохранить модель в БД
                 $settings->save();
             }
 
             $app = Yii::$app->settings->get('app');
             $app->exportStatusReports = array_key_exists('exportStatusReports', $post['AppSettings']) && $post['AppSettings']['exportStatusReports'];
+            // Сохранить модель в БД
             $app->save();
 
             // Дополнительные настройки модулей
@@ -212,16 +217,18 @@ class MultiprocessesController extends BaseController
             // Swiftfin
 
             $swiftfinSettings->exportIsActive = $swiftfinFormatExport;
+            // Сохранить модель в БД
             $swiftfinSettings->save();
 
             if ($swiftfinFormatExport) {
-                // Регистрация события активации экспорта документов
+                // Зарегистрировать событие активации экспорта документов в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('ActivateSwiftDocumentExport');
             } else {
-                // Регистрация события деактивации экспорта документов
+                // Зарегистрировать событие деактивации экспорта документов в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('DeactivateSwiftDocumentExport');
             }
 
+            // Поместить в сессию флаг сообщения о сохранении настроек экспорта XML
             Yii::$app->session->setFlash('info', Yii::t('app', 'XML export settings saved'));
         }
 
@@ -260,15 +267,19 @@ class MultiprocessesController extends BaseController
     {
         $model = Yii::$app->settings->get('Security');
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
+            // Если данные модели успешно загружены из формы в браузере
             if ($model->load(Yii::$app->request->post())) {
+                // Если модель успешно сохранена в БД
                 if ($model->save()) {
+                    // Поместить в сессию флаг сообщения об успешном сохранении настроек
                     Yii::$app->session->setFlash(
                         'success',
                         Yii::t('app/user', 'Settings updated')
                     );
 
-                    // Регистрация события изменения настроек безопасности
+                    // Зарегистрировать событие изменения настроек безопасности в модуле мониторинга
                     Yii::$app->monitoring->extUserLog('EditSecuritySettings');
                 }
             }
@@ -305,13 +316,16 @@ class MultiprocessesController extends BaseController
         $envFilePath = Yii::getAlias('@projectRoot/.env');
         $model = ProxySettingsForm::readFromEnvFile($envFilePath);
 
+        // Если данные модели успешно загружены из формы в браузере
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
             Yii::info('Will update proxy settings in .env file');
             $isSaved = $model->saveToEnv($envFilePath);
             if ($isSaved) {
                 $model = ProxySettingsForm::readFromEnvFile($envFilePath);
+                // Поместить в сессию флаг сообщения об успешном сохранении настроек
                 Yii::$app->session->setFlash('success', Yii::t('app/autobot', 'Settings updated'));
             } else {
+                // Поместить в сессию флаг сообщения об ошибке сохранения настроек
                 Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Settings update error'));
             }
         }

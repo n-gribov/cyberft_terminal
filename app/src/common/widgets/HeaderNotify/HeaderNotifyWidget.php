@@ -93,6 +93,7 @@ class HeaderNotifyWidget extends Widget
                     'signaturesCount' => Yii::$app->user->identity->signatureNumber - 1
                 ];
 
+                // Получить из БД список документов через компонент авторизации доступа к терминалам
                 $countForSigning = Yii::$app->terminalAccess
                     ->query(Document::className(), $queryParams)->count();
 
@@ -177,6 +178,7 @@ class HeaderNotifyWidget extends Widget
         }
 
         if ($allForSinging) {
+            // Вывести страницу
             return $this->render('forSigning', [
                 'countNotify' => $allForSinging,
                 'docList' => $docCountList
@@ -210,6 +212,7 @@ class HeaderNotifyWidget extends Widget
         $totalUnreadCount = $unreadFinZipCount + $unreadStatementsCount + $unreadBankLettersCount;
 
         if ($totalUnreadCount > 0) {
+            // Вывести страницу
             return $this->render('new', [
                 'countNotify' => $totalUnreadCount,
                 'docList' => $docList
@@ -226,7 +229,7 @@ class HeaderNotifyWidget extends Widget
         if ($this->type == self::TYPE_STOPPED_TERMINALS_USER) {
             // Выключенные терминалы, доступные пользователю
             $userTerminals = UserTerminal::getUserTerminals(Yii::$app->user->identity->id);
-            $terminalData = Yii::$app->terminals->terminalData;
+            $terminalData = Yii::$app->exchange->terminalData;
 
             foreach($userTerminals as $terminalId => $terminal) {
                 $data = $terminalData[$terminalId];
@@ -238,14 +241,12 @@ class HeaderNotifyWidget extends Widget
             $isAdmin = false;
 
         } else if ($this->type == self::TYPE_STOPPED_TERMINALS_ADMIN) {
-            // Все выключенные терминалы
-
+            // Получить модель пользователя из активной сессии
             $adminIdentity = Yii::$app->user->identity;
+            // Все выключенные терминалы
             $terminals = UserTerminal::getUserTerminalIds($adminIdentity->id);
-
-            foreach(Yii::$app->terminals->terminalData as $terminalId => $data) {
-                // Для доп. админа отображаем
-                // информацию только о доступных ему терминалах
+            foreach(Yii::$app->exchange->terminalData as $terminalId => $data) {
+                // Для доп. админа отображаем информацию только о доступных ему терминалах
                 if ($adminIdentity->role == User::ROLE_ADDITIONAL_ADMIN
                         && !in_array($terminalId, $terminals)
                 ) {
@@ -261,6 +262,7 @@ class HeaderNotifyWidget extends Widget
         }
 
         if ($stoppedTerminals) {
+            // Вывести страницу остановленных терминалов
             return $this->render('stoppedTerminals', [
                 'countNotify' => count($stoppedTerminals),
                 'stoppedTerminals' => $stoppedTerminals,
@@ -270,5 +272,4 @@ class HeaderNotifyWidget extends Widget
             return null;
         }
     }
-
 }

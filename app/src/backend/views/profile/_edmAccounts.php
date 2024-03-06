@@ -22,13 +22,13 @@ $shouldShowOrganization = Yii::$app->user->identity->disableTerminalSelect;
             <div class="pull-left">
                 <?= Yii::t('edm', 'Account Information') ?>
             </div>
-            <?php if ($userCanCreateStatementRequests): ?>
+            <?php if ($userCanCreateStatementRequests) : ?>
                 <div class="pull-right">
                     <a href="/edm/edm-payer-account/send-request-all-accounts" class="btn btn-request-all-totals btn-success">
                         <?= Yii::t('edm', 'Request balances') ?>
                     </a>
                 </div>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
         <div class="panel-body">
             <table class="table table-bordered">
@@ -36,7 +36,7 @@ $shouldShowOrganization = Yii::$app->user->identity->disableTerminalSelect;
                 <tr>
                     <?php if ($shouldShowOrganization): ?>
                         <th><?= Yii::t('edm', 'Organization') ?></th>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <th><?= Yii::t('edm', 'Account number') ?></th>
                     <th><?= Yii::t('edm', 'Bank') ?></th>
                     <th><?= Yii::t('edm', 'Currency') ?></th>
@@ -48,11 +48,11 @@ $shouldShowOrganization = Yii::$app->user->identity->disableTerminalSelect;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($accounts as $account) {?>
+                <?php foreach($accounts as $account) : ?>
                     <tr>
                         <?php if ($shouldShowOrganization): ?>
                             <td><?= Html::encode($account->edmDictOrganization->name) ?></td>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <td>
                             <a href="<?= Url::to(['/edm/edm-payer-account/view', 'id' => $account->id]) ?>">
                                 <?= Html::encode($account->number) ?>
@@ -69,10 +69,10 @@ $shouldShowOrganization = Yii::$app->user->identity->disableTerminalSelect;
                         <td>
                             <?php if ($userCanCreateStatementRequests): ?>
                                 <a href="#" class="statement-request" data-id="<?= $account->id ?>"><?= Yii::t('edm', 'Statement request') ?></a>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php endforeach ?>
                 </tbody>
             </table>
         </div>
@@ -84,7 +84,7 @@ $shouldShowOrganization = Yii::$app->user->identity->disableTerminalSelect;
 <?php
 
 // Отображение формы запроса выписки по отдельному счету
-$script = <<< JS
+$script = <<<JS
     $('.statement-request').on('click', function(e) {
         var accountId = $(this).data('id');
 
@@ -108,6 +108,3 @@ $this->registerCss('
         text-decoration: none;
     }
 ');
-
-?>
-

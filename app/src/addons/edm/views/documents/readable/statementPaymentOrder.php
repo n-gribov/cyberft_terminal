@@ -49,130 +49,132 @@ $statementPeriodEnd = new DateTime($content->statementPeriodEnd);
     Дата последней операции: <?=date('Y-m-d', strtotime($content->prevLastOperationDate))?><br/><br/>
 </b>
 <?php if ($dataProvider->totalCount): ?>
-<?= GridView::widget([
-		'emptyText' => '',
-		'dataProvider' => $dataProvider,
-		'columns' => [
-			[
+<?php
+    // Создать таблицу для вывода
+    echo GridView::widget([
+        'emptyText' => '',
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            [
                 'attribute' => 'ValueDate',
                 'format' => ['date', 'php:d.m.Y'],
                 'label' => Yii::t('doc/st', 'Date'),
                 'headerOptions' => [
-                        'class' => 'text-right',
-                    ],
+                    'class' => 'text-right',
+                ],
                 'contentOptions' => [
                     'style' => 'text-align: right',
                     'nowrap' => 'nowrap'
                 ],
             ],
-			[
+            [
                 'attribute' => 'DocDate',
                 'format' => ['date', 'php:d.m.Y'],
                 'label' => Yii::t('doc/st', 'DocDate'),
                 'headerOptions' => [
-                        'class' => 'text-right',
-                    ],
+                    'class' => 'text-right',
+                ],
                 'contentOptions' => [
                     'style' => 'text-align: right',
                     'nowrap' => 'nowrap'
                 ],
             ],
-			[
+            [
                 'attribute' => 'Number',
                 'enableSorting' => false,
                 'label' => Yii::t('doc/st', 'Number'),
                 'headerOptions' => [
-                        'class' => 'text-right',
-                    ],
+                    'class' => 'text-right',
+                ],
                 'contentOptions' => [
                     'style' => 'text-align: right',
                 ],
             ],
-			[
+            [
                 'enableSorting' => false,
                 'format' => 'raw',
                 'label' => Yii::t('edm', 'Payer'),
-				'value' => function($model) {
-					return $model['PayerAccountNum']
-							. '<br/>' . $model['PayerName']
-							. '<br/>' . Yii::t('doc/st', 'INN') . ': ' . $model['PayerINN']
-							. '<br/>' . Yii::t('doc/st', 'KPP') . ': ' . $model['PayerKPP'];
-				},
+                'value' => function($model) {
+                    return $model['PayerAccountNum']
+                        . '<br/>' . $model['PayerName']
+                        . '<br/>' . Yii::t('doc/st', 'INN') . ': ' . $model['PayerINN']
+                        . '<br/>' . Yii::t('doc/st', 'KPP') . ': ' . $model['PayerKPP'];
+                },
                 'contentOptions' => [
                     'style' => 'width: 250px;'
                 ],
-			],
-			[
+            ],
+            [
                 'enableSorting' => false,
                 'format' => 'raw',
                 'label' => Yii::t('edm', 'Payer Bank'),
-				'value' => function($model) {
-					return Yii::t('doc/st', 'BIK') . ': ' . $model['PayerBIK']
-							. '<br/>' . $model['PayerBankName']
-							. '<br/>' . $model['PayerBankAccountNum'];
-				},
+                'value' => function($model) {
+                    return Yii::t('doc/st', 'BIK') . ': ' . $model['PayerBIK']
+                        . '<br/>' . $model['PayerBankName']
+                        . '<br/>' . $model['PayerBankAccountNum'];
+                },
                 'contentOptions' => [
                     'style' => 'width: 250px;'
                 ],
-			],
-			[
+            ],
+            [
                 'enableSorting' => false,
                 'format' => 'raw',
                 'label' => Yii::t('edm', 'Payee'),
-				'value' => function($model) {
-					return $model['PayeeAccountNum']
-							. '<br/>' . $model['PayeeName']
-							. '<br/>' . Yii::t('doc/st', 'INN') . ': ' . $model['PayeeINN']
-							. '<br/>' . Yii::t('doc/st', 'KPP') . ': ' . $model['PayeeKPP'];
-				},
+                'value' => function($model) {
+                    return $model['PayeeAccountNum']
+                        . '<br/>' . $model['PayeeName']
+                        . '<br/>' . Yii::t('doc/st', 'INN') . ': ' . $model['PayeeINN']
+                        . '<br/>' . Yii::t('doc/st', 'KPP') . ': ' . $model['PayeeKPP'];
+                },
                 'contentOptions' => [
                     'style' => 'width: 250px;'
                 ],
-			],
-			[
+            ],
+            [
                 'enableSorting' => false,
                 'format' => 'raw',
                 'label' => Yii::t('edm', 'Payee Bank'),
-				'value' => function($model) {
-					return Yii::t('doc/st', 'BIK') . ': ' . $model['PayeeBIK']
-							. '<br/>' . $model['PayeeBankName']
-							. '<br/>' . $model['PayeeBankAccountNum'];
-				},
+                'value' => function($model) {
+                    return Yii::t('doc/st', 'BIK') . ': ' . $model['PayeeBIK']
+                        . '<br/>' . $model['PayeeBankName']
+                        . '<br/>' . $model['PayeeBankAccountNum'];
+                },
                 'contentOptions' => [
                     'style' => 'width: 250px;'
                 ],
-			],
-			[
+            ],
+            [
                 'attribute' => 'Debit',
                 'enableSorting' => false,
                 'value' => function($row) {
-                        return Yii::$app->formatter->asDecimal($row['Debit'], 2);
+                    return Yii::$app->formatter->asDecimal($row['Debit'], 2);
                 },
                 'label' => Yii::t('doc/st', 'Debit'),
                 'headerOptions' => [
-                        'class' => 'text-right',
-                    ],
+                    'class' => 'text-right',
+                ],
                 'contentOptions' => [
                     'style' => 'text-align: right',
                     'nowrap' => 'nowrap'
                 ],
             ],
-			[
+            [
                 'attribute' => 'Credit',
                 'enableSorting' => false,
                 'value' => function($row) {
-                        return Yii::$app->formatter->asDecimal($row['Credit'], 2);
+                    return Yii::$app->formatter->asDecimal($row['Credit'], 2);
                 },
                 'label' => Yii::t('doc/st', 'Credit'),
                 'headerOptions' => [
-                        'class' => 'text-right',
-                    ],
+                    'class' => 'text-right',
+                ],
                 'contentOptions' => [
                     'style' => 'text-align: right',
                     'nowrap' => 'nowrap'
                 ],
             ],
-			[
+            [
                 'attribute' => 'Purpose',
                 'enableSorting' => false,
                 'label' => Yii::t('doc/st', 'Purpose'),
@@ -184,8 +186,8 @@ $statementPeriodEnd = new DateTime($content->statementPeriodEnd);
                     return Url::toRoute(['statement/payment_order_' . $action, 'id' => $model->id]);
                 },
             ]
-		],
-	]);
+        ],
+    ]);
 ?>
 <div align="right" style="clear:both;font-weight:bold">
 	Итого обороты: дебет <?=$content->debitTurnover?>, кредит: <?=$content->creditTurnover?><br/>

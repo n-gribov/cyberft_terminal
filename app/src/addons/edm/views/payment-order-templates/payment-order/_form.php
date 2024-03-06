@@ -81,28 +81,34 @@ $form = ActiveForm::begin([
                             'options'       => ['placeholder' => 'Поиск плательщика по имени или счету ...', 'class' => 'has-success', 'id' => 'paymentordertype-payercheckingaccount-modal'],
                             'theme' => Select2::THEME_BOOTSTRAP,
                             'pluginOptions' => [
-                                'allowClear'         => true,
+                                'allowClear' => true,
                                 'minimumInputLength' => 0,
-                                'ajax'               => [
-                                    'url'      => Url::to(['edm-payer-account/list']),
+                                'ajax' => [
+                                    'url' => Url::to(['edm-payer-account/list']),
                                     'dataType' => 'json',
-                                    'delay'    => 250,
-                                    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+                                    'delay' => 250,
+                                    'data' => new JsExpression('function(params) { return {q:params.term}; }'),
                                 ],
-                                'templateResult'     => new JsExpression('function(item) {
-                                            if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                                        }'),
-                                'templateSelection'  => new JsExpression('function(item) {
-                                            if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                                        }'),
+                                'templateResult' => new JsExpression(<<<JS
+                                    function(item) {
+                                        if (!item.number) {
+                                            return item.text;
+                                        }
+                                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                                    }
+                                JS),
+                                'templateSelection'  => new JsExpression(<<<JS
+                                    function(item) {
+                                        if (!item.number) {
+                                            return item.text;
+                                        }
+                                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                                    }
+                                JS),
                             ],
                             'pluginEvents'  => [
-                                'select2:select' => 'function(e) {
-                                applyPayer(e.params.data);
-                              }',
-                                'select2:unselect' => 'function(e) {
-                                resetPayer();
-                              }'
+                                'select2:select' => 'function(e) { applyPayer(e.params.data); }',
+                                'select2:unselect' => 'function(e) { resetPayer(); }'
                             ],
                         ]);
                         ?>
@@ -220,8 +226,7 @@ $form = ActiveForm::begin([
                         $item = DictBeneficiaryContractor::findOne(['account' => $model->beneficiaryCheckingAccount]);
                         echo $form->field($model, 'beneficiaryCheckingAccount', [
                             'options' => ['style' => 'width: 90%'],
-                            'selectors' => ['input' => '#paymentordertype-beneficiarycheckingaccount-modal']])
-                        ->widget(Select2::classname(), [
+                            'selectors' => ['input' => '#paymentordertype-beneficiarycheckingaccount-modal']])->widget(Select2::classname(), [
                             'initValueText' => isset($item) ?
                                 'Счет: ' . $item->account . ' Название: ' . $item->name : null,
                             // set the initial display text
@@ -236,30 +241,37 @@ $form = ActiveForm::begin([
                                     'dataType' => 'json',
                                     'delay'    => 250,
                                     'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-                                    'processResults' => new JsExpression('function(data, query) {
-                                    if (query.term) {
-                                        data.results.push({
-                                            id: query.term,
-                                            text: query.term + " (Новое значение)"
-                                        });
-                                    }
-                                    return data;
-                                }'),
+                                    'processResults' => new JsExpression(<<<JS
+                                        function(data, query) {
+                                            if (query.term) {
+                                                data.results.push(
+                                                    { id: query.term, text: query.term + ' (Новое значение)' }
+                                                );
+                                            }
+                                            return data;
+                                        }
+                                    JS),
                                 ],
-                                'templateResult'     => new JsExpression('function(item) {
-                                if (!item.account) return item.text; return "ИНН:" + item.inn  + ", " + item.name + ", " + item.account;
-                            }'),
-                                'templateSelection'  => new JsExpression('function(item) {
-                                if (!item.account) return item.text; return "ИНН:" + item.inn  + ", " + item.name + ", " + item.account;
-                            }'),
+                                'templateResult' => new JsExpression(<<<JS
+                                    function(item) {
+                                        if (!item.account) {
+                                            return item.text;
+                                        }
+                                        return 'ИНН:' + item.inn  + ', ' + item.name + ', ' + item.account;
+                                    }
+                                JS),
+                                'templateSelection' => new JsExpression(<<<JS
+                                    function(item) {
+                                        if (!item.account) {
+                                            return item.text;
+                                        }
+                                        return 'ИНН:' + item.inn  + ', ' + item.name + ', ' + item.account;
+                                    }
+                                JS),
                             ],
                             'pluginEvents'  => [
-                                'select2:select' => 'function(e) {
-                                applyBeneficiary(e.params.data);
-                            }',
-                                'select2:unselect' => 'function(e) {
-                                resetBeneficiary();
-                            }',
+                                'select2:select' => 'function(e) { applyBeneficiary(e.params.data); }',
+                                'select2:unselect' => 'function(e) { resetBeneficiary(); }',
                             ],
                         ])
                         ?>
@@ -370,7 +382,7 @@ $form = ActiveForm::begin([
 
                                 <div class="col-md-6 no-padding-right">
                                     <label>Наз. пл.</label>
-                                    <?= $form->field($model, 'paymentOrderPaymentPurpose')->textInput(['maxlength' => TRUE, 'readonly' => TRUE]); ?>
+                                    <?= $form->field($model, 'paymentOrderPaymentPurpose')->textInput(['maxlength' => true, 'readonly' => true]); ?>
                                 </div>
                             </div>
 
@@ -383,7 +395,7 @@ $form = ActiveForm::begin([
                                 </div>
                                 <div class="col-md-6 no-padding-right">
                                     <label>Срок платежа</label>
-                                    <?= $form->field($model, 'maturity')->textInput(['maxlength' => TRUE, 'readonly' => TRUE]); ?>
+                                    <?= $form->field($model, 'maturity')->textInput(['maxlength' => true, 'readonly' => true]); ?>
                                 </div>
                             </div>
 
@@ -395,7 +407,7 @@ $form = ActiveForm::begin([
 
                                 <div class="col-md-6 no-padding-right">
                                     <label>Результирующее поле</label>
-                                    <?= $form->field($model, 'backingField')->textInput(['maxlength' => TRUE, 'readonly' => TRUE]); ?>
+                                    <?= $form->field($model, 'backingField')->textInput(['maxlength' => true, 'readonly' => true]); ?>
                                 </div>
 
                             </div>
@@ -725,13 +737,9 @@ $this->registerCss('
     border: 2px solid #000;
     width: 670px;
 }
-
-
-
 ');
 
-$script = <<< JS
-        
+$script = <<<JS
 // Очистка связанных полей плательщика
 var resetPayer = function() {
     // При любом изменении счета плательщика очищаем все выбранные значения
@@ -756,7 +764,7 @@ var resetPayer = function() {
     $('#edmTemplatePOModal .add-payer-button').hide();
 
     // Делаем недоступным поле выбора получателя
-    $('#edmTemplatePOModal #paymentordertype-beneficiarycheckingaccount-modal').select2("val", "");
+    $('#edmTemplatePOModal #paymentordertype-beneficiarycheckingaccount-modal').select2('val', '');
     $('#edmTemplatePOModal #paymentordertype-beneficiarycheckingaccount-modal').prop('disabled', true);
     resetBeneficiary();
 };
@@ -987,7 +995,7 @@ window.contractorIframeTemplate.load(function () {
             .val(data.account)
         ;
 
-        if(data.fullname) {
+        if (data.fullname) {
             $('#edmTemplatePOModal #select2-paymentordertype-beneficiarycheckingaccount-modal-container').text(data.fullname);
         } else {
             $('#edmTemplatePOModal #select2-paymentordertype-beneficiarycheckingaccount-modal-container').text(data.name);
@@ -1323,7 +1331,7 @@ $('body #edm-template-wizard').on('submit', function (e) {
 $('body #paymentregisterpaymentordertemplate-name').on('keypress', function() {
     $('.field-paymentregisterpaymentordertemplate-name').removeClass('require');
     $('.field-paymentregisterpaymentordertemplate-name').removeClass('has-error');
-    $('.field-paymentregisterpaymentordertemplate-name .help-block').html("");
+    $('.field-paymentregisterpaymentordertemplate-name .help-block').html('');
 });
 
 $('.close').on('click', function(e) {
@@ -1365,9 +1373,6 @@ $('.btn-beneficiary-update-submit').on('click', function(e) {
     var form = $("#contractorIframe").contents().find("form#w0");
     form.submit();
 });
-
 JS;
 
 $this->registerJs($script, View::POS_READY);
-
-?>

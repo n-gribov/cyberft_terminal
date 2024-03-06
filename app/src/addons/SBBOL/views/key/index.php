@@ -19,7 +19,7 @@ echo Html::button(
         'data'  => ['toggle' => 'modal', 'target' => '#register-key-modal']
     ]
 );
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [
@@ -54,6 +54,12 @@ echo GridView::widget([
         ]
     ],
 ]);
-
+// Вывести модальное окно с формой регистрации ключа
 echo $this->render('_registerKeyModal');
-$this->registerJs('$("#register-key-button").click(function () { RegisterKeyForm.showGenerateCertificateRequestParamsForm(); })');
+$this->registerJs(<<<JS
+    $('#register-key-button').click(
+        function () {
+            RegisterKeyForm.showGenerateCertificateRequestParamsForm();
+        }
+    )
+JS);

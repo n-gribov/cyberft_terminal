@@ -36,7 +36,7 @@ if ($model->getValidStoredFileId()) {
 
         $dataProvider[] = $item;
     }
-
+    // Создать таблицу для вывода
     echo GridView::widget([
         'dataProvider' => new ArrayDataProvider([
             'allModels' => $dataProvider,

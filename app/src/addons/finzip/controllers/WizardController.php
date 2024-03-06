@@ -47,22 +47,31 @@ class WizardController extends BaseServiceController
 
     public function actionDelete($id)
     {
+        // Получить кэшированный документ
         $form = $this->getCachedDocument();
 
         if (!in_array($id, array_keys($form->getFiles()))) {
+            // Поместить в сессию флаг сообщения об отсутствующем файле
             Yii::$app->session->setFlash('error', Yii::t('app/error', 'File not found!'));
         } else {
             $form->removeFile($id);
+            // Поместить в сессию флаг сообщения об успешном удалении файла
             Yii::$app->session->setFlash('success', Yii::t('app', 'File deleted'));
+            // Кэшировать форму редактирования
             $this->cacheDocument($form);
         }
 
+        // Перенаправить на страницу 2-го шага визарда
         $this->redirect(['step2']);
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         /** @var WizardForm $form */
+        // Получить кэшированный документ
         $form = $this->getCachedDocument();
 
         if (!$form) {
@@ -73,6 +82,7 @@ class WizardController extends BaseServiceController
             $form->clearErrors();
             $form->subject = null;
             $form->descr = null;
+            // Кэшировать форму редактирования
             $this->cacheDocument($form);
             /*
              * @todo Обратное преобразование получателя, если мы вернулись на шаг 1
@@ -86,20 +96,26 @@ class WizardController extends BaseServiceController
             }
         }
 
-        $form->sender = Yii::$app->terminals->defaultTerminal->terminalId;
+        $form->sender = Yii::$app->exchange->defaultTerminal->terminalId;
         $form->uuid = Uuid::generate();
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($form->load(Yii::$app->request->post())) {
 
-            // Проверка активного ключа контролера для отправителя
+            // Проверить активный ключ контролера для отправителя
             if (!$this->isAutobotKey($form->sender)) {
+                // Поместить в сессию флаг сообщения о ненайденном пользователе
                 Yii::$app->session->setFlash('error',
-                    Yii::t('app/autobot',
+                    Yii::t(
+                        'app/autobot',
                         'Not found the used for signing key of the controller to the terminal {terminalId}',
-                        ['terminalId' => $form->sender]));
+                        ['terminalId' => $form->sender]
+                    )
+                );
 
+                // Вывести страницу
                 return $this->render('index', [
-                    'model'       => $form,
+                    'model' => $form,
                     'currentStep' => 1,
                 ]);
             }
@@ -111,15 +127,17 @@ class WizardController extends BaseServiceController
              */
             if ($recipient->getType() === TerminalId::TYPE_PARTICIPANT) {
                 $recipient->terminalCode = strlen($form->terminalCode) == 1
-                                            ? $form->terminalCode
-                                            : TerminalId::DEFAULT_TERMINAL_CODE;
+                    ? $form->terminalCode
+                    : TerminalId::DEFAULT_TERMINAL_CODE;
             }
-            $form->recipient = (string)$recipient;
+            $form->recipient = (string) $recipient;
+            // Кэшировать форму редактирования
             $this->cacheDocument($form);
+            // Перенаправить на страницу 2-го шага визарда
             return $this->redirect(['step2']);
         }
 
-        // Далее отрисовываем первый шаг визарда
+        // Вывести первый шаг визарда
         return $this->render('index', [
             'model'       => $form,
             'currentStep' => 1,
@@ -135,6 +153,7 @@ class WizardController extends BaseServiceController
             $this->createFromExistingDocument($fromId);
         }
 
+        // Получить кэшированный документ
         $form = $this->getCachedDocument();
 
         $signNum = $this->module->getSignaturesNumber($form->sender);
@@ -142,11 +161,13 @@ class WizardController extends BaseServiceController
 
         // Если в кэше нет документа, возвращаемся на первый шаг визарда
         if (!$form) {
+            // Поместить в сессию флаг сообщения об отсутствии данных визарда
             Yii::$app->session->setFlash('error', Yii::t('doc', 'No wizard data available'));
-            return $this->redirect(['index']);
+            // Перенаправить на страницу индекса
+            return $this->redirect('index');
         }
 
-        // Если POST-запрос
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post('WizardForm');
 
@@ -169,6 +190,7 @@ class WizardController extends BaseServiceController
                 }
 
                 if ($totalSize > 1024 * 1024 * 100) {
+                    // Поместить в сессию флаг сообщения о превышении размера файла
                     Yii::$app->session->setFlash('error', Yii::t('doc', 'Files total size must be less than 100 Mb'));
                 } else {
                     // Попытка добавить файлы
@@ -187,13 +209,17 @@ class WizardController extends BaseServiceController
                         $form->validate();
                     } catch (Exception $ex) {
                         // Если во время добавления файлов возникла ошибка
-                        Yii::$app->session->setFlash('error', Yii::t('doc', 'Adding files error: ' . $ex->getMessage()
-                                . ' ' . $ex->getFile() . ':' . $ex->getLine()));
+                        // Поместить в сессию флаг сообщения об ошибке добавления файлов
+                        Yii::$app->session->setFlash(
+                            'error',
+                            Yii::t('doc', 'Adding files error: ' . $ex->getMessage() . ' ' . $ex->getFile() . ':' . $ex->getLine())
+                        );
                     }
                 }
-
+                // Кэшировать форму редактирования
                 $this->cacheDocument($form);
 
+                // Перенаправить на страницу 2-го шага визарда
                 return $this->redirect(['step2']);
             } else {
                 // Иначе переходим к созданию документа
@@ -201,8 +227,10 @@ class WizardController extends BaseServiceController
                 // Валидируем документ
                 if (!$form->validate()) {
                     // Ошибка валидации документа
+                    // Кэшировать форму редактирования
                     $this->cacheDocument($form);
 
+                    // Перенаправить на страницу 2-го шага визарда
                     return $this->redirect(['step2']);
                 }
 
@@ -210,24 +238,29 @@ class WizardController extends BaseServiceController
 
                 $document = $this->createFinZipDocument($form);
                 if (!$document) {
+                    // Поместить в сессию флаг сообщения об ошибке создания документа
                     Yii::$app->session->setFlash('error', Yii::t('doc', '{type} document creation failed', ['type' => 'FinZip']));
 
+                    // Перенаправить на страницу 2-го шага визарда
                     return $this->redirect(['step2']);
                 }
 
                 Url::remember();
+                // Очистить кэшированный документ
                 $this->clearCachedDocument();
-
+                // Отправить документ на обработку в транспортном уровне
                 DocumentTransportHelper::processDocument($document, true);
 
                 if ($document->status == Document::STATUS_FORSIGNING) {
+                    // Перенаправить на страницу просмотра
                     return $this->redirect(['/finzip/default/view', 'id' => $document->id, 'triggerSigning' => 1]);
                 }
 
+                // Перенаправить на страницу индекса
                 return $this->redirect(['/finzip/default/index']);
             }
         }
-
+        // Вывести страницу
         return $this->render('index', [
             'model'       => $form,
             'currentStep' => 2,
@@ -255,7 +288,7 @@ class WizardController extends BaseServiceController
         $terminal = Terminal::findOne(['terminalId' => $typeModel->sender]);
 
         if (empty($terminal)) {
-            $terminal = Yii::$app->terminals->defaultTerminal;
+            $terminal = Yii::$app->exchange->defaultTerminal;
         }
 
         $fileList = $form->hasFiles() ? $form->getFiles() : [];
@@ -272,8 +305,8 @@ class WizardController extends BaseServiceController
             unlink($file['path']);
         }
 
-        Yii::$app->terminals->setCurrentTerminalId($typeModel->sender);
-
+        Yii::$app->exchange->setCurrentTerminalId($typeModel->sender);
+        // Атрибуты документа
         $docAttributes = [
             'direction' => Document::DIRECTION_OUT,
             'origin' => Document::ORIGIN_WEB,
@@ -283,6 +316,7 @@ class WizardController extends BaseServiceController
             'isEncrypted' => true
         ];
 
+        // Атрибуты расширяющей модели
         $extModelAttributes = [
             'fileCount' => $typeModel->fileCount,
             'subject' => Yii::$app->xmlsec->encryptData($typeModel->subject, true),
@@ -290,6 +324,7 @@ class WizardController extends BaseServiceController
             'zipStoredFileId' => $typeModel->zipStoredFileId
         ];
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             $docAttributes,
@@ -308,6 +343,7 @@ class WizardController extends BaseServiceController
     }
 
     /**
+     * Метод возвращает кэшированный документ
      * @return WizardForm
      */
     protected function getCachedDocument()
@@ -339,7 +375,7 @@ class WizardController extends BaseServiceController
             throw new Exception('Failed to get document extModel');
         }
 
-        Yii::$app->terminals->setCurrentTerminalId($document->sender);
+        Yii::$app->exchange->setCurrentTerminalId($document->sender);
 
         $form = new WizardForm();
         $form->subject = Yii::$app->xmlsec->decryptData($extModel->subject, true);
@@ -386,7 +422,7 @@ class WizardController extends BaseServiceController
         }
 
         FileHelper::removeDirectory($extractPath);
-
+        // Кэшировать форму редактирования
         $this->cacheDocument($form);
     }
 

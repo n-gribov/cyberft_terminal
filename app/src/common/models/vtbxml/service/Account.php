@@ -64,7 +64,7 @@ class Account extends BaseObject
                 return null;
             }
             return intval($value);
-        } elseif (static::isFloatProperty($propertyName)) {
+        } else if (static::isFloatProperty($propertyName)) {
             if ($value === null || $value === '') {
                 return null;
             }

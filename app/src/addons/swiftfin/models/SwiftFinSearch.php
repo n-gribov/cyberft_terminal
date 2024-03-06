@@ -470,8 +470,8 @@ class SwiftFinSearch extends DocumentSearch
      */
     public static function getForSigningCount()
     {
+        // Получить модель пользователя и уровень подписанта из активной сессии
         $myRequiredLevel = Yii::$app->user->identity->signatureNumber - 1;
-
 
         $query = Yii::$app->terminalAccess->query(
             Document::className(),

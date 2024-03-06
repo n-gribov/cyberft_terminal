@@ -44,7 +44,9 @@ $statementPeriodEnd = new DateTime($content->statementPeriodEnd);
     Дата последней операции: <?=date('Y-m-d', strtotime($content->prevLastOperationDate))?><br/><br/>
 </b>
 <?php if ($dataProvider->totalCount): ?>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
 		'emptyText' => '',
 		'dataProvider' => $dataProvider,
 		'columns' => [

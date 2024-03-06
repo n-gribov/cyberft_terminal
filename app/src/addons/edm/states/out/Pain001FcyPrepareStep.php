@@ -30,10 +30,12 @@ class Pain001FcyPrepareStep extends BasePain001PrepareStep
 
             $this->validateXml($typeModel);
 
+            // Атрибуты расширяющей модели
             $extModelAttributes = $this->createExtModelAttributes($typeModel);
             $this->ensureDocumentIsNotDuplicate($extModelAttributes);
             $document = $this->createDocument($typeModel, $extModelAttributes);
             $this->createPayments($document, $typeModel);
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($document, true);
             $transaction->commit();
         } catch (\Exception $exception) {
@@ -100,6 +102,7 @@ class Pain001FcyPrepareStep extends BasePain001PrepareStep
         foreach ($payments as $payment) {
             $fcoExt = new ForeignCurrencyOperationDocumentExt(['documentId' => $document->id]);
             $fcoExt->loadContentModel($payment);
+            // Сохранить модель в БД
             $isSaved = $fcoExt->save();
             if (!$isSaved) {
                 throw new \Exception('Failed to save payment order to database, errors: ' . var_export($fcoExt->getErrors(), true));

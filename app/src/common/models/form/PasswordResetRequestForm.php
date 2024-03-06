@@ -19,45 +19,44 @@ use yii\swiftmailer\Mailer;
  */
 class PasswordResetRequestForm extends Model
 {
-	/**
-	 * @var string $email User email
-	 */
-	public $email;
+    /**
+     * @var string $email User email
+     */
+    public $email;
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules()
-	{
-		return [
-			['email', 'filter', 'filter' => 'trim'],
-			['email', 'required'],
-			['email', 'email'],
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+        ];
+    }
 
-	/**
-	 * Sends an email with a link, for resetting the password.
-	 *
-	 * @return boolean whether the email was send
-	 */
-	public function sendEmail()
-	{
-		/* @var $user User */
-		$user = User::findOne(['email' => $this->email]);
+    /**
+     * Sends an email with a link, for resetting the password.
+     *
+     * @return boolean whether the email was send
+     */
+    public function sendEmail()
+    {
+        /* @var $user User */
+        $user = User::findOne(['email' => $this->email]);
 
         if (!$user) {
-            Yii::$app->monitoring->extUserLog(
-                'NonExistingUserPasswordResetRequest',
-                ['email' => $this->email]
-            );
+            // Зарегистрировать событие в модуле мониторинга
+            Yii::$app->monitoring->extUserLog('NonExistingUserPasswordResetRequest', ['email' => $this->email]);
             return false;
         }
 
-		if ($user->status == User::STATUS_ACTIVE) {
+        if ($user->status == User::STATUS_ACTIVE) {
             if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
                 $user->generatePasswordResetToken();
             }
+            // Сохранить модель в БД
             $isSaved = $user->save();
             if (!$isSaved) {
                 Yii::warning("Failed to update password reset token for user {$user->id}");
@@ -65,12 +64,10 @@ class PasswordResetRequestForm extends Model
             }
         }
 
+        // Зеригстрировать событие в модуле мониторинга
         Yii::$app->monitoring->extUserLog(
             'PasswordResetRequest',
-            [
-                'email' => $this->email,
-                'subjectUserId' => $user->id
-            ]
+            ['email' => $this->email,'subjectUserId' => $user->id]
         );
 
         try {
@@ -85,7 +82,7 @@ class PasswordResetRequestForm extends Model
             Yii::warning("Failed to send reset password email, caused by: $exception");
             return false;
         }
-	}
+    }
 
     public function checkMailer()
     {

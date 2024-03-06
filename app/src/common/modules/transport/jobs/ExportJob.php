@@ -57,7 +57,7 @@ class ExportJob extends Job
 
     private function checkArgs()
     {
-        $this->_documentId = (isset($this->args['id'])) ? $this->args['id'] : NULL;
+        $this->_documentId = (isset($this->args['id'])) ? $this->args['id'] : null;
         if (is_null($this->_documentId)) {
             $this->log("Document ID must be set");
 

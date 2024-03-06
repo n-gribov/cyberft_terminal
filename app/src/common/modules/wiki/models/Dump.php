@@ -46,7 +46,6 @@ class Dump extends Model
 
     public static function flushCachedData()
     {
-
         return Yii::$app->cache->delete(static::CACHE_KEY);
     }
 
@@ -125,8 +124,8 @@ class Dump extends Model
     {
         if (is_null($this->_target)) {
             $this->_target = Yii::createObject([
-                    'class' => 'creocoder\flysystem\ZipArchiveFilesystem',
-                    'path' => '@storage/' . WikiModule::SERVICE_ID . '/' . $this->getTargetFilename(),
+                'class' => 'creocoder\flysystem\ZipArchiveFilesystem',
+                'path' => '@storage/' . WikiModule::SERVICE_ID . '/' . $this->getTargetFilename(),
             ]);
         }
 
@@ -220,8 +219,8 @@ class Dump extends Model
     {
         try {
             $source = Yii::createObject([
-                    'class' => 'creocoder\flysystem\ZipArchiveFilesystem',
-                    'path' => $fileName,
+                'class' => 'creocoder\flysystem\ZipArchiveFilesystem',
+                'path' => $fileName,
             ]);
 
             if (!static::validateFile($source)) {
@@ -237,6 +236,7 @@ class Dump extends Model
                         $page = new Page();
                         $page->id = $data['id'];
                         $page->setAttributes($data);
+                        // Если модель успешно сохранена в БД
                         if ($page->save()) {
                             if (!isset($data['attachments'])) {
                                 continue;
@@ -244,6 +244,7 @@ class Dump extends Model
                             foreach ($data['attachments'] as $attachmentData) {
                                 $attach = new Attachment(['scenario' => 'import']);
                                 $attach->setAttributes($attachmentData);
+                                // Сохранить модель в БД
                                 $attach->save();
 
                             }
@@ -252,6 +253,7 @@ class Dump extends Model
                         $data = json_decode($source->read($item['path']), true);
                         $widget = new WikiWidget($data);
                         $widget->id = $data['id'];
+                        // Сохранить модель в БД
                         $widget->save();
                     }
                 }

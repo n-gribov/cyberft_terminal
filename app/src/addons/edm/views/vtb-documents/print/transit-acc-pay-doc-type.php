@@ -58,14 +58,14 @@ $bankName = $bank ? $bank->name : null;
         <th>Сумма</th>
         <th>Код валюты</th>
     </tr>
-    <?php foreach ($bsDocument->NOTICEBLOB as $notice): ?>
+    <?php foreach ($bsDocument->NOTICEBLOB as $notice) : ?>
         <tr>
             <td><?= Html::encode($notice->NOTICENUMBER) ?></td>
             <td><?= Yii::$app->formatter->asDate($notice->NOTICEDATE, $dateFormat) ?></td>
             <td><?= Html::encode($notice->NOTICEAMOUNT) ?></td>
             <td><?= Html::encode($notice->NOTICECURRCODE) ?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 
 <p>
@@ -90,18 +90,16 @@ $bankName = $bank ? $bank->name : null;
         <th>Дата</th>
         <th>Примечание</th>
     </tr>
-    <?php foreach ($bsDocument->GROUNDRECEIPTSBLOB as $groundReceipt): ?>
+    <?php foreach ($bsDocument->GROUNDRECEIPTSBLOB as $groundReceipt) : ?>
         <tr>
             <td><?= Html::encode($groundReceipt->DOCUMENTTYPE) ?></td>
             <td><?= Html::encode($groundReceipt->DOCUMENTNUMBER) ?></td>
             <td><?= Yii::$app->formatter->asDate($groundReceipt->DOCUMENTDATE, $dateFormat) ?></td>
             <td><?= Html::encode($groundReceipt->DESCRIPTION) ?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
-
 <p>Копии подтверждающих документов прилагаем.</p>
-
 <?= $this->render(
     '_bottom',
     [
@@ -111,7 +109,6 @@ $bankName = $bank ? $bank->name : null;
         'stampStatus' => 'ACCP',
     ]
 ) ?>
-
 <style>
     body {
         padding: 0;

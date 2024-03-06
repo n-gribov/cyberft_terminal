@@ -107,6 +107,7 @@ use yii\web\View;
                             'documentsIds' => [$document->id],
                             'successRedirectUrl' => $successRedirectUrl
                         ]);
+                        // Вывести страницу
                         echo ' ' . $this->render('_rejectSigning', ['id' => $document->id, 'url' => $rejectSignUrl]);
                     }
                 }
@@ -141,7 +142,7 @@ $this->registerCss('
     }
 ');
 
-$script = <<< JS
+$script = <<<JS
     $('#btn-before-sign').on('click', function(e) {
         e.preventDefault();
 

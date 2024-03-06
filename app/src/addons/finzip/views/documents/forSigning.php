@@ -23,6 +23,7 @@ use yii\web\View;
 
 $this->title = Yii::t('app/menu', 'Documents for signing');
 
+// Получить роль пользователя из активной сессии
 $isAdmin = in_array(Yii::$app->user->identity->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN]);
 $selected = Yii::t('app', 'Selected');
 
@@ -178,17 +179,16 @@ if ($dataProvider->count > 0 && $userCanSignDocuments) {
     <div class="checked-signing-label label label-success"></div>
     <?php
 }
-?>
-<?php
+
+// Вывести форму поиска
 echo $this->render('_search', [
     'model' => $searchModel,
-    'filterStatus' => $filterStatus,
+    'filterStatus' => $filterStatus
 ]);
 
 /**
  * Параметр для корректной работы кнопки Назад на странице просмотра документа
  */
-
 $urlParams['from'] = 'forSigning';
 
 $columns['id'] = [
@@ -213,29 +213,21 @@ $columns['senderParticipantName'] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'signing-index']),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax' => [
+                'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'signing-index']),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
-            'select2:unselect' => 'function(e) {
-
-	      }'
+	    'select2:select' => 'function(e) { searchForField(e.params.data) }',
+            'select2:unselect' => 'function(e) { }'
 	],
     ]),
     'contentOptions' => [
@@ -257,26 +249,20 @@ $columns['receiverParticipantName'] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => 'signing-index']),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax'               => [
+                'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => 'signing-index']),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
+	    'select2:select' => 'function(e) { searchForField(e.params.data); }',
 	],
     ]),
     'contentOptions' => [
@@ -292,7 +278,7 @@ $columns['subject'] = [
     'value' => function($model) use ($isAdmin) {
         if (!$isAdmin && $model->documentExtFinZip) {
             if ($model->isEncrypted) {
-                Yii::$app->terminals->setCurrentTerminalId($model->originTerminalId);
+                Yii::$app->exchange->setCurrentTerminalId($model->originTerminalId);
                 return $model->documentExtFinZip->getEncryptedSubject();
             } else {
                 return $model->documentExtFinZip->subject;
@@ -355,14 +341,13 @@ $columnsEnabled['delete'] = [
     }
 ];
 
-
 // Получение колонок, которые могут быть отображены
 $columnsSettings = UserColumnsSettings::getEnabledColumnsByType($columns, $listType, Yii::$app->user->id);
 
 foreach($columnsSettings as $setting => $value) {
     $columnsEnabled[$setting] = $value;
 }
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -387,15 +372,11 @@ $myGridWidget = InfiniteGridView::begin([
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
-// Модальное окно формы поиска
+// Вывести модальное окно формы поиска
 echo $this->render('@addons/edm/views/documents/_searchModal', ['model' => $searchModel]);
-
-?>

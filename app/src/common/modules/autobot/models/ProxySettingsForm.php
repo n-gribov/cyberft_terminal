@@ -48,7 +48,7 @@ class ProxySettingsForm extends Model
         $httpProxyUrl = null;
         if (array_key_exists('http_proxy', $envVars)) {
             $httpProxyUrl = $envVars['http_proxy'];
-        } elseif (array_key_exists('https_proxy', $envVars)) {
+        } else if (array_key_exists('https_proxy', $envVars)) {
             $httpProxyUrl = $envVars['https_proxy'];
         }
 

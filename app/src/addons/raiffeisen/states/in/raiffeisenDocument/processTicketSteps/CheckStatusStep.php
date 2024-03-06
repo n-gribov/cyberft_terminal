@@ -34,6 +34,7 @@ class CheckStatusStep extends BaseStep
             } else {
                 $this->log('Will not retry later');
                 $request->status = RaiffeisenRequest::STATUS_REJECTED;
+                // Сохранить модель в БД
                 $request->save();
 
                 return true;
@@ -50,6 +51,7 @@ class CheckStatusStep extends BaseStep
                     $request->status = RaiffeisenRequest::STATUS_DELIVERED;
                     $request->documentStatusRequestId = $requestResult->getRequestId();
                 }
+                // Сохранить модель в БД
                 $request->save();
 
                 if ($request->documentType === 'StmtReqRaif') {
@@ -64,6 +66,7 @@ class CheckStatusStep extends BaseStep
                         $request->responseHandlerParams,
                         ['createTime' => $createTime->format(\DateTime::ATOM)]
                     );
+                    // Сохранить модель в БД
                     $request->save();
                 }
 
@@ -71,7 +74,7 @@ class CheckStatusStep extends BaseStep
 
                 return true;
             }
-        } elseif ($request->status === RaiffeisenRequest::STATUS_DELIVERED) {
+        } else if ($request->status === RaiffeisenRequest::STATUS_DELIVERED) {
             // Обрабатываем статус документа
             if ($request->documentType === 'StmtReqRaif') {
                 if ($statusCode === TicketStatus::IMPLEMENTED) {
@@ -79,7 +82,7 @@ class CheckStatusStep extends BaseStep
 
                     if ($isSent) {
                         $request->status = RaiffeisenRequest::STATUS_PROCESSED;
-
+                        // Сохранить модель в БД и вернуть результат сохранения
                         return $request->save();
                     }
                 }
@@ -93,6 +96,7 @@ class CheckStatusStep extends BaseStep
 
             $request->releaseLock();
 
+            // Сохранить модель в БД и вернуть результат сохранения
             return $request->save();
         }
 

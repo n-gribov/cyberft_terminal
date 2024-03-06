@@ -8,12 +8,12 @@ use common\helpers\DateHelper;
 
 $currentEvents = DocumentHelper::getCurrentDocumentEventNames($model->id);
 
-$searchModel  = new MonitorLogSearch();
+$searchModel = new MonitorLogSearch();
 $eventsDataProvider = $searchModel->searchDocument($model->id, Yii::$app->request->queryParams);
 
-$formatter              = Yii::$app->formatter;
+$formatter = Yii::$app->formatter;
 $formatter->nullDisplay = '';
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'formatter'    => $formatter,
     'emptyText'    => Yii::t('app/message', 'No events matched your query'),

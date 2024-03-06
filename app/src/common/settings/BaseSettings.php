@@ -81,6 +81,7 @@ class BaseSettings extends Model
 
         $this->_dataModel->data = serialize($this->attributes);
 
+        // Сохранить модель в БД
         return $this->_dataModel->save();
     }
 

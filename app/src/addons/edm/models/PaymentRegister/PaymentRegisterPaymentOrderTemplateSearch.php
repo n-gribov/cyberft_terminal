@@ -45,9 +45,9 @@ class PaymentRegisterPaymentOrderTemplateSearch extends PaymentRegisterPaymentOr
         $this->applyQueryFilters($params, $query);
 
         $dataProvider = new ActiveDataProvider([
-            'query'			=> $query,
-            'pagination'	=> new Pagination([
-                'pageSize'	=> 20,
+            'query' => $query,
+            'pagination' => new Pagination([
+                'pageSize' => 20,
             ])
         ]);
 
@@ -83,11 +83,11 @@ class PaymentRegisterPaymentOrderTemplateSearch extends PaymentRegisterPaymentOr
     {
         $this->load($params);
 
-        $query->andFilterWhere(['like', "payerAccount", $this->payerAccount])
-            ->andFilterWhere(['like', "payerName", $this->payerName])
-            ->andFilterWhere(['like', "paymentPurpose", $this->paymentPurpose])
-            ->andFilterWhere(['like', "beneficiaryName", $this->beneficiaryName])
-            ->andFilterWhere(['like', "currency", $this->currency])
+        $query->andFilterWhere(['like', 'payerAccount', $this->payerAccount])
+            ->andFilterWhere(['like', 'payerName', $this->payerName])
+            ->andFilterWhere(['like', 'paymentPurpose', $this->paymentPurpose])
+            ->andFilterWhere(['like', 'beneficiaryName', $this->beneficiaryName])
+            ->andFilterWhere(['like', 'currency', $this->currency])
             ->andFilterWhere(['>=', 'date', $this->startDate])
             ->andFilterWhere(['<=', 'date', $this->endDate]);
 

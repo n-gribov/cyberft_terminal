@@ -178,6 +178,7 @@ class SBBOLTransport extends Component
             'holdingHeadCustomerId' => $holdingHeadCustomerId,
         ]);
 
+        // Сохранить модель в БД
         $isSaved = $sbbolRequest->save();
         if (!$isSaved) {
             throw new \Exception('Failed to save request to database, errors: ' . var_export($sbbolRequest->getErrors(), true));
@@ -343,6 +344,7 @@ class SBBOLTransport extends Component
         $logRecord = new SBBOLRequestLogRecord(compact('name', 'body', 'responseBody', 'digest'));
 
         try {
+            // Сохранить модель в БД
             $isSaved = $logRecord->save();
             if (!$isSaved) {
                 throw new Exception('save() failed, model errors: ' . var_export($logRecord->errors));

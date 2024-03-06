@@ -20,10 +20,9 @@ class Pain002Type extends ISO20022Type
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),
-            [
-                [array_values($this->attributes()), 'safe'],
-            ]);
+        return ArrayHelper::merge(parent::rules(), [
+            [array_values($this->attributes()), 'safe'],
+        ]);
     }
 
     public function getType()
@@ -64,14 +63,17 @@ class Pain002Type extends ISO20022Type
         }
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
         return false;
     }
 
     /**
-     * Получение кода статуса по типу
-     * документа, к которому он относится
+     * Метод получает код статуса по типу документа, к которому он относится
      * @param $originType
      * @return mixed
      */
@@ -79,7 +81,7 @@ class Pain002Type extends ISO20022Type
     {
         if ($originType == Auth026Type::TYPE) {
             return $this->statusCodeGrp ?: $this->statusCodePmt;
-        } elseif ($originType == Pain001Type::TYPE) {
+        } else if ($originType == Pain001Type::TYPE) {
             return $this->statusCodeGrp;
         }
     }

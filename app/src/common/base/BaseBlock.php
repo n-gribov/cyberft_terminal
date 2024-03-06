@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Базовый класс аддона
+ */
 namespace common\base;
 
 use addons\swiftfin\models\SwiftFinUserExt;
@@ -16,12 +18,19 @@ use yii\base\Module;
 use yii\console\Application;
 use yii\web\User;
 
+/**
+ * Абстрактный класс, от которого наследуются все аддоны
+ */
 abstract class BaseBlock extends Module implements BlockInterface, SigningInterface
 {
+    // Класс расширенной модели пользвователя
     const EXT_USER_MODEL_CLASS = false;
+    // Код настрооечных параметров
     const SETTINGS_CODE = '';
+    // Идентификатор сервиса
     const SERVICE_ID = '';
 
+    // Опции подписания
     public static $signaturesNumberOptions = [
         0 => 'Не требуется (Только автоподписант)',
         1 => 'Одна подпись',
@@ -33,26 +42,41 @@ abstract class BaseBlock extends Module implements BlockInterface, SigningInterf
         7 => 'Семь подписей',
     ];
 
+    // Объект конфигурации
     protected $_config;
+    // Объект настроек
     protected $_settings = [];
+    // Объект настроек по умолчанию
     protected $_defaultSettings;
+    // Кеш расширенных моделей пользователей
     protected $_cachedUserExtModels = [];
 
     /**
-     * Регистрирует сообщение в локальной таблице.
+     * Метод регистрирует сообщение в локальной таблице.
      * @param CyberXmlDocument $document
      * @param integer $messageId
      * @return boolean
      */
     public abstract function registerMessage(CyberXmlDocument $document, $messageId);
 
+    /**
+     * Метод получает документ по id
+     */
     public abstract function getDocument($id);
 
+    /**
+     * Метод настраивает конфигурацию
+     * @param type $config
+     */
     public function setUp($config = null)
     {
         $this->_config = $config;
     }
 
+    /**
+     * Метод регистрирует консольные контроллеры
+     * @param Application $app
+     */
     public function registerConsoleControllers(Application $app)
     {
         if (Yii::$app instanceof Application) {
@@ -63,8 +87,13 @@ abstract class BaseBlock extends Module implements BlockInterface, SigningInterf
         }
     }
 
+    /**
+     * Метод получает настройки
+     * @param $terminalId ид терминала
+     */
     public function getSettings($terminalId = null)
     {
+        // если не указан ид терминала, получить настройки по умолчанию
         if (is_null($terminalId)) {
             if (!$this->_defaultSettings) {
                 $this->_defaultSettings = Yii::$app->settings->get(static::SETTINGS_CODE);
@@ -73,28 +102,46 @@ abstract class BaseBlock extends Module implements BlockInterface, SigningInterf
             return $this->_defaultSettings;
         }
 
+        // Получить настройки для указанного терминала
         if (!isset($this->_settings[$terminalId])) {
             $this->_settings[$terminalId] = Yii::$app->settings->get(static::SETTINGS_CODE, $terminalId);
         }
 
+        // Вернуть настройки для указанного терминала
         return $this->_settings[$terminalId];
     }
 
+    /**
+     * Метод получает конфигурацию
+     * @return type
+     */
     public function getConfig()
     {
         return $this->_config;
     }
 
+    /**
+     * Метод получает идентификатор сервиса
+     * @return type
+     */
     public function getServiceId()
     {
         return $this->_config->serviceName;
     }
 
+    /**
+     * Метод получает типы документов
+     * @return type
+     */
     public function getDocTypes()
     {
         return $this->_config->docTypes;
     }
 
+    /**
+     * Метод логирует сообщение
+     * @param string $msg
+     */
     public function log($msg)
     {
         $msg = $this->getServiceId() . ': ' . $msg;
@@ -102,7 +149,7 @@ abstract class BaseBlock extends Module implements BlockInterface, SigningInterf
     }
 
     /**
-     * Сохраняет файл в нужный ресурс и получает storedFile
+     * Метод сохраняет файл в нужный ресурс и получает storedFile
      * @param type $path
      * @param type $resourceId
      * @param type $filename
@@ -113,6 +160,13 @@ abstract class BaseBlock extends Module implements BlockInterface, SigningInterf
         return Yii::$app->storage->putFile($path, $this->serviceId, $resourceId, $filename);
     }
 
+    /**
+     * Метод сохраняет данные в нужныё ресурс
+     * @param type $data
+     * @param type $resourceId
+     * @param type $filename
+     * @return type
+     */
     public function storeData($data, $resourceId, $filename = '')
     {
         return Yii::$app->storage->putData($data, $this->serviceId, $resourceId, $filename);
@@ -264,7 +318,7 @@ abstract class BaseBlock extends Module implements BlockInterface, SigningInterf
      */
     public function processIncomingDocument($id, $type)
     {
-        // Пробуем найти incoming джоб для данного типа документа, если нашли, то запускаем.
+        // Пробуем найти incoming задание для данного типа документа, если нашли, то запускаем.
         if (isset($this->_config->docTypes[$type]['jobs']['incoming'])) {
             $jobClass = $this->_config->docTypes[$type]['jobs']['incoming'];
             $result = Yii::$app->resque->enqueue(

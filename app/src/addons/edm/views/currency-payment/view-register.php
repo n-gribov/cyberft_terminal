@@ -54,7 +54,7 @@ $isRealRegister = $extModel instanceof CurrencyPaymentRegisterDocumentExt;
 <?php endif ?>
 
 <div id="buttons-block">
-    <?php
+<?php
     echo Html::a(
         Yii::t('app','Back'),
         Yii::$app->request->get('backUrl', Url::to(['/edm/currency-payment/register-index'])),
@@ -62,21 +62,24 @@ $isRealRegister = $extModel instanceof CurrencyPaymentRegisterDocumentExt;
     );
     if ($document->isSignableByUserLevel(EdmModule::SERVICE_ID)) {
         echo SignDocumentsButton::widget([
-            'buttonText'   => Yii::t('app/message', 'Signing'),
+            'buttonText' => Yii::t('app/message', 'Signing'),
             'documentsIds' => [$document->id],
         ]);
         if ($document->type === VTBRegisterCurType::TYPE) {
+            // Вывести страницу
             echo $this->render('@addons/edm/views/payment-register/_rejectSigning', ['id' => $document->id]);
         }
     }
-    ?>
+?>
 </div>
 
 <div class="row">
     <div class="col-xs-4">
-        <?= DetailView::widget([
+        <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $extModel,
-            'template' => "<tr><th width='50%'>{label}</th><td>{value}</td></tr>",
+            'template' => '<tr><th width="50%">{label}</th><td>{value}</td></tr>',
             'attributes' => [
                 [
                     'attribute' => 'document.id',
@@ -103,12 +106,15 @@ $isRealRegister = $extModel instanceof CurrencyPaymentRegisterDocumentExt;
                     'label' => Yii::t('app/message', 'Registry Time'),
                 ],
             ]
-        ]) ?>
+        ]);
+        ?>
     </div>
     <div class="col-xs-4">
-        <?= DetailView::widget([
+        <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $extModel,
-            'template' => "<tr><th width='50%'>{label}</th><td>{value}</td></tr>",
+            'template' => '<tr><th width="50%">{label}</th><td>{value}</td></tr>',
             'attributes' => [
                 [
                     'label' => Yii::t('edm', 'Payment orders in the registry'),
@@ -136,11 +142,13 @@ $isRealRegister = $extModel instanceof CurrencyPaymentRegisterDocumentExt;
                     'label' => Yii::t('document', 'Status description'),
                 ]
             ]
-        ]) ?>
+        ]);
+        ?>
     </div>
 </div>
-
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => $paymentsDataProvider,
     'id' => 'payments-grid',
     'formatter' => [
@@ -178,7 +186,6 @@ $isRealRegister = $extModel instanceof CurrencyPaymentRegisterDocumentExt;
             'value' => function($model) {
                 return str_replace(' ', '&nbsp;', Yii::$app->formatter->asDecimal($model->sum, 2));
             }
-//            'format' => ['decimal', 2],
         ],
         'beneficiary',
         [
@@ -208,7 +215,9 @@ $isRealRegister = $extModel instanceof CurrencyPaymentRegisterDocumentExt;
 
 $signatures = $document->getSignatures(Document::SIGNATURES_ALL, Cert::ROLE_SIGNER);
 
+// Вывести блок подписей
 echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
+// Вывести модальное окно просмотра
 echo $this->render('@addons/edm/views/documents/_fcoViewModal');
 
 $this->registerJs(<<<JS

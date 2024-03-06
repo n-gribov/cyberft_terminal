@@ -32,17 +32,17 @@ class CreateDocumentEvent extends BaseEvent
 
         if (in_array($this->docType, ['PaymentOrder', 'edmPaymentOrder'])) {
             $href = '/edm/payment-register/payment-order-view';
-            $documentType = "edm - payment order";
-        } elseif (in_array($this->docType, ['PaymentRegister', 'edmPaymentRegister'])) {
+            $documentType = 'edm - payment order';
+        } else if (in_array($this->docType, ['PaymentRegister', 'edmPaymentRegister'])) {
             $href = '/edm/payment-register/view';
-            $documentType = "edm - payment register";
+            $documentType = 'edm - payment register';
         } else {
             $document = Document::findOne($this->_entityId);
 
             if (!empty($document)) {
                 $documentType = $document->typeGroup;
             } else {
-                $documentType = "";
+                $documentType = '';
             }
         }
 

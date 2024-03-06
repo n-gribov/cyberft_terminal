@@ -27,7 +27,7 @@ class CFTResendPrepareStep extends BaseDocumentStep
             'docId' => Uuid::generate(),
             'docDate' => date('c'),
             'senderId' => Address::fixSender($this->state->receiverId),
-            'receiverId' => Yii::$app->terminals->getProcessingAddress(),
+            'receiverId' => Yii::$app->exchange->getProcessingAddress(),
             'docType' => $typeModel->type
         ]);
 

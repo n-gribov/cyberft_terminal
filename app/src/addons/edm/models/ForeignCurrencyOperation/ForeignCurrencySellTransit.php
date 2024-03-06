@@ -188,6 +188,13 @@ class ForeignCurrencySellTransit extends BaseType
         }
     }
 
-    public function getSearchFields() {}
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields()
+    {
+        return false;
+    }
 
 }

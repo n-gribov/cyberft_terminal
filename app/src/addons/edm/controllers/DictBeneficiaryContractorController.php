@@ -61,14 +61,15 @@ class DictBeneficiaryContractorController extends BaseServiceController
     }
 
     /**
-     * Журнал всех счетов
-     * @return string
+     * Метод обрабатывает страницу индекса
+     * с журналом всех счетов
      */
     public function actionIndex()
     {
         $searchModel = new DictBeneficiaryContractorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        // Вывести страницу
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -84,12 +85,16 @@ class DictBeneficiaryContractorController extends BaseServiceController
 
         $model = new DictBeneficiaryContractor();
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($model->load(Yii::$app->request->post())) {
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
+                // Перенаправить на страницу просмотра с пустым оформлением
                 return $this->redirect(['view', 'id' => $model->id, 'emptyLayout' => 1]);
             }
         }
 
+        // Вывести форму
         return $this->render('_form', ['model' => $model]);
     }
 
@@ -98,21 +103,25 @@ class DictBeneficiaryContractorController extends BaseServiceController
      */
     public function actionUpdate($id)
     {
+        // Получить из БД плательщика с указанным id
         $model = $this->findModel($id);
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($model->load(Yii::$app->request->post())) {
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
                 if (Yii::$app->request->get('emptyLayout')) {
+                    // Перенаправить на страницу просмотра с пустым оформлением
                     return $this->redirect(['view', 'id' => $model->id, 'emptyLayout' => 1]);
                 } else {
+                    // Перенаправить на страницу просмотра
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        // Вывести страницу
+        return $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -120,13 +129,17 @@ class DictBeneficiaryContractorController extends BaseServiceController
      */
     public function actionView($id)
     {
+        // Получить из БД плательщика с указанным id
+        $model = $this->findModel($id);
         if (Yii::$app->request->get('emptyLayout')) {
+            // Вывести страницу
             return $this->render('_view', [
-                'model' => $this->findModel($id),
+                'model' => $model
             ]);
         } else {
+            // Вывести страницу
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model
             ]);
         }
     }
@@ -138,10 +151,13 @@ class DictBeneficiaryContractorController extends BaseServiceController
      */
     public function actionDelete($id)
     {
+        // Получить из БД плательщика с указанным id и удалить его из БД
         $this->findModel($id)->delete();
 
+        // Поместить в сессию флаг сообщения об успешном удалении счёта плательщика
         Yii::$app->session->setFlash('success', Yii::t('edm', 'The payer account was successfully deleted'));
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
 
     /**
@@ -163,19 +179,21 @@ class DictBeneficiaryContractorController extends BaseServiceController
     }
 
     /**
-     * Поиск модели справочника по id
+     * Метод ищет модель в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
      */
     protected function findModel($id)
     {
-        if (($model = DictBeneficiaryContractor::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        // Получить из БД плательщика с указанным id
+        $model = DictBeneficiaryContractor::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested page does not exist');
         }
+        return $model;
     }
 
     /**
-     * Получение списка контрагентов получателей
+     * Метод получает список контрагентов получателей
      * @param null $q
      * @param null $role
      * @param null $id
@@ -183,10 +201,10 @@ class DictBeneficiaryContractorController extends BaseServiceController
      */
     public function actionList($q = null, $role = null, $id = null)
     {
+        // Включить формат вывода JSON
         \Yii::$app->response->format = Response::FORMAT_JSON;
 
         if (is_null($id)) {
-
             $query = Yii::$app->terminalAccess->query(DictBeneficiaryContractor::className());
 
             if (is_numeric($q)) {

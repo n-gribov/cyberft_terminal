@@ -2,21 +2,18 @@
 use yii\helpers\Url;
 use common\widgets\GridView;
 use common\document\Document;
-use yii\helpers\Html;
 
 $this->title = Yii::t('app/menu', 'Payment orders');
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('edm', 'Banking'), 'url' => Url::toRoute(['/edm'])];
 $this->params['breadcrumbs'][] = $this->title;
 
-?>
-
-<?php echo $this->render('_search', [
+// Вывести форму поиска
+echo $this->render('_search', [
     'model' => $model,
     'filterStatus' => $filterStatus,
-]); ?>
+]);
 
-<?php
 $urlParams['from'] = 'paymentOrder';
 
 $myGridWidget = GridView::begin([
@@ -26,17 +23,17 @@ $myGridWidget = GridView::begin([
     'filterModel'  => $model,
     'actions' => '{view}',
     'rowOptions' => function ($model) use ($urlParams) {
-        $options['ondblclick'] = "window.location='".
-                Url::toRoute(array_merge(['view', 'id' => $model->id], $urlParams)) ."'";
+        $options['ondblclick'] = "window.location='"
+            . Url::toRoute(array_merge(['view', 'id' => $model->id], $urlParams)) . "'";
 
         if (in_array($model->status, array_merge($model->getErrorStatus(),['']))) {
             $options['class'] = 'bg-alert-danger';
-        } elseif (in_array($model->status, $model->getProcessingStatus())) {
+        } else if (in_array($model->status, $model->getProcessingStatus())) {
             $options['class'] = 'bg-alert-warning';
         }
         return $options;
     },
-    'columns'      => [
+    'columns' => [
         [
             'attribute'          => 'id',
             'filterInputOptions' => [
@@ -138,7 +135,6 @@ $myGridWidget = GridView::begin([
                 'style'     => 'width: 100%'
             ],
         ],
-
         [
             'attribute'          => 'dateCreate',
             'filterInputOptions' => [
@@ -151,4 +147,3 @@ $myGridWidget = GridView::begin([
 
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
-?>

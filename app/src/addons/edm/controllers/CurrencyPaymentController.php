@@ -21,6 +21,10 @@ use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 
+/**
+* Класс контроллера обслуживает действия с валютными платежами
+*/
+
 class CurrencyPaymentController extends BaseServiceController
 {
     use AuthorizesDocumentPermission;
@@ -55,15 +59,23 @@ class CurrencyPaymentController extends BaseServiceController
         return $actions;
     }
 
+    /**
+     * Метод выводит индексную страницу
+     * @return type
+     */
     public function actionRegisterIndex()
     {
+        // Очистить кеш документов
         $this->cleanDocumentsSelectionCaches();
-
+        // Модель фильтрации поиска в списке документов
         $filterModel = new CurrencyPaymentDocumentSearch();
+        // Поставщик данных для списка документов
         $dataProvider = $filterModel->search(Yii::$app->request->queryParams);
+        // Закешированные документы
         $cachedEntries = (new ControllerCache('currencyRegisters'))->get();
+        // Отмеченные документы в кешированных
         $selectedDocumentsIds = array_keys($cachedEntries['entries']);
-
+        // Вывести страницу со списком документов
         return $this->render('register-index', compact('dataProvider', 'filterModel', 'selectedDocumentsIds'));
     }
 
@@ -76,11 +88,13 @@ class CurrencyPaymentController extends BaseServiceController
         $cachedEntries = (new ControllerCache('currencyPayments'))->get();
         $selectedDocumentsIds = array_keys($cachedEntries['entries']);
 
+        // Вывести страницу
         return $this->render('payment-index', compact('dataProvider', 'filterModel', 'selectedDocumentsIds'));
     }
 
     public function actionViewRegister($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         /** @var Document $document */
         $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $document);
@@ -95,16 +109,19 @@ class CurrencyPaymentController extends BaseServiceController
             ? Yii::$app->monitoring->getLastEvent('edm:registerSigningRejected', ['entity' => $document->type])
             : null;
 
+        // Вывести страницу
         return $this->render('view-register', compact('paymentsDataProvider', 'document', 'signingRejectionEvent'));
     }
 
     public function actionViewPayment($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         /** @var Document $document */
         $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $document);
 
         if ($document->type === VTBPayDocCurType::TYPE) {
+            // Перенаправить на страницу просмотра
             $this->redirect(['/edm/vtb-documents/view', 'id' => $id]);
         }
 
@@ -125,6 +142,7 @@ class CurrencyPaymentController extends BaseServiceController
 
     public function actionViewRegisterPayment($id, $paymentId)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         /** @var Document $document */
         $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $document);
@@ -143,6 +161,7 @@ class CurrencyPaymentController extends BaseServiceController
         }
 
         if ($document->type === VTBRegisterCurType::TYPE) {
+            // Перенаправить на страницу просмотра
             return $this->redirect(['/edm/vtb-documents/view-register-cur-pay-doc', 'id' => $id, 'paymentIndex' => $paymentIndex]);
         }
 

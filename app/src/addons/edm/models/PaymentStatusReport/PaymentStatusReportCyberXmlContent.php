@@ -7,7 +7,7 @@ use common\models\cyberxml\CyberXmlContent;
 
 class PaymentStatusReportCyberXmlContent extends CyberXmlContent implements TypeCyberXmlContentInterface
 {
-	const ROOT_ELEMENT = 'PaymentStatusReport';
+    const ROOT_ELEMENT = 'PaymentStatusReport';
     const DEFAULT_NS_URI = 'http://cyberft.ru/xsd/edm.02';
 
     private $_typeModel;
@@ -24,15 +24,15 @@ class PaymentStatusReportCyberXmlContent extends CyberXmlContent implements Type
 
     }
 
-	public function getDocumentData()
-	{
+    public function getDocumentData()
+    {
         $this->_rootElement = $this->_typeModel->buildXml();
 
         return [
             'encoding' => 'utf-8',
-			'mimeType'	=> 'application/xml',
-		];
-	}
+            'mimeType'	=> 'application/xml',
+        ];
+    }
 
     public function getTypeModel($params = [])
     {

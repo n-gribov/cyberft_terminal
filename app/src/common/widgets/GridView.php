@@ -120,7 +120,6 @@ class GridView extends \yii\grid\GridView
         }
 
         $options['class'] = $rowClass;
-
         $options['data-key'] = is_array($key) ? json_encode($key) : (string) $key;
 
         return Html::tag('tr', implode('', $cells), $options);
@@ -152,7 +151,7 @@ class GridView extends \yii\grid\GridView
 
         if (in_array($model->status, $dangerStatuses)) {
             return 'danger';
-        } elseif (in_array($model->status, $warningStatuses)) {
+        } else if (in_array($model->status, $warningStatuses)) {
             return 'undelivered-documents';
         } else {
             return null;

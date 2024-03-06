@@ -10,14 +10,11 @@ use yii\data\ActiveDataProvider;
 
 class CertSearch extends Cert
 {
-	public $validBeforeRealFrom;
-	public $validBeforeRealBefore;
+    public $validBeforeRealFrom;
+    public $validBeforeRealBefore;
     public $participantName;
     public $participantBIC;
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [[
@@ -40,9 +37,10 @@ class CertSearch extends Cert
             'query' => $query,
         ]);
         
-        $currentUser = Yii::$app->user->identity;
+        // Получить модель пользователя из активной сессии
+        $user = Yii::$app->user->identity;
 
-        if ($currentUser->role == User::ROLE_USER) {
+        if ($user->role == User::ROLE_USER) {
             $allowedTerminalIds = UserTerminal::getUserTerminalIds(Yii::$app->user->id);
             $query->andWhere(['in', 
                 'CONCAT(participantCode, countryCode, sevenSymbol, delimiter, terminalCode, participantUnitCode)', 
@@ -54,14 +52,14 @@ class CertSearch extends Cert
             return $dataProvider;
         }
 
-		/**
-		 * Обработаем фильтр по датам
-		 */
-		if ($this->useBefore) {
+        /**
+         * Обработаем фильтр по датам
+         */
+        if ($this->useBefore) {
             $dateFilter = DateTime::createFromFormat('d.m.Y', $this->useBefore);
             $dateFilter = $dateFilter->format('Y-m-d');
             $query->andWhere(['<=', 'useBefore', $dateFilter . ' 23:59:59']);
-		}
+        }
 
         $query
             ->andFilterWhere(['id' => $this->id])

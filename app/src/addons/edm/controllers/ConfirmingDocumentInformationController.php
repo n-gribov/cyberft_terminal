@@ -124,6 +124,7 @@ class ConfirmingDocumentInformationController extends BaseServiceController
             if (Yii::$app->request->get('clearWizardCache')) {
                 WizardCacheHelper::deleteCDIWizardCache();
 
+                // Перенаправить на страницу создания
                 return $this->redirect('/edm/confirming-document-information/create');
             }
 
@@ -132,6 +133,7 @@ class ConfirmingDocumentInformationController extends BaseServiceController
             // Если создание на основе имеющегося документа
             $id = Yii::$app->request->get('id');
             if ($id) {
+                // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
                 $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
                 $model = ConfirmingDocumentInformationExt::findOne(['documentId' => $document->id]);
                 $model->generateUuid();
@@ -168,12 +170,15 @@ class ConfirmingDocumentInformationController extends BaseServiceController
      */
     public function actionUpdate($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
 
         // если документ уже отправлен, с ним ничего нельзя делать
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации
             Yii::$app->session->setFlash('error', 'Ошибка модификации');
-            return $this->redirect([$this->cdiJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->cdiJournalUrl);
         }
 
         $model = ConfirmingDocumentInformationExt::findOne(['documentId' => $id]);
@@ -197,26 +202,33 @@ class ConfirmingDocumentInformationController extends BaseServiceController
      */
     public function actionDelete($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
 
         // если документ уже отправлен, с ним ничего нельзя делать
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации
             Yii::$app->session->setFlash('error', 'Ошибка модификации');
-            return $this->redirect([$this->cdiJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->cdiJournalUrl);
         }
 
         $model = ConfirmingDocumentInformationExt::findOne(['documentId' => $id]);
 
+        // Удалить экст-модель и документ из БД
         if ($model->delete() && $document->delete()) {
             if ($document->extModel->storedFileId) {
                 Yii::$app->storage->remove($document->extModel->storedFileId);
             }
+            // Поместить в сессию флаг сообщения об успешном удалении документа
             Yii::$app->session->setFlash('success', Yii::t('document', 'Document deleted'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке удаления документа
             Yii::$app->session->setFlash('error', Yii::t('document', 'Failed to delete document'));
         }
 
-        return $this->redirect([$this->cdiJournalUrl]);
+        // Перенаправить на страницу индекса
+        return $this->redirect($this->cdiJournalUrl);
     }
 
     /**
@@ -226,6 +238,7 @@ class ConfirmingDocumentInformationController extends BaseServiceController
      */
     public function actionView($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
         $model = ConfirmingDocumentInformationExt::findOne(['documentId' => $id]);
         $backUrl = Yii::$app->request->get('backUrl');
@@ -241,7 +254,11 @@ class ConfirmingDocumentInformationController extends BaseServiceController
 
         $signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
 
-        return $this->render('view', compact('model', 'document', 'backUrl', 'typeModel', 'attachedFiles', 'signatures'));
+        // Вывести страницу
+        return $this->render(
+            'view',
+            compact('model', 'document', 'backUrl', 'typeModel', 'attachedFiles', 'signatures')
+        );
     }
 
     /**
@@ -253,9 +270,12 @@ class ConfirmingDocumentInformationController extends BaseServiceController
     {
         $this->layout = '/print';
 
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
         $model = ConfirmingDocumentInformationExt::findOne(['documentId' => $document->id]);
         $signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
+
+        // Вывести страницу
         return $this->render('print', compact('model', 'signatures'));
     }
 
@@ -266,25 +286,31 @@ class ConfirmingDocumentInformationController extends BaseServiceController
      */
     public function actionSend($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
 
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Modify error. Confirming document information is already sent'));
 
-            return $this->redirect([$this->cdiJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->cdiJournalUrl);
         }
 
         $signResult = $this->signCryptoPro($document);
 
         if (!$signResult) {
+            // Перенаправить на страницу индекса
             return $this->redirect([$this->fccJournalUrl]);
         }
-
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($document, true);
 
+        // Поместить в сессию флаг сообщения об успешной отправке документа
         Yii::$app->session->setFlash('success', 'Документ отправлен');
 
-        return $this->redirect([$this->cdiJournalUrl]);
+        // Перенаправить на страницу индекса
+        return $this->redirect($this->cdiJournalUrl);
     }
 
     private function signCryptoPro($document)
@@ -292,8 +318,9 @@ class ConfirmingDocumentInformationController extends BaseServiceController
         $signResult = FCCHelper::signCryptoPro($document);
 
         if (!$signResult) {
+            // Поместить в сессию флаг сообщения об ошибке подписания Криптопро
             Yii::$app->session->setFlash('error', Yii::t('document', 'CryptoPro signing error'));
-
+            // Зарегистрировать событие ошибки подисания Криптопро в модуле мониторинга
             Yii::$app->monitoring->log('document:CryptoProSigningError', 'document', $document->id, [
                 'terminalId' => $document->terminalId
             ]);
@@ -326,11 +353,14 @@ class ConfirmingDocumentInformationController extends BaseServiceController
 
         $this->cdiCache->clear();
 
-        Yii::$app->session->setFlash('info',
-            Yii::t('edm', 'Deleted {count} confirming document informations',
-                ['count' => count($idList)]));
+        // Поместить в сессию флаг сообщения об успешном удалении документов
+        Yii::$app->session->setFlash(
+            'info',
+            Yii::t('edm', 'Deleted {count} confirming document informations', ['count' => count($idList)])
+        );
 
-        return $this->redirect([$this->cdiJournalUrl]);
+        // Перенаправить на страницу индекса
+        return $this->redirect($this->cdiJournalUrl);
     }
 
     /**
@@ -362,6 +392,7 @@ class ConfirmingDocumentInformationController extends BaseServiceController
             throw new MethodNotAllowedHttpException();
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $result = FCCHelper::processDocumentForm(
@@ -451,6 +482,7 @@ class ConfirmingDocumentInformationController extends BaseServiceController
     private function processConfirmingDocumentInformation($extModel)
     {
         if (!Yii::$app->request->isPost || !$this->validateForm($extModel)) {
+            // Вывести форму
             return $this->render('_form', ['model' => $extModel]);
         }
 
@@ -458,10 +490,12 @@ class ConfirmingDocumentInformationController extends BaseServiceController
         $auth025Type = ISO20022Helper::createAuth025FromCDI($extModel);
 
         if ($auth025Type->errors) {
+            // Поместить в сессию флаг сообщения об ошибке XSD-валидации
             Yii::$app->session->setFlash('error', Yii::t('app/iso20022', 'Auth.025 validation against XSD-scheme failed'));
             Yii::info('Auth.025 validation against XSD-scheme failed');
             Yii::info($auth025Type->errors);
 
+            // Вывести форму
             return $this->render('_form', ['model' => $extModel]);
         }
 
@@ -471,11 +505,14 @@ class ConfirmingDocumentInformationController extends BaseServiceController
             $context = $this->createCyberXml($extModel, $auth025Type);
 
             if (!$context) {
+                // Поместить в сессию флаг сообщения об ошибке создания документа
                 Yii::$app->session->setFlash('error', Yii::t('edm', 'Failed to create confirming document information'));
 
+                // Вывести форму
                 return $this->render('_form', ['model' => $extModel]);
             }
 
+            // Получить документ из контекста
             $document = $context['document'];
             // Модификация ext-модели
             $extModel->documentId = $document->id;
@@ -485,28 +522,32 @@ class ConfirmingDocumentInformationController extends BaseServiceController
             FCCHelper::updateCyberXml($document, $extModel, $auth025Type);
         }
 
+        // Сохранить модель в БД
         $extModel->save();
         DocumentTransportHelper::extractSignData($document);
-
         WizardCacheHelper::deleteCDIWizardCache();
 
+        // Перенаправить на страницу просмотра
         return $this->redirect(['view', 'id' => $document->id]);
     }
 
     private function validateForm($model)
     {
+        // Загрузить данные модели из формы в браузере
         $model->load(Yii::$app->request->post());
 
-        // Загрузка документов
+        // Загрузить документ(ы)
         $documents = FCCHelper::getChildObjectCache($this->childObjectCacheKey);
         $model->loadDocuments($documents);
 
-        // Валидация формы
+        // Валидировать форму
         if (!$model->validate()) {
             if ($model->hasErrors('documents')) {
                 // Если не указаны операции, прерываем обработку формы
+                // Поместить в сессию флаг сообщения об отсутствии документов
                 Yii::$app->session->setFlash('error', Yii::t('edm', 'Not specified documents for confirming document information'));
             } else {
+                // Поместить в сессию флаг сообщения об ошибке создания документа
                 Yii::$app->session->setFlash('error', Yii::t('edm', 'Failed to create confirming document information'));
             }
 
@@ -515,7 +556,7 @@ class ConfirmingDocumentInformationController extends BaseServiceController
 
         $documentsHasErrors = false;
 
-        // Проверка на наличие ошибок в документах
+        // Проверить наличие ошибок в документах
         foreach($model->documents as $document) {
             if ($document->hasErrors()) {
                 $documentsHasErrors = true;
@@ -523,6 +564,7 @@ class ConfirmingDocumentInformationController extends BaseServiceController
         }
 
         if ($documentsHasErrors) {
+            // Поместить в сессию флаг сообщения об ошибке создания документа
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Failed to create confirming document information'));
 
             return false;
@@ -533,17 +575,21 @@ class ConfirmingDocumentInformationController extends BaseServiceController
 
     public function actionBeforeSigning($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
 
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Modify error. Confirming document information is already sent'));
 
-            return $this->redirect([$this->cdiJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->cdiJournalUrl);
         }
 
         if ($document->extModel->extStatus == ISO20022DocumentExt::STATUS_FOR_CRYPTOPRO_SIGNING) {
             if (!$this->signCryptoPro($document)) {
-                return $this->redirect([$this->cdiJournalUrl]);
+                // Перенаправить на страницу индекса
+                return $this->redirect($this->cdiJournalUrl);
             }
 
             DocumentTransportHelper::extractSignData($document);
@@ -583,6 +629,7 @@ class ConfirmingDocumentInformationController extends BaseServiceController
             ],
             false,
         );
+        // Сохранить модель в БД
         $isSaved = $extModel->document->save();
         if (!$isSaved) {
             throw new \Exception("Failed to update document $extModel->documentId");
@@ -592,6 +639,7 @@ class ConfirmingDocumentInformationController extends BaseServiceController
 
     public function actionUploadAttachedFile()
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $uploadedFile = UploadedFile::getInstanceByName('file');
@@ -616,15 +664,18 @@ class ConfirmingDocumentInformationController extends BaseServiceController
 
     public function actionDownloadAttachment(int $id, int $itemIndex, int $attachmentIndex)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
         $cyxDocument = CyberXmlDocument::read($document->actualStoredFileId);
         /** @var Auth025Type $typeModel */
         $typeModel = $cyxDocument->getContent()->getTypeModel();
         $attachedFile = $typeModel->getAttachedFileList()[$itemIndex][$attachmentIndex] ?? null;
+        // Если вложение не найдено, выбросить исключение
         if ($attachedFile === null) {
             throw new NotFoundHttpException();
         }
 
+        // Если модель использует сжатие в zip
         if ($typeModel->useZipContent) {
             $zip = ZipHelper::createArchiveFileZipFromString($typeModel->zipContent);
             $zipFiles = $zip->getFileList('cp866');

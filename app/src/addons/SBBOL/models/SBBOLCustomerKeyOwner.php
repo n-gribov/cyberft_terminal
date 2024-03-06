@@ -79,6 +79,7 @@ class SBBOLCustomerKeyOwner extends \yii\db\ActiveRecord
             }
             $keyOwner->setAttributes($keyOwnerAttribute, false);
             $keyOwner->customerId = $customerId;
+            // Сохранить модель в БД
             $isSaved = $keyOwner->save();
             if (!$isSaved) {
                 \Yii::info("Failed to save key owner {$keyOwner->fullName}, errors: " . var_export($keyOwner->getErrors(), true));

@@ -57,6 +57,7 @@ class ApplicantDataType extends Model
 
     public function getDataTypeAsString($removeXmlDeclaration = true)
     {
+        // Сформировать XML
         $this->buildXml();
         $body = StringHelper::fixBOM($this->_xml->saveXML());
 

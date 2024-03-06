@@ -47,8 +47,8 @@ class DocumentRegisterStep extends BaseDocumentStep
             $document->actualStoredFileId = $document->encryptedStoredFileId;
         } else {
             $document->typeGroup = $this->state->module
-                                    ? $this->state->module->getServiceId()
-                                    : Document::TYPE_UNKNOWN;
+                ? $this->state->module->getServiceId()
+                : Document::TYPE_UNKNOWN;
         }
 
         if (!$document->save()) {
@@ -60,15 +60,13 @@ class DocumentRegisterStep extends BaseDocumentStep
         $this->state->document = $document;
         DocumentTransportHelper::ack($cyxDoc, $document->uuidRemote);
 
+        // Зарегистрировать событие регистрации документа в модуле мониторинга
         Yii::$app->monitoring->log(
             'document:documentRegistered',
             'document',
             $document->id,
             ['documentType' => $document->typeGroup, 'terminalId' => $document->terminalId]
         );
-
-//        $this->log($document->type . ' ' . $document->id
-//                . ' registered from stored file ' . $this->state->storedFileId);
 
         return true;
     }

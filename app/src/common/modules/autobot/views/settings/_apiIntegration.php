@@ -5,10 +5,10 @@ use yii\web\View;
 
 /** @var array $data */
 /** @var View $this */
-
 /** @var AppSettings $settings */
 $settings = $data['globalSettings'];
 
+// Вывести страницу API интеграции
 echo $this->render(
     '@common/modules/autobot/views/shared/_apiIntegration',
     [

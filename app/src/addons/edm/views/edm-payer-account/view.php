@@ -50,13 +50,17 @@ $userCanCreateStatementRequests = Yii::$app->user->can(
         ])?>
     <?php endif ?>
 
-    <?php if ($userCanCreateStatementRequests): ?>
-        <?= $this->render('/documents/_sendRequestForm', ['account' => $model]) ?>
-    <?php endif; ?>
+    <?php
+        if ($userCanCreateStatementRequests) {
+            // Вывести форму отправки запроса
+            echo $this->render('/documents/_sendRequestForm', ['account' => $model]);
+        }
+    ?>
 </p>
 <div class="row">
 <div class="col-sm-6">
-<?= DetailView::widget([
+<?php
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'name',
@@ -74,235 +78,229 @@ $userCanCreateStatementRequests = Yii::$app->user->can(
             'label' => Yii::t('edm', 'Account bank'),
         ]
     ]
-])?>
+]);
+?>
 </div>
 </div>
-
 <?php
-
 if ($isVTBTerminal) {
-	$form = ActiveForm::begin([
-	   'id' => 'statement-auto-request' 
-	]);
+    $form = ActiveForm::begin([
+       'id' => 'statement-auto-request' 
+    ]);
+?>
+    <h4>
+            <?= Yii::t('app', 'Automatic statement request') ?>
+    </h4>
+    <div class="row">
+        <div class="col-sm-6">
+            <?= Html::checkbox('previousDayCheckBox', false, 
+                [
+                    'label' => Yii::t('app', 'Create statement requests for previous day'),
+                    'class' => 'previous-day-checkbox'
+                ]); ?>	    
+        </div>
+    </div>
+    <div class="previous-day-block" >
+    <div class="row">
+        <div class="col-sm-6">
+            <?=
+                $form->field($modelScheduledRequestPreviousDay, 'previousDaysSelect')->widget(Select2::className(), [
+                    'model' => $modelScheduledRequestPreviousDay,
+                    'attribute' => 'previousDaysSelect',
+                    'data' => [
+                        '1' => 'Понедельник', 
+                        '2' => 'Вторник', 
+                        '3' => 'Среда', 
+                        '4' => 'Четверг', 
+                        '5' => 'Пятница', 
+                        '6' => 'Суббота', 
+                        '7' => 'Воскресенье'
+                    ],
+                    'options' => [
+                        'multiple' => true
+                    ],
+                ])	
+            ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <?=
+                $form->field($modelScheduledRequestPreviousDay, 'startTime')->widget(TimePicker::className(), [
+                    'pluginOptions' => [
+                        'showSeconds' => false,
+                        'showMeridian' => false,
+                        'minuteStep' => 1,
+                        'secondStep' => 5,
+                        //'template' => false
+                    ]
+                ])
+            ?>
+        </div>	
+        <div class="col-sm-2">
+            <?=
+                $form->field($modelScheduledRequestPreviousDay, 'endTime')->widget(TimePicker::className(), [
+                    'pluginOptions' => [
+                        'showSeconds' => false,
+                        'showMeridian' => false,
+                        'minuteStep' => 1,
+                        'secondStep' => 5,
+                        //'template' => false
+                    ]
+                ])
+            ?>
+        </div>
+        <div class="col-sm-2">
+            <?=
+                $form->field($modelScheduledRequestPreviousDay, 'interval')->widget(TouchSpin::className(), [
+                   'pluginOptions' => [
+                        'verticalbuttons' => true
+                   ]
+                ])
+            ?>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <?= Html::checkbox('currentDayCheckBox', false, 
+                [
+                    'label' => Yii::t('app', 'Create statement requests for current day'),
+                    'class' => 'current-day-checkbox'
+                ]); ?>
+        </div>
+    </div>
+    <div class="current-day-block " >
+    <div class="row">
+        <div class="col-sm-6">
+            <?=
+                $form->field($modelScheduledRequestCurrentDay, 'currentDaysSelect')->widget(Select2::className(), [
+                    'model' => $modelScheduledRequestCurrentDay,
+                    'attribute' => 'currentDaysSelect',
+                    'data' => [
+                        '1' => 'Понедельник', 
+                        '2' => 'Вторник', 
+                        '3' => 'Среда', 
+                        '4' => 'Четверг', 
+                        '5' => 'Пятница', 
+                        '6' => 'Суббота', 
+                        '7' => 'Воскресенье'
+                    ],
+                    'options' => [
+                        'multiple' => true
+                    ],
+                ])	
+            ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <?=
+                $form->field($modelScheduledRequestCurrentDay, 'startTime')->widget(TimePicker::className(), [
+                    'pluginOptions' => [
+                        'showSeconds' => false,
+                        'showMeridian' => false,
+                        'minuteStep' => 1,
+                        'secondStep' => 5,
+                        //'template' => false
+                    ]
+                ])
+            ?>
+        </div>
+        <div class="col-sm-2">
+            <?=
+                $form->field($modelScheduledRequestCurrentDay, 'endTime', 
+                    ['template' => '{label}{input}{hint}{error}'])->widget(TimePicker::className(), [
+                    'pluginOptions' => [
+                        'showSeconds' => false,
+                        'showMeridian' => false,
+                        'minuteStep' => 1,
+                        'secondStep' => 5,
+                    ]
+                ])
+            ?>
+        </div>
+        <div class="col-sm-2">
+            <?=
+                $form->field($modelScheduledRequestCurrentDay, 'interval')->widget(TouchSpin::className(), [
+                   'pluginOptions' => [
+                        'verticalbuttons' => true
+                   ]
+                ])
+            ?>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <button type="submit" id="btn-scheduled-request-save" class="btn btn-primary btn-sm btn-block">Сохранить</button>	
+        </div>
+    </div>
 
-	?>
+    <?php
 
-	<h4>
-		<?= Yii::t('app', 'Automatic statement request') ?>
-	</h4>
-	<div class="row">
-	    <div class="col-sm-6">
-		<?= Html::checkbox('previousDayCheckBox', false, 
-			[
-			    'label' => Yii::t('app', 'Create statement requests for previous day'),
-			    'class' => 'previous-day-checkbox'
-			]); ?>	    
-	    </div>
-	</div>
-	<div class="previous-day-block" >
-	<div class="row">
-	    <div class="col-sm-6">
-	        <?=
-		    $form->field($modelScheduledRequestPreviousDay, 'previousDaysSelect')->widget(Select2::className(), [
-			'model' => $modelScheduledRequestPreviousDay,
-			'attribute' => 'previousDaysSelect',
-			'data' => [
-			    '1' => 'Понедельник', 
-			    '2' => 'Вторник', 
-			    '3' => 'Среда', 
-			    '4' => 'Четверг', 
-			    '5' => 'Пятница', 
-			    '6' => 'Суббота', 
-			    '7' => 'Воскресенье'
-			],
-		        'options' => [
-		    	    'multiple' => true
-		        ],
-		    ])	
-		?>
-	    </div>
-	</div>
-	<div class="row">
-	    <div class="col-sm-2">
-		<?=
-		    $form->field($modelScheduledRequestPreviousDay, 'startTime')->widget(TimePicker::className(), [
-			    'pluginOptions' => [
-				'showSeconds' => false,
-				'showMeridian' => false,
-				'minuteStep' => 1,
-				'secondStep' => 5,
-				//'template' => false
-			    ]
-		    ])
-		?>
-	    </div>	
-	    <div class="col-sm-2">
-		<?=
-		    $form->field($modelScheduledRequestPreviousDay, 'endTime')->widget(TimePicker::className(), [
-			    'pluginOptions' => [
-				'showSeconds' => false,
-				'showMeridian' => false,
-				'minuteStep' => 1,
-				'secondStep' => 5,
-				//'template' => false
-			    ]
-		    ])
-		?>
-	    </div>
-	    <div class="col-sm-2">
-		<?=
-		    $form->field($modelScheduledRequestPreviousDay, 'interval')->widget(TouchSpin::className(), [
-			   'pluginOptions' => [
-				'verticalbuttons' => true
-			   ]
-		    ])
-		?>
-	    </div>
-	</div>
-	</div>
-	<div class="row">
-	    <div class="col-sm-6">
-		<?= Html::checkbox('currentDayCheckBox', false, 
-			[
-				'label' => Yii::t('app', 'Create statement requests for current day'),
-				'class' => 'current-day-checkbox'
-			]); ?>
-	    </div>
-	</div>
-	<div class="current-day-block " >
-	<div class="row">
-	    <div class="col-sm-6">
-	        <?=
-		    $form->field($modelScheduledRequestCurrentDay, 'currentDaysSelect')->widget(Select2::className(), [
-			'model' => $modelScheduledRequestCurrentDay,
-			'attribute' => 'currentDaysSelect',
-			'data' => [
-			    '1' => 'Понедельник', 
-			    '2' => 'Вторник', 
-			    '3' => 'Среда', 
-			    '4' => 'Четверг', 
-			    '5' => 'Пятница', 
-			    '6' => 'Суббота', 
-			    '7' => 'Воскресенье'
-			],
-		        'options' => [
-		    	    'multiple' => true
-		        ],
-		    ])	
-		?>
-	    </div>
-	</div>
-	<div class="row">
-	    <div class="col-sm-2">
-		<?=
-		    $form->field($modelScheduledRequestCurrentDay, 'startTime')->widget(TimePicker::className(), [
-			    'pluginOptions' => [
-				'showSeconds' => false,
-				'showMeridian' => false,
-				'minuteStep' => 1,
-				'secondStep' => 5,
-				//'template' => false
-			    ]
-		    ])
-		?>
-	    </div>
-	    <div class="col-sm-2">
-		<?=
-		    $form->field($modelScheduledRequestCurrentDay, 'endTime', 
-			    ['template' => '{label}{input}{hint}{error}'])->widget(TimePicker::className(), [
-			    'pluginOptions' => [
-				'showSeconds' => false,
-				'showMeridian' => false,
-				'minuteStep' => 1,
-				'secondStep' => 5,
-			    ]
-		    ])
-		?>
-	    </div>
-	    <div class="col-sm-2">
-		<?=
-		    $form->field($modelScheduledRequestCurrentDay, 'interval')->widget(TouchSpin::className(), [
-			   'pluginOptions' => [
-				'verticalbuttons' => true
-			   ]
-		    ])
-		?>
-	    </div>
-	</div>
-	</div>
-	<div class="row">
-	    <div class="col-sm-2">
-		<button type="submit" id="btn-scheduled-request-save" class="btn btn-primary btn-sm btn-block">Сохранить</button>	
-	    </div>
-	</div>
-
-	<?php
-
-	ActiveForm::end();
+    ActiveForm::end();
 }
 
 $script = <<<JS
-	
-	let weekDaysPrevious = [$modelScheduledRequestPreviousDay->weekDays].map(function(day) {
-		return '' + day;
-	});
-	
-	let weekDaysCurrent = [$modelScheduledRequestCurrentDay->weekDays].map(function(day) {
-		return '' + day;
-	});
+    let weekDaysPrevious = [$modelScheduledRequestPreviousDay->weekDays].map(function(day) {
+        return '' + day;
+    });
 
-	console.log(weekDaysPrevious);
-	console.log(weekDaysCurrent);
+    let weekDaysCurrent = [$modelScheduledRequestCurrentDay->weekDays].map(function(day) {
+        return '' + day;
+    });
 
-	if (weekDaysPrevious.length == 0) {
-		$('.previous-day-checkbox')[0].checked = false;
-		$('.previous-day-block').hide(); 		
-	} else {
-		$('.previous-day-checkbox')[0].checked = true;
-	}     
+    console.log(weekDaysPrevious);
+    console.log(weekDaysCurrent);
 
-	if (weekDaysCurrent.length == 0) {
-		$('.current-day-checkbox')[0].checked = false;
-		$('.current-day-block').hide(); 		
-	} else {
-		$('.current-day-checkbox')[0].checked = true;
-	}
-	
-	$(document).ready(function() {
-		$('#edmscheduledrequestprevious-previousdaysselect').val(weekDaysPrevious);
-		$('#edmscheduledrequestprevious-previousdaysselect').trigger('change');
-		$('#edmscheduledrequestcurrent-currentdaysselect').val(weekDaysCurrent);
-		$('#edmscheduledrequestcurrent-currentdaysselect').trigger('change');
-	});
+    if (weekDaysPrevious.length == 0) {
+        $('.previous-day-checkbox')[0].checked = false;
+        $('.previous-day-block').hide(); 		
+    } else {
+        $('.previous-day-checkbox')[0].checked = true;
+    }     
 
-	$('body').on('click', '.previous-day-checkbox', function() {
-		$('.previous-day-block').slideToggle('400');
-	});
-	$('body').on('click', '.current-day-checkbox', function() {
-		$('.current-day-block').slideToggle('400');
-	});
+    if (weekDaysCurrent.length == 0) {
+        $('.current-day-checkbox')[0].checked = false;
+        $('.current-day-block').hide(); 		
+    } else {
+        $('.current-day-checkbox')[0].checked = true;
+    }
+
+    $(document).ready(function() {
+        $('#edmscheduledrequestprevious-previousdaysselect').val(weekDaysPrevious);
+        $('#edmscheduledrequestprevious-previousdaysselect').trigger('change');
+        $('#edmscheduledrequestcurrent-currentdaysselect').val(weekDaysCurrent);
+        $('#edmscheduledrequestcurrent-currentdaysselect').trigger('change');
+    });
+
+    $('body').on('click', '.previous-day-checkbox', function() {
+        $('.previous-day-block').slideToggle('400');
+    });
+    $('body').on('click', '.current-day-checkbox', function() {
+        $('.current-day-block').slideToggle('400');
+    });
 JS;
 
-	$this->registerJs($script, View::POS_READY);
-	
-	
-$css = <<<CSS
-	.select2-results__option[aria-selected=true] { display: none;}
-	
-	.s2-togall-button .s2-select-label i { display: none;}
-	.s2-togall-button .s2-unselect-label i { display: none;}
-	
-	.s2-togall-button span { font-size: 16px;}
-	
-	.input-group-addon.picker i {margin: auto; font-size: 18px; }
+$this->registerJs($script, View::POS_READY);
 
+$css = <<<CSS
+    .select2-results__option[aria-selected=true] { display: none;}
+
+    .s2-togall-button .s2-select-label i { display: none;}
+    .s2-togall-button .s2-unselect-label i { display: none;}
+    .s2-togall-button span { font-size: 16px;}
+    .input-group-addon.picker i {margin: auto; font-size: 18px; }
     h4 {
         margin-top: 50px;
     }
 CSS;
 $this->registerCss($css);
 
+// Получить роль пользователя из активной сессии
 $userRole = Yii::$app->user->identity->role;
 if (in_array($userRole, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN])) {
+    // Вывести форму настроект экспорта
     echo $this->render('_statements-export-settings', compact('model'));
 }

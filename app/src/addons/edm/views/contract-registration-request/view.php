@@ -12,7 +12,7 @@ $this->title = Yii::t('edm', 'Contract registration request') . ' #' . $document
 // Список кодов стран
 $countryCodesList = EdmHelper::countryCodesList();
 
-// Шаблон отображения управляющих кнопок
+// Вывести шаблон отображения управляющих кнопок
 echo $this->render('@addons/edm/views/documents/_fccViewContent', [
     'model' => $model,
     'document' => $document,
@@ -30,9 +30,7 @@ echo $this->render('@addons/edm/views/documents/_fccViewContent', [
 
 // Определение типа - кредитный договор
 $isLoan = $model->passportType == $model::PASSPORT_TYPE_LOAN;
-
 ?>
-
 <div class="row margin-bottom-15">
     <div class="col-md-2">
         <strong><?=$model->getAttributeLabel('number')?>: </strong><?=$model->number ?>
@@ -199,7 +197,7 @@ $isLoan = $model->passportType == $model::PASSPORT_TYPE_LOAN;
             <?php endforeach ?>
         </table>
     <?php endif ?>
-<?php endif; ?>
+<?php endif ?>
 
 <hr>
 
@@ -287,14 +285,14 @@ $isLoan = $model->passportType == $model::PASSPORT_TYPE_LOAN;
                 <th></th>
                 <th></th>
             </tr>
-            <?php foreach($model->paymentScheduleItems as $paymentSchedule): ?>
+            <?php foreach($model->paymentScheduleItems as $paymentSchedule) : ?>
                 <tr>
                     <td><?=$paymentSchedule->mainDeptDate?></td>
                     <td><?=$paymentSchedule->mainDeptAmount?></td>
                     <td><?=$paymentSchedule->interestPaymentsDate?></td>
                     <td><?=$paymentSchedule->interestPaymentsAmount?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </table>
     <?php endif ?>
 

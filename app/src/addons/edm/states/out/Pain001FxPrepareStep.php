@@ -28,9 +28,11 @@ class Pain001FxPrepareStep extends BasePain001PrepareStep
                 $organization->fullAddress
             );
             $this->ensureTypeModelIsValid($typeModel);
+            // Атрибуты расширяющей модели
             $extModelAttributes = $this->createExtModelAttributes($typeModel);
             $this->ensureDocumentIsNotDuplicate($extModelAttributes);
             $document = $this->createDocument($typeModel, $extModelAttributes);
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($document, true);
             $transaction->commit();
         } catch (\Exception $exception) {

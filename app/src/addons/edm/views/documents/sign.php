@@ -25,4 +25,9 @@ $this->title = $pageTitle;
     ?>
 </div>
 
-<?= $this->render('@common/views/signing/_signForm', ['document' => $document, 'data' => $data, 'algorithm' => $algorithm]) ?>
+<?php
+// Вывести форму подписания
+echo $this->render('@common/views/signing/_signForm',
+        ['document' => $document, 'data' => $data, 'algorithm' => $algorithm]
+);
+

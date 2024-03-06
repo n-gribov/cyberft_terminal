@@ -33,6 +33,7 @@ class ApiModule extends Module
         $record->uuid = $uuid;
         $record->path = $path;
         $record->terminalAddress = $receiverTerminalAddress;
+        // Сохранить модель в БД
         $isSaved = $record->save();
         if (!$isSaved) {
             Yii::error('Failed to add document to export queue, errors: ' . var_export($record->getErrors(), true));

@@ -1,5 +1,4 @@
 <?php
-
 use backend\assets\AppAsset;
 
 AppAsset::register($this);
@@ -7,13 +6,13 @@ AppAsset::register($this);
 /* @var $message string */
 ?>
 
-<?php if (!$status): ?>
+<?php if (!$status) : ?>
 	<script type="text/javascript">
 		setTimeout(function () {
 			window.location.reload(1);
 		}, 10000);
 	</script>
-<?php endif; ?>
+<?php endif ?>
 
 <div class="info-block">
     <img src="/img/cyberft/logo.svg" width="300" height="300">
@@ -21,12 +20,9 @@ AppAsset::register($this);
 </div>
 
 <?php
-
 $this->registerCss('
     .info-block {
         text-align: center;
         margin: 0 auto;
     }
 ');
-
-?>

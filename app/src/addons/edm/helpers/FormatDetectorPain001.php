@@ -48,9 +48,9 @@ class FormatDetectorPain001 implements FormatDetectorInterface
 
         if (self::isForeignCurrencyOperation($typeModel)) {
             $effectiveTypeModelClass = Pain001FxType::class;
-        } elseif (self::isForeignCurrencyTransitAccountTransfer($typeModel)) {
+        } else if (self::isForeignCurrencyTransitAccountTransfer($typeModel)) {
             $effectiveTypeModelClass = Pain001RlsType::class;
-        } elseif (static::isForeignCurrencyPaymentRegister($typeModel)) {
+        } else if (static::isForeignCurrencyPaymentRegister($typeModel)) {
             $effectiveTypeModelClass = Pain001FcyType::class;
         } else {
             return false;

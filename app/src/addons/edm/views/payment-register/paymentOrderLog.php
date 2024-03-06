@@ -192,10 +192,9 @@ $this->registerJs($buttonsJs, View::POS_READY);
 </style>
 
 <?php
+    // Вывести блок закладок
     echo $this->render('_tabs');
-
     $disabledClass = empty($paymentOrders['entries']) ? ' disabled' : '';
-
     if ($userCanCreatePaymentOrders) {
         echo Html::a(
             Yii::t('app', 'Create'),
@@ -206,6 +205,7 @@ $this->registerJs($buttonsJs, View::POS_READY);
             ]
         );
 
+        // Вывести форму загрузки реестра
         echo $this->render('_uploadPaymentRegisterForm');
     }
 
@@ -239,13 +239,10 @@ $this->registerJs($buttonsJs, View::POS_READY);
             ]
         );
     }
-
     echo SelectedDocumentsCountLabel::widget(['initialCount' => $selectedDocumentsCount]);
-
 ?>
-
 <div class="pull-right">
-    <?php
+<?php
     echo Html::a('',
         '#',
         [
@@ -267,75 +264,71 @@ $this->registerJs($buttonsJs, View::POS_READY);
 <?= ShowDeletedDocumentsCheckbox::widget(['filterModel' => $model]) ?>
 
 <?php
-    $columns['id'] = [
-        'attribute' => 'id',
-        'headerOptions' => [
-            'class' => 'text-right',
-        ],
-        'contentOptions' => [
-            'class' => 'text-right',
-        ],
-    ];
+$columns['id'] = [
+    'attribute' => 'id',
+    'headerOptions' => [
+        'class' => 'text-right',
+    ],
+    'contentOptions' => [
+        'class' => 'text-right',
+    ],
+];
 
-    $columns['number'] = [
-        'attribute'  => 'number',
-        'headerOptions' => [
-            'class' => 'text-right',
-            'style' => 'width:1%;',
-        ],
-        'filterInputOptions' => [
-            'style' => 'float:right;width:100%',
-        ],
-        'contentOptions' => [
-            'class' => 'text-right',
-            'nowrap'=> 'nowrap',
-        ],
-    ];
+$columns['number'] = [
+    'attribute'  => 'number',
+    'headerOptions' => [
+        'class' => 'text-right',
+        'style' => 'width:1%;',
+    ],
+    'filterInputOptions' => [
+        'style' => 'float:right;width:100%',
+    ],
+    'contentOptions' => [
+        'class' => 'text-right',
+        'nowrap'=> 'nowrap',
+    ],
+];
 
-    $columns['date'] = [
+$columns['date'] = [
+    'attribute' => 'date',
+    'filter' => kartik\widgets\DatePicker::widget([
+        'model' => $model,
         'attribute' => 'date',
-        'filter' => kartik\widgets\DatePicker::widget([
-            'model' => $model,
-            'attribute' => 'date',
-            'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'orientation' => 'bottom'
-            ],
-            'options' => [
-                'class' => 'form-control',
-                'style' => 'width:100px'
-            ]
-        ]),
-        'contentOptions' => [
-            'class' => 'text-right'
-        ]
-    ];
-
-    $columns['payer'] = [
-        'attribute' => 'payer',
-//    'filter' => $payers,
-        'format' => 'html',
-        'filter' => Select2::widget([
-            'model' => $model,
-            'attribute' => 'payer',
-            'data' => $payers,
-            'theme' => Select2::THEME_BOOTSTRAP,
-            'options' => [
-                'prompt' => '',
+        'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'orientation' => 'bottom'
         ],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'containerCssClass' => 'select2-cyberft',
-                'width' => '180px'
-            ],
-        ]),
-//    'value' => function($model) {
-//        return $model->payerName;
-//    }
-    ];
+        'options' => [
+            'class' => 'form-control',
+            'style' => 'width:100px'
+        ]
+    ]),
+    'contentOptions' => [
+        'class' => 'text-right'
+    ]
+];
+
+$columns['payer'] = [
+    'attribute' => 'payer',
+    'format' => 'html',
+    'filter' => Select2::widget([
+        'model' => $model,
+        'attribute' => 'payer',
+        'data' => $payers,
+        'theme' => Select2::THEME_BOOTSTRAP,
+        'options' => [
+            'prompt' => '',
+    ],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
+            'width' => '180px'
+        ],
+    ]),
+];
 
 $columns['bankBik'] = [
     'attribute' => 'bankBik',
@@ -364,243 +357,200 @@ $columns['accountNumber'] = [
         ],
     ]),
 ];
-//
-//    $columns['payer'] = [
-//        'attribute' => 'payerName',
-//        'filter' => $payers,
-//        'filterInputOptions' => [
-//            'class' => 'form-control selectpicker',
-//            'data-none-selected-text' => ''
-//        ],
-//
-////        'value'     => function ($item, $params) {
-////            $typeModel = new PaymentOrderType();
-////            $typeModel->loadFromString($item->body);
-////
-////            return $typeModel->payerName;
-////        }
-//    ];
-//
-//    $columns['accountNumber'] = [
-//        'attribute' => 'payerAccount', //'accountNumber',
-//        'headerOptions' => [
-//            'style' => 'width:1%;',
-//        ],
-//        'filter' => $accounts,
-//        'filterInputOptions' => [
-//            'class' => 'form-control selectpicker',
-//            'data-none-selected-text' => ''
-//        ],
-//
-////        'value' => function ($item, $params) {
-////            $typeModel = new PaymentOrderType();
-////            $typeModel->loadFromString($item->body);
-////
-////            return $typeModel->payerAccount;
-////        }
-//    ];
 
-    $columns['beneficiaryName'] = [
-        'attribute' => 'beneficiaryName',
-    ];
+$columns['beneficiaryName'] = [
+    'attribute' => 'beneficiaryName',
+];
 
-    $columns['sum'] = [
-        'attribute' => 'sum',
-        'headerOptions' => [
-            'class' => 'text-right',
-            'style' => 'width:1%;',
-        ],
-        'filterInputOptions' => [
-            'style' => 'float:right;width:100%',
-        ],
-        'contentOptions' => [
-            'class' => 'text-right',
-            'nowrap' => 'nowrap'
-        ],
-        'value' => function($model) {
-            return Yii::$app->formatter->asDecimal($model->sum, 2);
-        }
-    ];
-
-    $columns['currency'] = [
-        'attribute' => 'currency',
-        'filter' => Currencies::getCodeLabels(),
-        'headerOptions' => [
-            'class' => 'text-right',
-            'style' => 'width:1%;',
-        ],
-        'filterInputOptions' => [
-            'maxLength' => 3,
-            //'style' => 'float:right;width:100%',
-            'class' => 'form-control selectpicker',
-            'data-none-selected-text' => ''
-        ],
-        'contentOptions' => [
-            'class' => 'text-right',
-        ],
-    ];
-
-    $columns['paymentPurpose'] = [
-        'attribute'          => 'paymentPurpose',
-        'filterInputOptions' => [
-            'style'     => 'width: 100%'
-        ],
-    ];
-
-    $columns['businessStatus'] = [
-        'attribute' => 'businessStatus',
-        'filter'    => DocumentHelper::getBusinessStatusesList(),
-        'headerOptions' => [
-            'class' => 'text-right',
-            'style' => 'width: 220px'
-        ],
-        'contentOptions' => [
-            'class' => 'text-right',
-            'style' => 'width: 220px'
-        ],
-        'value' => function($item) {
-            return $item->getBusinessStatusTranslation();
-        }
-    ];
-
-    $columnsEnabled = [];
-
-    // Колонка с чекбоксом удаления
-    if ($userCanDeleteDocuments || $userCanCreatePaymentRegisters) {
-        if (count($selectableDocumentsIds) > 0) {
-            $columnsEnabled['deleted'] = [
-                'class' => 'yii\grid\CheckboxColumn',
-                'checkboxOptions' => function($model, $key, $index, $column) use ($paymentOrders, $selectableDocumentsIds) {
-                    $checked = false;
-                    $hidden = false;
-                    if (!in_array($model->id, $selectableDocumentsIds)) {
-                        $hidden = true;
-                    } else if (array_key_exists($key, $paymentOrders['entries'])) {
-                        $checked = true;
-                    }
-
-                    return [
-                        'style'   => 'display: ' . ($hidden ? 'none': 'block'),
-                        'disabled' => $hidden,
-                        'value'   => $key,
-                        'checked' => $checked
-                    ];
-                }
-            ];
-        } else {
-            $columnsEnabled['deletedEmpty'] = [];
-        }
+$columns['sum'] = [
+    'attribute' => 'sum',
+    'headerOptions' => [
+        'class' => 'text-right',
+        'style' => 'width:1%;',
+    ],
+    'filterInputOptions' => [
+        'style' => 'float:right;width:100%',
+    ],
+    'contentOptions' => [
+        'class' => 'text-right',
+        'nowrap' => 'nowrap'
+    ],
+    'value' => function($model) {
+        return Yii::$app->formatter->asDecimal($model->sum, 2);
     }
+];
 
-    // Получение колонок, которые могут быть отображены
-    $columnsSettings = UserColumnsSettings::getEnabledColumnsByType($columns, $listType, Yii::$app->user->id);
+$columns['currency'] = [
+    'attribute' => 'currency',
+    'filter' => Currencies::getCodeLabels(),
+    'headerOptions' => [
+        'class' => 'text-right',
+        'style' => 'width:1%;',
+    ],
+    'filterInputOptions' => [
+        'maxLength' => 3,
+        //'style' => 'float:right;width:100%',
+        'class' => 'form-control selectpicker',
+        'data-none-selected-text' => ''
+    ],
+    'contentOptions' => [
+        'class' => 'text-right',
+    ],
+];
 
-    foreach($columnsSettings as $setting => $value) {
-        $columnsEnabled[$setting] = $value;
+$columns['paymentPurpose'] = [
+    'attribute'          => 'paymentPurpose',
+    'filterInputOptions' => [
+        'style'     => 'width: 100%'
+    ],
+];
+
+$columns['businessStatus'] = [
+    'attribute' => 'businessStatus',
+    'filter'    => DocumentHelper::getBusinessStatusesList(),
+    'headerOptions' => [
+        'class' => 'text-right',
+        'style' => 'width: 220px'
+    ],
+    'contentOptions' => [
+        'class' => 'text-right',
+        'style' => 'width: 220px'
+    ],
+    'value' => function($item) {
+        return $item->getBusinessStatusTranslation();
     }
+];
 
-    $columnsEnabled['actions'] = [
-        'class'    => 'yii\grid\ActionColumn',
-        'template' => '{view}',
-        'buttons'  => [
-            'view' => function ($url, $model, $key) {
-                if ($model->status == Document::STATUS_DELETED) {
-                    return
-                        '<span style="color:red" class="glyphicon glyphicon-remove"></span>';
+$columnsEnabled = [];
 
-                } else if (!is_null($model->registerId)) {
-                    return
-                        Html::a('<span class="glyphicon glyphicon-check"></span>', [
-                            'view',
-                            'id' => $model->registerId
-                        ], ['title' => Yii::t('edm', 'View payment register #{id}' , ['id' => $model->registerId])]);
-                } else {
-                    return
-                        Html::tag('span', '', ['class' => 'glyphicon glyphicon-unchecked']);
+// Колонка с чекбоксом удаления
+if ($userCanDeleteDocuments || $userCanCreatePaymentRegisters) {
+    if (count($selectableDocumentsIds) > 0) {
+        $columnsEnabled['deleted'] = [
+            'class' => 'yii\grid\CheckboxColumn',
+            'checkboxOptions' => function($model, $key, $index, $column) use ($paymentOrders, $selectableDocumentsIds) {
+                $checked = false;
+                $hidden = false;
+                if (!in_array($model->id, $selectableDocumentsIds)) {
+                    $hidden = true;
+                } else if (array_key_exists($key, $paymentOrders['entries'])) {
+                    $checked = true;
                 }
+
+                return [
+                    'style'   => 'display: ' . ($hidden ? 'none': 'block'),
+                    'disabled' => $hidden,
+                    'value'   => $key,
+                    'checked' => $checked
+                ];
             }
-        ],
-    ];
-
-    $columnsEnabled['actions2'] = [
-        'class'    => 'yii\grid\ActionColumn',
-        'template' => '{view}',
-        'buttons'  => [
-            'view' => function ($url, $model, $key) {
-                return
-                    Html::a('<span class="ic-eye"></span>', [
-                        'payment-order-view',
-                        'id' => $model->id
-                    ]);
-            }
-        ],
-    ];
-
-    if ($userCanCreatePaymentOrders) {
-        $columnsEnabled['actions3'] = [
-            'class'    => 'yii\grid\ActionColumn',
-            'template' => '{create}',
-            'buttons'  => [
-                'create' => function ($url, $model, $key) {
-                    $paymentRegister = $model->paymentRegister;
-
-                    if ($paymentRegister && $paymentRegister->direction != Document::DIRECTION_OUT) {
-                        return "";
-                    }
-
-                    return Html::a('<span class="glyphicon glyphicon-plus"></span>',
-                        Url::toRoute(['/edm/wizard/step2', 'type' => 'PaymentOrder', 'fromId' => $model->id]),
-                        ['title' => Yii::t('app', 'Create')]
-                    );
-                }
-            ],
         ];
+    } else {
+        $columnsEnabled['deletedEmpty'] = [];
     }
+}
 
-    $myGridWidget = InfiniteGridView::begin([
-        'id' => 'paymentOrderLog',
-        'emptyText'    => Yii::t('other', 'No documents matched your query'),
-        'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
-        'dataProvider' => $dataProvider,
-        'filterModel'  => $model,
-        'columns' => $columnsEnabled,
-        'rowConfig' => [
-            'attrColor' => 'businessStatus',
-            'map'   => [
-                'RJCT' => 'red',
-            ]
-        ],
-        'onPageRendered' => new JsExpression('function () { checkForSelectableDocument(); }'),
-        'rowOptions' => function ($model, $key, $index, $grid) {
+// Получение колонок, которые могут быть отображены
+$columnsSettings = UserColumnsSettings::getEnabledColumnsByType($columns, $listType, Yii::$app->user->id);
+
+foreach($columnsSettings as $setting => $value) {
+    $columnsEnabled[$setting] = $value;
+}
+
+$columnsEnabled['actions'] = [
+    'class'    => 'yii\grid\ActionColumn',
+    'template' => '{view}',
+    'buttons'  => [
+        'view' => function ($url, $model, $key) {
             if ($model->status == Document::STATUS_DELETED) {
-                $options['class'] = 'bg-alert-danger';
+                return '<span style="color:red" class="glyphicon glyphicon-remove"></span>';
+            } else if (!is_null($model->registerId)) {
+                return Html::a(
+                    '<span class="glyphicon glyphicon-check"></span>', [
+                        'view',
+                        'id' => $model->registerId
+                    ],
+                    ['title' => Yii::t('edm', 'View payment register #{id}' , ['id' => $model->registerId])]
+                );
+            } else {
+                return Html::tag('span', '', ['class' => 'glyphicon glyphicon-unchecked']);
             }
-            $options['ondblclick'] = "window.location='". Url::toRoute(['payment-order-view', 'id' => $model->id]) ."'";
-            $options['data-payer-account'] = $model->payerAccount;
+        }
+    ],
+];
 
-            return $options;
-        },
-    ]);
+$columnsEnabled['actions2'] = [
+    'class'    => 'yii\grid\ActionColumn',
+    'template' => '{view}',
+    'buttons'  => [
+        'view' => function ($url, $model, $key) {
+            return Html::a(
+                '<span class="ic-eye"></span>', [
+                'payment-order-view',
+                'id' => $model->id
+            ]);
+        }
+    ],
+];
 
-    $myGridWidget->formatter->nullDisplay = '';
-    $myGridWidget->end();
+if ($userCanCreatePaymentOrders) {
+    $columnsEnabled['actions3'] = [
+        'class'    => 'yii\grid\ActionColumn',
+        'template' => '{create}',
+        'buttons'  => [
+            'create' => function ($url, $model, $key) {
+                $paymentRegister = $model->paymentRegister;
 
-    echo ColumnsSettingsWidget::widget(
-        [
-            'listType' => $listType,
-            'columns' => array_keys($columns),
-            'model' => $model
+                if ($paymentRegister && $paymentRegister->direction != Document::DIRECTION_OUT) {
+                    return '';
+                }
+
+                return Html::a('<span class="glyphicon glyphicon-plus"></span>',
+                    Url::toRoute(['/edm/wizard/step2', 'type' => 'PaymentOrder', 'fromId' => $model->id]),
+                    ['title' => Yii::t('app', 'Create')]
+                );
+            }
+        ],
+    ];
+}
+// Создать таблицу для вывода
+$myGridWidget = InfiniteGridView::begin([
+    'id' => 'paymentOrderLog',
+    'emptyText'    => Yii::t('other', 'No documents matched your query'),
+    'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
+    'dataProvider' => $dataProvider,
+    'filterModel'  => $model,
+    'columns' => $columnsEnabled,
+    'rowConfig' => [
+        'attrColor' => 'businessStatus',
+        'map'   => [
+            'RJCT' => 'red',
         ]
-    );
+    ],
+    'onPageRendered' => new JsExpression('function () { checkForSelectableDocument(); }'),
+    'rowOptions' => function ($model, $key, $index, $grid) {
+        if ($model->status == Document::STATUS_DELETED) {
+            $options['class'] = 'bg-alert-danger';
+        }
+        $options['ondblclick'] = "window.location='". Url::toRoute(['payment-order-view', 'id' => $model->id]) ."'";
+        $options['data-payer-account'] = $model->payerAccount;
 
-    $this->registerJS(<<<JS
-        stickyTableHelperInit();
-JS
-    );
+        return $options;
+    },
+]);
+
+$myGridWidget->formatter->nullDisplay = '';
+$myGridWidget->end();
+
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $model
+]);
+
+$this->registerJS('stickyTableHelperInit();');
 
 echo ToTopButtonWidget::widget();
 
-// Модальное окно формы поиска
+// Вывести модальное окно формы поиска
 echo $this->render('_searchModal', ['model' => $model]);
-
-?>

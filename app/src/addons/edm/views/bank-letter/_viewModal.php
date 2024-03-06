@@ -62,7 +62,7 @@ if ($document->direction === Document::DIRECTION_OUT) {
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">
-                    <?= ($tp != 'IMPT') ? Yii::t('edm', 'Letter') : Yii::t('edm', 'Important Letter') ?>
+                    <?= ($letter->isImportant()) ? Yii::t('edm', 'Important Letter') : Yii::t('edm', 'Letter') ?>
                 </h4>
             </div>
             <div class="modal-body">
@@ -71,10 +71,13 @@ if ($document->direction === Document::DIRECTION_OUT) {
                     <?= Yii::t('document', 'Transport information') ?>
                 </a>
                 <div class="transport-info">
-                    <?= DetailView::widget([
+                <?php
+                    // Создать детализированное представление
+                    echo DetailView::widget([
                         'model' => $document,
                         'attributes' => $transportInfoAttributes,
-                    ]) ?>
+                    ]);
+                ?>
                 </div>
                 <p>
                     <strong><?= Yii::t('edm', 'Date') ?>:</strong>

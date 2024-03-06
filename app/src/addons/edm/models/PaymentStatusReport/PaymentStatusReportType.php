@@ -76,29 +76,6 @@ class PaymentStatusReportType extends BaseType
             $this->clearErrors();
         }
 
-//        $startDate = strtotime($this->startDate);
-//        $endDate   = strtotime($this->endDate);
-//        $diff      = $endDate - $startDate;
-//
-//        if ($endDate > time()) {
-//            $this->addError('endDate',
-//                    Yii::t('edm', 'End date must not be greater than current date'));
-//        } else {
-//            if ($startDate == 0 || $endDate == 0) {
-//                $this->addError('endDate',
-//                    Yii::t('edm', 'Both dates should be set'));
-//            }
-//
-//            if ($diff < 0) {
-//                $this->addError('endDate',
-//                        Yii::t('edm', 'End date must be greater than start date'));
-//            }
-//            if ($diff > 24 * 3600 * 30) {
-//                $this->addError('startDate',
-//                        Yii::t('edm', 'Range must not be greater than 30 days'));
-//            }
-//        }
-
         return parent::validate($attributeNames, false);
     }
 
@@ -165,13 +142,18 @@ class PaymentStatusReportType extends BaseType
         }
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
-        return [];
+        return false;
     }
 
     public function getModelDataAsString()
     {
+        // Сформировать XML
         $xml = $this->buildXml();
         $body = StringHelper::fixBOM($xml->asXML());
 

@@ -158,11 +158,11 @@ return [
         ],
     ],
     'regularJobs' => [
-//		[
-//			'descriptor' => 'swiftfinSign',
-//			'class' => '\addons\swiftfin\jobs\SwiftFinSignJobRegular',
-//			'interval' => 5,
-//		],
+//        [
+//            'descriptor' => 'swiftfinSign',
+//            'class' => '\addons\swiftfin\jobs\SwiftFinSignJobRegular',
+//            'interval' => 5,
+//        ],
         [
             'descriptor' => 'swiftfinUndelivered',
             'class' => '\addons\swiftfin\jobs\SwiftFinUndeliveredJobRegular',

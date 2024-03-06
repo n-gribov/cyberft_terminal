@@ -91,14 +91,15 @@ class EdmPayerAccountController extends BaseServiceController
     }
 
     /**
-     * Журнал всех счетов плательщика
-     * @return string
+     * Метод обрабатывает страницу индекса
+     * с журналом всех счетов плательщика
      */
     public function actionIndex()
     {
         $searchModel = new EdmPayerAccountSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        // Вывести страницу
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -109,16 +110,19 @@ class EdmPayerAccountController extends BaseServiceController
     {
         $model = new EdmPayerAccount();
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($model->load(Yii::$app->request->post())) {
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
-
-                // Присвоение доступности счета пользователям
+                // Установить признак доступности счета пользователям
                 EdmHelper::setAccountToUsers($model->id);
 
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
+        // Вывести страницу
         return $this->render('create', [
             'model' => $model,
             'name' => $name
@@ -130,29 +134,35 @@ class EdmPayerAccountController extends BaseServiceController
      */
     public function actionUpdate($id)
     {
+        // Получить из БД счёт с указанным id
         $model = $this->findModel($id);
-
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
+            // Если данные модели успешно загружены из формы в браузере и модель успешно сохранена в БД
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
+                // Поместить в сессию флаг сообщения об ошибке
                 Yii::$app->session->addFlash('error', 'Form data is not valid');
             }
         }
 
+        // Вывести страницу
         return $this->render('update', ['model' => $model]);
     }
 
     /**
-     * Просмотр валюты
+     * Метод выводит страницу просмотра счёта
      */
     public function actionView($id)
     {
+        // Получить из БД счёт с указанным id
         $model = $this->findModel($id);
         // (CYB-4583) Вводим модели для запросов выписок за прошлый день и за текущий
         $reqPrevDay = $this->findModelScheduledRequestPrevious($model->number);
         $reqCurrDay = $this->findModelScheduledRequestCurrent($model->number);
-
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             \Yii::info(Yii::$app->request->post());
             $post = Yii::$app->request->post();
@@ -160,8 +170,9 @@ class EdmPayerAccountController extends BaseServiceController
             $reqPrevDay->lastTime = null;
             $reqCurrDay->lastTime = null;
 
-            if (isset($post['previousDayCheckBox'])
-                    && isset($post['EdmScheduledRequestPrevious']['previousDaysSelect'])
+            if (
+                isset($post['previousDayCheckBox'])
+                && isset($post['EdmScheduledRequestPrevious']['previousDaysSelect'])
             ) {
                 $reqPrevDay->load($post);
                 if (!empty($post['EdmScheduledRequestPrevious']['previousDaysSelect'])) {
@@ -170,6 +181,7 @@ class EdmPayerAccountController extends BaseServiceController
                     $reqPrevDay->weekDays = null;
                 }
                 $reqPrevDay->currentDay = date('Y-m-d');
+                // Сохранить модель в БД
                 $reqPrevDay->save();
             } else {
                 $reqPrevDay->startTime = null;
@@ -177,6 +189,7 @@ class EdmPayerAccountController extends BaseServiceController
                 $reqPrevDay->currentDay = null;
                 $reqPrevDay->interval = null;
                 $reqPrevDay->weekDays = null;
+                // Сохранить модель в БД
                 $reqPrevDay->save();
             }
 
@@ -188,6 +201,7 @@ class EdmPayerAccountController extends BaseServiceController
                     $reqCurrDay->weekDays = null;
                 }
                 $reqCurrDay->currentDay = date('Y-m-d');
+                // Сохранить модель в БД
                 $reqCurrDay->save();
             } else {
                 $reqCurrDay->startTime = null;
@@ -195,6 +209,7 @@ class EdmPayerAccountController extends BaseServiceController
                 $reqCurrDay->currentDay = null;
                 $reqCurrDay->interval = null;
                 $reqCurrDay->weekDays = null;
+                // Сохранить модель в БД
                 $reqCurrDay->save();
             }
         }
@@ -211,7 +226,9 @@ class EdmPayerAccountController extends BaseServiceController
             }
         }
 
+        // Вывести страницу
         return $this->render('view', [
+            // Получить из БД счёт с указанным id
             'model' => $this->findModel($id),
             'modelScheduledRequestPreviousDay' => $reqPrevDay,
             'modelScheduledRequestCurrentDay' => $reqCurrDay,
@@ -220,7 +237,7 @@ class EdmPayerAccountController extends BaseServiceController
     }
 
     /**
-     * Удаление организации
+     * Метод удаляет счёт плательщика
      * @param $id
      * @return Response
      */
@@ -229,17 +246,21 @@ class EdmPayerAccountController extends BaseServiceController
         // Удаление доступа к счету у удаляемого счета
         EdmHelper::deleteAccountFromUsers($id);
 
-        $organizationId = $this->findModel($id)->organizationId;
+        // Получить из БД счёт с указанным id
+        $model = $this->findModel($id);
 
-        $this->findModel($id)->delete();
+        // Удалить счёт из БД
+        $model->delete();
 
+        // Поместить в сессию флаг сообщения об успешном удалении счёта плательщика
         Yii::$app->session->setFlash('success', Yii::t('edm', 'The payer account was successfully deleted'));
 
-        return $this->redirect(['dict-organization/view', 'id' => $organizationId]);
+        // Взять из модели счёта id организации
+        return $this->redirect(['dict-organization/view', 'id' => $model->organizationId]);
     }
 
     /**
-     * Получение валюты по коду
+     * Метод получает id валюты по её коду
      * @param $code
      */
     public function actionGetCurrency($code)
@@ -257,23 +278,33 @@ class EdmPayerAccountController extends BaseServiceController
     }
 
     /**
-     * Поиск модели справочника по id
+     * Метод ищет модель счёта в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
      */
     protected function findModel($id)
     {
-        $query = Yii::$app->terminalAccess->query(DictOrganization::class);
-        $organizations = $query->select('id')->asArray()->all();
+        // Сформировать запрос поиска организации в БД
+        // через компонент авторизации доступа к терминалам
+        $queryOrgs = Yii::$app->terminalAccess->query(DictOrganization::class);
+        // Получить в запросе список id организаций
+        $organizations = $queryOrgs->select('id')->asArray()->all();
+        // Сформировать из результатов запроса массив id организаций 
         $organizationsIds = ArrayHelper::getColumn($organizations, 'id');
 
-        $query = EdmPayerAccount::find()->where(['organizationId' => $organizationsIds]);
+        // Сформировать запрос поиска счетов с фильтром по указанными id организаций
+        $queryAccount = EdmPayerAccount::find()->where(['organizationId' => $organizationsIds]);
 
+        // Получить роль пользователя из активной сессии
         $userRole = Yii::$app->user->identity->role;
         if (!in_array($userRole, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN])) {
-            $query = Yii::$app->edmAccountAccess->query($query, 'id');
+            // Если пользователь не админ, добавить в запрос фильтр по id счёта
+            // через компонент авторизации доступа к терминиалам
+            $queryAccount = Yii::$app->edmAccountAccess->query($queryAccount, 'id');
         }
+        // Добавить фильтр по id счёта
+        $model = $queryAccount->andWhere(['id' => $id])->one();
 
-        $model = $query->andWhere(['id' => $id])->one();
-
+        // Если в результате модель не получена, вывести в лог ошибку и бросить исключение
         if ($model === null) {
             Yii::info("Account $id is not found or not accessible by current user");
             throw new NotFoundHttpException();
@@ -288,10 +319,11 @@ class EdmPayerAccountController extends BaseServiceController
         if ($model === null) {
             $model = new EdmScheduledRequestPrevious();
     	    $model->accountNumber = $id;
+            // Сохранить модель в БД
             $model->save();
         }
 
-	    return $model;
+        return $model;
     }
 
     protected function findModelScheduledRequestCurrent($id)
@@ -300,6 +332,7 @@ class EdmPayerAccountController extends BaseServiceController
         if ($model === null) {
             $model = new EdmScheduledRequestCurrent();
             $model->accountNumber = $id;
+            // Сохранить модель в БД
             $model->save();
         }
 
@@ -313,9 +346,10 @@ class EdmPayerAccountController extends BaseServiceController
      * @param null $exceptCurrency
      * @return array
      */
-    public function actionList($q = null, $id = null, $currency = null, $exceptCurrency = null,
-            $organizationId = null, $bankBik = null, $exceptNumber = null)
-    {
+    public function actionList(
+        $q = null, $id = null, $currency = null, $exceptCurrency = null,
+        $organizationId = null, $bankBik = null, $exceptNumber = null
+    ) {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $out = [];
@@ -404,22 +438,24 @@ class EdmPayerAccountController extends BaseServiceController
 
     public function actionSimpleList($q = null, $id = null)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $out = [];
 
         if (is_null($id)) {
 
-            // Получаем список организаций доступных пользователю
+            // Получить список организаций доступных пользователю
             $query = Yii::$app->terminalAccess->query(DictOrganization::className());
             $organizations = $query->select('id')->asArray()->all();
 
-            // Приводим список организаций пользователя к массиву со списком id
+            // Привести список организаций пользователя к массиву со списком id
             $organizations = ArrayHelper::getColumn($organizations, 'id');
 
-            // Получаем список счетов плательщика по организации
+            // Получить список счетов плательщика по организации
             $query = EdmPayerAccount::find()->limit(20)->where(['organizationId' => $organizations]);
 
+            // Получить модель пользователя из активной сессии
             $currentUser = Yii::$app->user->identity;
 
             // C учетом доступных текущему пользователю счетов
@@ -473,8 +509,9 @@ class EdmPayerAccountController extends BaseServiceController
         if (Yii::$app->request->isPost || !empty($statementParams)) {
 
             $model = new StatementRequestType();
-
+            // Если отправлены POST-данные
             if (Yii::$app->request->isPost) {
+                // Загрузить данные модели из формы в браузере
                 $model->load(Yii::$app->request->post());
             } else {
                 $model->load($statementParams);
@@ -488,13 +525,14 @@ class EdmPayerAccountController extends BaseServiceController
                     throw new BadRequestHttpException($model->getErrorsSummary(true));
                 }
 
+                // Получить из БД организацию с указанным id через компонент авторизации доступа к терминалам
                 $organization = Yii::$app->terminalAccess->findModel(
                     'addons\edm\models\DictOrganization', $account->organizationId
                 );
 
                 $document = EdmHelper::createStatementRequest($model, $organization->terminal);
 
-                // Регистрация события запрос выписки по счету
+                // Зарегистрировать событие запрос выписки по счету в модуле мониторинга
                 Yii::$app->monitoring->extUserLog(
                     'RequestStatement',
                     ['accountNumber' => $model->accountNumber]
@@ -506,23 +544,29 @@ class EdmPayerAccountController extends BaseServiceController
                 }
 
                 if ($document->status == Document::STATUS_FORSIGNING) {
+                    // Перенаправить на страницу индекса
                     return $this->redirect(Url::to(['/edm/documents/signing-index?tabMode=tabStatementRequests']));
                 }
 
                 if ($document->status === Document::STATUS_PROCESSING_ERROR) {
+                    // Поместить в сессию флаг сообщения об ошибке отправки запроса выписки
                     Yii::$app->session->setFlash('error', Yii::t('edm', 'Failed to send statement request'));
                 } else {
+                    // Поместить в сессию флаг сообщения об успешной отправке запроса выписки
                     Yii::$app->session->setFlash('info', Yii::t('edm', 'Statement request was sent'));
                 }
             } catch (\Exception $ex) {
                 Yii::info("Failed to send statement request, caused by: $ex");
+                // Поместить в сессию флаг сообщения об ошибке отправки запроса выписки
                 Yii::$app->session->setFlash('error', $ex->getMessage());
             }
         }
 
         if (!is_null($id)) {
+            // Перенаправить на предыдущую страницу с передачей id
             return $this->redirect([$fromUrl, 'id' => $id]);
         } else {
+            // Перенаправить на предыдущую страницу
             return $this->redirect([$fromUrl]);
         }
     }
@@ -562,21 +606,24 @@ class EdmPayerAccountController extends BaseServiceController
                     throw new BadRequestHttpException($model->getErrorsSummary(true));
                 }
 
+                // Получить из БД организацию с указанным id через компонент авторизации доступа к терминалам
                 $organization = Yii::$app->terminalAccess->findModel(
                     'addons\edm\models\DictOrganization', $account->organizationId
                 );
 
                 $document = EdmHelper::createStatementRequest($model, $organization->terminal);
 
-                // Регистрация события запрос выписки по счету
+                // Зарегистрировать событие запрос выписки по счету в модуле мониторинга
                 Yii::$app->monitoring->extUserLog(
                     'RequestStatement',
                     ['accountNumber' => $model->accountNumber]
                 );
 
+                // Поместить в сессию флаг сообщения об успешной отправке запроса выписки
                 Yii::$app->session->setFlash('info', Yii::t('edm', 'Statement request was sent'));
             } catch (\Exception $ex) {
                 $document = null;
+                // Поместить в сессию флаг сообщения об ошибке
                 Yii::$app->session->setFlash('error', $ex->getMessage());
             }
             if (!empty($document)) {
@@ -597,6 +644,7 @@ class EdmPayerAccountController extends BaseServiceController
             ? Yii::$app->request->referrer
             : Url::to(['/edm/documents/signing-index?tabMode=tabStatementRequests']);
 
+        // Перенаправить на страницу перенаправления
         return $this->redirect($redirectUrl);
     }
 
@@ -609,6 +657,7 @@ class EdmPayerAccountController extends BaseServiceController
             throw new ForbiddenHttpException();
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $result = [];
@@ -656,6 +705,7 @@ class EdmPayerAccountController extends BaseServiceController
             throw new MethodNotAllowedHttpException();
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $query = EdmPayerAccount::find()->andWhere(['number' => $number])->asArray();
@@ -665,19 +715,25 @@ class EdmPayerAccountController extends BaseServiceController
 
     public function actionUpdateExportSettings($id)
     {
+        // Получить из БД счёт с указанным id
         $model = $this->findModel($id);
         $isUpdated = false;
+        // Если данные модели успешно загружены из формы в браузере
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // Сохранить модель в БД
             $isUpdated = $model->save();
         }
 
         if ($isUpdated) {
+            // Поместить в сессию флаг сообщения об успешном сохранении настроек
             Yii::$app->session->setFlash('success', Yii::t('app', 'Settings have been updated'));
         } else {
             Yii::info('Failed to save account export settings, errors: ' . var_export($model->getErrors(), true));
+            // Поместить в сессию флаг сообщения об ошибке сохранения настроек
             Yii::$app->session->setFlash('error', Yii::t('app', 'Failed to update settings'));
         }
 
+        // Перенаправить на страницу просмотра
         $this->redirect(['view', 'id' => $model->id]);
     }
 

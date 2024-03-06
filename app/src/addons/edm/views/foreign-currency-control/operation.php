@@ -263,6 +263,7 @@ ActiveForm::end();
 ?>
 <h4><?= Yii::t('edm', 'Attached files') ?></h4>
 <?php
+    // Вывести блок вложенных файлов
     echo $this->render('@common/views/document/_attachedFiles', [
         'models' => $model->attachedFiles,
         'modelClass' => AttachedFile::class
@@ -281,23 +282,22 @@ ActiveForm::end();
 </form>
 </div>
 <?php
-$this->registerCss('
+$this->registerCss(<<<CSS
+    .operation-data-margin-bottom {
+        margin-bottom: 10px;
+    }
 
-.operation-data-margin-bottom {
-    margin-bottom: 10px;
-}
+    .comment-textarea {
+        width: 500px;
+        resize: none;
+    }
 
-.comment-textarea {
-    width: 500px;
-    resize: none;
-}
+    #operation-form input[type=text]:disabled {
+        background-color: #9AA6AB;
+    }
+CSS);
 
-#operation-form input[type=text]:disabled {
-    background-color: #9AA6AB;
-}
-');
-
-$script = <<< JS
+$script = <<<JS
     function checkSection1() {
         var disabledStatus = '';
 
@@ -396,5 +396,3 @@ $script = <<< JS
 JS;
 
 $this->registerJs($script, View::POS_READY);
-
-?>

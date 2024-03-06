@@ -36,7 +36,7 @@ use yii\helpers\Html;
     </div>
 </div>
 <?php
-$script = <<< JS
+$script = <<<JS
     // Инициализация submit формы
     $('.btn-form-submit').on('click', function() {
         $('.msg-block').hide();
@@ -62,10 +62,9 @@ $script = <<< JS
             dataType: 'json',
             processData: false,
             contentType: false,
-            success: function(res)
-            {
+            success: function(res) {
                 setTimeout(function() {}, 1000);
-                if(res.status == 'processing') {
+                if (res.status == 'processing') {
 
                     $('.msg-block').html(res.msg);
                     $('.msg-block').addClass('alert-info');

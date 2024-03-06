@@ -28,7 +28,7 @@ class LoginKeyForm extends Model
      * @param string $passcode    Passcode
      * @param string $fingerprint Fingerprint
      * @param string $signature   Signature
-     * @return boolean|string Return TRUE is success or error message
+     * @return boolean|string Return true is success or error message
      * @throws Exception
      */
     public function login($passcode, $fingerprint, $signature)
@@ -73,13 +73,13 @@ class LoginKeyForm extends Model
     /**
      * Get user
      *
-     * @return User|NULL User instanse or NULL
+     * @return User|null User instanse or null
      * @throws Exception
      */
     public function getUser()
     {
         try {
-            if(empty($this->_userAuthCertificate)) {
+            if (empty($this->_userAuthCertificate)) {
                 throw new Exception('User auth certificate is empty!');
             }
 

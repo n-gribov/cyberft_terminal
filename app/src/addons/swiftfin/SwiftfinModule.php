@@ -221,7 +221,7 @@ class SwiftfinModule extends BaseBlock
      *
      * @param string $path Data to save
      * @param string $filename File name
-     * @return StoredFile|NULL
+     * @return StoredFile|null
      */
     public function storeFileOut($path, $filename = '')
     {
@@ -233,7 +233,7 @@ class SwiftfinModule extends BaseBlock
      *
      * @param string $data Data to save
      * @param string $filename File name
-     * @return StoredFile|NULL
+     * @return StoredFile|null
      */
     public function storeDataOut($data, $filename = '')
     {
@@ -333,6 +333,7 @@ class SwiftfinModule extends BaseBlock
     {
         $verificationDocType = [];
 
+        // Получить роль пользователя из активной сессии
         if (Yii::$app->user->identity->role == User::ROLE_USER) {
             foreach ($this->settings->userVerificationRules as $key => $value) {
                 $verificationDocType[] = $value;
@@ -393,6 +394,7 @@ class SwiftfinModule extends BaseBlock
 
             $extModel = $document->extModel;
             $extModel->extStatus = $status;
+            // Сохранить модель в БД
             $extModel->save();
 
             return true;
@@ -434,6 +436,7 @@ class SwiftfinModule extends BaseBlock
 
                 if (empty($extModel->userId)) {
                     $extModel->userId = Yii::$app->user->id;
+                    // Сохранить модель в БД
                     $extModel->save();
                 }
             }
@@ -451,7 +454,6 @@ class SwiftfinModule extends BaseBlock
             // Документы типов MT9xx идут напрямую, игнорируя настройки
 
             if (substr($document->type, 0, 3) !== 'MT9') {
-
                 // Проверяем, не установлено ли уже количество подписей
                 if (!$document->signaturesRequired) {
                     // Иначе устанавливаем количество подписей из настроек подписания

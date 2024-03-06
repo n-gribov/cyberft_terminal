@@ -13,10 +13,9 @@ use yii\helpers\Url;
     </li>
   </ul>
 </div>
-
 <?php
-    $cyxDoc = \common\models\cyberxml\CyberXmlDocument::read($model->actualStoredFileId);
-    $typeModel = $cyxDoc->getContent()->getTypeModel();
-?>
+$cyxDoc = \common\models\cyberxml\CyberXmlDocument::read($model->actualStoredFileId);
+$typeModel = $cyxDoc->getContent()->getTypeModel();
 
-<?= $this->render('readable/foreignCurrencyOperation', ['document' => $model, 'typeModel' => $typeModel])?>
+// Вывести страницу
+echo $this->render('readable/foreignCurrencyOperation', ['document' => $model, 'typeModel' => $typeModel]);

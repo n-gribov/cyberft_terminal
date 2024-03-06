@@ -18,8 +18,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app/iso20022', 'Create certificate'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?= GridView::widget([
+<?php
+    // Создать таблицу для вывода
+    echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'validBefore',
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
-
+    ]);
+?>
     </div>
 </div>

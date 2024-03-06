@@ -34,8 +34,8 @@ return [
             'password' => getenv('MYSQL_PASSWORD'),
             'charset' => 'utf8',
         ],
-        'terminals' => [
-            'class' => 'common\components\terminal\Terminals',
+        'exchange' => [
+            'class' => 'common\components\terminal\Exchange',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -74,9 +74,6 @@ return [
             'port' => getenv('REDIS_PORT'),
             'database' => getenv('REDIS_DATABASE'),
         ],
-//        'cache' => [
-//            'class' => 'yii\caching\ApcCache',
-//        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
             'cachePath' => '@appRuntime/cache',

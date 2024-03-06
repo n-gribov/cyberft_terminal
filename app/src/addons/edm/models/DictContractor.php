@@ -26,62 +26,62 @@ use addons\edm\helpers\Dict;
  */
 class DictContractor extends ActiveRecord
 {
-	const ROLE_PAYER       = 'PAYER';
-	const ROLE_BENEFICIARY = 'BENEFICIARY';
+    const ROLE_PAYER       = 'PAYER';
+    const ROLE_BENEFICIARY = 'BENEFICIARY';
     const TYPE_INDIVIDUAL = 'IND';
     const TYPE_ENTITY = 'ENT';
 
     /**
      * @inheritdoc
      */
-	public static function tableName()
+    public static function tableName()
     {
-		return 'edmDictContractor';
-	}
-
-	/**
-	 * @return array
-	 */
-	public static function roleValues()
-    {
-		return [
-			self::ROLE_PAYER       => Yii::t('edm', 'Payer'),
-			self::ROLE_BENEFICIARY => Yii::t('edm', 'Beneficiary'),
-		];
-	}
-
-	public static function typeValues()
-    {
-		return [
-            self::TYPE_ENTITY => Yii::t('edm', 'Entity'),
-			self::TYPE_INDIVIDUAL       => Yii::t('edm', 'Individual'),
-		];
-	}
+        return 'edmDictContractor';
+    }
 
     /**
-	 * @return string
-	 */
-	public function getRoleLabel()
+     * @return array
+     */
+    public static function roleValues()
     {
-		$roles = self::roleValues();
+        return [
+            self::ROLE_PAYER       => Yii::t('edm', 'Payer'),
+            self::ROLE_BENEFICIARY => Yii::t('edm', 'Beneficiary'),
+        ];
+    }
 
-		if (isset($roles[$this->role])) {
-			return $roles[$this->role];
-		}
-
-		return null;
-	}
-
-	public function getTypeLabel()
+    public static function typeValues()
     {
-		$types = self::typeValues();
+        return [
+            self::TYPE_ENTITY => Yii::t('edm', 'Entity'),
+            self::TYPE_INDIVIDUAL       => Yii::t('edm', 'Individual'),
+        ];
+    }
 
-		if (isset($types[$this->type])) {
-			return $types[$this->type];
-		}
+    /**
+     * @return string
+     */
+    public function getRoleLabel()
+    {
+        $roles = self::roleValues();
 
-		return null;
-	}
+        if (isset($roles[$this->role])) {
+            return $roles[$this->role];
+        }
+
+        return null;
+    }
+
+    public function getTypeLabel()
+    {
+        $types = self::typeValues();
+
+        if (isset($types[$this->type])) {
+            return $types[$this->type];
+        }
+
+        return null;
+    }
 
     /**
      * @inheritdoc
@@ -118,29 +118,27 @@ class DictContractor extends ActiveRecord
                 'when' => function($model) { return $model->type == 'IND'; },
                 'whenClient' => "function (attribute, value) { return $('#dictcontractor-type').val() == 'IND'; }"
             ],
-			[
-				'kpp',
+            [
+                'kpp',
                 'match',
-				'pattern' => '/^[0-9]{9}$/',
-				'message' => Yii::t('app', 'The {attribute} must contain only digits'),
+                'pattern' => '/^[0-9]{9}$/',
+                'message' => Yii::t('app', 'The {attribute} must contain only digits'),
                 'when' => function($model) { return $model->type == 'ENT'; },
                 'whenClient' => "function (attribute, value) { return $('#dictcontractor-type').val() == 'ENT'; }"
-			],
-			[
-				'bankBik',
+            ],
+            [
+                'bankBik',
                 'match',
-				'pattern' => '/^[0-9]{9}$/',
-				'message' => Yii::t('app', 'The {attribute} must contain only digits')
-			],
-
-			['role', 'in', 'range' => array_keys(self::roleValues())],
-
-			[['account'], 'string', 'min' => 20, 'max' => 20],
-			[
-				'account', 'match',
-				'pattern' => '/^[0-9]{20}$/',
-				'message' => Yii::t('edm', 'The {attribute} must contain only digits')
-			],
+                'pattern' => '/^[0-9]{9}$/',
+                'message' => Yii::t('app', 'The {attribute} must contain only digits')
+            ],
+            ['role', 'in', 'range' => array_keys(self::roleValues())],
+            [['account'], 'string', 'min' => 20, 'max' => 20],
+            [
+                'account', 'match',
+                'pattern' => '/^[0-9]{20}$/',
+                'message' => Yii::t('edm', 'The {attribute} must contain only digits')
+            ],
             [
                 'inn',
                 'validateCodeNumber',
@@ -158,23 +156,13 @@ class DictContractor extends ActiveRecord
                 ]
             ],
 
-			[['currency'], 'string', 'max' => 3],
+            [['currency'], 'string', 'max' => 3],
             [['currency'], 'in', 'range' => Currencies::getCodes()],
 
-			[['type'], 'in', 'range' => array_keys(self::typeValues())],
+            [['type'], 'in', 'range' => array_keys(self::typeValues())],
             ['type', 'default', 'value' => self::TYPE_ENTITY],
             [['name'], 'string', 'max' => 255],
-//			[
-//				['terminalId'], 'required',
-//			 	'when' => function($model) {
-//					return ($model->role == self::ROLE_PAYER);
-//				},
-//				'whenClient' => "function (attribute, value) {
-//					return $('#edmdictcontractor-role').val() == '".self::ROLE_PAYER."';
-//				}"
-//			],
-//			['terminalId', TerminalIdValidator::className()],
-			['account', CbrKeyingValidator::className(), 'bikKey' => 'bankBik']
+            ['account', CbrKeyingValidator::className(), 'bikKey' => 'bankBik']
         ];
     }
 
@@ -198,20 +186,20 @@ class DictContractor extends ActiveRecord
         ];
     }
 
-	public function getFullName()
+    public function getFullName()
     {
-		return "Счет: $this->account Название: $this->name";
-	}
+        return "Счет: $this->account Название: $this->name";
+    }
 
     public function getBank()
     {
         return $this->hasOne(DictBank::className(), ['bik' => 'bankBik']);
     }
 
-	public function __toString()
+    public function __toString()
     {
-		return $this->getFullName();
-	}
+        return $this->getFullName();
+    }
 
     public function validateCodeNumber($attribute, $params = [])
     {

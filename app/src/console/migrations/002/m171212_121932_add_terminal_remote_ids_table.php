@@ -26,6 +26,7 @@ class m171212_121932_add_terminal_remote_ids_table extends Migration
             $terminalRemoteId = new TerminalRemoteId;
             $terminalRemoteId->terminalId = $terminal->id;
             $terminalRemoteId->remoteId = $terminal->remoteSenderId;
+            // Сохранить модель в БД
             $terminalRemoteId->save();
         }
 

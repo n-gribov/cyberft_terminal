@@ -23,6 +23,7 @@ class ColumnsSettingsWidget extends Widget
             $this->columnsDisabledByDefault
         );
 
+        // Вывести страницу
         return $this->render('view', [
             'settingsColumns' => $settingsColumns,
             'model' => $this->model,

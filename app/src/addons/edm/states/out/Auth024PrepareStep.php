@@ -41,7 +41,7 @@ final class Auth024PrepareStep extends ISO20022DocumentPrepareStep
             $document = $this->createDocument($typeModel);
             $extModel = $this->createExtModel($typeModel, $document->id);
             $this->saveExtModel($extModel);
-
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($document, true);
 
             $transaction->commit();
@@ -156,7 +156,7 @@ final class Auth024PrepareStep extends ISO20022DocumentPrepareStep
         $this->saveImportError($errorMessage);
     }
 
-    private function saveImportError($errorMessage): void
+    protected function saveImportError($errorMessage, $documentNumber = null): void
     {
         $importErrorMessage = Yii::t(
             'edm',
@@ -264,6 +264,7 @@ final class Auth024PrepareStep extends ISO20022DocumentPrepareStep
 
     private function saveExtModel(ForeignCurrencyOperationInformationExt $extModel): void
     {
+        // Сохранить модель в БД
         $isSaved = $extModel->save();
         if (!$isSaved) {
             throw new Exception('Failed to save ' . get_class($extModel) . ' to database');
@@ -273,6 +274,7 @@ final class Auth024PrepareStep extends ISO20022DocumentPrepareStep
     private function addZipContent(Auth024Type $typeModel): void
     {
         if ($this->state->isImportingZipArchive) {
+            // Использовать сжатие в zip
             $typeModel->useZipContent = true;
             $typeModel->zipContent = file_get_contents($this->state->filePath);
             $typeModel->zipFilename = basename($this->state->filePath);

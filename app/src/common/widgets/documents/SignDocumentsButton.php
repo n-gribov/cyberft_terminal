@@ -52,6 +52,7 @@ class SignDocumentsButton extends Widget
 
     public function run()
     {
+        // Вывести кнопку подписания
         return $this->render(
             'signDocumentsButton',
             ['widget' => $this]

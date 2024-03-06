@@ -47,6 +47,7 @@ class CheckStatusStep extends BaseStep
             } else {
                 $this->log('Will not retry later');
                 $request->status = SBBOLRequest::STATUS_REJECTED;
+                // Сохранить модель в БД
                 $request->save();
 
                 return true;
@@ -63,6 +64,7 @@ class CheckStatusStep extends BaseStep
                     $request->status = SBBOLRequest::STATUS_DELIVERED;
                     $request->documentStatusRequestId = $requestResult->getRequestId();
                 }
+                // Сохранить модель в БД
                 $request->save();
 
                 if ($request->documentType === 'CertifRequest') {
@@ -81,6 +83,7 @@ class CheckStatusStep extends BaseStep
                         $request->responseHandlerParams,
                         ['createTime' => $createTime->format(\DateTime::ATOM)]
                     );
+                    // Сохранить модель в БД
                     $request->save();
                 }
 
@@ -105,7 +108,7 @@ class CheckStatusStep extends BaseStep
                         $key = SBBOLKey::findOne($keyId);
                         $key->status = SBBOLKey::STATUS_CERTIFICATE_IS_PUBLISHED;
                         $request->status = SBBOLRequest::STATUS_PROCESSED;
-
+                        // Сохранить модели в БД
                         return $key->save() && $request->save();
                     }
                 }
@@ -115,7 +118,7 @@ class CheckStatusStep extends BaseStep
 
                     if ($isSent) {
                         $request->status = SBBOLRequest::STATUS_PROCESSED;
-
+                        // Сохранить модель в БД
                         return $request->save();
                     }
                 }
@@ -129,6 +132,7 @@ class CheckStatusStep extends BaseStep
 
             $request->releaseLock();
 
+            // Сохранить модель в БД и вернуть результат сохранения
             return $request->save();
         }
 
@@ -148,6 +152,7 @@ class CheckStatusStep extends BaseStep
 
                 $this->state->module->sessionManager->deleteSession($request->customer->holdingHeadId);
 
+                // Сохранить модель в БД м вернуть общий результат сохранения и обновления статуса
                 return $key->save() && SBBOLRequest::updateStatus($this->state->requestId, SBBOLRequest::STATUS_PROCESSED);
             }
         }
@@ -163,7 +168,8 @@ class CheckStatusStep extends BaseStep
 
     private function updateLastCertificateNumber(SBBOLCustomer $customer)
     {
-        $customer->lastCertNumber += 1;
+        $customer->lastCertNumber++;
+        // Сохранить модель в БД
         $customer->save();
     }
 

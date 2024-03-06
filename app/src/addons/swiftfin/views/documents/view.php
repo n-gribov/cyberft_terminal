@@ -32,9 +32,9 @@ if (isset($urlParams)) {
     $urlParams = [];
 }
 
-$this->title					 = Yii::t('doc', 'View document {type} #{id}', ['type' => $model->type, 'id' => $model->id]);
-$this->params['breadcrumbs'][]   = ['label' => $backTitle, 'url' => $backUrl];
-$this->params['breadcrumbs'][]	 = $this->title;
+$this->title = Yii::t('doc', 'View document {type} #{id}', ['type' => $model->type, 'id' => $model->id]);
+$this->params['breadcrumbs'][] = ['label' => $backTitle, 'url' => $backUrl];
+$this->params['breadcrumbs'][] = $this->title;
 
 if (SwiftfinHelper::isAuthorizable($model, Yii::$app->user->identity->id)) {
     $customModuleActionView = '@addons/swiftfin/views/documents/_customAction';
@@ -42,16 +42,16 @@ if (SwiftfinHelper::isAuthorizable($model, Yii::$app->user->identity->id)) {
     $customModuleActionView = null;
 }
 
+// Вывести шапку документа
 echo $this->render(
-	'@common/views/document/_header',
-	[
-		'model' => $model,
-		'referencingDataProvider' => $referencingDataProvider,
+    '@common/views/document/_header', [
+        'model' => $model,
+        'referencingDataProvider' => $referencingDataProvider,
         'commandDataProvider' => $commandDataProvider,
-		'urlParams' => $urlParams,
+        'urlParams' => $urlParams,
         'backUrl' => $backUrl,
-		'mode' => $mode,
-		'dataView' => '@addons/swiftfin/views/documents/_view',
+        'mode' => $mode,
+        'dataView' => '@addons/swiftfin/views/documents/_view',
         'customModuleActionView' => $customModuleActionView
-	]
+    ]
 );

@@ -13,6 +13,7 @@ use yii\web\View;
 $this->title = Yii::t('app/menu', 'Documents for sending');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Documents'), 'url' => Url::toRoute(['/document/controller-verification'])];
 $this->params['breadcrumbs'][] = $this->title;
+// Получить роль пользователя из активной сессии
 if (Yii::$app->user->identity->role === User::ROLE_CONTROLLER) {
     $checkboxJS = '
     $("#controllerVerificationDocuments").on("change.yiiGridView", function() {
@@ -37,42 +38,42 @@ if (Yii::$app->user->identity->role === User::ROLE_CONTROLLER) {
     $this->registerJs($checkboxJS, View::POS_READY);
 }
 if (!isset($autobot)) {
-    $autobot = NULL;
+    $autobot = null;
 }
 ?>
 
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
   <?= Yii::t('app', 'Search'); ?>
 </a>&nbsp;
-<?php if(!is_null($autobot)):?>
+<?php if (!is_null($autobot)) : ?>
     <?php
-            ActiveForm::begin([
-                'action' => ['verify'],
-                'method' => 'post',
-                'options' => [
-                    'style' => 'display: inline;'
-                ]
-            ]);
+        ActiveForm::begin([
+            'action' => ['verify'],
+            'method' => 'post',
+            'options' => [
+                'style' => 'display: inline;'
+            ]
+        ]);
 
-            echo Html::hiddenInput('action', 'accept');  
-            echo Html::submitButton(Yii::t('app', 'Send'), ['class' => 'btn btn-success']) . '&nbsp;';
+        echo Html::hiddenInput('action', 'accept');  
+        echo Html::submitButton(Yii::t('app', 'Send'), ['class' => 'btn btn-success']) . '&nbsp;';
 
-            ActiveForm::end();
+        ActiveForm::end();
     ?>
     <?php
-            ActiveForm::begin([
-                'action' => ['verify'],
-                'method' => 'post',
-                'options' => [
-                    'style' => 'display: inline;'
-                ]
-            ]);
-            echo Html::hiddenInput('action', 'reject');
-            echo Html::submitButton(Yii::t('app', 'Do not send'), ['class' => 'btn btn-danger']);
+        ActiveForm::begin([
+            'action' => ['verify'],
+            'method' => 'post',
+            'options' => [
+                'style' => 'display: inline;'
+            ]
+        ]);
+        echo Html::hiddenInput('action', 'reject');
+        echo Html::submitButton(Yii::t('app', 'Do not send'), ['class' => 'btn btn-danger']);
 
-            ActiveForm::end();
+        ActiveForm::end();
     ?>
-<?php endif;?>
+<?php endif ?>
 <div class="<?= (empty($filterStatus)) ? 'collapse' : 'collapse.in'; ?>" id="collapseSearch">
     <?php
         $formParams = ['method' => 'get'];
@@ -110,6 +111,7 @@ if (!isset($autobot)) {
     <?php ActiveForm::end(); ?>
 </div>
 <?php
+// Создать таблицу для вывода
 $myGridWidget = GridView::begin([
     'id' => 'controllerVerificationDocuments',
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
@@ -121,7 +123,7 @@ $myGridWidget = GridView::begin([
 
         if (in_array($model->status, array_merge(Document::getErrorStatus(),['']))) {
             $options['class'] = 'bg-alert-danger';
-        } elseif (in_array($model->status, Document::getProcessingStatus())) {
+        } else if (in_array($model->status, Document::getProcessingStatus())) {
             $options['class'] = 'bg-alert-warning';
         }
 
@@ -250,4 +252,4 @@ $myGridWidget = GridView::begin([
 
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
-?>
+

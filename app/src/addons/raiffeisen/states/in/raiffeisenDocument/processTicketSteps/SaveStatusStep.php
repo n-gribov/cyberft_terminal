@@ -20,9 +20,10 @@ class SaveStatusStep extends BaseStep
 
         if ($request->status === RaiffeisenRequest::STATUS_SENT) {
             $request->receiverRequestStatus = $statusCode;
-        } elseif ($request->status === RaiffeisenRequest::STATUS_DELIVERED) {
+        } else if ($request->status === RaiffeisenRequest::STATUS_DELIVERED) {
             $request->receiverDocumentStatus = $statusCode;
         }
+        // Сохранить модель в БД
         $request->save();
 
         return true;

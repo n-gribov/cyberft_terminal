@@ -41,9 +41,7 @@ if ($canManage) {
     $this->endBlock('pageActions');
 }
 
-?>
-
-<?= Tabs::widget([
+echo Tabs::widget([
     'items' => [
         [
             'title' => Yii::t('app/cert', 'Signers'),
@@ -56,9 +54,9 @@ if ($canManage) {
             'isActive' => $searchModel->role == Cert::ROLE_SIGNER_BOT,
         ],
     ]
-]) ?>
-
-<?= GridView::widget([
+]);
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'formatter' => ['class' => 'yii\i18n\Formatter', 'nullDisplay' => ''],
@@ -69,7 +67,7 @@ if ($canManage) {
 
         if (!$model->isActive) {
             $options['class'] = 'danger';
-        } else if($model->isExpiringSoon()) {
+        } else if ($model->isExpiringSoon()) {
             $options['class'] = 'cert-expire-soon';
         }
 
@@ -166,13 +164,11 @@ if ($canManage) {
     ],
 ]);
 
-
-$script = <<< JS
+$script = <<<JS
     // Формат поля выбора дат
     $('#certsearch-usebefore').datepicker('option', 'dateFormat', 'dd.mm.yy');
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
 
-?>
 

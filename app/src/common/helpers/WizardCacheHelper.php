@@ -217,5 +217,4 @@ class WizardCacheHelper
     {
         Yii::$app->cache->set($key, $data);
     }
-
 }

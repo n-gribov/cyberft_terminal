@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['change-cert-status', 'id' => $model->id, 'status' => CryptoproCert::STATUS_NOT_READY],
                         ['class' => 'btn btn-danger']
                     );
-                } elseif ($model->status == CryptoproCert::STATUS_NOT_READY) {
+                } else if ($model->status == CryptoproCert::STATUS_NOT_READY) {
 
                     // если сертификат заблокирован, то разблокировать
                     // его может только главный администратор
@@ -62,8 +62,9 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         ?>
     </p>
-
-    <?= DetailView::widget([
+    <?php
+    // Создать детализированное представление
+    echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
@@ -74,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'certData:ntext',
             'validBefore',
         ],
-    ]) ?>
-
+    ]);
+    ?>
     </div>
 </div>

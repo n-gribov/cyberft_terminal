@@ -28,11 +28,8 @@ $dateFormat = 'php:d.m.Y';
 $dateTimeFormat = 'php:d.m.Y H:i';
 
 Yii::$app->formatter->nullDisplay = '';
-
 ?>
-
 <p>Код формы по ОКУД 0406010</p>
-
 <table>
     <tr>
         <td>Наименование банка УК</td>
@@ -50,9 +47,9 @@ Yii::$app->formatter->nullDisplay = '';
 <table>
     <tr>
         <th class="text-right bold">Уникальный номер контракта (кредитного договора)</th>
-        <?php foreach (str_split($formatContractNumber($bsDocument->PSNUMBER)) as $char): ?>
+        <?php foreach (str_split($formatContractNumber($bsDocument->PSNUMBER)) as $char) : ?>
             <td class="text-center bordered"><?= $char ?></td>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </tr>
 </table>
 
@@ -89,7 +86,7 @@ Yii::$app->formatter->nullDisplay = '';
         <th>11</th>
         <th>12</th>
     </tr>
-    <?php foreach ($bsDocument->CONFDOCPSBLOB as $dealInfo): ?>
+    <?php foreach ($bsDocument->CONFDOCPSBLOB as $dealInfo) : ?>
         <tr>
             <td><?= Html::encode($dealInfo->NUM) ?></td>
             <td><?= Html::encode($dealInfo->DOCUMENTNUMBER) ?></td>
@@ -104,7 +101,7 @@ Yii::$app->formatter->nullDisplay = '';
             <td><?= Html::encode($dealInfo->COUNTRYCODE) ?></td>
             <td><?= Yii::$app->formatter->asDate($dealInfo->CORRECTION, $dateFormat) ?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 
 <p><strong>Примечание</strong></p>
@@ -113,19 +110,20 @@ Yii::$app->formatter->nullDisplay = '';
         <th>№ строки</th>
         <th>Содержание</th>
     </tr>
-    <?php foreach ($bsDocument->CONFDOCPSBLOB as $index => $dealInfo): ?>
-        <?php if (!(empty($dealInfo->ADDINFO))): ?>
+    <?php foreach ($bsDocument->CONFDOCPSBLOB as $index => $dealInfo) : ?>
+        <?php if (!(empty($dealInfo->ADDINFO))) : ?>
             <tr>
                 <td><?= $index + 1 ?></td>
                 <td><?= Html::encode($dealInfo->ADDINFO) ?></td>
             </tr>
-        <?php endif; ?>
-    <?php endforeach; ?>
+        <?php endif ?>
+    <?php endforeach ?>
 </table>
 
 <p>Информация банка УК</p>
 
-<?= $this->render(
+<?= // Вывести колонтитул
+    $this->render(
     '_bottom',
     [
         'typeModel' => $typeModel,
@@ -134,7 +132,6 @@ Yii::$app->formatter->nullDisplay = '';
         'stampStatus' => 'ACCP',
     ]
 ) ?>
-
 <style>
     @media print {
         @page {

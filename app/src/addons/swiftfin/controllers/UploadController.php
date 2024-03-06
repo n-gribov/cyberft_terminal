@@ -19,8 +19,8 @@ class UploadController extends BaseServiceController
     {
         return [
             'access' => [
-                'class'        => AccessControl::className(),
-                'rules'        => [
+                'class' => AccessControl::className(),
+                'rules' => [
                     [
                         'allow' => true,
                         'roles' => [DocumentPermission::CREATE],
@@ -39,32 +39,32 @@ class UploadController extends BaseServiceController
     public function actionIndex()
     {
         $error = '';
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $file = UploadedFile::getInstanceByName('documentfile');
 
             $model = $this->processUploadFile($file);
 
-            if ($model !== FALSE) {
+            if ($model !== false) {
                 $cacheKey = 'swiftfin/wizard/doc-'.\Yii::$app->session->id;
                 \Yii::$app->cache->set($cacheKey, $model);
+                // Перенаправить на страницу 3-го шага визарда
                 return $this->redirect(['/swiftfin/wizard/step3']);
             }
-
+            // Поместить в сессию флаг сообщения об ошибке обработки документа
             \Yii::$app->session->addFlash('error',
                 Yii::t('app/error', 'Error occurred while processing document'));
         }
 
-        // By default, render uploader view
-        return $this->render('index', [
-                'error' => $error
-        ]);
+        // Вывести страницу индекса
+        return $this->render('index', compact('error'));
     }
 
     /**
      * Upload file process
      *
      * @param UploadedFile $file Uploaded file
-     * @return SwiftFinType|boolean Return SwiftFinType class instance or FALSE
+     * @return SwiftFinType|boolean Return SwiftFinType class instance or false
      * @throws Exception
      */
     protected function processUploadFile(UploadedFile $file)
@@ -75,16 +75,19 @@ class UploadController extends BaseServiceController
             }
 
             if (SwiftfinHelper::FILE_FORMAT_SWIFT !== $model->sourceFormat) {
+                // Поместить в сессию флаг сообщения о неподдерживаемом формате
                 Yii::$app->session->addFlash('info', Yii::t('app/error', 'Unsupported data format'));
                 throw new Exception(Yii::t('app/error', 'Unsupported data format'));
             }
 
             if (!$model->validateSender()) {
+                // Поместить в сессию флаг сообщения о неправильном отправителе
                 Yii::$app->session->addFlash('info', Yii::t('app/error', 'Incorrect sender'));
                 throw new Exception(Yii::t('app/error', 'Incorrect sender'));
             }
 
             if (!$model->validateRecipient()) {
+                // Поместить в сессию флаг сообщения об неправильном получателе
                 Yii::$app->session->addFlash('info', Yii::t('app/error', 'Incorrect recipient'));
                 throw new Exception(Yii::t('app/error', 'Incorrect recipient'));
             }
@@ -98,7 +101,7 @@ class UploadController extends BaseServiceController
             return $wizard;
         } catch (Exception $ex) {
             Yii::warning($ex->getMessage());
-            return FALSE;
+            return false;
         }
     }
 }

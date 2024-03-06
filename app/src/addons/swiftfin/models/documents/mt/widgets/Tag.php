@@ -7,27 +7,22 @@ use yii\widgets\ActiveForm;
 
 class Tag extends Widget
 {
-	/**
-	 * @var Model
-	 */
-	public $model;
-	/**
-	 * @var ActiveForm
-	 */
-	public $form;
+    /** @var Model */
+    public $model;
+    /** @var ActiveForm */
+    public $form;
 
-	public function run()
+    public function run()
     {
-		if ($this->model->getIsMultiTag()) {
-			$view = 'tagMulti';
-		} else {
-			$view = 'tag';
-		}
+        if ($this->model->getIsMultiTag()) {
+            $view = 'tagMulti';
+        } else {
+            $view = 'tag';
+        }
 
-		print $this->render($view, [
-			'model' => $this->model,
-			'form'  => $this->form,
-		]);
-	}
-
+        echo $this->render($view, [
+            'model' => $this->model,
+            'form'  => $this->form,
+        ]);
+    }
 }

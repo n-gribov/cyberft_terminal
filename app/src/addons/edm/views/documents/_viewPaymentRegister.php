@@ -15,9 +15,7 @@ $dataProvider = empty($registerId)
         : new ActiveDataProvider([
             'query' => PaymentRegisterPaymentOrder::find()->where(['registerId' => $registerId])
         ]);
-echo $this->render('readable/paymentOrderLog', [
-	    'dataProvider' => $dataProvider,
-		'model' => $model,
-]);
+// Вывести страницу
+echo $this->render('readable/paymentOrderLog',
+    ['dataProvider' => $dataProvider, 'model' => $model]);
 
-?>

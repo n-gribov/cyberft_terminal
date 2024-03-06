@@ -12,6 +12,9 @@ use yii\helpers\VarDumper;
 
 class AuthController extends BaseController
 {
+    /**
+     * Метод выводит текст с подсказкой
+     */
     public function actionIndex()
     {
         $this->run('/help', ['SBBOL/auth']);
@@ -84,6 +87,7 @@ class AuthController extends BaseController
         if ($s == 'Y') {
             echo "saving new locality for customer...\n";
             $customer->addressSettlement = $locality;
+            // Если модель успешно сохранена в БД
             $result = $customer->save();
             if ($result) {
                 echo "OK\n";
@@ -108,6 +112,7 @@ class AuthController extends BaseController
                 if ($s == 'Y') {
                     echo "saving new password for customer...\n";
                     $customer->password = $password;
+                    // Сохранить модель в БД
                     $result = $customer->save();
                     if ($result) {
                         echo "OK\n";

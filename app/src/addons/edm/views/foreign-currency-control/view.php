@@ -19,7 +19,7 @@ $accpDate = $statusReportsData->getStatusDate('ACCP');
 $acscDate = $statusReportsData->getStatusDate('ACSC');
 $rjctDate = $statusReportsData->getStatusDate('RJCT');
 
-// Шаблон отображения управляющих кнопок
+// Вывести шаблон отображения управляющих кнопок
 echo $this->render('@addons/edm/views/documents/_fccViewContent', [
     'document' => $document,
     'type' => 'fci',
@@ -155,6 +155,7 @@ __________________________________<br/>
 <br/>
 <?php
     $signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL);
+    // Вывести блок подписей
     echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
 ?>
 <br/>
@@ -178,17 +179,15 @@ __________________________________<br/>
 <div class="col-sm-4">
     <small><nobr>1 Указываются коды признаков представления резидентом документов:</nobr></small>
 </div>
-    <div class="col-sm-8"><small>
+<div class="col-sm-8"><small>
 1 – документы не представлены в соответствии с пунктами 2.7 и 2.15 Инструкции 181-И;<br/>
 2 – документы не представлены в соответствии с пунктами 2.6, 2.8, 2.14 и 2.16 Инструкции 181-И,
 а также в случае зачисления валюты РФ по договору, не требующего постановки на учет;<br/>
 3 – документы не представлены в соответствии с пунктом 2.2 Инструкции 181-И;<br/>
 4 – документы представлены.</small>
-    </div>
+</div>
 </div>
 <?php
 if ($extModel->document) {
     echo TransportInfoModal::widget(['document' => $extModel->document, 'isVolatile' => false]);
 }
-?>
-

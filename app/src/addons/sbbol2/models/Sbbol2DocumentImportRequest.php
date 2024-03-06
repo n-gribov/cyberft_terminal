@@ -62,12 +62,14 @@ class Sbbol2DocumentImportRequest extends ActiveRecord
     public function updateStatus($status)
     {
         $this->status = $status;
+        // Сохранить модель в БД и вернуть результат сохранения
         return $this->save();
     }
     
     public function updateExternalDocumentId($externalId)
     {
         $this->externalDocumentId = $externalId;
+        // Сохранить модель в БД и вернуть результат сохранения
         return $this->save();
     }
 
@@ -84,6 +86,7 @@ class Sbbol2DocumentImportRequest extends ActiveRecord
     private function touchTimestampAttribute($attribute)
     {
         $this->$attribute = new Expression('CURRENT_TIMESTAMP()');
+        // Сохранить модель в БД и вернуть результат сохранения
         return $this->save();
     }
 }

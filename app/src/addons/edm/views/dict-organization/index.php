@@ -17,17 +17,16 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('edm', 'Banking'), 'url' => 
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->beginBlock('pageAdditional');
-echo Html::a(Yii::t('edm', 'Add organization', [
-    'modelClass' => 'DictOrganization',
-]),
+echo Html::a(
+    Yii::t('edm', 'Add organization', ['modelClass' => 'DictOrganization']),
     ['create'],
     ['class' => 'btn btn-success'],
-    'ic-plus');
+    'ic-plus'
+);
 $this->endBlock('pageAdditional');
 
-?>
-
-<?=GridView::widget([
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
     'rowOptions' => function ($model) {

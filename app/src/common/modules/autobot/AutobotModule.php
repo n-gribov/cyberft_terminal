@@ -42,13 +42,13 @@ class AutobotModule extends Module implements BootstrapInterface
             return $this->_autobotKeysData[$terminalId];
         }
 
-        $autobot = Yii::$app->terminals->findAutobotUsedForSigning($terminalId);
+        $autobot = Yii::$app->exchange->findAutobotUsedForSigning($terminalId);
 
         if (!$autobot) {
             throw new \Exception("Can't get autobot data");
         }
 
-        $terminalData = Yii::$app->terminals->findTerminalData($autobot->controller->terminal->terminalId);
+        $terminalData = Yii::$app->exchange->findTerminalData($autobot->controller->terminal->terminalId);
 
         if (!$autobot) {
             throw new \Exception("Can't get terminalData data");

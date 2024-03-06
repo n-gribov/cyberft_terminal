@@ -52,7 +52,7 @@ abstract class BaseDocumentSignJob extends Job
         }
 
         if ($this->_document->isEncrypted) {
-            Yii::$app->terminals->setCurrentTerminalId($this->_document->sender);
+            Yii::$app->exchange->setCurrentTerminalId($this->_document->sender);
             $data = Yii::$app->storage->decryptStoredFile($this->_document->actualStoredFileId);
             $cyxDoc = new CyberXmlDocument();
             $cyxDoc->loadXml($data);
@@ -90,7 +90,7 @@ abstract class BaseDocumentSignJob extends Job
             $xml = $this->_cyxDoc->saveXML();
 
             if ($this->_document->isEncrypted) {
-                Yii::$app->terminals->setCurrentTerminalId($this->_document->sender);
+                Yii::$app->exchange->setCurrentTerminalId($this->_document->sender);
                 $storedFile = $this->_module->storeDataOutEnc($xml, '', $this->_document->uuid);
             } else {
                 $storedFile = $this->_module->storeDataOut($xml, '', $this->_document->uuid);
@@ -105,7 +105,7 @@ abstract class BaseDocumentSignJob extends Job
             $this->_document->signaturesCount++;
 
             // Здесь надо поставить дефолтный STATUS_FORSIGNING,
-            // т.к. в джоб он попал в нестабильном статусе STATUS_SIGNING,
+            // т.к. в задание он попал в нестабильном статусе STATUS_SIGNING,
             // а это бы нарушило логику isSignable
 
             $this->_document->status = Document::STATUS_FORSIGNING;
@@ -123,7 +123,7 @@ abstract class BaseDocumentSignJob extends Job
 
             // излишество для логирования событий изменения статуса
             $this->_document->updateStatus($this->_document->status);
-
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($this->_document);
         } else {
             $this->log((static::class) . ' Unable to sign document ' . $this->_documentId);

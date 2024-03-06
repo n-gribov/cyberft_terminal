@@ -89,7 +89,7 @@ class EdmInProvCSVJob extends Job
      */
     private function getCSVData()
     {
-        $provCSVId = (isset($this->args['id'])) ? $this->args['id'] : NULL;
+        $provCSVId = (isset($this->args['id'])) ? $this->args['id'] : null;
         if (is_null($provCSVId)) {
             $this->log('Document ID must be set');
 

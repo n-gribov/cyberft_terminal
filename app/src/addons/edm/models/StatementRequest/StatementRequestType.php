@@ -56,13 +56,11 @@ class StatementRequestType extends BaseType
                     Yii::t('edm', 'End date must not be greater than current date'));
         } else {
             if ($startDate == 0 || $endDate == 0) {
-                $this->addError('endDate',
-                    Yii::t('edm', 'Both dates should be set'));
+                $this->addError('endDate', Yii::t('edm', 'Both dates should be set'));
             }
 
             if ($diff < 0) {
-                $this->addError('endDate',
-                        Yii::t('edm', 'End date must be greater than start date'));
+                $this->addError('endDate',  Yii::t('edm', 'End date must be greater than start date'));
             }
         }
 
@@ -97,14 +95,19 @@ class StatementRequestType extends BaseType
         return $this->_xmlDom;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
-        return [];
+        return false;
     }
 
     public function getModelDataAsString($removeXmlDeclaration = true)
     {
         if (!$this->_xmlDom) {
+            // Сформировать XML
             $this->_xmlDom = $this->buildXml();
         }
 

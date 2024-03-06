@@ -15,7 +15,6 @@ use common\modules\transport\helpers\DocumentTransportHelper;
 use common\states\BaseDocumentStep;
 use Yii;
 use yii\helpers\ArrayHelper;
-use const PHP_EOL;
 
 class PaymentRegisterPrepareStep extends BaseDocumentStep
 {
@@ -78,6 +77,7 @@ class PaymentRegisterPrepareStep extends BaseDocumentStep
                 $this->state->addApiImportError($errorMessage);
             }
 
+            // Зарегистрировать событие некорректного документа в модуле мониторинга
             Yii::$app->monitoring->log('edm:InvalidDocument', null, null, [
                 'docPath' => $this->state->filePath
             ]);
@@ -115,7 +115,7 @@ class PaymentRegisterPrepareStep extends BaseDocumentStep
         // Cоздание реестра платежных поручений
 
         $form = new PaymentRegisterWizardForm();
-        $form->sender = $this->state->sender; // Yii::$app->terminals->defaultTerminalId;
+        $form->sender = $this->state->sender; // Yii::$app->exchange->defaultTerminalId;
         $form->recipient = '';
 
         $form->addPaymentOrders($paymentOrders);
@@ -160,11 +160,13 @@ class PaymentRegisterPrepareStep extends BaseDocumentStep
             return false;
         }
 
+        // Атрибуты документа
         $docAttributes = ['origin' => Document::ORIGIN_FILE];
         if ($this->state->apiUuid) {
             $docAttributes['uuid'] = $this->state->apiUuid;
         }
         $document = EdmHelper::createPaymentRegister($form, $docAttributes);
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($document);
 
         /**

@@ -170,9 +170,9 @@ class Tag extends Entity implements EntityInterface
             $item = $v;
             if (isset($item['name'])) {
                 $k = $item['name'];
-            } elseif (is_string($k)) {
+            } else if (is_string($k)) {
                 $item['name'] = $k;
-            } elseif ($item['label']) {
+            } else if ($item['label']) {
                 $item['name'] = $k = 'sub' . MtHelper::getIdentifierByString($item['label']);
             } else {
                 $item['name'] = $k = 'sub' . MtHelper::getIdentifierByString(serialize($v));
@@ -219,7 +219,7 @@ class Tag extends Entity implements EntityInterface
             foreach ($values as $name => $value) {
                 if (isset($attributes[$name])) {
                     $this->setAttribute($name, $value); // сетим через метод
-                } elseif ($safeOnly) {
+                } else if ($safeOnly) {
                     $this->onUnsafeAttribute($name, $value);
                 }
             }
@@ -328,7 +328,7 @@ class Tag extends Entity implements EntityInterface
         $value = MtHelper::translitEncode(rtrim($value));
         if (!$this->getIsMultiTag()) {
             $this->_value = $value;
-        } elseif ($value) {
+        } else if ($value) {
             reset($this->_attributes);
             $this->parseValue($this->_maskScheme, $value);
         } else {
@@ -352,29 +352,7 @@ class Tag extends Entity implements EntityInterface
             }
 
             $mask .= '[\s\S]{0,}';
-            //$mask .= '(?:/(?P[\s\S]{0,})|)';
         }
-
-        // (?:/(?P[A-Z]{1})|)(?:/(?P[A-z0-9/\-\?\:\(\)\.,'\+\{\} ]{1,34})|)
-
-        /* [subklaoc5ugm] => Array
-          (
-          [mask] => [/34x]
-          [delimiter] =>
-          [isOptionalStart] => 1
-          [prefix] => /
-          [code] =>
-          [value] => 34x
-          [postfix] =>
-          [isOptionalEnd] => 1
-          [isOptional] => 1
-          [length] => 34
-          [rows] => 0
-          [regexpValue] => [A-z0-9/\-\?\:\(\)\.,'\+\{\} ]{1,34}
-          [regexpMt] => (?:/[A-z0-9/\-\?\:\(\)\.,'\+\{\} ]{1,34}|)
-          [regexpMtKey] => kf1slhmy1
-          [regexpMtNamed] => (?:/(?P[A-z0-9/\-\?\:\(\)\.,'\+\{\} ]{1,34})|)
-          ) */
 
         // символы конца и начала строки обязательно использовать здесь
         // если вдруг пришла мысль пофиксить какой-то баг парсинга в данном месте

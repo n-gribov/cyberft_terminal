@@ -54,7 +54,7 @@ class ServiceOutState extends BaseDocumentState
                 $this->status = array_keys($this->_steps)[0];
             }
 
-            if (!Yii::$app->terminals->isRunning($this->terminalId)) {
+            if (!Yii::$app->exchange->isRunning($this->terminalId)) {
                 $this->log('Terminal ' . $this->terminalId . ' is not running. Saving state.');
 
                 $this->save();

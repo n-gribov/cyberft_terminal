@@ -45,22 +45,21 @@ $userCanCreateDocuments = Yii::$app->user->can(
         'documentTypeGroup' => EdmDocumentTypeGroup::RUBLE_PAYMENT,
     ]
 );
-
 ?>
-
-<div style="margin-bottom: 10px;">
+<div style="margin-bottom: 10px">
 <?php
     echo Html::a(
-                Yii::t('app', 'Back'),
-                ['index'],
-                ['class' => 'btn btn-default', 'style' => 'margin-right: 5px']
-            );
+        Yii::t('app', 'Back'),
+        ['index'],
+        ['class' => 'btn btn-default', 'style' => 'margin-right: 5px']
+    );
     if ($document->isSignableByUserLevel(EdmModule::SERVICE_ID)) {
     echo SignDocumentsButton::widget([
         'buttonText' => Yii::t('app/message', 'Signing'),
         'documentsIds' => [$document->id],
         'successRedirectUrl' => $redirectUrl,
     ]);
+    // Вывести страницу отказа от подписания
     echo ' ' . $this->render('_rejectSigning', ['id' => $document->id]);
 } else if ($document->isSendable() && Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
     echo Html::a(
@@ -76,16 +75,16 @@ $userCanCreateDocuments = Yii::$app->user->can(
     );
 }
 ?>
-
 <div class="row">
     <div class="col-xs-6" style="padding-bottom: 15px;">
     <?= $this->blocks['pageActions'] ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-xs-4">
-        <?= DetailView::widget([
+        <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $extModel,
             'template' => '<tr><th width="50%">{label}</th><td>{value}</td></tr>',
             'attributes' => [
@@ -103,39 +102,37 @@ $userCanCreateDocuments = Yii::$app->user->can(
         ]) ?>
     </div>
     <div class="col-xs-4">
-        <?php
+    <?php
+        $detailAttributes = [
+            'count',
+            'document.signaturesRequired',
+            'document.signaturesCount',
+            [
+                'attribute' => 'document.status',
+                'format' => 'html',
+                'value' => ($isVolatile ? '<i class="fa fa-spinner fa-spin"></i> ' : '')
+                    . $document->getStatusLabel()
+            ],
+        ];
 
-            $detailAttributes = [
-                'count',
-                'document.signaturesRequired',
-                'document.signaturesCount',
-                [
-                    'attribute' => 'document.status',
-                    'format' => 'html',
-                    'value' => ($isVolatile ? '<i class="fa fa-spinner fa-spin"></i> ' : '')
-                        . $document->getStatusLabel()
-                ],
+        // Поля, связанные с бизнес-статусом отображаем только для исходящих документов
+        if ($document->direction == Document::DIRECTION_OUT) {
+            $detailAttributes[] = [
+                'attribute' => 'businessStatusTranslation',
             ];
 
-            // Поля, связанные с бизнес-статусом отображаем только для исходящих документов
+            $detailAttributes[] = [
+                'attribute' => 'businessStatusDescription'
+            ];
 
-            if ($document->direction == Document::DIRECTION_OUT) {
+            if ($extModel->businessStatusComment) {
                 $detailAttributes[] = [
-                    'attribute' => 'businessStatusTranslation',
+                    'attribute' => 'businessStatusComment'
                 ];
-
-                $detailAttributes[] = [
-                    'attribute' => 'businessStatusDescription'
-                ];
-
-                if ($extModel->businessStatusComment) {
-                    $detailAttributes[] = [
-                        'attribute' => 'businessStatusComment'
-                    ];
-                }
             }
-        ?>
-        <?= DetailView::widget([
+        }
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $extModel,
             'template' => '<tr><th width="50%">{label}</th><td>{value}</td></tr>',
             'attributes' => $detailAttributes,
@@ -143,19 +140,18 @@ $userCanCreateDocuments = Yii::$app->user->can(
                 'class' => '\yii\i18n\Formatter',
                 'nullDisplay' => ''
             ]
-        ]) ?>
+        ]);
+        ?>
     </div>
 </div>
-
 <?php if ((Document::STATUS_SIGNING_REJECTED == $document->status) && !empty($statusEvent)) : ?>
     <div class="alert alert-warning">
         <p><?=$statusEvent->label?></p>
         <?= Html::encode($statusEvent->reason) ?>
     </div>
 <?php endif ?>
-
-
 <?php
+// Создать таблицу для вывода
 $myGridWidget = GridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -232,20 +228,17 @@ $myGridWidget = GridView::begin([
 
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
-
+// Вывести блок подписей
 echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
 ?>
-
 <?php if ($isVolatile) : ?>
-	<script type="text/javascript">
-		setTimeout(function () {
-			window.location.reload(1);
-		}, 5000);
-	</script>
+    <script type="text/javascript">
+        setTimeout(function () {
+                window.location.reload(1);
+        }, 5000);
+    </script>
 <?php endif ?>
-
 <?php
 if (Yii::$app->request->get('triggerSigning')) {
     $this->registerJs("$('#sign-documents-button').trigger('click');", View::POS_READY);
 }
-?>

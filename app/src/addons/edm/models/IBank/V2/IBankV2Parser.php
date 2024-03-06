@@ -40,7 +40,7 @@ class IBankV2Parser
                 }
                 $type = $matches[1];
                 $isInsideDocument = true;
-            } elseif (!$isInsideDocument) {
+            } else if (!$isInsideDocument) {
                 throw new \Exception("Invalid document header: $row");
             } else {
                 preg_match(self::COMPLEX_ROW_REGEX, $row, $matches);

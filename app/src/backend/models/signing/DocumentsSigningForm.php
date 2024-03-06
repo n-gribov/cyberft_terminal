@@ -209,6 +209,7 @@ class DocumentsSigningForm extends Model
          * подходит для получателя, указанного в документе, то создаем ошибку валидации
          */
         if ($this->findUserCertificateBody($document->receiver, $document->sender) === 'non-valid') {
+            // Получить модель пользователя из активной сессии
             $user = Yii::$app->user->identity;
             $senderName = $user->lastName . ' ' . $user->firstName . ' ' . $user->middleName;
             if (strlen($senderName) < 3) {
@@ -251,14 +252,8 @@ class DocumentsSigningForm extends Model
 
     private function findDocumentById($id)
     {
-        /** @var Document $document */
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
-
-        if ($document === null) {
-            Yii::info("Document $id does not exist or belongs to terminal unavailable to current user");
-
-            return null;
-        }
 
         if (!$this->userCanSignDocument($document)) {
             Yii::info("Document $id belongs to type group unavailable to current user for signing");
@@ -288,6 +283,7 @@ class DocumentsSigningForm extends Model
 
     private function userHasDocumentAccountAccess(Document $document)
     {
+        // Получить модель пользователя из активной сессии
         $user = Yii::$app->user->identity;
         if ($user->role === User::ROLE_ADMIN || $user->role === User::ROLE_ADDITIONAL_ADMIN) {
             return true;
@@ -316,7 +312,7 @@ class DocumentsSigningForm extends Model
         $userCertificateBody = $this->findUserCertificateBody($document->receiver, $document->sender);
 
         if ($document->isEncrypted) {
-            Yii::$app->terminals->setCurrentTerminalId($document->sender);
+            Yii::$app->exchange->setCurrentTerminalId($document->sender);
             $data = Yii::$app->storage->decryptStoredFile($document->actualStoredFileId);
             $cyxDoc = new CyberXmlDocument();
             $cyxDoc->loadXml($data);
@@ -381,7 +377,7 @@ class DocumentsSigningForm extends Model
 
             return false;
         }
-
+        // Зарегистрировать событие подписания документа в модуле мониторинга
         Yii::$app->monitoring->log(
             'user:signDocument',
             'document',
@@ -454,8 +450,6 @@ class DocumentsSigningForm extends Model
         }
 
         if (!isset($certificate)) {
-            //$errorMessage = Yii::t('doc', 'Signing Error! There is no defined key for receiver ({receiver}) in sender\'s ({sender}) settings! Assign signing certificate for current receiver in \'My Keys\' menu or contact terminal administrator!', $receiver, $sender);
-            //Yii::$app->session->setFlash('error', $errorMessage);
             return 'non-valid';
         }
 

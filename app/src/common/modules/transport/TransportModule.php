@@ -68,10 +68,6 @@ class TransportModule extends Module implements BootstrapInterface
                     'directory' => '',
                     'usePartition' => false,
                 ],
-//                'job' => [
-//                    'directory' => 'job',
-//                    'usePartition' => false,
-//                ],
                 static::ERROR_RESOURCE => [
                     'directory' => 'error',
                     'usePartition' => false,
@@ -129,29 +125,11 @@ class TransportModule extends Module implements BootstrapInterface
             'typeModelClass' => 'common\modules\transport\models\StatusReportType',
         ]);
 
-//        foreach (Yii::$app->terminals->addresses as $address) {
-//            Yii::$app->registry->registerRegularJob(
-//                'common\modules\transport\jobs\ReceiveIncomingDocument', 5,
-//                [
-//                    'terminalAddress' => $address
-//                ],
-//                $address // Дескриптор джобов, нужен чтобы избежать повторных постановок задач диспетчером в очередь
-//            );
-//        }
-
-        /** @obsolete
-         *        Yii::$app->registry->registerRegularJob(
-         *            'common\modules\transport\jobs\ReceiveIncomingDocument', 5,
-         *            [],
-         *            'ReceiveIncomingDocument' // Дескриптор джобов, нужен чтобы избежать повторных постановок задач диспетчером в очередь
-         *        );
-         */
-
-        // Регистрируем джобы для работы с Document
+        // Регистрируем задания для работы с Document
         Yii::$app->registry->registerRegularJob('common\modules\transport\jobs\RegularProcessIO', 30);
         Yii::$app->registry->registerRegularJob('common\modules\transport\jobs\RegularJobCleanup', 24 * 3600);
 
-        // Регистриуем тар-джоб
+        // Регистриуем тар-задание
         Yii::$app->registry->registerRegularJob('common\modules\transport\jobs\RegularTarPack', 3600);
     }
 
@@ -176,7 +154,7 @@ class TransportModule extends Module implements BootstrapInterface
      * @param string $path      File path
      * @param string $resource  Resource
      * @param string $filename  File name
-     * @return StoredFile|NULL
+     * @return StoredFile|null
      */
     public function storeFile($path, $resource, $filename = '')
     {
@@ -189,7 +167,7 @@ class TransportModule extends Module implements BootstrapInterface
      * @param string $data      Data to save
      * @param string $resource  Resource
      * @param string $filename  File name
-     * @return StoredFile|NULL
+     * @return StoredFile|null
      */
     public function storeData($data, $resource, $filename = '')
     {

@@ -17,9 +17,10 @@ $dataProvider = new ArrayDataProvider([
 ]);
 ?>
 <div class="panel-body">
-	<div class="row">
-		<div class="col-lg-5">
-            <?php
+    <div class="row">
+        <div class="col-lg-5">
+        <?php
+            // Создать таблицу для вывода
             $myGridWidget = GridView::begin([
                 'summary'      => '',
                 'dataProvider' => $dataProvider,
@@ -61,14 +62,13 @@ $dataProvider = new ArrayDataProvider([
                 ],
             ]);
             $myGridWidget->end();
-            ?>
-		</div>
-	</div>
-	<div class="row">
-		<input type="submit" value="<?=Yii::t('app', 'Save')?>" class="btn btn-success" style="margin-left:10px"/>
-	</div>
-
+        ?>
+        </div>
+    </div>
+    <div class="row">
+        <input type="submit" value="<?=Yii::t('app', 'Save')?>" class="btn btn-success" style="margin-left:10px"/>
+    </div>
 </div>
 <?php
 ActiveForm::end();
-?>
+

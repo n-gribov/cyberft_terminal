@@ -34,7 +34,9 @@ $form = ActiveForm::begin([
 <div class="row">
     <div class="col-md-8">
         <?php if (isset($dataProvider) && $dataProvider->totalCount) : ?>
-            <?=GridView::widget([
+            <?php
+            // Создать таблицу для вывода
+            echo GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns'      => [
                     [
@@ -67,10 +69,9 @@ $form = ActiveForm::begin([
 <?php ActiveForm::end(); ?>
 
 <?php
-
     if ($signNum == 0) {
         $btnTextForSignAndSend = Yii::t('app', 'Send');
-    } elseif (($signNum == 1) && ($userCanSignDocuments === true)) {
+    } else if (($signNum == 1) && ($userCanSignDocuments === true)) {
         $btnTextForSignAndSend = Yii::t('doc', 'Sign and send');
     } else {
         $btnTextForSignAndSend = Yii::t('doc', 'Create document');
@@ -79,7 +80,7 @@ $form = ActiveForm::begin([
     $btnTitle = SigningHelper::isSignatureRequired(
             Document::ORIGIN_WEB,
             'FINZIP',
-            Yii::$app->terminals->defaultTerminal->terminalId
+            Yii::$app->exchange->defaultTerminal->terminalId
         )
             ? $btnTextForSignAndSend
             : Yii::t('app', 'Send');
@@ -94,7 +95,7 @@ $form = ActiveForm::begin([
 </div>
 
 <?php
-$jsCode = <<< JS
+$jsCode = <<<JS
 function showFileUpload() {
   document.querySelector('#step2Form').submit();
   document.querySelector('#upload-file-button-disabled').style.display = 'block';

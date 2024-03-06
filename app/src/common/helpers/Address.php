@@ -6,37 +6,46 @@ use common\models\Terminal;
 
 /**
  * Класс-полузаглушка для помощи с исправлением адресов
- *
  */
 class Address
 {
-	const PATCHABLE_ADDRESS_LENGTH = 11;
+    const PATCHABLE_ADDRESS_LENGTH = 11;
     const MIN_ADDRESS_LENGTH = 8;
-	const DEFAULT_TERM_CODE_PATCH = 'X';
+    const DEFAULT_TERM_CODE_PATCH = 'X';
 
-	/**
-	 * Функция, оригинально происходящая из hotfix/CYB-1184 для замены адресов FileAct.
-	 * Патчит 11-значный адрес путем вставки спецсимвола в 9-ю позицию.
-	 * @param string $address
-	 * @param type $patchCode
-	 * @return string
-	 */
-
-	public static function fixAddress($address, $patchCode = false)
-	{
-		if ($patchCode === false) {
-			$patchCode = static::DEFAULT_TERM_CODE_PATCH;
-		}
+    /**
+     * Метод определяет SWIFT-адрес
+     * 
+     * @param string $address
+     * @return bool
+     */
+    public static function isSwiftAddress($address)
+    {
+        return strpos($address, '@') === false;
+    }
+    
+    /**
+     * Функция, оригинально происходящая из hotfix/CYB-1184 для замены адресов FileAct.
+     * Патчит 11-значный адрес путем вставки спецсимвола в 9-ю позицию.
+     * @param string $address
+     * @param type $patchCode
+     * @return string
+     */
+    public static function fixAddress($address, $patchCode = false)
+    {
+        if ($patchCode === false) {
+                $patchCode = static::DEFAULT_TERM_CODE_PATCH;
+        }
 
         $length = strlen($address);
-		if (static::PATCHABLE_ADDRESS_LENGTH === $length) {
-			$address = substr($address, 0, 8) . $patchCode . substr($address, 8, 3);
-		} else if (static::MIN_ADDRESS_LENGTH === $length) {
+        if (static::PATCHABLE_ADDRESS_LENGTH === $length) {
+            $address = substr($address, 0, 8) . $patchCode . substr($address, 8, 3);
+        } else if (static::MIN_ADDRESS_LENGTH === $length) {
             $address .= 'XXX';
         }
 
-		return $address;
-	}
+        return $address;
+    }
 
     public static function truncateAddress($address)
     {
@@ -72,13 +81,13 @@ class Address
 
             $useExactMatch = ($senderTerminalId !== $senderTerminalIdObject->getBic());
             $participant = $useExactMatch
-                    ? $senderTerminalIdObject->participantId
-                    : $senderTerminalIdObject->getBic();
+                ? $senderTerminalIdObject->participantId
+                : $senderTerminalIdObject->getBic();
 
             $terminals = Terminal::find()
-                    ->where(['status' => Terminal::STATUS_ACTIVE])
-                    ->orderBy(['terminalId' => SORT_ASC])
-                    ->all();
+                ->where(['status' => Terminal::STATUS_ACTIVE])
+                ->orderBy(['terminalId' => SORT_ASC])
+                ->all();
 
             foreach ($terminals as $terminal) {
                 $terminalId = $terminal->terminalId;

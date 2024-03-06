@@ -102,8 +102,9 @@ class DocumentHelper
      * @return array|bool [cyxdoc, document, extmodel, storedfile] или false
      * @throws Exception
      */
-    public static function createDocumentContext($typeModel, $docAttributes = [], $extAttributes = null, $parentTerminal = null, $cyxAttributes = [])
-    {
+    public static function createDocumentContext(
+        $typeModel, $docAttributes = [], $extAttributes = null, $parentTerminal = null, $cyxAttributes = []
+    ) {
         $typeGroup = isset($docAttributes['typeGroup']) ? $docAttributes['typeGroup'] : null;
         $module = Yii::$app->registry->getTypeModule($typeModel->type, $typeGroup);
 
@@ -112,8 +113,6 @@ class DocumentHelper
 
             throw new Exception('Module for type ' . $typeModel->type . ' not found');
         }
-
-        $settings = Yii::$app->settings->get('app', $docAttributes['sender']);
 
         $cyxDoc = CyberXmlDocument::loadTypeModel($typeModel);
 
@@ -152,7 +151,7 @@ class DocumentHelper
         $storedFile = null;
         try {
             if ($typeModel->type == FinZipType::TYPE) {
-                Yii::$app->terminals->setCurrentTerminalId($typeModel->sender);
+                Yii::$app->exchange->setCurrentTerminalId($typeModel->sender);
                 $storedFile = $module->storeDataOutEnc($cyxDoc->saveXML());
             } else {
                 $storedFile = $module->storeDataOut($cyxDoc->saveXML());
@@ -161,29 +160,27 @@ class DocumentHelper
             Yii::error($ex->getMessage());
         }
 
-		if (empty($storedFile)) {
-			Yii::error('Cannot store file for CyberXml type ' . $typeModel->type);
-
+        if (empty($storedFile)) {
+            Yii::error('Cannot store file for CyberXml type ' . $typeModel->type);
             throw new Exception('Cannot store file for CyberXml type ' . $typeModel->type);
         }
 
         $docAttributes['actualStoredFileId'] = $storedFile->id;
 
         $document = static::createDocument($docAttributes, $extAttributes);
-
+    
         if (!$document) {
             Yii::error('Could not save model for ' . $typeModel->type . ' with stored file id ' . $storedFile->id);
 
             return false;
-		}
+        }
 
         if (empty($parentTerminal)) {
             $parentTerminal = $document->sender;
         }
 
-        /*
-         * Регистрируем событие, если документ создает аутентифицированный пользователь
-         */
+        // Если документ создает аутентифицированный пользователь,
+        // Зарегистрировать событие создания документа в модуле мониторинга
         if (Yii::$app->id !== 'app-console' && !Yii::$app->user->isGuest) {
             Yii::$app->monitoring->log('user:createDocument', 'document', $document->id, [
                 'userId' => Yii::$app->user->id,
@@ -192,19 +189,17 @@ class DocumentHelper
             ]);
         }
 
-        /*
-         * Аддон сам решит что делать
-         */
+        // Обработать документ в модуле аддона
         $module->processDocument($document, $parentTerminal, $cyxDoc->receiverId);
 
-		Yii::info('Saved ' . $typeModel->type . ' with uuid ' . $cyxDoc->docId);
+        Yii::info('Saved ' . $typeModel->type . ' with uuid ' . $cyxDoc->docId);
 
-		return [
+        return [
             'cyxDoc' => $cyxDoc,
             'document' => $document,
-        // чтобы возвращать экстмодель, надо чтобы метод createDocument
-        // также возвращал массив с ней
-        //    'extModel' => $extModel,
+            // чтобы возвращать экстмодель, надо чтобы метод createDocument
+            // также возвращал массив с ней
+            // 'extModel' => $extModel,
             'storedFile' => $storedFile,
         ];
     }
@@ -253,9 +248,8 @@ class DocumentHelper
             Yii::error($ex->getMessage());
         }
 
-		if (empty($storedFile)) {
-			Yii::info('Cannot save output file');
-
+        if (empty($storedFile)) {
+            Yii::info('Cannot save output file');
             throw new Exception('Cannot save output file');
         }
 
@@ -272,25 +266,22 @@ class DocumentHelper
             Yii::error('Could not save model for ' . $typeModel->type . ' with stored file id ' . $storedFile->id);
 
             return false;
-		}
+        }
 
-        /*
-         * Аддон сам решит что делать
-         */
+        // Обработать документ в модуле аддона
         $module->processDocument($document, $cyx->senderId, $cyx->receiverId);
 
         if ($document->status == Document::STATUS_ACCEPTED) {
+            // Создать стейт отправки документа
             DocumentTransportHelper::createSendingState($document);
         } else if ($document->signaturesRequired > 0 && $document->direction == Document::DIRECTION_OUT) {
-            /**
-             * Если потребуется подписание, то выполним ExtractSignDataJob
-             */
-    		Yii::$app->resque->enqueue('common\jobs\ExtractSignDataJob', ['id' => $document->id]);
+            // Если потребуется подписание, поставить в очередь ExtractSignDataJob
+            Yii::$app->resque->enqueue('common\jobs\ExtractSignDataJob', ['id' => $document->id]);
         }
 
-		Yii::info('Saved ' . $typeModel->type . ' with uuid ' . $cyx->docId);
+        Yii::info('Saved ' . $typeModel->type . ' with uuid ' . $cyx->docId);
 
-		return $cyx;
+        return $cyx;
     }
 
     public static function createDocument($attributes = [], $extAttributes = [])
@@ -332,12 +323,14 @@ class DocumentHelper
             $extModel = $document->extModelCreateInstance($extAttributes);
 
             if (is_null($extModel)) {
+                // Удалить документ из БД
                 $document->delete();
                 Yii::info('Create document: could not create document instance for type ' . $document->type);
 
                 return false;
             } else {
                 if (!$extModel->save()) {
+                    // Удалить документ из БД
                     $document->delete();
 
                     Yii::info('Create document: could not save extModel for type ' . $document->type . ', extModel errors: ' . var_export($extModel->getErrors(), true));
@@ -380,11 +373,13 @@ class DocumentHelper
             }
         }
 
+        // Если модель успешно сохранена в БД
         if ($document->save()) {
             if (
                 $document->typeGroup != Document::TYPE_SERVICE_GROUP
                 && Yii::$app->registry->getTypeExtModelClass($document->type)
             ) {
+                // Атрибуты расширяющей модели
                 if (is_null($extModelAttributes)) {
                     $extModelAttributes = ['documentId' => $document->id];
                 } else {
@@ -393,11 +388,13 @@ class DocumentHelper
                 $extModel = $document->extModelCreateInstance($extModelAttributes);
 
                 if (is_null($extModel)) {
+                    // Удалить документ из БД
                     $document->delete();
 
                     return false;
                 } else {
                     if (!$extModel->save(false, ['documentId'])) {
+                        // Удалить документ из БД
                         $document->delete();
                         Yii::info('Reserve document: Document extModel not saved');
 
@@ -405,7 +402,6 @@ class DocumentHelper
                     }
                 }
             }
-
         } else {
             Yii::info('Reserve document: Document not saved');
         }
@@ -425,10 +421,9 @@ class DocumentHelper
      * @param string  $info       Info
      * @return boolean
      */
-    public static function updatedocumentStatusById($documentId, $status, $attempt = 1, $token = null, $info = null)
+    public static function updateDocumentStatusById($documentId, $status, $attempt = 1, $token = null, $info = null)
     {
         $document = Document::findOne(['id' => $documentId]);
-
         return static::updateDocumentStatus($document, $status, $attempt, $token, $info);
     }
 
@@ -472,6 +467,7 @@ class DocumentHelper
         $result = $document->save(false);
         if ($result) {
             if (in_array($document->status, Document::getErrorStatus())) {
+                // Зарегистрировать событие ошибки обработки документа в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'document:documentProcessError', 'document', $document->id,
                     [
@@ -482,11 +478,13 @@ class DocumentHelper
                     ]
                 );
             } else if (Document::STATUS_FORSIGNING == $document->status) {
+                // Зарегистрировать событие наличия документа для подписания в модуле мониторинга
                 Yii::$app->monitoring->log('document:documentForSigning', 'document', $document->id, [
                     'terminalId' => $document->terminalId
                 ]);
             }
 
+            // Зарегистрировать событие изменения статуса документа в модуле мониторинга
             Yii::$app->monitoring->log('document:documentStatusChange', 'document', $document->id, $params);
         }
 
@@ -502,13 +500,13 @@ class DocumentHelper
     public static function getStatusEvents($documentId)
     {
         return MonitorLogAR::find()
-                ->where([
-                    'entity' => 'document',
-                    'entityId' => $documentId,
-                    'eventCode' => self::getDocumentEventNames()
-                ])
-                ->orderBy(['id' => SORT_DESC])
-                ->all();
+            ->where([
+                'entity' => 'document',
+                'entityId' => $documentId,
+                'eventCode' => self::getDocumentEventNames()
+            ])
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
     }
 
     /**
@@ -565,8 +563,8 @@ class DocumentHelper
         return $currentEvents;
     }
 
-   	public static function getDayUniqueCount($type = 'other', $terminalId = null)
-	{
+    public static function getDayUniqueCount($type = 'other', $terminalId = null)
+    {
         $day = date('z', time());
         $key = 'dayUniqCnt';
 
@@ -587,7 +585,7 @@ class DocumentHelper
         }
 
         return $value;
-	}
+    }
 
     public static function getTypeGroup($type)
     {
@@ -614,8 +612,8 @@ class DocumentHelper
         $todayToFormat = $todayTo->format('Y-m-d H:i:s');
 
         $queryErrors = ImportError::find()
-                        ->andWhere(['between', 'dateCreate', $todayFromFormat, $todayToFormat])
-                        ->count();
+            ->andWhere(['between', 'dateCreate', $todayFromFormat, $todayToFormat])
+            ->count();
 
         return $queryErrors;
     }
@@ -734,6 +732,7 @@ class DocumentHelper
             return false;
         }
 
+        // Создать стейт отправки документа
         return DocumentTransportHelper::createSendingState($context['document']);
     }
 

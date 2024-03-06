@@ -23,8 +23,9 @@ trait TerminalsExchange
      */
     public function actionTerminalControl()
     {
-        $terminals = Yii::$app->terminals;
+        $terminals = Yii::$app->exchange;
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             // Имя управляемого терминала
             $action = Yii::$app->request->post('action');
@@ -36,6 +37,7 @@ trait TerminalsExchange
                 $hasUsedForSigningAutobot = Autobot::hasUsedForSigningAutobot($terminalId);
 
                 if (!$hasUsedForSigningAutobot) {
+                    // Поместить в сессию флаг сообщения об отсутствии ключа контролёра
                     Yii::$app->session->setFlash(
                         'error',
                         Yii::t(
@@ -44,9 +46,10 @@ trait TerminalsExchange
                             ['terminalId' => $terminalId]
                         )
                     );
-                } elseif (false === $terminals->isRunning($terminalId)) {
+                } else if (false === $terminals->isRunning($terminalId)) {
                     $this->start($terminalId);
                 } else {
+                    // Поместить в сессию флаг сообщения об уже запущенном обмене на терминале
                     Yii::$app->session->setFlash(
                         'error',
                         Yii::t(
@@ -56,14 +59,15 @@ trait TerminalsExchange
                         )
                     );
                 }
-            } elseif ('stop' === $action) {
+            } else if ('stop' === $action) {
                 // Останов автопроцессов
                 if (true === $terminals->isRunning($terminalId)) {
                     $this->stop($terminalId);
 
-                    // Регистрация события остановки обмена с CyberFT
+                    // Зарегистрировать событие остановки обмена с CyberFT в модуле мониторинга
                     Yii::$app->monitoring->extUserLog('StopAutoprocesses');
                 } else {
+                    // Поместить в сессию флаг сообщения об уже остановленном обмене на терминале
                     Yii::$app->session->setFlash(
                         'error',
                         Yii::t(
@@ -76,6 +80,7 @@ trait TerminalsExchange
             }
         }
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -85,8 +90,8 @@ trait TerminalsExchange
         $hash = hash('sha256', $password . $salt);
 
         // Получение данных для подписания
-        $primaryAutobot = Yii::$app->terminals->findAutobotUsedForSigning($terminalAddress);
-        $terminalData = Yii::$app->terminals->findTerminalData($terminalAddress);
+        $primaryAutobot = Yii::$app->exchange->findAutobotUsedForSigning($terminalAddress);
+        $terminalData = Yii::$app->exchange->findTerminalData($terminalAddress);
 
         if ($primaryAutobot === null || empty($terminalData)) {
             return [
@@ -145,6 +150,7 @@ trait TerminalsExchange
                     'login' => $terminalAddress,
                     'password' => $stompPassword,
                 ];
+                // Сохранить модель в БД
                 $appSettings->save();
                 Yii::info("Stomp password for terminal $terminalAddress has been updated");
             } else {
@@ -158,21 +164,25 @@ trait TerminalsExchange
             }
 
             // Добавление данных по всем активным основным и дополнительным ключам контролёра
-            $terminals = Yii::$app->terminals;
+            $terminals = Yii::$app->exchange;
             $terminalData = $terminals->findTerminalData($terminalAddress);
             $terminals->start($terminalAddress, $terminalData['passwords']);
 
+            // Поместить в сессию флаг сообщения о запуске обмена на терминале
             Yii::$app->session->setFlash(
                 'success',
                 Yii::t('app/autobot', "Automatic process started for terminal {terminal}", ['terminal' => $terminalAddress])
             );
 
+            // Зарегистрировать событие в модуле мониторинга
             Yii::$app->monitoring->extUserLog('StartAutoprocesses');
             $isStarted = true;
         } catch (DomainException $exception) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $exception->getMessage());
         } catch (Exception $exception) {
             Yii::error("Failed to start terminal $terminalAddress, caused by: $exception");
+            // Поместить в сессию флаг сообщения об ошибке запуска обмена на терминале
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Failed to start exchange'));
         }
 
@@ -191,10 +201,10 @@ trait TerminalsExchange
      */
     protected function stop($terminalId)
     {
-        $terminals = Yii::$app->terminals;
+        $terminals = Yii::$app->exchange;
 
         $terminals->stop($terminalId);
-
+        // Поместить в сессию флаг сообщения об остановке обмена на терминале
         Yii::$app->session->setFlash(
             'success',
             Yii::t('app/autobot', "Automatic process stopped for terminal {terminal}", ['terminal' => $terminalId])
@@ -246,6 +256,7 @@ trait TerminalsExchange
         $model->loadAttributesFromCertificate();
         $model->useBefore = $certificateData->endDate->format('Y-m-d H:i:s');
 
+        // Сохранить модель в БД
         $isSaved = $model->save();
         if (!$isSaved) {
             throw new \Exception('Cannot save processing certificate, errors: ' . var_export($model->getErrors()));

@@ -24,6 +24,9 @@ class WsdlProxyController extends Controller
         return false;
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         /** @var SBBOLSettings $settings */

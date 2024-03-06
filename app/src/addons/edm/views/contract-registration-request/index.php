@@ -22,9 +22,9 @@ function getViewUrl(Document $document)
 {
     if ($document->type === \addons\edm\models\VTBCredReg\VTBCredRegType::TYPE) {
         return '/edm/loan-agreement-registration-request/view';
-    } elseif ($document->type === \addons\edm\models\VTBContractUnReg\VTBContractUnRegType::TYPE) {
+    } else if ($document->type === \addons\edm\models\VTBContractUnReg\VTBContractUnRegType::TYPE) {
         return '/edm/contract-unregistration-request/view';
-    } elseif (VTBHelper::isVTBDocument($document)) {
+    } else if (VTBHelper::isVTBDocument($document)) {
         return '/edm/vtb-documents/view';
     } else {
         return '/edm/contract-registration-request/view';
@@ -95,6 +95,7 @@ $deleteButtonOptions = [
     'url' => '/edm/contract-registration-request/delete-crr'
 ];
 
+// Вывести страницу
 echo $this->render('@addons/edm/views/documents/_fccIndexHeader', [
     'userCanCreateDocuments' => $userCanCreateDocuments && Yii::$app->user->can('vtbDocuments'),
     'userCanDeleteDocuments' => $userCanDeleteDocuments,
@@ -310,7 +311,7 @@ $columnsSettings['actions'] =     [
         },
     ]
 ];
-
+// Создать таблицу для вывода
 echo InfiniteGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,

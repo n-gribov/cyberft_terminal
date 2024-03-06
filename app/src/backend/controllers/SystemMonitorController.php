@@ -7,7 +7,6 @@ use yii\filters\AccessControl;
 
 class SystemMonitorController extends Controller
 {
-
     public function behaviors()
     {
         return [
@@ -25,6 +24,7 @@ class SystemMonitorController extends Controller
 
     public function actionResources()
     {
+        // Вывести страницу
         return $this->render('resources', [
            'resources'  => \Yii::$app->registry->getResources(),
         ]);

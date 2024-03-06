@@ -178,9 +178,9 @@ $form = ActiveForm::begin(['id' => 'document-form']);
             'options' => ['placeholder' => 'Выберите код страны'],
             'pluginOptions' => [
                 'allowClear' => true,
-                'templateSelection' => new JsExpression('function(item) {
-                    return item.id ? item.id : "Выберите код страны";
-              }')
+                'templateSelection' => new JsExpression(<<<JS
+                    function(item) { return item.id ? item.id : 'Выберите код страны'; }
+                JS)
             ]
         ])
         ?>
@@ -211,13 +211,13 @@ ActiveForm::end();
 
 <h4><?= Yii::t('edm', 'Attached files') ?></h4>
 <?php
+// Вывести блок прикреплённых файлов
 echo $this->render('@common/views/document/_attachedFiles', [
     'models' => $model->attachedFiles,
     'modelClass' => AttachedFile::class
 ]);
 echo Html::button(
-    Yii::t('app', 'Add'),
-    [
+    Yii::t('app', 'Add'), [
         'id' => 'add-attached-file-button',
         'class' => 'btn btn-primary',
         'data' => ['loading-text' => '<i class=\'fa fa-spinner fa-spin\'></i> ' . Yii::t('app', 'Add')]
@@ -227,12 +227,8 @@ echo Html::button(
 <form action="upload-attached-file" id="upload-attached-file-form" enctype="multipart/form-data">
     <input type="file" name="file" class="hidden" />
 </form>
-
-
 <?php
-
 $this->registerCss(<<<CSS
-
 .operation-data-margin-bottom {
     margin-bottom: 10px;
 }
@@ -245,10 +241,9 @@ $this->registerCss(<<<CSS
 #document-form input[type=text]:disabled {
     background-color: #9AA6AB;
 }
-CSS
-);
+CSS);
 
-$script = <<< JS
+$script = <<<JS
     // Создание операции
     $('body').on('click', '.btn-submit-form', function(e) {
         var formData = $('#document-form').serialize();
@@ -339,5 +334,3 @@ $script = <<< JS
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
-
-?>

@@ -52,14 +52,15 @@ class DictOrganizationController extends BaseServiceController
     }
 
     /**
-     * Журнал всех организаций
-     * @return string
+     * Метод обрабатывает страницу индекса
+     * с журналом всех организаций
      */
     public function actionIndex()
     {
         $searchModel = new DictOrganizationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        // Вывести страницу
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -72,20 +73,26 @@ class DictOrganizationController extends BaseServiceController
     public function actionCreate()
     {
         $model = new DictOrganization();
-
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             // Обработка записи нового элемента справочника организаций
+            // Если данные модели успешно загружены из формы в браузере
             if ($model->load(Yii::$app->request->post())) {
+                // Если модель успешно сохранена в БД
                 if ($model->save()) {
+                    // Поместить в сессию флаг сообщения об успешном добавлении организации
                     Yii::$app->session->setFlash('success', Yii::t('edm', 'The new organization was successfully added'));
-                    // Сразу находим id свежесозданной записи, чтобы посмотреть ее через view
+                    // Получить id созданной записи, чтобы посмотреть её через view
                     $modelView = DictOrganization::findOne(['terminalId' => $model->terminalId]);
+                    // Перенаправить на страницу просмотра
                     return $this->redirect(['view', 'id' => $modelView->id]);
                 }
             }
+            // Поместить в сессию флаг сообщения об ошибке добавления организации
             Yii::$app->session->setFlash('error', Yii::t('edm', 'New organization adding failed'));
         }
 
+        // Вывести страницу
         return $this->render('create', ['model' => $model]);
     }
 
@@ -94,15 +101,21 @@ class DictOrganizationController extends BaseServiceController
      */
     public function actionUpdate($id)
     {
+        // Получить из БД запись организации с указанным id
         $model = $this->findModel($id);
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($model->load(Yii::$app->request->post())) {
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
+                // Поместить в сессию флаг сообщения об успешном сохранении организации
                 Yii::$app->session->setFlash('success', Yii::t('edm', 'The organization was successfully updated'));
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
+        // Вывести страницу
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -115,11 +128,12 @@ class DictOrganizationController extends BaseServiceController
     {
         $accountsModel = new EdmPayerAccountSearch();
         $accountsDataProvider = $accountsModel->search(
-                Yii::$app->request->queryParams +
-                ['organizationId' => $id]
-            );
+            Yii::$app->request->queryParams + ['organizationId' => $id]
+        );
 
+        // Вывести страницу
         return $this->render('view', [
+            // Получить из БД запись организации с указанным id
             'model' => $this->findModel($id),
             'accountsModel' => $accountsModel,
             'accountsDataProvider' => $accountsDataProvider
@@ -133,10 +147,12 @@ class DictOrganizationController extends BaseServiceController
      */
     public function actionDelete($id)
     {
+        // Получить из БД запись организации с указанным id и удалить её
         $this->findModel($id)->delete();
-
+        // Поместить в сессию флаг сообщения об успешном удалении организации
         Yii::$app->session->setFlash('success', Yii::t('edm', 'The organization was successfully deleted'));
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
 
     /**
@@ -164,6 +180,7 @@ class DictOrganizationController extends BaseServiceController
             throw new HttpException('404','Method not found');
         }
 
+        // Получить из БД запись организации с указанным id
         $model = $this->findModel($id);
 
         // Преобразвание объекта организации в массив
@@ -175,11 +192,13 @@ class DictOrganizationController extends BaseServiceController
     }
 
     /**
-     * Поиск модели справочника по id
+     * Метод ищет модель в БД по первичному ключу.
      * @return DictOrganization
      */
     protected function findModel($id)
     {
+        // Получить из БД запись организации с указанным id
+        // через компонент авторизации доступа к терминалам
         return Yii::$app->terminalAccess->findModel(DictOrganization::className(), $id);
     }
 
@@ -192,6 +211,7 @@ class DictOrganizationController extends BaseServiceController
             throw new ForbiddenHttpException();
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $out = [];
@@ -221,6 +241,7 @@ class DictOrganizationController extends BaseServiceController
                     }
                 }
             }
+            // Получить из БД модель организации с указанным id
             $organization = $this->findModel($orgId);
             $banks = $accountId
                 ? $organization->getBanks(array_keys($bankBiks))
@@ -245,6 +266,7 @@ class DictOrganizationController extends BaseServiceController
             throw new ForbiddenHttpException();
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $out = [];
@@ -264,6 +286,7 @@ class DictOrganizationController extends BaseServiceController
                     $payerName = $account->payerName;
                 }
             }
+            // Получить из БД модель организации с указанным id
             $organization = $this->findModel($orgId);
 
             $accounts = $accountId

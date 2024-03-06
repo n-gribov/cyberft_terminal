@@ -3,17 +3,12 @@
 use addons\sbbol2\models\Sbbol2Customer;
 use common\helpers\Html;
 use common\widgets\GridView;
-use yii\data\ActiveDataProvider;
 use yii\grid\ActionColumn;
 use yii\grid\SerialColumn;
 use yii\helpers\Url;
-use yii\web\View;
-
-/** @var $this View */
-/** @var $dataProvider ActiveDataProvider */
 
 $this->title = Yii::t('app/sbbol', 'Organizations');
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'rowOptions' => function ($model, $key, $index, $grid) {

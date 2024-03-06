@@ -91,13 +91,14 @@ class m181130_120819_rename_statements_export_settings extends Migration
         $data = unserialize($settings->data);
         if (array_key_exists($oldKey, $data)) {
             $data[$newKey] = $data[$oldKey];
-        } elseif ($defaultValue !== null) {
+        } else if ($defaultValue !== null) {
             $data[$newKey] = $defaultValue;
         } else {
             return;
         }
 
         $settings->data = serialize($data);
+        // Сохранить модель в БД
         $settings->save();
     }
 }

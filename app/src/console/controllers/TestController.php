@@ -35,8 +35,6 @@ use yii\base\ErrorException;
 use yii\console\Controller;
 use yii\helpers\Console;
 use ZipArchive;
-use const PHP_EOL;
-use const STDIN;
 
 class TestController extends Controller
 {
@@ -56,7 +54,8 @@ class TestController extends Controller
             return Controller::EXIT_CODE_ERROR;
         }
 
-        if ($model->save() !== false) {
+        // Если модель успешно сохранена в БД
+        if ($model->save()) {
             Console::output(Yii::t('app', 'Participant certificate successfully installed'));
         } else {
             if ($model->hasErrors()) {
@@ -123,7 +122,7 @@ class TestController extends Controller
         $xml = simplexml_load_file($file);
         for ($x = 0; $x < $count; $x++) {
             $xml->BkToCstmrStmt->GrpHdr->MsgId = uniqid('CI_document_', true);
-            $fileName = '../import/ISO20022/' . Yii::$app->terminals->defaultTerminalId . '/camt053_' . $x . '.xml';
+            $fileName = '../import/ISO20022/' . Yii::$app->exchange->defaultTerminalId . '/camt053_' . $x . '.xml';
             file_put_contents(
                 $fileName,
                 $xml->saveXML()
@@ -137,7 +136,7 @@ class TestController extends Controller
         $xml = simplexml_load_file($file);
         for ($x = 0; $x < $count; $x++) {
             $xml->BkToCstmrDbtCdtNtfctn->GrpHdr->MsgId = uniqid('CI_document_', true);
-            $fileName = '../import/ISO20022/' . Yii::$app->terminals->defaultTerminalId . '/camt054_' . $x . '.xml';
+            $fileName = '../import/ISO20022/' . Yii::$app->exchange->defaultTerminalId . '/camt054_' . $x . '.xml';
             file_put_contents(
                 $fileName,
                 $xml->saveXML()
@@ -180,6 +179,7 @@ class TestController extends Controller
             // Если есть хотя бы одна запись об истекшей лицензии
             // делаем запись в журнал событий
             echo 'Log event' . PHP_EOL;
+            // Зарегистрировать событие просроченного сертификата Криптопро в модуле мониторинга
             Yii::$app->monitoring->log('user:CryptoProCertExpired', '', '');
         }
     }
@@ -553,7 +553,7 @@ class TestController extends Controller
                 */
                 if ($result == null) {
                     echo 'Архив ' . $file . " не содержит xml\n";
-                    $newfile = '../import/ISO20022/' . Yii::$app->terminals->defaultTerminalId . "/" . basename($file);
+                    $newfile = '../import/ISO20022/' . Yii::$app->exchange->defaultTerminalId . "/" . basename($file);
                     copy($file, $newfile);
                     echo 'Файл был скопирован в  ' . $newfile . "\n--------------\n";
 
@@ -577,7 +577,7 @@ class TestController extends Controller
                     break;
                 }
                 $this->WriteZip($dir . '/' . $extfile, $file);
-                $newfile = '../import/ISO20022/' . Yii::$app->terminals->defaultTerminalId . '/' . basename($file);
+                $newfile = '../import/ISO20022/' . Yii::$app->exchange->defaultTerminalId . '/' . basename($file);
                 copy($file, $newfile);
 
                 echo 'File was copied to ' . $newfile . "\n--------------\n";
@@ -622,7 +622,7 @@ class TestController extends Controller
                 $case = 'auth.026';
             } else {
                 preg_match($filetypes, $value, $matches, PREG_OFFSET_CAPTURE, 0);
-                if ($matches !== NULL) {
+                if ($matches !== null) {
                     $xml->CcyCtrlReqOrLttr->GrpHdr->MsgId = uniqid('iso_files_', true);
                     $case = 'Невозможно определить тип документа';
                     file_put_contents($file, $xml->saveXML());
@@ -654,25 +654,28 @@ class TestController extends Controller
 
         if (!in_array($count_manual, $manual_options)){
             echo "Error!\nValid Parameters for first argument:\n 0-7\n";
-        } elseif (!in_array($cryptopro_option, $crypto_pro_options)) {
+        } else if (!in_array($cryptopro_option, $crypto_pro_options)) {
             echo "Error!\nValid Parameters for second argument: \nYes (enable crypto-pro signing)\nNo (disable crypto-pro signing)\n";
             die();
         }
         else {
             if ($cryptopro_option === 'Yes') {
                 Yii::$app->getModule('ISO20022')->settings->enableCryptoProSign = '1';
+                // Сохранить настройки модуля в БД
                 Yii::$app->getModule('ISO20022')->settings->save();
                 Yii::$app->getModule('ISO20022')->settings->enableCryptoProSign;
             } else {
                 Yii::$app->getModule('ISO20022')->settings->enableCryptoProSign = '0';
+                // Сохранить настройки модуля в БД
                 Yii::$app->getModule('ISO20022')->settings->save();
                 Yii::$app->getModule('ISO20022')->settings->enableCryptoProSign;
             }
 
-            $terminalSettings = Yii::$app->settings->get('app', Yii::$app->terminals->getDefaultTerminalId());
+            $terminalSettings = Yii::$app->settings->get('app', Yii::$app->exchange->getDefaultTerminalId());
             $terminalSettings->usePersonalAddonsSigningSettings = false;
             $terminalSettings->useAutosigning = false;
             $terminalSettings->qtySignings = $count_manual;
+            // Сохранить модель в БД
             $terminalSettings->save();
         }
         echo 'Setting ' . $count_manual . ' manual sign option and ' . $cryptopro_option . " to crypto-pro sign\n";
@@ -690,7 +693,7 @@ class TestController extends Controller
         $cyxDoc = null;
 
         if ($document->isEncrypted) {
-            Yii::$app->terminals->setCurrentTerminalId($document->originTerminalId);
+            Yii::$app->exchange->setCurrentTerminalId($document->originTerminalId);
             $data = Yii::$app->storage->decryptStoredFile($document->actualStoredFileId);
 
             $cyxDoc = new CyberXmlDocument();
@@ -792,13 +795,14 @@ class TestController extends Controller
         while(true) {
             echo "lastId: " . $lastId . "\n";
             $documents = Document::find()->where(['>', 'id', $lastId])
-                    ->orderBy(['id' => SORT_ASC])
-                    ->limit(10000)
-                    ->all();
+                ->orderBy(['id' => SORT_ASC])
+                ->limit(10000)
+                ->all();
 
             if (!count($documents)) {
                 break;
             }
+
             foreach($documents as $document) {
                 $totalCnt++;
                 $lastId = $document->id;
@@ -826,7 +830,7 @@ class TestController extends Controller
                     $tarPath = $path . '/' . $tarname . '.tar';
                     if (!file_exists($tarPath)) {
                         echo $document->type . ' ' . $document->id . ' ' . $document->dateCreate
-                                . ' storage ' . $storedFileId . ' ' . $tarPath . "\n";
+                            . ' storage ' . $storedFileId . ' ' . $tarPath . "\n";
 
                         continue;
                     }
@@ -838,10 +842,9 @@ class TestController extends Controller
                         echo $document->type . ' ' . $document->id . ' ' . $document->dateCreate
                             . ' storage ' . $storedFileId . '/' . $tarPath . '/' . $filename . "\n";
                     }
-
                 } else {
                     echo $document->type . ' ' . $document->id
-                            . ' storage ' . $storedFileId . ' unknown filesystem ' . $fs . "\n";
+                        . ' storage ' . $storedFileId . ' unknown filesystem ' . $fs . "\n";
                 }
             }
         }
@@ -915,10 +918,10 @@ class TestController extends Controller
 
         $format = $useCamt054Format ? 'camt.054' : 'camt.053';
         $fileName = $format . '_' . $statementTypeModel->statementAccountNumber
-                . '_' . date('ymd', strtotime($statementTypeModel->statementPeriodStart))
-                . '_' . date('ymd', strtotime($statementTypeModel->statementPeriodEnd))
-                . '_' . date('hmi')
-                . '.xml';
+            . '_' . date('ymd', strtotime($statementTypeModel->statementPeriodStart))
+            . '_' . date('ymd', strtotime($statementTypeModel->statementPeriodEnd))
+            . '_' . date('hmi')
+            . '.xml';
 
         echo "Will save ISO $format statement to $path/$fileName\n";
     }
@@ -1049,6 +1052,7 @@ class TestController extends Controller
 
             $file = $attachedFiles[$pos];
 
+            // Если модель не использует сжатие в zip
             if ($typeModel->useZipContent) {
                 $zip = ZipHelper::createArchiveFileZipFromString($typeModel->zipContent);
                 $zipFiles = $zip->getFileList('cp866');
@@ -1076,10 +1080,10 @@ class TestController extends Controller
             die("Output path not found: $path\n");
         }
         $documents = Document::find()
-                ->where(['direction' => Document::DIRECTION_IN])
-                ->andWhere(['type' => Auth026Type::TYPE])
-                ->andWhere('sender like \'EDCG%\'')
-                ->all();
+            ->where(['direction' => Document::DIRECTION_IN])
+            ->andWhere(['type' => Auth026Type::TYPE])
+            ->andWhere('sender like \'EDCG%\'')
+            ->all();
 
         foreach ($documents as $document) {
             $storedFile = StoredFile::findOne($document->actualStoredFileId);
@@ -1102,22 +1106,22 @@ class TestController extends Controller
         }
     }
 
-	public function actionTestZip()
-	{
-		/** @var $zip ArchiveFileZip */
-		$zip = ZipHelper::createTempArchiveFileZip();
-		$zip->addFromString('test', 'ISOшка', 'cp866');
-		$zip->close();
-		rename($zip->getPath(), 'test.zip');
-		$zip->open('test.zip');
-		$fileList = $zip->getFileList();
-		var_export($fileList);
-		echo "\n";
-		$fileList = $zip->getFileList('cp866');
-		var_export($fileList);
-		echo "\n";
-		$zip->close();
-	}
+    public function actionTestZip()
+    {
+        /** @var $zip ArchiveFileZip */
+        $zip = ZipHelper::createTempArchiveFileZip();
+        $zip->addFromString('test', 'ISOшка', 'cp866');
+        $zip->close();
+        rename($zip->getPath(), 'test.zip');
+        $zip->open('test.zip');
+        $fileList = $zip->getFileList();
+        var_export($fileList);
+        echo "\n";
+        $fileList = $zip->getFileList('cp866');
+        var_export($fileList);
+        echo "\n";
+        $zip->close();
+    }
 
 }
 

@@ -171,18 +171,12 @@ $userCanEditBeneficiaries = Yii::$app->user->can('admin')
         },
         'columns' => $columnsSettings,
 ];
-?>
 
-<?=GridView::widget($gridOptions);?>
+// Создать таблицу для вывода
+echo GridView::widget($gridOptions);
 
-<?php
-
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
-
-?>
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);

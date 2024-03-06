@@ -56,7 +56,7 @@ class SaveCertificatesStep extends BaseStep
     {
         if ($certificate->getBank()) {
             return SBBOLCertificate::TYPE_BANK;
-        } elseif ($certificate->getRoot()) {
+        } else if ($certificate->getRoot()) {
             return SBBOLCertificate::TYPE_ROOT;
         }
 

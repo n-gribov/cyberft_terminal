@@ -14,7 +14,6 @@ use Resque_Job_DontPerform;
  */
 class ExportJob extends Job
 {
-
     /**
      *
      * @var Dump

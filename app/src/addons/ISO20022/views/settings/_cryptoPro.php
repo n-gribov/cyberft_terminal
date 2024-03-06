@@ -58,4 +58,5 @@ $data = [
     <?php ActiveForm::end()?>
 </div>
 
-<?= $this->render('@backend/views/cryptopro-keys/_keyUploadModal') ?>
+<?= // Вывести страницу
+    $this->render('@backend/views/cryptopro-keys/_keyUploadModal') ?>

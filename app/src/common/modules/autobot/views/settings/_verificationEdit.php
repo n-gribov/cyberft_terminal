@@ -96,9 +96,9 @@ if ($participantData) {
 <div class="panel panel-primary">
     <?= Html::beginForm(Url::toRoute(['verification-update', 'sender' => $sender, 'currency' => $currency]), 'post') ?>
     <?php
-    $cond_id = 0;
-    foreach($rangeList as $rangeKey => $range) :
-        ?>
+        $cond_id = 0;
+        foreach($rangeList as $rangeKey => $range) :
+    ?>
         <div class="panel-body">
             <div class="form-group col-lg-5" style="clear:both">
                 Диапазон:
@@ -125,9 +125,7 @@ if ($participantData) {
                 ?>
             </div>
         </div>
-        <?php
-    endforeach;
-    ?>
+    <?php endforeach ?>
 </div>
 <input type="hidden" value="" id="addRange" name="addRange"/>
 <?php if (!count($rangeList)) : ?>

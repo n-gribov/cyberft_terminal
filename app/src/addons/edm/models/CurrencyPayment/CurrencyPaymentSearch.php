@@ -112,6 +112,7 @@ class CurrencyPaymentSearch extends DocumentSearch
         $this->_select[] = 'debitAccountBank.bik as bankBik';
 
         $query->andWhere(['document.type' => $this->getDocumentTypes()]);
+        // Получить модель пользователя из активной сессии
         $currentUser = Yii::$app->user->identity;
         if (!in_array($currentUser->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN])) {
             $accountsNumbers = EdmPayerAccountUser::getUserAllowAccountsNumbers($currentUser->id);

@@ -13,6 +13,7 @@ if (!$userId) {
     return;
 }
 
+// Получить модель пользователя из активной сессии
 $adminIdentity = Yii::$app->user->identity;
 
 $userTerminals = UserTerminal::find()->where(['userId' => $userId]);
@@ -95,7 +96,7 @@ $dataProvider = new ActiveDataProvider([
     'query' => $terminals,
     'pagination' => false,
 ]);
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'user-terminals-list',

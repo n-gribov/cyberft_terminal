@@ -75,23 +75,26 @@ trait IncomingVerification
             $path = explode('/', $model->searchPath);
             if ($path[0] == 'swiftfin' && $path[1] == $sender && $path[2] == $currency) {
                 // seems to be the right condition! more or less!
+                // Удалить документ из БД
                 $model->delete();
+                // Поместить в сессию флаг сообщения об удалении условия
                 Yii::$app->session->setFlash('info', Yii::t('app', 'Condition deleted'));
             } else {
+                // Поместить в сессию флаг сообщения об ошибке удалении условия
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Cannot delete condition - check parameters'));
             }
         } else {
+            // Поместить в сессию флаг сообщения об отсутствующем условии
             Yii::$app->session->setFlash('error', Yii::t('app', 'Condition not found'));
         }
 
-        return $this->redirect(
-            [
-                'index',
-                'tabMode' => 'tabVerificationRule',
-                'sender' => $sender,
-                'currency' => $currency
-            ]
-        );
+        // Перенаправить на страницу индекса
+        return $this->redirect([
+            'index',
+            'tabMode' => 'tabVerificationRule',
+            'sender' => $sender,
+            'currency' => $currency
+        ]);
     }
 
     /**
@@ -117,7 +120,7 @@ trait IncomingVerification
             }
             $sumsTo[] = 0;
         } else {
-            // Регистрация события изменения настроек верифиации входящих сообщений
+            // Зарегистрировать событие изменения настроек верифиации входящих сообщений в модуле мониторинга
             Yii::$app->monitoring->extUserLog('ModifyIncomingVerifySettings');
         }
 
@@ -148,17 +151,17 @@ trait IncomingVerification
             }
 
             $model->setConditions($conditions);
+            // Сохранить модель в БД
             $model->save();
         }
 
-        return $this->redirect(
-            [
-                'index',
-                'tabMode' => 'tabVerificationRule',
-                'sender' => $sender,
-                'currency' => $currency
-            ]
-        );
+        // Перенаправить на страницу индекса
+        return $this->redirect([
+            'index',
+            'tabMode' => 'tabVerificationRule',
+            'sender' => $sender,
+            'currency' => $currency
+        ]);
     }
 
     /**

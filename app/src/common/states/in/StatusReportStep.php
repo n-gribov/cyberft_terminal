@@ -6,14 +6,21 @@ use common\document\Document;
 use common\modules\transport\helpers\DocumentTransportHelper;
 use common\states\BaseDocumentStep;
 
+/**
+ * Класс содержит методы для шага отправки Status Report
+ */
 class StatusReportStep extends BaseDocumentStep
 {
     public $name = 'report';
 
+    /**
+     * Метод запускает шаг
+     * @return bool
+     */
     public function run()
     {
         if ($this->state->document->status == Document::STATUS_VERIFIED) {
-    		// Отправляем StatusReport об успешной приемке сообщения
+            // Отправить Status Report об успешной приемке сообщения
             DocumentTransportHelper::statusReport(
             $this->state->document,
                 [
@@ -26,6 +33,7 @@ class StatusReportStep extends BaseDocumentStep
             return true;
         }
 
+        // Отправить Status Report об отказе в обработке
         DocumentTransportHelper::statusReport(
             $this->state->document,
             [

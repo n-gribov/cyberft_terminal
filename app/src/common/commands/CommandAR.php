@@ -142,7 +142,7 @@ class CommandAR extends ActiveRecord
      */
     public function getCommandArgs()
     {
-        return json_decode($this->args, TRUE);
+        return json_decode($this->args, true);
     }
 
     /**

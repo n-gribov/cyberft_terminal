@@ -39,6 +39,7 @@ class m180115_112855_add_monitor_checker_settings extends Migration
                 'opSettings' => $data['opData']
             ]);
 
+            // Сохранить модель в БД
             $checkerSettings->save();
         }
 

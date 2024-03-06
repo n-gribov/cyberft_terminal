@@ -29,6 +29,7 @@ class FCCHelper
     public static function clearChildObjectCache($key)
     {
         if (Yii::$app->cache->exists($key . '-' . Yii::$app->session->id)) {
+            // Удалить кеш
             Yii::$app->cache->delete($key . '-' . Yii::$app->session->id);
         }
     }
@@ -230,6 +231,7 @@ class FCCHelper
 
         if (!$module->settings['enableCryptoProSign']) {
             $extModel->extStatus = null;
+            // Сохранить модель в БД
             $extModel->save();
 
             return true;
@@ -246,6 +248,7 @@ class FCCHelper
 
         if (!$signedTypeModel) {
             $extModel->extStatus = ISO20022DocumentExt::STATUS_CRYPTOPRO_SIGNING_ERROR;
+            // Сохранить модель в БД
             $extModel->save();
             $document->updateStatus(Document::STATUS_PROCESSING_ERROR);
 
@@ -270,6 +273,7 @@ class FCCHelper
 
         $extModel->extStatus = ISO20022DocumentExt::STATUS_CRYPTOPRO_SIGNING_SUCCESS;
 
+        // Сохранить модель в БД и вернуть резултат сохранения
         return $extModel->save();
     }
 
@@ -295,6 +299,7 @@ class FCCHelper
         $document->save(false);
 
         $extModel->extStatus = ISO20022DocumentExt::STATUS_FOR_CRYPTOPRO_SIGNING;
+        // Сохранить модель в БД
         $extModel->save();
     }
 
@@ -312,7 +317,7 @@ class FCCHelper
         } else {
             $fileName = reset($typeModel->fileNames);
         }
-
+        // Атрибуты документа
         $documentAttributes = [
             'type' => $typeModel->getType(),
             'direction' => Document::DIRECTION_OUT,
@@ -322,6 +327,7 @@ class FCCHelper
             'receiver' => $receiver,
         ];
 
+        // Атрибуты расширяющей модели
         $extModelAttributes = [
             'fileName' => $fileName,
             'extStatus' => ISO20022DocumentExt::STATUS_FOR_CRYPTOPRO_SIGNING,
@@ -335,6 +341,7 @@ class FCCHelper
             $documentAttributes['signaturesRequired'] = $requireSignatures;
         }
 
+        // Создать контекст документа
         return DocumentHelper::createDocumentContext(
             $typeModel,
             $documentAttributes,

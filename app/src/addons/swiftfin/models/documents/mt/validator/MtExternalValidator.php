@@ -38,7 +38,7 @@ EOT;
 		 */
 		$body     = $model->$attribute;
 		$envelope = sprintf($template,
-			Yii::$app->terminals->address,
+			Yii::$app->exchange->address,
 			'TESTRUM3A001',
 			$this->type,
             $model->owner->bankPriority,

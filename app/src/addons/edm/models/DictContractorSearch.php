@@ -3,16 +3,15 @@
 namespace addons\edm\models;
 
 use addons\edm\models\DictContractor;
-use common\models\User;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 class DictContractorSearch extends DictContractor
 {
-	public $bank;
+    public $bank;
 
-	/**
+    /**
      * @inheritdoc
      */
     public function rules()
@@ -42,9 +41,6 @@ class DictContractorSearch extends DictContractor
     public function search($params)
     {
         $query = Yii::$app->terminalAccess->query(DictContractor::className());
-
-		//$query->joinWith(['bank']);
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

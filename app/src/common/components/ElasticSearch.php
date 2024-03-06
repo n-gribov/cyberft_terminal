@@ -11,17 +11,17 @@ use yii\elasticsearch\Query;
 
 class ElasticSearch extends Component
 {
-	private $_elastic;
-	public $index;
-	public $nodes;
+    private $_elastic;
+    public $index;
+    public $nodes;
 
-	public function init()
-	{
-		parent::init();
-		$this->_elastic = new Connection(
-			['nodes' => $this->nodes]
-		);
-	}
+    public function init()
+    {
+        parent::init();
+        $this->_elastic = new Connection(
+            ['nodes' => $this->nodes]
+        );
+    }
 
     public function addWarmer($serviceId, $name, $body, $options=[])
     {
@@ -56,8 +56,8 @@ class ElasticSearch extends Component
         }
     }
 
-	public function putDocument(ElasticSearchable $doc)
-	{
+    public function putDocument(ElasticSearchable $doc)
+    {
         try {
             $cmd = new Command([
                 'db' => $this->_elastic
@@ -80,58 +80,58 @@ class ElasticSearch extends Component
 
 	public function search($type, $fields, $text, $idList = null, $useHighlight = false)
 	{
-		$queryPart = [
-			'wildcard' => [
-				'_all' => [
-					'value' => '*' . mb_strtolower($text, 'UTF8') . '*'
-				],
-			],
-		];
+            $queryPart = [
+                'wildcard' => [
+                    '_all' => [
+                        'value' => '*' . mb_strtolower($text, 'UTF8') . '*'
+                    ],
+                ],
+            ];
 
-		if (!empty($idList) && is_array($idList)) {
-			$queryPart = [
-				'filtered' => [
-					'query' => $queryPart,
-					'filter' => [
-						'and' => [
-							[
-								'ids' => [
-									//'type' => $type
-									'values' => $idList
-								]
-							]
-						],
-					]
-				]
-			];
-		}
+            if (!empty($idList) && is_array($idList)) {
+                $queryPart = [
+                    'filtered' => [
+                        'query' => $queryPart,
+                        'filter' => [
+                            'and' => [
+                                [
+                                    'ids' => [
+                                        //'type' => $type
+                                        'values' => $idList
+                                    ]
+                                ]
+                            ],
+                        ]
+                    ]
+                ];
+            }
 
-		$query = new Query();
+            $query = new Query();
 
-		if (empty($fields)) {
-			$fields = [];
-		}
+            if (empty($fields)) {
+                    $fields = [];
+            }
 
-		$query->fields($fields)
-			->from($this->index, $type)
-			->query($queryPart);
+            $query->fields($fields)
+                ->from($this->index, $type)
+                ->query($queryPart);
 
-		if ($useHighlight) {
-			$highlight = [
-				'pre_tags' => ['<span style="background:yellow">'],
-				'post_tags' => ['</span>'],
-				'type' => 'plain',
-				 // use new \stdClass() instead of empty {} element!
-				'fields' => [
-					'*' => ['fragment_size' => 30, 'number_of_fragments' => 1]
-				],
-			];
-			$query->highlight($highlight);
-		}
+            if ($useHighlight) {
+                $highlight = [
+                    'pre_tags' => ['<span style="background:yellow">'],
+                    'post_tags' => ['</span>'],
+                    'type' => 'plain',
+                     // use new \stdClass() instead of empty {} element!
+                    'fields' => [
+                        '*' => ['fragment_size' => 30, 'number_of_fragments' => 1]
+                    ],
+                ];
+                $query->highlight($highlight);
+            }
         try {
-    		$command = $query->createCommand($this->_elastic);
+            $command = $query->createCommand($this->_elastic);
 
-        	$rows = $command->search(['size' => 50]);
+            $rows = $command->search(['size' => 50]);
 
             return $rows;
         } catch(yii\base\Exception $ex) {
@@ -140,7 +140,7 @@ class ElasticSearch extends Component
         }
 
         return false;
-	}
+    }
 
     public function log($message, $error = false)
     {

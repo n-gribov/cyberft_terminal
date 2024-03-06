@@ -125,7 +125,7 @@ try {
      */
     $REDIS_BACKEND = getenv('REDIS_HOSTNAME') . ':' . getenv('REDIS_PORT');
 
-// A redis database number
+    // A redis database number
     $REDIS_BACKEND_DB = getenv('REDIS_DATABASE');
     if (!empty($REDIS_BACKEND)) {
         if (empty($REDIS_BACKEND_DB)) {
@@ -192,14 +192,6 @@ try {
             }
         }
     } else {
-// Start a single worker
-
-//        $PIDFILE = getenv('PIDFILE');
-//        if ($PIDFILE) {
-//            file_put_contents($PIDFILE, getmypid()) or
-//                die('Could not write PID information to ' . $PIDFILE);
-//        }
-
         My_Resque_Plugin::addWorker($queues, $logger, $interval, $BLOCKING);
     }
 } catch (Exception $e) {

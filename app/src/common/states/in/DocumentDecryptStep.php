@@ -20,15 +20,15 @@ class DocumentDecryptStep extends BaseDocumentStep
 
         $info = null;
 
-		try {
+        try {
             $result = $cyxDoc->decrypt();
-		} catch (Exception $ex) {
-			$result = false;
+        } catch (Exception $ex) {
+            $result = false;
             $this->log('' . $ex->getMessage());
             $info = $ex->getMessage();
-		}
+        }
 
-		if ($cyxDoc->hasErrors()) {
+        if ($cyxDoc->hasErrors()) {
             foreach ($cyxDoc->errors as $error) {
                 $this->log($error);
             }
@@ -36,53 +36,55 @@ class DocumentDecryptStep extends BaseDocumentStep
             foreach($errors as $attr => $error) {
                $info .= $attr . ': ' . $error . '; ';
             }
-		}
+        }
 
-		if (false === $result) {
-			// Ошибка дешифрации: выставляем статус, сохраняя текущее число попыток
+        if (false === $result) {
+            // Ошибка дешифрации: выставляем статус, сохраняя текущее число попыток
             $document->updateStatus(Document::STATUS_DECRYPTING_ERROR, $info);
 
+            // Отправить Status Report
             DocumentTransportHelper::statusReport($document, [
                 'statusCode' => 'RJCT',
                 'errorCode' => '9999',
                 'errorDescription' => 'Terminal error: Unable to decrypt Document'
             ]);
 
-			$this->log('Failed to decrypt document');
+            $this->log('Failed to decrypt document');
 
-			return false;
-		}
+            return false;
+        }
 
-		// Сохраняем результат успешной обработки
-		$transport = Yii::$app->getModule('transport');
-		$storedFile = $transport->storeData($cyxDoc->getDom()->saveXML(), TransportModule::STORAGE_RESOURCE_IN);
+        // Сохраняем результат успешной обработки
+        $transport = Yii::$app->getModule('transport');
+        $storedFile = $transport->storeData($cyxDoc->getDom()->saveXML(), TransportModule::STORAGE_RESOURCE_IN);
 
-		if (is_null($storedFile)) {
-			// Ошибка сохранения файла данных: выставляем статус, сохраняя текущее число попыток
+        if (is_null($storedFile)) {
+            // Ошибка сохранения файла данных: выставляем статус, сохраняя текущее число попыток
             $document->updateStatus(
                 Document::STATUS_DECRYPTING_ERROR,
                 'Unable to save decrypted document'
             );
 
+            // Отправить Status Report
             DocumentTransportHelper::statusReport($document, [
                 'statusCode' => 'RJCT',
                 'errorCode' => '9999',
                 'errorDescription' => 'Terminal error: Unable to save decrypted document'
             ]);
 
-			$this->log('Failed to create stored file');
+            $this->log('Failed to create stored file');
 
-			return false;
-		}
+            return false;
+        }
 
         $this->state->storedFileId = $storedFile->id;
         $cyxDoc->storageId = $storedFile->id;
 
-		// Сохраняем сведения о результирующем файле данных
-		$document->actualStoredFileId = $storedFile->id;
-		$document->save(false, ['actualStoredFileId']);
+        // Сохраняем сведения о результирующем файле данных
+        $document->actualStoredFileId = $storedFile->id;
+        $document->save(false, ['actualStoredFileId']);
 
-		// Статус: успешное завершение задания
+        // Статус: успешное завершение задания
         return $document->updateStatus(Document::STATUS_DECRYPTED);
     }
 

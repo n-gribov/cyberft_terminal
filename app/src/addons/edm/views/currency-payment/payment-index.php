@@ -33,11 +33,9 @@ $accountFilter = EdmHelper::getAccountFilter(Yii::$app->user->identity->id, $org
 
 $entriesSelectionCacheKey = 'currencyPayments';
 
-?>
+// Вывести блок закладок
+echo $this->render('_tabs');
 
-<?= $this->render('_tabs') ?>
-
-<?php
 $userCanCreateDocuments = Yii::$app->user->can(
     DocumentPermission::CREATE,
     [
@@ -67,12 +65,13 @@ if ($userCanDeleteDocuments) {
         []
     );
 }
-?>
 
-<?= $this->render(
+// Вывести блок управления
+echo $this->render(
     '_index-controls',
     compact('filterModel', 'userCanCreateDocuments', 'userCanDeleteDocuments', 'entriesSelectionCacheKey')
-) ?>
+);
+?>
 
 <?= SelectedDocumentsCache::widget([
     'saveUrl' => Url::to(['/edm/documents/select-entries', 'tabMode' => $entriesSelectionCacheKey]),
@@ -322,9 +321,8 @@ if ($userCanCreateDocuments) {
     ];
 }
 
-?>
-
-<?= InfiniteGridView::widget([
+// Создать таблицу для вывода
+echo InfiniteGridView::widget([
     'id'                 => 'payments-grid',
     'emptyText'          => Yii::t('other', 'No documents matched your query'),
     'summary'            => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -358,22 +356,22 @@ if ($userCanCreateDocuments) {
     'onPageRendered' => new JsExpression('function () { checkForSelectableDocument(); }'),
     'options'            => ['class' => 'grid-view documents-journal-grid'],
 ]);
-?>
 
-<?= $this->render('@addons/edm/views/documents/_searchModal', ['model' => $filterModel]) ?>
-<?= $this->render('@addons/edm/views/documents/_fcoCreateModal') ?>
-<?= $this->render('@addons/edm/views/documents/_fcoUpdateModal') ?>
-<?= $this->render('@addons/edm/views/documents/_fcoViewModal') ?>
+// Вывести модальное окно с формой поиска
+echo $this->render('@addons/edm/views/documents/_searchModal', ['model' => $filterModel]);
+// Вывести модальное окно с формой создания
+echo $this->render('@addons/edm/views/documents/_fcoCreateModal');
+// Вывести модальное окно с формой редактирования 
+echo $this->render('@addons/edm/views/documents/_fcoUpdateModal');
+// Вывести модальное окно с формой просмотра
+echo $this->render('@addons/edm/views/documents/_fcoViewModal');
 
-<?= ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($optionalColumns),
-        'model' => $filterModel
-    ]
-);
-?>
-<?php
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($optionalColumns),
+    'model' => $filterModel
+]);
+
 $this->registerJs(<<<JS
     function onViewPaymentClick(event) {
         event.preventDefault();
@@ -435,21 +433,18 @@ $templateId = Yii::$app->request->get('template');
 
 if ($templateId) {
     $this->registerJS(<<<JS
+        var type = 'ForeignCurrencyPayment';
 
-    var type = 'ForeignCurrencyPayment';
-
-    $.ajax({
-        url: '/edm/foreign-currency-operation-wizard/create?type=' + type + '&templateId=' + $templateId,
-        type: 'get',
-        success: function(answer) {
-            // Добавляем html содержимое на страницу формы
-            $('#fcoCreateModalTitle').html('Создание валютной операции');
-            $('#fcoCreateModal .modal-body').html(answer);
-            $('#fcoCreateModalButtons').show();
-            $('#fcoCreateModal').modal('show');
-        }
-    });
-
-JS
-    );
+        $.ajax({
+            url: '/edm/foreign-currency-operation-wizard/create?type=' + type + '&templateId=' + $templateId,
+            type: 'get',
+            success: function(answer) {
+                // Добавляем html содержимое на страницу формы
+                $('#fcoCreateModalTitle').html('Создание валютной операции');
+                $('#fcoCreateModal .modal-body').html(answer);
+                $('#fcoCreateModalButtons').show();
+                $('#fcoCreateModal').modal('show');
+            }
+        });
+    JS);
 }

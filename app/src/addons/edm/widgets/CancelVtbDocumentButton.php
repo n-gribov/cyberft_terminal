@@ -40,7 +40,9 @@ class CancelVtbDocumentButton extends Widget
 
     public function run()
     {
-        $documentCanBeCancelled = $this->document !== null && $this->cancellationService->documentCanBeCancelled($this->document);
+        $documentCanBeCancelled = $this->document !== null
+                && $this->cancellationService->documentCanBeCancelled($this->document);
+        // Вывести кнопку отмены документа
         return $this->render(
             'cancelVtbDocumentButton',
             [

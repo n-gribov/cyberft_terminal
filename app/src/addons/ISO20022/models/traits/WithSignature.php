@@ -119,7 +119,7 @@ trait WithSignature
         } else if (strpos($signatureType, '34.10-2012') !== false && strpos($signatureType, '34.11-2012') !== false) {
             if (strpos($signatureType, '512') !== false) {
                 return 'gostr2012-512';
-            } elseif (strpos($signatureType, '256') !== false) {
+            } else if (strpos($signatureType, '256') !== false) {
                 return 'gostr2012-256';
             }
         } else if (strpos($signatureType, '34.11-94') !== false && strpos($signatureType, '34.10-2001') !== false) {

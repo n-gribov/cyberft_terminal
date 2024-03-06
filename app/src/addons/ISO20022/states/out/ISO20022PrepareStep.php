@@ -42,24 +42,17 @@ class ISO20022PrepareStep extends BaseDocumentStep
 
         if (empty($typeModel)) {
             $this->log('Failed to get type model from ' . $filePath);
+            // Зарегистрировать событие ошибки документа в модуле мониторинга
             Yii::$app->monitoring->log('ISO20022:InvalidDocument', null, null, [
                 'docPath' => $filePath
             ]);
-
-            // Запись в журнал ошибок импорта
-//            ImportError::createError([
-//                'type' => ImportError::TYPE_ISO20022,
-//                'filename' => FileHelper::mb_basename($filePath),
-//                'errorDescriptionData' => [
-//                    'text' => 'Failed to get document type'
-//                ]
-//            ]);
 
             return false;
         }
 
         if (!$typeModel->validate()) {
             $this->log("Source document validation failed\n" . print_r($typeModel->errors, true));
+            // Зарегистрировать событие ошибки документа в модуле мониторинга
             Yii::$app->monitoring->log('ISO20022:InvalidDocument', null, null, [
                 'docPath' => $filePath
             ]);
@@ -87,6 +80,7 @@ class ISO20022PrepareStep extends BaseDocumentStep
         if ($this->shouldValidateXml()) {
            if (!$typeModel->validateXSD()) {
                $this->log("Source document validation against XSD failed\n" . print_r($typeModel->errors, true));
+               // Зарегистрировать событие ошибки XSD валидации в модуле мониторинга
                Yii::$app->monitoring->log('ISO20022:FailedXsdValidation', null, null, [
                     'docPath' => $filePath
                ]);
@@ -179,6 +173,7 @@ class ISO20022PrepareStep extends BaseDocumentStep
              */
             || $this->duplicateExists($typeModel)
         ) {
+            // Зарегистрировать событие дубликата документа в модуле мониторинга
             Yii::$app->monitoring->log('ISO20022:DuplicateDocument', null, null, [
                 'docPath' => $filePath,
                 'msgId' => $typeModel->msgId
@@ -309,7 +304,7 @@ class ISO20022PrepareStep extends BaseDocumentStep
 
                 return null;
             }
-        } elseif ($this->state->xmlContent) {
+        } else if ($this->state->xmlContent) {
             $xmlContent = $this->state->xmlContent;
         } else {
             $xmlContent = file_get_contents($filePath);
@@ -423,6 +418,7 @@ class ISO20022PrepareStep extends BaseDocumentStep
                 return null;
             }
 
+            // Использовать сжатие в zip
             $typeModel->useZipContent = true;
             $typeModel->zipFilename = basename($filePath);
             $typeModel->zipContent = $this->_zip->asString();

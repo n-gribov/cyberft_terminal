@@ -10,6 +10,7 @@ class SelectedDocumentsCache extends Widget
 
     public function run()
     {
+        // Вывести кеш помеченных документов
         return $this->render('selectedDocumentsCache', ['saveUrl' => $this->saveUrl,]);
     }
 }

@@ -7,6 +7,9 @@ use addons\SBBOL\models\SBBOLCustomer;
 
 class StatementController extends BaseController
 {
+    /**
+     * Метод выводит текст с подсказкой
+     */
     public function actionIndex()
     {
         $this->run('/help', ['SBBOL/statement']);

@@ -28,6 +28,9 @@ class SoapProxyController extends Controller
         return false;
     }
 
+    /**
+     * Метод обрабатывает запрос, направленный на страницу индекса
+     */
     public function actionIndex()
     {
         try {

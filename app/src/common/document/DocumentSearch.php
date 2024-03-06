@@ -16,35 +16,35 @@ class DocumentSearch extends Document
 {
     protected $_select = [];
     public $countMode = false;
-/**
- * @var integer $pageSize            Page size
- * @var string  $dateCreateFrom      Create date "from"
- * @var string  $dateCreateBefore    Create date "before"
- */
+    /**
+     * @var integer $pageSize            Page size
+     * @var string  $dateCreateFrom      Create date "from"
+     * @var string  $dateCreateBefore    Create date "before"
+     */
     public $pageSize = 30;
     public $dateCreateFrom;
     public $dateCreateBefore;
     public $showDeleted;
     public $showDeletableOnly;
     public $substituteServices = [];
-
+    public $typePattern;
     //Эти два атрибута нужны для вывода статистики
     public $dateInDate;
     public $count;
 
-	public $searchBody;
-	protected $_highlights;
+    public $searchBody;
+    protected $_highlights;
 
-   public function rules()
+    public function rules()
     {
         return [
             [['id'], 'integer'],
             [['showDeletableOnly'], 'boolean'],
             [['uuid', 'uuidReference', 'uuidRemote'], 'string', 'length' => [2, 36]],
             [['sender', 'receiver'], 'string', 'length' => [2, 12]],
-            [['type', 'typeGroup', 'status', 'sender', 'receiver'], 'string'],
+            [['type', 'typePattern', 'typeGroup', 'status', 'sender', 'receiver'], 'string'],
             [['dateCreate', 'dateCreateFrom', 'dateCreateBefore'], 'filter', 'filter' => 'trim'],
-			[['searchBody','senderParticipantName', 'receiverParticipantName', 'showDeleted', 'showDeletableOnly'], 'safe'],
+            [['searchBody','senderParticipantName', 'receiverParticipantName', 'showDeleted', 'showDeletableOnly'], 'safe'],
             ['direction', function () {
                 $diff = array_diff((array)$this->direction, [static::DIRECTION_IN, static::DIRECTION_OUT]);
                 if ($diff) {
@@ -69,20 +69,20 @@ class DocumentSearch extends Document
     public function buildQuery($params, $query = null)
     {
         $this->_select = [static::tableName() . '.*'];
-		if (!$query) {
+        if (!$query) {
             $query = $this->find();
         }
         $query->parentModel = $this;
         $query->parentModelParams = $params;
 
-		$this->applyQueryFilters($params, $query);
+        $this->applyQueryFilters($params, $query);
         $query->select($this->_select);
 
         return $query;
     }
 
     public function search($params)
-	{
+    {
         $query = $this->buildQuery($params);
         $dataProvider = $this->getDataProvider($query, ['id' => SORT_DESC]);
 
@@ -111,17 +111,16 @@ class DocumentSearch extends Document
             }
         }
 
-		return $dataProvider;
-	}
+	return $dataProvider;
+    }
 
     public function addStatusCondition($query, $condition)
     {
         /** todo: check if status condition was already set */
-
         $query->andWhere($condition);
     }
 
-	/**
+    /**
      * @param array $params
      * @param ActiveQuery $query
      * @return mixed
@@ -141,6 +140,7 @@ class DocumentSearch extends Document
             $this->addStatusCondition($query, ['!=', 'document.status', 'deleted']);
         }
 
+        // Получить роль пользователя из активной сессии
         if (Yii::$app->user->identity->role != User::ROLE_ADMIN) {
             /**
              * Если пользователь не главный админ, получаем список доступных ему терминалов
@@ -166,7 +166,7 @@ class DocumentSearch extends Document
                 foreach (array_keys(Yii::$app->addon->getRegisteredAddons()) as $serviceId) {
 
                     $model = Yii::$app->getModule($serviceId)->getUserExtModel(Yii::$app->user->identity->id);
-
+                    // Получить роль пользователя из активной сессии
                     if (Yii::$app->user->identity->role == User::ROLE_ADDITIONAL_ADMIN
                          || ($model && $model->isAllowedAccess())
                     ) {
@@ -187,7 +187,6 @@ class DocumentSearch extends Document
                 } else {
                     $query->andWhere('0 = 1');
                 }
-
             } else {
                 $query->andWhere('0 = 1');
             }
@@ -204,7 +203,6 @@ class DocumentSearch extends Document
         }
 
         if (!$this->countMode) {
-
             // Если senderParticipant не пустой, то поиск делался от лица юзера, а не админа
             // Если пустой, то дублируем туда sender'a, т.к. админ ищет по нему
             if (!$this->senderParticipantName) {
@@ -231,9 +229,7 @@ class DocumentSearch extends Document
             ->andFilterWhere(['like', 'document.uuidReference', $this->uuidReference])
             ->andFilterWhere(['like', 'document.uuidRemote', $this->uuidRemote]);
 
-        if (!empty($this->type)) {
-           $this->applyTypeFilter($query);
-        } else {
+        if (!$this->applyTypeFilter($query)) {
             $query->andFilterWhere([
                 'not in',
                 'document.type',
@@ -252,7 +248,15 @@ class DocumentSearch extends Document
 
     protected function applyTypeFilter(ActiveQuery $query)
     {
-        $query->andFilterWhere(['like', 'document.type', $this->type]);
+        if (!empty($this->type)) {
+            $query->andFilterWhere(['document.type' => $this->type]);
+            return true;
+        } else if (!empty($this->typePattern)) {
+            $query->andFilterWhere(['like', 'document.type', $this->typePattern]);
+            return true;
+        }
+
+        return false;
     }
 
     // Расширяющие модели могут расширить фильтрацию, переопределив данный метод
@@ -403,9 +407,9 @@ class DocumentSearch extends Document
 
         if ($alias == 'incoming') {
             $query->where(['direction' => self::DIRECTION_IN]);
-        } elseif ($alias == 'outgoing') {
+        } else if ($alias == 'outgoing') {
             $query->where(['direction' => self::DIRECTION_OUT]);
-        } elseif ($alias == 'errors') {
+        } else if ($alias == 'errors') {
             $query->andFilterWhere(['status' => self::getErrorStatus()]);
         }
 
@@ -550,7 +554,7 @@ class DocumentSearch extends Document
                     ["$accountTableAlias.payerName" => ''],
                 ]);
                 $query->andFilterWhere(["$accountTableAlias.organizationId" => $payer]);
-            } elseif (stristr($payer, 'payerName')) {
+            } else if (stristr($payer, 'payerName')) {
                 // По наименованию плательщика счета
                 $payer = str_replace('_payerName', '', $payer);
                 $query->andWhere(["$accountTableAlias.payerName" => $payer]);

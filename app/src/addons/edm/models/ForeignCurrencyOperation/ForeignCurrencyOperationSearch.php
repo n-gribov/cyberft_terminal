@@ -177,16 +177,21 @@ class ForeignCurrencyOperationSearch extends DocumentSearch
 
         static::applyPayerFilter($query, $this->payer, 'debitAccountData');
 
-        $documentTypes = [
-            'pain.001',
-            Pain001RlsType::TYPE,
-            Pain001FxType::TYPE,
-            VTBCurrSellType::TYPE,
-            VTBCurrBuyType::TYPE,
-            VTBTransitAccPayDocType::TYPE,
-            VTBCurrConversionType::TYPE,
-        ];
-        $query->andWhere(['document.type' => $documentTypes]);
+        if (!$this->type && !$this->types) {
+            $documentTypes = [
+                'pain.001',
+                Pain001RlsType::TYPE,
+                Pain001FxType::TYPE,
+                VTBCurrSellType::TYPE,
+                VTBCurrBuyType::TYPE,
+                VTBTransitAccPayDocType::TYPE,
+                VTBCurrConversionType::TYPE,
+            ];
+            $query->andWhere(['document.type' => $documentTypes]);
+        }
+        if ($this->types) {
+            $this->applyTypesFiler($query);
+        }
 
         $this->applyDocumentTypeCondition($query);
 
@@ -209,9 +214,6 @@ class ForeignCurrencyOperationSearch extends DocumentSearch
                     ['sum' => $documentSum],
                 ]
             );
-        }
-        if ($this->types) {
-            $this->applyTypesFiler($query);
         }
 
         // C учетом доступных текущему пользователю счетов
@@ -239,10 +241,6 @@ class ForeignCurrencyOperationSearch extends DocumentSearch
             $dateFormatted = $date->format('Y-m-d');
             $query->andWhere(['>=', 'dateCreate', $dateFormatted . ' 00:00:00']);
             $query->andWhere(['<=', 'dateCreate', $dateFormatted . ' 23:59:59']);
-        }
-
-        if (!$this->showDeleted) {
-            $query->andWhere(['!=', 'document.status', Document::STATUS_DELETED]);
         }
     }
 

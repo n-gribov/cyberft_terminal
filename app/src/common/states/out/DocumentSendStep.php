@@ -65,6 +65,7 @@ class DocumentSendStep extends BaseDocumentStep
                 $params['stompErrors'] = implode("\n", $stomp->getErrors());
             }
 
+            // Зарегистрировать событие ошибки STOMP в модуле мониторинга
             Yii::$app->monitoring->log(
                 'transport:stompFailed',
                 '',

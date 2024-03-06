@@ -97,13 +97,13 @@ class DocumentsController extends BaseServiceController
         $this->currencyPaymentsSigningCache = new ControllerCache('currencyPaymentsSigning');
     }
 
-	public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-				    [
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
                         'allow' => true,
                         'actions' => ['signing-index'],
                         'roles' => [DocumentPermission::SIGN],
@@ -112,26 +112,26 @@ class DocumentsController extends BaseServiceController
                             'documentTypeGroup' => '*',
                         ],
                     ],
-					[
-						'allow' => true,
-						'roles' => [DocumentPermission::VIEW],
+                    [
+                        'allow' => true,
+                        'roles' => [DocumentPermission::VIEW],
                         'roleParams' => [
                             'serviceId' => EdmModule::SERVICE_ID,
                             'documentTypeGroup' => '*',
                         ],
-					],
-				],
-			],
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['post'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
                     'select-currency-requests' => ['post'],
                     'hide-zero-turnover-statements' => ['post'],
-				],
-			],
-		];
-	}
+                ],
+            ],
+        ];
+    }
 
     public function actions()
     {
@@ -153,6 +153,7 @@ class DocumentsController extends BaseServiceController
 
         $searchModel = new PaymentOrderSearch(['type' => 'PaymentOrder']);
 
+        // Вывести страницу
         return $this->render('paymentOrder', [
             'model' => $searchModel,
             'dataProvider' => $searchModel->search(Yii::$app->request->queryParams),
@@ -184,6 +185,7 @@ class DocumentsController extends BaseServiceController
             $hideNullTurnovers = true;
         }
 
+        // Вывести страницу
         return $this->render('statement', [
             'model' => $searchModel,
             //'dataProvider' => $searchModel->search(Yii::$app->request->queryParams),
@@ -198,24 +200,26 @@ class DocumentsController extends BaseServiceController
 
     public function actionStatementPaymentOrderView($id, $num, $mode = 'readable')
     {
+        // Получить из БД документ с указанным id
         $model = $this->findModel($id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $model);
 
-		$referencingDataProvider = new ActiveDataProvider([
-			'query' => $model->findReferencingDocuments(),
-			'pagination' => [
-				'pageSize' => 20,
-			],
-		]);
+        $referencingDataProvider = new ActiveDataProvider([
+                'query' => $model->findReferencingDocuments(),
+                'pagination' => [
+                        'pageSize' => 20,
+                ],
+        ]);
 
-		return $this->render('view', [
-			'model' => $model,
+        // Вывести страницу
+        return $this->render('view', [
+            'model' => $model,
             'num' => $num,
             'mode' => $mode,
-			'urlParams' => $this->getSearchUrl('EdmSearch'),
-			'referencingDataProvider' => $referencingDataProvider,
-			'dataView' => '@addons/edm/views/documents/_viewStatementPaymentOrder'
-		]);
+                'urlParams' => $this->getSearchUrl('EdmSearch'),
+                'referencingDataProvider' => $referencingDataProvider,
+                'dataView' => '@addons/edm/views/documents/_viewStatementPaymentOrder'
+        ]);
     }
 
     /**
@@ -227,6 +231,7 @@ class DocumentsController extends BaseServiceController
      */
     public function actionView($id, $mode = 'readable')
     {
+        // Получить из БД документ с указанным id
         $model = $this->findModel($id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $model);
 
@@ -274,7 +279,7 @@ class DocumentsController extends BaseServiceController
                 $model->save(false, ['viewed']);
             }
 
-            // Регистрация события просмотра документа
+            // Зарегистрировать событие просмотра документа в модуле мониторинга
             Yii::$app->monitoring->log(
                 'user:viewDocument',
                 'document',
@@ -287,29 +292,31 @@ class DocumentsController extends BaseServiceController
 
         }
 
-		return $this->render('view', [
-			'model' => $model,
-			'mode' => $mode,
-			'urlParams' => $this->getSearchUrl('StatementSearch'),
-			'referencingDataProvider' => $referencingDataProvider,
-			'dataView' => $dataView,
+        // Вывести страницу
+        return $this->render('view', [
+            'model' => $model,
+            'mode' => $mode,
+            'urlParams' => $this->getSearchUrl('StatementSearch'),
+            'referencingDataProvider' => $referencingDataProvider,
+            'dataView' => $dataView,
             'actionView' => $actionView
-		]);
+        ]);
     }
 
-	public function actionPrint($id, $flagPaymentRegisterPaymentOrder = null)
-	{
-		if (!is_null($flagPaymentRegisterPaymentOrder)) {
-			$paymentRegisterPaymentOrder = Yii::$app->terminalAccess->findModel(
-                    PaymentRegisterPaymentOrder::className(), $id
+    public function actionPrint($id, $flagPaymentRegisterPaymentOrder = null)
+    {
+        if (!is_null($flagPaymentRegisterPaymentOrder)) {
+            // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
+            $paymentRegisterPaymentOrder = Yii::$app->terminalAccess->findModel(
+                PaymentRegisterPaymentOrder::className(), $id
             );
 
-			$this->authorizePermission(
-			    DocumentPermission::VIEW,
+            $this->authorizePermission(
+                DocumentPermission::VIEW,
                 ['serviceId' => EdmModule::SERVICE_ID, 'documentTypeGroup' => EdmDocumentTypeGroup::RUBLE_PAYMENT]
             );
 
-			$model = (new PaymentOrderType)->loadFromString($paymentRegisterPaymentOrder->body);
+            $model = (new PaymentOrderType)->loadFromString($paymentRegisterPaymentOrder->body);
 
             // Даты обработки и списания не хранятся в теле платежного поручения
             // Их нужно передавать отдельно
@@ -327,27 +334,26 @@ class DocumentsController extends BaseServiceController
                     'reason' => $paymentRegisterPaymentOrder->businessStatusComment,
                 ]
             ];
-
-
-		} else {
-			$model = $this->findModel($id);
+        } else {
+            // Получить из БД документ с указанным id
+            $model = $this->findModel($id);
             $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $model);
             $data = [];
-		}
+        }
 
-		$views = [
-			'Statement' => 'printable/statement',
-			'VTBStatementRu' => 'printable/statement',
-			'SBBOLStatement' => 'printable/statement',
-			'RaiffeisenStatement' => 'printable/statement',
-			'camt.052' => 'printable/statement',
-			'camt.053' => 'printable/statement',
-			'camt.054' => 'printable/statement',
-			'PaymentOrder' => 'printable/paymentOrder',
-			'ProvCSV' => 'printable/provcsv'
-		];
+        $views = [
+            'Statement' => 'printable/statement',
+            'VTBStatementRu' => 'printable/statement',
+            'SBBOLStatement' => 'printable/statement',
+            'RaiffeisenStatement' => 'printable/statement',
+            'camt.052' => 'printable/statement',
+            'camt.053' => 'printable/statement',
+            'camt.054' => 'printable/statement',
+            'PaymentOrder' => 'printable/paymentOrder',
+            'ProvCSV' => 'printable/provcsv'
+        ];
 
-		if (isset($views[$model->type])) {
+        if (isset($views[$model->type])) {
             // Для печати выписки другой базовый шаблон
             if ($model->type === StatementType::TYPE) {
                 $this->layout = '/blank';
@@ -355,24 +361,28 @@ class DocumentsController extends BaseServiceController
                 $this->layout = '/print';
             }
 
-			return $this->render($views[$model->type], ['model' => $model, 'data' => $data]);
-		}
+            // Вывести страницу
+            return $this->render($views[$model->type], ['model' => $model, 'data' => $data]);
+        }
 
-		return $this->redirect(['view', 'id' => $id]);
-	}
+        // Перенаправить на страницу просмотра
+        return $this->redirect(['view', 'id' => $id]);
+    }
 
-	public function actionPrintAll($id)
-	{
+    public function actionPrintAll($id)
+    {
+        // Получить из БД документ с указанным id
         $model = $this->findModel($id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $model);
+        $this->layout = '/print';
 
-		$this->layout = '/print';
-
+        // Вывести страницу
         return $this->render('printable/statementAll', ['model' => $model]);
-	}
+    }
 
     public function actionPrintStatementPaymentOrder($id, $num)
-	{
+    {
+        // Получить из БД документ с указанным id
         $model = $this->findModel($id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $model);
         $typeModel = CyberXmlDocument::getTypeModel($model->getValidStoredFileId());
@@ -381,8 +391,7 @@ class DocumentsController extends BaseServiceController
         $paymentOrder = $statementTypeModel->getPaymentOrder($num);
 
         if (!empty($paymentOrder)) {
-
-            // Регистрация события печати документа
+            // Зарегистрировать событие печати документа в модуле мониторинга
             Yii::$app->monitoring->log(
                 'user:printDocument',
                 'document',
@@ -394,14 +403,17 @@ class DocumentsController extends BaseServiceController
             );
 
             $this->layout = '/print';
-        	return $this->render('printable/paymentOrder', ['paymentOrder' => $paymentOrder, 'savePdf' => false]);
+
+            // Вывести страницу
+            return $this->render('printable/paymentOrder', ['paymentOrder' => $paymentOrder, 'savePdf' => false]);
         }
 
-		return $this->redirect(['view', 'id' => $id]);
-	}
+        // Перенаправить на страницу просмотра
+        return $this->redirect(['view', 'id' => $id]);
+    }
 
-	public function actionSigningIndex($tabMode = null)
-	{
+    public function actionSigningIndex($tabMode = null)
+    {
         $substituteConfig = ['substituteServices' => ['edm' => 'ISO20022']];
 
         $tabsData = [
@@ -529,6 +541,7 @@ class DocumentsController extends BaseServiceController
         $cache = $tabsData[$tabMode]['cache'];
         $cachedEntries = $cache->get();
 
+        // Вывести страницу
         return $this->render(
             'forSigning',
             [
@@ -548,7 +561,7 @@ class DocumentsController extends BaseServiceController
                 'documentTypeGroups' => $tabsData[$tabMode]['documentTypeGroups']
             ]
         );
-	}
+    }
 
     /**
      * Журнал "Валютный контроль"
@@ -627,6 +640,7 @@ class DocumentsController extends BaseServiceController
 
         $searchModel->substituteServices = ['edm' => 'ISO20022'];
 
+        // Вывести страницу
         return $this->render(
             'fcc',
             [
@@ -665,6 +679,7 @@ class DocumentsController extends BaseServiceController
 
     public function actionGetSelectedEntriesIds($tabMode)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $cache = $this->getCacheByTabMode()[$tabMode];
@@ -672,32 +687,10 @@ class DocumentsController extends BaseServiceController
         return array_keys($cachedEntries['entries']);
     }
 
-    /**
-     * Correction log
-     * @deprecated
-     * @return mixed
-     */
-//	public function actionCorrectionIndex()
-//	{
-//		$filterModel	 = new EdmSearch();
-//		$dataProvider	 = $filterModel->searchForCorrection(Yii::$app->request->queryParams);
-//
-//		Url::remember(Url::to());
-//
-//		return $this->render(
-//            'correction',
-//            [
-//				'filterModel' => $filterModel,
-//				'dataProvider' => $dataProvider,
-//                'filterStatus' => !empty(Yii::$app->request->queryParams)
-//            ]
-//		);
-//	}
-
     public function actionForeignCurrencyOperationPrint($id, $type)
     {
         // Печатная форма в зависимости от типа документа
-
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $document);
         $extModel = $document->extModel;
@@ -715,7 +708,7 @@ class DocumentsController extends BaseServiceController
         if ($documentType) {
             $eventOptions['documentType'] = $documentType;
         }
-
+        // Зарегистрировать событие печати документа в модуле мониторинга
         Yii::$app->monitoring->log(
             'user:printDocument',
             'document',
@@ -728,6 +721,7 @@ class DocumentsController extends BaseServiceController
         ) {
             $pain001TypeModel = CyberXmlDocument::getTypeModel($document->actualStoredFileId);
             $signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
+            // Вывести страницу
             return $this->render(
                 'printable/foreignCurrencyOperation',
                 [
@@ -743,6 +737,7 @@ class DocumentsController extends BaseServiceController
             $fcp = ForeignCurrencyOperationFactory::constructFCPFromSwift($swiftTypeModel, true);
             $signatures = $document->getSignatures(Document::SIGNATURES_ALL, Cert::ROLE_SIGNER);
 
+            // Вывести страницу
             return $this->render('printable/foreignCurrencyPayment', [
                 'document' => $document, 'typeModel' => $fcp, 'signatures' => $signatures
             ]);
@@ -761,6 +756,7 @@ class DocumentsController extends BaseServiceController
 
             $signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
 
+            // Вывести страницу
             return $this->render($printView, [
                 'document' => $document, 'typeModel' => $typeModel, 'signatures' => $signatures
             ]);
@@ -769,6 +765,7 @@ class DocumentsController extends BaseServiceController
 
     public function actionForeignCurrencyOperationView($id, $ajax = false)
     {
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $document);
 
@@ -792,6 +789,7 @@ class DocumentsController extends BaseServiceController
             'businessStatus' => $extModel->getBusinessStatusTranslation(),
             'businessStatusDescription' => $extModel->businessStatusDescription,
         ];
+        // Вывести страницу
         return $ajax
             ? $this->renderAjax($view, $params)
             : $this->render($view, $params);
@@ -799,6 +797,7 @@ class DocumentsController extends BaseServiceController
 
     public function actionForeignCurrencySellTransitView($id, $ajax = false)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $document);
         $pain001TypeModel = CyberXmlDocument::getTypeModel($document->actualStoredFileId);
@@ -814,14 +813,17 @@ class DocumentsController extends BaseServiceController
             'signatureList' => $pain001TypeModel->getSignaturesList()
         ];
         if ($ajax) {
+            // Вывести страницу
             return $this->renderAjax('foreignCurrencySellTransitView', $params);
         } else {
+            // Вывести страницу
             return $this->render('foreignCurrencySellTransitView', $params);
         }
     }
 
     public function actionForeignCurrencyConversionView($id, $ajax = false)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $document);
 
@@ -851,40 +853,64 @@ class DocumentsController extends BaseServiceController
      */
     public function actionCorrection()
     {
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
-            $model             = new DocumentCorrectionForm();
+            $model = new DocumentCorrectionForm();
             $model->documentId = Yii::$app->request->post('documentId');
 
             $document = Document::findOne($model->documentId);
             $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::CREATE, $document);
 
+            // Загрузить данные модели из формы в браузере
             $model->load(Yii::$app->request->post());
             if ($model->validate() && $model->toCorrection(Yii::$app->user->id)) {
-                Yii::$app->session->setFlash('success',
-                    Yii::t('doc', 'The document was sent for correction'));
+                // Поместить в сессию флаг сообщения об отправке документа на исправление
+                Yii::$app->session->setFlash(
+                    'success',
+                    Yii::t('doc', 'The document was sent for correction')
+                );
+                // Перенаправить на страницу индекса
                 return $this->redirect(['/edm/documents/index']);
             }
-            Yii::$app->session->setFlash('error',
-                Yii::t('doc', 'The document was not sent for correction'));
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
+            Yii::$app->session->setFlash(
+                'error',
+                Yii::t('doc', 'The document was not sent for correction')
+            );
+            
+            // Перенаправить на страницу просмотра
             return $this->redirect(['/edm/documents/view/', ['id' => $model->documentId]]);
         }
 
         $referer = Url::previous('edit');
         if (empty($referer)) {
+            // Перенаправить на страницу индекса
             return $this->redirect(['/emd/documents/index']);
         }
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect([$referer]);
     }
 
+    /**
+     * Метод показывает список документов валютных операций
+     * @param type $view
+     * @param type $tabMode
+     * @return type
+     * @throws ForbiddenHttpException
+     */
     public function actionForeignCurrencyOperationJournal($view = null, $tabMode = null)
     {
+        // Шаблон адреса предыдущей страницы
         $fcoRegex = '/\/edm\/(documents\/foreign-currency-operation-journal)([\?#]|$)/';
+        // Если адрес предыдущей страницы не совпадает с шаблоном,
+        // очистить кеш платежных поручений и валютных 
         if (!preg_match($fcoRegex, $this->getPreviousPageUrl())) {
             $this->paymentRegisterCache->clear();
             $this->currencyRequestCache->clear();
         }
 
+        // Список закладок для интерфейса журнала
         $tabs = [
             'tabPurchase' => [
                 'searchType' => [
@@ -929,6 +955,7 @@ class DocumentsController extends BaseServiceController
             ],
         ];
 
+        // Определить уровень доступа пользователя
         $userHasAccess = function (string $documentTypeGroup) {
             return Yii::$app->user->can(
                 DocumentPermission::VIEW,
@@ -939,6 +966,7 @@ class DocumentsController extends BaseServiceController
             );
         };
 
+        // Сформировать доступные закладки в соответствии с уровнем доступа
         $availableTabs = array_reduce(
             array_keys($tabs),
             function ($carry, $tabId) use ($tabs, $userHasAccess) {
@@ -950,38 +978,53 @@ class DocumentsController extends BaseServiceController
             []
         );
 
+        // Если нет доступных закладок, бросить исключение запрета доступа
         if (count($availableTabs) === 0) {
             throw new ForbiddenHttpException();
         }
 
+        // Закладка по умолчанию
         $defaultTab = $availableTabs[0];
 
+        // Если не была выбрана закладка или выбранная недоступна, выбрать закладку по умолчанию.
         if (empty($tabMode) || !in_array($tabMode, $availableTabs)) {
             $tabMode = $defaultTab;
         }
 
+        // Определить тип документов для журнала исходя из выбранной закладки
         $type = $tabs[$tabMode]['searchType'];
-
         $filterData = ['type' => $type];
 
+        // Если определён дополнительный тип, добавить его в поиск
         if (isset($tabs[$tabMode]['extDocumentType'])) {
             $filterData['extDocumentType'] = $tabs[$tabMode]['extDocumentType'];
         }
+
+        // Модель для фильтрации поиска
         $filterModel = new ForeignCurrencyOperationSearch($filterData);
+        // Поставщик данных из ДБ
         $dataProvider = $filterModel->search(Yii::$app->request->queryParams);
-        // если прислали ид для просмотра, но тип документа нельзя однозначно определить в текущей вкладке
-        // тип в свою очередь нужен для правильной реализации показа в модальном окошке (JS: fcoModalView)
+        // Если прислали ид для просмотра, но тип документа нельзя однозначно определить
+        // в текущей вкладке
+        // Тип в свою очередь нужен для правильной реализации показа в модальном окне
+        // (JS: fcoModalView)
         if ($view && is_array($type)) {
+            // Найти документ по ид и взять тип оттуда
             $model = $this->findModel($view);
             $type = $model->type;
         }
 
+        // Запомнить текущий адрес страницы
         Url::remember(Url::to());
 
+        // Фильтр по организациям
         $orgFilter = EdmHelper::getOrgFilter();
+        // Фильтр по счетам
         $accountFilter = EdmHelper::getAccountFilter(Yii::$app->user->identity->id, $orgFilter);
+        // Фильтр по банкам
         $banksFilter = EdmHelper::getBankFilter();
 
+        // Вывести страницу журнала документов
         return $this->render(
             'fcoJournalTabs',
             [
@@ -1010,9 +1053,8 @@ class DocumentsController extends BaseServiceController
      */
     private function _deleteCurrencyRequests($id)
     {
-        $documents = Document::find()
-            ->where(['id' => $id])
-            ->all();
+        $documents = Document::findAll(['id' => $id]);
+
         foreach ($documents as $document) {
             $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::DELETE, $document);
         }
@@ -1025,6 +1067,7 @@ class DocumentsController extends BaseServiceController
                     'type' => [
                         Pain001FxType::TYPE,
                         'MT103',
+                        Pain001RlsType::TYPE,
                         Pain001Type::TYPE,
                         VTBPayDocCurType::TYPE,
                         VTBCurrSellType::TYPE,
@@ -1039,13 +1082,10 @@ class DocumentsController extends BaseServiceController
                 ['status' => Document::STATUS_FORSIGNING]
             ]
         );
-
+        // Поместить в сессию флаг сообщения о количестве удалённых документов
         Yii::$app->session->setFlash(
             'info',
-            Yii::t(
-                'edm', 'Deleted {count} currency operation requests',
-                ['count' => $count]
-            )
+            Yii::t('edm', 'Deleted {count} currency operation requests', ['count' => $count])
         );
 
         return $this->redirect(Yii::$app->request->referrer);
@@ -1065,21 +1105,20 @@ class DocumentsController extends BaseServiceController
     }
 
     /**
-     * @param int $id
+     * Метод ищет модель в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     * @param int $id id документа
      * @return Document
      * @throws NotFoundHttpException
      */
-	private function findModel($id)
-	{
+    private function findModel($id)
+    {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $model = Yii::$app->terminalAccess->findModel(Document::className(), $id);
 
-        if (!$model) {
-            throw new NotFoundHttpException('Document ' . $model->id . ' not found');
-        }
-
         /**
-         * Временный фикс: документы edm могут передаваться через транспорт
-         * и тем самым иметь typeGroup = 'transport'
+         * Документ должен иметь тип, допустимый в данном модуле
+         * (документы edm могут передаваться через транспорт и тем самым иметь typeGroup = 'transport')
          */
         if ($model->typeGroup !== $this->module->id
             && $model->typeGroup !== 'transport'
@@ -1089,7 +1128,7 @@ class DocumentsController extends BaseServiceController
         }
 
         return $model;
-	}
+    }
 
     public function actionHideZeroTurnoverStatements()
     {
@@ -1103,6 +1142,7 @@ class DocumentsController extends BaseServiceController
             $edmUserExt->canAccess = 0;
         }
         $edmUserExt->hideZeroTurnoverStatements = $status;
+        // Сохранить модель в БД
         $isSaved = $edmUserExt->save();
         if (!$isSaved) {
             Yii::info('Failed to save edm user ext model, errors: ' . var_export($edmUserExt->getErrors(), true));
@@ -1130,11 +1170,12 @@ class DocumentsController extends BaseServiceController
         if (!$id) {
             return null;
         }
-
-        // Не найден документ по id
+        
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::VIEW, $document);
 
+        // Не найден документ по id
         if (!$document) {
             return null;
         }
@@ -1162,10 +1203,9 @@ class DocumentsController extends BaseServiceController
 
     public function actionCreateFccFromExistingDocument($type, $id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
-        if ($document === null) {
-            throw new NotFoundHttpException("Document $id is not found or is not available to current user");
-        };
+
         $this->authorizeDocumentPermission(EdmModule::SERVICE_ID, DocumentPermission::CREATE, $document);
 
         if ($type == 'FCC') {
@@ -1175,6 +1215,7 @@ class DocumentsController extends BaseServiceController
         } else if ($type == 'CRR') {
             return $this->redirect('/edm/contract-registration-request/create?id=' . $id);
         } else {
+            // Поместить в сессию флаг сообщения о неизвестном формате документа
             Yii::$app->session->setFlash('error', 'Неизвестный формат документа');
 
             return $this->redirect('/edm/documents/foreign-currency-control-index');
@@ -1190,6 +1231,7 @@ class DocumentsController extends BaseServiceController
     {
         $typeModel = CyberXmlDocument::getTypeModel($model->actualStoredFileId);
         $accountNumber = $typeModel->statementAccountNumber;
+        // Получить модель пользователя из активной сессии
         $currentUser = Yii::$app->user->identity;
 
         // C учетом доступных текущему пользователю счетов

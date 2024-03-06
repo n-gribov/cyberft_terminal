@@ -42,6 +42,7 @@ class VTBBankBranch extends ActiveRecord
                 $branch = new VTBBankBranch();
             }
             $branch->setAttributes($attributes);
+            // Сохранить модель в БД
             $branch->save();
         }
     }

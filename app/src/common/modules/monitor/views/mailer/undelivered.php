@@ -25,16 +25,16 @@ $suffix = NumericHelper::getPluralSuffix($count);
     }
 </style>
 
-<h3><?= $terminalId; ?>: <?= \Yii::t('monitor/mailer', 'Notification'); ?></h3>
+<h3><?= $terminalId ?>: <?= \Yii::t('monitor/mailer', 'Notification') ?></h3>
 
 <p>
     <?= \Yii::t('monitor/mailer',
-            'There {suffix, plural, =1{is 1 undelivered document} other{are {count} undelivered documents}} within last {deliveryDays} {suffix2, plural, =1{day} other{days}}',
-            [
-                'count' => $count, 'deliveryDays' => $deliveryDays,
-                'suffix' => $suffix,
-                'suffix2' => NumericHelper::getPluralSuffix($deliveryDays),
-            ]); ?>
+        'There {suffix, plural, =1{is 1 undelivered document} other{are {count} undelivered documents}} within last {deliveryDays} {suffix2, plural, =1{day} other{days}}',
+        [
+            'count' => $count, 'deliveryDays' => $deliveryDays,
+            'suffix' => $suffix,
+            'suffix2' => NumericHelper::getPluralSuffix($deliveryDays),
+        ]) ?>
 </p>
 
 <table class="undelivered-table">
@@ -48,16 +48,16 @@ $suffix = NumericHelper::getPluralSuffix($count);
     </tr>
     </thead>
     <tbody>
-        <?php foreach($documentsData as $document): ?>
+        <?php foreach($documentsData as $document) : ?>
             <tr>
                 <td>
-                    <?=Html::a($document['id'], Url::base() . "/document/view?id=" . $document['id']) ?>
+                    <?=Html::a($document['id'], Url::base() . '/document/view?id=' . $document['id']) ?>
                 </td>
                 <td><?=$document['typeGroup']?></td>
                 <td><?=$document['dateCreate']?></td>
                 <td><?=ExpiringCert::getTerminalName($document['sender'])?></td>
                 <td><?=ExpiringCert::getTerminalName($document['receiver'])?></td>
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </tbody>
 </table>

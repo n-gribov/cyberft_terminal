@@ -48,28 +48,29 @@ echo AdvancedTabs::widget([
 
 <?php if (isset($commandDataProvider) && $commandDataProvider->count) :?>
 <div class="col-lg-6">
-<?=GridView::widget(
-    [
-        'summary' => false,
-        'dataProvider' => $commandDataProvider,
-        'columns' => [
-            [
-                'label' => Yii::t('app', 'Action'),
-                'attribute' => 'action'
-            ],
-            [
-                'label' => Yii::t('app', 'User'),
-                'format' => 'html',
-                'value' => function($item) {
-                    return Html::a($item['userName'], Url::toRoute(['/user/view', 'id' => $item['userId']]));
-                }
-            ],
-            [
-                'label' => Yii::t('doc', 'Date'),
-                'attribute' => 'date'
-            ]
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
+    'summary' => false,
+    'dataProvider' => $commandDataProvider,
+    'columns' => [
+        [
+            'label' => Yii::t('app', 'Action'),
+            'attribute' => 'action'
         ],
-    ]);
+        [
+            'label' => Yii::t('app', 'User'),
+            'format' => 'html',
+            'value' => function($item) {
+                return Html::a($item['userName'], Url::toRoute(['/user/view', 'id' => $item['userId']]));
+            }
+        ],
+        [
+            'label' => Yii::t('doc', 'Date'),
+            'attribute' => 'date'
+        ]
+    ],
+]);
 ?>
 </div>
 <?php endif ?>

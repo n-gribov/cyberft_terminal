@@ -106,7 +106,7 @@ class PaymentRegisterDocumentExt extends ActiveRecord implements DocumentExtInte
     {
         if ($typeModel instanceof PaymentRegisterType) {
             $this->loadContentPaymentRegister($typeModel);
-        } else if($typeModel instanceof SBBOLPayDocRuType) {
+        } else if ($typeModel instanceof SBBOLPayDocRuType) {
             $this->loadContentSBBOLPayDocRu($typeModel);
         }
     }
@@ -167,11 +167,11 @@ class PaymentRegisterDocumentExt extends ActiveRecord implements DocumentExtInte
 
         if ($poStatus == self::STATUS_REJECTED) {
             return self::STATUS_PARTIALLY_REJECTED;
-        } else if($poStatus == self::STATUS_PROCESSED && !in_array($registerStatus, $exceptForPART)) {
+        } else if ($poStatus == self::STATUS_PROCESSED && !in_array($registerStatus, $exceptForPART)) {
             return self::STATUS_PARTIALLY;
-        } else if($poStatus == self::STATUS_ACCEPTED && !in_array($registerStatus, $exceptForPACP)) {
+        } else if ($poStatus == self::STATUS_ACCEPTED && !in_array($registerStatus, $exceptForPACP)) {
             return self::STATUS_PARTIALLY_ACCEPTED;
-        } else if($poStatus == self::STATUS_PENDING && !in_array($registerStatus, $exceptForPPNG)) {
+        } else if ($poStatus == self::STATUS_PENDING && !in_array($registerStatus, $exceptForPPNG)) {
             return self::STATUS_PARTIALLY_PENDING;
         }
 

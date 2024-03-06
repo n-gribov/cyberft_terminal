@@ -76,7 +76,7 @@ class EdmPayerAccountSearch extends EdmPayerAccount
          * имеющая счет в банке "Платина" (БИК 044525931)
          */
         $tableName = DictOrganization::tableName();
-        
+        // Получить модель пользователя из активной сессии
         $user = Yii::$app->user->identity;
         
         $where = ['and', ['not', [$tableName . '.terminalId' => null]]];

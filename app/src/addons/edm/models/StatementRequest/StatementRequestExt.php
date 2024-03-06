@@ -76,11 +76,11 @@ class StatementRequestExt extends ActiveRecord implements DocumentExtInterface
             $this->accountNumber = $model->accountNumber;
             $this->startDate = $model->startDate;
             $this->endDate = $model->endDate;
-        } elseif ($model::TYPE === VTBStatementQueryType::TYPE) {
+        } else if ($model::TYPE === VTBStatementQueryType::TYPE) {
             $this->accountNumber = $model->document->ACCOUNT;
             $this->startDate = $model->document->DATEFROM->format('Y-m-d');
             $this->endDate = $model->document->DATETO->format('Y-m-d');
-        } elseif ($model::TYPE === SBBOLStmtReqType::TYPE) {
+        } else if ($model::TYPE === SBBOLStmtReqType::TYPE) {
             $stmtReq = $model->request->getStmtReq();
             $this->accountNumber = $stmtReq->getAccounts()[0]->value();
             $this->startDate = $stmtReq->getBeginDate()->format('Y-m-d');

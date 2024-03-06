@@ -1,11 +1,7 @@
 <?php
-
 $organization = $model->getOrganization();
-
 Yii::$app->formatter->decimalSeparator = '.';
-
 ?>
-
 <div class="row margin-bottom-10">
     <div class="col-md-6">
         <strong><?=$model->getAttributeLabel('number')?></strong>: <?=$model->number ?>
@@ -63,9 +59,9 @@ Yii::$app->formatter->decimalSeparator = '.';
     <div class="col-md-12">
         <strong><?=$model->getAttributeLabel('debitAmount')?></strong>:
 
-        <?php if ($model->debitAmount): ?>
-            <?=Yii::$app->formatter->asDecimal($model->debitAmount, 2);?>
-        <?php endif; ?>
+        <?php if ($model->debitAmount) : ?>
+            <?= Yii::$app->formatter->asDecimal($model->debitAmount, 2) ?>
+        <?php endif ?>
     </div>
 </div>
 
@@ -81,9 +77,9 @@ Yii::$app->formatter->decimalSeparator = '.';
 <div class="row margin-bottom-10">
     <div class="col-md-12">
         <strong><?=$model->getAttributeLabel('creditAmount')?></strong>:
-        <?php if ($model->creditAmount): ?>
+        <?php if ($model->creditAmount) : ?>
             <?=Yii::$app->formatter->asDecimal($model->creditAmount, 2);?>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
 </div>
 
@@ -101,14 +97,10 @@ Yii::$app->formatter->decimalSeparator = '.';
     </div>
 </div>
 
-
-
-
 <style>
     .margin-bottom-10 {
         margin-bottom: 10px;
     }
-
     .margin-bottom-30 {
         margin-bottom: 30px;
     }

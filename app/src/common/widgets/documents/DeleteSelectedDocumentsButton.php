@@ -13,6 +13,7 @@ class DeleteSelectedDocumentsButton extends Widget
 
     public function run()
     {
+        // Вывести кнопку удаления помеченных документов
         return $this->render(
             'deleteSelectedDocumentsButton',
             [

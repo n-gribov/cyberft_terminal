@@ -8,9 +8,7 @@ use yii\widgets\DetailView;
     <div class="col-xs-12">
         <p>
             <?= Html::a(Yii::t('app/iso20022', 'Download'), ['download', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-
             <?php
-
             // Если пользователь может управлять сертификатами, выводим соответствующие кнопки
             if (Yii::$app->user->can('commonCertificatesStatusManagement')) {
                 if ($model->status == $model::STATUS_READY) {
@@ -50,7 +48,9 @@ use yii\widgets\DetailView;
             ?>
         </p>
 
-        <?= DetailView::widget([
+        <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $model,
             'attributes' => [
                 'id',

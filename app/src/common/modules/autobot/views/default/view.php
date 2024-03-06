@@ -25,14 +25,10 @@ if ($participantData) {
 } else {
     $terminalName = $terminalId;
 }
-
 ?>
-
 <div class="autobot-view">
-
     <p id="buttons-block">
         <?= Html::a(Yii::t('app', 'Back'), $model->getListUrl(), ['class' => 'btn btn-default']) ?>
-
         <?php
             if ($model->isBlocked) {
                 echo Html::a(Yii::t('app/autobot', 'Delete key'), ['delete', 'id' => $model->id], [
@@ -61,9 +57,7 @@ if ($participantData) {
                     ]]
                 );
             }
-        ?>
 
-        <?php
             $isAdmin = Yii::$app->user->can('admin') || Yii::$app->user->can('additionalAdmin');
             if ($isAdmin) {
                 echo Html::a(
@@ -74,11 +68,11 @@ if ($participantData) {
             }
         ?>
     </p>
-
     <div>
         <h4><?=Yii::t('app/autobot', 'Key parameters')?></h4>
-
-        <?= DetailView::widget([
+        <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $model,
             'attributes' => [
                 'id',
@@ -94,11 +88,11 @@ if ($participantData) {
             ],
         ]) ?>
     </div>
-
     <div>
         <h4><?=Yii::t('app/autobot', 'Key details')?></h4>
-
-        <?= DetailView::widget([
+        <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $model,
             'attributes' => [
                 [
@@ -113,61 +107,52 @@ if ($participantData) {
             ],
         ]) ?>
     </div>
-
     <div>
         <h4><?=Yii::t('app/autobot', 'Key files')?></h4>
-
-        <?= DetailView::widget([
+        <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $model,
             'attributes' => [
                 [
                     'attribute' => 'certificate',
-                    'value'	=> ' <a href="' . Url::toRoute(['download', 'id' => $model->id]). '">'
+                    'value' => ' <a href="' . Url::toRoute(['download', 'id' => $model->id]). '">'
                         . '<span class="glyphicon glyphicon-download-alt"></span> '
                         . Yii::t('app', 'Download file')
                         . '</a>',
-                    'format'	=> 'raw',
-                    'label'	=> Yii::t('app/autobot', 'Certificate')
+                    'format' => 'raw',
+                    'label' => Yii::t('app/autobot', 'Certificate')
                 ],
                 [
-                    'value'	=> ' <a href="' . Url::to(['/autobot/download-archive', 'id' => $model->id]) . '">'
+                    'value' => ' <a href="' . Url::to(['/autobot/download-archive', 'id' => $model->id]) . '">'
                         . '<span class="glyphicon glyphicon-download-alt"></span> '
                         . Yii::t('app/autobot', 'Download archive')
                         . '</a>',
-                    'format'	=> 'raw',
-                    'label'	=> Yii::t('app', 'Private key') . '<br>' . Yii::t('app/autobot', 'Public key') .
+                    'format' => 'raw',
+                    'label' => Yii::t('app', 'Private key') . '<br>' . Yii::t('app/autobot', 'Public key') .
                         '<br>' . Yii::t('app/autobot', 'Certificate')
                 ],
             ],
         ]) ?>
     </div>
 </div>
-
 <?php
 
+// Вывести блок активации
 echo $this->render('_activate');
+// Вывести блок блокировки
 echo $this->render('_block');
 
-?>
-
-<?php
-
-$script = <<< JS
+$this->registerJs(<<<JS
     var thWidth = $('#w0 th:first').width();
     $('#w1 th:first').width(thWidth);
     $('#w2 th:first').width(thWidth);
+JS, yii\web\View::POS_READY);
 
-JS;
-
-$this->registerJs($script, yii\web\View::POS_READY);
-
-?>
-
-<?php
-
-$header = "<h4 class='modal-title'>" . Yii::t('app/autobot', 'Settings') . "</h4>";
-$footer = "<button type='button' class='btn btn-default' data-dismiss='modal'>" .Yii::t('app', 'Close') . "</button>" .
-    "<button type='button' class='btn btn-primary btn-submit-form'>" . Yii::t('app', 'Save') . "</button>";
+$header = '<h4 class="modal-title">' . Yii::t('app/autobot', 'Settings') . '</h4>';
+$footer = '<button type="button" class="btn btn-default" data-dismiss="modal">'
+    . Yii::t('app', 'Close') . '</button>'
+    . '<button type="button" class="btn btn-primary btn-submit-form">' . Yii::t('app', 'Save') . '</button>';
 
 $modal = Modal::begin([
     'id' => 'settings-modal',
@@ -181,15 +166,10 @@ $modal = Modal::begin([
     ]
 ]);
 
-?>
-
-<?php $modal::end(); ?>
-
-<?php
+$modal::end();
 
 $this->registerCss(<<<CSS
-#buttons-block .btn {
-    margin-right: .5em;
-}
-CSS
-);
+    #buttons-block .btn {
+        margin-right: .5em;
+    }
+CSS);

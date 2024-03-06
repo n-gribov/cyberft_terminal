@@ -14,10 +14,9 @@ class Auth027Type extends ISO20022Type
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),
-            [
-                [array_values($this->attributes()), 'safe'],
-            ]);
+        return ArrayHelper::merge(parent::rules(), [
+            [array_values($this->attributes()), 'safe'],
+        ]);
     }
 
     public function getType()
@@ -44,6 +43,10 @@ class Auth027Type extends ISO20022Type
             : null;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
         return false;

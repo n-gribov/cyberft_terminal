@@ -43,6 +43,10 @@ abstract class BaseRaiffeisenResponseDocumentType extends BaseType
         return $this;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
         return false;

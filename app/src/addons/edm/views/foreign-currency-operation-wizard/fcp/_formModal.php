@@ -64,12 +64,20 @@ $payerBankModel = SwiftFinDictBank::findOne($model->payerBank);
                         'delay'    => 250,
                         'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
                     ],
-                    'templateResult' => new JsExpression('function(item) {
-                        if(item.templateName) return item.templateName + " - " + item.beneficiaryName;
-                  }'),
-                    'templateSelection' => new JsExpression('function(item) {
-                        if(item.templateName) return item.templateName + " - " + item.beneficiaryName;
-                  }'),
+                    'templateResult' => new JsExpression(<<<JS
+                        function(item) {
+                            if (item.templateName) {
+                                return item.templateName + ' - ' + item.beneficiaryName;
+                            }
+                        }
+                    JS),
+                    'templateSelection' => new JsExpression(<<<JS
+                        function(item) {
+                            if (item.templateName) {
+                                return item.templateName + ' - ' + item.beneficiaryName;
+                            }
+                        }
+                    JS),
                 ],
                 'pluginEvents' => [
                     'select2:select' => 'function(e) { applyTemplate(e.params.data); }',
@@ -105,7 +113,8 @@ $payerBankModel = SwiftFinDictBank::findOne($model->payerBank);
     </div>
 </div>
 
-<?=$this->render('_common', ['form' => $form, 'model' => $model]);?>
+<?= // Вывести блок общей информации
+    $this->render('_common', ['form' => $form, 'model' => $model]) ?>
 
 <div class="row fcp-margin-top-10">
     <div class="col-md-12">
@@ -128,7 +137,7 @@ $payerBankModel = SwiftFinDictBank::findOne($model->payerBank);
 
 <?php
 
-$script = <<< JS
+$script = <<<JS
     $('#fcoCreateModalButtons').show();
 
     initFCPDocument('foreigncurrencypaymenttype');
@@ -142,9 +151,6 @@ $script = <<< JS
 
         window.history.replaceState({}, '', url);
     });
-
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
-
-?>

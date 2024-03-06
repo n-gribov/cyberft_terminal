@@ -11,6 +11,7 @@ class DeleteRule extends Rule
 
     protected function isAllowed($serviceId, $document, $documentTypeGroupCondition): bool
     {
+        // Получить роль пользователя из активной сессии
         $isAllowedWithoutPermissionCheck = in_array(
             \Yii::$app->user->identity->role,
             [

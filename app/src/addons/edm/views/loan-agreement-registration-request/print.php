@@ -186,13 +186,13 @@ function renderUniqueLoanAgreementNumber($number, $class)
         <th>2</th>
         <th>3</th>
     </tr>
-    <?php foreach ($model->nonResidents as $item): ?>
+    <?php foreach ($model->nonResidents as $item) : ?>
         <tr>
             <td><?= Html::encode($item->name) ?></td>
             <td><?= Html::encode($item->countryName) ?></td>
             <td><?= Html::encode($item->countryCode) ?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 
 <h4>3. Сведения о кредитном договоре</h4>
@@ -256,7 +256,7 @@ function renderUniqueLoanAgreementNumber($number, $class)
         <th>4</th>
         <th>5</th>
     </tr>
-    <?php foreach ($model->tranches as $item): ?>
+    <?php foreach ($model->tranches as $item) : ?>
         <tr>
             <td><?= Html::encode($model->loanAgreementCurrencyDescription) ?></td>
             <td><?= Html::encode($model->loanAgreementCurrencyCode) ?></td>
@@ -264,7 +264,7 @@ function renderUniqueLoanAgreementNumber($number, $class)
             <td><?= Html::encode($item->paymentPeriodCode) ?></td>
             <td><?= Html::encode($item->receiptDate) ?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 
 <div>
@@ -361,7 +361,7 @@ function renderUniqueLoanAgreementNumber($number, $class)
         <th>6</th>
         <th>7</th>
     </tr>
-    <?php foreach ($model->paymentScheduleItems as $i => $item): ?>
+    <?php foreach ($model->paymentScheduleItems as $i => $item) : ?>
         <tr>
             <td><?= $i + 1 ?></td>
             <td><?= Html::encode($model->loanAgreementCurrencyCode) ?></td>
@@ -371,7 +371,7 @@ function renderUniqueLoanAgreementNumber($number, $class)
             <td><?= formatCurrencyValue($item->interestAmount) ?></td>
             <td><?= Html::encode($item->specialConditions) ?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 
 <table class="full-width" style="margin-top: 20px">
@@ -403,7 +403,7 @@ function renderUniqueLoanAgreementNumber($number, $class)
         <th>4</th>
         <th>5</th>
     </tr>
-    <?php foreach ($model->receipts as $i => $receipt): ?>
+    <?php foreach ($model->receipts as $i => $receipt) : ?>
         <tr>
             <td><?= $i + 1 ?></td>
             <td><?= Html::encode($receipt->beneficiaryName) ?></td>
@@ -411,15 +411,15 @@ function renderUniqueLoanAgreementNumber($number, $class)
             <td><?= formatCurrencyValue($receipt->amount) ?></td>
             <td><?= Html::encode($receipt->shareOfLoanAmount) ?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 
 <div style="font-size: 14px; margin-top: 30px;">
     <p>
         <strong>Электронные подписи</strong><br>
-        <?php foreach ($typeModel->signatureInfo->signatures as $signature): ?>
+        <?php foreach ($typeModel->signatureInfo->signatures as $signature) : ?>
             <?= Html::encode($signature->uid) ?><br>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </p>
     <p><strong>Дата представления в Банк:</strong> <?= $receiveDate ? $receiveDate->format('d.m.Y') : '' ?></p>
     <p><strong>Дата принятия Банком:</strong> <?= $acceptDate ? $acceptDate->format('d.m.Y') : '' ?></p>

@@ -138,7 +138,7 @@ class LoadTestController extends Controller
 					file_put_contents('/var/www/cyberft/app/src/transport_report.err', print_r($msg, true), FILE_APPEND);
 				}
 
-				$receipt = NULL;
+				$receipt = null;
 				if (!isset($msg['0']->headers['receipt'])) {
 					file_put_contents('/var/www/cyberft/app/src/transport_report.err', print_r($msg, true), FILE_APPEND);
 				} else {

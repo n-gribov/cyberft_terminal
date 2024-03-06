@@ -298,6 +298,7 @@ class CryptoProHelper
                     // Если найден серийный номер, записываем его в модель сертификата
                     $serial = static::driver()->trimSerial($container[DriverCryptoPro::SERIAL]);
                     $cert->serialNumber = $serial;
+                    // Сохранить модель в БД
                     $cert->save();
                 }
 

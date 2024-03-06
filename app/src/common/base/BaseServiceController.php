@@ -12,9 +12,9 @@ class BaseServiceController extends BaseController
     {
         if (isset($this->module->serviceId)) {
             if (!Yii::$app->user->can('accessService', ['serviceId' => $this->module->serviceId])) {
+                // Перенаправить на страницу неактивности пользователя
                 $this->redirect(['/site/redirect-if-user-inactive']);
                 return false;
-                //throw new ForbiddenHttpException(Yii::t('app/error', 'Service access denied for this user'));
             }
         }
 

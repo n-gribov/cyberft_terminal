@@ -59,7 +59,7 @@ class MultiprocessesSearch extends Model
                 // Проверка типа 'like'
                 if ($filter['rule'] == 'like') {
                     $isFilter[] = boolval(stristr($item[$id], $filter['value']));
-                } elseif ($filter['rule'] == 'eq') {
+                } else if ($filter['rule'] == 'eq') {
                     // Проверка типа "равенство"
                     $isFilter[] = $item[$id] == boolval($filter['value']);
                 }
@@ -106,7 +106,6 @@ class MultiprocessesSearch extends Model
         // Перебираем массив свойств и записываем не пустые значения
         foreach($query as $id => $item) {
             if ($item == '0' || !empty($item)) {
-
                 // Формируем массив с фильтрами и
                 // правилами проверки их значений
                 if ($id == 'terminalId' ||
@@ -115,9 +114,9 @@ class MultiprocessesSearch extends Model
                         'value' => $item,
                         'rule' => 'like'
                     ];
-                } elseif ($id == 'status' ||
-                           $id == 'hasActiveControllerKeys' ||
-                           $id == 'exchangeStatus') {
+                } else if (
+                    $id == 'status' || $id == 'hasActiveControllerKeys' || $id == 'exchangeStatus'
+                ) {
                     $arrParams[$id] = [
                         'value' => $item,
                         'rule' => 'eq'

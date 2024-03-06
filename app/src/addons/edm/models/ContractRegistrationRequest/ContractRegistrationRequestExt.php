@@ -374,6 +374,7 @@ class ContractRegistrationRequestExt extends ActiveRecord implements DocumentExt
                 $relatedDataItem->id = null;
                 $relatedDataItem->isNewRecord = true;
                 $relatedDataItem->documentId = $this->documentId;
+                // Сохранить модель в БД
                 $relatedDataItem->save();
             }
         }
@@ -490,34 +491,27 @@ class ContractRegistrationRequestExt extends ActiveRecord implements DocumentExt
      */
     public function __get($name)
     {
-        //
         if (strpos($name, 'passportNumberByIndex') !== false) {
             $index = str_replace('passportNumberByIndex_', '', $name);
-
             return $this->passportNumber[$index];
-        } elseif (strpos($name, 'existedPassportByIndex') !== false) {
+        } else if (strpos($name, 'existedPassportByIndex') !== false) {
             if ($this->existedPassport) {
                 $index = str_replace('existedPassportByIndex_', '', $name);
-
                 return $this->existedPassport[$index];
             } else {
-                return "";
+                return '';
             }
         } else if (strpos($name, 'ogrnByIndex') !== false) {
             $index = str_replace('ogrnByIndex_', '', $name);
-
             return $this->ogrn[$index];
         } else if (strpos($name, 'egrulByIndex') !== false) {
             $index = str_replace('egrulByIndex_', '', $name);
-
             return $this->dateEgrul[$index];
         } else if (strpos($name, 'innByIndex') !== false) {
             $index = str_replace('innByIndex_', '', $name);
-
             return $this->inn[$index];
         } else if (strpos($name, 'kppByIndex') !== false) {
             $index = str_replace('kppByIndex_', '', $name);
-
             return $this->inn[$index];
         }
 
@@ -588,7 +582,7 @@ class ContractRegistrationRequestExt extends ActiveRecord implements DocumentExt
 
     public static function getRelatedPassportNumbers()
     {
-        $terminalId = Yii::$app->terminals->getPrimaryTerminal()->id;
+        $terminalId = Yii::$app->exchange->getPrimaryTerminal()->id;
 
         $documents = Document::find()->select('id')->where(
             [

@@ -34,10 +34,8 @@ class DeleteAction extends Action
 
     private function deleteDocument($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
-        if ($document === null) {
-            return $this->registerError("Document $id is not found or is not accessible by current user");
-        }
 
         if (!$document->isDeletable()) {
             return $this->registerError("Document $id is not deletable");
@@ -64,9 +62,11 @@ class DeleteAction extends Action
     private function setResultsFlashMessages()
     {
         if ($this->deletedCount > 0) {
+            // Поместить в сессию флаг сообщения об успешном действии
             Yii::$app->session->setFlash('success', $this->getSuccessMessage());
         }
         if ($this->failedCount > 0) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $this->getErrorMessage());
         }
     }
@@ -117,6 +117,7 @@ class DeleteAction extends Action
 
     private function logDeleteEvent($document)
     {
+        // Зарегистрировать событие удаления документа в модуле мониторинга
         Yii::$app->monitoring->log(
             'user:deleteDocument',
             'document',

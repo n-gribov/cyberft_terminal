@@ -71,22 +71,14 @@ $columns['senderParticipantName'] = [
 		    'delay'    => 250,
 		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
 		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
+		'templateResult' => new JsExpression('function(item) { return item.name; }'),
+		'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
 		'allowClear' => true,
 		'containerCssClass' => 'select2-cyberft',
 	],
-	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
-            'select2:unselect' => 'function(e) {
-
-	      }'
+	'pluginEvents' => [
+	    'select2:select' => 'function(e) { searchForField(e.params.data); }',
+            'select2:unselect' => 'function(e) {}'
 	],
     ]),
     'contentOptions' => [
@@ -115,19 +107,13 @@ $columns['receiverParticipantName'] = [
 		    'delay'    => 250,
 		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
 		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
+		'templateResult'     => new JsExpression('function(item) { return item.name; }'),
+		'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
 		'allowClear' => true,
 		'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
+	    'select2:select' => 'function(e) { searchForField(e.params.data); }',
 	],
     ]),
     'contentOptions' => [
@@ -275,7 +261,7 @@ if ($userCanCreateDocuments) {
         ],
     ];
 }
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary' => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -314,9 +300,4 @@ echo ColumnsSettingsWidget::widget([
     'model' => $searchModel
 ]);
 
-$this->registerJS(<<<JS
-    stickyTableHelperInit();
-JS
-);
-
-?>
+$this->registerJS('stickyTableHelperInit();');

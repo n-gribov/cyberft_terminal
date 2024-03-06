@@ -11,6 +11,6 @@ $config = yii\helpers\ArrayHelper::merge(
 );
 
 /*
- * Используем globals, поэтому первичная инициализация в NULL
+ * Используем globals, поэтому первичная инициализация в null
  */
 $app = null;

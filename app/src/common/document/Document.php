@@ -300,7 +300,7 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
 
     public function attributeLabelShortcuts()
     {
-            return [];
+        return [];
     }
 
     /**
@@ -582,7 +582,7 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
      */
     public function getContentModel()
     {
-		$className = Yii::$app->registry->getTypeContentClass($this->type);
+        $className = Yii::$app->registry->getTypeContentClass($this->type);
 
         return new $className();
     }
@@ -711,21 +711,21 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
             && in_array($status, $deletableStatuses);
     }
 
-	/**
-	 * Get flat fingerprint list from signature list
-	 * @return array of fingerprints
-	 */
-	public function getDocumentFingerprints()
-	{
-		$signatureList = $this->getSignatures(static::SIGNATURES_ENVELOPE);
-		$fingerList = [];
+    /**
+     * Get flat fingerprint list from signature list
+     * @return array of fingerprints
+     */
+    public function getDocumentFingerprints()
+    {
+        $signatureList = $this->getSignatures(static::SIGNATURES_ENVELOPE);
+        $fingerList = [];
 
-		foreach($signatureList as $signature) {
-			$fingerList[] = $signature['fingerprint'];
-		}
+        foreach($signatureList as $signature) {
+            $fingerList[] = $signature['fingerprint'];
+        }
 
-		return $fingerList;
-	}
+        return $fingerList;
+    }
 
     /**
      * Get signatures list from current document
@@ -842,10 +842,10 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
     public function getEmptyOutputValue()
     {
         return [
-            'name'        => NULL,
-            'type'        => NULL,
-            'fingerprint' => NULL,
-            'isSign'      => NULL,
+            'name'        => null,
+            'type'        => null,
+            'fingerprint' => null,
+            'isSign'      => null,
         ];
     }
 
@@ -875,12 +875,12 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
             : '';
     }
 
-	public static function referencingDocuments($uuid)
-	{
-		return static::find()
-            	->where(['uuidReference' => $uuid])
-                ->orderBy(['dateCreate' => SORT_ASC]);
-	}
+    public static function referencingDocuments($uuid)
+    {
+        return static::find()
+            ->where(['uuidReference' => $uuid])
+            ->orderBy(['dateCreate' => SORT_ASC]);
+    }
 
     public function findReferencingDocuments($uuid = null)
     {
@@ -891,58 +891,62 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
         return static::referencingDocuments($uuid);
     }
 
-	public static function findByRemoteUuid($uuid)
-	{
-		return self::findOne(['uuidRemote' => $uuid]);
-	}
+    public static function findByRemoteUuid($uuid)
+    {
+        return self::findOne(['uuidRemote' => $uuid]);
+    }
 
-	public static function findByUuid($uuid)
-	{
-		return self::findOne(['uuid' => $uuid]);
-	}
+    public static function findByUuid($uuid)
+    {
+        return self::findOne(['uuid' => $uuid]);
+    }
 
-	/**
-	 * Заготовка на будущее, возвращает ид, соответствующий актуальному для просмотра сторед файлу
-	 * Подразумевает наличие логики, выбирающей из нескольких версий (пока все прямо)
-	 * @return int
-	 */
-	public function getValidStoredFileId()
-	{
-		return $this->actualStoredFileId ?: null;
-	}
+    /**
+     * Заготовка на будущее, возвращает ид, соответствующий актуальному для просмотра сторед файлу
+     * Подразумевает наличие логики, выбирающей из нескольких версий (пока все прямо)
+     * @return int
+     */
+    public function getValidStoredFileId()
+    {
+        return $this->actualStoredFileId ?: null;
+    }
 
     /**
      * Get search ID
      *
      * @return integer
      */
-	public function getSearchId()
-	{
-		return $this->id;
-	}
+    public function getSearchId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get type group value
      *
      * @return string
      */
-	public function getSearchType()
-	{
-		return $this->typeGroup;
-	}
+    public function getSearchType()
+    {
+        return $this->typeGroup;
+    }
 
-	public function getSearchfields()
-	{
-		$id = $this->getValidStoredFileId();
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return array|bool
+     */
+    public function getSearchfields()
+    {
+        $id = $this->getValidStoredFileId();
 
-		if (!$id) {
-			return false;
-		}
+        if (!$id) {
+            return false;
+        }
 
         $typeModel = CyberXmlDocument::getTypeModel($id);
 
-		return $typeModel->getSearchFields();
-	}
+        return $typeModel->getSearchFields();
+    }
 
     /**
      * Update status
@@ -983,10 +987,9 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
 
     private function getParticipant($value)
     {
-
         $participant = Participants::findOne(['participantBIC' => $value]);
 
-        if(!empty($participant)) {
+        if (!empty($participant)) {
             return $participant->name;
         } else {
             return $value;
@@ -1024,7 +1027,7 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
         if (!$this->_cyberXml) {
             if ($this->getValidStoredFileId()) {
                 if ($this->isEncrypted) {
-                    Yii::$app->terminals->setCurrentTerminalId($this->originTerminalId);
+                    Yii::$app->exchange->setCurrentTerminalId($this->originTerminalId);
                     $data = Yii::$app->storage->decryptStoredFile($this->actualStoredFileId);
                     $this->_cyberXml = new CyberXmlDocument();
                     $this->_cyberXml->loadFromString($data);
@@ -1038,13 +1041,13 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
     }
 
     /**
-	 * CFTStatusReport или CFTAck
-	 * @return boolean
-	 */
-	public function isReport()
-	{
-		return in_array($this->type, ['CFTStatusReport', 'CFTAck', 'CFTChkAck', 'StatusReport']);
-	}
+     * CFTStatusReport или CFTAck
+     * @return boolean
+     */
+    public function isReport()
+    {
+        return in_array($this->type, ['CFTStatusReport', 'CFTAck', 'CFTChkAck', 'StatusReport']);
+    }
 
     public function getSignData()
     {
@@ -1066,6 +1069,7 @@ class Document extends ActiveRecord implements ElasticSearchable, AttrShortcutIn
         $model->documentId = $this->id;
         $model->data = $data;
 
+        // Сохранить модель в БД и вернуть результат сохранения
         return $model->save();
     }
 

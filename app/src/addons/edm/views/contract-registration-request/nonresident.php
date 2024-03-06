@@ -15,25 +15,19 @@ use yii\widgets\MaskedInput;
 // Тип нерезидента, в зависимости от его вида (обычный/кредитор)
 if ($model->isCredit) {
     $formOptions = [
-        'data' => [
-            'type' => 'nonresidentsCredit'
-        ]
+        'data' => ['type' => 'nonresidentsCredit']
     ];
 } else {
     $formOptions = [
-        'data' => [
-            'type' => 'nonresidents'
-        ]
+        'data' => ['type' => 'nonresidents']
     ];
 }
 
-$form = ActiveForm::begin(
-    [
-        'id' => 'related-data-form',
-        'action' => '/edm/contract-registration-request/process-related-data-form',
-        'options' => $formOptions
-    ]
-);
+$form = ActiveForm::begin([
+    'id' => 'related-data-form',
+    'action' => '/edm/contract-registration-request/process-related-data-form',
+    'options' => $formOptions
+]);
 ?>
 <div class="row">
     <div class="col-md-12">
@@ -47,9 +41,7 @@ $form = ActiveForm::begin(
             'options' => ['placeholder' => 'Выберите код страны'],
             'pluginOptions' => [
                 'allowClear' => true,
-                'templateSelection' => new JsExpression('function(item) {
-                    return item.id;
-              }')
+                'templateSelection' => new JsExpression('function(item) { return item.id; }')
             ],
         ]); ?>
     </div>
@@ -93,4 +85,3 @@ if ($uuid) {
 }
 
 ActiveForm::end();
-?>

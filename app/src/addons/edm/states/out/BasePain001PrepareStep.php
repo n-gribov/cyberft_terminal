@@ -11,12 +11,23 @@ use common\helpers\DocumentHelper;
 use common\models\Terminal;
 use Yii;
 
+/**
+ * Класс содержит методы для подготовки отправки документа семейства Pain001
+ */
 abstract class BasePain001PrepareStep extends ISO20022DocumentPrepareStep
 {
+    /**
+     * Метод создаёт документ типа Pain001
+     * @param Pain001Type $typeModel
+     * @param array $extModelAttributes
+     * @return Document
+     * @throws \Exception
+     */
     protected function createDocument(Pain001Type $typeModel, array $extModelAttributes): Document
     {
+        // Получить id терминала по адресу отправителя
         $terminalId = Terminal::getIdByAddress($this->state->sender);
-
+        // Атрибуты документа
         $docAttributes = [
             'sender'     => $this->state->sender,
             'receiver'   => $typeModel->receiver,
@@ -26,10 +37,12 @@ abstract class BasePain001PrepareStep extends ISO20022DocumentPrepareStep
             'origin'     => Document::ORIGIN_FILE,
         ];
 
+        // Если стейт содержит Api UUID, добавить его в атрибуты документа
         if ($this->state->apiUuid) {
             $docAttributes['uuid'] = $this->state->apiUuid;
         }
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext($typeModel, $docAttributes, $extModelAttributes);
 
         if (!$context) {
@@ -39,12 +52,23 @@ abstract class BasePain001PrepareStep extends ISO20022DocumentPrepareStep
         return $context['document'];
     }
 
+    /**
+     * Метод получает организацию отправителя
+     * @param Pain001Type $typeModel
+     * @return DictOrganization
+     */
     protected function getSenderOrganization(Pain001Type $typeModel): DictOrganization
     {
         $account = $this->getEdmPayerAccount($typeModel);
         return $account->edmDictOrganization;
     }
 
+    /**
+     * Метод получает сч1т плательщика
+     * @param Pain001Type $typeModel
+     * @return EdmPayerAccount
+     * @throws \DomainException
+     */
     protected function getEdmPayerAccount(Pain001Type $typeModel): EdmPayerAccount
     {
         $xml = $typeModel->getRawXML();
@@ -75,6 +99,10 @@ abstract class BasePain001PrepareStep extends ISO20022DocumentPrepareStep
         throw new InvalidImportedDocumentException($message, $number);
     }
 
+    /**
+     * Метод получает валюту документа
+     * @return string|null
+     */
     protected function getDocumentCurrency(): ?string
     {
         try {
@@ -87,6 +115,10 @@ abstract class BasePain001PrepareStep extends ISO20022DocumentPrepareStep
         }
     }
 
+    /**
+     * Метод получает идентификатор группы типов документа
+     * @return string|null
+     */
     protected function getDocumentTypeGroupId(): ?string
     {
         try {
@@ -104,5 +136,8 @@ abstract class BasePain001PrepareStep extends ISO20022DocumentPrepareStep
         }
     }
 
+    /**
+     * Метод создаёт расширенные атрибуты типа
+     */
     abstract protected function createExtModelAttributes(Pain001Type $typeModel): array;
 }

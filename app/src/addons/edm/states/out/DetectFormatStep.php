@@ -76,12 +76,12 @@ class DetectFormatStep extends BaseDocumentStep
                     $this->state->format = $this->isIBankCurrencyPaymentsRegister($model)
                         ? 'iBankCurrencyPaymentsRegister'
                         : 'iBankV1';
-                    $this->state->sender = Yii::$app->terminals->address;
+                    $this->state->sender = Yii::$app->exchange->address;
 
                     break;
                 } else if ($model instanceof IBankDocumentsPack && $model->getVersion() === 2) {
                     $this->state->format = 'iBankV2';
-                    $this->state->sender = Yii::$app->terminals->address;
+                    $this->state->sender = Yii::$app->exchange->address;
 
                     break;
                 } else if ($model instanceof Pain001FcyType) {

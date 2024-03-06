@@ -33,6 +33,7 @@ class DictForeignCurrencyPaymentBeneficiaryController extends BaseServiceControl
      */
     public function actionList($q = null)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $out = [];

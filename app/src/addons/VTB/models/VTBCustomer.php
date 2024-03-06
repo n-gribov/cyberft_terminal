@@ -141,6 +141,7 @@ class VTBCustomer extends ActiveRecord
             if (array_key_exists($customer->customerId, $terminalsIds)) {
                 $customer->terminalId = $terminalsIds[$customer->customerId];
             }
+            // Сохранить модель в БД
             $customer->save();
         }
     }

@@ -66,9 +66,9 @@ Yii::$app->formatter->nullDisplay = '';
 <div class="row">
     <div class="col-xs-8">
         <strong>вид операции: </strong>
-        <?php foreach ($supplyConditions as $id => $title): ?>
+        <?php foreach ($supplyConditions as $id => $title) : ?>
             <span class="no-wrap"><?= $checkBox($bsDocument->SUPPLYCONDITION == $id) . " $title" ?></span>&nbsp;
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </div>
     <div class="col-xs-4">
         по курсу <?= Html::encode($bsDocument->REQUESTRATE ?: '_______________________') ?>
@@ -100,13 +100,13 @@ Yii::$app->formatter->nullDisplay = '';
                     <th class="width-33-percent">Номер документа</th>
                     <th>Дата документа</th>
                 </tr>
-                <?php foreach ($bsDocument->GROUNDRECEIPTSBLOB as $groundReceipt): ?>
+                <?php foreach ($bsDocument->GROUNDRECEIPTSBLOB as $groundReceipt) : ?>
                     <tr>
                         <td><?= Html::encode($groundReceipt->DOCUMENTTYPE) ?></td>
                         <td><?= Html::encode($groundReceipt->DOCUMENTNUMBER) ?></td>
                         <td><?= Yii::$app->formatter->asDate($groundReceipt->DOCUMENTDATE, $dateFormat) ?></td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </table>
             <table class="bordered">
                 <tr>
@@ -231,15 +231,13 @@ Yii::$app->formatter->nullDisplay = '';
     </tr>
 </table>
 
-<?= $this->render(
-    '_bottom',
-    [
+<?= // Вывести колонтитул
+    $this->render('_bottom', [
         'typeModel' => $typeModel,
         'bankName' => $creditBank ? $creditBank->name : '',
         'statusReportsData' => $statusReportsData,
         'stampStatus' => 'ACCP',
-    ]
-) ?>
+    ]) ?>
 
 <style>
     body {

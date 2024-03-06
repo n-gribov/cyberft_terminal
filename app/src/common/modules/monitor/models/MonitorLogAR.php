@@ -72,7 +72,7 @@ class MonitorLogAR extends ActiveRecord
             [
                 'class' => TimestampBehavior::className(),
                 'createdAtAttribute' => 'dateCreated',
-                'updatedAtAttribute' => FALSE,
+                'updatedAtAttribute' => false,
                 'value' => function() {
                     return mktime();
                 }

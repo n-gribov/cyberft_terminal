@@ -50,13 +50,14 @@ use \Exception;
 
 /*
 Functions to generate simple cases of Exclusive Canonical XML - Callable function is C14NGeneral()
-i.e.: $canonical = C14NGeneral($domelement, TRUE);
+i.e.: $canonical = C14NGeneral($domelement, true);
 */
 
 /* helper function */
-function sortAndAddAttrs($element, $arAtts) {
-   $newAtts = array();
-   foreach ($arAtts AS $attnode) {
+function sortAndAddAttrs($element, $arAtts)
+{
+   $newAtts = [];
+   foreach ($arAtts as $attnode) {
       $newAtts[$attnode->nodeName] = $attnode;
    }
    ksort($newAtts);
@@ -66,7 +67,8 @@ function sortAndAddAttrs($element, $arAtts) {
 }
 
 /* helper function */
-function canonical($tree, $element, $withcomments) {
+function canonical($tree, $element, $withcomments)
+{
     if ($tree->nodeType != XML_DOCUMENT_NODE) {
         $dom = $tree->ownerDocument;
     } else {
@@ -82,10 +84,10 @@ function canonical($tree, $element, $withcomments) {
         if ($element->nodeType == XML_COMMENT_NODE && ! $withcomments) {
             return;
         }
-        $tree->appendChild($dom->importNode($element, TRUE));
+        $tree->appendChild($dom->importNode($element, true));
         return;
     }
-    $arNS = array();
+    $arNS = [];
     if ($element->namespaceURI != "") {
         if ($element->prefix == "") {
             $elCopy = $dom->createElementNS($element->namespaceURI, $element->nodeName);
@@ -119,7 +121,7 @@ function canonical($tree, $element, $withcomments) {
         if ($prefix != $attnode->prefix) {
            $arNS[$attnode->namespaceURI] = $attnode->prefix;
         } else {
-            $arNS[$attnode->namespaceURI] = NULL;
+            $arNS[$attnode->namespaceURI] = null;
         }
     }
     if (count($arNS) > 0) {
@@ -128,9 +130,10 @@ function canonical($tree, $element, $withcomments) {
 
     /* Add namespace nodes */
     foreach ($arNS AS $namespaceURI=>$prefix) {
-        if ($prefix != NULL) {
-              $elCopy->setAttributeNS("http://www.w3.org/2000/xmlns/",
-                               "xmlns:".$prefix, $namespaceURI);
+        if ($prefix != null) {
+            $elCopy->setAttributeNS(
+                'http://www.w3.org/2000/xmlns/', 'xmlns:' . $prefix, $namespaceURI
+            );
         }
     }
     if (count($arNS) > 0) {
@@ -154,10 +157,10 @@ function canonical($tree, $element, $withcomments) {
 
 /*
 $element - DOMElement for which to produce the canonical version of
-$exclusive - boolean to indicate exclusive canonicalization (must pass TRUE)
+$exclusive - boolean to indicate exclusive canonicalization (must pass true)
 $withcomments - boolean indicating wether or not to include comments in canonicalized form
 */
-function C14NGeneral($element, $exclusive=FALSE, $withcomments=FALSE) {
+function C14NGeneral($element, $exclusive=false, $withcomments=false) {
     /* IF PHP 5.2+ then use built in canonical functionality */
     $php_version = explode('.', PHP_VERSION);
     if (($php_version[0] > 5) || ($php_version[0] == 5 && $php_version[1] >= 2) ) {
@@ -166,11 +169,11 @@ function C14NGeneral($element, $exclusive=FALSE, $withcomments=FALSE) {
 
     /* Must be element or document */
     if (! $element instanceof DOMElement && ! $element instanceof DOMDocument) {
-        return NULL;
+        return null;
     }
     /* Currently only exclusive XML is supported */
-    if ($exclusive == FALSE) {
-        throw new Exception("Only exclusive canonicalization is supported in this version of PHP");
+    if ($exclusive == false) {
+        throw new Exception('Only exclusive canonicalization is supported in this version of PHP');
     }
 
     $copyDoc = new DOMDocument();
@@ -178,7 +181,8 @@ function C14NGeneral($element, $exclusive=FALSE, $withcomments=FALSE) {
     return $copyDoc->saveXML($copyDoc->documentElement, LIBXML_NOEMPTYTAG);
 }
 
-class XMLSecurityKey {
+class XMLSecurityKey
+{
     const TRIPLEDES_CBC = 'http://www.w3.org/2001/04/xmlenc#tripledes-cbc';
     const AES128_CBC = 'http://www.w3.org/2001/04/xmlenc#aes128-cbc';
     const AES192_CBC = 'http://www.w3.org/2001/04/xmlenc#aes192-cbc';
@@ -189,29 +193,30 @@ class XMLSecurityKey {
     const RSA_SHA1 = 'http://www.w3.org/2000/09/xmldsig#rsa-sha1';
     const RSA_SHA256 = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256';
 
-    private $cryptParams = array();
+    private $cryptParams = [];
     public $type = 0;
-    public $key = NULL;
+    public $key = null;
     public $passphrase = "";
-    public $iv = NULL;
-    public $name = NULL;
-    public $keyChain = NULL;
-    public $isEncrypted = FALSE;
-    public $encryptedCtx = NULL;
-    public $guid = NULL;
+    public $iv = null;
+    public $name = null;
+    public $keyChain = null;
+    public $isEncrypted = false;
+    public $encryptedCtx = null;
+    public $guid = null;
 	
-	public $parsedCertData = NULL;
+	public $parsedCertData = null;
 
     /**
      * This variable contains the certificate as a string if this key represents an X509-certificate.
-     * If this key doesn't represent a certificate, this will be NULL.
+     * If this key doesn't represent a certificate, this will be null.
      */
-    private $x509Certificate = NULL;
+    private $x509Certificate = null;
 
     /* This variable contains the certificate thunbprint if we have loaded an X509-certificate. */
-    private $X509Thumbprint = NULL;
+    private $X509Thumbprint = null;
 
-    public function __construct($type, $params=NULL) {
+    public function __construct($type, $params = null)
+    {
         srand();
         switch ($type) {
             case (XMLSecurityKey::TRIPLEDES_CBC):
@@ -253,12 +258,11 @@ class XMLSecurityKey {
                     }
                 }
                 throw new Exception('Certificate "type" (private/public) must be passed via parameters');
-                return;
             case (XMLSecurityKey::RSA_OAEP_MGF1P):
                 $this->cryptParams['library'] = 'openssl';
                 $this->cryptParams['padding'] = OPENSSL_PKCS1_OAEP_PADDING;
                 $this->cryptParams['method'] = 'http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p';
-                $this->cryptParams['hash'] = NULL;
+                $this->cryptParams['hash'] = null;
                 if (is_array($params) && ! empty($params['type'])) {
                     if ($params['type'] == 'public' || $params['type'] == 'private') {
                         $this->cryptParams['type'] = $params['type'];
@@ -266,7 +270,6 @@ class XMLSecurityKey {
                     }
                 }
                 throw new Exception('Certificate "type" (private/public) must be passed via parameters');
-                return;
             case (XMLSecurityKey::RSA_SHA1):
                 $this->cryptParams['library'] = 'openssl';
                 $this->cryptParams['method'] = 'http://www.w3.org/2000/09/xmldsig#rsa-sha1';
@@ -278,7 +281,6 @@ class XMLSecurityKey {
                     }
                 }
                 throw new Exception('Certificate "type" (private/public) must be passed via parameters');
-                break;
             case (XMLSecurityKey::RSA_SHA256):
                 $this->cryptParams['library'] = 'openssl';
                 $this->cryptParams['method'] = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256';
@@ -291,10 +293,8 @@ class XMLSecurityKey {
                     }
                 }
                 throw new Exception('Certificate "type" (private/public) must be passed via parameters');
-                break;
             default:
                 throw new Exception('Invalid Key Type');
-                return;
         }
         $this->type = $type;
     }
@@ -303,18 +303,20 @@ class XMLSecurityKey {
      * Retrieve the key size for the symmetric encryption algorithm..
      *
      * If the key size is unknown, or this isn't a symmetric encryption algorithm,
-     * NULL is returned.
+     * null is returned.
      *
-     * @return int|NULL  The number of bytes in the key.
+     * @return int|null  The number of bytes in the key.
      */
-    public function getSymmetricKeySize() {
+    public function getSymmetricKeySize()
+    {
         if (! isset($this->cryptParams['keysize'])) {
-            return NULL;
+            return null;
         }
         return $this->cryptParams['keysize'];
     }
       
-    public function generateSessionKey() {
+    public function generateSessionKey()
+    {
         if (!isset($this->cryptParams['keysize'])) {
             throw new Exception('Unknown key size for type "' . $this->type . '".');
         }
@@ -347,20 +349,20 @@ class XMLSecurityKey {
         return $key;
     }
 
-    public static function getRawThumbprint($cert) {
-
+    public static function getRawThumbprint($cert)
+    {
         $arCert = explode("\n", $cert);
         $data = '';
-        $inData = FALSE;
+        $inData = false;
 
         foreach ($arCert AS $curData) {
             if (! $inData) {
                 if (strncmp($curData, '-----BEGIN CERTIFICATE', 22) == 0) {
-                    $inData = TRUE;
+                    $inData = true;
                 }
             } else {
                 if (strncmp($curData, '-----END CERTIFICATE', 20) == 0) {
-                    $inData = FALSE;
+                    $inData = false;
                     break;
                 }
                 $data .= trim($curData);
@@ -371,10 +373,11 @@ class XMLSecurityKey {
             return strtolower(hash('sha256', base64_decode($data)));
         }
 
-        return NULL;
+        return null;
     }
 
-    public function loadKey($key, $isFile = FALSE, $isCert = FALSE) {
+    public function loadKey($key, $isFile = false, $isCert = false)
+    {
         if ($isFile) {
             $this->key = file_get_contents($key);
         } else {
@@ -387,7 +390,7 @@ class XMLSecurityKey {
             $this->x509Certificate = $str_cert;
             $this->key = $str_cert;
         } else {
-            $this->x509Certificate = NULL;
+            $this->x509Certificate = null;
         }
         if ($this->cryptParams['library'] == 'openssl') {
             if ($this->cryptParams['type'] == 'public') {
@@ -416,23 +419,26 @@ class XMLSecurityKey {
         }
     }
 
-    private function encryptMcrypt($data) {
+    private function encryptMcrypt($data)
+    {
         $td = mcrypt_module_open($this->cryptParams['cipher'], '', $this->cryptParams['mode'], '');
-        $this->iv = mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
+        $this->iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
         mcrypt_generic_init($td, $this->key, $this->iv);
         if ($this->cryptParams['mode'] == MCRYPT_MODE_CBC) {
             $bs = mcrypt_enc_get_block_size($td);
-            for ($datalen0=$datalen=strlen($data); (($datalen%$bs)!=($bs-1)); $datalen++)
-                $data.=chr(rand(1, 127));
-            $data.=chr($datalen-$datalen0+1);
+            for ($datalen0 = $datalen = strlen($data); (($datalen % $bs) != ($bs - 1)); $datalen++) {
+                $data .= chr(rand(1, 127));
+            }
+            $data .= chr($datalen - $datalen0 + 1);
         }
-        $encrypted_data = $this->iv.mcrypt_generic($td, $data);
+        $encrypted_data = $this->iv . mcrypt_generic($td, $data);
         mcrypt_generic_deinit($td);
         mcrypt_module_close($td);
         return $encrypted_data;
     }
 
-    private function decryptMcrypt($data) {
+    private function decryptMcrypt($data)
+    {
         $td = mcrypt_module_open($this->cryptParams['cipher'], '', $this->cryptParams['mode'], '');
         $iv_length = mcrypt_enc_get_iv_size($td);
 
@@ -451,106 +457,106 @@ class XMLSecurityKey {
         return $decrypted_data;
     }
 
-    private function encryptOpenSSL($data) {
+    private function encryptOpenSSL($data)
+    {
         if ($this->cryptParams['type'] == 'public') {
             if (! openssl_public_encrypt($data, $encrypted_data, $this->key, $this->cryptParams['padding'])) {
-				throw new Exception('xmlseclibs:encryptOpenSSL: Failure encrypting data using public key');
-                return;
+                throw new Exception('xmlseclibs:encryptOpenSSL: Failure encrypting data using public key');
             }
         } else {
             if (! openssl_private_encrypt($data, $encrypted_data, $this->key, $this->cryptParams['padding'])) {
                 throw new Exception('xmlseclibs:encryptOpenSSL: Failure encrypting data using private key');
-                return;
             }
         }
         return $encrypted_data;
     }
 
-    private function decryptOpenSSL($data) {
+    private function decryptOpenSSL($data)
+    {
         if ($this->cryptParams['type'] == 'public') {
             if (! openssl_public_decrypt($data, $decrypted, $this->key, $this->cryptParams['padding'])) {
                 throw new Exception('xmlseclibs:decryptOpenSSL: Failure decrypting data using public key');
-                return;
             }
         } else {
             if (! openssl_private_decrypt($data, $decrypted, $this->key, $this->cryptParams['padding'])) {
                 throw new Exception('xmlseclibs:decryptOpenSSL: Failure decrypting data using private key');
-                return;
             }
         }
         return $decrypted;
     }
 
-    private function signOpenSSL($data) {
-	    $algo = OPENSSL_ALGO_SHA256;
-	    if (! empty($this->cryptParams['digest'])) {
-	        $algo = $this->cryptParams['digest'];
-	    }
+    private function signOpenSSL($data)
+    {
+        $algo = OPENSSL_ALGO_SHA256;
+        if (! empty($this->cryptParams['digest'])) {
+            $algo = $this->cryptParams['digest'];
+        }
         if (! openssl_sign ($data, $signature, $this->key, $algo)) {
             throw new Exception('Failure Signing Data: ' . openssl_error_string() . ' - ' . $algo);
-            return;
         }
         return $signature;
     }
 
-    private function verifyOpenSSL($data, $signature) {
-	    $algo = OPENSSL_ALGO_SHA256;
-	    if (! empty($this->cryptParams['digest'])) {
-	        $algo = $this->cryptParams['digest'];
-	    }
+    private function verifyOpenSSL($data, $signature)
+    {
+        $algo = OPENSSL_ALGO_SHA256;
+        if (! empty($this->cryptParams['digest'])) {
+            $algo = $this->cryptParams['digest'];
+        }
         return openssl_verify ($data, $signature, $this->key, $algo);
     }
 
-    public function encryptData($data) {
+    public function encryptData($data)
+    {
         switch ($this->cryptParams['library']) {
             case 'mcrypt':
                 return $this->encryptMcrypt($data);
-                break;
             case 'openssl':
                 return $this->encryptOpenSSL($data);
-                break;
         }
     }
 
-    public function decryptData($data) {
+    public function decryptData($data)
+    {
         switch ($this->cryptParams['library']) {
             case 'mcrypt':
                 return $this->decryptMcrypt($data);
-                break;
             case 'openssl':
                 return $this->decryptOpenSSL($data);
-                break;
         }
     }
 
-    public function signData($data) {
+    public function signData($data)
+    {
         switch ($this->cryptParams['library']) {
             case 'openssl':
                 return $this->signOpenSSL($data);
-                break;
         }
     }
 
-    public function verifySignature($data, $signature) {
+    public function verifySignature($data, $signature)
+    {
         switch ($this->cryptParams['library']) {
             case 'openssl':
                 return $this->verifyOpenSSL($data, $signature);
-                break;
         }
     }
 
-    public function getAlgorith() {
+    public function getAlgorith()
+    {
         return $this->cryptParams['method'];
     }
 
-    static function makeAsnSegment($type, $string) {
+    static function makeAsnSegment($type, $string)
+    {
         switch ($type){
             case 0x02:
-                if (ord($string) > 0x7f)
-                    $string = chr(0).$string;
+                if (ord($string) > 0x7f) {
+                    $string = chr(0) . $string;
+                }
                 break;
             case 0x03:
-                $string = chr(0).$string;
+                $string = chr(0) . $string;
                 break;
         }
 
@@ -563,13 +569,14 @@ class XMLSecurityKey {
         } else if ($length < 0x010000) {
            $output = sprintf("%c%c%c%c%s", $type, 0x82, $length/0x0100, $length%0x0100, $string);
         } else {
-            $output = NULL;
+            $output = null;
         }
         return($output);
     }
 
     /* Modulus and Exponent must already be base64 decoded */
-    static function convertRSA($modulus, $exponent) {
+    static function convertRSA($modulus, $exponent)
+    {
         /* make an ASN publicKeyInfo */
         $exponentEncoding = XMLSecurityKey::makeAsnSegment(0x02, $exponent);
         $modulusEncoding = XMLSecurityKey::makeAsnSegment(0x02, $modulus);
@@ -589,11 +596,10 @@ class XMLSecurityKey {
         return $encoding."-----END PUBLIC KEY-----\n";
     }
 
-    public function serializeKey($parent) {
+    public function serializeKey($parent)
+    {
 
     }
-    
-
 
     /**
      * Retrieve the X509 certificate this key represents.
@@ -601,22 +607,23 @@ class XMLSecurityKey {
      * Will return the X509 certificate in PEM-format if this key represents
      * an X509 certificate.
      *
-     * @return  The X509 certificate or NULL if this key doesn't represent an X509-certificate.
+     * @return  The X509 certificate or null if this key doesn't represent an X509-certificate.
      */
-    public function getX509Certificate() {
+    public function getX509Certificate()
+    {
         return $this->x509Certificate;
     }
 
     /* Get the thumbprint of this X509 certificate.
      *
      * Returns:
-     *  The thumbprint as a lowercase 40-character hexadecimal number, or NULL
+     *  The thumbprint as a lowercase 40-character hexadecimal number, or null
      *  if this isn't a X509 certificate.
      */
-    public function getX509Thumbprint() {
+    public function getX509Thumbprint()
+    {
         return $this->X509Thumbprint;
     }
-
 
     /**
      * Create key from an EncryptedKey-element.
@@ -624,33 +631,33 @@ class XMLSecurityKey {
      * @param DOMElement $element  The EncryptedKey-element.
      * @return XMLSecurityKey  The new key.
      */
-    public static function fromEncryptedKeyElement(DOMElement $element) {
-
+    public static function fromEncryptedKeyElement(DOMElement $element)
+    {
         $objenc = new XMLSecEnc();
         $objenc->setNode($element);
         if (! $objKey = $objenc->locateKey()) {
             throw new Exception("Unable to locate algorithm for this Encrypted Key");
         }
-        $objKey->isEncrypted = TRUE;
+        $objKey->isEncrypted = true;
         $objKey->encryptedCtx = $objenc;
         XMLSecEnc::staticLocateKeyInfo($objKey, $element);
         return $objKey;
     }
 	
-	/**
-	 * Функция возвращает значение атрибута сертификата, если он существует
-	 * @param string $name Имя атрибута сертификата
-	 * @return string
-	 */
-	public function getCertAttribute($name)
-	{
-		if ($this->parsedCertData) {
-			if (is_array($this->parsedCertData) && array_key_exists($name,$this->parsedCertData)) {
-				return $this->parsedCertData[$name];
-			}
-		}
-		return '';
-	}
+    /**
+     * Функция возвращает значение атрибута сертификата, если он существует
+     * @param string $name Имя атрибута сертификата
+     * @return string
+     */
+    public function getCertAttribute($name)
+    {
+        if ($this->parsedCertData) {
+            if (is_array($this->parsedCertData) && array_key_exists($name,$this->parsedCertData)) {
+                return $this->parsedCertData[$name];
+            }
+        }
+        return '';
+    }
 
 }
 
@@ -674,29 +681,32 @@ class XMLSecurityDSig {
 		</SignedInfo>
 	</Signature>';
 
-    public $sigNode = NULL;
-    public $idKeys = array();
-    public $idNS = array();
-    private $signedInfo = NULL;
-    private $xPathCtx = NULL;
-    /*private */ protected $canonicalMethod = NULL;
+    public $sigNode = null;
+    public $idKeys = [];
+    public $idNS = [];
+    private $signedInfo = null;
+    private $xPathCtx = null;
+    /*private */ protected $canonicalMethod = null;
     private $prefix = '';
     private $searchpfx = 'secdsig';
 
     /* This variable contains an associative array of validated nodes. */
-    private $validatedNodes = NULL;
+    private $validatedNodes = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         $sigdoc = new DOMDocument();
         $sigdoc->loadXML(XMLSecurityDSig::template, LIBXML_PARSEHUGE);
         $this->sigNode = $sigdoc->documentElement;
     }
 
-    private function resetXPathObj() {
-        $this->xPathCtx = NULL;
+    private function resetXPathObj()
+    {
+        $this->xPathCtx = null;
     }
 	
-    protected function getXPathObj() {
+    protected function getXPathObj()
+    {
         if (empty($this->xPathCtx) && ! empty($this->sigNode)) {
             $xpath = new DOMXPath($this->sigNode->ownerDocument);
             $xpath->registerNamespace('secdsig', XMLSecurityDSig::XMLDSIGNS);
@@ -705,13 +715,14 @@ class XMLSecurityDSig {
         return $this->xPathCtx;
     }
 
-    static function generate_GUID($prefix='pfx') {
+    static function generate_GUID($prefix = 'pfx')
+    {
         $uuid = md5(uniqid(rand(), true));
-        $guid =  $prefix.substr($uuid,0,8)."-".
-                substr($uuid,8,4)."-".
-                substr($uuid,12,4)."-".
-                substr($uuid,16,4)."-".
-                substr($uuid,20,12);
+        $guid =  $prefix.substr($uuid, 0, 8) . '-'
+                . substr($uuid, 8, 4) . '-'
+                . substr($uuid, 12, 4) . '-'
+                . substr($uuid, 16, 4) . '-'
+                . substr($uuid, 20, 12);
         return $guid;
     }
 
@@ -729,25 +740,28 @@ class XMLSecurityDSig {
             $this->sigNode = $nodeset->item(0);
             return $this->sigNode;
         }
-        return NULL;
+        return null;
     }
 
-    public function createNewSignNode($name, $value=NULL) {
+    public function createNewSignNode($name, $value = null) {
         $doc = $this->sigNode->ownerDocument;
         if (! is_null($value)) {
-            $node = $doc->createElementNS(XMLSecurityDSig::XMLDSIGNS, 
-				(!empty($this->prefix)?$this->prefix . ':' . $name : $name),
-				$value
-			);
+            $node = $doc->createElementNS(
+                XMLSecurityDSig::XMLDSIGNS, 
+                (!empty($this->prefix)?$this->prefix . ':' . $name : $name),
+                $value
+            );
         } else {
-            $node = $doc->createElementNS(XMLSecurityDSig::XMLDSIGNS, 
-				(!empty($this->prefix)?$this->prefix . ':' . $name : $name)
-			);
+            $node = $doc->createElementNS(
+                XMLSecurityDSig::XMLDSIGNS, 
+                (!empty($this->prefix)?$this->prefix . ':' . $name : $name)
+            );
         }
         return $node;
     }
 
-    public function setCanonicalMethod($method) {
+    public function setCanonicalMethod($method)
+    {
         switch ($method) {
             case 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315':
             case 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments':
@@ -773,23 +787,24 @@ class XMLSecurityDSig {
         }
     }
 
-    /*private*/ protected function canonicalizeData($node, $canonicalmethod, $arXPath=NULL, $prefixList=NULL) {
-        $exclusive = FALSE;
-        $withComments = FALSE;
+    protected function canonicalizeData($node, $canonicalmethod, $arXPath = null, $prefixList = null)
+    {
+        $exclusive = false;
+        $withComments = false;
         switch ($canonicalmethod) {
             case 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315':
-                $exclusive = FALSE;
-                $withComments = FALSE;
+                $exclusive = false;
+                $withComments = false;
                 break;
             case 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments':
-                $withComments = TRUE;
+                $withComments = true;
                 break;
             case 'http://www.w3.org/2001/10/xml-exc-c14n#':
-                $exclusive = TRUE;
+                $exclusive = true;
                 break;
             case 'http://www.w3.org/2001/10/xml-exc-c14n#WithComments':
-                $exclusive = TRUE;
-                $withComments = TRUE;
+                $exclusive = true;
+                $withComments = true;
                 break;
         }
 		/* Support PHP versions < 5.2 not containing C14N methods in DOM extension */
@@ -803,16 +818,16 @@ class XMLSecurityDSig {
         return $node->C14N($exclusive, $withComments, $arXPath, $prefixList);
     }
 
-    public function canonicalizeSignedInfo() {
-
+    public function canonicalizeSignedInfo()
+    {
         $doc = $this->sigNode->ownerDocument;
-        $canonicalmethod = NULL;
+        $canonicalmethod = null;
         if ($doc) {
             $xpath = $this->getXPathObj();
-            $query = "./secdsig:SignedInfo";
+            $query = './secdsig:SignedInfo';
             $nodeset = $xpath->query($query, $this->sigNode);
             if ($signInfoNode = $nodeset->item(0)) {
-                $query = "./secdsig:CanonicalizationMethod";
+                $query = './secdsig:CanonicalizationMethod';
                 $nodeset = $xpath->query($query, $signInfoNode);
                 if ($canonNode = $nodeset->item(0)) {
                     $canonicalmethod = $canonNode->getAttribute('Algorithm');
@@ -821,7 +836,7 @@ class XMLSecurityDSig {
                 return $this->signedInfo;
             }
         }
-        return NULL;
+        return null;
     }
 
     public function calculateDigest ($digestAlgorithm, $data) {
@@ -842,12 +857,12 @@ class XMLSecurityDSig {
                 throw new Exception("Cannot validate digest: Unsupported Algorith <$digestAlgorithm>");
         }
         if (function_exists('hash')) {
-            return base64_encode(hash($alg, $data, TRUE));
-        } elseif (function_exists('mhash')) {
-            $alg = "MHASH_" . strtoupper($alg);
+            return base64_encode(hash($alg, $data, true));
+        } else if (function_exists('mhash')) {
+            $alg = 'MHASH_' . strtoupper($alg);
             return base64_encode(mhash(constant($alg), $data));
-        } elseif ($alg === 'sha1') {
-            return base64_encode(sha1($data, TRUE));
+        } else if ($alg === 'sha1') {
+            return base64_encode(sha1($data, true));
         } else {
             throw new Exception('xmlseclibs is unable to calculate a digest. Maybe you need the mhash library?');
         }
@@ -865,23 +880,24 @@ class XMLSecurityDSig {
         return ($digValue == $digestValue);
     }
 
-    public function processTransforms($refNode, $objData, $includeCommentNodes = TRUE) {
+    public function processTransforms($refNode, $objData, $includeCommentNodes = true)
+    {
         $data = $objData;
         $xpath = new DOMXPath($refNode->ownerDocument);
         $xpath->registerNamespace('secdsig', XMLSecurityDSig::XMLDSIGNS);
         $query = './secdsig:Transforms/secdsig:Transform';
         $nodelist = $xpath->query($query, $refNode);
         $canonicalMethod = 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315';
-        $arXPath = NULL;
-		$XPaths = NULL;
-        $prefixList = NULL;
-        foreach ($nodelist AS $transform) {
+        $arXPath = null;
+        $XPaths = null;
+        $prefixList = null;
+        foreach ($nodelist as $transform) {
             $algorithm = $transform->getAttribute("Algorithm");
             switch ($algorithm) {
                 case 'http://www.w3.org/2001/10/xml-exc-c14n#':
                 case 'http://www.w3.org/2001/10/xml-exc-c14n#WithComments':
 
-                    if(!$includeCommentNodes) {
+                    if (!$includeCommentNodes) {
                         /* We remove comment nodes by forcing it to use a canonicalization
                          * without comments.
                          */
@@ -894,11 +910,11 @@ class XMLSecurityDSig {
                     while ($node) {
                         if ($node->localName == 'InclusiveNamespaces') {
                             if ($pfx = $node->getAttribute('PrefixList')) {
-                                $arpfx = array();
-                                $pfxlist = explode(" ", $pfx);
-                                foreach ($pfxlist AS $pfx) {
+                                $arpfx = [];
+                                $pfxlist = explode(' ', $pfx);
+                                foreach ($pfxlist as $pfx) {
                                     $val = trim($pfx);
-                                    if (! empty($val)) {
+                                    if (!empty($val)) {
                                         $arpfx[] = $val;
                                     }
                                 }
@@ -913,7 +929,7 @@ class XMLSecurityDSig {
 		    break;
                 case 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315':
                 case 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments':
-                    if(!$includeCommentNodes) {
+                    if (!$includeCommentNodes) {
                         /* We remove comment nodes by forcing it to use a canonicalization
                          * without comments.
                          */
@@ -925,27 +941,27 @@ class XMLSecurityDSig {
                     break;
                 case 'http://www.w3.org/TR/1999/REC-xpath-19991116':
                     $node = $transform->firstChild;
-					while ($node) {
-						if ('XPath' === $node->localName) {
-							if(null === $arXPath) {
-								$arXPath = array();
-								$arXPath['namespaces'] = array();
-								$XPaths = array();
-							}
-							$XPaths[] = $node->nodeValue;
-							$nslist = $xpath->query('./namespace::*', $node);
-							foreach ($nslist AS $nsnode) {
-								if ($nsnode->localName != "xml") {
-									$arXPath['namespaces'][$nsnode->localName] = $nsnode->nodeValue;
-								}
-							}
-						}
-						$node = $node->nextSibling;
-					}
-					if(!empty($XPaths)) {
-						$xPathString = implode(' and ', $XPaths);
-						$arXPath['query'] = '(.//. | .//@* | .//namespace::*)[' . $xPathString .']';
-					}
+                    while ($node) {
+                        if ('XPath' === $node->localName) {
+                            if (null === $arXPath) {
+                                $arXPath = [];
+                                $arXPath['namespaces'] = [];
+                                $XPaths = [];
+                            }
+                            $XPaths[] = $node->nodeValue;
+                            $nslist = $xpath->query('./namespace::*', $node);
+                            foreach ($nslist AS $nsnode) {
+                                if ($nsnode->localName != "xml") {
+                                    $arXPath['namespaces'][$nsnode->localName] = $nsnode->nodeValue;
+                                }
+                            }
+                        }
+                        $node = $node->nextSibling;
+                    }
+                    if (!empty($XPaths)) {
+                        $xPathString = implode(' and ', $XPaths);
+                        $arXPath['query'] = '(.//. | .//@* | .//namespace::*)[' . $xPathString .']';
+                    }
 					
                     break;
             }
@@ -957,16 +973,17 @@ class XMLSecurityDSig {
         return $data;
     }
 
-    public function processRefNode($refNode) {
-        $dataObject = NULL;
+    public function processRefNode($refNode)
+    {
+        $dataObject = null;
 
         /*
          * Depending on the URI, we may not want to include comments in the result
          * See: http://www.w3.org/TR/xmldsig-core/#sec-ReferenceProcessingModel
          */
-        $includeCommentNodes = TRUE;
+        $includeCommentNodes = true;
 
-        if ($uri = $refNode->getAttribute("URI")) {
+        if ($uri = $refNode->getAttribute('URI')) {
             $arUrl = parse_url($uri);
             if (empty($arUrl['path'])) {
                 if ($identifier = $arUrl['fragment']) {
@@ -974,17 +991,17 @@ class XMLSecurityDSig {
                     /* This reference identifies a node with the given id by using
                      * a URI on the form "#identifier". This should not include comments.
                      */
-                    $includeCommentNodes = FALSE;
+                    $includeCommentNodes = false;
 
                     $xPath = new DOMXPath($refNode->ownerDocument);
                     if ($this->idNS && is_array($this->idNS)) {
-                        foreach ($this->idNS AS $nspf=>$ns) {
+                        foreach ($this->idNS as $nspf=>$ns) {
                             $xPath->registerNamespace($nspf, $ns);
                         }
                     }
-                    $iDlist = '@Id="'.$identifier.'"';
+                    $iDlist = '@Id="' . $identifier . '"';
                     if (is_array($this->idKeys)) {
-                        foreach ($this->idKeys AS $idKey) {
+                        foreach ($this->idKeys as $idKey) {
                             $iDlist .= " or @$idKey='$identifier'";
                         }
                     }
@@ -1000,29 +1017,30 @@ class XMLSecurityDSig {
             /* This reference identifies the root node with an empty URI. This should
              * not include comments.
              */
-            $includeCommentNodes = FALSE;
+            $includeCommentNodes = false;
 
             $dataObject = $refNode->ownerDocument;
         }
         $data = $this->processTransforms($refNode, $dataObject, $includeCommentNodes);
         if (!$this->validateDigest($refNode, $data)) {
-            return FALSE;
+            return false;
         }
 
         if ($dataObject instanceof DOMNode) {
             /* Add this node to the list of validated nodes. */
-            if(! empty($identifier)) {
+            if (!empty($identifier)) {
                 $this->validatedNodes[$identifier] = $dataObject;
             } else {
                 $this->validatedNodes[] = $dataObject;
             }
         }
 
-        return TRUE;
+        return true;
     }
 
-    public function getRefNodeID($refNode) {
-        if ($uri = $refNode->getAttribute("URI")) {
+    public function getRefNodeID($refNode)
+    {
+        if ($uri = $refNode->getAttribute('URI')) {
             $arUrl = parse_url($uri);
             if (empty($arUrl['path'])) {
                 if ($identifier = $arUrl['fragment']) {
@@ -1033,107 +1051,109 @@ class XMLSecurityDSig {
         return null;
     }
 
-    public function getRefIDs() {
-        $refids = array();
-        $doc = $this->sigNode->ownerDocument;
+    public function getRefIDs()
+    {
+        $refids = [];
 
         $xpath = $this->getXPathObj();
-        $query = "./secdsig:SignedInfo/secdsig:Reference";
+        $query = './secdsig:SignedInfo/secdsig:Reference';
         $nodeset = $xpath->query($query, $this->sigNode);
         if ($nodeset->length == 0) {
-            throw new Exception("Reference nodes not found");
+            throw new Exception('Reference nodes not found');
         }
-        foreach ($nodeset AS $refNode) {
+        foreach ($nodeset as $refNode) {
             $refids[] = $this->getRefNodeID($refNode);
         }
         return $refids;
     }
 
-    public function validateReference() {
+    public function validateReference()
+    {
         $doc = $this->sigNode->ownerDocument;
         if (! $doc->isSameNode($this->sigNode)) {
             $this->sigNode->parentNode->removeChild($this->sigNode);
         }
         $xpath = $this->getXPathObj();
-        $query = "./secdsig:SignedInfo/secdsig:Reference";
+        $query = './secdsig:SignedInfo/secdsig:Reference';
         $nodeset = $xpath->query($query, $this->sigNode);
         if ($nodeset->length == 0) {
-            throw new Exception("Reference nodes not found");
+            throw new Exception('Reference nodes not found');
         }
         
         /* Initialize/reset the list of validated nodes. */
-        $this->validatedNodes = array();
+        $this->validatedNodes = [];
         
-        foreach ($nodeset AS $refNode) {
+        foreach ($nodeset as $refNode) {
             if (! $this->processRefNode($refNode)) {
                 /* Clear the list of validated nodes. */
-                $this->validatedNodes = NULL;
-                throw new Exception("Reference validation failed");
+                $this->validatedNodes = null;
+                throw new Exception('Reference validation failed');
             }
         }
-        return TRUE;
+        return true;
     }
 
-    private function addRefInternal($sinfoNode, $node, $algorithm, $arTransforms=NULL, $options=NULL) {
-        $prefix = NULL;
-        $prefix_ns = NULL;
+    private function addRefInternal($sinfoNode, $node, $algorithm, $arTransforms = null, $options = null)
+    {
+        $prefix = null;
+        $prefix_ns = null;
         $id_name = 'Id';
-        $overwrite_id  = TRUE;
-        $force_uri = FALSE;
+        $overwrite_id  = true;
+        $force_uri = false;
 
         if (is_array($options)) {
-            $prefix = empty($options['prefix'])?NULL:$options['prefix'];
-            $prefix_ns = empty($options['prefix_ns'])?NULL:$options['prefix_ns'];
+            $prefix = empty($options['prefix'])?null:$options['prefix'];
+            $prefix_ns = empty($options['prefix_ns'])?null:$options['prefix_ns'];
             $id_name = empty($options['id_name'])?'Id':$options['id_name'];
-            $overwrite_id = !isset($options['overwrite'])?TRUE:(bool)$options['overwrite'];
-            $force_uri = !isset($options['force_uri'])?FALSE:(bool)$options['force_uri'];
+            $overwrite_id = !isset($options['overwrite'])?true:(bool)$options['overwrite'];
+            $force_uri = !isset($options['force_uri'])?false:(bool)$options['force_uri'];
         }
 
         $attname = $id_name;
-        if (! empty($prefix)) {
-            $attname = $prefix.':'.$attname;
+        if (!empty($prefix)) {
+            $attname = $prefix . ':' . $attname;
         }
 
         $refNode = $this->createNewSignNode('Reference');
         $sinfoNode->appendChild($refNode);
 
-        if (! $node instanceof DOMDocument) {
-            $uri = NULL;
-            if (! $overwrite_id) {
+        if (!$node instanceof DOMDocument) {
+            $uri = null;
+            if (!$overwrite_id) {
                 $uri = $node->getAttributeNS($prefix_ns, $attname);
             }
             if (empty($uri)) {
                 $uri = XMLSecurityDSig::generate_GUID();
                 $node->setAttributeNS($prefix_ns, $attname, $uri);
             }
-            $refNode->setAttribute("URI", '#'.$uri);
-        } elseif ($force_uri) {
-            $refNode->setAttribute("URI", '');
+            $refNode->setAttribute('URI', '#' . $uri);
+        } else if ($force_uri) {
+            $refNode->setAttribute('URI', '');
         }
 
         $transNodes = $this->createNewSignNode('Transforms');
         $refNode->appendChild($transNodes);
 
         if (is_array($arTransforms)) {
-            foreach ($arTransforms AS $transform) {
+            foreach ($arTransforms as $transform) {
                 $transNode = $this->createNewSignNode('Transform');
                 $transNodes->appendChild($transNode);
                 if (is_array($transform) && 
-                    (! empty($transform['http://www.w3.org/TR/1999/REC-xpath-19991116'])) && 
-                    (! empty($transform['http://www.w3.org/TR/1999/REC-xpath-19991116']['query']))) {
+                    (!empty($transform['http://www.w3.org/TR/1999/REC-xpath-19991116'])) && 
+                    (!empty($transform['http://www.w3.org/TR/1999/REC-xpath-19991116']['query']))) {
                     $transNode->setAttribute('Algorithm', 'http://www.w3.org/TR/1999/REC-xpath-19991116');
                     $XPathNode = $this->createNewSignNode('XPath', $transform['http://www.w3.org/TR/1999/REC-xpath-19991116']['query']);
                     $transNode->appendChild($XPathNode);
-                    if (! empty($transform['http://www.w3.org/TR/1999/REC-xpath-19991116']['namespaces'])) {
+                    if (!empty($transform['http://www.w3.org/TR/1999/REC-xpath-19991116']['namespaces'])) {
                         foreach ($transform['http://www.w3.org/TR/1999/REC-xpath-19991116']['namespaces'] AS $prefix => $namespace) {
-                            $XPathNode->setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:$prefix", $namespace);
+                            $XPathNode->setAttributeNS('http://www.w3.org/2000/xmlns/', "xmlns:$prefix", $namespace);
                         }
                     }
                 } else {
                     $transNode->setAttribute('Algorithm', $transform);
                 }
             }
-        } elseif (! empty($this->canonicalMethod)) {
+        } else if (!empty($this->canonicalMethod)) {
             $transNode = $this->createNewSignNode('Transform');
             $transNodes->appendChild($transNode);
             $transNode->setAttribute('Algorithm', $this->canonicalMethod);
@@ -1149,9 +1169,10 @@ class XMLSecurityDSig {
         $refNode->appendChild($digestValue);
     }
 
-    public function addReference($node, $algorithm, $arTransforms=NULL, $options=NULL) {
+    public function addReference($node, $algorithm, $arTransforms = null, $options = null)
+    {
         if ($xpath = $this->getXPathObj()) {
-            $query = "./secdsig:SignedInfo";
+            $query = './secdsig:SignedInfo';
             $nodeset = $xpath->query($query, $this->sigNode);
             if ($sInfo = $nodeset->item(0)) {
                 $this->addRefInternal($sInfo, $node, $algorithm, $arTransforms, $options);
@@ -1159,30 +1180,32 @@ class XMLSecurityDSig {
         }
     }
 
-    public function addReferenceList($arNodes, $algorithm, $arTransforms=NULL, $options=NULL) {
+    public function addReferenceList($arNodes, $algorithm, $arTransforms = null, $options = null)
+    {
         if ($xpath = $this->getXPathObj()) {
-            $query = "./secdsig:SignedInfo";
+            $query = './secdsig:SignedInfo';
             $nodeset = $xpath->query($query, $this->sigNode);
             if ($sInfo = $nodeset->item(0)) {
-                foreach ($arNodes AS $node) {
+                foreach ($arNodes as $node) {
                     $this->addRefInternal($sInfo, $node, $algorithm, $arTransforms, $options);
                 }
             }
         }
     }
 
-   public function addObject($data, $mimetype=NULL, $encoding=NULL) {
+   public function addObject($data, $mimetype = null, $encoding = null)
+   {
       $objNode = $this->createNewSignNode('Object');
       $this->sigNode->appendChild($objNode);
-      if (! empty($mimetype)) {
+      if (!empty($mimetype)) {
          $objNode->setAtribute('MimeType', $mimetype);
       }
-      if (! empty($encoding)) {
+      if (!empty($encoding)) {
          $objNode->setAttribute('Encoding', $encoding);
       }
 
       if ($data instanceof DOMElement) {
-         $newData = $this->sigNode->ownerDocument->importNode($data, TRUE);
+         $newData = $this->sigNode->ownerDocument->importNode($data, true);
       } else {
          $newData = $this->sigNode->ownerDocument->createTextNode($data);
       }
@@ -1191,58 +1214,62 @@ class XMLSecurityDSig {
       return $objNode;
    }
 
-    public function locateKey($node=NULL) {
+    public function locateKey($node = null)
+    {
         if (empty($node)) {
             $node = $this->sigNode;
         }
-        if (! $node instanceof DOMNode) {
-            return NULL;
+        if (!$node instanceof DOMNode) {
+            return null;
         }
         if ($doc = $node->ownerDocument) {
             $xpath = new DOMXPath($doc);
             $xpath->registerNamespace('secdsig', XMLSecurityDSig::XMLDSIGNS);
-            $query = "string(./secdsig:SignedInfo/secdsig:SignatureMethod/@Algorithm)";
+            $query = 'string(./secdsig:SignedInfo/secdsig:SignatureMethod/@Algorithm)';
             $algorithm = $xpath->evaluate($query, $node);
             if ($algorithm) {
                 try {
                     $objKey = new XMLSecurityKey($algorithm, array('type'=>'public'));
                 } catch (Exception $e) {
-                    return NULL;
+                    return null;
                 }
                 return $objKey;
             }
         }
-        return NULL;
+        return null;
     }
 
-    public function verify($objKey) {
+    public function verify($objKey)
+    {
         $doc = $this->sigNode->ownerDocument;
         $xpath = new DOMXPath($doc);
         $xpath->registerNamespace('secdsig', XMLSecurityDSig::XMLDSIGNS);
-        $query = "string(./secdsig:SignatureValue)";
+        $query = 'string(./secdsig:SignatureValue)';
         $sigValue = $xpath->evaluate($query, $this->sigNode);
         if (empty($sigValue)) {
-            throw new Exception("Unable to locate SignatureValue");
+            throw new Exception('Unable to locate SignatureValue');
         }
         return $objKey->verifySignature($this->signedInfo, base64_decode($sigValue));
     }
 
-    public function signData($objKey, $data) {
+    public function signData($objKey, $data)
+    {
         return $objKey->signData($data);
     }
 
-    public function sign($objKey, $appendToNode = NULL) {
+    public function sign($objKey, $appendToNode = null)
+    {
         // If we have a parent node append it now so C14N properly works
-        if ($appendToNode != NULL) {
+        if ($appendToNode != null) {
             $this->resetXPathObj();
             $this->appendSignature($appendToNode);
             $this->sigNode = $appendToNode->lastChild;
         }
         if ($xpath = $this->getXPathObj()) {
-            $query = "./secdsig:SignedInfo";
+            $query = './secdsig:SignedInfo';
             $nodeset = $xpath->query($query, $this->sigNode);
             if ($sInfo = $nodeset->item(0)) {
-                $query = "./secdsig:SignatureMethod";
+                $query = './secdsig:SignatureMethod';
                 $nodeset = $xpath->query($query, $sInfo);
                 $sMethod = $nodeset->item(0);
                 $sMethod->setAttribute('Algorithm', $objKey->type);
@@ -1258,7 +1285,8 @@ class XMLSecurityDSig {
         }
     }
 
-    public function appendKey($objKey, $parent=NULL) {
+    public function appendKey($objKey, $parent = null)
+    {
         $objKey->serializeKey($parent);
     }
 
@@ -1273,45 +1301,48 @@ class XMLSecurityDSig {
      * 
      * @return DOMNode The signature element node
      */
-    public function insertSignature($node, $beforeNode = NULL) {
-
+    public function insertSignature($node, $beforeNode = null)
+    {
         $document = $node->ownerDocument;
-        $signatureElement = $document->importNode($this->sigNode, TRUE);
+        $signatureElement = $document->importNode($this->sigNode, true);
 
-        if($beforeNode == NULL) {
+        if ($beforeNode == null) {
             return $node->insertBefore($signatureElement);
         } else {
             return $node->insertBefore($signatureElement, $beforeNode);
         }
     }
 
-    public function appendSignature($parentNode, $insertBefore = FALSE) {
-        $beforeNode = $insertBefore ? $parentNode->firstChild : NULL;
+    public function appendSignature($parentNode, $insertBefore = false)
+    {
+        $beforeNode = $insertBefore ? $parentNode->firstChild : null;
         return $this->insertSignature($parentNode, $beforeNode);
     }
 
-    static function get509XCert($cert, $isPEMFormat=TRUE) {
+    static function get509XCert($cert, $isPEMFormat = true)
+    {
         $certs = XMLSecurityDSig::staticGet509XCerts($cert, $isPEMFormat);
-        if (! empty($certs)) {
+        if (!empty($certs)) {
             return $certs[0];
         }
         return '';
     }
 
-    static function staticGet509XCerts($certs, $isPEMFormat=TRUE) {
+    static function staticGet509XCerts($certs, $isPEMFormat = true)
+    {
         if ($isPEMFormat) {
             $data = '';
-            $certlist = array();
+            $certlist = [];
             $arCert = explode("\n", $certs);
-            $inData = FALSE;
+            $inData = false;
             foreach ($arCert AS $curData) {
-                if (! $inData) {
+                if (!$inData) {
                     if (strncmp($curData, '-----BEGIN CERTIFICATE', 22) == 0) {
-                        $inData = TRUE;
+                        $inData = true;
                     }
                 } else {
                     if (strncmp($curData, '-----END CERTIFICATE', 20) == 0) {
-                        $inData = FALSE;
+                        $inData = false;
                         $certlist[] = $data;
                         $data = '';
                         continue;
@@ -1325,57 +1356,59 @@ class XMLSecurityDSig {
         }
     }
 
-    static function staticAdd509Cert($parentRef, $cert, $isPEMFormat=TRUE, $isURL=False, $xpath=NULL) {
-          if ($isURL) {
+    static function staticAdd509Cert($parentRef, $cert, $isPEMFormat = true, $isURL = false, $xpath = null)
+    {
+        if ($isURL) {
             $cert = file_get_contents($cert);
-          }
-          if (! $parentRef instanceof DOMElement) {
+        }
+        if (!$parentRef instanceof DOMElement) {
             throw new Exception('Invalid parent Node parameter');
-          }
-          $baseDoc = $parentRef->ownerDocument;
+        }
+        $baseDoc = $parentRef->ownerDocument;
 
-          if (empty($xpath)) {
-              $xpath = new DOMXPath($parentRef->ownerDocument);
-              $xpath->registerNamespace('secdsig', XMLSecurityDSig::XMLDSIGNS);
-          }
+        if (empty($xpath)) {
+            $xpath = new DOMXPath($parentRef->ownerDocument);
+            $xpath->registerNamespace('secdsig', XMLSecurityDSig::XMLDSIGNS);
+        }
 
-         $query = "./secdsig:KeyInfo";
-         $nodeset = $xpath->query($query, $parentRef);
-         $keyInfo = $nodeset->item(0);
-         if (! $keyInfo) {
-              $inserted = FALSE;
-              $keyInfo = $baseDoc->createElementNS(XMLSecurityDSig::XMLDSIGNS, 'KeyInfo' /*'ds:KeyInfo'*/);
+        $query = './secdsig:KeyInfo';
+        $nodeset = $xpath->query($query, $parentRef);
+        $keyInfo = $nodeset->item(0);
+        if (!$keyInfo) {
+            $inserted = false;
+            $keyInfo = $baseDoc->createElementNS(XMLSecurityDSig::XMLDSIGNS, 'KeyInfo' /*'ds:KeyInfo'*/);
 
-               $query = "./secdsig:Object";
-               $nodeset = $xpath->query($query, $parentRef);
-               if ($sObject = $nodeset->item(0)) {
-                    $sObject->parentNode->insertBefore($keyInfo, $sObject);
-                    $inserted = TRUE;
-               }
+            $query = './secdsig:Object';
+            $nodeset = $xpath->query($query, $parentRef);
+            if ($sObject = $nodeset->item(0)) {
+                $sObject->parentNode->insertBefore($keyInfo, $sObject);
+                $inserted = true;
+            }
 
-              if (! $inserted) {
-                   $parentRef->appendChild($keyInfo);
-              }
-         }
+            if (!$inserted) {
+                $parentRef->appendChild($keyInfo);
+            }
+        }
 
-         // Add all certs if there are more than one
-         $certs = XMLSecurityDSig::staticGet509XCerts($cert, $isPEMFormat);
+        // Add all certs if there are more than one
+        $certs = XMLSecurityDSig::staticGet509XCerts($cert, $isPEMFormat);
 
-         // Atach X509 data node
-         $x509DataNode = $baseDoc->createElementNS(XMLSecurityDSig::XMLDSIGNS, 'X509Data' /*'ds:X509Data'*/);
-         $keyInfo->appendChild($x509DataNode);
+        // Atach X509 data node
+        $x509DataNode = $baseDoc->createElementNS(XMLSecurityDSig::XMLDSIGNS, 'X509Data' /*'ds:X509Data'*/);
+        $keyInfo->appendChild($x509DataNode);
 
-         // Atach all certificate nodes
-         foreach ($certs as $X509Cert){
+        // Atach all certificate nodes
+        foreach ($certs as $X509Cert){
             $x509CertNode = $baseDoc->createElementNS(XMLSecurityDSig::XMLDSIGNS, 'X509Certificate' /*'ds:X509Certificate'*/, $X509Cert);
-         $x509DataNode->appendChild($x509CertNode);
-         }
+            $x509DataNode->appendChild($x509CertNode);
+        }
      }
 
-    public function add509Cert($cert, $isPEMFormat=TRUE, $isURL=False) {
-         if ($xpath = $this->getXPathObj()) {
+    public function add509Cert($cert, $isPEMFormat = true, $isURL = false)
+    {
+        if ($xpath = $this->getXPathObj()) {
             self::staticAdd509Cert($this->sigNode, $cert, $isPEMFormat, $isURL, $xpath);
-         }
+        }
     }
     
     /* This function retrieves an associative array of the validated nodes.
@@ -1384,9 +1417,10 @@ class XMLSecurityDSig {
      * as the value.
      *
      * Returns:
-     *  An associative array of validated nodes or NULL if no nodes have been validated.
+     *  An associative array of validated nodes or null if no nodes have been validated.
      */
-    public function getValidatedNodes() {
+    public function getValidatedNodes()
+    {
         return $this->validatedNodes;
     }
 }
@@ -1403,52 +1437,58 @@ class XMLSecEnc {
     const URI = 3;
     const XMLENCNS = 'http://www.w3.org/2001/04/xmlenc#';
 
-    private $encdoc = NULL;
-    private $rawNode = NULL;
-    public $type = NULL;
-    public $encKey = NULL;
-    private $references = array();
+    private $encdoc = null;
+    private $rawNode = null;
+    public $type = null;
+    public $encKey = null;
+    private $references = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_resetTemplate();
     }
 
-    private function _resetTemplate(){
+    private function _resetTemplate()
+    {
         $this->encdoc = new DOMDocument();
         $this->encdoc->loadXML(XMLSecEnc::template);
     }
 
-    public function addReference($name, $node, $type) {
-	    if (! $node instanceOf DOMNode) {
-	        throw new Exception('$node is not of type DOMNode');
-	    }
+    public function addReference($name, $node, $type)
+    {
+        if (!$node instanceOf DOMNode) {
+            throw new Exception("$node is not of type DOMNode");
+        }
+
         $curencdoc = $this->encdoc;
         $this->_resetTemplate();
         $encdoc = $this->encdoc;
         $this->encdoc = $curencdoc;
         $refuri = XMLSecurityDSig::generate_GUID();
         $element = $encdoc->documentElement;
-        $element->setAttribute("Id", $refuri);
-	    $this->references[$name] = array("node" => $node, "type" => $type, "encnode" => $encdoc, "refuri" => $refuri);
+        $element->setAttribute('Id', $refuri);
+        $this->references[$name] = ['node' => $node, 'type' => $type, 'encnode' => $encdoc, 'refuri' => $refuri];
     }
 
-    public function setNode($node) {
+    public function setNode($node)
+    {
         $this->rawNode = $node;
     }
 
-    public function encryptNode($objKey, $replace=TRUE) {
+    public function encryptNode($objKey, $replace = true)
+    {
         $data = '';
         if (empty($this->rawNode)) {
             throw new Exception('Node to encrypt has not been set');
         }
-        if (! $objKey instanceof XMLSecurityKey) {
+        if (!$objKey instanceof XMLSecurityKey) {
             throw new Exception('Invalid Key');
         }
         $doc = $this->rawNode->ownerDocument;
         $xPath = new DOMXPath($this->encdoc);
         $objList = $xPath->query('/xenc:EncryptedData/xenc:CipherData/xenc:CipherValue');
         $cipherValue = $objList->item(0);
-        if ($cipherValue == NULL) {
+        if ($cipherValue == null) {
             throw new Exception('Error locating CipherValue element within template');
         }
         switch ($this->type) {
@@ -1465,7 +1505,6 @@ class XMLSecEnc {
                 break;
             default:
                 throw new Exception('Type is currently not supported');
-                return;
         }
 
         $encMethod = $this->encdoc->documentElement->appendChild($this->encdoc->createElementNS(XMLSecEnc::XMLENCNS, 'xenc:EncryptionMethod'));
@@ -1482,32 +1521,31 @@ class XMLSecEnc {
                     if ($this->rawNode->nodeType == XML_DOCUMENT_NODE) {
                         return $this->encdoc;
                     }
-                    $importEnc = $this->rawNode->ownerDocument->importNode($this->encdoc->documentElement, TRUE);
+                    $importEnc = $this->rawNode->ownerDocument->importNode($this->encdoc->documentElement, true);
                     $this->rawNode->parentNode->replaceChild($importEnc, $this->rawNode);
                     return $importEnc;
-                    break;
                 case (XMLSecEnc::Content):
-                    $importEnc = $this->rawNode->ownerDocument->importNode($this->encdoc->documentElement, TRUE);
+                    $importEnc = $this->rawNode->ownerDocument->importNode($this->encdoc->documentElement, true);
                     while($this->rawNode->firstChild) {
                         $this->rawNode->removeChild($this->rawNode->firstChild);
                     }
                     $this->rawNode->appendChild($importEnc);
                     return $importEnc;
-                    break;
             }
         }
     }
 
-    public function encryptReferences($objKey) {
+    public function encryptReferences($objKey)
+    {
         $curRawNode = $this->rawNode;
         $curType = $this->type;
-        foreach ($this->references AS $name=>$reference) {
-            $this->encdoc = $reference["encnode"];
-            $this->rawNode = $reference["node"];
-            $this->type = $reference["type"];
+        foreach ($this->references as $name=>$reference) {
+            $this->encdoc = $reference['encnode'];
+            $this->rawNode = $reference['node'];
+            $this->type = $reference['type'];
             try {
                 $encNode = $this->encryptNode($objKey);
-                $this->references[$name]["encnode"] = $encNode;
+                $this->references[$name]['encnode'] = $encNode;
             } catch (Exception $e) {
                 $this->rawNode = $curRawNode;
                 $this->type = $curType;
@@ -1521,9 +1559,10 @@ class XMLSecEnc {
     /**
      * Retrieve the CipherValue text from this encrypted node.
      *
-     * @return string|NULL  The Ciphervalue text, or NULL if no CipherValue is found.
+     * @return string|null  The Ciphervalue text, or null if no CipherValue is found.
      */
-    public function getCipherValue() {
+    public function getCipherValue()
+    {
         if (empty($this->rawNode)) {
             throw new Exception('Node to decrypt has not been set');
         }
@@ -1532,12 +1571,12 @@ class XMLSecEnc {
         $xPath = new DOMXPath($doc);
         $xPath->registerNamespace('xmlencr', XMLSecEnc::XMLENCNS);
         /* Only handles embedded content right now and not a reference */
-        $query = "./xmlencr:CipherData/xmlencr:CipherValue";
+        $query = './xmlencr:CipherData/xmlencr:CipherValue';
         $nodeset = $xPath->query($query, $this->rawNode);
         $node = $nodeset->item(0);
 
         if (!$node) {
-                return NULL;
+            return null;
         }
 
         return base64_decode($node->nodeValue);
@@ -1547,16 +1586,17 @@ class XMLSecEnc {
      * Decrypt this encrypted node.
      *
      * The behaviour of this function depends on the value of $replace.
-     * If $replace is FALSE, we will return the decrypted data as a string.
-     * If $replace is TRUE, we will insert the decrypted element(s) into the
+     * If $replace is false, we will return the decrypted data as a string.
+     * If $replace is true, we will insert the decrypted element(s) into the
      * document, and return the decrypted element(s).
      *
      * @params XMLSecurityKey $objKey  The decryption key that should be used when decrypting the node.
-     * @params boolean $replace  Whether we should replace the encrypted node in the XML document with the decrypted data. The default is TRUE.
+     * @params boolean $replace  Whether we should replace the encrypted node in the XML document with the decrypted data. The default is true.
      * @return string|DOMElement  The decrypted data.
      */     
-    public function decryptNode($objKey, $replace=TRUE) {
-        if (! $objKey instanceof XMLSecurityKey) {
+    public function decryptNode($objKey, $replace = true)
+    {
+        if (!$objKey instanceof XMLSecurityKey) {
             throw new Exception('Invalid Key');
         }
 
@@ -1571,10 +1611,9 @@ class XMLSecEnc {
                         if ($this->rawNode->nodeType == XML_DOCUMENT_NODE) {
                             return $newdoc;
                         }
-                        $importEnc = $this->rawNode->ownerDocument->importNode($newdoc->documentElement, TRUE);
+                        $importEnc = $this->rawNode->ownerDocument->importNode($newdoc->documentElement, true);
                         $this->rawNode->parentNode->replaceChild($importEnc, $this->rawNode);
                         return $importEnc;
-                        break;
                     case (XMLSecEnc::Content):
                         if ($this->rawNode->nodeType == XML_DOCUMENT_NODE) {
                             $doc = $this->rawNode;
@@ -1586,7 +1625,6 @@ class XMLSecEnc {
                         $parent = $this->rawNode->parentNode;
                         $parent->replaceChild($newFrag, $this->rawNode);
                         return $parent;
-                        break;
                     default:
                         return $decrypted;
                 }
@@ -1594,12 +1632,13 @@ class XMLSecEnc {
                 return $decrypted;
             }
         } else {
-            throw new Exception("Cannot locate encrypted data");
+            throw new Exception('Cannot locate encrypted data');
         }
     }
 
-    public function encryptKey($srcKey, $rawKey, $append=TRUE) {
-        if ((! $srcKey instanceof XMLSecurityKey) || (! $rawKey instanceof XMLSecurityKey)) {
+    public function encryptKey($srcKey, $rawKey, $append = true)
+    {
+        if ((!$srcKey instanceof XMLSecurityKey) || (! $rawKey instanceof XMLSecurityKey)) {
             throw new Exception('Invalid Key');
         }
         $strEncKey = base64_encode($srcKey->encryptData($rawKey->key));
@@ -1621,26 +1660,28 @@ class XMLSecEnc {
         $cipherData->appendChild($this->encdoc->createElementNS(XMLSecEnc::XMLENCNS, 'xenc:CipherValue', $strEncKey));
         if (is_array($this->references) && count($this->references) > 0) {
            $refList =  $encKey->appendChild($this->encdoc->createElementNS(XMLSecEnc::XMLENCNS, 'xenc:ReferenceList'));
-            foreach ($this->references AS $name=>$reference) {
-                $refuri = $reference["refuri"];
+            foreach ($this->references as $reference) {
+                $refuri = $reference['refuri'];
                 $dataRef = $refList->appendChild($this->encdoc->createElementNS(XMLSecEnc::XMLENCNS, 'xenc:DataReference'));
-                $dataRef->setAttribute("URI", '#' . $refuri);
+                $dataRef->setAttribute('URI', '#' . $refuri);
             }
         }
         return;
     }
 
-    public function decryptKey($encKey) {
-        if (! $encKey->isEncrypted) {
-            throw new Exception("Key is not Encrypted");
+    public function decryptKey($encKey)
+    {
+        if (!$encKey->isEncrypted) {
+            throw new Exception('Key is not Encrypted');
         }
         if (empty($encKey->key)) {
-            throw new Exception("Key is missing data to perform the decryption");
+            throw new Exception('Key is missing data to perform the decryption');
         }
-        return $this->decryptNode($encKey, FALSE);
+        return $this->decryptNode($encKey, false);
     }
 
-    public function locateEncryptedData($element) {
+    public function locateEncryptedData($element)
+    {
         if ($element instanceof DOMDocument) {
             $doc = $element;
         } else {
@@ -1648,51 +1689,53 @@ class XMLSecEnc {
         }
         if ($doc) {
             $xpath = new DOMXPath($doc);
-            $query = "//*[local-name()='EncryptedData' and namespace-uri()='".XMLSecEnc::XMLENCNS."']";
+            $query = "//*[local-name()='EncryptedData' and namespace-uri()='" . XMLSecEnc::XMLENCNS . "']";
             $nodeset = $xpath->query($query);
             return $nodeset->item(0);
         }
-        return NULL;
+        return null;
     }
 
-    public function locateKey($node=NULL) {
+    public function locateKey($node = null)
+    {
         if (empty($node)) {
             $node = $this->rawNode;
         }
         if (! $node instanceof DOMNode) {
-            return NULL;
+            return null;
         }
         if ($doc = $node->ownerDocument) {
             $xpath = new DOMXPath($doc);
             $xpath->registerNamespace('xmlsecenc', XMLSecEnc::XMLENCNS);
-            $query = ".//xmlsecenc:EncryptionMethod";
+            $query = './/xmlsecenc:EncryptionMethod';
             $nodeset = $xpath->query($query, $node);
             if ($encmeth = $nodeset->item(0)) {
-                   $attrAlgorithm = $encmeth->getAttribute("Algorithm");
+                   $attrAlgorithm = $encmeth->getAttribute('Algorithm');
                 try {
-                    $objKey = new XMLSecurityKey($attrAlgorithm, array('type'=>'private'));
+                    $objKey = new XMLSecurityKey($attrAlgorithm, ['type'=>'private']);
                 } catch (Exception $e) {
-                    return NULL;
+                    return null;
                 }
                 return $objKey;
             }
         }
-        return NULL;
+        return null;
     }
 
-    static function staticLocateKeyInfo($objBaseKey=NULL, $node=NULL) {
+    static function staticLocateKeyInfo($objBaseKey = null, $node = null)
+    {
         if (empty($node) || (! $node instanceof DOMNode)) {
-            return NULL;
+            return null;
         }
         $doc = $node->ownerDocument;
         if (!$doc) {
-            return NULL;
+            return null;
         }
 
         $xpath = new DOMXPath($doc);
         $xpath->registerNamespace('xmlsecenc', XMLSecEnc::XMLENCNS);
         $xpath->registerNamespace('xmlsecdsig', XMLSecurityDSig::XMLDSIGNS);
-        $query = "./xmlsecdsig:KeyInfo";
+        $query = './xmlsecdsig:KeyInfo';
         $nodeset = $xpath->query($query, $node);
         $encmeth = $nodeset->item(0);
         if (!$encmeth) {
@@ -1711,11 +1754,10 @@ class XMLSecEnc {
                     foreach ($child->childNodes AS $keyval) {
                         switch ($keyval->localName) {
                             case 'DSAKeyValue':
-                                throw new Exception("DSAKeyValue currently not supported");
-                                break;
+                                throw new Exception('DSAKeyValue currently not supported');
                             case 'RSAKeyValue':
-                                $modulus = NULL;
-                                $exponent = NULL;
+                                $modulus = null;
+                                $exponent = null;
                                 if ($modulusNode = $keyval->getElementsByTagName('Modulus')->item(0)) {
                                     $modulus = base64_decode($modulusNode->nodeValue);
                                 }
@@ -1723,7 +1765,7 @@ class XMLSecEnc {
                                     $exponent = base64_decode($exponentNode->nodeValue);
                                 }
                                 if (empty($modulus) || empty($exponent)) {
-                                    throw new Exception("Missing Modulus or Exponent");
+                                    throw new Exception('Missing Modulus or Exponent');
                                 }
                                 $publicKey = XMLSecurityKey::convertRSA($modulus, $exponent);
                                 $objBaseKey->loadKey($publicKey);
@@ -1757,9 +1799,9 @@ class XMLSecEnc {
                     if ($x509certNodes = $child->getElementsByTagName('X509Certificate')) {
                         if ($x509certNodes->length > 0) {
                             $x509cert = $x509certNodes->item(0)->textContent;
-                            $x509cert = str_replace(array("\r", "\n"), "", $x509cert);
+                            $x509cert = str_replace(array("\r", "\n"), '', $x509cert);
                             $x509cert = "-----BEGIN CERTIFICATE-----\n".chunk_split($x509cert, 64, "\n")."-----END CERTIFICATE-----\n";
-                            $objBaseKey->loadKey($x509cert, FALSE, TRUE);
+                            $objBaseKey->loadKey($x509cert, false, true);
                         }
                     }
                     break;
@@ -1768,7 +1810,8 @@ class XMLSecEnc {
         return $objBaseKey;
     }
 
-    public function locateKeyInfo($objBaseKey=NULL, $node=NULL) {
+    public function locateKeyInfo($objBaseKey = null, $node = null)
+    {
         if (empty($node)) {
             $node = $this->rawNode;
         }

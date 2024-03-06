@@ -125,22 +125,14 @@ $columns[$sender] = [
 		    'delay'    => 250,
 		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
 		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
+		'templateResult' => new JsExpression('function(item) { return item.name; }'),
+		'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
 		'allowClear' => true,
 		'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
-            'select2:unselect' => 'function(e) {
-
-	      }'
+	    'select2:select' => 'function(e) { searchForField(e.params.data) }',
+            'select2:unselect' => 'function(e) {}'
 	],
     ]),
     'contentOptions' => [
@@ -162,26 +154,20 @@ $columns[$receiver] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => $page]),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax'               => [
+                'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => $page]),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
+	    'select2:select' => 'function(e) { searchForField(e.params.data); }',
 	],
     ]),
     'contentOptions' => [
@@ -200,9 +186,7 @@ $columns['status'] = [
         'attribute' => 'status',
         'data' => DocumentHelper::getStatusLabelsAll(),
         'theme' => Select2::THEME_BOOTSTRAP,
-        'options' => [
-            'prompt' => '',
-        ],
+        'options' => ['prompt' => ''],
         'pluginOptions' => [
             'allowClear' => true,
             'containerCssClass' => 'select2-cyberft'
@@ -215,24 +199,22 @@ $columns['status'] = [
 ];
 
 $columns['dateCreate'] =[
-    'attribute'          => 'dateCreate',
-    'filter' => kartik\widgets\DatePicker::widget(
-        [
-            'model' => $searchModel,
-            'attribute' => 'dateCreate',
-            'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'orientation' => 'bottom'
-            ],
-            'options' => [
-                'class' => 'form-control',
-                'style' => 'width: 130px; text-align: right;'
-            ],
-        ]
-    ),
+    'attribute' => 'dateCreate',
+    'filter' => kartik\widgets\DatePicker::widget([
+        'model' => $searchModel,
+        'attribute' => 'dateCreate',
+        'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'orientation' => 'bottom'
+        ],
+        'options' => [
+            'class' => 'form-control',
+            'style' => 'width: 130px; text-align: right;'
+        ],
+    ]),
 ];
 
 $columns['operationReference'] = [
@@ -290,8 +272,8 @@ $columns['sum'] =[
 ];
 
 $columns['valueDate'] = [
-    'attribute'          => 'documentExtSwiftFin.valueDate',
-    'format'            => ['date', 'php:Y-m-d'],
+    'attribute' => 'documentExtSwiftFin.valueDate',
+    'format' => ['date', 'php:Y-m-d'],
     'contentOptions' => [
         'class' => 'text-right',
     ],
@@ -337,7 +319,7 @@ if ($userCanDeleteDocuments && count($deletableDocumentsIds) > 0) {
         'checkboxOptions' => function($model, $key, $index, $column) use ($deletableDocumentsIds) {
             $hidden = !in_array($model->id, $deletableDocumentsIds);
             return [
-                'style'    => "display: " . ($hidden ? 'none': 'block'),
+                'style'    => 'display: ' . ($hidden ? 'none': 'block'),
                 'disabled' => $hidden,
                 'value'    => $key,
                 'class'    => 'delete-checkbox',
@@ -388,7 +370,7 @@ if ($userCanCreateDocuments) {
         ],
     ];
 }
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary' => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -416,19 +398,12 @@ $myGridWidget->end();
 
 echo ToTopButtonWidget::widget();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
 $this->registerCss('#delete-selected-documents-button {display: none;}');
 
-$this->registerJS(<<<JS
-    stickyTableHelperInit();
-JS
-);
-
-?>
+$this->registerJS('stickyTableHelperInit();');

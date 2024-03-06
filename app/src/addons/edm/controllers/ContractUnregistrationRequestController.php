@@ -70,16 +70,20 @@ class ContractUnregistrationRequestController extends BaseServiceController
             'documentNumber' => VTBContractRequestExt::find()->where(['type' => VTBContractRequestExt::REQUEST_TYPE_UNREGISTERING])->max('number') + 1,
         ]);
 
+        // Если данные модели успешно загружены из формы в браузере
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
             try {
                 $document = $model->createDocument();
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['view', 'id' => $document->id]);
             } catch (\Exception $exception) {
                 Yii::warning("Failed to create document, caused by: $exception");
+                // Поместить в сессию флаг сообщения об ошибке создания документа
                 Yii::$app->session->setFlash('error', Yii::t('edm', 'Failed to create document'));
             }
         }
-
+        
+        // Вывести страницу
         return $this->render(
             'create',
             compact('model')
@@ -88,13 +92,10 @@ class ContractUnregistrationRequestController extends BaseServiceController
 
     public function actionView($id)
     {
+        // Получить из БД документ с указанным id
         $document = static::findDocument($id);
-        if ($document === null) {
-            throw new NotFoundHttpException("Document $id is not found or is not available to current user");
-        }
-
         $model = ContractUnregistrationRequestForm::createFromDocument($document, Yii::$app->user->identity);
-
+        // Вывести страницу
         return $this->render(
             'view',
             compact('model', 'document')
@@ -104,16 +105,13 @@ class ContractUnregistrationRequestController extends BaseServiceController
     public function actionPrint($id)
     {
         $this->layout = '/print';
-
+        // Получить из БД документ с указанным id
         $document = static::findDocument($id);
-        if ($document === null) {
-            throw new NotFoundHttpException("Document $id is not found or is not available to current user");
-        }
 
         /** @var VTBContractUnRegType $typeModel */
         $typeModel = CyberXmlDocument::getTypeModel($document->actualStoredFileId);
         $model = ContractUnregistrationRequestForm::createFromDocument($document, Yii::$app->user->identity);
-
+        // Вывести страницу
         return $this->render(
             'print',
             compact('model', 'typeModel')
@@ -122,26 +120,29 @@ class ContractUnregistrationRequestController extends BaseServiceController
 
     public function actionUpdate($id)
     {
+        // Получить из БД документ с указанным id
         $document = static::findDocument($id);
-        if ($document === null) {
-            throw new NotFoundHttpException("Document $id is not found or is not available to current user");
-        }
+
         if (!in_array($document->status, [Document::STATUS_CREATING, Document::STATUS_FORSIGNING])) {
             throw new NotFoundHttpException("Document $id is not editable");
         }
 
         $model = ContractUnregistrationRequestForm::createFromDocument($document, Yii::$app->user->identity, true);
+        // Если данные модели успешно загружены из формы в браузере
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
             try {
                 $model->updateDocument($document);
+                // Поместить в сессию флаг сообщения об успешном сохранении документа
                 Yii::$app->session->setFlash('success', Yii::t('document', 'Document is saved'));
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['view', 'id' => $document->id]);
             } catch (\Exception $exception) {
+                // Поместить в сессию флаг сообщения об ошибке сохранения документа
                 Yii::warning("Failed to update document $id, caused by: $exception");
                 Yii::$app->session->setFlash('error', Yii::t('document', 'Failed to save document'));
             }
         }
-
+        // Вывести страницу
         return $this->render(
             'update',
             [
@@ -153,21 +154,28 @@ class ContractUnregistrationRequestController extends BaseServiceController
 
     public function actionSend($id)
     {
+        // Получить из БД документ с указанным id
         $document = $this->findDocument($id);
         if ($document->status === Document::STATUS_CREATING && $document->signaturesRequired == $document->signaturesCount) {
             $document->updateStatus(Document::STATUS_ACCEPTED);
+            // Обработать документ в модуле аддона
             Yii::$app->getModule('edm')->processDocument($document);
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($document, true);
             DocumentHelper::waitForDocumentsToLeaveStatus([$document->id], Document::STATUS_SERVICE_PROCESSING);
+            // Поместить в сессию флаг сообщения об успешной отправке документа
             Yii::$app->session->setFlash('success', Yii::t('document', 'Document was sent'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке отправки документа
             Yii::$app->session->setFlash('error', Yii::t('document', 'Failed to send document'));
         }
+        // Перенаправить на страницу просмотра
         return $this->redirect(['view', 'id' => $document->id]);
     }
 
     public function actionUploadAttachedFile()
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $uploadedFile = UploadedFile::getInstanceByName('file');
@@ -199,6 +207,7 @@ class ContractUnregistrationRequestController extends BaseServiceController
      */
     protected function findDocument($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         return Yii::$app->terminalAccess->findModel(Document::className(), $id);
     }
 

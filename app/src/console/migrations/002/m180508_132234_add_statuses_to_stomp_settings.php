@@ -42,6 +42,7 @@ class m180508_132234_add_statuses_to_stomp_settings extends Migration
             }
 
             $appSettings->stomp[$terminal->terminalId] = $stompSettings;
+            // Сохранить модель в БД
             $appSettings->save();
         }
 
@@ -74,6 +75,7 @@ class m180508_132234_add_statuses_to_stomp_settings extends Migration
             unset($stompSettings['status']);
 
             $appSettings->stomp[$terminal->terminalId] = $stompSettings;
+            // Сохранить модель в БД
             $appSettings->save();
         }
 

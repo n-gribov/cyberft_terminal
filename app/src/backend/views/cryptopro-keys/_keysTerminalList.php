@@ -26,31 +26,31 @@ if (count($terminalList) > 1) {
 </div>
 
 <?php
-    echo GridView::widget([
-        'dataProvider' => $dataProvider,
-        'id' => 'user-terminals-list',
-        'columns' => [
-            [
-                'label' => 'Терминал',
-                'value' => 'terminalCharacterId'
-            ],
-            [
-                'label' => 'Наименование',
-                'value' => 'title'
-            ],
-            [
-                'format' => 'raw',
-                'value' => function($model) use ($keyId) {
-                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', '#',
-                        [
-                            'class' => 'delete-terminal',
-                            'data' => [
-                                'key-id' => $keyId,
-                                'terminal-id' => $model['terminalId']
-                            ],
-                        ]);
-                }
-            ],
+// Создать таблицу для вывода
+echo GridView::widget([
+    'dataProvider' => $dataProvider,
+    'id' => 'user-terminals-list',
+    'columns' => [
+        [
+            'label' => 'Терминал',
+            'value' => 'terminalCharacterId'
         ],
-    ]);
-?>
+        [
+            'label' => 'Наименование',
+            'value' => 'title'
+        ],
+        [
+            'format' => 'raw',
+            'value' => function($model) use ($keyId) {
+                return Html::a('<span class="glyphicon glyphicon-trash"></span>', '#',
+                    [
+                        'class' => 'delete-terminal',
+                        'data' => [
+                            'key-id' => $keyId,
+                            'terminal-id' => $model['terminalId']
+                        ],
+                    ]);
+            }
+        ],
+    ],
+]);

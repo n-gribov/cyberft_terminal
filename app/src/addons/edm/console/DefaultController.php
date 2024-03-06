@@ -12,7 +12,6 @@ use addons\swiftfin\models\SwiftFinDictBank;
 use common\base\ConsoleController;
 use common\document\Document;
 use common\models\cyberxml\CyberXmlDocument;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Edm console controller
@@ -22,9 +21,12 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class DefaultController extends ConsoleController
 {
+    /**
+     * Метод выводит текст подсказки
+     */
     public function actionIndex() {
-		$this->run('/help', ['edm']);
-	}
+	$this->run('/help', ['edm']);
+    }
 
     public function actionTemplateConvert($file, $terminalId)
     {

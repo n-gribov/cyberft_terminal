@@ -89,6 +89,8 @@ abstract class StatementExport
         }
 
         $isIncrementalExport = $this->isIncrementalExport();
+        
+        // Создать тайп-модель, если экспорт инкрементальный, или получить существующую
         $typeModelForExport = $isIncrementalExport
             ? $this->createTypeModelWithoutAlreadyExportedTransactions()
             : $this->typeModel;

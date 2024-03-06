@@ -11,6 +11,7 @@ $this->title					 = $model->name;
 $this->params['breadcrumbs'][]	 = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][]	 = $this->title;
 
+// Вывести блок управления пользователем
 echo $this->render('_userManage', ['model' => $model]);
 
 $data = [
@@ -24,19 +25,21 @@ $data = [
     ]
 ];
 
-// Дополнительный администратор не может менять собственные терминалы
+// Получить модель пользователя из активной сессии
 if (User::ROLE_ADMIN === Yii::$app->user->identity->role ||
-    (User::ROLE_ADDITIONAL_ADMIN === Yii::$app->user->identity->role &&
-        UserHelper::userProfileAccess($model, true) &&
-        Yii::$app->user->id != $model->id)) {
+    // Дополнительный администратор не может менять собственные терминалы
+    (User::ROLE_ADDITIONAL_ADMIN === Yii::$app->user->identity->role
+        && UserHelper::userProfileAccess($model, true)
+        && Yii::$app->user->id != $model->id)
+) {
     $data['tabs']['terminals'] = [
         'label' => Yii::t('app/user', 'Terminals'),
         'content' => '@backend/views/user/pages/_terminals',
     ];
 }
 
-// Дополнительные опции может исправлять только главный администратор или
-// дополнительный для собственных пользователей
+// Дополнительные опции может исправлять только главный администратор
+// или дополнительный для собственных пользователей
 if (User::ROLE_ADMIN === Yii::$app->user->identity->role ||
     (User::ROLE_ADDITIONAL_ADMIN === Yii::$app->user->identity->role && UserHelper::userProfileAccess($model, true))) {
 
@@ -51,7 +54,6 @@ if (User::ROLE_ADMIN === Yii::$app->user->identity->role ||
     ];
 }
 
-
 if (User::ROLE_ADMIN === Yii::$app->user->identity->role ||
     (User::ROLE_ADDITIONAL_ADMIN === Yii::$app->user->identity->role && UserHelper::userProfileAccess($model, true)) ||
     Yii::$app->user->identity->isSecurityOfficer() &&
@@ -59,7 +61,6 @@ if (User::ROLE_ADMIN === Yii::$app->user->identity->role ||
     $data['tabs']['certs'] = [
         'label' => Yii::t('app/user', 'Certificates'),
         'content' => '@common/modules/certManager/views/cert/_openSSLKeys',
-//        'content' => '@backend/views/user/pages/_certs',
     ];
 }
 
@@ -77,7 +78,7 @@ echo AdvancedTabs::widget([
     ]
 ]);
 
-$this->registerCss('
+$this->registerCss(<<<CSS
     .nav-tabs {
         margin-bottom: 10px;
     }
@@ -89,4 +90,4 @@ $this->registerCss('
     .info-buttons {
         margin-bottom: 10px;
     }
-');
+CSS);

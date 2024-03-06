@@ -9,7 +9,7 @@ class m160603_083134_user_terminal extends Migration
     public function up()
     {
         $this->execute("alter table `user` add column `terminalId` int unsigned null");
-        User::updateAll(['terminalId' => Terminal::getIdByAddress(Yii::$app->terminals->address)]);
+        User::updateAll(['terminalId' => Terminal::getIdByAddress(Yii::$app->exchange->address)]);
     }
 
     public function down()

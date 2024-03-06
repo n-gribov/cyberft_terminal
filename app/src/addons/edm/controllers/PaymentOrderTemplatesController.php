@@ -35,8 +35,10 @@ class PaymentOrderTemplatesController extends BaseServiceController
             ],
         ];
     }
+    
     /**
-     * Отображение журнала шаблонов платежных поручений
+     * Метод обрабатывает страницу индекса
+     * с журналом шаблонов платежных поручений
      */
     public function actionIndex()
     {
@@ -44,6 +46,7 @@ class PaymentOrderTemplatesController extends BaseServiceController
 
         $queryParams = Yii::$app->request->queryParams;
 
+        // Вывести страницу
         return $this->render('index', [
             'model' => $searchModel,
             'queryParams' => $queryParams,
@@ -61,15 +64,18 @@ class PaymentOrderTemplatesController extends BaseServiceController
     {
         $this->redirectPaymentOrderJournal();
 
+        // Получить из БД шаблон ПП с указанным id
         $template = $this->findModel($id);
 
         if (!$this->allowUserAccount($template->payerAccount)) {
             throw new ForbiddenHttpException;
         }
 
+        // Удалить шаблон из БД
         $template->delete();
 
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
 
     /**
@@ -87,9 +93,11 @@ class PaymentOrderTemplatesController extends BaseServiceController
             throw new ForbiddenHttpException;
         }
 
+        // Удалить шаблон из БД
         $template->delete();
 
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
 
     /**
@@ -97,11 +105,10 @@ class PaymentOrderTemplatesController extends BaseServiceController
      */
     public function actionCreatePaymentOrder($id, $updateOrganizationRequisites = false)
     {
-        // Получаем шаблон по id
+        // Получить из БД документ с указанным id
         $template = $this->findModel($id);
 
         // Создание платежных поручений только по доступным пользователю счетам
-
         if (!$this->allowUserAccount($template->payerAccount)) {
             throw new ForbiddenHttpException;
         }
@@ -109,6 +116,7 @@ class PaymentOrderTemplatesController extends BaseServiceController
         if ($template->isOutdated && $updateOrganizationRequisites) {
             $isUpdated = $template->updateOrganizationRequisites();
             if ($isUpdated) {
+                // Зарегистрировать событие изменения шаблона ПП в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'edm:updatePaymentOrderTemplateRequisites',
                     'PaymentRegisterPaymentOrder',
@@ -121,42 +129,40 @@ class PaymentOrderTemplatesController extends BaseServiceController
                     ]
                 );
             } else {
-                Yii::info("Failed to update organization requisites in payment order template $id, errors: " . var_export($template->getErrors()));
+                Yii::info("Failed to update organization requisites in payment order template $id, errors: " . var_export($template->getErrors(), true));
             }
         }
 
-        // Формируем type-модель из шаблона
+        // Сформировать type-модель из шаблона
         $typeModel = new PaymentOrderType();
         $typeModel->loadFromString($template->body);
         $typeModel->unsetParticipantsNames();
 
-        // Задаем текущую дату про создании документа шаблона
+        // Задать текущую дату про создании документа шаблона
         $typeModel->date = date('d.m.Y');
 
-        // Кэшируем type-модель для
-        // дальнейшей передачи в форму визарда
+        // Закешировать type-модель для дальнейшей передачи в форму визарда
         Yii::$app->cache->set('edm/template-' . Yii::$app->session->id, $typeModel);
+        // Поместить в сессию флаг сохранения кеша шаблонов
         Yii::$app->session->setFlash('preserveTemplateCache', true);
-
-        // Редирект на 2 шаг визарда
+        // Перенаправить на страницу 2 шага визарда
         $wizardUrl = Url::to(['/edm/wizard/step2', 'type' => 'PaymentOrder']);
         $this->redirect($wizardUrl);
     }
 
     /**
-     * Метод для быстрого поиска модели по id
-     * c учетом доступа к терминалам
-     * @param $id
-     * @return null|static
-     * @throws NotFoundHttpException
+     * Метод ищет модель документа в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
      */
     protected function findModel($id): ?PaymentRegisterPaymentOrderTemplate
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         return Yii::$app->terminalAccess->findModel(PaymentRegisterPaymentOrderTemplate::className(), $id);
     }
 
     protected function findFcpModel($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         return Yii::$app->terminalAccess->findModel(ForeignCurrencyPaymentTemplate::className(), $id);
     }
 
@@ -170,11 +176,11 @@ class PaymentOrderTemplatesController extends BaseServiceController
             throw new NotFoundHttpException(Yii::t('app', 'This request must not be called directly'));
         }
 
-
         $id = Yii::$app->request->get('id');
 
         if ($id) {
             // Формируем PaymentOrderType из тела шаблона
+            // Получить из БД документ с указанным id
             $template = $this->findModel($id);
 
             $model = new PaymentOrderType();
@@ -207,7 +213,6 @@ class PaymentOrderTemplatesController extends BaseServiceController
             throw new NotFoundHttpException(Yii::t('app', "This request must not be called directly"));
         }
 
-
         $id = Yii::$app->request->get('id');
 
         if ($id) {
@@ -232,6 +237,7 @@ class PaymentOrderTemplatesController extends BaseServiceController
             throw new NotFoundHttpException(Yii::t('app', 'This request must not be called directly'));
         }
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
 
             $post = Yii::$app->request->post();
@@ -239,9 +245,9 @@ class PaymentOrderTemplatesController extends BaseServiceController
             $typeModel = new PaymentOrderType();
 
             if ($typeModel->load($post) && $typeModel->validate()) {
-//
                 if (isset($post['PaymentRegisterPaymentOrderTemplate']['id']) &&
                     !empty($post['PaymentRegisterPaymentOrderTemplate']['id'])) {
+                    // Получить из БД документ с указанным id
                     $template = $this->findModel($post['PaymentRegisterPaymentOrderTemplate']['id']);
                 } else {
                     $template = new PaymentRegisterPaymentOrderTemplate();
@@ -251,7 +257,7 @@ class PaymentOrderTemplatesController extends BaseServiceController
                 $templateName = $post['PaymentRegisterPaymentOrderTemplate']['name'];
 
                 // Получаем основной терминал пользователя
-                $terminal = Yii::$app->terminals->getPrimaryTerminal();
+                $terminal = Yii::$app->exchange->getPrimaryTerminal();
 
                 // Получаем модель документа, который надо изменить
                 $template->loadFromTypeModel($typeModel);
@@ -269,17 +275,21 @@ class PaymentOrderTemplatesController extends BaseServiceController
                     $template->paymentPurposeNds = '';
                 }
 
+                // Сохранить модель в БД
                 if ($template->save()) {
                     if ($post['createDocument'] == 1) {
+                        // Перенаправить на страницу создания
                         return $this->redirect('/edm/payment-order-templates/create-payment-order?id=' . $template->id);
                     } else {
+                        // Перенаправить на страницу индекса
                         return $this->redirect('/edm/payment-order-templates');
                     }
                 } else {
+                    // Поместить в сессию флаг сообщения об ошибке создания шаблона
                     Yii::$app->session->setFlash('error', Yii::t('edm', 'Creating payment order template error'));
+                    // Перенаправить на страницу индекса
                     return $this->redirect(['/edm/payment-order-templates']);
                 }
-
             }
         }
     }
@@ -290,6 +300,7 @@ class PaymentOrderTemplatesController extends BaseServiceController
             throw new NotFoundHttpException(Yii::t('app', 'This request must not be called directly'));
         }
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
 
@@ -298,21 +309,28 @@ class PaymentOrderTemplatesController extends BaseServiceController
             } else {
                 $model = new ForeignCurrencyPaymentTemplate();
 
-                // Получаем основной терминал пользователя
-                $terminal = Yii::$app->terminals->getPrimaryTerminal();
+                // Получить основной терминал пользователя
+                $terminal = Yii::$app->exchange->getPrimaryTerminal();
                 $model->terminalId = $terminal->id;
             }
 
+            // Если модель успешно загружена из формы в браузере
             if ($model->load($post) && $model->validate()) {
+                // Если модель успешно сохранена в БД
                 if ($model->save()) {
                     if ($post['createDocument'] == 1) {
+                        // Перенаправить на страницу создания
                         return $this->redirect('/edm/payment-order-templates/create-fcp?id=' . $model->id);
                     } else {
+                        // Поместить в сессию флаг сообщения об успешном сохранении документа
                         Yii::$app->session->setFlash('success', Yii::t('edm', 'Foreign currency payment was saved successfully'));
+                        // Перенаправить на страницу индекса
                         return $this->redirect('/edm/payment-order-templates');
                     }
                 } else {
+                    // Поместить в сессию флаг сообщения об ошибке создания документа
                     Yii::$app->session->setFlash('error', Yii::t('edm', 'Creating foreign currency operation template error'));
+                    // Перенаправить на страницу индекса
                     return $this->redirect(['/edm/payment-order-templates']);
                 }
             }
@@ -325,6 +343,7 @@ class PaymentOrderTemplatesController extends BaseServiceController
 
         if ($id) {
             return $this->renderAjax('payment-order/view', [
+                // Получить из БД документ с указанным id
                 'model' => $this->findModel($id)
             ]);
         }
@@ -351,6 +370,7 @@ class PaymentOrderTemplatesController extends BaseServiceController
 
     public function actionGetFcpTemplatesList($q = null, $id = null)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $out = ['results' => []];
@@ -377,11 +397,12 @@ class PaymentOrderTemplatesController extends BaseServiceController
         return $out;
     }
 
-    // Переадреация админа на общий журнал документов edm
+    // Переадресация админа на общий журнал документов edm
     // Вместо отображения ошибки доступа
     private function redirectPaymentOrderJournal()
     {
         if (Yii::$app->user->can('admin')) {
+            // Перенаправить на страницу индекса
             $this->redirect('/edm/payment-register/payment-order');
         }
     }
@@ -391,9 +412,10 @@ class PaymentOrderTemplatesController extends BaseServiceController
      */
     private function allowUserAccount($accountNumber)
     {
-        // Администраторам разрешены все действия со счетами
+        // Получить модель пользователя из активной сессии
         $user = Yii::$app->user->identity;
 
+        // Администраторам разрешены все действия со счетами
         if ($user->role == User::ROLE_ADMIN ||
             $user->role == User::ROLE_ADDITIONAL_ADMIN) {
             return true;

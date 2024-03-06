@@ -123,7 +123,7 @@ $columnsSettings['actions'] =     [
         }
     },
 ];
-
+// Создать таблицу для вывода
 echo InfiniteGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $filterModel,

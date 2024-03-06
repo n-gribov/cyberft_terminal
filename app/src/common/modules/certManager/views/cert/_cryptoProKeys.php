@@ -17,6 +17,7 @@ $listType = 'crKeysSettings';
 $cpLicense = CryptoProHelper::checkCPLicense();
 
 if (!$cpLicense) {
+    // Поместить в сессию флаг сообщения об истёкшей лицензии Криптопро
     Yii::$app->session->setFlash('error', Yii::t('app/cert', 'CryptoPro license is expired'));
 }
 
@@ -149,7 +150,7 @@ $columnsEnabled['manage'] = [
                     ]
                 ]);
             } else {
-                return "";
+                return '';
             }
         }
     }
@@ -159,42 +160,36 @@ $columnsEnabled['manage'] = [
 
 <div class="row">
     <div class="col-sm-12">
-        <?= GridView::widget([
+    <?php
+        // Создать таблицу для вывода
+        echo GridView::widget([
             'summary' => '',
             'dataProvider' => $cryptoproKeys,
             'filterModel' => $cryptoproKeysSearch,
             'columns' => $columnsEnabled,
-            'rowOptions'	=> function($model, $key, $index, $grid) use ($now) {
-
+            'rowOptions' => function($model, $key, $index, $grid) use ($now) {
                 // Выделение строк сертификатов по условиям
                 if ($model->expireDate == '0000-00-00 00:00:00') {
                     // Если дата истечения сертификата не указана, это ошибка
-                    return ['class'=>'danger'];
+                    return ['class' => 'danger'];
                 } else {
                     // Если дата истечения просрочена, это ошибка
-
                     $expirationDate = strtotime($model->expireDate);
-
                     if ($expirationDate < $now) {
-                        return ['class'=>'danger'];
+                        return ['class' => 'danger'];
                     }
                 }
-            },
-        ]); ?>
+            }
+        ]);
+    ?>
     </div>
 </div>
 
 <?php
 
-$this->registerCss('
+$this->registerCss('.btn-columns-settings { margin-top: 6px; }');
 
-.btn-columns-settings {
-    margin-top: 6px;
-}
-
-');
-
-$script = <<< JS
+$script = <<<JS
     $('.btn-activate').on('click', function(e) {
         e.preventDefault();
 
@@ -245,11 +240,8 @@ $modal = Modal::begin([
     'id' => 'certModal',
     'header' => $header,
     'footer' => $footer
-]); ?>
-
-<?php $modal::end(); ?>
-
-<?php
+]);
+$modal::end();
 
 echo ColumnsSettingsWidget::widget(
     [
@@ -258,5 +250,3 @@ echo ColumnsSettingsWidget::widget(
         'model' => $cryptoproKeysSearch
     ]
 );
-
-?>

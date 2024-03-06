@@ -1,5 +1,4 @@
 <?php
-
 namespace addons\swiftfin\controllers;
 
 use addons\swiftfin\helpers\SwiftfinHelper;
@@ -37,52 +36,52 @@ use function GuzzleHttp\json_decode;
 
 class DocumentsController extends BaseServiceController
 {
-	public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => [
-                            'user-verify',
-                            'send',
-                            'templates',
-                            'correction',
-                            'authorize',
-                            'send-correction',
-			    'list',
+    public function behaviors()
+    {
+        return [
+                'access' => [
+                        'class' => AccessControl::className(),
+                        'rules' => [
+            [
+                'allow' => true,
+                'actions' => [
+                    'user-verify',
+                    'send',
+                    'templates',
+                    'correction',
+                    'authorize',
+                    'send-correction',
+                    'list',
+                ],
+                'roles' => [DocumentPermission::CREATE],
+                'roleParams' => ['serviceId' => SwiftfinModule::SERVICE_ID],
+            ],
+            [
+                'allow' => true,
+                'actions' => [
+                    'index',
+                    'view',
+                    'signing-index',
+                    'correction-index',
+                    'user-verification-index',
+                    'authorization-index',
+                    'errors',
+                    'print',
+                    'list',
+                ],
+                'roles' => [DocumentPermission::VIEW, DocumentPermission::CREATE],
+                'roleParams' => ['serviceId' => SwiftfinModule::SERVICE_ID],
+            ],
+            [
+                'allow' => true,
+                'actions' => ['delete'],
+                'roles' => [DocumentPermission::DELETE],
+                'roleParams' => ['serviceId' => SwiftfinModule::SERVICE_ID],
+            ]
                         ],
-                        'roles' => [DocumentPermission::CREATE],
-                        'roleParams' => ['serviceId' => SwiftfinModule::SERVICE_ID],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => [
-                            'index',
-                            'view',
-                            'signing-index',
-                            'correction-index',
-                            'user-verification-index',
-                            'authorization-index',
-                            'errors',
-                            'print',
-			    'list',
-                        ],
-                        'roles' => [DocumentPermission::VIEW, DocumentPermission::CREATE],
-                        'roleParams' => ['serviceId' => SwiftfinModule::SERVICE_ID],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['delete'],
-                        'roles' => [DocumentPermission::DELETE],
-                        'roleParams' => ['serviceId' => SwiftfinModule::SERVICE_ID],
-                    ]
-				],
-			],
-		];
-	}
+                ],
+        ];
+    }
 
     public function actions()
     {
@@ -93,149 +92,151 @@ class DocumentsController extends BaseServiceController
         ];
         return $actions;
     }
-    
+
     public function actionList($type, $page, $q = null)
     {
-	Yii::$app->response->format = Response::FORMAT_JSON;
+        // Включить формат вывода JSON
+        Yii::$app->response->format = Response::FORMAT_JSON;
         $searchModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
-	
-	switch ($page) 
-	{
-		case 'index':
-			$dataProvider = $searchModel->search([]);
-			break;
-		case 'signing-index':
-			$dataProvider = $searchModel->searchForSigning([]);
-			break;
-		case 'correction-index':
-			$dataProvider = $searchModel->searchForCorrection([]);
-			break;
-		case 'user-verification-index':
-			$dataProvider = $searchModel->searchForUserVerify([]);
-			break;			
-		case 'authorization-index':
-			$dataProvider = $searchModel->searchForAuthorization([]);
-			break;
-		case 'errors':
-			$dataProvider = $searchModel->searchForErrors([]);
-	}
-	
-	switch ($type)
-	{
-		case 'sender':
-			$out['results'] = ParticipantHelper::getSenderListForDocumentSearch($dataProvider, $q);
-			break;
-		case 'receiver':
-			$out['results'] = ParticipantHelper::getReceiverListForDocumentSearch($dataProvider, $q);
-			break;
-		
-	}
 
-	return $out;
+        switch ($page) 
+        {
+            case 'index':
+                $dataProvider = $searchModel->search([]);
+                break;
+            case 'signing-index':
+                $dataProvider = $searchModel->searchForSigning([]);
+                break;
+            case 'correction-index':
+                $dataProvider = $searchModel->searchForCorrection([]);
+                break;
+            case 'user-verification-index':
+                $dataProvider = $searchModel->searchForUserVerify([]);
+                break;			
+            case 'authorization-index':
+                $dataProvider = $searchModel->searchForAuthorization([]);
+                break;
+            case 'errors':
+                $dataProvider = $searchModel->searchForErrors([]);
+        }
+
+        switch ($type)
+        {
+            case 'sender':
+                $out['results'] = ParticipantHelper::getSenderListForDocumentSearch($dataProvider, $q);
+                break;
+            case 'receiver':
+                $out['results'] = ParticipantHelper::getReceiverListForDocumentSearch($dataProvider, $q);
+                break;
+        }
+
+        return $out;
     }
 
-	/**
-	 * Lists all Document models.
-	 * @return mixed
-	 */
-	public function actionIndex($mode = '')
-	{
-            $searchModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
+    /**
+     * Lists all Document models.
+     * @return mixed
+     */
+    public function actionIndex($mode = '')
+    {
+        $searchModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if ($mode == 'xls') {
+            return $this->downloadXls($dataProvider);
+        }
 
-                    if ($mode == 'xls') {
-                            return $this->downloadXls($dataProvider);
-                    }
+        //Берем список терминалов отправителей (для пользователя)
+        $terminals = Terminal::find()->orderBy(['terminalId' => SORT_ASC])->all();
 
-            //Берем список терминалов отправителей (для пользователя)
-            $terminals = Terminal::find()->orderBy(['terminalId' => SORT_ASC])->all();
+        //Создание списков отправителей/получаталей
+        $senderParticipants = UserTerminal::getUserTerminalIds(Yii::$app->user->identity->id);
+        $receiverParticipants = [];
+        foreach($terminals as $terminal) {
+            $receiverParticipants[$terminal->terminalId] = $terminal->terminalId;
+        }
 
-            //Создание списков отправителей/получаталей
-            $senderParticipants = UserTerminal::getUserTerminalIds(Yii::$app->user->identity->id);
-            $receiverParticipants = [];
-            foreach($terminals as $terminal) {
-                $receiverParticipants[$terminal->terminalId] = $terminal->terminalId;
-            }
+        Url::remember(Url::to());
 
-            Url::remember(Url::to());
+        // Вывести страницу
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+                        'colored' => true,
+            'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
+            'listType' => 'swiftIndex',
+            'senderParticipants' => $senderParticipants,
+            'receiverParticipants' => $receiverParticipants
+        ]);
+    }
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                            'colored' => true,
-                'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
-                'listType' => 'swiftIndex',
-                'senderParticipants' => $senderParticipants,
-                'receiverParticipants' => $receiverParticipants
-            ]);
+    /**
+     * Lists all Document models.
+     * @return mixed
+     */
+    public function actionSigningIndex($mode = '')
+    {
+        $searchModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
+        $dataProvider = $searchModel->searchForSigning(Yii::$app->request->queryParams);        
 
-	}
+        // Получить модель пользователя из активной сессии
+        $user = \Yii::$app->user->identity;
+        // Список терминалов для фильтра в журнале
+        if ($user->role == User::ROLE_ADMIN) {
+            $query = Terminal::find()->all();
+        } else {
+            // Для доп. админов отбор только по доступым терминалам
+            $terminalId = $user->terminalId;
 
-	/**
-	 * Lists all Document models.
-	 * @return mixed
-	 */
-	public function actionSigningIndex($mode = '')
-	{
-            $searchModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
-            $dataProvider = $searchModel->searchForSigning(Yii::$app->request->queryParams);        
-
-            $user = \Yii::$app->user->identity;
-            // Список терминалов для фильтра в журнале
-            if ($user->role == User::ROLE_ADMIN) {
-                $query = Terminal::find()->all();
+            if (empty($terminalId) && $user->disableTerminalSelect) {
+                $userTerminals = array_keys(UserTerminal::getUserTerminalIds($user->id));
             } else {
-                // Для доп. админов отбор только по доступым терминалам
-                $terminalId = $user->terminalId;
-
-                if (empty($terminalId) && $user->disableTerminalSelect) {
-                    $userTerminals = array_keys(UserTerminal::getUserTerminalIds($user->id));
-                } else {
-                    $userTerminals = [$terminalId];
-                }
-
-                $query = Terminal::find()->where(['id' => $userTerminals])->all();
+                $userTerminals = [$terminalId];
             }
 
-            $terminals = ArrayHelper::map($query, 'id', 'terminalId');
-            
-            if ($mode == 'xls') {
-                return $this->downloadXls($dataProvider);
-            }
+            $query = Terminal::find()->where(['id' => $userTerminals])->all();
+        }
 
-            Url::remember(Url::to());
+        $terminals = ArrayHelper::map($query, 'id', 'terminalId');
 
-            return $this->render('forSigning', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'colored' => true,
-                'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
-                'listType' => 'swiftSigning',
-                'terminals' => $terminals
-            ]);
-	}
+        if ($mode == 'xls') {
+            return $this->downloadXls($dataProvider);
+        }
+
+        Url::remember(Url::to());
+
+        // Вывести страницу
+        return $this->render('forSigning', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'colored' => true,
+            'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
+            'listType' => 'swiftSigning',
+            'terminals' => $terminals
+        ]);
+    }
 
     /**
      * Correction log
      *
      * @return mixed
      */
-	public function actionCorrectionIndex()
-	{
-            $filterModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
-            $dataProvider = $filterModel->searchForCorrection(\Yii::$app->request->queryParams);
+    public function actionCorrectionIndex()
+    {
+        $filterModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
+        $dataProvider = $filterModel->searchForCorrection(\Yii::$app->request->queryParams);
 
-            Url::remember(Url::to());
+        Url::remember(Url::to());
 
-            return $this->render('forCorrection', [
-                'filterModel' => $filterModel,
-                'dataProvider' => $dataProvider,
-                'filterStatus' => (!empty(Yii::$app->request->queryParams)),
-                'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
-                'listType' => 'swiftCorrection',
-            ]);
-	}
+        // Вывести страницу
+        return $this->render('forCorrection', [
+            'filterModel' => $filterModel,
+            'dataProvider' => $dataProvider,
+            'filterStatus' => (!empty(Yii::$app->request->queryParams)),
+            'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
+            'listType' => 'swiftCorrection',
+        ]);
+    }
 
     public function actionUserVerificationIndex($mode = '')
     {
@@ -248,6 +249,7 @@ class DocumentsController extends BaseServiceController
 
         Url::remember(Url::to());
 
+        // Вывести страницу
         return $this->render('forUserVerification', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -260,16 +262,15 @@ class DocumentsController extends BaseServiceController
     public function actionUserVerify($id)
     {
         try {
+            // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
             $model = Yii::$app->terminalAccess->findModel(
-                Document::className(),
-                [
-                    'id' => $id,
-                    'status' => Document::getUserVerifiableStatus()
-                ]
+                Document::className(), ['id' => $id, 'status' => Document::getUserVerifiableStatus()]
             );
         } catch (Exception $ex) {
+            // Поместить в сессию флаг сообщения о ненайденном документе
             Yii::$app->session->setFlash('error', Yii::t('doc', 'Document not found'));
 
+            // Перенаправить на страницу индекса
             return $this->redirect(['user-verification-index']);
         }
 
@@ -281,26 +282,27 @@ class DocumentsController extends BaseServiceController
         $typeModel = CyberXmlDocument::getTypeModel($model->actualStoredFileId);
 
         if (!$typeModel) {
+            // Поместить в сессию флаг сообщения об ошибке загрузки модели документа
             Yii::$app->session->setFlash('error', Yii::t('doc', 'Failed to load the document model'));
         }
 
         if ($verifyModel && $typeModel) {
-
             $contentModel = $typeModel->source->getContentModel();
-
+            // Если отправлены POST-данные
             if (Yii::$app->request->isPost) {
                 $verifyModel->contentModel = $contentModel;
                 if ($verifyModel->verify(Yii::$app->request->post($contentModel->formName()))) {
 
                     $model->updateStatus(Document::STATUS_USER_VERIFIED);
-
+                    // Обработать документ в модуле аддона
                     $this->module->processDocument($model);
 
                     if ($model->status === Document::STATUS_ACCEPTED) {
+                        // Создать стейт отправки документа
                         DocumentTransportHelper::createSendingState($model);
                     }
 
-                    // Регистрация события успешной верификации документа
+                    // Зарегистрировать событие успешной верификации документа в модуле мониторинга
                     Yii::$app->monitoring->log(
                         'user:verifyDocumentSuccess',
                         'document',
@@ -311,19 +313,22 @@ class DocumentsController extends BaseServiceController
                         ]
                     );
 
+                    // Поместить в сессию флаг сообщения об успешной верификации документа
                     Yii::$app->session->setFlash('success', Yii::t('doc', 'Document verified'));
 
-                    return $this->redirect(['index']);
+                    // Перенаправить на страницу индекса
+                    return $this->redirect('index');
                 } else {
+                    // Загрузить данные модели из формы в браузере
                     $contentModel->load(Yii::$app->request->post());
 
-                    Yii::$app->session->setFlash('error',
-                        Yii::t('doc', 'Document verify error'));
+                    // Поместить в сессию флаг сообщения об ошибке верификации документа
+                    Yii::$app->session->setFlash('error', Yii::t('doc', 'Document verify error'));
 
                     if (Document::STATUS_USER_VERIFICATION_ERROR !== $model->status) {
                         $model->updateStatus(Document::STATUS_USER_VERIFICATION_ERROR);
 
-                        // Регистрация события ошибки верификации
+                        // Зарегистрировать событие ошибки верификации документа в модуле мониторинга
                         Yii::$app->monitoring->log(
                             'user:verifyDocumentError',
                             'document',
@@ -337,58 +342,63 @@ class DocumentsController extends BaseServiceController
                 }
             }
 
+            // Вывести страницу
             return $this->render('userVerify', [
                 'model' => $contentModel,
                 'verifyTags' => $verifyModel->verifyTags,
             ]);
         } else {
+            // Поместить в сессию флаг сообщения об ошибке верификации
             Yii::$app->session->addFlash('error',
-                    Yii::t('doc', 'Verify model for type {type} not found',
-                    ['type' => $model->type])
+                Yii::t('doc', 'Verify model for type {type} not found',
+                ['type' => $model->type])
             );
 
+            // Перенаправить на страницу индекса
             return $this->redirect(['user-verification-index']);
         }
     }
 
-	public function actionAuthorizationIndex($mode = '')
-        {
-            $searchModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
-            $dataProvider = $searchModel->searchForAuthorization(Yii::$app->request->queryParams);
+    public function actionAuthorizationIndex($mode = '')
+    {
+        $searchModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
+        $dataProvider = $searchModel->searchForAuthorization(Yii::$app->request->queryParams);
 
-            if ($mode == 'xls') {
-                return $this->downloadXls($searchModel);
-            }
+        if ($mode == 'xls') {
+            return $this->downloadXls($searchModel);
+        }
 
-            Url::remember(Url::to());
+        Url::remember(Url::to());
 
-            return $this->render('forAuthorization', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'colored' => true,
-                'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
-                'listType' => 'swiftAuthorization'
-            ]);
-	}
+        // Вывести страницу
+        return $this->render('forAuthorization', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'colored' => true,
+            'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
+            'listType' => 'swiftAuthorization'
+        ]);
+    }
 
-	public function actionAuthorize($id)
-	{
-		$document = $this->findModel($id);
+    public function actionAuthorize($id)
+    {
+        // Получить из БД документ с указанным id
+        $document = $this->findModel($id);
 
-		if (SwiftfinHelper::isAuthorizable($document, Yii::$app->user->identity->id)) {
+        if (SwiftfinHelper::isAuthorizable($document, Yii::$app->user->identity->id)) {
 
             $extStatus = '';
 
-			$userExt = $this->module->getUserExtModel(Yii::$app->user->identity->id);
-			$extModel = $document->extModel;
+            $userExt = $this->module->getUserExtModel(Yii::$app->user->identity->id);
+            $extModel = $document->extModel;
 
-			if ($userExt->role == SwiftFinUserExt::ROLE_AUTHORIZER) {
-				/*
-				 * Авторизовано финальным авторизатором
-				 */
+            if ($userExt->role == SwiftFinUserExt::ROLE_AUTHORIZER) {
+                /*
+                 * Авторизовано финальным авторизатором
+                 */
                 $extStatus = SwiftFinDocumentExt::STATUS_AUTHORIZED;
 
-                // Регистрация события финальной авторизации документа
+                // Зарегистрировать событие финальной авторизации документа в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'user:AuthDocument',
                     'document',
@@ -398,13 +408,13 @@ class DocumentsController extends BaseServiceController
                         'initiatorType' => UserHelper::getEventInitiatorType(Yii::$app->user)
                     ]
                 );
-			} else {
-				/*
-				 * Авторизовано предварительным авторизатором
-				 */
+            } else {
+                /*
+                 * Авторизовано предварительным авторизатором
+                 */
                 $extStatus = SwiftFinDocumentExt::STATUS_AUTHORIZATION;
 
-                // Регистрация события предварительной авторизации документа
+                // Зарегистрировать событие предварительной авторизации документа в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'user:preAuthDocument',
                     'document',
@@ -414,7 +424,7 @@ class DocumentsController extends BaseServiceController
                         'initiatorType' => UserHelper::getEventInitiatorType(Yii::$app->user)
                     ]
                 );
-			}
+            }
 
             $params = [
                 'code'     => 'SwiftFinDocumentAuthorize',
@@ -430,59 +440,63 @@ class DocumentsController extends BaseServiceController
                 $params
             );
 
+            // Поместить в сессию флаг сообщения об ожидании авторизации документа
             Yii::$app->session->setFlash('info', Yii::t('doc', 'Document is undergoing authorization'));
 
             $extModel->extStatus = SwiftFinDocumentExt::STATUS_INAUTHORIZATION;
-			$extModel->save(false, ['extStatus']);
-		}
+            $extModel->save(false, ['extStatus']);
+        }
 
-		return $this->redirect(['view', 'id' => $id]);
-	}
+        // Перенаправить на страницу просмотра
+        return $this->redirect(['view', 'id' => $id]);
+    }
 
-	public function actionErrors($mode = '')
-	{
-            $searchModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
-            $dataProvider = $searchModel->searchForErrors(Yii::$app->request->queryParams);
+    public function actionErrors($mode = '')
+    {
+        $searchModel = new SwiftFinSearch(['typeGroup' => $this->module->getServiceId()]);
+        $dataProvider = $searchModel->searchForErrors(Yii::$app->request->queryParams);
 
-                    if ($mode == 'xls') {
-                            return $this->downloadXls($dataProvider);
-                    }
+        if ($mode == 'xls') {
+            return $this->downloadXls($dataProvider);
+        }
 
-                    Url::remember(Url::to());
+        Url::remember(Url::to());
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'colored' => true,
-                'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
-                'listType' => 'swiftErrors'
-            ]);
-	}
+        // Вывести страницу
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'colored' => true,
+            'urlParams' => $this->getSearchUrl('SwiftFinSearch'),
+            'listType' => 'swiftErrors'
+        ]);
+    }
 
-	/**
-	 * Displays a single Document model.
-	 * @param string $id
-	 * @return mixed
-	 */
-	public function actionView($id, $mode = '')
-	{
-		$model = $this->findModel($id);
+    /**
+     * Displays a single Document model.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionView($id, $mode = '')
+    {
+        // Получить из БД документ с указанным id
+        $model = $this->findModel($id);
 
-		$referencingDataProvider = new ActiveDataProvider([
-			'query' => $model->findReferencingDocuments(),
-			'pagination' => [
-				'pageSize' => 20,
-			],
-		]);
+        $referencingDataProvider = new ActiveDataProvider([
+            'query' => $model->findReferencingDocuments(),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
 
         $commands = CommandAR::find()
-                ->where([
-                    'entityId' => $id,
-                    'code' => 'SwiftFinDocumentAuthorize',
-                    'status' => 'executed',
-                ])
-                ->orderBy('id')
-                ->all();
+            ->where([
+                'entityId' => $id,
+                'code' => 'SwiftFinDocumentAuthorize',
+                'status' => 'executed',
+            ])
+            ->orderBy('id')
+            ->all();
 
         $providerModels = [];
         foreach($commands as $command) {
@@ -508,11 +522,10 @@ class DocumentsController extends BaseServiceController
             'allModels' => $providerModels
         ]);
 
-        // Регистрация события просмотра документа
+        // Зарегистрировать событие просмотра документа
         // только если это новый просмотр (т.е., не переход по вкладкам)
 
         if (empty($mode)) {
-
             $previousUrl = Url::previous();
             $currentUrl = Url::current();
 
@@ -525,7 +538,7 @@ class DocumentsController extends BaseServiceController
                     $model->viewed = 1;
                     $model->save(false, ['viewed']);
                 }
-
+                // Зарегистрировать событие прсомотра документа в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'user:viewDocument',
                     'document',
@@ -538,26 +551,28 @@ class DocumentsController extends BaseServiceController
             }
         }
 
-		return $this->render('view', [
-			'model' => $model,
-			'referencingDataProvider' => $referencingDataProvider,
+        // Вывести страницу
+        return $this->render('view', [
+            'model' => $model,
+            'referencingDataProvider' => $referencingDataProvider,
             'commandDataProvider' => $commandDataProvider,
-			'mode' => $mode,
+            'mode' => $mode,
             'urlParams' => $this->getSearchUrl('SwiftFinSearch')
-		]);
-	}
+        ]);
+    }
 
-	/**
-	 * @param $id
-	 * @param $action
-	 * @return string
-	 * @throws NotFoundHttpException
-	 */
-	public function actionPrint($id, $action)
-	{
-		$document = $this->findModel($id);
+    /**
+     * @param $id
+     * @param $action
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionPrint($id, $action)
+    {
+        // Получить из БД документ с указанным id
+        $document = $this->findModel($id);
 
-        // Регистрация события печати документа
+        // Зарегистрировать событие печати документа в модуле мониторинга
         Yii::$app->monitoring->log(
             'user:printDocument',
             'document',
@@ -569,145 +584,135 @@ class DocumentsController extends BaseServiceController
         );
 
         if ('mt' == $action) {
-			return $this->renderPartial('printmt', [
-						'model' => $document,
-						'mode' => 'printmt'
-			]);
-		} else if ('readable' == $action) {
-			return $this->renderPartial('printmt', [
-						'model' => $document,
-						'mode' => 'readable'
-			]);
-		} else if ('printable' == $action) {
-			return $this->renderPartial('printmt', [
-						'model' => $document,
-						'mode' => 'printable'
-			]);
-		} else {
-			throw new NotFoundHttpException("Unknown action '{$action}'");
-		}
-	}
+            return $this->renderPartial('printmt', [
+                'model' => $document,
+                'mode' => 'printmt'
+            ]);
+        } else if ('readable' == $action) {
+            return $this->renderPartial('printmt', [
+                'model' => $document,
+                'mode' => 'readable'
+            ]);
+        } else if ('printable' == $action) {
+            return $this->renderPartial('printmt', [
+                'model' => $document,
+                'mode' => 'printable'
+            ]);
+        } else {
+            throw new NotFoundHttpException("Unknown action '{$action}'");
+        }
+    }
 
-	public function actionSend($id)
-	{
-		/** @todo избавиться от атавизмов */
-		return $this->redirect(['/swiftfin/documents/view', 'id' => $id]);
-	}
+    public function actionSend($id)
+    {
+        /** @todo избавиться от атавизмов */
+        // Перенаправить на страницу просмотра
+        return $this->redirect(['/swiftfin/documents/view', 'id' => $id]);
+    }
 
-	/**
-	 * Finds the Document model based on its primary key value.
-	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param string $id
-	 * @return Document the loaded model
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	protected function findModel($id)
-	{
-        return Yii::$app->terminalAccess->findModel(Document::className(), $id);
-	}
+    protected function downloadXls($dataProvider)
+    {
+        //$searchModel = new DocumentSearch();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-	protected function downloadXls($dataProvider)
-	{
-		//$searchModel = new DocumentSearch();
-		//$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = false;
 
-		$dataProvider->pagination = false;
+        $typeLabels = Yii::$app->registry->getModuleTypes($this->module->serviceId);
 
-		$typeLabels = Yii::$app->registry->getModuleTypes($this->module->serviceId);
+        foreach($typeLabels as $key => $value) {
+            $typeLabels[$key] = $key;
+        }
 
-		foreach($typeLabels as $key => $value) {
-			$typeLabels[$key] = $key;
-		}
+        $xlsView = $this->module->basePath . '/xlsViews/journal.xls';
 
-		$xlsView = $this->module->basePath . '/xlsViews/journal.xls';
+        $xls = IOFactory::load($xlsView);
+        $xls->garbageCollect();
+        $xls->getProperties()->setCompany('Киберплат');
+        $xls->getProperties()->setCreator('Киберплат');
+        $xls->getProperties()->setLastModifiedBy('Киберплат');
+        $xls->getProperties()->setModified(date('U'));
 
-		$xls = IOFactory::load($xlsView);
-		$xls->garbageCollect();
-		$xls->getProperties()->setCompany('Киберплат');
-		$xls->getProperties()->setCreator('Киберплат');
-		$xls->getProperties()->setLastModifiedBy('Киберплат');
-		$xls->getProperties()->setModified(date('U'));
+        /** @var RowIterator $rows */
+        $sheet = $xls->getActiveSheet();
+        $rows  = $sheet->getRowIterator(); // по строкам
+        //$sheet->insertNewRowBefore(1);
+        $repeatRow = null;
+        foreach ($rows as $row) {
+            /** @var RowCellIterator $cells */
+            $cells = $row->getCellIterator();
+            foreach ($cells as $cell) {
+                $value = $cell->getValue();
+                if ($value	&& preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $value, $matches)) {
+                    foreach ($matches['tag'] as $k => $tag) {
+                        // 'repeat:row' находится в экселе в ячейке в той строке, которую надо повторять.
+                        if ($tag === 'repeat:row') {
+                            $repeatRow = $row;
+                            $cell->setValue(''); // сбрасываем тэг инструкции
+                            continue 2;
+                        }
+                        if ($tag == 'DocDate') { // узнаем значения
+                            $value = str_replace($matches['placeholder'][$k], 'DOCDATE', $value); // и делаем "красиво"
+                        }
+                    }
+                }
+                $cell->setValue($value);
+            }
+        }
 
-		/** @var RowIterator $rows */
-		$sheet = $xls->getActiveSheet();
-		$rows  = $sheet->getRowIterator(); // по строкам
-		//$sheet->insertNewRowBefore(1);
-		$repeatRow = null;
-		foreach ($rows as $row) {
-			/** @var RowCellIterator $cells */
-			$cells = $row->getCellIterator();
-			foreach ($cells as $cell) {
-				$value = $cell->getValue();
-				if ($value	&& preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $value, $matches)) {
-					foreach ($matches['tag'] as $k => $tag) {
-						// 'repeat:row' находится в экселе в ячейке в той строке, которую надо повторять.
-						if ($tag === 'repeat:row') {
-							$repeatRow = $row;
-							$cell->setValue(''); // сбрасываем тэг инструкции
-							continue 2;
-						}
-						if ($tag == 'DocDate') { // узнаем значения
-							$value = str_replace($matches['placeholder'][$k], 'DOCDATE', $value); // и делаем "красиво"
-						}
-					}
-				}
-				$cell->setValue($value);
-			}
-		}
+        $count = $dataProvider->count;
+        // дублируем строку с повторяющейся информацией
+        $rowIndex = $repeatRow->getRowIndex();
+        $sheet->insertNewRowBefore($rowIndex + 1, $count - 1);
+        $sheet->duplicateStyle(
+            $sheet->getStyle('A' . $rowIndex),
+            'A' . $rowIndex . ':A' . ($rowIndex + $count - 1)
+        );
 
-		$count = $dataProvider->count;
-		// дублируем строку с повторяющейся информацией
-		$rowIndex = $repeatRow->getRowIndex();
-		$sheet->insertNewRowBefore($rowIndex + 1, $count - 1);
-		$sheet->duplicateStyle(
-			$sheet->getStyle('A' . $rowIndex),
-			'A' . $rowIndex . ':A' . ($rowIndex + $count - 1)
-		);
+        // читаем шаблон дублируемой строки и формируем карту шаблонов по колонкам
+        $map = [];
+        $cells = $repeatRow->getCellIterator();
+        foreach ($cells as $cell) {
+            if (($value = $cell->getValue())) {
+                $map[$cell->getColumn()] = $value;
+            }
+        }
 
-		// читаем шаблон дублируемой строки и формируем карту шаблонов по колонкам
-		$map = [];
-		$cells = $repeatRow->getCellIterator();
-		foreach ($cells as $cell) {
-			if (($value = $cell->getValue())) {
-				$map[$cell->getColumn()] = $value;
-			}
-		}
+        // проходим построчно и наполняем данными
+        foreach($dataProvider->models as $model) {
+            foreach ($map as $col => $pattern) {
+                $cell  = $sheet->getCell($col . $rowIndex);
+                $cellValue = $pattern;
+                preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $pattern, $matches);
+                foreach ($matches['tag'] as $tag) {
+                    $value = $model->getAttribute($tag);
 
-		// проходим построчно и наполняем данными
-		foreach($dataProvider->models as $model) {
-			foreach ($map as $col => $pattern) {
-				$cell  = $sheet->getCell($col . $rowIndex);
-				$cellValue = $pattern;
-				preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $pattern, $matches);
-				foreach ($matches['tag'] as $tag) {
-					$value = $model->getAttribute($tag);
-
-                    if (NULL === $value && !empty($model->documentExtSwiftFin)) {
+                    if (null === $value && !empty($model->documentExtSwiftFin)) {
                         $value = $model->documentExtSwiftFin->getAttribute($tag);
                     }
 
-					if (NULL === $value) {
-						$value = '';
-					}
+                    if (null === $value) {
+                            $value = '';
+                    }
 
-					// Costylvania?
-					if ($tag == 'status') {
-						$value = $model->getStatusLabel();
-					} else if ($tag == 'direction') {
-						$value = $model->getDirectionLabels()[$model->direction];
-					}
-					$cellValue = str_replace('{' . $tag . '}', $value, $cellValue);
-				}
-				$cell->setValue($cellValue);
-			}
-			$rowIndex++;
-		}
-		// exit;
-		$outFileName = Yii::$app->terminals->defaultTerminalId . '_' . date('d.m.y_Hi') . '.xlsx';
-		$objWriter = IOFactory::createWriter($xls, 'Xlsx');
+                    // Costylvania?
+                    if ($tag == 'status') {
+                            $value = $model->getStatusLabel();
+                    } else if ($tag == 'direction') {
+                            $value = $model->getDirectionLabels()[$model->direction];
+                    }
 
-		ob_start();
-		$objWriter->save('php://output');
+                    $cellValue = str_replace('{' . $tag . '}', $value, $cellValue);
+                }
+                $cell->setValue($cellValue);
+            }
+            $rowIndex++;
+        }
+        // exit;
+        $outFileName = Yii::$app->exchange->defaultTerminalId . '_' . date('d.m.y_Hi') . '.xlsx';
+        $objWriter = IOFactory::createWriter($xls, 'Xlsx');
+
+        ob_start();
+        $objWriter->save('php://output');
         $data = ob_get_clean();
 
         return Yii::$app->response->sendContentAsFile($data, $outFileName);
@@ -718,6 +723,7 @@ class DocumentsController extends BaseServiceController
         $form = new TemplatesForm();
 
         if (Yii::$app->request->get('fromId')) {
+            // Получить из БД документ с указанным id
             $importDocument = Yii::$app->controller->findModel(Yii::$app->request->get('fromId'));
             $form->docType = $importDocument->typeCode;
 
@@ -727,34 +733,36 @@ class DocumentsController extends BaseServiceController
         }
 
         if (Yii::$app->request->get('id')) {
+            // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
             $template = Yii::$app->terminalAccess->findModel(
                 SwiftfinTemplate::className(),
                 Yii::$app->request->get('id')
             );
 
-            if ($template) {
-                $form->load($template);
-            }
+            $form->load($template);
         }
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             $template = new SwiftfinTemplate();
             $template->comment = $form->comment;
             $template->docType = $form->docType;
             $template->text = $form->text;
             $template->title = $form->title;
-            $template->terminalId = Yii::$app->terminals->defaultTerminal->id;
+            $template->terminalId = Yii::$app->exchange->defaultTerminal->id;
 
+            // Если модель успешно сохранена в БД
             if ($template->save()) {
+                // Поместить в сессию флаг сообщения об успешном сохранении шаблона
                 Yii::$app->session->setFlash('success', Yii::t('app/error', 'Template saved'));
             } else {
+                // Поместить в сессию флаг сообщения об ошибке сохранения шаблона
                 Yii::$app->session->setFlash('error', Yii::t('app/error', 'Error! Template not saved!'));
             }
         }
 
-        return $this->render('templates', [
-            'model' => $form,
-        ]);
+        // Вывести страницу
+        return $this->render('templates', ['model' => $form]);
     }
 
     /**
@@ -765,37 +773,42 @@ class DocumentsController extends BaseServiceController
     public function actionCorrection()
     {
         if (\Yii::$app->request->isPost) {
-            $model             = new DocumentCorrectionForm();
+            $model = new DocumentCorrectionForm();
             $model->documentId = \Yii::$app->request->post('documentId');
             $model->load(\Yii::$app->request->post());
             if ($model->validate() && $model->toCorrection(\Yii::$app->user->id)) {
-                \Yii::$app->session->setFlash('success',
-                    \Yii::t('doc', 'The document was sent for correction'));
+                // Поместить в сессию флаг сообщения о передаче документа на корректировку
+                \Yii::$app->session->setFlash('success', \Yii::t('doc', 'The document was sent for correction'));
+                // Перенаправить на страницу индекса
                 return $this->redirect(['/swiftfin/documents/index']);
             }
-            \Yii::$app->session->setFlash('error',
-                \Yii::t('doc', 'The document was not sent for correction'));
+            // Поместить в сессию флаг сообщения об ошибке передачи документа на корректировку
+            \Yii::$app->session->setFlash('error', \Yii::t('doc', 'The document was not sent for correction'));
+            // Перенаправить на страницу просмотра
             return $this->redirect(['/swiftfin/documents/view/', ['id' => $model->documentId]]);
         }
 
         $referer = Url::previous('edit');
         if (empty($referer)) {
+            // Перенаправить на страницу индекса
             return $this->redirect(['/swiftfin/documents/index']);
         }
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect([$referer]);
     }
 
-    public function actionSendCorrection() {
-
+    public function actionSendCorrection()
+    {
         if (\Yii::$app->request->isPost) {
             $id = \Yii::$app->request->post('documentId');
             $correctionReason = \Yii::$app->request->post('correctionReason');
             $document = Document::findOne($id);
 
             if (empty($document)) {
-                \Yii::$app->session->setFlash('error',
-                    \Yii::t('doc', 'The document was not sent for modification'));
+                // Поместить в сессию флаг сообщения об ошибке передачи документа на корректировку
+                \Yii::$app->session->setFlash('error', \Yii::t('doc', 'The document was not sent for modification'));
+                // Перенаправить на страницу индекса
                 return $this->redirect(['/swiftfin/documents/index']);
             }
 
@@ -804,12 +817,12 @@ class DocumentsController extends BaseServiceController
 
             // Запись причины коррекции
             $document->extModel->correctionReason = Html::encode($correctionReason);
+            // Сохранить модель в БД
             $document->extModel->save();
+            // Поместить в сессию флаг сообщения о передаче документа на корректировку
+            \Yii::$app->session->setFlash('success', \Yii::t('doc', 'The document was sent for modification'));
 
-            \Yii::$app->session->setFlash('success',
-                \Yii::t('doc', 'The document was sent for modification'));
-
-            // Регистрация события передачи документа на исправление
+            // Зарегистрировать событие передачи документа на корректировку в модуле мониторинга
             Yii::$app->monitoring->log(
                 'user:CorrectDocument',
                 'document',
@@ -820,15 +833,27 @@ class DocumentsController extends BaseServiceController
                 ]
             );
 
+            // Перенаправить на страницу индекса
             return $this->redirect(['/swiftfin/documents/index']);
         }
 
         $referer = Url::previous('edit');
         if (empty($referer)) {
+            // Перенаправить на страницу индекса
             return $this->redirect(['/swiftfin/documents/index']);
         }
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect([$referer]);
     }
 
+    /**
+     * Метод ищет модель документа в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
+    protected function findModel($id)
+    {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
+        return Yii::$app->terminalAccess->findModel(Document::className(), $id);
+    }
 }

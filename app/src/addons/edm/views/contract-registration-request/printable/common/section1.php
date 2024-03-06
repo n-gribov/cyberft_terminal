@@ -77,9 +77,9 @@ $innKppArr = array_merge($innArr, ['/'], $kppArr);
         <div class="section-1-item-7-field">
             <table>
                 <tr>
-                    <?php foreach($ogrnArr as $value): ?>
+                    <?php foreach($ogrnArr as $value) : ?>
                         <td><?=$value?></td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
             </table>
         </div>
@@ -89,9 +89,9 @@ $innKppArr = array_merge($innArr, ['/'], $kppArr);
         <div class="section-1-item-8-field">
             <table>
                 <tr>
-                    <?php foreach($egrulArr as $value): ?>
+                    <?php foreach($egrulArr as $value) : ?>
                         <td><?=$value?></td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
             </table>
         </div>
@@ -101,9 +101,9 @@ $innKppArr = array_merge($innArr, ['/'], $kppArr);
         <div class="section-1-item-9-field">
             <table>
                 <tr>
-                    <?php foreach($innKppArr as $value): ?>
+                    <?php foreach($innKppArr as $value) : ?>
                         <td><?=$value?></td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
             </table>
         </div>

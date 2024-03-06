@@ -15,8 +15,9 @@ use yii\helpers\Url;
                 <?=Html::a(Yii::t('app/iso20022', 'Add certificate'), ['/cryptopro-certs-iso-20022/create'], ['class' => 'btn btn-primary']);?>
             </div>
         </div>
-
-        <?= GridView::widget([
+        <?php
+        // Создать таблицу для вывода
+        echo GridView::widget([
             'summary' => '',
             'dataProvider' => $cryptoproCert,
             'filterModel' => $cryptoproCertSearch,

@@ -377,7 +377,7 @@ class Registry extends Component
 	}
 
 	/**
-	 * Регистрация повторяющихся джобов
+	 * Регистрация регулярных заданий
 	 *
 	 * @param type $job
 	 * @param type $interval

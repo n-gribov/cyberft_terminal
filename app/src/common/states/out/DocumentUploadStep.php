@@ -36,6 +36,7 @@ class DocumentUploadStep extends BaseDocumentStep
             );
 
             if ($cftcp->hasErrors()) {
+                // Зарегистрировать событие ошибки CFTCP в модуле мониторинга
                 Yii::$app->monitoring->log('transport:cftcpFailed', '', 0, ['logLevel'  => LogLevel::ERROR, 'terminalId' => $document->terminalId]);
 
                 return false;
@@ -58,6 +59,7 @@ class DocumentUploadStep extends BaseDocumentStep
         );
 
         if ($stomp->hasErrors()) {
+            // Зарегистрировать событие ошибки STOMP в модуле мониторинга
             Yii::$app->monitoring->log('transport:stompFailed', '', 0, ['logLevel'  => LogLevel::ERROR, 'terminalId' => $document->terminalId]);
 
             return false;
@@ -80,6 +82,7 @@ class DocumentUploadStep extends BaseDocumentStep
             $this->state->document->updateStatus(Document::STATUS_UPLOAD_FAIL);
         }
 
+        // Сохранить модель в БД и вернуть результат сохранения
         return $this->state->save();
     }
 

@@ -19,7 +19,7 @@ abstract class BaseHandler
      * Perform command
      *
      * @param BaseCommand $command
-     * @return array|boolean Return array or result or FALSE
+     * @return array|boolean Return array or result or false
      */
     abstract public function perform($command);
 

@@ -62,6 +62,7 @@ $dataProvider = new ActiveDataProvider([
 <div class="row">
     <div class="col-md-6">
         <?php
+        // Создать таблицу для вывода
         echo GridView::widget([
             'dataProvider' => $dataProvider,
             'id' => 'user-terminals-list',
@@ -105,7 +106,7 @@ $dataProvider = new ActiveDataProvider([
 
 <?php
 
-$script = <<< JS
+$script = <<<JS
     // Добавление кода
     $('body').on('click', '#add-remote-id', function(e) {
         e.preventDefault();

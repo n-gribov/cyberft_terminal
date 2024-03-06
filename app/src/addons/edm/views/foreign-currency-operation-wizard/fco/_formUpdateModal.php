@@ -234,14 +234,30 @@ $form = ActiveForm::begin([
                     'url'      => $urlDebitAccount,
                     'dataType' => 'json',
                     'delay'    => 250,
-                    'data'     => new JsExpression('function(params) { return { q: params.term, bankBik: $("#foreigncurrencyoperationtype-recipientbankbik").val() }; }')
+                    'data'     => new JsExpression(<<<JS
+                        function(params) {
+                            return {
+                                q: params.term, bankBik: $('#foreigncurrencyoperationtype-recipientbankbik').val()
+                            };
+                        }
+                    JS)
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
-                'templateSelection'=> new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
+                'templateSelection'=> new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
             ],
         ])
         ?>
@@ -284,20 +300,36 @@ $form = ActiveForm::begin([
                 'disabled' => empty($model->recipientBankBik),
             ],
             'pluginOptions' => [
-                'allowClear'         => true,
+                'allowClear' => true,
                 'minimumInputLength' => 0,
-                'ajax'               => [
-                    'url'      => $urlCreditAccount,
+                'ajax' => [
+                    'url'=> $urlCreditAccount,
                     'dataType' => 'json',
-                    'delay'    => 250,
-                    'data'     => new JsExpression('function(params) { return { q: params.term, bankBik: $("#foreigncurrencyoperationtype-recipientbankbik").val() }; }'),
+                    'delay' => 250,
+                    'data' => new JsExpression(<<<JS
+                        function(params) {
+                            return {
+                                q: params.term, bankBik: $('#foreigncurrencyoperationtype-recipientbankbik').val()
+                            };
+                        }
+                    JS),
                 ],
-                'templateResult'     => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
-                'templateSelection'  => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
+                'templateSelection'  => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
             ],
         ])
         ?>
@@ -305,19 +337,18 @@ $form = ActiveForm::begin([
     <div class="col-sm-3">
         <label><?= $model->getAttributeLabel($fieldCreditAmount) ?></label>
         <?= $form->field($model, $fieldCreditAmount)
-                ->widget(MaskedInput::className(), [
-                    'clientOptions' => [
-                        'alias' => 'decimal',
-                        'digits' => 4,
-                        'digitsOptional' => false,
-                        'radixPoint' => '.',
-                        'groupSeparator' => ' ',
-                        'autoGroup' => true,
-                        'autoUnmask' => true,
-                        'removeMaskOnSubmit' => true,
-                ]
-            ])
-        ?>
+            ->widget(MaskedInput::className(), [
+                'clientOptions' => [
+                    'alias' => 'decimal',
+                    'digits' => 4,
+                    'digitsOptional' => false,
+                    'radixPoint' => '.',
+                    'groupSeparator' => ' ',
+                    'autoGroup' => true,
+                    'autoUnmask' => true,
+                    'removeMaskOnSubmit' => true,
+            ]
+        ]) ?>
     </div>
 </div>
 <div class="row">
@@ -328,18 +359,18 @@ $form = ActiveForm::begin([
             <input type="radio" id="rateType2" name="rateType" value="custom" <?= $model->paymentOrderCurrExchangeRate ? 'checked' : '' ?>> Значение
         </div>
         <div id="rateTypeField" <?= $model->paymentOrderCurrExchangeRate ? '' : 'style="display:none"' ?>><?=
-                $form->field($model, 'paymentOrderCurrExchangeRate')
-                ->widget(MaskedInput::className(), [
-                    'clientOptions' => [
-                        'alias' => 'decimal',
-                        'digits' => 4,
-                        'digitsOptional' => false,
-                        'radixPoint' => '.',
-                        'groupSeparator' => ' ',
-                        'autoGroup' => true,
-                        'autoUnmask' => true,
-                        'removeMaskOnSubmit' => true,
-                    ]
+            $form->field($model, 'paymentOrderCurrExchangeRate')
+            ->widget(MaskedInput::className(), [
+                'clientOptions' => [
+                    'alias' => 'decimal',
+                    'digits' => 4,
+                    'digitsOptional' => false,
+                    'radixPoint' => '.',
+                    'groupSeparator' => ' ',
+                    'autoGroup' => true,
+                    'autoUnmask' => true,
+                    'removeMaskOnSubmit' => true,
+                ]
             ])?>
         </div>
     </div>
@@ -370,18 +401,34 @@ $form = ActiveForm::begin([
                 'allowClear' => true,
                 'minimumInputLength' => 0,
                 'ajax' => [
-                    'url'      => Url::to(['edm-payer-account/list']), // ?currency=1
+                    'url' => Url::to(['edm-payer-account/list']), // ?currency=1
                     'dataType' => 'json',
-                    'delay'    => 250,
-                    'data'     => new JsExpression('function(params) { return { q: params.term, bankBik: $("#foreigncurrencyoperationtype-recipientbankbik").val() }; }')
+                    'delay'=> 250,
+                    'data' => new JsExpression(<<<JS
+                        function(params) {
+                            return {
+                                q: params.term, bankBik: $('#foreigncurrencyoperationtype-recipientbankbik').val()
+                            };
+                        }
+                    JS)
                 ],
 
-                'templateResult'     => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
-                'templateSelection'  => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number + ", " + item.currencyInfo.name;
-                }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
+                'templateSelection'  => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number + ', ' + item.currencyInfo.name;
+                    }
+                JS),
             ],
         ])->label(Yii::t('edm', 'Account for the retention of the commission'));
         ?>
@@ -511,5 +558,3 @@ $script = <<<JS
 JS;
 
 $this->registerJs($script, View::POS_READY);
-
-?>

@@ -89,7 +89,7 @@ class FileActType extends BaseType {
     /**
      * Get Zip as binary
      *
-     * @return mixed Return binary zip or FALSE
+     * @return mixed Return binary zip or false
      */
     protected function getZipAsString()
     {
@@ -185,6 +185,10 @@ class FileActType extends BaseType {
         return false;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return array|bool
+     */
     public function getSearchFields()
     {
         return [

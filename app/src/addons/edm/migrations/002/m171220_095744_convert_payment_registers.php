@@ -54,6 +54,7 @@ class m171220_095744_convert_payment_registers extends Migration
                     $extModel->businessStatusDescription = $register->businessStatusDescription;
                     $extModel->currency = $register->currency;
 
+                    // Если модель успешно сохранена в БД
                     if ($extModel->save()) {
                         echo 'Updated extmodel for register ' . $register->id . ' (document ' . $extModel->documentId . ")\n";
 
@@ -123,6 +124,7 @@ class m171220_095744_convert_payment_registers extends Migration
                         'signaturesRequired', 'signaturesCount'
                     ]);
 
+                    // Отправить документ на обработку в транспортном уровне
                     DocumentTransportHelper::processDocument($document);
 
                     // Необходимо у PaymentRegisterPaymentOrder поменять registerId на полученный document->id
@@ -146,10 +148,6 @@ class m171220_095744_convert_payment_registers extends Migration
 
                 continue;
             }
-
-            // $storedFile->delete();
-            // unlink...
-            // $register->delete();
         }
     }
 
@@ -229,12 +227,14 @@ class m171220_095744_convert_payment_registers extends Migration
             $docAttributes['signaturesRequired'] = $account->requireSignQty;
         }
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext($typeModel, $docAttributes, $extAttributes);
 
         if (!$context) {
             throw new Exception(Yii::t('app', 'Save document error'));
         }
 
+        // Получить документ из контекста
         $document = $context['document'];
         $form->docId = $document->id;
 

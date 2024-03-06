@@ -168,7 +168,7 @@ class BaseCommand extends Model implements BaseCommandInterface
      * Serialize arguments
      *
      * @see http://php.net/manual/en/function.json-encode.php
-     * @return string Return JSON string or FALSE
+     * @return string Return JSON string or false
      */
     public function serializeArgs()
     {

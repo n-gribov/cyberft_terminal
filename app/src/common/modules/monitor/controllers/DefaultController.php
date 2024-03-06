@@ -38,6 +38,7 @@ class DefaultController extends Controller
     {
         $searchModel  = new MonitorLogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // Получить модель пользователя из активной сессии
         $user = \Yii::$app->user->identity;
 
         // Список терминалов для фильтра в журнале
@@ -60,6 +61,7 @@ class DefaultController extends Controller
         
         $eventCodes = MonitorLogAR::getEventCodeLabels();
 
+        // Вывести лог
         return $this->render('log', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
@@ -67,5 +69,4 @@ class DefaultController extends Controller
             'eventCodes' => $eventCodes
         ]);
     }
-
 }

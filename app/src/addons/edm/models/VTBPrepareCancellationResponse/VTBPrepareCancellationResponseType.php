@@ -50,8 +50,13 @@ class VTBPrepareCancellationResponseType extends BaseType
         }
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
         return false;
     }
+
 }

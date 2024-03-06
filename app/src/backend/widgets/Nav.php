@@ -50,7 +50,7 @@ class Nav extends BootstrapNav
 
                 if (isset($item['serviceID'])) {
                     $pathId = $item['serviceID'];
-                } else if(isset($item['menuId'])) {
+                } else if (isset($item['menuId'])) {
                     $pathId = $item['menuId'];
                 }
 
@@ -193,5 +193,4 @@ class Nav extends BootstrapNav
 
         return $label;
     }
-
 }

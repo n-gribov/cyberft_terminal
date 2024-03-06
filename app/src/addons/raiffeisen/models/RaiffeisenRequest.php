@@ -72,6 +72,7 @@ class RaiffeisenRequest extends ActiveRecord
         }
         $request->status = $status;
 
+        // Сохранить модель в БД и вернуть результат сохранения
         return $request->save();
     }
 

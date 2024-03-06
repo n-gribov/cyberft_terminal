@@ -54,6 +54,7 @@ class VTBContractRequestExt extends ActiveRecord implements DocumentExtInterface
             foreach ($this->contractsAttributes as $contractAttributes) {
                 $contract = new VTBContractRequestContract($contractAttributes);
                 $contract->requestId = $this->id;
+                // Сохранить модель в БД
                 $contract->save();
             }
         }
@@ -112,7 +113,7 @@ class VTBContractRequestExt extends ActiveRecord implements DocumentExtInterface
                     'currencyId' => $currency !== null ? $currency->id : null,
                 ]
             ];
-        } elseif ($model instanceof VTBContractChangeType || $model instanceof VTBContractUnRegType) {
+        } else if ($model instanceof VTBContractChangeType || $model instanceof VTBContractUnRegType) {
             /** @var ContractChange|ContractUnReg $vtbDocument */
             $vtbDocument = $model->document;
 

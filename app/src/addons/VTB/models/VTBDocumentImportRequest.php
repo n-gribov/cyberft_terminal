@@ -48,6 +48,7 @@ class VTBDocumentImportRequest extends ActiveRecord
     public function updateStatus($status)
     {
         $this->status = $status;
+        // Сохранить модель в БД
         return $this->save();
     }
 
@@ -64,6 +65,7 @@ class VTBDocumentImportRequest extends ActiveRecord
     private function touchTimestampAttribute($attribute)
     {
         $this->$attribute = new Expression('CURRENT_TIMESTAMP()');
+        // Сохранить модель в БД
         return $this->save();
     }
 }

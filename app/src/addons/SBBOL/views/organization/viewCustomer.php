@@ -36,7 +36,9 @@ $this->title = $model->fullName;
 </div>
 
 <h4><?= Yii::t('app/sbbol', 'Organization data') ?></h4>
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'shortName',
@@ -77,7 +79,9 @@ $this->title = $model->fullName;
 ]) ?>
 
 <h4><?= Yii::t('app/sbbol', 'Accounts') ?></h4>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->accounts,
         'modelClass' => \addons\SBBOL\models\SBBOLCustomerAccount::class,
@@ -94,7 +98,9 @@ $this->title = $model->fullName;
 ]) ?>
 
 <h4><?= Yii::t('app/sbbol', 'Keys owners') ?></h4>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => new ArrayDataProvider([
         'allModels' => $model->keyOwners,
         'modelClass' => \addons\SBBOL\models\SBBOLCustomerKeyOwner::class,
@@ -108,9 +114,9 @@ $this->title = $model->fullName;
         'id',
         'signDeviceId',
     ],
-]) ?>
+]);
 
-<?php $this->registerCss(
+$this->registerCss(
     '#buttons-block {
         margin-bottom: 1em;
     }

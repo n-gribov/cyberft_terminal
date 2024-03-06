@@ -92,6 +92,10 @@ class VTBHelper
             return false;
         }
 
+        if (!self::isVTBDocument($document)) {
+            return false;
+        }
+
         $extModel = $document->extModel;
         if ($extModel !== null && $extModel->hasAttribute('businessStatus')) {
             if ($extModel->businessStatus === 'RJCT') {

@@ -40,6 +40,7 @@ $deletableDocumentsIds = [];
     echo DeleteSelectedDocumentsButton::widget(['checkboxesSelector' => '.delete-checkbox, .select-on-check-all']);
 }
 
+// Вывести форму поиска
 echo $this->render('_search', [
     'model' => $searchModel,
     'filterStatus' => $filterStatus,
@@ -131,21 +132,17 @@ $columns[$senderColumnAttr] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'payments']),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax'               => [
+                'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'payments']),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
 	    'select2:select' => 'function(e) {
@@ -175,21 +172,17 @@ $columns[$receiverColumnAttr] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => 'payments']),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax'               => [
+                'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => 'payments']),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
 	    'select2:select' => 'function(e) {
@@ -206,24 +199,22 @@ $columns[$receiverColumnAttr] = [
 ];
 
 $columns['dateCreate'] = [
-    'attribute'          => 'dateCreate',
+    'attribute' => 'dateCreate',
     'label'  => Yii::t('app/iso20022', 'Registered'),
     'value' => function($model) {
         return DateHelper::formatDate($model->dateCreate, 'datetime');
     },
-    'filter' => kartik\widgets\DatePicker::widget(
-        [
-            'model' => $searchModel,
-            'attribute' => 'dateCreate',
-            'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'orientation' => 'bottom'
-            ],
-        ]
-    ),
+    'filter' => kartik\widgets\DatePicker::widget([
+        'model' => $searchModel,
+        'attribute' => 'dateCreate',
+        'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'orientation' => 'bottom'
+        ],
+    ]),
     'filterInputOptions' => [
         'style' => 'width: 100%;',
     ],
@@ -333,7 +324,7 @@ $columns['status'] = [
     'contentOptions' => [
         'nowrap' => 'nowrap',
     ],
-    'value'         => function ($item, $params) {
+    'value' => function ($item, $params) {
         return "<span title=\"Status: {$item->status}\">{$item->getStatusLabel()}</span>";
     }
 ];
@@ -394,7 +385,7 @@ $columnsEnabled['actions'] = [
         }
     ],
 ];
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'dataProvider' => $dataProvider,
@@ -420,19 +411,13 @@ $myGridWidget = InfiniteGridView::begin([
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
-?>
-
-<?php
-
-$script = <<< JS
+$script = <<<JS
     // Возвращает символ нажатой клавиши
     function getChar(event) {
         return String.fromCharCode(event.keyCode || event.charCode);
@@ -476,8 +461,5 @@ JS;
 echo ToTopButtonWidget::widget();
 
 $this->registerJs($script, View::POS_READY);
-
 $this->registerCss('#delete-selected-documents-button {display: none;}');
-
-?>
 

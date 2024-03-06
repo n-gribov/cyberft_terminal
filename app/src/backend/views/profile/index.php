@@ -3,6 +3,7 @@ use common\helpers\UserHelper;
 
 $this->title = Yii::t('app/profile', 'User profile');
 
+// Вывести страницу
 echo $this->render('@backend/views/user/view', [
     'model' => $model,
     'dataProvider' => $dataProvider,
@@ -16,4 +17,3 @@ echo $this->render('@backend/views/user/view', [
     'servicesSettingsForm' => $servicesSettingsForm,
     'uploadCertForm' => $uploadCertForm,
 ]);
-?>

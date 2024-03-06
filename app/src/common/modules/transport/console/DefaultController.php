@@ -13,15 +13,18 @@ use common\models\Terminal;
 class DefaultController extends ConsoleController
 {
 
-	public function getUniqueID()
-	{
-		return $this->id;
-	}
-
-	public function actionIndex()
+    public function getUniqueID()
     {
-		$this->run('/help', ['transport']);
-	}
+        return $this->id;
+    }
+
+    /**
+     * Метод выводит текст подсказки
+     */
+    public function actionIndex()
+    {
+        $this->run('/help', ['transport']);
+    }
 
     public function actionResend($status, $type = null, $terminal = null, $startId = null, $endId = null)
     {
@@ -106,5 +109,4 @@ class DefaultController extends ConsoleController
             }
         }
     }
-
 }

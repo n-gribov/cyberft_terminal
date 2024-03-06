@@ -1,1 +1,3 @@
-<?=$this->render('readable/provCSV', ['model' => $model])?>
+<?php
+// Вывести страницу
+echo $this->render('readable/provCSV', ['model' => $model]);

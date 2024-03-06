@@ -89,7 +89,7 @@ class RosbankSignatureService
 
             if ($cryptoSystem === null) {
                 $cryptoSystem = $currentKeyCryptoSystem;
-            } elseif ($cryptoSystem !== $currentKeyCryptoSystem) {
+            } else if ($cryptoSystem !== $currentKeyCryptoSystem) {
                 throw new Exception('Keys must have same algorithm');
             }
         }

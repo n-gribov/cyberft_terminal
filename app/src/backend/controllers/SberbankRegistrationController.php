@@ -40,6 +40,7 @@ class SberbankRegistrationController extends Controller
 
     public function actionCreateRequest()
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $defaultErrorMessage = Yii::t('app/autobot', 'Failed to create terminal registration request');
@@ -96,7 +97,9 @@ class SberbankRegistrationController extends Controller
             ? Yii::t('app/autobot', 'Terminal has been successfully registered in Sberbank')
             : Yii::t('app/autobot', 'Failed to register terminal in Sberbank');
         $flashKey = $result === 'success' ? 'success' : 'error';
+        // Поместить в сессию флаг сообщения о результате регистрации
         Yii::$app->session->setFlash($flashKey, $flashMessage);
+        // Перенаправить на страницу индекса
         return $this->redirect([
             '/autobot/terminals/index',
             'id' => $terminal->id,
@@ -106,6 +109,7 @@ class SberbankRegistrationController extends Controller
 
     private function userHasTerminalAccess($terminalId)
     {
+        // Получить модель пользователя из активной сессии
         $adminIdentity = Yii::$app->user->identity;
         if ($adminIdentity->role == User::ROLE_ADDITIONAL_ADMIN) {
             $availableTerminals = UserTerminal::getUserTerminalIds($adminIdentity->id);
@@ -131,7 +135,7 @@ class SberbankRegistrationController extends Controller
 
     private function getAutobotPrivateKeyAndPassword(string $terminalAddress): array
     {
-        $primaryAutobot = Yii::$app->terminals->findAutobotUsedForSigning($terminalAddress);
+        $primaryAutobot = Yii::$app->exchange->findAutobotUsedForSigning($terminalAddress);
         if ($primaryAutobot === null) {
             Yii::info("Cannot find primary autobot for terminal $terminalAddress");
             return [null, null];
@@ -141,7 +145,7 @@ class SberbankRegistrationController extends Controller
             return [null, null];
         }
 
-        $terminalData = Yii::$app->terminals->findTerminalData($terminalAddress);
+        $terminalData = Yii::$app->exchange->findTerminalData($terminalAddress);
         $password = @$terminalData['passwords'][$primaryAutobot->id];
 
         return [$primaryAutobot->privateKey, $password];

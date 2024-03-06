@@ -28,8 +28,7 @@ $countryCodesList = EdmHelper::countryCodesList();
         <th></th>
         <th></th>
     </tr>
-    <?php foreach($childObjectData as $uuid => $nonresident): ?>
-
+    <?php foreach($childObjectData as $uuid => $nonresident) : ?>
         <?php
             // Выводим резидентов согласно переданному режиму
             if ($credit != $nonresident->isCredit) {
@@ -37,7 +36,6 @@ $countryCodesList = EdmHelper::countryCodesList();
             }
 
         ?>
-
         <tr>
             <td><?=$nonresident->name?></td>
             <td><?=$nonresident->countryCode?></td>
@@ -62,5 +60,5 @@ $countryCodesList = EdmHelper::countryCodesList();
                     ]
                 ])?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>

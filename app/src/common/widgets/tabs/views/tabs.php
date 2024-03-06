@@ -18,7 +18,7 @@ $isActiveUrl = function ($url) use ($removeLanguageFromUrl) {
 ?>
 
 <ul class="nav nav-tabs">
-    <?php foreach ($items as $item): ?>
+    <?php foreach ($items as $item) : ?>
         <?php
         $url = Url::to($item['url']);
         $isActive = $item['isActive'] ?? $isActiveUrl($url);
@@ -26,5 +26,5 @@ $isActiveUrl = function ($url) use ($removeLanguageFromUrl) {
         <li role="presentation" class="<?= $isActive ? 'active' : '' ?>">
             <a href="<?= $url ?>"><?= Html::encode($item['title']) ?></a>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </ul>

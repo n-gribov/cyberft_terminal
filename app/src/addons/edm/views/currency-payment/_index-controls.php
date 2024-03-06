@@ -18,18 +18,23 @@ use yii\web\View;
 
 <div class="controls-block">
     <div class="pull-left">
-        <?php if ($userCanCreateDocuments): ?>
-            <?= $this->render('@addons/edm/views/documents/_fcoCreateButton', ['wizardType' => ForeignCurrencyOperationFactory::OPERATION_PAYMENT]) ?>
-        <?php endif; ?>
-        <?php if ($userCanDeleteDocuments): ?>
+        <?php if ($userCanCreateDocuments) : ?>
+            <?=
+                // Вывести кнопку
+                $this->render('@addons/edm/views/documents/_fcoCreateButton',
+                        ['wizardType' => ForeignCurrencyOperationFactory::OPERATION_PAYMENT])
+            ?>
+        <?php endif ?>
+        <?php if ($userCanDeleteDocuments) : ?>
             <?= DeleteSelectedDocumentsButton::widget([
                 'checkboxesSelector' => '.delete-checkbox, .select-on-check-all',
                 'entriesSelectionCacheKey' => $entriesSelectionCacheKey,
             ]) ?>
             <?= SelectedDocumentsCountLabel::widget(['checkboxesSelector' => '.delete-checkbox, .select-on-check-all']); ?>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
-    <?= $this->render('_search') ?>
+    <?=  // Вывести форму поиска
+        $this->render('_search') ?>
     <?= ShowDeletedDocumentsCheckbox::widget(['filterModel' => $filterModel]) ?>
 </div>
 

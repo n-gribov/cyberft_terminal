@@ -109,7 +109,7 @@ class XmlDeserializationVisitor extends \JMS\Serializer\XmlDeserializationVisito
 
         if ('true' === $data || '1' === $data) {
             $data = true;
-        } elseif ('false' === $data || '0' === $data || '' === $data) {
+        } else if ('false' === $data || '0' === $data || '' === $data) {
             $data = false;
         } else {
             throw new RuntimeException(sprintf('Could not convert data to boolean. Expected "true", "false", "1", "0" or "", but got %s.', json_encode($data)));

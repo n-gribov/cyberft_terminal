@@ -45,41 +45,45 @@ class Terminal extends ActiveRecord
             ['terminalId', 'unique'],
             ['terminalId', TerminalIdValidator::className()],
             [['isDefault'], 'boolean'],
-            [['isDefault'], function ($attribute, $params) {
-                if (!empty($this->$attribute)) {
-                    $data = Terminal::find()
-                        ->where('isDefault = 1')
-                        ->andWhere('id <> ' . (!empty($this->id) ? $this->id : 0))
-                        ->all();
-                    if (!empty($data)) {
-                        $this->addError($attribute,
-                            Yii::t('app/terminal',
-                                'There can be only one default terminal'));
+            [
+                'isDefault',
+                function ($attribute, $params) {
+                    if (!empty($this->$attribute)) {
+                        $data = Terminal::find()
+                            ->where('isDefault = 1')
+                            ->andWhere('id <> ' . (!empty($this->id) ? $this->id : 0))
+                            ->all();
+                        if (!empty($data)) {
+                            $this->addError(
+                                $attribute,
+                                Yii::t('app/terminal', 'There can be only one default terminal')
+                            );
+                        }
                     }
                 }
-            }],
+            ],
             [['title', 'status'], 'string'],
             [['title'], 'trim'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', function ($attribute, $params) {
-                    if (
-                        (self::STATUS_INACTIVE === $this->$attribute) && ($this->isDefault)
-                    ) {
-                        $this->addError($attribute,
-                            Yii::t('app/terminal',
-                                'Default terminal cannot be deactivated'));
+            [
+                'status',
+                function ($attribute, $params) {
+                    if (self::STATUS_INACTIVE === $this->$attribute && $this->isDefault) {
+                        $this->addError(
+                            $attribute,
+                            Yii::t('app/terminal', 'Default terminal cannot be deactivated')
+                        );
                     }
-                }],
+                }
+            ],
         ];
     }
 
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
-
         // Проверяем все новые и активные терминалы
         if ($insert) {
-
             // Проверяем все активные терминалы за исключением текущего созданного
             $allTerminals = static::find()
                 ->where(['status' => static::STATUS_ACTIVE])
@@ -96,9 +100,7 @@ class Terminal extends ActiveRecord
 
             // Всем пользователям, у которых выбраны все активные терминалы,
             // добавляем также новый терминал, если он активный
-
             foreach($users as $user) {
-
                 // Получаем количество всех терминалов пользователя
                 $userAllTerminals = count($user->terminals);
 
@@ -108,6 +110,7 @@ class Terminal extends ActiveRecord
                     $userTerminal = new UserTerminal();
                     $userTerminal->terminalId = $this->id;
                     $userTerminal->userId = $user->id;
+                    // Сохранить модель в БД
                     $userTerminal->save();
                 }
             }
@@ -118,6 +121,7 @@ class Terminal extends ActiveRecord
             $terminalSettings->usePersonalAddonsSigningSettings = false;
             $terminalSettings->useAutosigning = false;
             $terminalSettings->qtySignings = 1;
+            // Сохранить модель в БД
             $terminalSettings->save();
         }
 
@@ -234,7 +238,6 @@ class Terminal extends ActiveRecord
                     )
                 );
 
-                // Нехер дальше проверять вообще
                 return false;
             }
 
@@ -291,18 +294,16 @@ class Terminal extends ActiveRecord
 
             // Формируем список ключей контролера, которые привязаны к терминалу
             if ($autobot) {
-
                 $fingerprints = [];
-
                 foreach($autobot as $key) {
                     $fingerprints[] = $key->fingerprint;
                 }
-
                 $this->addError('terminalDelete',
                     Yii::t(
                         'app/terminal', 'Linked controller keys exist - {keys}',
                         ['keys' => implode(', ', $fingerprints)]
-                    ));
+                    )
+                );
             }
 
             if ($this->hasErrors('terminalDelete')) {

@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $permissionsCache = [];
 $canEditUser = function (User $user) use ($permissionsCache) {
     if (!isset($permissionsCache[$user->id])) {
+        // Получить роль пользователя из активной сессии
         $isAdmin = in_array(\Yii::$app->user->identity->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN]);
         $permissionsCache[$user->id] = $isAdmin && UserHelper::userProfileAccess($user, true);
     }
@@ -28,15 +29,13 @@ $canDeleteUser = function (User $user) use ($canEditUser) {
     return \Yii::$app->user->id != $user->id && $canEditUser($user);
 };
 
-?>
-
-<?= Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success', 'style' => 'margin-bottom: 15px']) ?>
-
-<?= GridView::widget([
+echo Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success', 'style' => 'margin-bottom: 15px']);
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
-    'rowOptions'	=> function($model, $key, $index, $grid) {
-        if(User::STATUS_DELETED === $model->status) {
+    'rowOptions' => function($model, $key, $index, $grid) {
+        if (User::STATUS_DELETED === $model->status) {
             return ['class'=>'danger'];
         }
         return[];
@@ -88,4 +87,4 @@ $canDeleteUser = function (User $user) use ($canEditUser) {
             ]
         ]
     ],
-]); ?>
+]);

@@ -80,6 +80,7 @@ class MonitorComponent extends Component
         $model = new MonitorLogAR();
         $model->loadEvent($event);
 
+        // Если модель успешно сохранена в БД, вернуть модель, иначе false
         return $model->save() ? $model : false;
     }
 

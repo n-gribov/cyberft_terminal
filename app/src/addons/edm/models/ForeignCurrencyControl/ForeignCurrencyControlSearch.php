@@ -59,11 +59,8 @@ class ForeignCurrencyControlSearch extends DocumentSearch
         $query->andWhere(['document.type' => [Auth024Type::TYPE, VTBCurrDealInquiry181iType::TYPE]]);
 
         if ($this->dateCreate) {
-            // простите меня люди
-            list($day, $month, $year) = explode('.', $this->dateCreate);
-            $date = $year . '-' . $month . '-' . $day;
-            $query->andWhere(['>=', 'document.dateCreate', $date . ' 00:00:00']);
-            $query->andWhere(['<=', 'document.dateCreate', $date . ' 23:59:59']);
+            $query->andWhere(['>=', 'document.dateCreate', $this->dateCreate . ' 00:00:00']);
+            $query->andWhere(['<=', 'document.dateCreate', $this->dateCreate . ' 23:59:59']);
         }
 
         $this->_select[] = 'fcoExt.number as number';

@@ -38,7 +38,7 @@ if (isset($account)) {
 
 ?>
 
-<?php $form           = ActiveForm::begin(['action' => Url::toRoute(['/edm/edm-payer-account/send-request'])]); ?>
+<?php $form = ActiveForm::begin(['action' => Url::toRoute(['/edm/edm-payer-account/send-request'])]); ?>
 <?= $form->field($model, 'accountNumber')->widget(Select2::classname(), [
     'options'       => ['placeholder' => 'Поиск счета по имени или номеру ...', 'class' => 'has-success'],
     'theme' => Select2::THEME_BOOTSTRAP,
@@ -51,62 +51,66 @@ if (isset($account)) {
             'delay'    => 250,
             'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
         ],
-        'templateResult'     => new JsExpression('function(item) {
-            if (!item.number) return item.text; return item.number + " (" + item.name + ")";
-        }'),
-        'templateSelection'  => new JsExpression('function(item) {
-            if (!item.number) return item.text; return item.number + " (" + item.name + ")";
-        }'),
+        'templateResult' => new JsExpression(<<<JS
+            function(item) {
+                if (!item.number) {
+                    return item.text;
+                }
+                return item.number + ' (' + item.name + ')';
+            }
+        JS),
+        'templateSelection'  => new JsExpression(<<<JS
+            function(item) {
+                if (!item.number) {
+                    return item.text;
+                }
+                return item.number + ' (' + item.name + ')';
+            }
+        JS),
     ],
     'pluginEvents'  => [
-        'select2:select' => 'function(e) {
-            submitButtonStatus();
-        }',
-        'select2:unselect' => 'function(e) {
-            $("#statementrequesttype-accountnumber").val("");
-            submitButtonStatus();
-        }'
+        'select2:select' => 'function(e) { submitButtonStatus(); }',
+        'select2:unselect' => <<<JS
+            function(e) {
+                $('#statementrequesttype-accountnumber').val('');
+                submitButtonStatus();
+            }
+        JS
     ],
-]);?>
-
+]) ?>
 <?php
     // Радиокнопки для выбора режима подписания
-    echo Html::radioList('request-type', 'today', [
-        'today' => Yii::t('edm', 'Today'),
-        'yesterday' => Yii::t('edm', 'Yesterday'),
-        'period' => Yii::t('edm', 'For period')
-    ],
-    [
-        'class' => 'request-type'
-    ]);
-
+    echo Html::radioList(
+        'request-type',
+        'today',
+        [
+            'today' => Yii::t('edm', 'Today'),
+            'yesterday' => Yii::t('edm', 'Yesterday'),
+            'period' => Yii::t('edm', 'For period')
+        ],
+        ['class' => 'request-type']
+    );
 ?>
 
 <div class="row period-range">
     <div class="col-md-4">
-        <?=
-        $form->field($model, 'startDate')->widget(DatePicker::className(),
-            [
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                ],
-                'layout'  => '{input}{remove}',
-            ])
-        ?>
+        <?= $form->field($model, 'startDate')->widget(DatePicker::className(), [
+            'pluginOptions' => [
+                'autoclose' => true,
+                'format' => 'yyyy-mm-dd',
+            ],
+            'layout'  => '{input}{remove}',
+        ]) ?>
     </div>
     <div class="col-md-4">
-        <?=
-        $form->field($model, 'endDate')->widget(DatePicker::className(),
-            [
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                    'pickerButton' => false
-                ],
-                'layout'  => '{input}{remove}',
-            ])
-        ?>
+        <?= $form->field($model, 'endDate')->widget(DatePicker::className(), [
+            'pluginOptions' => [
+                'autoclose' => true,
+                'format' => 'yyyy-mm-dd',
+                'pickerButton' => false
+            ],
+            'layout'  => '{input}{remove}',
+        ]) ?>
     </div>
 </div>
 
@@ -155,7 +159,7 @@ $this->registerCss('
     }
 ');
 
-$script = <<< JS
+$script = <<<JS
     // Событие переключения типа запроса
     $('.request-type input[name=request-type]').on('change', function() {
         checkRadioValue();
@@ -237,5 +241,3 @@ $script = <<< JS
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
-
-?>

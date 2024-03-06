@@ -10,7 +10,7 @@ class Daemon extends \yii\base\BaseObject
 
 	public $interval = 5;
 
-	// Когда установится в TRUE, демон завершит работу
+	// Когда установится в true, демон завершит работу
     protected $stopServer = false;
 
 	protected $pid;
@@ -30,7 +30,7 @@ class Daemon extends \yii\base\BaseObject
 	{
         $this->log('Running daemon pid: ' . $this->pid);
 
-		// Пока $stop_server не установится в TRUE, гоняем бесконечный цикл
+		// Пока $stop_server не установится в true, гоняем бесконечный цикл
 		while (!$this->stopServer) {
 			$this->beforePerform();
 			$this->perform();

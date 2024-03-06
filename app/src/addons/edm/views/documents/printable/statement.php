@@ -109,12 +109,14 @@ $statementPeriodEnd = new DateTime($content->statementPeriodEnd);
 
 
 <?php if ($dataProvider->totalCount): ?>
-<?= GridView::widget([
-		'emptyText' => '',
+<?php
+    // Создать таблицу для вывода
+    echo GridView::widget([
+        'emptyText' => '',
         'filterUrl' => false,
-		'dataProvider' => $dataProvider,
-		'columns' => [
-			[
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            [
                 'class' => SerialColumn::className(),
                 'contentOptions' => [
                     'style' => 'text-align: right',
@@ -149,51 +151,50 @@ $statementPeriodEnd = new DateTime($content->statementPeriodEnd);
                 ],
                 'optimizeCellLabel' => false
             ],
-			[
+            [
                 'enableSorting' => false,
                 'format' => 'raw',
                 'label' => Yii::t('doc/st', 'Correspondent'),
-				'value' => function($model) {
-                    $accountNumber = $model['PayerAccountNum'];
-                    $accountOwnerName = $model['PayerName'];
-					return $accountNumber. '<br/>' .$accountOwnerName
+                    'value' => function($model) {
+                        $accountNumber = $model['PayerAccountNum'];
+                        $accountOwnerName = $model['PayerName'];
+                        return $accountNumber. '<br/>' .$accountOwnerName
                             . '<br/>' . Yii::t('doc/st', 'INN') . ': ' . $model['PayerINN']
                             . '<br/>' . Yii::t('doc/st', 'KPP') . ': ' . $model['PayerKPP'];
-				}
-			],
-			[
+                    }
+            ],
+            [
                 'enableSorting' => false,
                 'format' => 'raw',
                 'label' => Yii::t('doc/st', 'Corr. Bank'),
-				'value' => function($model) {
+                'value' => function($model) {
                     $bik = $model['PayerBIK'];
                     $bankName = $model['PayerBankName'];
-					return Yii::t('edm', 'BIK') . ": $bik<br>$bankName";
-				},
+                    return Yii::t('edm', 'BIK') . ": $bik<br>$bankName";
+                },
                 'optimizeCellLabel' => false
-			],
+            ],
             [
                 'enableSorting' => false,
                 'format' => 'raw',
                 'label' => Yii::t('doc/st', 'Payee'),
-				'value' => function($model) {
+                'value' => function($model) {
                     $accountNumber = $model['PayeeAccountNum'];
                     $accountOwnerName = $model['PayeeName'];
-					return $accountNumber. '<br/>' .$accountOwnerName
+                    return $accountNumber. '<br/>' .$accountOwnerName
                             . '<br/>' . Yii::t('doc/st', 'INN') . ': ' . $model['PayeeINN']
                             . '<br/>' . Yii::t('doc/st', 'KPP') . ': ' . $model['PayeeKPP'];
-				}
-                
+                }
             ],
             [
                 'enableSorting' => false,
                 'format' => 'raw',
                 'label' => Yii::t('doc/st', 'Payee Bank'),
-				'value' => function($model) {
+                'value' => function($model) {
                     $bik = $model['PayeeBIK'];
                     $bankName = $model['PayeeBankName'];
-					return Yii::t('edm', 'BIK') . ": $bik<br>$bankName";
-				},
+                    return Yii::t('edm', 'BIK') . ": $bik<br>$bankName";
+                },
                 'optimizeCellLabel' => false
                 
             ],
@@ -202,11 +203,11 @@ $statementPeriodEnd = new DateTime($content->statementPeriodEnd);
                 'enableSorting'  => false,
                 'label'          => Yii::t('doc/st', 'Debit'),
                 'value' => function($row) {
-                        return Yii::$app->formatter->asDecimal($row['Debit'], 2);
+                    return Yii::$app->formatter->asDecimal($row['Debit'], 2);
                 },
                 'headerOptions' => [
-                        'class' => 'text-right',
-                    ],
+                    'class' => 'text-right',
+                ],
                 'contentOptions' => [
                     'style' => 'text-align: right',
                     'nowrap' => 'nowrap'
@@ -217,24 +218,24 @@ $statementPeriodEnd = new DateTime($content->statementPeriodEnd);
                 'enableSorting'  => false,
                 'label'          => Yii::t('doc/st', 'Credit'),
                 'value' => function($row) {
-                        return Yii::$app->formatter->asDecimal($row['Credit'], 2);
+                    return Yii::$app->formatter->asDecimal($row['Credit'], 2);
                 },
                 'headerOptions' => [
-                        'class' => 'text-right',
-                    ],
+                    'class' => 'text-right',
+                ],
                 'contentOptions' => [
                     'style' => 'text-align: right',
                     'nowrap' => 'nowrap'
                 ],
             ],
-			[
+            [
                 'attribute'     => 'Purpose',
                 'enableSorting' => false,
                 'label'         => Yii::t('doc/st', 'Purpose'),
                 'optimizeCellLabel' => false
             ],
         ],
-	]);
+    ]);
 ?>
 
 <?php endif?>
@@ -244,5 +245,3 @@ $statementPeriodEnd = new DateTime($content->statementPeriodEnd);
 $cssFile = Yii::getAlias('@backend/web/css/edm/statement/style.css');
 $cssContent = file_get_contents($cssFile);
 $this->registerCss($cssContent);
-
-?>

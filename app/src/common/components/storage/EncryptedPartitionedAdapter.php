@@ -12,7 +12,7 @@ class EncryptedPartitionedAdapter extends PartitionedAdapter
     {
         parent::init();
 
-        $terminalId = Yii::$app->terminals->getCurrentTerminalId();
+        $terminalId = Yii::$app->exchange->getCurrentTerminalId();
         $this->_encryptTerminalId = $terminalId;
     }
 

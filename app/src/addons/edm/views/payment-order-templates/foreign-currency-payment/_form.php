@@ -26,7 +26,7 @@ $payerBankModel = SwiftFinDictBank::findOne($model->payerBank)
     </div>
 </div>
 <?php
-
+// Вывести страницу
 echo $this->render('@addons/edm/views/foreign-currency-operation-wizard/fcp/_common', [
     'form' => $form, 'model' => $model
 ]);
@@ -37,7 +37,7 @@ echo Html::hiddenInput('createDocument', 0, ['class' => 'hidden-create-document'
 
 ActiveForm::end();
 
-$script = <<< JS
+$script = <<<JS
     initFCPTemplate('foreigncurrencypaymenttemplate');
 JS;
 

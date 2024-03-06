@@ -19,9 +19,7 @@ $join = function ($glue, $values) {
     $encodedValues = array_map('yii\helpers\Html::encode', $nonEmptyValues);
     return implode($glue, $encodedValues);
 };
-
 ?>
-
 <h1>Заявление</h1>
 <p><strong>на перевод №</strong> <?= $bsDocument->DOCUMENTNUMBER ?></p>
 <p><strong>от</strong> <?= Yii::$app->formatter->asDate($bsDocument->DOCUMENTDATE, $dateFormat) ?> г.</p>
@@ -163,13 +161,13 @@ $join = function ($glue, $values) {
                     <th>Номер документа</th>
                     <th>Дата документа</th>
                 </tr>
-                <?php foreach ($bsDocument->GROUNDDOCUMENTS as $groundDocument): ?>
+                <?php foreach ($bsDocument->GROUNDDOCUMENTS as $groundDocument) : ?>
                     <tr>
                         <td><?= Html::encode($groundDocument->DOCUMENTTYPE) ?></td>
                         <td><?= Html::encode($groundDocument->DOCUMENTNUMBER) ?></td>
                         <td><?= Yii::$app->formatter->asDate($groundDocument->DOCUMENTDATE, $dateFormat) ?></td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </table>
         </td>
     </tr>
@@ -206,7 +204,8 @@ $join = function ($glue, $values) {
     </div>
 </div>
 
-<?= $this->render(
+<?= // Вывести колонтитул
+    $this->render(
     '_bottom',
     [
         'typeModel' => $typeModel,

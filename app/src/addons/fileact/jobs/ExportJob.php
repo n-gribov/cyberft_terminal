@@ -1,14 +1,12 @@
 <?php
 namespace addons\fileact\jobs;
 
-use addons\fileact\helpers\FileActHelper;
 use addons\fileact\models\FileActType;
 use common\base\DocumentJob;
 use common\components\storage\StoredFile;
 use common\components\TerminalId;
 use common\document\Document;
 use common\helpers\DocumentHelper;
-use common\helpers\StringHelper;
 use common\models\CryptoproCert;
 use common\models\cyberxml\CyberXmlDocument;
 use common\models\Terminal;
@@ -20,7 +18,6 @@ use DOMXPath;
 use Exception;
 use Resque_Job_DontPerform;
 use Yii;
-use const PHP_EOL;
 
 /**
  * Export fileact job class
@@ -67,18 +64,18 @@ class ExportJob extends DocumentJob
     /**
      * @inheritdoc
      */
-	public function perform()
-	{
+    public function perform()
+    {
         try {
             $this->exportFileAct($this->_cyxDocument);
 
             $this->log("Document ID {$this->_documentId} exported");
-			$this->_document->updateStatus(Document::STATUS_EXPORTED, 'Export');
+            $this->_document->updateStatus(Document::STATUS_EXPORTED, 'Export');
         } catch (Exception $ex) {
             Yii::warning("Export document ID [{$this->_documentId}] failed. Reason: [{$ex->getMessage()}]");
             $this->_document->updateStatus(Document::STATUS_NOT_EXPORTED, 'Export');
         }
-	}
+    }
 
     /**
      * Export FileAct
@@ -86,8 +83,8 @@ class ExportJob extends DocumentJob
      * @param CyberXmlDocument $cyxDoc CyberXml document
      * @throws Exception
      */
-	public function exportFileAct(CyberXmlDocument $cyxDoc)
-	{
+    public function exportFileAct(CyberXmlDocument $cyxDoc)
+    {
         $content = file_get_contents($this->_storedPdu->getRealPath());
         $pos = strpos($content, '<?xml');
 
@@ -118,11 +115,11 @@ class ExportJob extends DocumentJob
 
         $senderDN = $inXpath->query('//Saa:Sender/Saa:DN')->item(0);
         $name = $inXpath->query('//Saa:Sender/Saa:FullName/Saa:X1')->item(0)->nodeValue;
-        $senderDN->nodeValue = 'o=' . FileActHelper::extractBIC8($name) . ',o=swift';
+        $senderDN->nodeValue = 'o=' . TerminalId::extractBIC8($name) . ',o=swift';
 
         $receiverDN = $inXpath->query('//Saa:Receiver/Saa:DN')->item(0);
         $name = $inXpath->query('//Saa:Receiver/Saa:FullName/Saa:X1')->item(0)->nodeValue;
-        $receiverDN->nodeValue = 'o=' . FileActHelper::extractBIC8($name) . ',o=swift';
+        $receiverDN->nodeValue = 'o=' . TerminalId::extractBIC8($name) . ',o=swift';
 
         $networkInfo = $inXpath->query('//Saa:NetworkInfo')->item(0);
         $priority = $inXpath->query('//Saa:NetworkInfo/Saa:Priority')->item(0);
@@ -150,8 +147,8 @@ class ExportJob extends DocumentJob
             }
             $procid = getmypid();
             $count = str_pad(
-                    DocumentHelper::getDayUniqueCount('pdu'),
-                    6, '0', STR_PAD_LEFT
+                DocumentHelper::getDayUniqueCount('pdu'),
+                6, '0', STR_PAD_LEFT
             );
 
             $this->_snlRef = 'SNL' . $snlId . '-' . date('Y-m-d\TH:i:s', $date->getTimestamp()) . '.' . $procid . '.' . $count . 'Z';
@@ -208,28 +205,20 @@ class ExportJob extends DocumentJob
 
         $msgId = $inXpath->query('//Saa:MessageIdentifier')->item(0)->nodeValue;
 
-        /**
-         * Export receipt to file
-         */
+        // Export receipt to file
         $this->exportReceiptFile(
-                $this->exportReceipt($cyxDoc, $msgId, $senderDN->nodeValue, $receiverDN->nodeValue, $body->nodeValue)
+            $this->exportReceipt($cyxDoc, $msgId, $senderDN->nodeValue, $receiverDN->nodeValue, $body->nodeValue)
         );
 
-        /**
-         * Export BIN to file
-         */
+        //Export BIN to file
         $this->exportBinFile($body->nodeValue); //$transferRef);
 
-        /**
-         * Export signatures to file
-         */
+        // Export signatures to file
         $this->exportSignatureFile($this->createSignaturesDocument());
 
-        /**
-         * Export PDU
-         */
+        // Export PDU
         $this->exportPDUFile($binData . $pdu);
-	}
+    }
 
     /**
      * Export receipt
@@ -241,11 +230,11 @@ class ExportJob extends DocumentJob
      * @param string           $body     Body
      * @return string
      */
-	public function exportReceipt(CyberXmlDocument $doc, $msgId, $sender, $receiver, $body)
-	{
-		$docDate = $doc->docDate;
-		$exportDate = date('c');
-		$out = <<<OUT
+    public function exportReceipt(CyberXmlDocument $doc, $msgId, $sender, $receiver, $body)
+    {
+        $docDate = $doc->docDate;
+        $exportDate = date('c');
+        $out = <<<OUT
 {$exportDate}	       FileAct CyberFT
 _______________________________________________________________________________
     ---------------------  Instance Type and Transmission ---------------------
@@ -264,9 +253,8 @@ _______________________________________________________________________________
        Application   : CyberFT
 
 OUT;
-
-	    return $this->getReceiptSignatures($out, $doc);
-	}
+        return $this->getReceiptSignatures($out, $doc);
+    }
 
     /**
      * Get receipt signatures
@@ -337,7 +325,7 @@ OUT;
      * Get SNL ID
      *
      * @param string $sender Sender
-     * @return string|NULL Return SnlID or NULL on error
+     * @return string|null Return SnlID or null on error
      */
 	private function getSnlId($sender)
 	{

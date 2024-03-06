@@ -20,10 +20,10 @@ use yii\web\NotFoundHttpException;
 
 class NotificationsController extends Controller
 {
-	public function behaviors()
+    public function behaviors()
     {
         return [
-			'access' => [
+            'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
@@ -33,7 +33,7 @@ class NotificationsController extends Controller
                 ],
             ],
 
-  			'verbs' => [
+            'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'update' => ['post'],
@@ -43,7 +43,7 @@ class NotificationsController extends Controller
     }
 
     public function actionIndex()
-	{
+    {
         $tabMode = Yii::$app->request->get('tabMode');
 
         $data = [];
@@ -51,13 +51,14 @@ class NotificationsController extends Controller
         if (!$tabMode || $tabMode == 'tabNotificationsSettings') {
             // Данные по настройкам оповещений
             $data = $this->notificationSettingsData();
-        } elseif ($tabMode == 'tabMailNotificationsSettings') {
+        } else if ($tabMode == 'tabMailNotificationsSettings') {
             // Данные по настройкам email-оповещений
             $data = $this->mailNotificationsSettingsData();
-        } elseif ($tabMode == 'tabFinZipEmailImportSettings') {
+        } else if ($tabMode == 'tabFinZipEmailImportSettings') {
             $data = $this->finZipEmailImportSettingsData();
         }
 
+        // Вывести страницу
         return $this->render('index', ['params' => $data]);
     }
 
@@ -90,16 +91,18 @@ class NotificationsController extends Controller
         foreach($this->module->checkers as $checkerCode) {
             $checker = $this->module->getChecker($checkerCode);
             $checker->loadData();
+            // Сохранить модель в БД
             $checker->save();
 
             // Запись настроек чекера
             MonitorLogHelper::saveCheckerSettings($checker, $post);
         }
 
-        // Регистрация события изменения настроек оповещений
+        // Зарегистрировать событие изменения настроек оповещений в модуле мониторинга
         Yii::$app->monitoring->extUserLog('EditNotifySettings');
 
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
 
     /**
@@ -108,18 +111,15 @@ class NotificationsController extends Controller
     protected function mailNotificationsSettingsData()
     {
         $data = [];
-
         $settings = Yii::$app->settings->get('monitor:Notification');
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
-
+            // Загрузить данные модели из формы в браузере
             $settings->load(Yii::$app->request->post());
-
             if ($settings->validate()) {
-
                 $settings->save();
-
-                // Регистрация события изменения настроек почтового сервера для оповещений
+                // Зарегистрировать событие изменения настроек почтового сервера для оповещений в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('EditMailNotifySettings');
 
                 if (Yii::$app->request->post('testNow') == 1) {
@@ -127,7 +127,7 @@ class NotificationsController extends Controller
                     $testAddress = Yii::$app->request->post('testAddress');
                     $emailValidate = (new EmailValidator())->validate($testAddress);
 
-                    if (TRUE === $emailValidate) {
+                    if ($emailValidate === true) {
 
                         $msgData = [
                             'subject' => Yii::t('monitor/mailer', 'Test message'),
@@ -139,22 +139,29 @@ class NotificationsController extends Controller
                         try {
                             $result = Yii::$app->mailNotifier->sendMessage($msgData, [$testAddress]);
                         } catch(Swift_TransportException $ex) {
+                            // Поместить в сессию флаг сообщения об ошибке
                             Yii::$app->session->setFlash('error', $ex->getMessage());
                         }
 
                         if ($result) {
-                            Yii::$app->session->setFlash('success',
-                                Yii::t('monitor/mailer',
-                                    'Test message has been sent to the provided address'));
+                            // Поместить в сессию флаг сообщения об успешно отправленном тестовом сообщении
+                            Yii::$app->session->setFlash(
+                                'success',
+                                Yii::t('monitor/mailer', 'Test message has been sent to the provided address')
+                            );
                         } else {
-                            Yii::$app->session->addFlash('error',
-                                Yii::t('monitor/mailer',
-                                    'Could not sent test message - please check mail settings'));
+                            // Поместить в сессию флаг сообщения об ошибке отправки тестового сообщения
+                            Yii::$app->session->addFlash(
+                                'error',
+                                Yii::t('monitor/mailer', 'Could not sent test message - please check mail settings')
+                            );
                         }
                     } else {
-                        Yii::$app->session->addFlash('error',
-                            Yii::t('monitor/mailer',
-                                'Could not sent test message - please check test address email'));
+                        // Поместить в сессию флаг сообщения об ошибке отправки тестового сообщения
+                        Yii::$app->session->addFlash(
+                            'error',
+                            Yii::t('monitor/mailer', 'Could not sent test message - please check test address email')
+                        );
                     }
                 }
             }
@@ -227,9 +234,12 @@ class NotificationsController extends Controller
         $module = \Yii::$app->getModule('finzip');
         $settings = $module->settings;
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
+            // Загрузить данные модели из формы в браузере
             $settings->load(Yii::$app->request->post());
             if ($settings->validate() && $settings->save()) {
+                // Поместить в сессию флаг сообщения об успешном сохранении настроек
                 Yii::$app->session->setFlash('success', Yii::t('app/fileact', 'Settings saved'));
             }
         }
@@ -332,7 +342,7 @@ class NotificationsController extends Controller
             }
 
             if ($settings->save()) {
-                // Регистрация события изменения настроек рассылки
+                // Зарегистрировать событие изменения настроек рассылки в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('EditMailListSettings');
             }
         }
@@ -344,11 +354,12 @@ class NotificationsController extends Controller
 
     protected function findTerminal($id)
     {
-        if (($model = Terminal::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        // Получить из БД терминал с указанным id
+        $model = Terminal::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested page does not exist');
         }
+        return $model;
     }
 
 }

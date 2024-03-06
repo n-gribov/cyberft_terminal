@@ -39,7 +39,7 @@ class MonitorModule extends Module implements BootstrapInterface
             'common\modules\monitor\jobs\DispatchCheckers', 10
         );
 
-        // Запуск джоба проверки срока истечения сертификата КриптоПро
+        // Запуск задания проверки срока истечения сертификата КриптоПро
         // Раз в сутки
         Yii::$app->registry->registerRegularJob(
             'common\modules\monitor\jobs\CryptoProCertChecker', 86400
@@ -163,9 +163,9 @@ class MonitorModule extends Module implements BootstrapInterface
         foreach (scandir($directory) as $fileName) {
             if ($fileName === '.' || $fileName === '..') {
                 continue;
-            } elseif (is_dir("$directory$fileName")) {
+            } else if (is_dir("$directory$fileName")) {
                 $classes = array_merge($classes, $this->findEventClassesInNameSpace("$namespace$fileName\\"));
-            } elseif (StringHelper::endsWith($fileName, '.php')) {
+            } else if (StringHelper::endsWith($fileName, '.php')) {
                 $className = $namespace . str_replace('.php', '', $fileName);
                 $reflection = new \ReflectionClass($className);
                 if (!$reflection->isAbstract() && $reflection->isSubclassOf(BaseEvent::class)) {

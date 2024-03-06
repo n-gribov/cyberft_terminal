@@ -64,6 +64,9 @@ class ConnectController extends Controller
         ];
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         $this->cleanUpSession();
@@ -124,6 +127,7 @@ class ConnectController extends Controller
         $result = $isError ? 'error' : 'success';
         $query = parse_url($returnUrl, PHP_URL_QUERY);
         $redirectUrl = $returnUrl . ($query ? '&' : '?') . "result=$result&terminalAddress=$terminalAddress";
+        // Перенаправить на страницу перенаправления
         return $this->redirect($redirectUrl);
     }
 

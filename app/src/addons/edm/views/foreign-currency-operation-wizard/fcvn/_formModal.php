@@ -155,16 +155,26 @@ if ($model->contactPersonPhone) {
                     'delay'    => 250,
                     'data'     => new JsExpression('function(params) { return { q:params.term }; }'),
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number;
-                }'),
-                'templateSelection'=> new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number;
-                }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number;
+                    }
+                JS),
+                'templateSelection'=> new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text
+                        }
+                        return item.name + ', ' + item.number;
+                    }
+                JS),
             ],
             'pluginEvents'  => [
                 'select2:select' => 'function(e) { fcvn_applyDebitAccount(e.params.data); }',
-                "select2:unselect" => "function() { fcvn_resetDebitAccount() }"
+                'select2:unselect' => 'function() { fcvn_resetDebitAccount() }'
             ],
         ]) ?>
     </div>
@@ -218,16 +228,26 @@ if ($model->contactPersonPhone) {
                     'delay'    => 250,
                     'data'     => new JsExpression('function(params) { return { q:params.term }; }'),
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number;
-                }'),
-                'templateSelection'=> new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number;
-                }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number;
+                    }
+                JS),
+                'templateSelection'=> new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number;
+                    }
+                JS),
             ],
             'pluginEvents'  => [
                 'select2:select' => 'function(e) { fcvn_applyCreditAccount(e.params.data); }',
-                "select2:unselect" => "function() { fcvn_resetCreditAccount() }"
+                'select2:unselect' => 'function() { fcvn_resetCreditAccount() }'
             ],
         ]) ?>
     </div>
@@ -284,12 +304,22 @@ if ($model->contactPersonPhone) {
                     'delay'    => 250,
                     'data'     => new JsExpression('function(params) { return { q:params.term }; }'),
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number;
-                }'),
-                'templateSelection'=> new JsExpression('function(item) {
-                    if (!item.number) return item.text; return item.name + ", " + item.number;
-                }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number;
+                    }
+                JS),
+                'templateSelection'=> new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number;
+                    }
+                JS),
             ]
         ]) ?>
     </div>
@@ -305,7 +335,7 @@ if ($model->contactPersonPhone) {
 
 <?php
 
-$script = <<< JS
+$script = <<<JS
     var isNew = '$model->isNew';
     $('#fcoCreateModalButtons').show();
     initFCVNDocument('foreigncurrencyconversion', isNew);
@@ -323,5 +353,3 @@ $script = <<< JS
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
-
-?>

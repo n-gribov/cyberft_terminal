@@ -370,7 +370,7 @@ class ISO20022Search extends DocumentSearch
     public function getTerminalSenderRemoteId()
     {
         if (!$this->senderTerminal) {
-             return "";
+             return '';
         }
 
         $terminal = $this->senderTerminal;

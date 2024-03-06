@@ -132,10 +132,10 @@ $statementPeriodEnd = new DateTime($content->statementPeriodEnd);
                 <?= number_format($content->creditTurnover, 2, '.', ' ') ?>
             </strong>
         </td>
-<?php if (isset($content->prevLastOperationDate)): ?>
+<?php if (isset($content->prevLastOperationDate)) : ?>
         <td>Дата последней операции</td>
         <td><strong><?= date('d.m.Y', strtotime($content->prevLastOperationDate)) ?></strong></td>
-<?php endif; ?>
+<?php endif ?>
     </tr>
 </table>
 
@@ -151,11 +151,13 @@ if ($content->accountRestrictions !== null) {
 }
 ?>
 
-<?php if ($content->signatureCardExpirationDate != ''): ?>
+<?php if ($content->signatureCardExpirationDate != '') : ?>
     <p>Срок действия карточки образцов подписи до <b><?= $content->signatureCardExpirationDate ?></b></p>
-<?php endif; ?>
+<?php endif ?>
 
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'emptyText' => '',
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
@@ -421,7 +423,7 @@ $this->registerCss('
     }
 ');
 
-$script = <<< JS
+$script = <<<JS
     stickyTableHelperInit();
 
     var getUrlParameter = function getUrlParameter(sParam) {
@@ -478,7 +480,7 @@ $modal = Modal::begin([
 
 <?php $modal::end(); ?>
 
-<?php if (!empty($content->accountRestrictions)): ?>
+<?php if (!empty($content->accountRestrictions)) : ?>
     <?php Modal::begin([
             'id' => 'restrictions-modal',
             'header' => '<h4 class="modal-title">' . Yii::t('edm', 'Account restrictions') . '</h4>',
@@ -491,18 +493,18 @@ $modal = Modal::begin([
                 <th class="text-right">Дата наложения</th>
                 <th class="text-right" >Cумма</th>
             </tr>
-            <?php foreach ($content->accountRestrictions as $restriction): ?>
+            <?php foreach ($content->accountRestrictions as $restriction) : ?>
                 <tr>
                     <td><?=$restriction['Descr']?></td>
                     <td><?=$restriction['RestrType']?></td>
                     <td class="text-right"><?= $restriction['RestrDate'] ?></td>
                     <td class="text-right"><?= \Yii::$app->formatter->asDecimal($restriction['Amount'], 2) ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
 
         </table>
     <?php $modal::end(); ?>
-<?php endif; ?>
+<?php endif ?>
 
 <script>
     function statement_content_view_modal(id, paymentNumber, uniqId) {

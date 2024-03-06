@@ -61,9 +61,10 @@ class SendStatementsStep extends BaseStep
         }
 
         $responseTypeModel = new SBBOLStatementType(['rawContent' => $statementBody]);
-        $senderTerminal = Yii::$app->terminals->defaultTerminal;
+        $senderTerminal = Yii::$app->exchange->defaultTerminal;
         $filename = $this->createStatementFileName($statement);
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $responseTypeModel,
             [
@@ -83,7 +84,9 @@ class SendStatementsStep extends BaseStep
             $this->log('Failed to create response document');
             return false;
         }
+        // Получить документ из контекста
         $document = $context['document'];
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($document, true);
 
         return true;

@@ -43,6 +43,7 @@ class DocumentTypeGroupQueryBuilder
 
     public function applyToQuery(Query $query)
     {
+        // Получить роль пользователя из активной сессии
         if (Yii::$app->user->identity->role !== User::ROLE_USER) {
             return;
         }

@@ -53,6 +53,10 @@ class StatusReportType extends BaseType
         $this->errorDescription = (string) $this->_xmlDom->ErrorDescription;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return array|bool
+     */
     public function getSearchFields()
     {
         return false;

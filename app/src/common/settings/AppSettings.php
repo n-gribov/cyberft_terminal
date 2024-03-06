@@ -81,7 +81,8 @@ class AppSettings extends BaseSettings
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),
+        return ArrayHelper::merge(
+            parent::rules(),
             [
                 [
                     [
@@ -89,8 +90,8 @@ class AppSettings extends BaseSettings
                         'exportXmlPath', 'qtySignings',
                         'useGlobalExportSettings', 'validateXmlOnImport',
                     ],
-                        'safe'
-                    ],
+                    'safe'
+                ],
                 [
                     [
                         'useZipBeforeEncrypt',
@@ -102,10 +103,12 @@ class AppSettings extends BaseSettings
                         'enableApi',
                         'useGlobalExportSettings',
                         'validateXmlOnImport',
-						'useUtf8ZipFilenameEncoding',
-                    ], 'boolean'
+                        'useUtf8ZipFilenameEncoding',
+                    ],
+                    'boolean'
                 ]
-            ]);
+            ]
+        );
     }
 
     public function saveDefaultSettings()
@@ -119,6 +122,7 @@ class AppSettings extends BaseSettings
         }
 
         $this->setAttributes($appSettings);
+        // Сохранить модель в БД
         $this->save();
     }
 

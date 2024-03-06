@@ -13,6 +13,7 @@ class SelectedDocumentsCountLabel extends Widget
     public function run()
     {
         return $this->render(
+            // Вывести количество помеченных документов
             'selectedDocumentsCountLabel',
             [
                 'checkboxesSelector' => $this->checkboxesSelector,

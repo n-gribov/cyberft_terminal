@@ -12,11 +12,9 @@ if ($model->getValidStoredFileId()) {
     $content = StatementTypeConverter::convertFrom($typeModel);
 } else if ($model->status == $model::STATUS_CREATING) {
     echo 'Документ еще не создан';
-
     return;
 } else {
-    echo 'К сожалению, нет возможности отобразить документ данного типа';
-
+    echo 'Нет возможности отобразить документ данного типа';
     return;
 }
 
@@ -47,6 +45,7 @@ foreach ($paymentOrders as $index => $paymentOrder) {
         echo '<p class="breakhere">';
     }
 
+    // Вывести страницу
     echo $this->render('paymentOrder', ['paymentOrder' => $paymentOrder, 'savePdf' => isset($savePdf)]);
 
     if ($index > 0) {
@@ -54,16 +53,13 @@ foreach ($paymentOrders as $index => $paymentOrder) {
     }
 }
 
-$this->registerCss('
+$this->registerCss(<<<CSS
     p.breakhere {
         page-break-after: always;
         clear:both
     }
-
     .static-header {
         display: block;
         width: 100%;
     }
-');
-
-?>
+CSS);

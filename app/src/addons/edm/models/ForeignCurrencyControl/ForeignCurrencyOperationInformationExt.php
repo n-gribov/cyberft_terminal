@@ -129,6 +129,7 @@ class ForeignCurrencyOperationInformationExt extends ActiveRecord implements Doc
             $operation->isNewRecord = true;
             $operation->documentId = $this->documentId;
             $operation->docRepresentation = (int) $operation->docRepresentation;
+            // Сохранить модель в БД
             $result = $operation->save();
         }
     }
@@ -144,6 +145,7 @@ class ForeignCurrencyOperationInformationExt extends ActiveRecord implements Doc
         }
 
         foreach($this->items as $operation) {
+            // Удалить документ из БД
             $operation->delete();
         }
 

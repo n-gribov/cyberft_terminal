@@ -52,15 +52,11 @@ if ($typeModel->getType() === ForeignCurrencyOperationType::OPERATION_PURCHASE) 
         width: auto;
         padding: 0px;
     }
-
-/*    .row div{
-        text-decoration: underline;
-    }*/
 </style>
 <h2 align="center">
     <?= $title ?>
 </h2>
-<br />
+<br>
 <div class="main container-fluid">
     «<font class="underlineBlock"> <?=Yii::$app->formatter->asDate($typeModel->date, "php:d")?> </font>» <font class="underlineBlock">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=Yii::$app->formatter->asDate($typeModel->date, "php:F")?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font> 20<font class="underlineBlock"><?=Yii::$app->formatter->asDate($typeModel->date, "php:y")?></font>
 
@@ -115,17 +111,16 @@ if ($typeModel->getType() === ForeignCurrencyOperationType::OPERATION_PURCHASE) 
         </tr>
     </table>
     Предоставляем банку право удержать комиссию за совершение сделки со счета № <font class="underlineBlock"><?=$typeModel->commissionAccount->number?></font>
-    <br />
-    <br />
+    <br>
+    <br>
     <div class="row">
         <div class="col-xs-9 startBlock">
             М.П.
         </div>
     </div>
 <?php if (count($signatures) > 0) : ?>
-    <hr />
-    <?= $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
+    <hr>
+    <?= // Вывести блок подписей
+        $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
 <?php endif ?>
-?>
-
 </div>

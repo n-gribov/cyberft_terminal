@@ -53,29 +53,45 @@ $this->registerJs($js);
 )?>
 
 <?= $form->field($model, 'bankBik')->widget(Select2::classname(), [
-	'id'            => 'edmdictcontractor-bankBik',
-	'initValueText' => isset($bank)
-		? 'БИК: ' . $bank->bik . ' Банк: ' . $bank->name
-		: null,
-	'options'       => [
-		'placeholder' => Yii::t('app', 'Search for a {label}', ['label' => Yii::t('edm', 'bank by name or BIK')]),
-		'style'       => 'width:100%',
-	],
-	'pluginOptions' => [
-		'allowClear'         => true,
-		'minimumInputLength' => 0,
-		'ajax'               => [
-			'url'      => Url::to(['dict-bank/list']),
-			'dataType' => 'json',
-			'data'     => new JsExpression('function(params) { return {q:params.term}; }')
-		],
-		'templateResult'     => new JsExpression('function(item) { if (!item.bik) return item.text; return "БИК: " + item.bik + " Банк:" + item.name; }'),
-		'templateSelection'  => new JsExpression('function(item) { if (!item.bik) return item.text; return "БИК: " + item.bik + " Банк: " + item.name; }'),
-	],
-	'pluginEvents'  => [
-		'select2:select' => 'function(e) {
-			$("#edmdictcontractor-terminalid").val(e.params.data.terminalId);
-		}',
+    'id' => 'edmdictcontractor-bankBik',
+    'initValueText' => isset($bank)
+        ? 'БИК: ' . $bank->bik . ' Банк: ' . $bank->name
+        : null,
+    'options' => [
+        'placeholder' => Yii::t('app', 'Search for a {label}', ['label' => Yii::t('edm', 'bank by name or BIK')]),
+        'style' => 'width:100%',
+    ],
+    'pluginOptions' => [
+        'allowClear' => true,
+        'minimumInputLength' => 0,
+        'ajax' => [
+            'url' => Url::to(['dict-bank/list']),
+            'dataType' => 'json',
+            'data' => new JsExpression('function(params) { return {q:params.term}; }')
+        ],
+        'templateResult' => new JsExpression(<<<JS
+            function(item) {
+                if (!item.bik) {
+                    return item.text;
+                }
+                return 'БИК: ' + item.bik + ' Банк: ' + item.name;
+            }
+            JS),
+        'templateSelection' => new JsExpression(<<<JS
+            function(item) {
+                if (!item.bik) {
+                    return item.text;
+                }
+                return 'БИК: ' + item.bik + ' Банк: ' + item.name;
+            }
+            JS),
+        ],
+	'pluginEvents' => [
+            'select2:select' => <<<JS
+                function(e) {
+                    $('#edmdictcontractor-terminalid').val(e.params.data.terminalId);
+                }
+            JS,
 	],
 ]) ?>
 
@@ -87,12 +103,13 @@ $this->registerJs($js);
 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
 <div class="form-group">
-	<?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	<?= !isset($disableCancel) || !$disableCancel
-		? Html::a(Yii::t('app', 'Cancel'), Url::to(['dict-contractor/index']),
-                ['class' => 'btn btn-warning', 'id'    => 'cancelForm'])
-		: null
-	?>
+    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), [
+        'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= !isset($disableCancel) || !$disableCancel
+        ? Html::a(Yii::t('app', 'Cancel'), Url::to(['dict-contractor/index']),
+        ['class' => 'btn btn-warning', 'id' => 'cancelForm'])
+        : null
+    ?>
 </div>
 
 <?php ActiveForm::end(); ?>

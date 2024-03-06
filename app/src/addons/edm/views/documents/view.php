@@ -57,6 +57,5 @@ if (isset($actionView)) {
     $renderParams['actionView'] = $actionView;
 }
 
+// Вывести блок заголовка документа
 echo $this->render('@common/views/document/_header', $renderParams);
-
-?>

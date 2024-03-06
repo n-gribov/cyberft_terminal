@@ -64,6 +64,10 @@ abstract class BaseVTBDocumentType extends BaseType implements SignableType
         }
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
         return false;

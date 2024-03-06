@@ -53,6 +53,7 @@ class VTBDocumentCancellationService
             'messageForBank'  => $form->messageForBank,
         ]);
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $requestTypeModel,
             [
@@ -79,10 +80,12 @@ class VTBDocumentCancellationService
             throw new \Exception('Failed to create document context');
         }
 
+        // Получить документ из контекста
         /** @var Document $requestDocument */
         $requestDocument = $context['document'];
         DocumentHelper::waitForDocumentsToLeaveStatus([$requestDocument->id], Document::STATUS_SERVICE_PROCESSING);
         $requestDocument->refresh();
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($requestDocument);
 
         return $requestDocument;
@@ -202,6 +205,7 @@ class VTBDocumentCancellationService
         ]);
         $senderTerminal = Terminal::findOne(['terminalId' => $targetDocument->sender]);
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             [
@@ -221,7 +225,9 @@ class VTBDocumentCancellationService
             throw new Exception('Failed to create document context');
         }
 
+        // Получить документ из контекста
         $requestDocument = $context['document'];
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($requestDocument, true);
 
         return $requestDocument;
@@ -234,7 +240,7 @@ class VTBDocumentCancellationService
 
         if ($this->isRegister($document)) {
             return $this->extractVtbDocumentFromRegister($typeModel, $documentNumber, $documentDate);
-        } elseif ($typeModel instanceof BaseVTBDocumentType) {
+        } else if ($typeModel instanceof BaseVTBDocumentType) {
             return $typeModel->document;
         }
 
@@ -288,6 +294,7 @@ class VTBDocumentCancellationService
 
     private function userCanCancelDocument(Document $document): bool
     {
+        // Получить модель пользователя из активной сессии
         $user = Yii::$app->user->identity;
         $userTerminalsIds = UserTerminal::getUserTerminalIndexes($user->id);
         if (!in_array($document->terminalId, $userTerminalsIds)) {

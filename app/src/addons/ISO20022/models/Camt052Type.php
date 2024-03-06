@@ -16,10 +16,9 @@ class Camt052Type extends ISO20022Type
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),
-            [
-                [array_values($this->attributes()), 'safe'],
-            ]);
+        return ArrayHelper::merge(parent::rules(), [
+            [array_values($this->attributes()), 'safe'],
+        ]);
     }
 
     public function getType()
@@ -37,6 +36,10 @@ class Camt052Type extends ISO20022Type
         $this->periodEnd = (string) $this->_xml->BkToCstmrAcctRpt->Rpt->FrToDt->ToDtTm;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
         return false;

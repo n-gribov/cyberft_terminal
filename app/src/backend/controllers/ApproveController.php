@@ -7,12 +7,14 @@ use common\commands\CommandAcceptAR;
 use common\commands\CommandAR;
 use common\commands\search\CommandAcceptARSearch;
 use common\commands\search\CommandARSearch;
+use common\models\form\CommandRejectForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 
 /**
- * Approve controller class
+ * Класс контроллера обслуживает запросы на одобрение команд
+ * Команда это действие, направленное на изменение настроек
  *
  * @package backend
  * @subpackage controllers
@@ -21,7 +23,6 @@ use yii\web\NotFoundHttpException;
  */
 class ApproveController extends Controller
 {
-
     /**
      * @inheritdoc
      */
@@ -29,8 +30,8 @@ class ApproveController extends Controller
     {
         return [
             'access' => [
-                'class'        => AccessControl::className(),
-                'rules'        => [
+                'class' => AccessControl::className(),
+                'rules'=> [
                     [
                         'allow' => true,
                         'roles' => ['commonApprove'],
@@ -41,110 +42,124 @@ class ApproveController extends Controller
     }
 
     /**
-     * Approved log
+     * Метод выводист индексную страницу
      *
      * @return string
      */
     public function actionIndex()
     {
+        // Получить из БД модель команды
         $searchModel = new CommandAcceptARSearch();
 
-        return $this->render('index',
-                [
-                'searchModel'  => $searchModel,
-                'dataProvider' => $searchModel->search(Yii::$app->request->queryParams),
+        // Вывести страницу
+        return $this->render('index', [
+            'searchModel'  => $searchModel,
+            'dataProvider' => $searchModel->search(Yii::$app->request->queryParams),
         ]);
     }
 
     /**
-     * For approving log
+     * Метод выводит страницу со списком команд, ожидающих одобрения
      *
      * @return string
      */
     public function actionForApproving()
     {
+        // Получить из БД модель команды
         $searchModel = new CommandARSearch();
 
-        return $this->render('forApproving/index',
-                [
-                'searchModel'  => $searchModel,
-                'dataProvider' => $searchModel->search(Yii::$app->request->queryParams),
+        // Вывести страницу
+        return $this->render('forApproving/index', [
+            'searchModel'  => $searchModel,
+            'dataProvider' => $searchModel->search(Yii::$app->request->queryParams),
         ]);
     }
 
     /**
-     * View approving command
+     * Метод выводит страницу с формой одобрения команды
      *
      * @param integer $id Command ID
      * @return string
      */
     public function actionView($id)
     {
+        // Получить из БД команду с указанным id
         $model = $this->findModel($id);
 
+        // Вывести страницу
         return $this->render('forApproving/view', ['model' => $model]);
     }
 
     /**
-     * Accept command action
+     * Метод осуществляет одобрение команды
      *
      * @param integer $id Command ID
      * @return mixed
      */
     public function actionAccept($id)
     {
-        $result = Yii::$app->commandBus->addCommandAccept($id,
-            ['acceptResult' => CommandAcceptAR::ACCEPT_RESULT_ACCEPTED]);
+        // Одобрить команду в компоненте CommandBus
+        $result = Yii::$app->commandBus->addCommandAccept(
+            $id,
+            ['acceptResult' => CommandAcceptAR::ACCEPT_RESULT_ACCEPTED]
+        );
         if ($result) {
-            Yii::$app->session->setFlash('success',
-                Yii::t('app', 'Command was approved'));
+            // Поместить в сессию флаг сообщения об успешном одобрении команды
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Command was approved'));
         } else {
-            Yii::$app->session->setFlash('error',
-                Yii::t('app', 'Error of approving'));
+            // Поместить в сессию флаг сообщения об ошибке одобрения команды
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Error of approving'));
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect(['/approve/for-approving']);
     }
 
     /**
-     * Reject action
+     * Метод осуществляет отказ в одобрении команды
      *
      * @return mixed
      */
     public function actionReject()
     {
-        $model = new \common\models\form\CommandRejectForm();
+        // модель формы отказа
+        $model = new CommandRejectForm();
+        // Если отправлены данные POST и модель загружена
         if (\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post())) {
+            // Получить id команды
             $model->commandId = \Yii::$app->request->post('commandId');
-            $rejectResult     = $model->reject();
+            // Осуществить отказ
+            $rejectResult = $model->reject();
             if ($rejectResult) {
-                Yii::$app->session->setFlash('success',
-                    Yii::t('app', 'Command was rejected'));
+                // Поместить в сессию флаг сообщения об успешной отмене команды
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Command was rejected'));
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['/approve/view', 'id' => $model->commandId]);
             } else {
-                Yii::warning('Reject command status: error. Info['.json_encode($model->getErrors()).']');
+                // Поместить в сессию флаг сообщения об ошибке отмены команды
+                Yii::warning('Reject command status: error. Info[' . json_encode($model->getErrors()) . ']');
             }
         }
 
-        Yii::$app->session->setFlash('error',
-            Yii::t('app', 'Error of rejecting'));
+        // Поместить в сессию флаг сообщения об ошибке отмены команды
+        Yii::$app->session->setFlash('error', Yii::t('app', 'Error of rejecting'));
+
+        // Перенаправить на страницу индекса
         return $this->redirect(['/approve/for-approving']);
     }
 
     /**
-     * Finds the CoomandAR model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return CoomandAR the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * Метод ищет модель команды в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
      */
     protected function findModel($id)
     {
-        if (($model = CommandAR::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException(Yii::t('app/user',
-                'Requested page not found'));
+        // Найти в БД команду по id
+        $model = CommandAR::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException(Yii::t('app/user', 'Requested page not found'));
         }
+        
+        return $model;
     }
 }

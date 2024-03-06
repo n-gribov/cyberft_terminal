@@ -34,83 +34,77 @@ if ($from !== false) {
 </div>
 
 <?php
-    if (!empty($dataProvider)) {
-        $myGridWidget = GridView::begin([
-            'emptyText'    => Yii::t('other', 'No documents matched your query'),
-            'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
-            'dataProvider' => $dataProvider,
-            'rowOptions' => function ($model, $key, $index, $grid) use ($urlParams) {
-                $options['ondblclick'] = "window.location='". Url::toRoute(['/edm/payment-register/payment-order-view', 'id'=>$model->id] + $urlParams) ."'";
+// Если данные не пусты
+if (!empty($dataProvider)) {
+    // Создать таблицу для вывода
+    $myGridWidget = GridView::begin([
+        'emptyText'    => Yii::t('other', 'No documents matched your query'),
+        'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
+        'dataProvider' => $dataProvider,
+        'rowOptions' => function ($model, $key, $index, $grid) use ($urlParams) {
+            $options['ondblclick'] = "window.location='". Url::toRoute(['/edm/payment-register/payment-order-view', 'id'=>$model->id] + $urlParams) ."'";
 
-                return $options;
-            },
-            'columns' => [
-                [
-                    'attribute' => 'id',
-                    'textAlign' => 'right',
-                    'width' => 'narrow',
-                ],
-                [
-                    'attribute'  => 'number',
-                    'textAlign' => 'right',
-                    'width' => 'narrow',
-                ],
-                [
-                    'attribute' => 'date',
-                    'textAlign' => 'right',
-                    'nowrap' => true,
-                ],
-                'payerName',
-                [
-                    'attribute' => 'beneficiaryName',
-                    'width' => 'narrow',
-                ],
-                'payerAccount',
-                [
-                    'attribute' => 'sum',
-                    'value' => function ($model) {
-                        return Yii::$app->formatter->asDecimal($model->sum, 2);
-                    },
-                    'textAlign' => 'right',
-                    'options' => [
-                        'width' => '150px'
-                    ],
-                ],
-                'currency',
-                [
-                    'attribute' => 'paymentPurpose',
-                    'options' => [
-                        'width' => '200px'
-                    ]
-                ],
-                [
-                    'attribute' => 'businessStatus',
-                    'value' => function($item) {
-                        return $item->getBusinessStatusTranslation();
-                    }
-                ],
-                [
-                    'class'    => 'yii\grid\ActionColumn',
-                    'template' => '{view}',
-                    'buttons'  => [
-                        'view' => function ($url, $model, $key) use ($urlParams){
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', [
-                                '/edm/payment-register/payment-order-view', 'id' => $model->id,
-                            ] + $urlParams);
-                        }
-                    ],
+            return $options;
+        },
+        'columns' => [
+            [
+                'attribute' => 'id',
+                'textAlign' => 'right',
+                'width' => 'narrow',
+            ],
+            [
+                'attribute'  => 'number',
+                'textAlign' => 'right',
+                'width' => 'narrow',
+            ],
+            [
+                'attribute' => 'date',
+                'textAlign' => 'right',
+                'nowrap' => true,
+            ],
+            'payerName',
+            [
+                'attribute' => 'beneficiaryName',
+                'width' => 'narrow',
+            ],
+            'payerAccount',
+            [
+                'attribute' => 'sum',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDecimal($model->sum, 2);
+                },
+                'textAlign' => 'right',
+                'options' => [
+                    'width' => '150px'
                 ],
             ],
-        ]);
+            'currency',
+            [
+                'attribute' => 'paymentPurpose',
+                'options' => [
+                    'width' => '200px'
+                ]
+            ],
+            [
+                'attribute' => 'businessStatus',
+                'value' => function($item) {
+                    return $item->getBusinessStatusTranslation();
+                }
+            ],
+            [
+                'class'    => 'yii\grid\ActionColumn',
+                'template' => '{view}',
+                'buttons'  => [
+                    'view' => function ($url, $model, $key) use ($urlParams){
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', [
+                            '/edm/payment-register/payment-order-view', 'id' => $model->id,
+                        ] + $urlParams);
+                    }
+                ],
+            ],
+        ],
+    ]);
 
-        $myGridWidget->formatter->nullDisplay = '';
-        $myGridWidget->end();
-    }
-
-//    $signatures = $model->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
-//    if (count($signatures) > 0) {
-//        echo '<hr />';
-//        echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
-//    }
-?>
-
+    $myGridWidget->formatter->nullDisplay = '';
+    $myGridWidget->end();
+}

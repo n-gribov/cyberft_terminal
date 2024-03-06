@@ -17,6 +17,7 @@ abstract class BaseController extends Controller
 
     public function beforeAction($action)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         try {

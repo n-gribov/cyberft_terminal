@@ -28,6 +28,7 @@ trait SigningSettings
 
         $terminalSettings = Yii::$app->settings->get('app', $terminalId);
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $signings = Yii::$app->request->post('qty');
             $autoSignings = Yii::$app->request->post('autoSigning', []);
@@ -51,6 +52,7 @@ trait SigningSettings
                     $settings->useAutosigning = $commonAutoSigning;
                 }
 
+                // Сохранить модель в БД
                 $settings->save();
             }
 
@@ -58,10 +60,12 @@ trait SigningSettings
             $terminalSettings->usePersonalAddonsSigningSettings = $usePersonalAddonsSigningSettings;
             $terminalSettings->qtySignings = $commonQtySignings;
             $terminalSettings->useAutosigning = $commonAutoSigning;
+            // Сохранить модель в БД
             $terminalSettings->save();
 
             $url = Url::to(['/autobot/terminals/index', 'id' => $terminal->id, 'tabMode' => 'tabSigning']);
 
+            // Перенаправить на страницу индекса
             $this->redirect($url);
         }
 

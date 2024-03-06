@@ -18,10 +18,8 @@ $data = [
         ],
     ],
 ];
-
 ?>
-    <?php $form = ActiveForm::begin() ?>
-
+<?php $form = ActiveForm::begin() ?>
         <div class="panel-heading"><?=Yii::t('app/fileact', 'Signing')?></div>
 
         <div class="row">
@@ -39,9 +37,7 @@ $data = [
                 <?=Html::submitButton(Yii::t('app', 'Save'), ['name' => 'save', 'class' => 'btn btn-default']) ?>
             </div>
         </div>
-
         <hr>
-
         <?= AdvancedTabs::widget([
             'data' => $data,
             'notFoundTabContent' => '<div class="alert alert-danger" style="margin-top:20px">'.Yii::t('app/error', 'The requested page could not be found.').'</div>',
@@ -54,7 +50,7 @@ $data = [
         ]) ?>
 
     <?php ActiveForm::end()?>
-
 </div>
 
-<?= $this->render('@backend/views/cryptopro-keys/_keyUploadModal') ?>
+<?= // Вывести модальное окно загрузки ключа
+    $this->render('@backend/views/cryptopro-keys/_keyUploadModal') ?>

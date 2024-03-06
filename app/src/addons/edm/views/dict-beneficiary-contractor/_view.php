@@ -13,9 +13,9 @@ foreach ($model->bank->attributes as $k => $v) {
 }
 $options['data-bank.name'] = $model->bank->name;
 $options['data-bank.fullname'] = $model->bank->fullname;
-?>
 
-<?=\yii\widgets\DetailView::widget([
+// Создать детализированное представление
+echo \yii\widgets\DetailView::widget([
     'model'      => $model,
     'options'    => $options,
     'attributes' => [
@@ -31,4 +31,4 @@ $options['data-bank.fullname'] = $model->bank->fullname;
         'currencyId',
         'name',
     ],
-])?>
+]);

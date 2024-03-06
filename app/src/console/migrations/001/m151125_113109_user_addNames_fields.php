@@ -17,34 +17,34 @@ class m151125_113109_user_addNames_fields extends Migration
         $this->addColumn($this->_tableName, 'firstName', 'varchar(45) DEFAULT NULL');
         $this->addColumn($this->_tableName, 'middleName', 'varchar(45) DEFAULT NULL');
 
-        if(!$this->fromNameToFIO()){
+        if (!$this->fromNameToFIO()){
             $this->dropColumn($this->_tableName, 'middleName');
             $this->dropColumn($this->_tableName, 'firstName');
             $this->dropColumn($this->_tableName, 'lastName');
 
-            return FALSE;
+            return false;
         }
 
         $this->dropColumn($this->_tableName, 'name');
 
-        return TRUE;
+        return true;
     }
 
     public function down()
     {
         $this->addColumn($this->_tableName, 'name', 'varchar(45) DEFAULT NULL');
 
-        if(!$this->fromFIOToName()){
+        if (!$this->fromFIOToName()){
             $this->dropColumn($this->_tableName, 'name');
 
-            return FALSE;
+            return false;
         }
 
         $this->dropColumn($this->_tableName, 'middleName');
         $this->dropColumn($this->_tableName, 'firstName');
         $this->dropColumn($this->_tableName, 'lastName');
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -70,10 +70,10 @@ class m151125_113109_user_addNames_fields extends Migration
                 Yii::$app->db->createCommand()->update($this->_tableName, $data, "id = {$value['id']}")->execute();
             }
 
-            return TRUE;
+            return true;
         } catch (\Exception $ex) {
             Yii::error($ex->getMessage());
-            return FALSE;
+            return false;
         }
     }
 
@@ -98,10 +98,10 @@ class m151125_113109_user_addNames_fields extends Migration
                 Yii::$app->db->createCommand()->update($this->_tableName, $data, "id = {$value['id']}")->execute();
             }
 
-            return TRUE;
+            return true;
         } catch (\Exception $ex) {
             Yii::error($ex->getMessage());
-            return FALSE;
+            return false;
         }
     }
 

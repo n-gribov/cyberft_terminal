@@ -61,40 +61,40 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
 {
     const CERT_ID_DIVIDER = '-';
 
-	const STATUS_C0 = 'C0'; // Сертификат зарегистрирован в БД Терминала, но не загружен в хранилище
-	const STATUS_C1 = 'C1'; // сертификат установлен
-	const STATUS_C2 = 'C2'; // сертификат установлен вручную ГА
-	const STATUS_C7 = 'C7'; // сертификат временно заблокирован
-	const STATUS_C8 = 'C8'; // сертификат заблокирован но еще не удален из рабочей папки
-	const STATUS_C9 = 'C9'; // сертификат отозван или заблокирован
+    const STATUS_C0 = 'C0'; // Сертификат зарегистрирован в БД Терминала, но не загружен в хранилище
+    const STATUS_C1 = 'C1'; // сертификат установлен
+    const STATUS_C2 = 'C2'; // сертификат установлен вручную ГА
+    const STATUS_C7 = 'C7'; // сертификат временно заблокирован
+    const STATUS_C8 = 'C8'; // сертификат заблокирован но еще не удален из рабочей папки
+    const STATUS_C9 = 'C9'; // сертификат отозван или заблокирован
     // Кастомные статусы согласно задаче CYB-2978
     const STATUS_C10 = 'C10'; // сертификат активирован
     const STATUS_C11 = 'C11'; // сертификат не активен
     const STATUS_C12 = 'C12'; // сертификат заблокирован
 
-//	const ROLE_UNDEFINED  = 0;
-//	const ROLE_OPERATOR   = 1;
-	const ROLE_SIGNER     = 2;
-//	const ROLE_CONTROLLER = 3;
-	const ROLE_SIGNER_BOT = 255;
+    // const ROLE_UNDEFINED  = 0;
+    // const ROLE_OPERATOR   = 1;
+    const ROLE_SIGNER     = 2;
+    // const ROLE_CONTROLLER = 3;
+    const ROLE_SIGNER_BOT = 255;
 
     const TYPE_UNDEFINED  = 'Undefined';
-	const TYPE_OPENSSL  = 'Open SSL';
-	const TYPE_CRYPTOPRO  = 'Crypto Pro';
+    const TYPE_OPENSSL  = 'Open SSL';
+    const TYPE_CRYPTOPRO  = 'Crypto Pro';
 
-	const SCENARIO_AUTO_IMPORT = 'autoImport';
+    const SCENARIO_AUTO_IMPORT = 'autoImport';
 
-	/**
-	 * @var X509FileModel
-	 */
-	private $_certificate;
+    /**
+     * @var X509FileModel
+     */
+    private $_certificate;
 
-	/**
-	 * @var TerminalId
-	 */
-	private $_terminalId;
+    /**
+     * @var TerminalId
+     */
+    private $_terminalId;
 
-        /**
+    /**
      * @inheritdoc
      */
     public function rules()
@@ -105,40 +105,38 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
             [['validFrom', 'validBefore', 'useBefore'], 'date', 'format' => 'yyyy-MM-dd HH:mm:ss'],
             [['userId', 'ownerId'], 'integer'],
             ['email', 'email'],
-			['terminalId', 'filter', 'filter' => 'strtoupper'],
+            ['terminalId', 'filter', 'filter' => 'strtoupper'],
             ['terminalId', TerminalIdValidator::className()],
-			[
-				'terminalId', 'unique',
-				'targetAttribute' => [
-					'participantCode', 'countryCode', 'sevenSymbol', 'delimiter', 'terminalCode',
-					'participantUnitCode', 'fingerprint'
-				],
-				'message' => Yii::t('app/cert', 'Certificate for the specified terminal is already registered')
-			],
-			['participantCode', 'string', 'max' => 4],
-			['countryCode', 'string', 'max' => 2],
-			['sevenSymbol', 'string', 'max' => 1],
-			['delimiter', 'string', 'max' => 1],
-			['terminalCode', 'string', 'max' => 1],
-			['participantUnitCode', 'string', 'max' => 3],
+            [
+                    'terminalId', 'unique',
+                    'targetAttribute' => [
+                            'participantCode', 'countryCode', 'sevenSymbol', 'delimiter', 'terminalCode',
+                            'participantUnitCode', 'fingerprint'
+                    ],
+                    'message' => Yii::t('app/cert', 'Certificate for the specified terminal is already registered')
+            ],
+            ['participantCode', 'string', 'max' => 4],
+            ['countryCode', 'string', 'max' => 2],
+            ['sevenSymbol', 'string', 'max' => 1],
+            ['delimiter', 'string', 'max' => 1],
+            ['terminalCode', 'string', 'max' => 1],
+            ['participantUnitCode', 'string', 'max' => 3],
             ['role', 'default', 'value' => self::ROLE_SIGNER_BOT],
-			['role', 'in', 'range' => $this->roles()],
+            ['role', 'in', 'range' => $this->roles()],
             [['fingerprint'], 'string', 'max' => 64],
             ['statusDescription', 'string'],
             [['fingerprint'], 'filter', 'filter' => 'strtoupper'],
             [['email', 'phone', 'post', 'lastName', 'firstName', 'middleName'], 'string', 'max' => 255],
-            [
-				'status', 'in',
-				'range' => [
+            ['status', 'in',
+                'range' => [
                     self::STATUS_C0, self::STATUS_C1, self::STATUS_C2, self::STATUS_C7,
                     self::STATUS_C8, self::STATUS_C9, self::STATUS_C10, self::STATUS_C11, self::STATUS_C12
                 ]
-			],
-//			['role', 'validateRole'],
+            ],
         ];
     }
 
-	/**
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -170,90 +168,88 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
             : $this->status;
     }
 
-	/**
-	 * @param string $value
-	 * @return null|static
-	 */
+    /**
+     * @param string $value
+     * @return null|static
+     */
     public static function findByCertId($value)
     {
         $idData = self::parseCertId($value);
         if (2 == count($idData)) { // передан certId
             $condition = array_merge(
-				TerminalId::extract($idData[0])->toArray(),
-				['fingerprint' => $idData[1]]
-			);
+                TerminalId::extract($idData[0])->toArray(),
+                ['fingerprint' => $idData[1]]
+            );
 
-			return self::findOne($condition);
-        } elseif (intval($value)) { //передан id
+            return self::findOne($condition);
+        } else if (intval($value)) { //передан id
             return self::findOne(['id' => $value]);
         }
 
-		return null;
+        return null;
     }
 
-	/**
-	 * Поиск сертфиката по id участника и fingerprint сертификата
-	 * @param $participantId
-	 * @param $fingerprint
-	 * @return static
-	 */
-	public static function findByParticipantCertId($participantId, $fingerprint)
+    /**
+     * Поиск сертфиката по id участника и fingerprint сертификата
+     * @param $participantId
+     * @param $fingerprint
+     * @return static
+     */
+    public static function findByParticipantCertId($participantId, $fingerprint)
     {
-		if (!($terminalId = TerminalId::extractParticipantId($participantId))) {
-			return null;
-		}
+        if (!($terminalId = TerminalId::extractParticipantId($participantId))) {
+            return null;
+        }
+	$condition = $terminalId->toArray(true); // выбиваем пустые условия
 
+        return self::findOne(
+            array_merge($condition, ['fingerprint' => $fingerprint])
+        );
+    }
 
-		$condition = $terminalId->toArray(true); // выбиваем пустые условия
-
-		return self::findOne(
-			array_merge($condition, ['fingerprint' => $fingerprint])
-		);
-	}
-
-	/**
-	 * Поиск сертификатов по id участника
-	 * @param $participantId
-	 * @return static
-	 */
-	public static function findByParticipant($participantId)
-	{
+    /**
+     * Поиск сертификатов по id участника
+     * @param $participantId
+     * @return static
+     */
+    public static function findByParticipant($participantId)
+    {
         $terminalId = TerminalId::extractParticipantId($participantId);
 
         if (!$terminalId) {
-			return null;
-		}
+            return null;
+        }
 
-		$condition = array_diff($terminalId->toArray(), ['' => null]); // Выбиваем пустые условия
+        $condition = array_diff($terminalId->toArray(), ['' => null]); // Выбиваем пустые условия
 
-		return self::find()
-				->andFilterWhere($condition)
-                ->andFilterWhere(['status' => self::STATUS_C10])
-                ->orderBy(['terminalCode' => SORT_ASC, 'participantUnitCode' => SORT_ASC])
-				->distinct();
-	}
+        return self::find()
+            ->andFilterWhere($condition)
+            ->andFilterWhere(['status' => self::STATUS_C10])
+            ->orderBy(['terminalCode' => SORT_ASC, 'participantUnitCode' => SORT_ASC])
+            ->distinct();
+    }
 
     /**
-	 * Поиск сертификатов по BIC участника
-	 * @param $participantBic
-	 * @return static
-	 */
-	public static function findByBic($participantBic)
-	{
+     * Поиск сертификатов по BIC участника
+     * @param $participantBic
+     * @return static
+     */
+    public static function findByBic($participantBic)
+    {
         $terminalId = TerminalId::extractBic($participantBic);
 
         if (!$terminalId) {
-			return null;
-		}
+            return null;
+        }
 
-		$condition = $terminalId->toArray(true); // Выбиваем пустые условия
+        $condition = $terminalId->toArray(true); // Выбиваем пустые условия
 
-		return self::find()
-				->andFilterWhere($condition)
-                ->andFilterWhere(['status' => self::STATUS_C10])
-                ->orderBy(['terminalCode' => SORT_ASC, 'participantUnitCode' => SORT_ASC])
-				->distinct();
-	}
+        return self::find()
+            ->andFilterWhere($condition)
+            ->andFilterWhere(['status' => self::STATUS_C10])
+            ->orderBy(['terminalCode' => SORT_ASC, 'participantUnitCode' => SORT_ASC])
+            ->distinct();
+    }
 
     /**
      * Поиск сертификата по любому адресу (terminalId, participantId, BIC) и фингерпринту
@@ -264,13 +260,13 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
      * @return static
      * @throws ErrorException
      */
-	public static function findByAddress($address, $fingerprint = null, $status = self::STATUS_C10)
+    public static function findByAddress($address, $fingerprint = null, $status = self::STATUS_C10)
     {
-		if (!($terminalId = TerminalId::extract($address))) {
-			throw new ErrorException(Yii::t('app/cert', "Terminal identifier '$address' has wrong format."));
-		}
+        if (!($terminalId = TerminalId::extract($address))) {
+            throw new ErrorException(Yii::t('app/cert', "Terminal identifier '$address' has wrong format."));
+        }
 
-		$condition = $terminalId->toArray(true); // выбиваем пустые условия
+        $condition = $terminalId->toArray(true); // выбиваем пустые условия
         if ($fingerprint) {
             $condition['fingerprint'] = $fingerprint;
         }
@@ -280,10 +276,10 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
         }
 
         return self::find()
-                ->where($condition)
-                ->orderBy(['terminalCode' => SORT_ASC, 'participantUnitCode' => SORT_ASC])
-                ->one();
-	}
+            ->where($condition)
+            ->orderBy(['terminalCode' => SORT_ASC, 'participantUnitCode' => SORT_ASC])
+            ->one();
+    }
 
     /**
      * Поиск всех сертификатов по любому адресу (terminalId, participantId, BIC)
@@ -300,9 +296,7 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
 
         $condition = $terminalId->toArray(true); // выбиваем пустые условия
 
-        return self::find()
-                ->where($condition)
-                ->all();
+        return self::find()->where($condition)->all();
     }
 
     public static function getParticipantAddress($address)
@@ -320,59 +314,55 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
         return $cert->terminalId;
     }
 
-	/**
-	 * Поиск сертификата по любому адресу (terminalId, participantId, BIC) и роли
-	 *
-	 * @param $address
-	 * @param $role
+    /**
+     * Поиск сертификата по любому адресу (terminalId, participantId, BIC) и роли
+     *
+     * @param $address
+     * @param $role
      * @param $filterActive искать только активные серты
-	 * @return static
-	 * @throws ErrorException
-	 */
-	public static function findByRole($address, $role, $filterActive = false)
+     * @return static
+     * @throws ErrorException
+     */
+    public static function findByRole($address, $role, $filterActive = false)
     {
-		$terminalId = self::addressToTerminalId($address);
-		$condition = $terminalId->toArray(true); // выбиваем пустые условия
+        $terminalId = self::addressToTerminalId($address);
+        $condition = $terminalId->toArray(true); // выбиваем пустые условия
         $condition['role'] = $role;
-		$query = static::find()->where($condition);
+        $query = static::find()->where($condition);
         if ($filterActive) {
             $query->andWhere(['status' => static::STATUS_C10])->orderBy(['id' => SORT_ASC]);
         }
 
         return $query->one();
-	}
+    }
 
-	protected static function addressToTerminalId($address)
-	{
-		if (
-			!($terminalId = TerminalId::extract($address))
-//			&& !($terminalId = TerminalId::extractParticipantId($address))
-//			&& !($terminalId = TerminalId::extractBic($address))
-		) {
-			throw new ErrorException(Yii::t('app/cert', "Terminal identifier '$address' has wrong format."));
-		}
-
-		return $terminalId;
-	}
-
-	/**
-	 * @param string $value
-	 * @return static
-	 */
-
-	public static function findByPk($value)
+    protected static function addressToTerminalId($address)
     {
-		return self::findOne(['id' => $value, 'status' => self::STATUS_C10]);
-	}
+        if (!($terminalId = TerminalId::extract($address))) {
+            throw new ErrorException(Yii::t('app/cert', "Terminal identifier '$address' has wrong format."));
+        }
 
-	/**
-	 * @param string $value
-	 * @return static[]
-	 */
-	public static function findAllByFingerprint($value)
+        return $terminalId;
+    }
+
+    /**
+     * @param string $value
+     * @return static
+     */
+
+    public static function findByPk($value)
     {
-		return self::findAll(['fingerprint' => strtoupper($value)]);
-	}
+        return self::findOne(['id' => $value, 'status' => self::STATUS_C10]);
+    }
+
+    /**
+     * @param string $value
+     * @return static[]
+     */
+    public static function findAllByFingerprint($value)
+    {
+        return self::findAll(['fingerprint' => strtoupper($value)]);
+    }
 
     /**
      * @param string $value
@@ -383,14 +373,14 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
         return self::findOne(['fingerprint' => strtoupper($value)]);
     }
 
-	/**
-	 * @param string $value
-	 * @return array
-	 */
-	protected static function parseCertId($value)
+    /**
+     * @param string $value
+     * @return array
+     */
+    protected static function parseCertId($value)
     {
-		return explode(self::CERT_ID_DIVIDER, $value);
-	}
+        return explode(self::CERT_ID_DIVIDER, $value);
+    }
 
     public function scenarios()
     {
@@ -409,40 +399,7 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
         ]);
     }
 
-	/**
-	 * Validate role
-	 * Allowed only one controller key
-	 *
-	 * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
-	 */
-//	public function validateRole($attribute, $params)
-//    {
-//		if (!$this->hasErrors()) {
-//			// Check on role
-//			if ($this->role === (string) self::ROLE_SIGNER_BOT) {
-//				$query = Cert::find()->where([
-//                        'participantCode'     => $this->participantCode,
-//                        'countryCode'         => $this->countryCode,
-//                        'sevenSymbol'         => $this->sevenSymbol,
-//                        'delimiter'           => $this->delimiter,
-//                        'terminalCode'        => $this->terminalCode,
-//                        'participantUnitCode' => $this->participantUnitCode,
-//                        'role'                => self::ROLE_SIGNER_BOT,
-//                        'status'              => self::STATUS_C10
-//                    ]);
-//
-//				if ($this->getOldAttribute('role') != self::ROLE_SIGNER_BOT) {
-//					$countSignerBotRole = $query->count();
-//	                if ($countSignerBotRole > 0) {
-//						$this->addError('role', \Yii::t('app/cert', 'Allowed only one controller certificate'));
-//					}
-//				}
-//			}
-//		}
-//	}
-
-	/**
+    /**
      * @inheritdoc
      */
     public function attributeLabels()
@@ -490,47 +447,47 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
     }
 
     /**
-	 * @return array
-	 */
-	public function roleLabels()
+     * @return array
+     */
+    public function roleLabels()
     {
         return [
             self::ROLE_SIGNER     => Yii::t('app/cert', 'Signer'),
             self::ROLE_SIGNER_BOT => Yii::t('app/cert', 'Controller'),
-//            self::ROLE_OPERATOR   => Yii::t('app/cert', 'Operator'),
-//            self::ROLE_UNDEFINED  => Yii::t('app/cert', 'Undefined'),
-//            self::ROLE_CONTROLLER => Yii::t('app/cert', 'Controller'),
+            // self::ROLE_OPERATOR   => Yii::t('app/cert', 'Operator'),
+            // self::ROLE_UNDEFINED  => Yii::t('app/cert', 'Undefined'),
+            // self::ROLE_CONTROLLER => Yii::t('app/cert', 'Controller'),
         ];
     }
 
     /**
-	 * @return string
-	 */
-	public function getRoleLabel()
+     * @return string
+     */
+    public function getRoleLabel()
     {
-		return $this->roleLabels()[$this->role];
-	}
+        return $this->roleLabels()[$this->role];
+    }
 
-	/**
-	 * @return array
-	 */
-	public function roles()
+    /**
+     * @return array
+     */
+    public function roles()
     {
-		return array_keys($this->roleLabels());
-	}
+        return array_keys($this->roleLabels());
+    }
 
-	/**
-	 * Вернет наиболее раннюю дату, по истечении которой сертификат не валиден
-	 * @return string
-	 */
-	public function getValidBeforeReal()
-	{
-		if ((new DateTime($this->validBefore)) <= (new DateTime($this->useBefore))) {
-			return $this->validBefore;
-		} else {
-			return $this->useBefore;
-		}
-	}
+    /**
+     * Вернет наиболее раннюю дату, по истечении которой сертификат не валиден
+     * @return string
+     */
+    public function getValidBeforeReal()
+    {
+        if ((new DateTime($this->validBefore)) <= (new DateTime($this->useBefore))) {
+            return $this->validBefore;
+        } else {
+            return $this->useBefore;
+        }
+    }
 
     public function isExpired()
     {
@@ -568,65 +525,65 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
         return !$this->isExpired() && $this->isActive();
     }
 
-	/**
-	 * @param $value
-	 */
-	public function setTerminalId($value)
+    /**
+     * @param $value
+     */
+    public function setTerminalId($value)
     {
-		if (!$value) {
-			return;
-		}
+        if (!$value) {
+            return;
+        }
 
-		if (($id = TerminalId::extract($value))) {
-			$this->setAttributes($id->toArray());
-		} else {
-			$this->addError('terminalId', Yii::t('app/cert', "Terminal identifier '$value' has wrong format."));
-		}
-	}
+        if (($id = TerminalId::extract($value))) {
+            $this->setAttributes($id->toArray());
+        } else {
+            $this->addError('terminalId', Yii::t('app/cert', "Terminal identifier '$value' has wrong format."));
+        }
+    }
 
-	/**
-	 * @return TerminalId
-	 */
-	public function getTerminalId()
+    /**
+     * @return TerminalId
+     */
+    public function getTerminalId()
     {
-		if (!is_object($this->_terminalId) || !is_a('TerminalId', $this->_terminalId)) {
-			$this->_terminalId = new TerminalId();
-		}
-		// синхронизируем свойства сертификата и свойства объекта идентификатора
-		$this->_terminalId->participantCode     = $this->participantCode;
-		$this->_terminalId->countryCode         = $this->countryCode;
-		$this->_terminalId->participantUnitCode = $this->participantUnitCode;
-		$this->_terminalId->sevenSymbol         = $this->sevenSymbol;
-		$this->_terminalId->delimiter           = $this->delimiter;
-		$this->_terminalId->terminalCode        = $this->terminalCode;
+        if (!is_object($this->_terminalId) || !is_a('TerminalId', $this->_terminalId)) {
+            $this->_terminalId = new TerminalId();
+        }
+        // синхронизируем свойства сертификата и свойства объекта идентификатора
+        $this->_terminalId->participantCode     = $this->participantCode;
+        $this->_terminalId->countryCode         = $this->countryCode;
+        $this->_terminalId->participantUnitCode = $this->participantUnitCode;
+        $this->_terminalId->sevenSymbol         = $this->sevenSymbol;
+        $this->_terminalId->delimiter           = $this->delimiter;
+        $this->_terminalId->terminalCode        = $this->terminalCode;
 
-		return $this->_terminalId;
-	}
+        return $this->_terminalId;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getParticipantId()
-	{
-		return $this->terminalId->getParticipantId();
-	}
+    /**
+     * @return string
+     */
+    public function getParticipantId()
+    {
+        return $this->terminalId->getParticipantId();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getBic()
-	{
-		return $this->terminalId->getBic();
-	}
+    /**
+     * @return string
+     */
+    public function getBic()
+    {
+        return $this->terminalId->getBic();
+    }
 
-	/**
-	 * @return null|string
-	 */
-	public function getCountry() {
-		return Countries::getName($this->countryCode);
-	}
+    /**
+     * @return null|string
+     */
+    public function getCountry() {
+        return Countries::getName($this->countryCode);
+    }
 
-	/**
+    /**
      * @return ActiveQuery
      */
     public function getCertSignDocuments()
@@ -639,137 +596,136 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
      */
     public function getUser()
     {
-		return $this->hasOne(User::className(), ['id' => 'userId']);
+        return $this->hasOne(User::className(), ['id' => 'userId']);
     }
 
-	/**
-	 * @return User
-	 */
-	public function getOwner()
+    /**
+     * @return User
+     */
+    public function getOwner()
     {
-		return $this->hasOne(User::className(), ['id' => 'ownerId']);
-	}
+        return $this->hasOne(User::className(), ['id' => 'ownerId']);
+    }
 
-	/**
-	 * Функция возвращает объект - сертификат X509. Если сертификат еще не считан,
-	 * то он подгружается из модели Cert
-	 * @return X509FileModel
-	 *
-	 */
-	public function getCertificate()
-	{
-		if(!$this->_certificate && $this->body) {
-			$this->_certificate = X509FileModel::loadData($this->body);
-		}
-
-		return $this->_certificate;
-	}
-
-	/**
-	 * Функция присваивает сертификат.
-	 * Сертификат задается либо моделью класса X509FileModel, либо при помощи
-	 * предварительно загруженного файла (класс UploadedFile).
-	 * @param X509FileModel|UploadedFile $value Значение - сертификат
-	 */
-	public function setCertificate($value)
+    /**
+     * Функция возвращает объект - сертификат X509. Если сертификат еще не считан,
+     * то он подгружается из модели Cert
+     * @return X509FileModel
+     *
+     */
+    public function getCertificate()
     {
-		if (is_a($value, X509FileModel::className())) {
-			$this->_certificate = $value;
-		} else if (is_a($value,UploadedFile::className())) {
-			$this->_certificate = new X509FileModel();
-			$this->_certificate->setNewFile($value);
-		} else {
-			$this->_certificate = null;
-		}
-	}
+        if (!$this->_certificate && $this->body) {
+            $this->_certificate = X509FileModel::loadData($this->body);
+        }
 
-	/**
-	 * Функция присваивает сертификат, который задается именем файла.
-	 * Только для использования в консоли.
-	 * @param string $file Файл сертификата
-	 * @return bool
-	 */
-	public function addCertificate($file)
+        return $this->_certificate;
+    }
+
+    /**
+     * Функция присваивает сертификат.
+     * Сертификат задается либо моделью класса X509FileModel, либо при помощи
+     * предварительно загруженного файла (класс UploadedFile).
+     * @param X509FileModel|UploadedFile $value Значение - сертификат
+     */
+    public function setCertificate($value)
     {
-		$x509FileModel = X509FileModel::loadFile($file);
+        if (is_a($value, X509FileModel::className())) {
+            $this->_certificate = $value;
+        } else if (is_a($value,UploadedFile::className())) {
+            $this->_certificate = new X509FileModel();
+            $this->_certificate->setNewFile($value);
+        } else {
+            $this->_certificate = null;
+        }
+    }
 
-		if (!$x509FileModel->validate()) {
-			$this->_certificate = null;
-			$this->addError('certificate', Yii::t('app', 'Error: Certificate file "{file}" is invalid', ['file' => $file]));
-
-			return false;
-		}
-
-		$this->_certificate = &$x509FileModel;
-		$this->_certificate->setNewFile($file); // Activate newFile mode
-		$this->terminalId = Yii::$app->terminal->address;
-		$this->userId = null; // For certs added via console userId must be empty
-
-		return true;
-	}
-
-	/**
-	 * Функция формирует строку-коммюнике из всех сообщений, которые накапливаются
-	 * в процессе жизнедеятельности этой модели. Используется в addCertificate().
-	 * @param bool $ignoreLabel
-	 * @return string
-	 */
-	public function getErrorsSummary($ignoreLabel = false)
-	{
-		$str = '';
-		foreach ($this->errors as $field => $errors) {
-			$str .= (!$ignoreLabel ? $this->getAttributeLabel($field) . ": " . (count($errors) > 1 ? "\n" : null) : null);
-			$str .= implode("\n", $errors);
-		}
-
-		return $str;
-	}
-
-	/**
-     * @return string PEM
-	 */
-	public function getCertificateContent()
-	{
-		return $this->body;
-	}
-
-	/**
-	 * Возвращает строку - ID сертификата.
-	 * Используется при формировании имени файла, в котором хранится сертификат,
-	 * помещенный в хранилище.
-	 * @return string
-	 */
-	public function getCertId()
-	{
-		return $this->terminalId . self::CERT_ID_DIVIDER . $this->fingerprint;
-	}
-
-	/**
-	 * Функция валидирует сертификат, возвращая true в случае успеха и false
-	 * при возникновении ошибки.
-	 * А также заполняет некоторые атрибуты модели значениями из поля сертификата subject
-	 * @return boolean
-	 */
-	public function validateCertificate()
+    /**
+     * Функция присваивает сертификат, который задается именем файла.
+     * Только для использования в консоли.
+     * @param string $file Файл сертификата
+     * @return bool
+     */
+    public function addCertificate($file)
     {
-		if (!$this->_certificate) {
-			$this->addError('certificate', Yii::t('app/cert', 'Please, specify the certificate'));
+        $x509FileModel = X509FileModel::loadFile($file);
+
+        if (!$x509FileModel->validate()) {
+            $this->_certificate = null;
+            $this->addError('certificate', Yii::t('app', 'Error: Certificate file "{file}" is invalid', ['file' => $file]));
 
             return false;
-		// прокидываем валидацию файла сертификата
-		} else if ($this->_certificate && !$this->_certificate->validate()) {
-			$this->addError(
-				'certificate',
-				implode("\n", $this->getCertificate()->getErrors('newFile'))
-			);
+        }
 
-			return false;
-		}
+        $this->_certificate = &$x509FileModel;
+        $this->_certificate->setNewFile($file); // Activate newFile mode
+        $this->terminalId = Yii::$app->terminal->address;
+        $this->userId = null; // For certs added via console userId must be empty
 
-		$this->loadAttributesFromCertificate();
+        return true;
+    }
 
-		return true;
-	}
+    /**
+     * Функция формирует строку-коммюнике из всех сообщений, которые накапливаются
+     * в процессе жизнедеятельности этой модели. Используется в addCertificate().
+     * @param bool $ignoreLabel
+     * @return string
+     */
+    public function getErrorsSummary($ignoreLabel = false)
+    {
+        $str = '';
+        foreach ($this->errors as $field => $errors) {
+            $str .= (!$ignoreLabel ? $this->getAttributeLabel($field) . ": " . (count($errors) > 1 ? "\n" : null) : null);
+            $str .= implode("\n", $errors);
+        }
+
+        return $str;
+    }
+
+    /**
+     * @return string PEM
+     */
+    public function getCertificateContent()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Возвращает строку - ID сертификата.
+     * Используется при формировании имени файла, в котором хранится сертификат,
+     * помещенный в хранилище.
+     * @return string
+     */
+    public function getCertId()
+    {
+        return $this->terminalId . self::CERT_ID_DIVIDER . $this->fingerprint;
+    }
+
+    /**
+     * Функция валидирует сертификат, возвращая true в случае успеха и false
+     * при возникновении ошибки.
+     * А также заполняет некоторые атрибуты модели значениями из поля сертификата subject
+     * @return boolean
+     */
+    public function validateCertificate()
+    {
+        if (!$this->_certificate) {
+            $this->addError('certificate', Yii::t('app/cert', 'Please, specify the certificate'));
+            return false;
+        } else if ($this->_certificate && !$this->_certificate->validate()) {
+            // прокидываем валидацию файла сертификата
+            $this->addError(
+                'certificate',
+                implode("\n", $this->getCertificate()->getErrors('newFile'))
+            );
+
+            return false;
+        }
+
+        $this->loadAttributesFromCertificate();
+
+        return true;
+    }
 
     public function loadAttributesFromCertificate(): void
     {
@@ -783,38 +739,37 @@ class Cert extends ActiveRecord implements AttrShortcutInterface
         $this->useBefore	= $this->validBefore;
         $this->email		= (!$this->email && isset($subj['emailAddress']) ? $subj['emailAddress'] : $this->email);
         $this->body			= $this->certificate->getBody();
-	}
+    }
 
-	public static function populateRecord($record, $row)
-	{
-		parent::populateRecord($record, $row);
-	}
+    public static function populateRecord($record, $row)
+    {
+        parent::populateRecord($record, $row);
+    }
 
-	/**
-	 * Функция-обработчик события.
-	 * Проверяет сертификат перед сохранением в БД.
-	 * @param bool $insert
-	 * @return bool
-	 */
-	public function beforeSave($insert)
-	{
-		if ($this->isNewRecord) {
-			if (!$this->certificate->validate()) { // было: certificate->save()
-				$this->addError('certificate', $this->certificate->getErrorsSummary());
-
-				return false;
-			} else {
+    /**
+     * Функция-обработчик события.
+     * Проверяет сертификат перед сохранением в БД.
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if ($this->isNewRecord) {
+            if (!$this->certificate->validate()) {
+                $this->addError('certificate', $this->certificate->getErrorsSummary());
+                return false;
+            } else {
                 // Для новых сертификатов если они не добавлены автоматически по умолчанию ставим статус "Не активен"
                 if ($this->getScenario() !== self::SCENARIO_AUTO_IMPORT) {
                     $this->status = self::STATUS_C11;
                 }
             }
-		}
+        }
 
-		$this->body = $this->certificate->getBody();
+        $this->body = $this->certificate->getBody();
 
-		return parent::beforeSave($insert);
-	}
+        return parent::beforeSave($insert);
+    }
 
     /**
      * Get full name

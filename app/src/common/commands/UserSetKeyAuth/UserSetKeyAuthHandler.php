@@ -20,13 +20,13 @@ class UserSetKeyAuthHandler extends BaseHandler
             $user = User::findOne($command->applyUser);
             if (is_null($user)) {
                 $this->log('Wrong user ID');
-                return FALSE;
+                return false;
             }
 
             $user->authType = User::AUTH_TYPE_KEY;
             if (!$user->save()) {
                 $this->log('Save user error');
-                return FALSE;
+                return false;
             }
         } else {
             return false;

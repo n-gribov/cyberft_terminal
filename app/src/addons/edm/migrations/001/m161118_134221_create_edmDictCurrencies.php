@@ -20,14 +20,15 @@ class m161118_134221_create_edmDictCurrencies extends Migration
 
         // Формирование поставки валют
         $currenciesList = $this->getCurrenciesList();
-//
+
         echo "Add default currencies" . PHP_EOL;
-//
+
         foreach($currenciesList as $currency) {
             $newCurrency = new DictCurrency();
             $newCurrency->code = $currency[0];
             $newCurrency->name = $currency[1];
             $newCurrency->description = $currency[2];
+            // Сохранить модель в БД
             $newCurrency->save();
         }
     }

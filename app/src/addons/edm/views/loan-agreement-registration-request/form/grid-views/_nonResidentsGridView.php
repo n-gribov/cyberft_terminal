@@ -5,6 +5,7 @@ use addons\edm\models\LoanAgreementRegistrationRequest\LoanAgreementRegistration
 /** @var \yii\web\View $this */
 /** @var LoanAgreementRegistrationRequestForm\NonResident[] $models */
 
+// Вывести страницу
 echo $this->render(
     '_nestedItemsListGridView',
     [

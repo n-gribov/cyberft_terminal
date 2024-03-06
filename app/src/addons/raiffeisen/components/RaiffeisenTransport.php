@@ -190,6 +190,7 @@ class RaiffeisenTransport extends Component
             'holdingHeadCustomerId' => $holdingHeadCustomerId,
         ]);
 
+        // Сохранить модель в БД
         $isSaved = $raiffeisenRequest->save();
         if (!$isSaved) {
             throw new \Exception('Failed to save request to database, errors: ' . var_export($raiffeisenRequest->getErrors(), true));

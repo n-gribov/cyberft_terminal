@@ -7,31 +7,22 @@ use yii\widgets\ActiveForm;
 
 class TagAttribute extends Widget
 {
-	/**
-	 * @var Model
-	 */
-	public $model;
-	/**
-	 * @var ActiveForm
-	 */
-	public $form;
-	/**
-	 * @var string
-	 */
-	public $attribute;
-	/**
-	 * @var bool
-	 */
-	public $disableContainer = true;
+    /** @var Model */
+    public $model;
+    /** @var ActiveForm */
+    public $form;
+    /** @var string */
+    public $attribute;
+    /** @var bool */
+    public $disableContainer = true;
 
-	public function run()
+    public function run()
     {
-		print $this->render('tagAttribute', [
-			'model'            => $this->model,
-			'attribute'        => $this->attribute,
-			'form'             => $this->form,
-			'disableContainer' => $this->disableContainer
-		]);
-	}
-
+        echo $this->render('tagAttribute', [
+            'model'            => $this->model,
+            'attribute'        => $this->attribute,
+            'form'             => $this->form,
+            'disableContainer' => $this->disableContainer
+        ]);
+    }
 }

@@ -55,7 +55,7 @@ class ContractRegistrationRequestPaymentSchedule extends ActiveRecord
         if ($request = $this->request) {
             return $request->currencyName;
         } else {
-            return "";
+            return '';
         }
     }
 }

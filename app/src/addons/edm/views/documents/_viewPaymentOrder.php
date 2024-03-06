@@ -20,4 +20,5 @@ use yii\helpers\Url;
   </ul>
 </div>
 
-<?=$this->render('readable/paymentOrder', ['model' => $model])?>
+<?= // Вывести страницу
+    $this->render('readable/paymentOrder', ['model' => $model]) ?>

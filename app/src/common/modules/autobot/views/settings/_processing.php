@@ -8,7 +8,7 @@ use yii\web\View;
 $dataProvider = $data['dataProvider'];
 $searchModel = $data['searchModel'];
 $queryParams = $data['queryParams'];
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
@@ -153,8 +153,7 @@ echo GridView::widget([
                     $label = Yii::t('app/autobot', 'Stop');
                     $data = ['method' => 'post', 'mode' => 'stop-terminal'];
                 } else {
-                    // Если терминал неактивен
-                    // или не сформирован PasswordHash
+                    // Если терминал неактивен или не сформирован PasswordHash
                     // то обмен для данного терминала
                     if (!$item['status'] || !$item['hasUseForSigningControllerKey']) {
                         $class = 'info';
@@ -167,14 +166,13 @@ echo GridView::widget([
 
                         // Для кнопки недоступности записываем информацию о
                         // причинах недоступности возможности запустить обмен с терминалом
-
                         if (!$item['status']) {
                             $data['error-message'] = Yii::t(
                                 'app/autobot',
                                 'Terminal {terminalId} is inactive. Processing exchange not available.',
                                 ['terminalId' => $item['terminalId']]
                             );
-                        } elseif (!$item['hasUseForSigningControllerKey']) {
+                        } else if (!$item['hasUseForSigningControllerKey']) {
                             $data['error-message'] = Yii::t(
                                 'app/autobot',
                                 'Unable to start exchange! Terminal {terminalId} does not have a Controller key defined for signing outgoing documents!',
@@ -317,7 +315,7 @@ echo GridView::widget([
 <?php
 
 // JS
-$script = <<< JS
+$script = <<<JS
     $('a[data-mode=start-terminal]').on('click', function(e) {
         e.preventDefault();
         

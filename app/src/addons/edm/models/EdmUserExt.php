@@ -29,6 +29,7 @@ class EdmUserExt extends BaseUserExt
 
     public function isAllowedAccess()
     {
+        // Получить роль пользователя из активной сессии
         if (Yii::$app->user->identity->role === User::ROLE_CONTROLLER) {
             return true;
         }

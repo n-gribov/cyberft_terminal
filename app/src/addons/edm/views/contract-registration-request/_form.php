@@ -42,15 +42,11 @@ $regions = [];
 foreach($regionsData as $value) {
     $regions[$value] = $value;
 }
-
 ?>
-
-
 <?php
     // Вывод ошибок при создании документа
-    if ($model->hasErrors()):
+    if ($model->hasErrors()) :
 ?>
-
 <div class="alert alert-danger">
     <ul>
         <?php
@@ -58,15 +54,10 @@ foreach($regionsData as $value) {
         ?>
     </ul>
 </div>
-
-<?php endif; ?>
-
+<?php endif ?>
 <?php
-
 $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'class' => 'edm-crr-form']]);
-
 ?>
-
 <div class="row">
     <div class="col-md-2">
         <?= $form->field($model, 'number')?>
@@ -87,17 +78,13 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]) ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-7">
         <?= $form->field($model, 'passportType')->radioList($model::passportTypeLabels(), ['class' => 'test'])->label(false) ?>
     </div>
 </div>
-
 <hr>
-
 <h4><?=Yii::t('edm', 'Nonresident info')?></h4>
-
 <div class="row">
     <div class="col-md-4">
         <?= $form->field($model, 'organizationId')->widget(Select2::classname(), [
@@ -113,7 +100,6 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ])?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-2">
         <?= $form->field($model, 'inn')->textInput(['maxlength' => true]) ?>
@@ -140,7 +126,6 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]) ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-2">
         <?= $form->field($model, 'state')->widget(Select2::classname(), [
@@ -174,29 +159,22 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         <?= $form->field($model, 'apartment')->textInput(['maxlength' => true]) ?>
     </div>
 </div>
-
 <hr>
-
 <h4><?=Yii::t('edm', 'Details of the nonresidents')?></h4>
-
 <div class="nonresidents">
     <?php
-    // Вывод уже существующих нерезидентов
+    // Вывести блок уже существующих нерезидентов
     echo $this->render('_nonresidents', ['childObjectData' => $model->nonresidents, 'credit' => false]);
     ?>
 </div>
-
 <?=Html::a(Yii::t('app', 'Add'), '#', [
     'class' => 'btn btn-primary btn-new-nonresident',
     'data' => [
         'title' => Yii::t('edm', 'Nonresident')
     ]
 ])?>
-
 <hr>
-
 <h4><?=Yii::t('edm', 'General information about the contract/loan agreement')?></h4>
-
 <div class="row">
     <div class="col-md-2">
         <?= $form->field($model, 'passportTypeNumber')->textInput() ?>
@@ -211,7 +189,6 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-2">
         <?= $form->field($model, 'amount')->widget(MaskedInput::className(), [
@@ -235,7 +212,6 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-2">
         <?= $form->field($model, 'signingDate')->textInput() ?>
@@ -268,19 +244,16 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]) ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-4 type-loan">
         <?= $form->field($model, 'creditedAccountsAbroad')->textInput() ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-4 type-loan">
         <?= $form->field($model, 'repaymentForeignCurrencyEarnings')->textInput() ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-4 type-loan">
         <?= $form->field($model, 'codeTermInvolvement')->widget(Select2::classname(), [
@@ -292,18 +265,14 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ?>
     </div>
 </div>
-
 <hr class="type-loan">
-
 <h4 class="type-loan"><?=Yii::t('edm', 'Information about trenches')?></h4>
-
 <div class="tranches type-loan">
     <?php
-    // Вывод уже существующих траншей
+    // Вывести блок уже существующих траншей
     echo $this->render('_tranches', ['childObjectData' => $model->tranches]);
     ?>
 </div>
-
 <div class="type-loan">
     <?=Html::a(Yii::t('app', 'Add'), '#', [
         'class' => 'btn btn-primary btn-new-tranche',
@@ -312,11 +281,8 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]
     ])?>
 </div>
-
 <hr>
-
 <h4><?=$model->getAttributeLabel('existedPassport')?></h4>
-
 <div class="row">
     <div class="col-md-2">
         <?= $form->field($model, 'existedPassport')->widget(Select2::classname(), [
@@ -328,12 +294,11 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ])->label(false) ?>
     </div>
 </div>
-
 <hr>
-
-<h4 class="type-loan"><?=Yii::t('edm', 'Interest payments under the credit agreement under the credit agreement (except for payments to repay the principal)
-')?></h4>
-
+<h4 class="type-loan"><?=Yii::t(
+    'edm',
+    'Interest payments under the credit agreement under the credit agreement (except for payments to repay the principal)'
+)?></h4>
 <div class="row type-loan">
     <div class="col-md-2">
         <?= $form->field($model, 'fixedRate')->widget(MaskedInput::className(), [
@@ -357,13 +322,11 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]) ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-4 type-loan">
         <?= $form->field($model, 'otherMethodsDeterminingRate')->textarea(['rows' => 5]) ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-2 type-loan">
         <?= $form->field($model, 'bonusBaseRate')->widget(MaskedInput::className(), [
@@ -378,13 +341,11 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]) ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-4 type-loan">
         <?= $form->field($model, 'otherPaymentsLoanAgreement')->textarea(['rows' => 5]) ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-4 type-loan">
         <?= $form->field($model, 'amountMainDebt')->widget(MaskedInput::className(), [
@@ -399,7 +360,6 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]) ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-2 type-loan">
         <?= $form->field($model, 'contractCurrencyId')->widget(Select2::classname(), [
@@ -411,22 +371,18 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]) ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-7 type-loan">
         <?= $form->field($model, 'reasonFillPaymentsSchedule')->radioList($model::reasonPaymentScheduleLabels()) ?>
     </div>
 </div>
-
 <h4 class="type-loan"><?=Yii::t('edm', 'Description of the schedule of payments to repay the principal and interest payments')?></h4>
-
 <div class="payment-schedule type-loan">
     <?php
-    // Вывод уже существующего график платежей
+    // Вывести блок уже существующего график платежей
     echo $this->render('_paymentSchedule', ['childObjectData' => $model->paymentSchedule]);
     ?>
 </div>
-
 <div class="type-loan">
     <?=Html::a(Yii::t('app', 'Add'), '#', [
         'class' => 'btn btn-primary btn-new-payment-schedule',
@@ -435,15 +391,12 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]
     ])?>
 </div>
-
 <hr class="type-loan">
-
 <div class="row">
     <div class="col-md-4 type-loan">
         <?= $form->field($model, 'directInvestment')->checkbox() ?>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-2 type-loan">
         <?= $form->field($model, 'amountCollateral')->widget(MaskedInput::className(), [
@@ -458,16 +411,13 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]) ?>
     </div>
 </div>
-
 <h4 class="type-loan"><?=Yii::t('edm', 'Information on credits granted by non-residents on a syndicated basis')?></h4>
-
 <div class="nonresidents-credit type-loan">
     <?php
-    // Вывод уже существующих нерезидентов
+    // Вывести блок уже существующих нерезидентов
     echo $this->render('_nonresidents', ['childObjectData' => $model->nonresidentsCredit, 'credit' => true]);
     ?>
 </div>
-
 <div class="type-loan">
     <?=Html::a(Yii::t('app', 'Add'), '#', [
         'class' => 'btn btn-primary btn-new-nonresident-credit',
@@ -476,9 +426,7 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ]
     ])?>
 </div>
-
 <hr class="type-loan">
-
 <div class="row">
     <div class="col-md-8">
         <?=Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), [
@@ -486,10 +434,8 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
         ?>
     </div>
 </div>
-
-<?php ActiveForm::end(); ?>
-
 <?php
+ActiveForm::end();
 
 $header = "<h4 class='modal-title'></h4>";
 $footer = "<button type='button' class='btn btn-default' data-dismiss='modal'>" .Yii::t('app', 'Close') . "</button>" .
@@ -508,11 +454,7 @@ $modal = Modal::begin([
     ]
 ]);
 
-?>
-
-<?php $modal::end(); ?>
-
-<?php
+$modal::end();
 
 $this->registerCss('
     .type-loan {
@@ -523,6 +465,3 @@ $this->registerCss('
         resize: none;
     }
 ');
-
-
-?>

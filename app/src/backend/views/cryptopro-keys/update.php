@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fileact-cryptopro-keys-update">
 <?php
-
     if (Yii::$app->cache->exists('crypto-pro-back-link' . Yii::$app->session->id)) {
         $backUrl = Yii::$app->cache->get('crypto-pro-back-link' . Yii::$app->session->id);
     } else {
@@ -20,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     echo Html::a(Yii::t('app', 'Back'), $backUrl, ['class' => 'btn btn-default']);
 
+    // Вывести детали сетрификата
     echo $this->render('_certDetail', [
         'cert' => openssl_x509_parse($model->certData),
     ]);
@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $view = '_form';
     }
 
+    // Вывести форму
     echo $this->render($view, [
         'model' => $model,
         'keyId' => $keyId,

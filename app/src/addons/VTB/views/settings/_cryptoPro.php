@@ -70,8 +70,7 @@ $data = [
 
 <?php
 
-$script = <<< JS
-
+$script = <<<JS
     // Инициализация submit формы
     $('.btn-form-submit').on('click', function() {
         $('.msg-block').hide();
@@ -86,8 +85,8 @@ $script = <<< JS
 
        var data = new FormData();
 
-       data.append("cert", $("input[type=file]")[0].files[0]);
-       data.append("container", $("input[type=file]")[1].files[0]);
+       data.append('cert', $("input[type=file]")[0].files[0]);
+       data.append('container', $("input[type=file]")[1].files[0]);
 
        $.ajax({
             url: '/cryptopro-keys/file-upload',
@@ -97,9 +96,8 @@ $script = <<< JS
             dataType: 'json',
             processData: false,
             contentType: false,
-            success: function(res)
-            {
-                if(res.status == 'processing') {
+            success: function(res) {
+                if (res.status == 'processing') {
 
                     $('.msg-block').html(res.msg);
                     $('.msg-block').addClass('alert-info');
@@ -108,41 +106,35 @@ $script = <<< JS
                     var seconds = 0;
 
                     var checkInterval = setInterval(function() {
-                      // ajax-запрос для получения статуса загрузки сертификата
+                        // ajax-запрос для получения статуса загрузки сертификата
 
-                      seconds++;
+                        seconds++;
 
-                      $.ajax({
-                        url: '/cryptopro-keys/get-file-upload-status',
-                        type: 'get',
-                        data: {
-                            redirectUrl: '/VTB/settings?tabMode=tabCryptoPro&subTabMode=subTabCryptoProKeys'
-                        },
-                        dataType: 'json',
-                        success: function(answer) {
-                            if (answer.status == 'error') {
-                                $('.msg-block').html(answer.msg);
-                                $('.msg-block').addClass('alert-danger');
-                                $('.msg-block').show();
-                                clearInterval(checkInterval);
+                        $.ajax({
+                            url: '/cryptopro-keys/get-file-upload-status',
+                            type: 'get',
+                            data: {
+                                redirectUrl: '/VTB/settings?tabMode=tabCryptoPro&subTabMode=subTabCryptoProKeys'
+                            },
+                            dataType: 'json',
+                            success: function(answer) {
+                                if (answer.status == 'error') {
+                                    $('.msg-block').html(answer.msg);
+                                    $('.msg-block').addClass('alert-danger');
+                                    $('.msg-block').show();
+                                    clearInterval(checkInterval);
+                                }
+
+                                // Если истекло допустимое время исполнения скрипта
+                                if (seconds >= 20) {
+                                    $('.msg-block').html('Ошибка загрузки ключа');
+                                    $('.msg-block').addClass('alert-danger');
+                                    $('.msg-block').show();
+                                    clearInterval(checkInterval);
+                                }
                             }
-
-                            // Если истекло допустимое время исполнения скрипта
-                            if (seconds >= 20) {
-                                $('.msg-block').html('Ошибка загрузки ключа');
-                                $('.msg-block').addClass('alert-danger');
-                                $('.msg-block').show();
-                                clearInterval(checkInterval);
-                            }
-                        }
-                      });
+                        });
                     }, 1000);
-
-                    //// Скрываем форму загрузки сертификата
-                    //$('#modalCryptoProCertUpload').modal('hide');
-                    //
-                    //// Очищаем поле выбора файла формы
-                    //$(".cryptopro-cert-upload").val('');
                 } else if (res.status == 'error') {
                     $('.msg-block').html(res.msg);
                     $('.msg-block').addClass('alert-danger');

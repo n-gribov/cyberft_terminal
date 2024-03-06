@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
-<?php if (Yii::$app->user->can('admin')): ?>
+<?php if (Yii::$app->user->can('admin')) : ?>
 
 <?php $form = ActiveForm::begin([
     'enableClientValidation' => false,
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </table>
 <?php $form->end() ?>
 
-<?php endif; ?>
+<?php endif ?>
 
 <?php
 
@@ -128,7 +128,7 @@ if (Yii::$app->user->can('admin')) {
         'template' => '{update}',
     ];
 }
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,

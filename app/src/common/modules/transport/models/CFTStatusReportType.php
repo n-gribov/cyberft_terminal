@@ -51,9 +51,13 @@ class CFTStatusReportType extends BaseType
         $this->errorDescription = (string) $this->_xmlDom->ErrorDescription;
     }
 
-	public function getSearchFields()
-	{
-		return false;
-	}
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return array|bool
+     */
+    public function getSearchFields()
+    {
+        return false;
+    }
 
 }

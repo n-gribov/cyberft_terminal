@@ -1,5 +1,4 @@
 <?php
-
 use addons\edm\models\PaymentRegister\PaymentRegisterPaymentOrderTemplate;
 use common\helpers\Html;
 use common\models\UserColumnsSettings;
@@ -11,16 +10,12 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 $this->title = Yii::t('app/menu', 'My templates');
-
 $this->beginBlock('pageActions');
-
 $templates = [
     'PaymentOrder' => 'Платежное поручение',
     'ForeignCurrencyPayment' => 'Валютный платеж'
 ];
-
 ?>
-
 <div class="dropdown">
     <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         <span class="ic-plus"></span><?= Yii::t('edm', 'Add template') ?><span class="caret"></span>
@@ -34,12 +29,7 @@ $templates = [
         </li>
     </ul>
 </div>
-
-<?php
-$this->endBlock('pageActions');
-
-?>
-
+<?php $this->endBlock('pageActions'); ?>
 <p class="pull-right">
     <?php
         echo Html::a('',
@@ -53,9 +43,7 @@ $this->endBlock('pageActions');
         echo InlineHelp::widget(['widgetId' => 'edm-payment-order-templates-journal', 'setClassList' => ['edm-journal-wiki-widget']]);
     ?>
 </p>
-
 <?php
-
 $columns['type'] = [
     'attribute' => 'type',
     'label' => $model->getAttributeLabel('type'),
@@ -70,7 +58,7 @@ $columns['type'] = [
         if (isset($templates[$model['type']])) {
             return $templates[$model['type']];
         } else {
-            return "";
+            return '';
         }
     }
 ];
@@ -79,7 +67,7 @@ $columns['name'] = [
     'attribute' => 'name',
     'label' => $model->getAttributeLabel('name'),
     'filter' => Html::textInput(
-        'name', isset($queryParams['name']) ? $queryParams['name'] : "", ['class' => 'form-control']
+        'name', isset($queryParams['name']) ? $queryParams['name'] : '', ['class' => 'form-control']
     ),
 ];
 
@@ -87,7 +75,7 @@ $columns['payerName'] = [
     'attribute' => 'payerName',
     'label' => $model->getAttributeLabel('payerName'),
     'filter' => Html::textInput(
-        'payerName', isset($queryParams['payerName']) ? $queryParams['payerName'] : "", ['class' => 'form-control']
+        'payerName', isset($queryParams['payerName']) ? $queryParams['payerName'] : '', ['class' => 'form-control']
     ),
 ];
 
@@ -114,10 +102,9 @@ $columns['beneficiaryName'] = [
     'attribute' => 'beneficiaryName',
     'label' => $model->getAttributeLabel('beneficiaryName'),
     'filter' => Html::textInput(
-        'beneficiaryName', isset($queryParams['beneficiaryName']) ? $queryParams['beneficiaryName'] : "", ['class' => 'form-control']
+        'beneficiaryName', isset($queryParams['beneficiaryName']) ? $queryParams['beneficiaryName'] : '', ['class' => 'form-control']
     ),
 ];
-
 
 $columns['sum'] = [
     'attribute' => 'sum',
@@ -130,7 +117,7 @@ $columns['sum'] = [
     ],
     'label' => $model->getAttributeLabel('sum'),
     'filter' => Html::textInput(
-        'sum', isset($queryParams['sum']) ? $queryParams['sum'] : "", ['class' => 'form-control']
+        'sum', isset($queryParams['sum']) ? $queryParams['sum'] : '', ['class' => 'form-control']
     ),
 ];
 
@@ -138,7 +125,7 @@ $columns['currency'] = [
     'attribute' => 'currency',
     'label' => $model->getAttributeLabel('currency'),
     'filter' => Html::textInput(
-        'currency', isset($queryParams['currency']) ? $queryParams['currency'] : "", ['class' => 'form-control']
+        'currency', isset($queryParams['currency']) ? $queryParams['currency'] : '', ['class' => 'form-control']
     ),
 ];
 
@@ -146,7 +133,7 @@ $columns['paymentPurpose'] = [
     'attribute' => 'paymentPurpose',
     'label' =>  $model->getAttributeLabel('paymentPurpose'),
     'filter' => Html::textInput(
-        'paymentPurpose', isset($queryParams['paymentPurpose']) ? $queryParams['paymentPurpose'] : "", ['class' => 'form-control']
+        'paymentPurpose', isset($queryParams['paymentPurpose']) ? $queryParams['paymentPurpose'] : '', ['class' => 'form-control']
     ),
 ];
 
@@ -166,7 +153,7 @@ $columnsEnabled['actions'] = [
                 $createUrl = ['/edm/payment-order-templates/create-payment-order', 'id' => $model['id']];
                 $template = PaymentRegisterPaymentOrderTemplate::findOne($model['id']);
                 $options['data']['is-outdated'] = (int)$template->isOutdated;
-            } elseif ($model['type'] == 'ForeignCurrencyPayment') {
+            } else if ($model['type'] == 'ForeignCurrencyPayment') {
                 $createUrl = ['/edm/currency-payment/payment-index', 'template' => $model['id']];
             }
 
@@ -179,7 +166,7 @@ $columnsEnabled['actions'] = [
         'update' => function($model, $key, $index) {
             if ($key['type'] == 'PaymentOrder') {
                 $updateBtnClass = 'edm-template-po-modal-update';
-            } elseif ($key['type'] == 'ForeignCurrencyPayment') {
+            } else if ($key['type'] == 'ForeignCurrencyPayment') {
                 $updateBtnClass = 'edm-template-fcp-modal-update';
             }
 
@@ -198,7 +185,7 @@ $columnsEnabled['actions'] = [
         'delete' => function($model, $key, $index) {
             if ($key['type'] == 'PaymentOrder') {
                 $deleteUrl = 'payment-order-templates/payment-order-delete';
-            } elseif ($key['type'] == 'ForeignCurrencyPayment') {
+            } else if ($key['type'] == 'ForeignCurrencyPayment') {
                 $deleteUrl = 'payment-order-templates/fcp-delete';
             }
 
@@ -216,7 +203,7 @@ $columnsEnabled['actions'] = [
         'view' => function($url, $model, $key) {
             if ($model['type'] == 'PaymentOrder') {
                 $viewBtnClass = 'edm-template-po-view-modal-btn';
-            } elseif ($model['type'] == 'ForeignCurrencyPayment') {
+            } else if ($model['type'] == 'ForeignCurrencyPayment') {
                 $viewBtnClass = 'edm-template-fcp-view-modal-btn';
             }
 
@@ -239,7 +226,7 @@ $columnsEnabled['actions'] = [
         'style' => 'min-width: 125px;'
     ]
 ];
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $model,
@@ -257,26 +244,25 @@ echo GridView::widget([
     },
 ]);
     
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $model
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $model
+]);
 
-$script = <<< JS
 // (c) kovalenko: MODAL SPIK'ище, кровососка гадская, подкостыливаем отжатие фокуса на модалку у Select2
+$script = <<<JS
 $.fn.modal.Constructor.prototype.enforceFocus = function () {};
 JS;
 $this->registerJs($script, yii\web\View::POS_READY);
 
-
-// Всплывающее окно с формой создания/редактирования шаблонов
+// Вывести модальное окно с просмотром
 echo $this->render('payment-order/_modalView');
+// Вывести модальное окно с формой редактирования ПП
 echo $this->render('payment-order/_modalForm');
-
+// Вывести модальное окно с просмотром
 echo $this->render('foreign-currency-payment/_modalView');
+// Вывести модальное окно с формой редактирования ВП
 echo $this->render('foreign-currency-payment/_modalForm');
-
+// Добавить скрипт для редактирования
 echo $this->render('_update-template-js');

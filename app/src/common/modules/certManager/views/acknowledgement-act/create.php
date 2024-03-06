@@ -137,18 +137,17 @@ JS
 <h3><a href="#" id="certificate-data-link">Данные сертификата</a></h3>
 <div id="certificate-data-block">
     <?php
-    $certFields = [
-        'certNotBefore'   => 'Дата начала действия',
-        'certNotAfter'    => 'Дата окончания действия',
-        'certFingerprint' => 'Отпечаток'
-    ];
+        $certFields = [
+            'certNotBefore'   => 'Дата начала действия',
+            'certNotAfter'    => 'Дата окончания действия',
+            'certFingerprint' => 'Отпечаток'
+        ];
     ?>
-
-    <?php foreach ($certFields as $fieldId => $label): ?>
+    <?php foreach ($certFields as $fieldId => $label) : ?>
         <div class="row">
             <div class="col-md-12"><?= $form->field($model, $fieldId)->textInput(['readonly' => true]) ->label($label) ?></div>
         </div>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 
     <div class="row">
         <div class="col-md-12">

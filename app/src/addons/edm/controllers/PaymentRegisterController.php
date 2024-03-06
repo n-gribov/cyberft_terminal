@@ -45,11 +45,11 @@ class PaymentRegisterController extends BaseServiceController
     }
 
     public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
                     [
                         'allow' => true,
                         'actions' => ['index', 'payment-order', 'view', 'payment-order-view', 'download'],
@@ -96,15 +96,15 @@ class PaymentRegisterController extends BaseServiceController
                             'documentTypeGroup' => EdmDocumentTypeGroup::RUBLE_PAYMENT,
                         ],
                     ],
-					[
-						'allow'      => true,
+                    [
+                        'allow'      => true,
                         'actions'    => ['reject-signing'],
                         'roles'      => [DocumentPermission::SIGN],
                         'roleParams' => [
                             'serviceId' => EdmModule::SERVICE_ID,
                             'documentTypeGroup' => EdmDocumentTypeGroup::RUBLE_PAYMENT,
                         ],
-					],
+                    ],
                     [
                         'allow'      => true,
                         'actions'    => ['import-payment-register'],
@@ -114,16 +114,16 @@ class PaymentRegisterController extends BaseServiceController
                             'documentTypeGroup' => EdmDocumentTypeGroup::RUBLE_PAYMENT,
                         ],
                     ],
-				],
-			],
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
                     'select-payment-orders' => ['post'],
-				],
-			],
-		];
-	}
+                ],
+            ],
+        ];
+    }
 
     public function actions()
     {
@@ -133,6 +133,9 @@ class PaymentRegisterController extends BaseServiceController
         return $actions;
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         $registerPagesUrlsRegex = '/\/edm\/payment-register(\/(index|view))?([\?#]|$)/';
@@ -146,6 +149,7 @@ class PaymentRegisterController extends BaseServiceController
         $orgFilter = EdmHelper::getOrgFilter();
         $accountFilter = EdmHelper::getAccountFilter(Yii::$app->user->identity->id, $orgFilter);
 
+        // Вывести страницу
         return $this->render('index', [
             'model' => $searchModel,
             'dataProvider' => $searchModel->search(Yii::$app->request->queryParams),
@@ -159,6 +163,7 @@ class PaymentRegisterController extends BaseServiceController
 
     public function actionView($id)
     {
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
 
         $cyxDoc = CyberXmlDocument::read($document->actualStoredFileId);
@@ -187,7 +192,7 @@ class PaymentRegisterController extends BaseServiceController
         }
 
         if ($previousUrl !== $currentUrl) {
-            // Регистрация события просмотра документа
+            // Зарегистрировать событие просмотра документа в модуле мониторинга
             Yii::$app->monitoring->log(
                 'user:viewDocument',
                 'document',
@@ -198,7 +203,7 @@ class PaymentRegisterController extends BaseServiceController
                 ]
             );
         }
-
+        // Вывести страницу
         return $this->render('view', [
             'document' => $document,
             'extModel' => $extModel,
@@ -210,14 +215,18 @@ class PaymentRegisterController extends BaseServiceController
 
     public function actionRejectSigning()
     {
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $id = Yii::$app->request->post('id');
+            // Получить из БД документ с указанным id
             $model = $this->findModel($id);
             $statusComment = (string) Yii::$app->request->post('statusComment');
 
             if (empty($statusComment)) {
+                // Поместить в сессию флаг сообщения об необходимости описать причину отказа
                 Yii::$app->session->addFlash('warning', Yii::t('edm', 'Please provide reject reason'));
 
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['view', 'id' => $id]);
             }
 
@@ -229,7 +238,9 @@ class PaymentRegisterController extends BaseServiceController
 
             $model->status = Document::STATUS_SIGNING_REJECTED;
 
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
+                // Зарегистрировать событие отказа в подписании реестра в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'edm:registerSigningRejected',
                     $model->type,
@@ -241,67 +252,15 @@ class PaymentRegisterController extends BaseServiceController
                     ]
                 );
 
-                // Регистрация события отмены подписания документа
+                // Зарегистрировать событие отмены подписания документа в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('RejectSigningDocument', ['documentId' => $id]);
             }
 
         }
 
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
-
-//    public function actionSend($id)
-//    {
-//        $model =  $this->findModel($id);
-//        try {
-//            if ($this->sendDocument($model)) {
-//                Yii::$app->session->setFlash('success', Yii::t('edm', 'Payment order register is processing'));
-//
-//                return $this->redirect(['/edm/documents/view', 'id' => $id]);
-//            } else {
-//                Yii::$app->session->setFlash('error', Yii::t('edm', 'Payment order register could not be sent'));
-//            }
-//        } catch(Exception $ex) {
-//            Yii::$app->session->setFlash('error', $ex->getMessage());
-//        }
-//
-//        return $this->redirect(['index']);
-//    }
-//
-//    function sendDocument($model)
-//    {
-//        if ($model->isSendable()) {
-//            $model->status = Document::STATUS_SENT;
-//            if ($model->save(false, ['status'])) {
-//                $typeModel = new PaymentRegisterType();
-//                $typeModel->loadFromString($model->getBody());
-//                $typeModel->sender = $model->sender;
-//                $typeModel->recipient = $model->recipient;
-//
-//                if (!empty($typeModel->recipient)) {
-//                    $document = EdmHelper::createDocument($typeModel, $model->id, Document::ORIGIN_WEB);
-//                    // Регистрация события отправки документа
-//                    Yii::$app->monitoring->log(
-//                        'user:sendDocument',
-//                        'PaymentRegister',
-//                        $model->id,
-//                        [
-//                            'userId' => Yii::$app->user->id,
-//                            'initiatorType' => UserHelper::getEventInitiatorType(Yii::$app->user)
-//                        ]
-//                    );
-//
-//                    return true;
-//                } else {
-//                    throw new Exception(Yii::t('edm', 'Account does not have bank terminal id'));
-//                }
-//            }
-//        } else {
-//            throw new Exception('Can\'t send document with status "{status}"' , ['status' => $model->getStatusLabel()]);
-//        }
-//
-//        return false;
-//    }
 
     public function actionPaymentOrder()
     {
@@ -338,6 +297,7 @@ class PaymentRegisterController extends BaseServiceController
         $orgFilter = EdmHelper::getOrgFilter();
         $accountFilter = EdmHelper::getAccountFilter(Yii::$app->user->identity->id, $orgFilter);
 
+        // Вывести страницу
         return $this->render('paymentOrderLog', [
             'model' => $searchModel,
             'dataProvider' => $searchModel->search($formParams, !empty($params['payerAccount'])),
@@ -364,8 +324,10 @@ class PaymentRegisterController extends BaseServiceController
 
         $this->paymentOrderCache->clear();
 
+        // Поместить в сессию флаг сообщения о количестве удалённых документов
         Yii::$app->session->setFlash('info', Yii::t('edm', 'Deleted {count} payment orders', ['count' => $count]));
 
+        // Перенаправить на страницу индекса ПП
         return $this->redirect(['payment-order']);
     }
 
@@ -400,9 +362,11 @@ class PaymentRegisterController extends BaseServiceController
 
         $this->paymentRegisterCache->clear();
 
+        // Поместить в сессию флаг сообщения о количестве удалённых документов
         Yii::$app->session->setFlash('info', Yii::t('edm', 'Deleted {count} payment registers', ['count' => $count]));
 
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
 
     public function actionSelectPaymentOrders()
@@ -442,6 +406,7 @@ class PaymentRegisterController extends BaseServiceController
 
     public function actionPaymentOrderView($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $model = Yii::$app->terminalAccess->findModel(PaymentRegisterPaymentOrder::className(), $id);
 
         $previousUrl = Url::previous();
@@ -452,7 +417,7 @@ class PaymentRegisterController extends BaseServiceController
         }
 
         if ($previousUrl !== $currentUrl) {
-            // Регистрация события просмотра документа
+            // Зарегистрировать событие просмотра документа в модуле мониторинга
             Yii::$app->monitoring->log(
                 'user:viewDocument',
                 'PaymentRegister',
@@ -464,17 +429,19 @@ class PaymentRegisterController extends BaseServiceController
             );
         }
 
+        // Вывести страницу
         return $this->render('_viewPaymentOrder', [
             'model' => $model,
         ]);
     }
 
     /**
-     * @param int $id
-     * @return Document
+     * Метод ищет модель документа в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
      */
     private function findModel($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         return Yii::$app->terminalAccess->findModel(Document::className(), $id);
     }
 
@@ -487,8 +454,10 @@ class PaymentRegisterController extends BaseServiceController
         }
 
         if (empty($paymentOrderIds)) {
+            // Поместить в сессию флаг сообщения об отсутствии помеченных документов
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Payment orders not selected'));
 
+            // Перенаправить на страницу индекса ПП
             return $this->redirect(['payment-order']);
         }
 
@@ -498,8 +467,10 @@ class PaymentRegisterController extends BaseServiceController
             ->all();
 
         if (!count($paymentOrders)) {
+            // Поместить в сессию флаг сообщения об отсутствующих документах
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Payment orders not found'));
 
+            // Перенаправить на страницу индекса ПП
             return $this->redirect(['payment-order']);
         }
 
@@ -526,20 +497,24 @@ class PaymentRegisterController extends BaseServiceController
         }
 
         if (!$form->hasErrors() && !$form->validate()) {
+            // Поместить в сессию флаг сообщения об ошибке создания документа
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Error creating payment register. {error}', ['error' => $form->getErrorsSummary()]));
 
             if ($removeOrdersOnFailure) {
                 PaymentRegisterPaymentOrder::deleteAll(['id' => $paymentOrderIds]);
             }
 
+            // Перенаправить на страницу индекса ПП
             return $this->redirect(['payment-order']);
         }
 
         try {
             $document = EdmHelper::createPaymentRegister($form, ['origin' => Document::ORIGIN_WEB]);
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($document, true);
         } catch (Exception $ex) {
             Yii::$app->session->setFlash('error', $ex->getMessage());
+            // Поместить в сессию флаг сообщения об ошибке создания документа
             Yii::info("Failed to create payment register, caused by: $ex");
 
             if ($removeOrdersOnFailure) {
@@ -556,6 +531,7 @@ class PaymentRegisterController extends BaseServiceController
             /**
              * Документ со статусом ACCEPTED был автоматически отправлен
              */
+            // Поместить в сессию флаг сообщения об успешной отправке документа
             Yii::$app->session->setFlash('success', Yii::t('edm', 'Payment order register is processing'));
         }
 
@@ -574,32 +550,34 @@ class PaymentRegisterController extends BaseServiceController
             if ($from == 'wizard' && $document->status == Document::STATUS_FORSIGNING) {
                 $redirectParams['triggerSigning'] = 1;
             }
+            // Перенаправить на страницу по параметру перенаправления
             return $this->redirect($redirectParams);
         } else {
+            // Перенаправить на страницу индекса ПП
             return $this->redirect(['/edm/payment-register/payment-order']);
         }
     }
 
     public function actionDownload($id, $name = null)
-	{
-		if (is_null($id)) {
-			throw new BadRequestHttpException(Yii::t('app', "Can't send file"));
-		}
+    {
+        if (is_null($id)) {
+            throw new BadRequestHttpException(Yii::t('app', "Can't send file"));
+        }
 
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
         $cyxDoc = CyberXmlDocument::read($document->actualStoredFileId);
         $typeModel = $cyxDoc->getContent()->getTypeModel();
 
+        $fileName = "File$id.xml";
 
-		$fileName = 'File' . $id . '.xml';
-
-		$response			 = Yii::$app->response;
-		$response->format	 = Response::FORMAT_RAW;
-		$response->sendContentAsFile(
+        $response = Yii::$app->response;
+        $response->format = Response::FORMAT_RAW;
+        $response->sendContentAsFile(
             (string) $typeModel, $fileName, ['mimeType' => 'application/xml']
-		);
+        );
 
-		return;
-	}
+        return;
+    }
 
 }

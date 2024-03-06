@@ -20,18 +20,20 @@ echo Html::a(
 ?>
 
 <h4><?= Yii::t('app/sbbol', 'Organization data') ?></h4>
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'fullName',
         'inn',
         'terminalAddress',
     ]
-]); ?>
-
+]);
+?>
 <h4><?= Yii::t('app/sbbol', 'Customers') ?></h4>
-
 <?php
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $customersDataProvider,
     'rowOptions' => function (SBBOLCustomer $model, $key, $index, $grid) {

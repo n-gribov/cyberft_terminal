@@ -18,7 +18,7 @@ echo Html::button(
         'data'  => ['toggle' => 'modal', 'target' => '#register-holding-modal']
     ]
 );
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'rowOptions' => function ($model, $key, $index, $grid) {
@@ -65,4 +65,5 @@ echo GridView::widget([
     ],
 ]);
 
+// Вывести модальное окно
 echo $this->render('_registerHoldingModal');

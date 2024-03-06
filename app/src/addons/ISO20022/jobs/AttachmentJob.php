@@ -72,19 +72,19 @@ class AttachmentJob extends RegularJob
     private function checkOutgoingAttachments()
     {
         $docList = Document::find()
-                ->from(Document::tableName() . ' doc')
-                ->innerJoin(
-                    ISO20022DocumentExt::tableName() . ' ext',
-                    [
-                        'and',
-                        'ext.documentId = doc.id',
-                        ['ext.extStatus' => ISO20022DocumentExt::STATUS_AWAITING_ATTACHMENT],
-                        ['doc.direction' => Document::DIRECTION_OUT],
-                        ['doc.status' => Document::STATUS_SERVICE_PROCESSING],
-                        ['doc.type' => [Auth024Type::TYPE]]
-                    ]
-                )
-                ->all();
+            ->from(Document::tableName() . ' doc')
+            ->innerJoin(
+                ISO20022DocumentExt::tableName() . ' ext',
+                [
+                    'and',
+                    'ext.documentId = doc.id',
+                    ['ext.extStatus' => ISO20022DocumentExt::STATUS_AWAITING_ATTACHMENT],
+                    ['doc.direction' => Document::DIRECTION_OUT],
+                    ['doc.status' => Document::STATUS_SERVICE_PROCESSING],
+                    ['doc.type' => [Auth024Type::TYPE]]
+                ]
+            )
+            ->all();
 
         $updateList = [];
 
@@ -191,6 +191,7 @@ class AttachmentJob extends RegularJob
 
                 // если статус был undelivered, то отправляем репорт об успешной доставке
                 if ($isoDoc->status == Document::STATUS_ATTACHMENT_UNDELIVERED) {
+                    // Отправить Status Report
                     DocumentTransportHelper::statusReport($isoDoc, [
                         'statusCode' => 'ACDC',
                         'errorCode' => '0',
@@ -205,6 +206,7 @@ class AttachmentJob extends RegularJob
                 }
             } else {
                 if ($isoDoc->status !== Document::STATUS_ATTACHMENT_UNDELIVERED) {
+                    // Отправить Status Report
                     DocumentTransportHelper::statusReport($isoDoc, [
                         'statusCode' => 'ATDE',
                         'errorCode' => '555',
@@ -247,13 +249,13 @@ class AttachmentJob extends RegularJob
                 throw new InvalidConfigException('Cannot get stored file for zip storage id ' . $finzip->zipStoredFileId);
             }
 
-            // в экспорте нужно создать зип, внутри которого будет xml и аттачмент
-            // копируем уже существующий зип с аттачментом в наш темп-ресурс
+            // в экспорте нужно создать зип, внутри которого будет xml и вложение
+            // копируем уже существующий зип с вложением в наш темп-ресурс
             // избегаем копировать сразу в экспорт-ресурс, т.к. операция должна быть атомарна
 
             if ($storedFile->isEncrypted) {
                 $document = $finzip->document;
-                Yii::$app->terminals->setCurrentTerminalId($document->originTerminalId);
+                Yii::$app->exchange->setCurrentTerminalId($document->originTerminalId);
                 $data = Yii::$app->storage->decryptStoredFile($storedFile->id);
                 $fileInfo = $this->_tempResource->putData($data, $zipFileName);
             } else {
@@ -261,8 +263,9 @@ class AttachmentJob extends RegularJob
             }
 
             if (!$fileInfo) {
-                throw new InvalidConfigException('Cannot copy ' . $storedFile->getRealPath()
-                    . ' to ' . $this->_tempResource->path . '/' . $zipFileName);
+                throw new InvalidConfigException(
+                    "Cannot copy {$storedFile->getRealPath()} to {$this->_tempResource->path}/$zipFileName"
+                );
             }
 
             $tempZipPath = $fileInfo['path'];
@@ -273,7 +276,8 @@ class AttachmentJob extends RegularJob
 
             for ($fileIndex = 0; $fileIndex < $zipArchive->numFiles; $fileIndex++) {
                 /**
-                 * Get file name. If file name is cyrillic, we need to convert it and use NOT converted after that!
+                 * Get file name. If file name is cyrillic, we need to convert it
+                 * and use NOT converted after that!
                  */
                 $fileName = $zipArchive->getNameIndex($fileIndex);
                 // удалить артефакт FINZIP
@@ -297,24 +301,25 @@ class AttachmentJob extends RegularJob
             }
 
             // копируем полученный зип во временный каталог экспорта
-            $tempExportedZipPath = $tempDir . '/' . $zipFileName;
+            $tempExportedZipPath = "$tempDir/$zipFileName";
 
             if (!copy($tempZipPath, $tempExportedZipPath)) {
-                throw new Exception('Cannot copy ' . $tempZipPath . ' to ' . $tempExportedZipPath);
+                throw new Exception("Cannot copy $tempZipPath to $tempExportedZipPath");
             }
 
-            $exportedZipPath = $senderDir . '/' . $zipFileName;
+            $exportedZipPath = "$senderDir/$zipFileName";
 
             if (false === rename($tempExportedZipPath, $exportedZipPath)) {
                 throw new InvalidConfigException('Unable to move temp export file ' . $tempExportedZipPath . ' to ' . $exportedZipPath);
             }
 
             if (false === $exportResource->chmod($exportedZipPath, 0664)) {
-                $this->log('Unable to set file permissions for file ' . $zipFileName , ' in export resource', true);
+                $this->log("Unable to set file permissions for file $zipFileName in export resource", true);
             }
 
-            $this->log('Exported file from FinZipExt ID ' . $finzip->id . ': ' . $exportedZipPath);
+            $this->log("Exported file from FinZipExt ID {$finzip->id}: $exportedZipPath");
 
+            // Зарегистрировать событие экспорта документа в модуле мониторинга
             Yii::$app->monitoring->log(
                 'document:DocumentExport',
                 'document',
@@ -331,6 +336,7 @@ class AttachmentJob extends RegularJob
 
             if ($this->_module->settings->sftpEnable) {
                 $isoDoc->extModel->extStatus = ISO20022DocumentExt::STATUS_SFTP_ERROR;
+                // Сохранить модель в БД
                 $isoDoc->extModel->save();
             }
         } catch(Exception $ex) {

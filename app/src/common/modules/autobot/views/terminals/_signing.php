@@ -30,7 +30,7 @@ $commonSigningSettings = $data['commonSigningSettings'];
     <div class="col-md-5">
 
 <?php
-
+// Создать таблицу для вывода
 $myGridWidget = GridView::begin([
     'emptyText'    => Yii::t('other', 'No entries found'),
     'id' => 'commonSettings',
@@ -76,7 +76,7 @@ $myGridWidget = GridView::begin([
     ],
 ]);
 $myGridWidget->end();
-
+// Создать таблицу для вывода
 $myGridWidget = GridView::begin([
     'emptyText'    => Yii::t('other', 'No entries found'),
     'id' => 'modulesSettings',
@@ -126,7 +126,6 @@ $myGridWidget = GridView::begin([
     ],
 ]);
 $myGridWidget->end();
-
 ?>
 
 <p><?=Html::submitButton(Yii::t('app', 'Save'), ['name' => 'save', 'class' => 'btn btn-success']) ?></p>
@@ -134,9 +133,8 @@ $myGridWidget->end();
 </div>
 </div>
 
-<?php ActiveForm::end(); ?>
-
 <?php
+ActiveForm::end();
 
 $this->registerCss('
     /* Стилизация кнопок изменения количества подписей */
@@ -152,20 +150,14 @@ $this->registerCss('
     .checkbox-label {
         cursor: pointer;
     }
-');
 
-//
-
-$this->registerCss('
     #modulesSettings,
     #commonSettings {
         display: none;
     }
 ');
 
-
-$script = <<< JS
-
+$script = <<<JS
     // Скрывать/отображать список настроек модулей
     function settingsVisibility() {
         if ($('#usePersonal').prop('checked')) {
@@ -186,4 +178,3 @@ JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
 
-?>

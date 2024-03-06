@@ -1,8 +1,3 @@
-<?php
-/** @var \yii\web\View $this */
-/** @var \common\document\Document $document */
-/** @var \common\models\vtbxml\documents\BSDocument $bsDocument */
-?>
 <div id="view-table-record-modal" class="fade modal" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog ">
         <div class="modal-content">
@@ -11,7 +6,8 @@
                 <h4 class="modal-title"><?= Yii::t('edm', 'View record') ?></h4>
             </div>
             <div class="modal-body">
-                <?= $this->render('_bsDocumentDetails', compact('document', 'bsDocument')) ?>
+                <?= // Вывести блок детализации документа
+                    $this->render('_bsDocumentDetails', compact('document', 'bsDocument')) ?>
             </div>
             <div class="modal-footer">
                 <div>

@@ -65,21 +65,22 @@ class CommandRejectForm extends Model
     public function reject()
     {
         if (!$this->validate()) {
-            return FALSE;
+            return false;
         }
 
         $command = $this->getCommand();
         if (is_null($command)) {
             $this->addError('Get command active record status: error');
-            return FALSE;
+            return false;
         }
 
         $command->status = BaseCommand::STATUS_NOT_ACCEPTED;
 
-        $result = $command->save();
-        if(!$result){
+        // Сохранить модель в БД
+        $isSaved = $command->save();
+        if (!$isSaved){
             $this->addError('Save command error');
-            return FALSE;
+            return false;
         }
 
         return $this->saveCommandAccept();
@@ -98,13 +99,14 @@ class CommandRejectForm extends Model
         $commandAccept->acceptResult = CommandAcceptAR::ACCEPT_RESULT_REJECTED;
         $commandAccept->setDataSerialize(['reason' => $this->reason]);
 
-        $result = $commandAccept->save();
-        if (!$result) {
+        // Сохранить модель в БД
+        $isSaved = $commandAccept->save();
+        if (!$isSaved) {
             $this->addError('Save command accept status: error');
-            return FALSE;
+            return false;
         }
 
-        return TRUE;
+        return true;
     }
 
     /**

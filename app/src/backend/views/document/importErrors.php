@@ -129,7 +129,7 @@ $columnsEnabled = UserColumnsSettings::getEnabledColumnsByType($columns, $listTy
 
 $today = new DateTime;
 $todayFormat = $today->format('Y-m-d');
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
@@ -161,7 +161,7 @@ echo ColumnsSettingsWidget::widget(
     ]
 );
 
-$script = <<< JS
+$script = <<<JS
     // Маска для ввода значения даты
     $("#importerrorsearch-datecreate").inputmask("99.99.9999", {placeholder:"дд.мм.гггг"});
 JS;

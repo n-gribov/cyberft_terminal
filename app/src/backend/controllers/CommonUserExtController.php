@@ -8,7 +8,6 @@ use common\helpers\UserHelper;
 use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use common\models\CommonUserExt;
 
@@ -39,6 +38,7 @@ class CommonUserExtController extends Controller
     {
         $model = $this->getUserExtModel($id, $type);
 
+        // Вывести страницу
         return $this->render('index', [
             'extModel' => $model,
         ]);
@@ -50,7 +50,9 @@ class CommonUserExtController extends Controller
         $extModel = CommonUserExt::findOne($id);
 
         if (empty($extModel)) {
+            // Поместить в сессию флаг сообщения о ненайденном пользователе
             Yii::$app->session->setFlash('error', Yii::t('app/user', 'Unknown user - data was not updated'));
+            // Перенаправить на страницу индекса
             return $this->redirect(['/user']);
         }
 
@@ -61,18 +63,19 @@ class CommonUserExtController extends Controller
             }
             $extModel->settings = array_values($settings);
 
-
             if (!$extModel->save()) {
+                // Поместить в сессию флаг сообщения об ошибке сохранения настроек пользователя
                 Yii::$app->session->addFlash('error', Yii::t('app/user', 'Failed to save user settings'));
             }
         } else {
+            // Поместить в сессию флаг сообщения о запрете редактирования пользователя
             Yii::$app->session->addFlash('error', Yii::t('app/user', 'Editing user is not allowed'));
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect(['index', 'id' => $extModel->userId, 'type' => $extModel->type]);
     }
-//
-//
+
     /**
      * Получение данных по сервису указанного пользователя
      * @param $id
@@ -80,7 +83,6 @@ class CommonUserExtController extends Controller
      * @return null|static
      * @throws NotFoundHttpException
      */
-
     protected function getUserExtModel($id, $type)
     {
         // Проверяем, что указанный пользователь существует

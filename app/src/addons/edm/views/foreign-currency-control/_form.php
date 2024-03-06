@@ -29,10 +29,7 @@ $form = ActiveForm::begin([
             'id'            => 'foreigncurrencyoperationinformation-date',
             'name'          => 'foreigncurrencyoperationinformation-date',
             'mask'          => '99.99.9999',
-            'clientOptions' => [
-                //'style' => 'text-align:right',
-                'placeholder' => 'dd.MM.yyyy',
-            ]
+            'clientOptions' => ['placeholder' => 'dd.MM.yyyy']
         ])?>
         <?php DatePicker::widget([
             'id'         => 'foreigncurrencyoperationinformation-date',
@@ -50,9 +47,7 @@ $form = ActiveForm::begin([
             'options' => ['placeholder' => 'Выберите код страны', 'prompt' => 'Выберите код страны'],
             'pluginOptions' => [
                 'allowClear' => true,
-                'templateSelection' => new JsExpression('function(item) {
-                    return item.id;
-                }')
+                'templateSelection' => new JsExpression('function(item) { return item.id; }')
             ],
         ])
         ?>
@@ -86,7 +81,6 @@ $form = ActiveForm::begin([
 <div class="row">
     <div class="col-md-8">
         <?= $form->field($model, 'accountId')->widget(Select2::class, [
-            //'data' => $accounts,
             'options' => ['placeholder' => 'Выберите счет', 'prompt' => ''],
             'pluginOptions' => [
                 'allowClear' => true
@@ -97,7 +91,7 @@ $form = ActiveForm::begin([
 
 <div class="operations" style="margin: 25px 0">
 <?php
-    // Вывод уже существующих операций
+    // Вывести блок уже существующих операций
     echo $this->render('_operations', ['childObjectData' => $model->operations]);
 ?>
 </div>
@@ -122,15 +116,12 @@ ActiveForm::end();
 
 $modal = Modal::begin([
     'id' => 'operation-modal',
-    //'size' => Modal::SIZE_LARGE,
     'header' => Html::tag('h4', 'Добавить строку', ['class' => 'modal-title']),
     'footer' => Html::button(
-            Yii::t('app', 'Create'),
-            [
-                'id' => 'operation-submit', 'class' => 'btn btn-success',
-                'data' => ['loading-text' => '<i class="fa fa-spinner fa-spin"></i> ' . Yii::t('app', 'Create')]
-            ]
-        )
+        Yii::t('app', 'Create'), [
+            'id' => 'operation-submit', 'class' => 'btn btn-success',
+            'data' => ['loading-text' => '<i class="fa fa-spinner fa-spin"></i> ' . Yii::t('app', 'Create')]
+        ])
         . Html::button(
             Yii::t('app', 'Cancel'), [
                 'id' => 'cancel-button', 'class' => 'btn btn-default',
@@ -144,7 +135,7 @@ $modal = Modal::begin([
 ]);
 $modal::end();
 
-$this->registerCss('
+$this->registerCss(<<<CSS
     .operations-table {
         border: 2px solid #00529C;
     }
@@ -155,11 +146,11 @@ $this->registerCss('
     #operation-modal .modal-content {
         width: 720px;
     }
-');
+CSS);
 
 $opcount = count($model->operations);
 
-$script = <<< JS
+$script = <<<JS
     // Вызов модального окна для добавления новой строки
     $('.btn-new-operation').on('click', function(e) {
         e.preventDefault();
@@ -294,12 +285,11 @@ $script = <<< JS
     checkCreateButton({$opcount});
 
     updateBankList();
-
 JS;
 
 // Если документ уже сформирован, выдаем предупреждение перед созданием
 if ($model->documentId && $model->document->signaturesCount > 0) {
-    $script .= <<< JS
+    $script .= <<<JS
     $('#btn-submit-fcc').on('click', function() {
         var result = confirm('Внимание! Документ подписан!'
         + ' В случае изменения документа подписи будут автоматически отозваны! Редактировать документ?');

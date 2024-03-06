@@ -60,6 +60,7 @@ class m170804_122938_modify_notifications_addresses extends Migration
 
             if (count($newAddressList) > 0) {
                 $settings->addressList = $newAddressList;
+                // Сохранить модель в БД
                 $settings->save();
             }
         }

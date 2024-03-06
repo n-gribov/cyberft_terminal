@@ -8,6 +8,7 @@ class ToTopButtonWidget extends Widget
 {
    public function run()
    {
+       // Вывести кнопку
        return $this->render('view');
    }
 }

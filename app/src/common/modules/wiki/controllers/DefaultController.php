@@ -28,16 +28,18 @@ class DefaultController extends BaseController
         ];
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         $pages = Page::find()->where(['pid' => 0])->orderBy('title')->all();
-
+        // Вывести страницу
         return $this->render('index', ['pages' => $pages]);
     }
 
     public function actionView($slug, $parents = '' ,$version = '')
     {
-
         // если в урле не передается версия документа, то достаем последнюю версию из бд
         if (!empty($version)) {
             $page = Page::find()->where(['slug' => $slug, 'version' => $version])->one();
@@ -69,6 +71,7 @@ class DefaultController extends BaseController
             }
         }
 
+        // Вывести страницу
         return $this->render('view', ['model' => $page]);
     }
 
@@ -138,7 +141,7 @@ class DefaultController extends BaseController
 
         $widget->pageId = $pageId;
 
-        // Если запись успешна, возвращаем удачный статус
+        // Если модель успешно сохранена в БД, возвращаем удачный статус
         if ($widget->save()) {
             $answer = [
                 'status' => 'ok'

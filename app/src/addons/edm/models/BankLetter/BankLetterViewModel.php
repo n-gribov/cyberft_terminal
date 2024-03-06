@@ -16,6 +16,7 @@ use common\document\Document;
 use common\models\cyberxml\CyberXmlDocument;
 use yii\base\BaseObject;
 use yii\helpers\Url;
+use SimpleXMLElement;
 
 /**
  * @property-read null|string $businessStatusLabel
@@ -34,8 +35,9 @@ class BankLetterViewModel extends BaseObject
     public $attachedFiles;
     public $businessStatus;
     public $businessStatusDescription;
+    public $tp;
 
-    /** @var Document */
+    /** @property Document $document */
     public $document;
 
     public static function create(Document $document)
@@ -54,9 +56,16 @@ class BankLetterViewModel extends BaseObject
             ? $document->receiverParticipant->name
             : $document->receiverParticipantId;
 
+        $tp = '';
+        $receiverBankBik = null;
+        $message = null;
+        $messageType = null;
+        $isoMessageTypeCode = null;
+        $vtbMessageTypeCode = null;
+
         if ($extModel instanceof BankLetterDocumentExt) {
             $receiverBankBik = $extModel->bankBik;
-        } elseif ($extModel instanceof ISO20022DocumentExt) {
+        } else if ($extModel instanceof ISO20022DocumentExt) {
             $bank = DictBank::findOne(['terminalId' => $document->receiver]);
             $receiverBankBik = $bank ? $bank->bik : null;
         } else {
@@ -66,13 +75,16 @@ class BankLetterViewModel extends BaseObject
         if ($typeModel instanceof VTBFreeClientDocType || $typeModel instanceof VTBFreeBankDocType) {
             $message = $typeModel->document->DOCTEXT;
             $messageType = VtbMessageTypeCodes::getNameById($typeModel->document->DOCTYPE);
-            $isoMessageTypeCode = null;
             $vtbMessageTypeCode = $typeModel->document->DOCTYPE;
-        } elseif ($typeModel instanceof Auth026Type) {
+        } else if ($typeModel instanceof Auth026Type) {
             $message = $typeModel->descr;
             $messageType = IsoMessageTypeCodes::getNameById($typeModel->typeCode);
             $isoMessageTypeCode = $typeModel->typeCode;
-            $vtbMessageTypeCode = null;
+            $content = (string) $typeModel;
+            if (!empty($content)) {
+                $xml = new SimpleXMLElement($content);
+                $tp = $xml->CcyCtrlReqOrLttr->ReqOrLttr->Tp;
+            }
         } else {
             throw new \InvalidArgumentException("Unsupported document type: {$typeModel->getType()}");
         }
@@ -83,6 +95,7 @@ class BankLetterViewModel extends BaseObject
             'senderName' => $senderName,
             'receiverName' => $receiverName,
             'receiverBankBik' => $receiverBankBik,
+            'tp' => $tp,
             'message' => $message,
             'messageType' => $messageType,
             'isoMessageTypeCode' => $isoMessageTypeCode,
@@ -94,6 +107,11 @@ class BankLetterViewModel extends BaseObject
         ]);
     }
 
+    public function isImportant()
+    {
+        return $this->tp == 'IMPT';
+    }
+    
     public function getBusinessStatusLabel(): ?string
     {
         $statusLabels = BankLetterSearch::getBusinessStatusLabels();
@@ -190,7 +208,7 @@ class BankLetterViewModel extends BaseObject
     {
         if ($extModel instanceof BankLetterDocumentExt) {
             return $extModel->businessStatus;
-        } elseif ($extModel instanceof ISO20022DocumentExt) {
+        } else if ($extModel instanceof ISO20022DocumentExt) {
             return $extModel->statusCode;
         } else {
             return null;
@@ -205,7 +223,7 @@ class BankLetterViewModel extends BaseObject
     {
         if ($extModel instanceof BankLetterDocumentExt) {
             return $extModel->businessStatusDescription;
-        } elseif ($extModel instanceof ISO20022DocumentExt) {
+        } else if ($extModel instanceof ISO20022DocumentExt) {
             return $extModel->errorDescription;
         } else {
             return null;

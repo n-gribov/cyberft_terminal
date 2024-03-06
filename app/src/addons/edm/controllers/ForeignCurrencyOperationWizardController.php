@@ -86,7 +86,9 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
         if (Yii::$app->request->isPost && !Yii::$app->request->post('isRealSubmit')) {
             $typeModel = ForeignCurrencyOperationFactory::getModelByType($type);
 
+            // Загрузить данные модели из формы в браузере
             $typeModel->load(Yii::$app->request->post());
+            // Включить формат вывода JSON
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             $result = array_merge(
@@ -97,6 +99,7 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
             return $result;
         }
 
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
         $this->authorizeDocumentAccess($document);
         $extModel = $document->extModel;
@@ -122,6 +125,7 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
 
         $cyxDoc->rejectSignatures();
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($typeModel->load(Yii::$app->request->post())) {
             ForeignCurrencyOperationFactory::validateByType($type, $typeModel);
 
@@ -216,8 +220,9 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
                 if ($documentModel) {
                     $documentModel->signaturesCount = 0;
                     $documentModel->setSignData(null);
+                    // Сохранить модель в БД
                     $documentModel->save();
-
+                    // Отправить документ на обработку в транспортном уровне
                     DocumentTransportHelper::processDocument($documentModel, true);
                 }
 
@@ -279,6 +284,7 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
                     $extModel->paymentPurpose = $typeModel->information;
                 }
 
+                // Сохранить модель в БД
                 $extModel->save();
 
                 switch ($type) {
@@ -289,7 +295,9 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
                         $tabMode = 'tabSell';
                         break;
                     case ForeignCurrencyOperationFactory::OPERATION_PAYMENT:
+                        // Поместить в сессию id документа
                         Yii::$app->session->setFlash('fcpCU', $document->id);
+                        // Перенаправить на страницу индекса
                         return $this->redirect(['/edm/currency-payment/payment-index']);
                     case ForeignCurrencyOperationFactory::OPERATION_SELL_TRANSIT_ACCOUNT:
                         $tabMode = 'tabPain001';
@@ -299,8 +307,10 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
                         break;
                 }
 
+                // Поместить в сессию id и тип документа
                 Yii::$app->session->setFlash('fcoCU', json_encode(['id' => $document->id, 'type' => $type]));
 
+                // Перенаправить на страницу индекса
                 return $this->redirect(['/edm/documents/foreign-currency-operation-journal', 'tabMode' => $tabMode]);
             }
 
@@ -312,20 +322,25 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
 
     public function actionRejectSigning()
     {
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $id = Yii::$app->request->post('document-id');
             $model = Document::findOne($id);
             $businessStatusComment = (string) Yii::$app->request->post('businessStatusComment');
 
             if (empty($businessStatusComment)) {
+                // Поместить в сессию флаг сообщения об необходимости описать причину отказа
                 Yii::$app->session->addFlash('warning', Yii::t('edm', 'Please provide reject reason'));
 
+                // Перенаправить на страницу индекса
                 return $this->redirect(['documents/foreign-currency-operation-journal']);
             }
 
             $model->status = Document::STATUS_SIGNING_REJECTED;
 
+            // Сохранить модель в БД
             if ($model->save()) {
+                // Зарегистрировать событие отказа в подписании реестра в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'edm:registerSigningRejected',
                     $model->type,
@@ -337,18 +352,19 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
                     ]
                 );
 
-                // Регистрация события отмены подписания документа
+                // Зарегистрировать событие отмены подписания документа в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('RejectSigningDocument', ['documentId' => $id]);
             }
 
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect(['documents/foreign-currency-operation-journal']);
-
     }
 
     public function actionCreateFromExistingDocument($type, $id)
     {
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
         $this->authorizeDocumentAccess($document);
         $cyxDoc = CyberXmlDocument::read($document->actualStoredFileId);
@@ -370,7 +386,7 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
             $typeModel = ForeignCurrencyOperationFactory::constructFCVNFromPain001($typeModel, $document->extModel);
             $typeModel->operationType = $type;
             $typeModel->number = DocumentHelper::getDayUniqueCount('fcvn');
-        } elseif (in_array($extModel->documentType, [ForeignCurrencyOperationFactory::OPERATION_PURCHASE, ForeignCurrencyOperationFactory::OPERATION_SELL])) {
+        } else if (in_array($extModel->documentType, [ForeignCurrencyOperationFactory::OPERATION_PURCHASE, ForeignCurrencyOperationFactory::OPERATION_SELL])) {
             $typeModel = ForeignCurrencyOperationFactory::constructFCOFromPain001($typeModel);
             $typeModel->date = date('d.m.Y');
             $typeModel->numberDocument = DocumentHelper::getDayUniqueCount('fco');
@@ -390,8 +406,10 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
         $typeModel = ForeignCurrencyOperationFactory::getModelByType($type);
 
         if (Yii::$app->request->isPost && !Yii::$app->request->post('isRealSubmit')) {
+            // Включить формат вывода JSON
             Yii::$app->response->format = Response::FORMAT_JSON;
 
+            // Загрузить данные модели из формы в браузере
             $typeModel->load(Yii::$app->request->post());
             $result = array_merge(
                 ForeignCurrencyOperationFactory::validateByType($type, $typeModel),
@@ -474,6 +492,7 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
             return $this->renderView($type, $typeModel);
         }
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($typeModel->load(Yii::$app->request->post())) {
 
             ForeignCurrencyOperationFactory::validateByType($type, $typeModel);
@@ -483,6 +502,7 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
             if (!$typeModel->hasErrors() && $typeModel->validate()) {
                 $document = ForeignCurrencyOperationFactory::createDocument($typeModel);
 
+                // Отправить документ на обработку в транспортном уровне
                 DocumentTransportHelper::processDocument($document);
 
                 switch ($type) {
@@ -493,7 +513,9 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
                         $tabMode = 'tabSell';
                         break;
                     case ForeignCurrencyOperationFactory::OPERATION_PAYMENT:
+                        // Поместить в сессию id документа
                         Yii::$app->session->setFlash('fcpCU', $document->id);
+                        // Перенаправить на страницу индекса
                         return $this->redirect(['/edm/currency-payment/payment-index']);
                     case ForeignCurrencyOperationFactory::OPERATION_SELL_TRANSIT_ACCOUNT:
                         $tabMode = 'tabPain001';
@@ -503,8 +525,10 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
                         break;
                 }
 
+                // Поместить в сессию id и тип документа
                 Yii::$app->session->setFlash('fcoCU', json_encode(['id' => $document->id, 'type' => $type]));
 
+                // Перенаправить на страницу индекса
                 return $this->redirect(['/edm/documents/foreign-currency-operation-journal', 'tabMode' => $tabMode]);
             }
 
@@ -547,17 +571,11 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
         }
 
         return $this->renderAjax('fcoi/operationElement');
-
     }
 
-    public function findModel($id)
-    {
-        return Yii::$app->terminalAccess->findModel(ForeignCurrencyOperationSearch::className(), $id);
-    }
 
     /**
-     * Получение списка swift-банков
-     * AJAX
+     * Получение списка swift-банков через AJAX
      * @param null $q
      * @return array
      * @throws MethodNotAllowedHttpException
@@ -569,6 +587,7 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
             throw new MethodNotAllowedHttpException();
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         return SwiftfinHelper::getBanksList($q);
@@ -615,6 +634,16 @@ class ForeignCurrencyOperationWizardController extends BaseServiceController
                 'document' => $document,
             ]
         );
+    }
+
+    /**
+     * Метод ищет модель документа в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
+    private function findModel($id)
+    {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
+        return Yii::$app->terminalAccess->findModel(ForeignCurrencyOperationSearch::className(), $id);
     }
 
     private function authorizeCreateAction(string $operationType)

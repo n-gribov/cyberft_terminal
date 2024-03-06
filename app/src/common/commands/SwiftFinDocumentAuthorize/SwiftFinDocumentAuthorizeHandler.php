@@ -30,7 +30,7 @@ class SwiftFinDocumentAuthorizeHandler extends BaseHandler
                     $document->updateStatus(Document::STATUS_FORSIGNING);
                 } else {
                     $document->updateStatus(Document::STATUS_ACCEPTED);
-
+                    // Создать стейт отправки документа
                     DocumentTransportHelper::createSendingState($document);
                 }
             }

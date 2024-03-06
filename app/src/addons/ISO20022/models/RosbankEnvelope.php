@@ -50,10 +50,10 @@ class RosbankEnvelope extends BaseObject
     {
         $root = new \SimpleXMLElement($xml);
         $envelope = new self([
-            'clientCode'                 => self::getXmlAttributeValue($root, 'clientCode'),
-            'cryptoSystem'               => self::getXmlAttributeValue($root, 'crysys'),
-            'documentType'               => self::getXmlAttributeValue($root, 'docType'),
-            'documentBody'               => empty($root->body->doc) ? null : base64_decode((string)$root->body->doc),
+            'clientCode' => self::getXmlAttributeValue($root, 'clientCode'),
+            'cryptoSystem' => self::getXmlAttributeValue($root, 'crysys'),
+            'documentType' => self::getXmlAttributeValue($root, 'docType'),
+            'documentBody' => empty($root->body->doc) ? null : base64_decode((string)$root->body->doc),
         ]);
 
         foreach ($root->children() as $child) {
@@ -62,11 +62,11 @@ class RosbankEnvelope extends BaseObject
             }
 
             $signature = [
-                'signature'                  => empty($child->SignatureValue) ? null : (string)$child->SignatureValue,
-                'signatureKind'              => self::getXmlAttributeValue($child, 'signKind'),
+                'signature' => empty($child->SignatureValue) ? null : (string)$child->SignatureValue,
+                'signatureKind' => self::getXmlAttributeValue($child, 'signKind'),
                 'signatureCertificateSerial' => self::getXmlAttributeValue($child, 'cert'),
                 'signatureCertificateIssuer' => self::getXmlAttributeValue($child, 'issuer'),
-                'commonName'                 => self::getXmlAttributeValue($child, 'commonName'),
+                'commonName' => self::getXmlAttributeValue($child, 'commonName'),
             ];
 
             $signingTime = self::getXmlAttributeValue($child, 'signingTime');
@@ -86,6 +86,7 @@ class RosbankEnvelope extends BaseObject
         if (empty($element)) {
             return null;
         }
+
         return $element->attributes()->$attributeName === null
             ? null
             : (string) $element->attributes()->$attributeName;

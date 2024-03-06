@@ -94,6 +94,7 @@ abstract class BaseChecker extends Model
     {
         $checkerData            = $this->getCheckerDataObject(true);
         $checkerData->checkTime = $this->_checkTime       = mktime();
+        // Сохранить модель в БД
         $checkerData->save();
     }
 
@@ -194,6 +195,7 @@ abstract class BaseChecker extends Model
         }
 
         $checkerData = $this->getCheckerDataObject(true);
+        // Сохранить модель в БД и вернуть результат сохранения
         return $checkerData->save();
     }
 
@@ -212,6 +214,7 @@ abstract class BaseChecker extends Model
     public function saveSettingsData($data)
     {
         $checkerData = $this->getCheckerDataObject(true);
+        // Сохранить модель в БД
         $checkerData->save();
 
         $terminalId = isset($data['terminalId']) ? $data['terminalId']: null;
@@ -231,6 +234,7 @@ abstract class BaseChecker extends Model
 
         $checkerSettings->settingsData = $data['settings'];
         $checkerSettings->terminalId = $terminalId;
+        // Сохранить модель в БД
         $checkerSettings->save();
     }
 
@@ -389,6 +393,7 @@ abstract class BaseChecker extends Model
         $data[$key] = $value;
 
         $settings->opSettings = $data;
+        // Сохранить модель в БД
         $settings->save();
     }
 

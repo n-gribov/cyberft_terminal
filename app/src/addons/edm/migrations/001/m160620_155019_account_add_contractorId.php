@@ -10,7 +10,7 @@ class m160620_155019_account_add_contractorId extends Migration
         $this->execute("alter table `edm_account` add column `contractorId` int unsigned null");
         $this->execute("alter table `edmDictContractor` add column `terminalId` int unsigned null");
 
-        $defaultTerminal = Yii::$app->terminals->defaultTerminal;
+        $defaultTerminal = Yii::$app->exchange->defaultTerminal;
 
         if ($defaultTerminal) {
             DictContractor::updateAll(['terminalId' => $defaultTerminal->id]);

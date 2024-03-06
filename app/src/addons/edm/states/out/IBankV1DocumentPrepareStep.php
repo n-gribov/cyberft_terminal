@@ -25,7 +25,7 @@ class IBankV1DocumentPrepareStep extends BaseIBankDocumentPrepareStep
 
         if (!empty($accountNumber)) {
             $recipientTerminalId = $this->getTerminalIdByAccountNumber($accountNumber);
-        } elseif (!empty($remoteClientId)) {
+        } else if (!empty($remoteClientId)) {
             $recipientTerminalId = $this->getTerminalIdByRemoteClientId($remoteClientId, $senderTerminalId);
         }
 

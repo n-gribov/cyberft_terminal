@@ -42,6 +42,7 @@ class ImportJob extends Job
             WikiModule::warning('Dump file import failed');
         }
 
+        // Удалить файл
         Yii::$app->fsTemp->delete($this->path);
     }
 }

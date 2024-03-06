@@ -6,6 +6,7 @@ use addons\edm\models\LoanAgreementRegistrationRequest\LoanAgreementRegistration
 /** @var LoanAgreementRegistrationRequestForm\Tranche[] $models */
 /** @var array $params */
 
+// Вывести страницу
 echo $this->render(
     '_nestedItemsListGridView',
     [

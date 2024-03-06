@@ -190,13 +190,13 @@ __________________________________<br/>
         </p>
     </div>
     <div class="col-sm-6 text-right">
-        <?php if ($stampDate): ?>
+        <?php if ($stampDate) : ?>
             <div class="stamp">
                 <strong><?= Html::encode($extModel->bankName) ?></strong><br>
                 <strong>Принято</strong><br>
                 <?= Yii::$app->formatter->asDate($stampDate, $dateFormat) ?>
             </div>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
 </div>
 __________________________________<br/>
@@ -213,14 +213,11 @@ __________________________________<br/>
     </div>
 </div>
 <?php
-    $signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
+$signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
+// Вывести блок подписей
+echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
 
-    echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
-?>
-
-<?php
-
-$this->registerCss('
+$this->registerCss(<<<CSS
     .stamp {
         border: 1px solid black;
         float: right;
@@ -368,6 +365,4 @@ $this->registerCss('
     .col-sm-1 {
         width: 8.33333333%;
     }
-');
-
-?>
+CSS);

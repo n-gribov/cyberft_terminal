@@ -22,6 +22,7 @@ class ExtModelCreateStep extends BaseDocumentStep
         $extModel->loadContentModel($this->state->typeModel);
 
         if (!$extModel->save()) {
+            // Удалить документ из БД
             $document->delete();
 
             throw new Exception('Could not save extmodel');

@@ -29,24 +29,22 @@ abstract class Converter {
      * @return string
      * @throws \Exception
      */
-	public static function statementTo1C(StatementType $statement, $mode = 'all')
-	{
-		$document = self::doc1CByStatement($statement);
+    public static function statementTo1C(StatementType $statement, $mode = 'all')
+    {
+        $document = self::doc1CByStatement($statement);
 
-		// костылек берем заготовку тела
-		// @todo реализовать человеческий statement и конверт для 1С и конверить в него
+        // костылек берем заготовку тела
+        // @todo реализовать человеческий statement и конверт для 1С и конверить в него
+        $layout = preg_replace('/(СекцияДокумент.*КонецДокумента)/ms','{placeholder}', $document);
 
-		$layout = preg_replace('/(СекцияДокумент.*КонецДокумента)/ms','{placeholder}', $document);
+        // и формируем участки документа
+        $body = "\r\n";
 
-		// и формируем участки документа
-		$body = "\r\n";
-
-		foreach ($statement->transactions as $v) {
-
+        foreach ($statement->transactions as $v) {
             // Отображение транзаций в зависимости от режима
             if ($mode == 'debit' && empty($v['Debit'])) {
                 continue;
-            } elseif ($mode == 'credit' && empty($v['Credit'])) {
+            } else if ($mode == 'credit' && empty($v['Credit'])) {
                 continue;
             }
 
@@ -55,27 +53,28 @@ abstract class Converter {
                 if ($v['OKUD'] == '0401061') {
                     $transactionType = "PaymentRequest";
                 } else {
-                    $transactionType = "PaymentOrder";
+                    $transactionType = 'PaymentOrder';
                 }
             } else {
-                $transactionType = "PaymentOrder";
+                $transactionType = 'PaymentOrder';
             }
 
             // Вывод заголовка секции в зависимости от типа платежки
             if ($transactionType == "PaymentRequest") {
                 $body .= "СекцияДокумент=Платежное требование\r\n";
-            } elseif ($transactionType == "PaymentOrder") {
+            } else if ($transactionType == "PaymentOrder") {
                 $body .= "СекцияДокумент=Платежное поручение\r\n";
             }
 
             if ($v['DocDate']) {
                 $body .= "Дата=" . DateHelper::convert($v['DocDate'], 'date', 'php:d.m.Y') . "\r\n";
             }
-			$body .= "Номер={$v['Number']}\r\n";
-			$body .= "Сумма={$v['Amount']}\r\n";
-			$body .= "ПлательщикСчет={$v['PayerAccountNum']}\r\n";
-			$body .= "ПлательщикРасчСчет={$v['PayerAccountNum']}\r\n";
-			$body .= !empty($v['PayerBIK']) ? "ПлательщикБИК={$v['PayerBIK']}\r\n" : null;
+
+            $body .= "Номер={$v['Number']}\r\n";
+            $body .= "Сумма={$v['Amount']}\r\n";
+            $body .= "ПлательщикСчет={$v['PayerAccountNum']}\r\n";
+            $body .= "ПлательщикРасчСчет={$v['PayerAccountNum']}\r\n";
+            $body .= !empty($v['PayerBIK']) ? "ПлательщикБИК={$v['PayerBIK']}\r\n" : null;
 
             if (!empty($v['PayerINN'])) {
                 $body .= !empty($v['PayerName']) ? "Плательщик=ИНН {$v['PayerINN']} {$v['PayerName']} \r\n" : null;
@@ -83,19 +82,19 @@ abstract class Converter {
                 $body .= !empty($v['PayerName']) ? "Плательщик={$v['PayerName']} \r\n" : null;
             }
 
-			$body .= 'ПлательщикИНН=' . ($v['PayerINN'] ? $v['PayerINN'] : '0') . "\r\n";
-			$body .= 'ПлательщикКПП=' . ($v['PayerKPP'] ? $v['PayerKPP'] : '0') . "\r\n";
+            $body .= 'ПлательщикИНН=' . ($v['PayerINN'] ? $v['PayerINN'] : '0') . "\r\n";
+            $body .= 'ПлательщикКПП=' . ($v['PayerKPP'] ? $v['PayerKPP'] : '0') . "\r\n";
             $body .= !empty($v['PayerName']) ? "Плательщик1={$v['PayerName']} \r\n" : null;
-			$body .= !empty($v['PayerBankName']) ? "ПлательщикБанк1={$v['PayerBankName']}\r\n" : null;
-			$body .= !empty($v['PayerBankAccountNum']) ? "ПлательщикКорсчет={$v['PayerBankAccountNum']}\r\n" : null;
+            $body .= !empty($v['PayerBankName']) ? "ПлательщикБанк1={$v['PayerBankName']}\r\n" : null;
+            $body .= !empty($v['PayerBankAccountNum']) ? "ПлательщикКорсчет={$v['PayerBankAccountNum']}\r\n" : null;
             $body .= !empty($v['PayeeAccountNum']) ? "ПолучательСчет={$v['PayeeAccountNum']}\r\n" : null;
 
-			//$body .= !empty($v['PayeeBankAccountNum']) ? "ПолучательРасчСчет={$v['PayeeBankAccountNum']}\r\n" : null;
+            //$body .= !empty($v['PayeeBankAccountNum']) ? "ПолучательРасчСчет={$v['PayeeBankAccountNum']}\r\n" : null;
             // CYB-2891
             $body .= !empty($v['PayeeAccountNum']) ? "ПолучательРасчСчет={$v['PayeeAccountNum']}\r\n" : null;
 
-			$body .= !empty($v['PayeeBIK']) ? "ПолучательБИК={$v['PayeeBIK']}\r\n" : null;
-			$body .= "НазначениеПлатежа={$v['Purpose']}\r\n";
+            $body .= !empty($v['PayeeBIK']) ? "ПолучательБИК={$v['PayeeBIK']}\r\n" : null;
+            $body .= "НазначениеПлатежа={$v['Purpose']}\r\n";
 
             if (!empty($v['PayeeINN'])) {
                 $body .= !empty($v['PayeeName']) ? "Получатель=ИНН {$v['PayeeINN']} {$v['PayeeName']} \r\n" : null;
@@ -103,14 +102,14 @@ abstract class Converter {
                 $body .= !empty($v['PayeeName']) ? "Получатель=ИНН {$v['PayeeINN']} \r\n" : null;
             }
 
-			$body .= 'ПолучательИНН=' . ($v['PayeeINN'] ? $v['PayeeINN'] : '0') . "\r\n";
-			$body .= 'ПолучательКПП=' . ($v['PayeeKPP'] ? $v['PayeeKPP'] : '0') . "\r\n";
+            $body .= 'ПолучательИНН=' . ($v['PayeeINN'] ? $v['PayeeINN'] : '0') . "\r\n";
+            $body .= 'ПолучательКПП=' . ($v['PayeeKPP'] ? $v['PayeeKPP'] : '0') . "\r\n";
             $body .= !empty($v['PayeeName']) ? "Получатель1={$v['PayeeName']} \r\n" : null;
-			$body .= !empty($v['PayeeBankName']) ? "ПолучательБанк1={$v['PayeeBankName']}\r\n" : null;
-			$body .= !empty($v['PayeeBankAccountNum']) ? "ПолучательКорсчет={$v['PayeeBankAccountNum']}\r\n" : null;
-			$body .= !empty($v['PayCode']) ? "Код={$v['PayCode']}\r\n" : null;
-			$body .= !empty($v['ValueDate']) ? 'ДатаСписано=' . DateHelper::formatDate($v['ValueDate'], 'date') . "\r\n" : null;
-			$body .= !empty($v['EntryDate']) ? 'ДатаПоступило=' . DateHelper::formatDate($v['EntryDate'], 'date') . "\r\n" : null;
+            $body .= !empty($v['PayeeBankName']) ? "ПолучательБанк1={$v['PayeeBankName']}\r\n" : null;
+            $body .= !empty($v['PayeeBankAccountNum']) ? "ПолучательКорсчет={$v['PayeeBankAccountNum']}\r\n" : null;
+            $body .= !empty($v['PayCode']) ? "Код={$v['PayCode']}\r\n" : null;
+            $body .= !empty($v['ValueDate']) ? 'ДатаСписано=' . DateHelper::formatDate($v['ValueDate'], 'date') . "\r\n" : null;
+            $body .= !empty($v['EntryDate']) ? 'ДатаПоступило=' . DateHelper::formatDate($v['EntryDate'], 'date') . "\r\n" : null;
             $body .= !empty($v['Priority']) ? "Очередность={$v['Priority']}\r\n" : null;
             $body .= "ВидПлатежа=Электронно\r\n";
             if ($v['IncomeTypeCode']) {
@@ -147,8 +146,8 @@ abstract class Converter {
                 $body .= !empty($v['AcceptPeriod']) ? "СрокАкцепта={$v['AcceptPeriod']} \r\n" : null;
             }
 
-			$body .= "КонецДокумента\r\n\r\n";
-		}
+            $body .= "КонецДокумента\r\n\r\n";
+        }
 
         if (strpos($layout, '{placeholder}') === false) {
             return $layout . $body;
@@ -156,7 +155,7 @@ abstract class Converter {
 
         // Выписка в формате 1С должна быть в кодировке cp1251
         return iconv('UTF-8', 'cp1251', str_replace('{placeholder}', $body, $layout));
-	}
+    }
 
     /**
      * @param StatementType $statement
@@ -387,7 +386,7 @@ abstract class Converter {
             $taxDocDateDate = $transaction['DepInfTaxDocDate'];
             if (in_array($taxDocDateDate, ['0', '00'], true)) {
                 $ntry->NtryDtls->TxDtls->Tax->Mtd = $taxDocDateDate;
-            } elseif ($taxDocDateDate) {
+            } else if ($taxDocDateDate) {
                 $ntry->NtryDtls->TxDtls->Tax->Dt = (new \DateTime($taxDocDateDate))->format('Y-m-d');
             }
 
@@ -432,57 +431,57 @@ abstract class Converter {
     }
 
     /**
-	 * @param StatementType $statement
-	 * @param string              $xlsView
-	 * @return Spreadsheet
-	 * @throws \Exception
-	 * @throws \PhpOffice\PhpSpreadsheet\Exception
-	 */
-	public static function statementToXls(StatementType $statement, $xlsView)
-	{
-		$document = self::doc1CByStatement($statement);
+     * @param StatementType $statement
+     * @param string              $xlsView
+     * @return Spreadsheet
+     * @throws \Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public static function statementToXls(StatementType $statement, $xlsView)
+    {
+        $document = self::doc1CByStatement($statement);
 
         $statementTags = ['companyName', 'reservedAmount', 'prevLastOperationDate'];
         $formatNumberTags = [
             'ВсегоПоступило', 'ВсегоСписано', 'НачальныйОстаток', 'КонечныйОстаток'
         ];
 
-		$xls = IOFactory::load($xlsView);
-		$xls->garbageCollect();
-		$xls->getProperties()->setCompany('Киберплат');
-		$xls->getProperties()->setCreator('Киберплат');
-		$xls->getProperties()->setLastModifiedBy('Киберплат');
-		$xls->getProperties()->setModified(date('U'));
+        $xls = IOFactory::load($xlsView);
+        $xls->garbageCollect();
+        $xls->getProperties()->setCompany('Киберплат');
+        $xls->getProperties()->setCreator('Киберплат');
+        $xls->getProperties()->setLastModifiedBy('Киберплат');
+        $xls->getProperties()->setModified(date('U'));
 
-		/** @var RowIterator $rows */
-		$sheet = $xls->getActiveSheet();
-		$rows  = $sheet->getRowIterator(); // по строкам
-		$sheet->insertNewRowBefore(1);
-//		// @todo при повторном использовании сделать человеческий класс шаблонизатор|конвертер из 1C в xls
-		$repeatRow = null;
-		foreach ($rows as $row) {
-			/** @var RowCellIterator $cells */
-			$cells = $row->getCellIterator(); // по ячейкам
-			foreach ($cells as $cell) {
-				$value = $cell->getValue(); // собираем значения
-				if ($value	&& preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $value, $matches)) {
-					// находим переменные
-					foreach ($matches['tag'] as $k => $tag) {
-						if ($tag === 'repeat:row') {
-							$repeatRow = $row;
-							$cell->setValue(''); // сбрасываем тэг инструкции
-							continue 2;
-						}
+        /** @var RowIterator $rows */
+        $sheet = $xls->getActiveSheet();
+        $rows  = $sheet->getRowIterator(); // по строкам
+        $sheet->insertNewRowBefore(1);
+        // @todo при повторном использовании сделать человеческий класс шаблонизатор|конвертер из 1C в xls
+        $repeatRow = null;
+        foreach ($rows as $row) {
+            /** @var RowCellIterator $cells */
+            $cells = $row->getCellIterator(); // по ячейкам
+            foreach ($cells as $cell) {
+                $value = $cell->getValue(); // собираем значения
+                if ($value && preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $value, $matches)) {
+                    // находим переменные
+                    foreach ($matches['tag'] as $k => $tag) {
+                        if ($tag === 'repeat:row') {
+                            $repeatRow = $row;
+                            $cell->setValue(''); // сбрасываем тэг инструкции
+                            continue 2;
+                        }
 
-						if ($document->hasTag($tag)) { // узнаем значения
+                        if ($document->hasTag($tag)) { // узнаем значения
                             $tagValue = $document->getTag($tag);
 
                             if (in_array($tag, $formatNumberTags)) {
                                 $tagValue = Yii::$app->formatter->asDecimal($tagValue, 2);
                             }
 
-							$value = str_replace($matches['placeholder'][$k], $tagValue, $value); // и делаем "красиво"
-						} else if (in_array($tag, $statementTags)) {
+                            $value = str_replace($matches['placeholder'][$k], $tagValue, $value); // и делаем "красиво"
+                        } else if (in_array($tag, $statementTags)) {
                             $tagValue = $statement->$tag;
 
                             if (in_array($tag, $formatNumberTags)) {
@@ -492,13 +491,13 @@ abstract class Converter {
                             $value = str_replace($matches['placeholder'][$k], $tagValue, $value);
                         }
                     }
-				}
-				$cell->setValue($value);
-			}
-		}
+                }
+                $cell->setValue($value);
+            }
+        }
 
-		if (!empty($repeatRow)) {
-			$transactions = $statement->transactions;
+        if (!empty($repeatRow)) {
+            $transactions = $statement->transactions;
 
             // Добавление поля с ValueDate в нужном формате
             $transactions = array_map(function ($transaction) {
@@ -506,58 +505,56 @@ abstract class Converter {
                 return $transaction;
             }, $transactions);
 
-			$transactionCount = count($transactions);
+            $transactionCount = count($transactions);
 
-			// дублируем строку с повторяющейся информацией
-			$rowIndex = $repeatRow->getRowIndex();
-			$endRowIndex = $rowIndex + $transactionCount;
+            // дублируем строку с повторяющейся информацией
+            $rowIndex = $repeatRow->getRowIndex();
+            $endRowIndex = $rowIndex + $transactionCount;
 
-			// Если вставить 0 строк, то исчезают нижележащие строки!
-			if ($transactionCount > 1) {
-				$sheet->insertNewRowBefore($rowIndex + 1, $transactionCount - 1);
-			}
-			$sheet->duplicateStyle(
-				$sheet->getStyle('A' . $rowIndex),
-				'A' . $rowIndex . ':A' . ($rowIndex + $transactionCount - 1)
-			);
+            // Если вставить 0 строк, то исчезают нижележащие строки!
+            if ($transactionCount > 1) {
+                $sheet->insertNewRowBefore($rowIndex + 1, $transactionCount - 1);
+            }
+            $sheet->duplicateStyle(
+                $sheet->getStyle('A' . $rowIndex),
+                'A' . $rowIndex . ':A' . ($rowIndex + $transactionCount - 1)
+            );
 
-			// читаем шаблон дублируемой строки и формируем карту шаблонов по колонкам
-			$map = [];
-			$cells = $repeatRow->getCellIterator();
-			foreach ($cells as $cell) {
-				if (($value = $cell->getValue())) {
-					$map[$cell->getColumn()] = $value;
-				}
+            // читаем шаблон дублируемой строки и формируем карту шаблонов по колонкам
+            $map = [];
+            $cells = $repeatRow->getCellIterator();
+            foreach ($cells as $cell) {
+                if (($value = $cell->getValue())) {
+                    $map[$cell->getColumn()] = $value;
+                }
                 // чтобы при пустой выписке не остались тэги в ячейках
                 $cell->setValue('');
-			}
-			unset($value);
+            }
+            unset($value);
 
-			// проходимся построчно и наполняем данными
-			for ($i = $rowIndex, $k = 0; $i < $endRowIndex; $i++, $k++) {
-				foreach ($map as $col => $pattern) {
-					$cell  = $sheet->getCell($col . $i);
-					$cellValue = $pattern;
-					$transaction = $transactions[$k];
+            // проходимся построчно и наполняем данными
+            for ($i = $rowIndex, $k = 0; $i < $endRowIndex; $i++, $k++) {
+                foreach ($map as $col => $pattern) {
+                    $cell  = $sheet->getCell($col . $i);
+                    $cellValue = $pattern;
+                    $transaction = $transactions[$k];
 
-					preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $pattern, $matches);
+                    preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $pattern, $matches);
 
-					foreach ($matches['tag'] as $tag) {
+                    foreach ($matches['tag'] as $tag) {
                         $value = ArrayHelper::getValue($transaction, $tag, '');
-
                         if ($tag == 'Debit' || $tag == 'Credit') {
                             $value = Yii::$app->formatter->asDecimal($value, 2);
                         }
+                        $cellValue = str_replace('{' . $tag . '}', $value, $cellValue);
+                    }
+                    $cell->setValue($cellValue);
+                }
+            }
+        }
 
-						$cellValue = str_replace('{' . $tag . '}', $value, $cellValue);
-					}
-					$cell->setValue($cellValue);
-				}
-			}
-		}
-
-		return $xls;
-	}
+        return $xls;
+    }
 
     public static function foreignCurrencyOperationInformationToXls(ForeignCurrencyOperationInformationExt $fci, $xlsView)
     {
@@ -891,7 +888,7 @@ abstract class Converter {
                     // Запись разных значений в зависимости от типа
                     if ($tag === 'n') {
                         $value = $number;
-                    } elseif (is_array($item)) {
+                    } else if (is_array($item)) {
                         $value = $item[$tag] ?? '';
                     } else {
                         $value = $item->$tag;
@@ -937,42 +934,42 @@ abstract class Converter {
         return $document;
     }
 
-	/**
-	 * @param PaymentOrderType $po
-	 * @param string              $xlsView
-	 * @return Spreadsheet
-	 * @throws \Exception
-	 * @throws \PhpOffice\PhpSpreadsheet\Exception
-	 */
-	public static function paymentOrderToXls(PaymentOrderType $po, $xlsView)
-	{
-		$xls = IOFactory::load($xlsView);
-		$xls->garbageCollect();
-		$xls->getProperties()->setCompany('Киберплат');
-		$xls->getProperties()->setCreator('Киберплат');
-		$xls->getProperties()->setLastModifiedBy('Киберплат');
-		$xls->getProperties()->setModified(date('U'));
+    /**
+     * @param PaymentOrderType $po
+     * @param string              $xlsView
+     * @return Spreadsheet
+     * @throws \Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public static function paymentOrderToXls(PaymentOrderType $po, $xlsView)
+    {
+        $xls = IOFactory::load($xlsView);
+        $xls->garbageCollect();
+        $xls->getProperties()->setCompany('Киберплат');
+        $xls->getProperties()->setCreator('Киберплат');
+        $xls->getProperties()->setLastModifiedBy('Киберплат');
+        $xls->getProperties()->setModified(date('U'));
 
-		$sheet = $xls->getActiveSheet();
-		$rows  = $sheet->getRowIterator(); // по строкам
+        $sheet = $xls->getActiveSheet();
+        $rows  = $sheet->getRowIterator(); // по строкам
 
-		foreach ($rows as $row) {
-			$cells = $row->getCellIterator();
-			foreach ($cells as $cell) {
-				$value = $cell->getValue();
-				if ($value	&& preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $value, $matches)) {
-					foreach ($matches['tag'] as $k => $tag) {
-						if ($po->hasTag($tag)) {
-							$value = str_replace($matches['placeholder'][$k], $po->getTag($tag), $value);
-						}
-					}
-				}
-				$cell->setValue($value);
-			}
-		}
+        foreach ($rows as $row) {
+            $cells = $row->getCellIterator();
+            foreach ($cells as $cell) {
+                $value = $cell->getValue();
+                if ($value && preg_match_all('/(?P<placeholder>\{(?P<tag>.*)\})/U', $value, $matches)) {
+                    foreach ($matches['tag'] as $k => $tag) {
+                        if ($po->hasTag($tag)) {
+                            $value = str_replace($matches['placeholder'][$k], $po->getTag($tag), $value);
+                        }
+                    }
+                }
+                $cell->setValue($value);
+            }
+        }
 
-		return $xls;
-	}
+        return $xls;
+    }
 
     private static function getOrganization(StatementType $statementTypeModel): ?DictOrganization
     {
@@ -985,5 +982,5 @@ abstract class Converter {
             return null;
         }
         return DictOrganization::findOne(['id' => $account->organizationId]);
-	}
+    }
 }

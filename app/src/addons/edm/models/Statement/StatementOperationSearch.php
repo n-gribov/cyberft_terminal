@@ -76,8 +76,7 @@ class StatementOperationSearch extends Model
                     }
 
                     $isFilter[] = boolval(mb_stristr($searchData, $filter['value']));
-                } elseif ($filter['rule'] == 'eq') {
-
+                } else if ($filter['rule'] == 'eq') {
                     if (in_array($id, $fieldsFloat)) {
                         $compareValue = $this->getFloatValue($item[$id]);
                     } else if (in_array($id, $fieldsDate)) {
@@ -91,8 +90,7 @@ class StatementOperationSearch extends Model
                 }
             }
 
-            // Если в массиве есть хотя бы одно совпадение,
-            // то строка в него не входит
+            // Если в массиве есть хотя бы одно совпадение, то строка в него не входит
             if (!in_array(false, $isFilter)) {
                 $newAllModels[] = $item;
             }

@@ -103,6 +103,7 @@ $columns['dateCreate'] = [
     'filter'             => false
 ];
 
+// Вывести форму поиска
 echo $this->render('_search', [
     'model' => $searchModel,
     'filterStatus' => $filterStatus,
@@ -123,7 +124,7 @@ $columnsEnabled['view'] = [
             Url::toRoute(array_merge(['view', 'id' => $item->id, 'redirectUrl' => '/document/index'], $urlParams)), ['title' => 'Просмотр']);
     }
 ];
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
@@ -132,7 +133,7 @@ echo GridView::widget([
 
         if (in_array($model->status, array_merge(Document::getErrorStatus(),['']))) {
             $options['class'] = 'bg-alert-danger';
-        } elseif (in_array($model->status, Document::getProcessingStatus())) {
+        } else if (in_array($model->status, Document::getProcessingStatus())) {
             $options['class'] = 'bg-alert-warning';
         }
         return $options;
@@ -140,15 +141,11 @@ echo GridView::widget([
     'columns' => $columnsEnabled
 ]);
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
 // Модальное окно формы поиска
 echo $this->render('@addons/edm/views/documents/_searchModal', ['model' => $searchModel]);
-
-?>

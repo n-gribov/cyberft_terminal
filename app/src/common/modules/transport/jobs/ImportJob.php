@@ -190,36 +190,20 @@ class ImportJob extends RegularJob
             'terminalId' => Terminal::getIdByAddress($cyxDoc->senderId)
         ]);
 
+        // Если модель успешно сохранена в БД
         if ($document->save()) {
-            // StatusReport должен проходить через другую очередь
-//            if ($cyxDoc->docType == StatusReportType::TYPE) {
-//
-//                Yii::$app->resque->enqueue(
-//                    'common\jobs\StateJob',
-//                    [
-//                        'stateClass' => 'common\states\out\ServiceOutState',
-//                        'params' => serialize([
-//                            'status' => 'sign',
-//                            'documentId' => $document->id
-//                        ])
-//                    ],
-//                    true,
-//                    \common\components\Resque::OUTGOING_QUEUE
-//                );
-//            } else {
-                Yii::$app->resque->enqueue(
-                    'common\jobs\StateJob',
-                    [
-                        'stateClass' => 'common\states\out\SendingState',
-                        'params' => serialize([
-                            'status' => 'sign',
-                            'documentId' => $document->id
-                        ])
-                    ],
-                    true,
-                    \common\components\Resque::OUTGOING_QUEUE
-                );
-//            }
+            Yii::$app->resque->enqueue(
+                'common\jobs\StateJob',
+                [
+                    'stateClass' => 'common\states\out\SendingState',
+                    'params' => serialize([
+                        'status' => 'sign',
+                        'documentId' => $document->id
+                    ])
+                ],
+                true,
+                \common\components\Resque::OUTGOING_QUEUE
+            );
 
             return true;
         }
@@ -230,29 +214,29 @@ class ImportJob extends RegularJob
     protected function checkSender($sender)
     {
     	try {
-			// Выясняем, какому участнику принадлежит терминал, от лица которого отсылается документ
-			if (($extracted = TerminalId::extract($sender))) {
-				$participant = $extracted->participantId;
-			} else {
-				throw new ErrorException("No participant exists for sender {$sender}");
-			}
+            // Выясняем, какому участнику принадлежит терминал, от лица которого отсылается документ
+            if (($extracted = TerminalId::extract($sender))) {
+                $participant = $extracted->participantId;
+            } else {
+                throw new ErrorException("No participant exists for sender {$sender}");
+            }
 
-			// В цикле ищем соответствие участника терминалам, указанным в конфигурации терминала
-			foreach (Yii::$app->terminals->addresses as $terminalId) {
-				if (($extracted = TerminalId::extract($terminalId))) {
-					$configuredParticipant = $extracted->participantId;
-				} else {
-					throw new ErrorException("No participant exists for Terminal configuration {$terminalId}");
-				}
-				// Соответствие есть.
-				if ($participant == $configuredParticipant) {
-					return true;
-				}
-			}
-			// Сюда попадаем, если нет соответствий в конфиге, и мы не можем отсылать
-			// "не свои" документы
-			throw new ErrorException("Illegal document sender {$sender}");
-		} catch(ErrorException $ex) {
+            // В цикле ищем соответствие участника терминалам, указанным в конфигурации терминала
+            foreach (Yii::$app->exchange->addresses as $terminalId) {
+                if (($extracted = TerminalId::extract($terminalId))) {
+                    $configuredParticipant = $extracted->participantId;
+                } else {
+                    throw new ErrorException("No participant exists for Terminal configuration {$terminalId}");
+                }
+                // Соответствие есть.
+                if ($participant == $configuredParticipant) {
+                    return true;
+                }
+            }
+            // Сюда попадаем, если нет соответствий в конфиге, и мы не можем отсылать
+            // "не свои" документы
+            throw new ErrorException("Illegal document sender {$sender}");
+        } catch(ErrorException $ex) {
             $this->log('Error while checking sender: ' . $ex->getMessage());
         }
 

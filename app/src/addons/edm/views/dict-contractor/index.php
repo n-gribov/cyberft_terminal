@@ -33,117 +33,117 @@ $userCanCreateDocuments = Yii::$app->user->can(
 <?php } ?>
 
 <?php
-    $gridOptions = [
-        'dataProvider' => $dataProvider,
-        'filterModel'  => $searchModel,
-        'rowOptions' => function ($model){
-            $options['ondblclick'] = "window.location='".
-                Url::toRoute(['view', 'id' => $model->id]) ."'";
+$gridOptions = [
+    'dataProvider' => $dataProvider,
+    'filterModel'  => $searchModel,
+    'rowOptions' => function ($model){
+        $options['ondblclick'] = "window.location='".
+            Url::toRoute(['view', 'id' => $model->id]) ."'";
 
-            return $options;
-        },
-        'columns'      => [
-            [
-                'class' => 'yii\grid\SerialColumn',
-                'headerOptions' => [
-                    'class' => 'text-right',
-                ],
-                'contentOptions' => [
-                    'class' => 'text-right',
-                ],
+        return $options;
+    },
+    'columns'      => [
+        [
+            'class' => 'yii\grid\SerialColumn',
+            'headerOptions' => [
+                'class' => 'text-right',
             ],
-            [
-                'attribute' => 'id',
-                'options' => [
-                    'width' => 40,
-                ],
-                'headerOptions' => [
-                    'class' => 'text-right',
-                ],
-                'filterInputOptions' => [
-                    'maxLength' => 5,
-                    'style'     => 'width:50px;float:right;'
-                ],
-                'contentOptions' => [
-                    'class' => 'text-right',
-                ],
-            ],
-            [
-                'attribute' => 'bank.name',
-                'label' => Yii::t('edm', 'Bank name'),
-            ],
-            [
-                'attribute' => 'terminalId',
-                'filterInputOptions' => [
-                    'maxLength' => 12,
-                ],
-            ],
-            [
-                'attribute' => 'kpp',
-                'headerOptions' => [
-                    'class' => 'text-right',
-                ],
-                'filterInputOptions' => [
-                    'maxLength' => 9,
-                    'style'     => 'float:right;'
-                ],
-                'contentOptions' => [
-                    'class' => 'text-right',
-                ],
-            ],
-            [
-                'attribute' => 'inn',
-                'headerOptions' => [
-                    'class' => 'text-right',
-                ],
-                'filterInputOptions' => [
-                    'maxLength' => 12,
-                    'style'     => 'float:right;'
-                ],
-                'contentOptions' => [
-                    'class' => 'text-right',
-                ],
-            ],
-            [
-                'attribute' => 'account',
-                'filterInputOptions' => [
-                    'maxLength' => 20,
-                ],
-            ],
-            [
-                'attribute' => 'bankBik',
-                'headerOptions' => [
-                    'class' => 'text-right',
-                ],
-                'filterInputOptions' => [
-                    'maxLength' => 10,
-                    'style'     => 'float:right;'
-                ],
-                'contentOptions' => [
-                    'class' => 'text-right',
-                ],
-            ],
-            'name',
-            [
-                'attribute' => 'role',
-                'value' => function($item) {
-                    return $item->getRoleLabel();
-                },
-            ],
-            [
-                'attribute' => 'type',
-                'value' => function($item) {
-                    return $item->getTypeLabel();
-                },
+            'contentOptions' => [
+                'class' => 'text-right',
             ],
         ],
-    ];
+        [
+            'attribute' => 'id',
+            'options' => [
+                'width' => 40,
+            ],
+            'headerOptions' => [
+                'class' => 'text-right',
+            ],
+            'filterInputOptions' => [
+                'maxLength' => 5,
+                'style'     => 'width:50px;float:right;'
+            ],
+            'contentOptions' => [
+                'class' => 'text-right',
+            ],
+        ],
+        [
+            'attribute' => 'bank.name',
+            'label' => Yii::t('edm', 'Bank name'),
+        ],
+        [
+            'attribute' => 'terminalId',
+            'filterInputOptions' => [
+                'maxLength' => 12,
+            ],
+        ],
+        [
+            'attribute' => 'kpp',
+            'headerOptions' => [
+                'class' => 'text-right',
+            ],
+            'filterInputOptions' => [
+                'maxLength' => 9,
+                'style'     => 'float:right;'
+            ],
+            'contentOptions' => [
+                'class' => 'text-right',
+            ],
+        ],
+        [
+            'attribute' => 'inn',
+            'headerOptions' => [
+                'class' => 'text-right',
+            ],
+            'filterInputOptions' => [
+                'maxLength' => 12,
+                'style'     => 'float:right;'
+            ],
+            'contentOptions' => [
+                'class' => 'text-right',
+            ],
+        ],
+        [
+            'attribute' => 'account',
+            'filterInputOptions' => [
+                'maxLength' => 20,
+            ],
+        ],
+        [
+            'attribute' => 'bankBik',
+            'headerOptions' => [
+                'class' => 'text-right',
+            ],
+            'filterInputOptions' => [
+                'maxLength' => 10,
+                'style'     => 'float:right;'
+            ],
+            'contentOptions' => [
+                'class' => 'text-right',
+            ],
+        ],
+        'name',
+        [
+            'attribute' => 'role',
+            'value' => function($item) {
+                return $item->getRoleLabel();
+            },
+        ],
+        [
+            'attribute' => 'type',
+            'value' => function($item) {
+                return $item->getTypeLabel();
+            },
+        ],
+    ],
+];
 
-    if ($userCanCreateDocuments) {
-        $gridOptions['actions'] = '{view} {update} {delete}';
-    } else {
-        $gridOptions['actions'] = '{view}';
-    }
-?>
+if ($userCanCreateDocuments) {
+    $gridOptions['actions'] = '{view} {update} {delete}';
+} else {
+    $gridOptions['actions'] = '{view}';
+}
 
-<?=GridView::widget($gridOptions);?>
+// Создать таблицу для вывода
+echo GridView::widget($gridOptions);

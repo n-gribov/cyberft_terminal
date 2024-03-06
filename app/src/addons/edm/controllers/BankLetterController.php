@@ -27,6 +27,9 @@ use yii\web\Response;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 
+/**
+* Класс контроллера обслуживает базовые запросы к странице с письмами в банк
+*/
 class BankLetterController extends BaseServiceController
 {
     public function behaviors()
@@ -73,34 +76,46 @@ class BankLetterController extends BaseServiceController
         return $actions;
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
+        // Модель фильтра для поиска в списке писем
         $filterModel = new BankLetterSearch();
+        // Поставщик данных для списка писем
         $dataProvider = $filterModel->search(Yii::$app->request->queryParams);
+        // Форма создания нового письма в банк
         $newLetterForm = new BankLetterForm(['user' => Yii::$app->user->identity]);
-
+        // Получить закешированные записи из компонента controllerCache
         $cachedEntries = (new ControllerCache('bankLetters'))->get();
+        // Получить список помеченных документов из закешированных записей
         $selectedDocumentsIds = array_keys($cachedEntries['entries']);
 
+        // Вывести страницу с данными о письмах в банк
         return $this->render(
             'index',
             compact('newLetterForm', 'dataProvider', 'filterModel', 'selectedDocumentsIds')
         );
     }
 
+    /**
+     * Метод обрабатывает просмотр письма в банк
+     * @param type $id идентификатор письма
+     * @return type
+     * @throws NotFoundHttpException
+     */
     public function actionView($id)
     {
+        // Найти в БД документ с указанным id
         $document = $this->findDocument($id);
 
-        if ($document === null) {
-            throw new NotFoundHttpException();
-        }
-
+        // Если документ не был просмотрен, пометить как просмотренный и сохранить в БД
         if (!$document->viewed) {
             $document->viewed = 1;
             $document->save(false, ['viewed']);
         }
-
+        // Зарегистрировать событие просмотра документа в модуле мониторинга
         Yii::$app->monitoring->log(
             'user:viewDocument',
             'document',
@@ -112,36 +127,33 @@ class BankLetterController extends BaseServiceController
         );
 
         try {
+            // Создать модель просмотра письма из данных документа
             $letter = BankLetterViewModel::create($document);
         } catch (\Exception $ex) {
-            \Yii::info("Letter $id is malformed:");
-            \Yii::info($ex->getMessage());
+            // В случае ошибки записать в лог текст ошибки
+            \Yii::info("Letter $id is malformed: " . $ex->getMessage());
             return null;
         }
 
-        if ($document->type === Auth026Type::TYPE) {
-            $content = (string)CyberXmlDocument::getTypeModel($document->actualStoredFileId);
-            $tp = '';
-            if (!empty($content)) {
-                $xml = new SimpleXMLElement($content);
-                $tp = $xml->CcyCtrlReqOrLttr->ReqOrLttr->Tp;
-            }
-        } else {
-            $tp = null;
-        }
-
+        // Вернуть контент для модального окна
         return $this->renderPartial(
             '_viewModal',
-            compact('document', 'letter', 'tp')
+            compact('document', 'letter')
         );
     }
 
+    /**
+     * Метод создаёт письмо в банк
+     * @return type
+     */
     public function actionCreate()
     {
+        // Включить формат вывода JSON
         Yii::$app->getResponse()->format = Response::FORMAT_JSON;
 
         $model = new BankLetterForm(['user' => Yii::$app->user->identity]);
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $document = null;
             try {
@@ -156,8 +168,10 @@ class BankLetterController extends BaseServiceController
                 return [];
             }
 
+            // Поместить в сессию id сохранённого документа
             Yii::$app->session->setFlash('savedDocumentId', $document->id);
 
+            // Перенаправить на страницу индекса
             return $this->redirect(Url::to('/edm/bank-letter/index'));
         }
 
@@ -171,10 +185,12 @@ class BankLetterController extends BaseServiceController
 
     public function actionUpdate()
     {
+        // Включить формат вывода JSON
         Yii::$app->getResponse()->format = Response::FORMAT_JSON;
 
         $model = new BankLetterForm(['user' => Yii::$app->user->identity]);
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $document = $this->findDocument($model->documentId);
             try {
@@ -185,9 +201,10 @@ class BankLetterController extends BaseServiceController
 
                 return [];
             }
-
+            // Поместить в сессию флаг id сохранённого документа
             Yii::$app->session->setFlash('savedDocumentId', $document->id);
 
+            // Перенаправить на страницу индекса
             return $this->redirect(Url::to('/edm/bank-letter/index'));
         }
 
@@ -212,9 +229,11 @@ class BankLetterController extends BaseServiceController
 
     public function actionValidate()
     {
+        // Включить формат вывода JSON
         Yii::$app->getResponse()->format = Response::FORMAT_JSON;
 
         $model = new BankLetterForm(['user' => Yii::$app->user->identity]);
+        // Загрузить данные модели из формы в браузере
         $model->load(Yii::$app->request->post());
 
         return ActiveForm::validate($model);
@@ -225,14 +244,19 @@ class BankLetterController extends BaseServiceController
         $document = $this->findDocument($id);
         if ($document->status === Document::STATUS_CREATING && $document->signaturesRequired == $document->signaturesCount) {
             $document->updateStatus(Document::STATUS_ACCEPTED);
+            // Обработать документ в модуле аддона
             Yii::$app->getModule('edm')->processDocument($document);
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($document, true);
             DocumentHelper::waitForDocumentsToLeaveStatus([$document->id], Document::STATUS_SERVICE_PROCESSING);
+            // Поместить в сессию флаг сообщения об успешной отправке документа
             Yii::$app->session->setFlash('success', Yii::t('document', 'Document was sent'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке отправки документа
             Yii::$app->session->setFlash('error', Yii::t('document', 'Failed to send document'));
         }
 
+        // Перенаправить на страницу индекса
         return $this->redirect('/edm/bank-letter/index');
     }
 
@@ -267,6 +291,7 @@ class BankLetterController extends BaseServiceController
 
     public function actionUploadAttachedFile()
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $uploadedFile = UploadedFile::getInstanceByName('file');
@@ -286,6 +311,7 @@ class BankLetterController extends BaseServiceController
     public function actionMarkAllAsRead()
     {
         Document::updateAll(['viewed' => 1], ['id' => BankLetterSearch::getUnreadIds()]);
+        // Перенаправить на предыдущую страницу
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -293,13 +319,10 @@ class BankLetterController extends BaseServiceController
     {
         $jsonList = Yii::$app->request->post('list', '[]');
 
-        return $this->renderPartial(
-            $view,
-            [
-                'models' => $itemClass::createListFromJson($jsonList),
-                'params' => $params,
-            ]
-        );
+        return $this->renderPartial($view, [
+            'models' => $itemClass::createListFromJson($jsonList),
+            'params' => $params,
+        ]);
     }
 
     private function findDocument($id)
@@ -308,7 +331,11 @@ class BankLetterController extends BaseServiceController
         $query = BankLetterSearch::find();
         $searchModel->applyQueryFilters(['id' => $id], $query);
 
-        return $query->one();
+        $document = $query->one();
+        if ($document === null) {
+            throw new NotFoundHttpException();
+        }
+        return $document;
     }
 
 }

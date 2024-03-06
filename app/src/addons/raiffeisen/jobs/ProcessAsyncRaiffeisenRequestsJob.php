@@ -73,6 +73,7 @@ class ProcessAsyncRaiffeisenRequestsJob extends BaseJob
     {
         $this->log("Processing response for {$request->documentType}, {$request->id}...", false);
         $request->responseCheckDate = date('Y-m-d H:i:s');
+        // Сохранить модель в БД
         $request->save();
 
         list($hasResponse, $canRetry) = $this->checkResponse($request, $responseBody);
@@ -80,6 +81,7 @@ class ProcessAsyncRaiffeisenRequestsJob extends BaseJob
         if (!$hasResponse) {
             if (!$canRetry) {
                 $request->status = RaiffeisenRequest::STATUS_REJECTED;
+                // Сохранить модель в БД
                 $request->save();
             }
             $request->releaseLock();

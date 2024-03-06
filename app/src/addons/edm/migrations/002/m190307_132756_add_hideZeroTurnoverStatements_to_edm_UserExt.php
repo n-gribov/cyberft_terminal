@@ -26,6 +26,7 @@ class m190307_132756_add_hideZeroTurnoverStatements_to_edm_UserExt extends Migra
                 );
                 $record->permissions = $permissions;
                 $record->hideZeroTurnoverStatements = true;
+                // Сохранить модель в БД
                 $record->save();
             }
         }
@@ -42,6 +43,7 @@ class m190307_132756_add_hideZeroTurnoverStatements_to_edm_UserExt extends Migra
             if ($record->hideZeroTurnoverStatements) {
                 $permissions[] = 'hideStatementsNullTurnovers';
                 $record->permissions = $permissions;
+                // Сохранить модель в БД
                 $record->save();
             }
         }

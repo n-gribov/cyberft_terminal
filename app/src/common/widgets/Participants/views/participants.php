@@ -19,14 +19,16 @@ echo $form->field($model, 'recipient')->widget(Select2::classname(), [
     'options'       => ['placeholder' => Yii::t('doc/mt', 'Select recipient'), 'class' => 'recepient-select', 'id' => 'wizardform-recipient'],
     'pluginOptions' => [
         'allowClear' => true,
-        'templateSelection' => new JsExpression('function(item) {
-            <!-- Убираем ID терминала из полного названия участника -->
-            return item.text.replace("(" + item.id + ")", "");
-        }'),
+        // Убираем ID терминала из полного названия участника
+        'templateSelection' => new JsExpression(<<<JS
+            function(item) {
+                return item.text.replace('(' + item.id + ')', '');
+            }
+        JS),
     ],
     'pluginEvents'  => [
-        "change"          => "onRecipientChange",
-        "select2-removed" => "resetTerminalCodesList",
+        'change'          => 'onRecipientChange',
+        'select2-removed' => 'resetTerminalCodesList',
     ],
 ]);
 
@@ -34,10 +36,7 @@ echo $form->field($model, 'recipient')->widget(Select2::classname(), [
 // Адрес для AJAX-запроса
 $terminalCodesUrl = Url::to(['/certManager/cert/terminal-codes']);
 // Начальное значение для инициализации списка кодов терминалов
-$initialSelection = empty($model->terminalCode)
-    ? 'null'
-    : "'" . $model->terminalCode . "'";
-
+$initialSelection = empty($model->terminalCode) ? 'null' : "'" . $model->terminalCode . "'";
 
 $this->registerJs(<<<JS
 
@@ -108,12 +107,12 @@ JS
     , yii\web\View::POS_READY
 );
 
-$this->registerCss(
-    ".block-terminal-id {
+$this->registerCss(<<<CSS
+    .block-terminal-id {
         margin: 0;
         margin-top: 10px;
         font-size: 15px;
         color: #6697C4;
         font-weight: bold;
-    }"
-);
+    }
+CSS);

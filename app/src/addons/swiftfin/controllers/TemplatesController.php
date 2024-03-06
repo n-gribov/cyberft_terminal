@@ -22,16 +22,16 @@ class TemplatesController extends BaseServiceController
     public function behaviors()
     {
         return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
                         'roles' => [DocumentPermission::VIEW],
                         'roleParams' => ['serviceId' => SwiftfinModule::SERVICE_ID],
-					],
-				],
-			],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -42,9 +42,11 @@ class TemplatesController extends BaseServiceController
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
+            // Получить из БД список шаблонов через компонент авторизации доступа к терминалам
             'query' => Yii::$app->terminalAccess->query(SwiftfinTemplate::className())
         ]);
 
+        // Вывести страницу
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'listType' => 'swiftTemplates',
@@ -59,7 +61,9 @@ class TemplatesController extends BaseServiceController
      */
     public function actionView($id)
     {
+        // Вывести страницу
         return $this->render('view', [
+            // Получить из БД документ с указанным id
             'model' => $this->findModel($id),
         ]);
     }
@@ -71,44 +75,47 @@ class TemplatesController extends BaseServiceController
      */
     public function actionCreate()
     {
-        $model = new SwiftfinTemplate(['terminalId' => Yii::$app->terminals->defaultTerminal->id]);
+        $model = new SwiftfinTemplate(['terminalId' => Yii::$app->exchange->defaultTerminal->id]);
 
         if (Yii::$app->request->get('fromId')) {
+            // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
             $importDocument = Yii::$app->terminalAccess->findModel(
                     Document::className(),
                     Yii::$app->request->get('fromId')
             );
-            
-            if ($importDocument !== null) {
-                $model->sender = $importDocument->sender;
-                $model->recipient = $importDocument->receiverParticipantId;
-                $model->docType = str_replace('MT', '', $importDocument->type);
-                $text = (string) CyberXmlDocument::getTypeModel($importDocument->actualStoredFileId);
 
-                if (preg_match('#{3:{113:(.+?)}}#is', $text, $arr)) {
-                    $model->bankPriority = $arr[1];
-                }
+            $model->sender = $importDocument->sender;
+            $model->recipient = $importDocument->receiverParticipantId;
+            $model->docType = str_replace('MT', '', $importDocument->type);
+            $text = (string) CyberXmlDocument::getTypeModel($importDocument->actualStoredFileId);
 
-                if (preg_match('#{4:(.+?)-}#is', $text, $arr)) {
-                    $model->text = $arr[1];
-                }
+            if (preg_match('#{3:{113:(.+?)}}#is', $text, $arr)) {
+                $model->bankPriority = $arr[1];
+            }
 
+            if (preg_match('#{4:(.+?)-}#is', $text, $arr)) {
+                $model->text = $arr[1];
             }
         }
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($model->load(Yii::$app->request->post())) {
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
-                // Регистрация события создания шаблона
+                // Зарегистрировать событие создания шаблона в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('CreateTemplateSwiftfin', ['swiftfinTemplateId' => $model->id]);
 
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['view', 'id' => $model->id]);
             }
 
+            // Поместить в сессию флаг сообщения об ошибке сохранения шаблона
             Yii::$app->session->setFlash('error', Yii::t('app/swiftfin', 'Could not save template'));
         }
 
-        $model->sender = Yii::$app->terminals->defaultTerminal->terminalId;
+        $model->sender = Yii::$app->exchange->defaultTerminal->terminalId;
 
+        // Вывести страницу создания
         return $this->render('create', [
             'model' => $model,
             'docTypes' => $this->getSwiftTypes()
@@ -124,12 +131,15 @@ class TemplatesController extends BaseServiceController
      */
     public function actionUpdate($id)
     {
+        // Получить из БД документ с указанным id
         $model = $this->findModel($id);
 
+        // Если данные модели успешно загружены из формы в браузере и модель сохранена в БД
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // Перенаправить на страницу просмотра
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-
+            // Вывести страницу редактирования
             return $this->render('update', [
                 'model' => $model,
                 'docTypes' => $this->getSwiftTypes()
@@ -145,21 +155,17 @@ class TemplatesController extends BaseServiceController
      */
     public function actionDelete($id)
     {
+        // Найти документ в БД и удалить его из БД
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
 
     public function actionCreateSwiftfin($id)
     {
+        // Получить из БД шаблон с указанным id через компонент авторизации доступа к терминалам
         $template = Yii::$app->terminalAccess->findModel(SwiftfinTemplate::className(), $id);
-
-        // Обработка ошибки, когда данный шаблон не найден
-
-        if (empty($template)) {
-            Yii::$app->session->setFlash('error',Yii::t('doc/swiftfin','Unable to create document from template'));
-            return $this->redirect(['view', 'id' => $id]);
-        }
 
         // Кэширование данных шаблона
 
@@ -173,29 +179,21 @@ class TemplatesController extends BaseServiceController
         Yii::$app->cache->set('swiftfin/wizard/step1-' . Yii::$app->session->id, $wizard);
         Yii::$app->cache->set('swiftfin/template-text', $template->text);
 
+        // Перенаправить на страницу визарда
         return $this->redirect(['/swiftfin/wizard/']);
 
     }
 
     /**
-     * Finds the SwiftfinTemplate model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return SwiftfinTemplate the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * Метод ищет модель шаблона в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
      */
     protected function findModel($id)
     {
-        $model = Yii::$app->terminalAccess->findModel(
-            SwiftfinTemplate::className(),
-            $id
-        );
-
-        if ($model) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        // Получить из БД шаблон с указанным id через компонент авторизации доступа к терминалам
+        $model = Yii::$app->terminalAccess->findModel(SwiftfinTemplate::className(), $id);
+ 
+        return $model;
     }
 
     protected function getSwiftTypes()

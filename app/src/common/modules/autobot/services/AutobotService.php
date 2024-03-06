@@ -43,12 +43,14 @@ class AutobotService
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
+            // Сохранить модель в БД
             $isSaved = $autobot->save();
             if (!$isSaved) {
                 throw new \Exception('Failed to save autobot');
             }
             $certificate = $this->registerKeyInProcessing($autobot, $keyPassword);
             $this->updateAutobotStatus($autobot, $certificate, $keyPassword);
+            // Зарегистрировать событие в модуле мониторинга
             Yii::$app->monitoring->extUserLog('CreateControllerKey', ['id' => $autobot->id]);
             $transaction->commit();
         } catch (\Exception $exception) {
@@ -106,6 +108,7 @@ class AutobotService
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
+            // Сохранить модель в БД
             $isSaved = $autobot->save();
             if (!$isSaved) {
                 throw new \Exception('Failed to save autobot');
@@ -114,6 +117,7 @@ class AutobotService
                 $certificateFromProcessing = $this->registerKeyInProcessing($autobot, $form->password);
             }
             $this->updateAutobotStatus($autobot, $certificateFromProcessing, $form->password);
+            // Зарегистрировать событие в модуле мониторинга
             Yii::$app->monitoring->extUserLog('CreateControllerKey', ['id' => $autobot->id]);
             $transaction->commit();
         } catch (\Exception $exception) {
@@ -137,6 +141,7 @@ class AutobotService
                 Yii::t('app/autobot', 'Failed to delete the active controller key')
             );
         }
+        // Удалить автоподписанта из БД
         $autobot->delete();
     }
 
@@ -144,7 +149,7 @@ class AutobotService
     {
         if ($certificateFromProcessing->status === Certificate::STATUS_ACTIVE) {
             $autobot->activate($keyPassword);
-        } elseif ($certificateFromProcessing->status === Certificate::STATUS_PENDING) {
+        } else if ($certificateFromProcessing->status === Certificate::STATUS_PENDING) {
             $autobot->makeWaitingForActivation($keyPassword);
         } else {
             throw new \Exception("Got unsupported certificate status from processing: {$certificateFromProcessing->status}");

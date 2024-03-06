@@ -23,16 +23,17 @@ if (isset($urlParams)) {
 
 $this->title = Yii::t('app', 'View Free Format document') . ' #' . $model->id;
 
+// Вывести шапку документа
 echo $this->render(
-	'@common/views/document/_header',
-	[
-		'model' => $model,
-		'referencingDataProvider' => $referencingDataProvider,
-		'urlParams' => $urlParams,
-		'mode' => $mode,
+    '@common/views/document/_header',
+    [
+        'model' => $model,
+        'referencingDataProvider' => $referencingDataProvider,
+        'urlParams' => $urlParams,
+        'mode' => $mode,
         'backUrl' => $backUrl,
-		'dataView' => '@addons/finzip/views/default/_view',
-	]
+        'dataView' => '@addons/finzip/views/default/_view',
+    ]
 );
 
 if (\Yii::$app->request->get('triggerSigning')) {

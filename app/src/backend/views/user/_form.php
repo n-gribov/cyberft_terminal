@@ -40,19 +40,15 @@ foreach($admins as $admin) {
     <div class="row"><div class="col-lg-6"><?= $form->field($model, 'middleName')->textInput(['maxlength' => 45]); ?></div></div>
 
     <?php
-
-    // Выбор роли пользователя и ответственного администратора доступен только главному администратору
-
-    if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
-    ?>
-
+        // Выбор роли пользователя и ответственного администратора доступен только главному администратору
+        if (Yii::$app->user->identity->role == User::ROLE_ADMIN) : ?>
         <div class="row"><div class="col-lg-6"><?= $form->field($model, 'role')->dropDownList($roleModels, ['options' => $options]); ?></div></div>
-
         <?php
             // Главный администратор не может выбирать сам у себя ответственного пользователя
-            if ($model->id != Yii::$app->user->identity->id) { ?>
+            if ($model->id != Yii::$app->user->identity->id) : ?>
                 <div class="row">
-                    <div class="col-lg-6"><?= $form->field($model, 'ownerId')->widget(Select2::classname(), [
+                    <div class="col-lg-6"><?= 
+                        $form->field($model, 'ownerId')->widget(Select2::classname(), [
                             'data' => $adminsList,
                             'options' => ['prompt' => ''],
                             'pluginOptions' => [
@@ -61,21 +57,15 @@ foreach($admins as $admin) {
                         ]) ?>
                     </div>
                 </div>
-        <?php } ?>
-
-    <?php } ?>
-
+        <?php endif ?>
+    <?php endif ?>
     <div class="row"><div class="col-lg-6">
-
     <?php
         // Если пользователь доп. администратор и открывает собственную страницу,
         // не отображаем форму выбора терминалов
         $adminIdentity = Yii::$app->user->identity;
-
         if (($adminIdentity->role == User::ROLE_ADMIN) ||
-            ($adminIdentity->role == User::ROLE_ADDITIONAL_ADMIN && $adminIdentity->id != $model->id)) {
-    ?>
-
+            ($adminIdentity->role == User::ROLE_ADDITIONAL_ADMIN && $adminIdentity->id != $model->id)) : ?>
     <div class="row signature-option">
         <div class="col-lg-6">
             <?= $form->field($model, 'signatureNumber')->dropDownList($model->getSignatureNumberLabels()); ?>
@@ -87,50 +77,43 @@ foreach($admins as $admin) {
             <?= $form->field($model, 'signatureLevel')->dropDownList($model->getSignatureLevelLabels(), ['prompt' => '-']); ?>
         </div>
     </div>
-
-    <?php } ?>
-
-
+    <?php endif ?>
     <div class="row"><div class="col-lg-6"><?= $form->field($model, 'authType')->dropDownList($model->getAuthTypeLabels()); ?></div></div>
-
     <div class="row">
         <div class="col-md-8">
             <div class="terminals-block">
-                <?php
-                    // Для формы создания нового пользователя
-                    // и редактирования существующего - разные представления
-                    // добавления терминалов
-                    if ($model->isNewRecord) {
-                        echo $this->render('terminals/_userTerminalListNewUser', [
-                            'model' => $model,
-                            'form' => $form,
-                            'userId' => $model->id,
-                            'dataProvider' => $dataProvider
-                        ]);
-                    }
-                ?>
+            <?php
+                // Для формы создания нового пользователя
+                // и редактирования существующего - разные представления
+                // добавления терминалов
+                if ($model->isNewRecord) {
+                    // Вывести страницу
+                    echo $this->render('terminals/_userTerminalListNewUser', [
+                        'model' => $model,
+                        'form' => $form,
+                        'userId' => $model->id,
+                        'dataProvider' => $dataProvider
+                    ]);
+                }
+            ?>
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-lg-12">
             <?= $form->field($model, 'disableTerminalSelect')->checkBox(); ?>
         </div>
     </div>
 
-    <?php if(!$model->isNewRecord): ?>
+    <?php if (!$model->isNewRecord) : ?>
         <div class="form-group">
-            <?=Html::checkbox('flushPassword', false, [
-                'id' => 'flushPassword'
-            ])?>
-            <?=Html::label(Yii::t('app/user', 'Reset password'), 'flushPassword')?>
+            <?= Html::checkbox('flushPassword', false, ['id' => 'flushPassword']) ?>
+            <?= Html::label(Yii::t('app/user', 'Reset password'), 'flushPassword') ?>
         </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?= Html::a(Yii::t('app', 'Back'), Yii::$app->request->referrer, ['class' => 'btn btn-default']) ?>
-
-	<?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 </div>
 <?php ActiveForm::end(); ?>
 
@@ -151,16 +134,14 @@ function toggleSignatureOptions(isShown) {
     }
 }
 
-(onRoleChange = function()
-{
-	var currentRole = rolesList.val();
-
-	if ({$adminRole} == currentRole) {
+(onRoleChange = function() {
+    var currentRole = rolesList.val();
+    if ({$adminRole} == currentRole) {
         toggleSignatureOptions(false);
         ownerUser.hide();
         servicesList.hide();
     } else if ({$additionalAdminRole} == currentRole) {
-	    toggleSignatureOptions(false);
+        toggleSignatureOptions(false);
         ownerUser.show();
         servicesList.show();
     } else {
@@ -168,11 +149,10 @@ function toggleSignatureOptions(isShown) {
         ownerUser.show();
         servicesList.show();
     }
-
 })();
 
-if(rolesList) {
-	rolesList.on('change', onRoleChange);
+if (rolesList) {
+    rolesList.on('change', onRoleChange);
 }
 
 // Добавление терминала при создании нового пользователя
@@ -196,9 +176,7 @@ $('.form-group').on('click', '#add-new-user-terminal', function(e) {
 // Удаление терминала при создании нового пользователя
 $('.form-group').on('click', '.delete-terminal-new-user', function(e) {
     e.preventDefault();
-
     var terminalId = $(this).data('terminal-id');
-
     // ajax-запрос на удаление терминала из списка терминалов пользователя
     $.ajax({
         url: '/user/delete-terminal-new-user',
@@ -208,21 +186,17 @@ $('.form-group').on('click', '.delete-terminal-new-user', function(e) {
             renderHtmlTerminalAnswer(html);
         }
     });
-
 });
 
 function renderHtmlTerminalAnswer(html) {
-     $('.terminals-block').html(html);
-     $('.terminals-block').find('[name="_csrf"]').detach();
+    $('.terminals-block').html(html);
+    $('.terminals-block').find('[name="_csrf"]').detach();
 }
 
-JS
-	, View::POS_READY);
+JS, View::POS_READY);
 
-$this->registerCss(
-    "#add-user-terminal {
+$this->registerCss(<<<CSS
+    #add-user-terminal {
       margin-top: 22px;
-    }"
-);
-
-?>
+    }
+CSS);

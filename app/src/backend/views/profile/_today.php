@@ -8,8 +8,7 @@
         <div class="panel-body main-panel-body">
             <?php
                 if (isset($todayBlocks['edmToday'])) {
-                    // Вывод информации по показателями
-                    // банковского обслуживания за текущий день
+                    // Вывести информацию по показателям банковского обслуживания за текущий день
                     echo $this->render('_edmToday', ['edmToday' => $todayBlocks['edmToday']]);
                 }
 

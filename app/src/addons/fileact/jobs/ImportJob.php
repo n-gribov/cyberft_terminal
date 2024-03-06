@@ -13,42 +13,42 @@ use Yii;
 
 class ImportJob extends RegularJob
 {
-    const BIN_WAITING = 20; // Время ожидания bin-файла (минуты)
+    // Время ожидания bin-файла (минуты)
+    const BIN_WAITING_MINUTES = 20;
 
-    /** @var FileActModule */
-	private $_module;
+    /** @var FileActModule $_module */
+    private $_module;
     private $_resXml;
     private $_resBin;
     private $_resError;
 
-	public function setUp()
-	{
-		parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
 
-		$this->_module = Yii::$app->getModule('fileact');
+        $this->_module = Yii::$app->getModule('fileact');
 
         if (!$this->_module) {
             throw new Resque_Job_DontPerform('FileAct module not found');
         }
 
-		$config = $this->_module->config;
+        $config = $this->_module->config;
         $serviceId = $this->_module->serviceId;
         $this->_resXml = Yii::$app->registry->getImportResource($serviceId, $config->resourceXml);
-		$this->_resBin = Yii::$app->registry->getImportResource($serviceId, $config->resourceBin);
+        $this->_resBin = Yii::$app->registry->getImportResource($serviceId, $config->resourceBin);
         $this->_resError = Yii::$app->registry->getImportResource($serviceId, $config->resourceError);
 
         if (!$this->_resXml || !$this->_resBin || !$this->_resError) {
             throw new Resque_Job_DontPerform('Resource configuration error');
         }
-	}
+    }
 
-	public function perform()
-	{
+    public function perform()
+    {
         $this->log('Importing FileAct data', false, 'regular-jobs');
+        $dirBin = $this->_resBin->getPath();
 
-		$dirBin = $this->_resBin->getPath();
-
-		foreach($this->_resXml->contents as $file) {
+        foreach($this->_resXml->contents as $file) {
             $model = $this->_module->saveFileAct($file, $dirBin);
 
             if (!$model || $model->hasErrors()) {
@@ -59,7 +59,7 @@ class ImportJob extends RegularJob
                         $currentTime = time();
                         $difference = ($currentTime - $valueTime) % 60;
 
-                        if ($difference >= self::BIN_WAITING) {
+                        if ($difference >= self::BIN_WAITING_MINUTES) {
                             $errorMessage = Yii::t('other', 'Processing FileAct failed: {xml}. Can not find bin file {bin}', [
                                 'xml' => FileHelper::mb_basename($file),
                                 'bin' => FileHelper::mb_basename($model->pduAttributes['file'])
@@ -101,7 +101,6 @@ class ImportJob extends RegularJob
                         rename($binFilePath, $dirError . '/' . $binFileName);
                     }
                 }
-
                 continue;
             }
 
@@ -111,8 +110,8 @@ class ImportJob extends RegularJob
             }
 
             $document = DocumentHelper::reserveDocument(
-                    $model->getType(), Document::DIRECTION_OUT, Document::ORIGIN_FILE,
-                    Yii::$app->terminals->defaultTerminal->id
+                $model->getType(), Document::DIRECTION_OUT, Document::ORIGIN_FILE,
+                Yii::$app->exchange->defaultTerminal->id
             );
 
             if ($document) {
@@ -145,8 +144,8 @@ class ImportJob extends RegularJob
 
                 unlink($file);
             }
-		}
-	}
+        }
+    }
 
     /**
      * @param string $file
@@ -166,6 +165,5 @@ class ImportJob extends RegularJob
             'senderTerminalAddress' => $model ? $model->sender : null,
         ]);
     }
-
 
 }

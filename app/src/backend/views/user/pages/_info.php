@@ -8,22 +8,19 @@ use common\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 ?>
-
-
 <div class="info-buttons">
-    <?php
-
+<?php
+    // Получить роль пользователя из активной сессии
     if (in_array(Yii::$app->user->identity->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN, User::ROLE_LSO, User::ROLE_RSO])) {
         if (UserHelper::canUpdateProfile($model->id) && UserHelper::userProfileAccess($model, true)) {
             echo Html::a(Yii::t('app', 'Update'), ['user/update', 'id' => $model->id], ['class' => 'btn btn-primary']);
         }
     }
-
-
-    ?>
+?>
 </div>
-
-<?=DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'id',
@@ -48,5 +45,4 @@ use common\helpers\Html;
             'value' => $model->getAuthTypeLabel()
         ]
     ],
-])
-?>
+]);

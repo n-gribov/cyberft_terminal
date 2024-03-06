@@ -3,8 +3,8 @@
 namespace addons\edm\models\BankLetter;
 
 use addons\edm\EdmModule;
-use addons\edm\models\LoanAgreementRegistrationRequest\LoanAgreementRegistrationRequestForm\NestedListItem;
 use common\helpers\Uuid;
+use common\models\listitem\NestedListItem;
 use Yii;
 use yii\web\UploadedFile;
 

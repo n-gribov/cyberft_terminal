@@ -139,12 +139,14 @@ if ($userCanDeleteDocuments || $userCanCreateDocuments) {
     $this->registerJs($checkboxesJs, View::POS_READY);
 }
 $this->registerJs($buttonsJs, View::POS_READY);
-?>
-<?php echo $this->render('_search', [
+
+// Вывести форму поиска
+echo $this->render('_search', [
     'model' => $filterModel,
     'filterStatus' => $filterStatus,
     'hideNullTurnovers' => false
-]); ?>
+]);
+?>
 
 <style>
     #btnCreate {
@@ -160,11 +162,11 @@ $this->registerJs($buttonsJs, View::POS_READY);
     // Рисуем кнопку "Создать" только если $wizardType не пустой.
     // Если пустой - то визарда для данного типа документов нет.
     if ($userCanCreateDocuments && $wizardType) {
+        // Вывести кнопку
         echo $this->render('_fcoCreateButton', compact('wizardType'));
     }
 
     if ($userCanDeleteDocuments && $dataProvider->count > 0) {
-
         echo Html::a(
             Yii::t('app', 'Delete selected'),
             Url::toRoute(['foreign-currency-operations-delete']),
@@ -392,7 +394,7 @@ $columns['documentSum'] = [
         }
         if ($model->currencySum) {
             return $model->currencySum;
-        } elseif ($model->sum) {
+        } else if ($model->sum) {
             return $model->sum;
         }
     },
@@ -543,7 +545,7 @@ if ($userCanCreateDocuments) {
         ]
     ];
 }
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -574,7 +576,7 @@ $myGridWidget = InfiniteGridView::begin([
         if ($model->type == VTBRegisterCurType::TYPE) {
             if ($extModel->businessStatus == 'RJCT') {
                 $options['class'] = 'danger';
-            } else if(in_array($extModel->businessStatus,
+            } else if (in_array($extModel->businessStatus,
                 ['PRJT', 'PART', 'PACP', 'PPNG'])) {
                 $options['class'] = 'payment-orders-with-errors';
             }
@@ -632,27 +634,22 @@ echo ColumnsSettingsWidget::widget([
     'columnsDisabledByDefault' => $columnsDisabledByDefault,
 ]);
 
-// Всплывающее окно с формой
-
+// Вывести модальное окно с формой создания
 echo $this->render('_fcoCreateModal');
+// Вывести модальное окно с формой редактирования
 echo $this->render('_fcoUpdateModal');
-// Всплывающее окно с просмотром
+// Вывести модальное окно с просмотром
 echo $this->render('_fcoViewModal');
-// Всплывающее окно отказа подписания
+// Вывести модальное окно отказа подписания
 echo $this->render('_fcoRejectSigningModal');
-
-echo $this->render('_searchModal', [
-     'model' => $filterModel,
-]);
+// Вывести модальное олкно с формой поиска
+echo $this->render('_searchModal', ['model' => $filterModel]);
 ?>
 <script>
     function fcoModalView(id, type) {
-
         $('#fcoViewModal .modal-body').html('');
-
         var isModalView = true;
         var viewUrl = null;
-
         if (type === 'ForeignCurrencyPurchaseRequest' ||
             type === 'ForeignCurrencySellRequest') {
             viewUrl = '/edm/documents/foreign-currency-operation-view?id=' + id + '&ajax=1';
@@ -792,9 +789,7 @@ JS
 }
 
 echo ToTopButtonWidget::widget();
-
 ?>
-
 <style>
     .grid-view thead .dropdown-menu > li > a {
         padding: 3px 5px;

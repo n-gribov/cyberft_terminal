@@ -114,7 +114,7 @@ class OrgDataAType
     private $branchId = null;
 
     /**
-     * Признак принадлежности организации УФК: 0 – (FALSE), 1 –(TRUE).
+     * Признак принадлежности организации УФК: 0 – (false), 1 –(true).
      *
      * @property boolean $exportImportUFEBS
      */
@@ -604,7 +604,7 @@ class OrgDataAType
     /**
      * Gets as exportImportUFEBS
      *
-     * Признак принадлежности организации УФК: 0 – (FALSE), 1 –(TRUE).
+     * Признак принадлежности организации УФК: 0 – (false), 1 –(true).
      *
      * @return boolean
      */
@@ -616,7 +616,7 @@ class OrgDataAType
     /**
      * Sets a new exportImportUFEBS
      *
-     * Признак принадлежности организации УФК: 0 – (FALSE), 1 –(TRUE).
+     * Признак принадлежности организации УФК: 0 – (false), 1 –(true).
      *
      * @param boolean $exportImportUFEBS
      * @return static

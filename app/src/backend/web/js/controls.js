@@ -23,7 +23,7 @@
   });
 
   $(function() {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
   });
 
   // Хак для корректного вывода ширины блока переключателя с названиями терминалов
@@ -60,7 +60,7 @@
 function deprecateSpaceSymbol(elem) {
     // Запрет ввода пробела в качестве первого символа
     $('body').on('keypress', elem, function(e) {
-        if (this.selectionStart == 0 && e.keyCode == 32) {
+        if (this.selectionStart === 0 && e.keyCode === 32) {
             return false;
         }
     });

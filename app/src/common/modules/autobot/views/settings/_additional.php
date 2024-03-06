@@ -27,7 +27,7 @@ $form = ActiveForm::begin([
 <?php
 ActiveForm::end();
 
-$script = <<< JS
+$script = <<<JS
     // Подтверждение перед сохранением настроек
     $('body').on('submit', '#additionalTerminalsSettings', function() {
         var result = confirm("Внимание! Данные изменения отразятся на всех " +

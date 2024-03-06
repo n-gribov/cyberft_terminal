@@ -2,7 +2,6 @@
 
 namespace common\helpers;
 
-use addons\edm\models\PaymentStatusReport\PaymentStatusReportType;
 use NumberFormatter;
 use Yii;
 
@@ -66,10 +65,10 @@ class NumericHelper
             // Для валютного значения вводим другие обозначения денежных единиц
             $unit[] = ['цент', 'цента', 'центов', 1];
             $unit[] = ['доллар США', 'доллара США', 'долларов США', 0];
-        } elseif ($currency == 'EUR') {
+        } else if ($currency == 'EUR') {
             $unit[] = ['цент', 'цента', 'центов', 1];
             $unit[] = ['евро', 'евро', 'евро', 0];
-        } elseif ($currency == 'RUB' || $currency == 'RUR') {
+        } else if ($currency == 'RUB' || $currency == 'RUR') {
             $unit[] = ['копейка', 'копейки', 'копеек', 1];
             $unit[] = ['рубль', 'рубля', 'рублей', 0];
         } else {

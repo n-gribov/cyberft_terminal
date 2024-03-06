@@ -92,7 +92,7 @@ abstract class BaseIBankV1ToVTBConverter extends IBankToVTBConverter
                             [$this->createBSDocument($nestedDocumentClass, $nestedAttributes, $nestedValue, $topLevelBsDocument)]
                         );
                     }
-                } elseif ($field instanceof AttachmentField) {
+                } else if ($field instanceof AttachmentField) {
                     $iconsPath = Yii::getAlias('@common/models/vtbxml/documents/resources/attachment');
                     $icon16Content = file_get_contents("$iconsPath/icon16.ico");
                     $icon32Content = file_get_contents("$iconsPath/icon32.ico");

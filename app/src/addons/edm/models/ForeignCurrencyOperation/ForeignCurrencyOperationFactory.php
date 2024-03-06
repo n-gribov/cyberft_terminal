@@ -35,7 +35,6 @@ class ForeignCurrencyOperationFactory
     const OPERATION_PAYMENT = 'ForeignCurrencyPayment';
     const OPERATION_SELL_TRANSIT_ACCOUNT = 'ForeignCurrencySellTransitAccount';
     const OPERATION_CONVERSION = 'ForeignCurrencyConversion';
-    //
     const PROCESS_CREATE = 'createDocument';
     const PROCESS_UPDATE = 'updateDocument';
 
@@ -101,7 +100,7 @@ class ForeignCurrencyOperationFactory
     private static function validateFCO(& $typeModel)
     {
         // Терминал из списка терминалов текущего пользователя
-        $typeModel->sender = Yii::$app->terminals->getPrimaryTerminal();
+        $typeModel->sender = Yii::$app->exchange->getPrimaryTerminal();
 
         $debitAccount = EdmPayerAccount::findOne(['number' => $typeModel->debitAccount->number]);
 
@@ -349,9 +348,9 @@ class ForeignCurrencyOperationFactory
             } else if ($process == self::PROCESS_UPDATE) {
                 return 'fcp/_formModal';
             }
-        } else if($type == self::OPERATION_SELL_TRANSIT_ACCOUNT) {
+        } else if ($type == self::OPERATION_SELL_TRANSIT_ACCOUNT) {
             return 'fcst/_formModal';
-        } else if($type == self::OPERATION_CONVERSION) {
+        } else if ($type == self::OPERATION_CONVERSION) {
             return 'fcvn/_formModal';
         } else if ($type == self::OPERATION_SELL || $type == self::OPERATION_PURCHASE) {
             if ($process == self::PROCESS_CREATE) {
@@ -495,6 +494,7 @@ class ForeignCurrencyOperationFactory
             }
         }
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $pain001Type,
             $documentSettings,
@@ -516,9 +516,10 @@ class ForeignCurrencyOperationFactory
             throw new \Exception(Yii::t('app', 'Save document error'));
         }
 
+        // Получить документ из контекста
         $document = $context['document'];
 
-        // Удаление кэша
+        // Удалить кэш
         WizardCacheHelper::deleteFCOWizardCache($typeModel->getType());
 
         return $document;
@@ -574,8 +575,9 @@ class ForeignCurrencyOperationFactory
             throw new \Exception('Ошибка валидации swift-документа');
         }
 
-        $tempFile		 = Yii::getAlias('@temp/' . FileHelper::uniqueName() . '.swt');
+        $tempFile = Yii::getAlias('@temp/' . FileHelper::uniqueName() . '.swt');
         $swt->sourceFile = $tempFile;
+        // Сохранить модель в БД
         $swt->save();
 
         // Создание type-модели swift
@@ -613,6 +615,7 @@ class ForeignCurrencyOperationFactory
             }
         }
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $swiftTypeModel,
             $documentSettings,
@@ -633,6 +636,7 @@ class ForeignCurrencyOperationFactory
             throw new \Exception('Ошибка сохранения документа');
         }
 
+        // Получить документ из контекста
         $document = $context['document'];
 
         EdmHelper::createForeignCurrencyPaymentBeneficiary($typeModel);
@@ -716,6 +720,7 @@ class ForeignCurrencyOperationFactory
             }
         }
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $pain001RlsType,
             $documentSettings,
@@ -832,6 +837,7 @@ class ForeignCurrencyOperationFactory
             $currencyName = $creditAccountCurrencyName;
         }
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $pain001Type,
             $documentSettings,
@@ -1260,7 +1266,7 @@ class ForeignCurrencyOperationFactory
 
             $template->$key = $value;
         }
-
+        // Сохранить модель в БД и вернуть результат сохранения
         return $template->save();
     }
 

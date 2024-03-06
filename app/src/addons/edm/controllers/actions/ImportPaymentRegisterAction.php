@@ -23,7 +23,7 @@ class ImportPaymentRegisterAction extends Action
 
     public function run()
     {
-        $defaultUserTerminal = Yii::$app->terminals->getPrimaryTerminal();
+        $defaultUserTerminal = Yii::$app->exchange->getPrimaryTerminal();
         $this->terminalId = $defaultUserTerminal->id;
 
         if (empty($this->terminalId)) {
@@ -175,6 +175,7 @@ class ImportPaymentRegisterAction extends Action
 
     private function logInvalidDocument()
     {
+        // Зарегистрировать событие некорректного документа в модуле мониторинга
         Yii::$app->monitoring->log('edm:InvalidDocument');
     }
 
@@ -183,8 +184,10 @@ class ImportPaymentRegisterAction extends Action
         $savedModelsCount = 0;
 
         foreach ($this->models as $model) {
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
                 $savedModelsCount++;
+                // Зарегистрировать событие создания документа в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'user:createDocument',
                     'PaymentRegisterPaymentOrder',
@@ -218,6 +221,7 @@ class ImportPaymentRegisterAction extends Action
 
     private function showImportError($errorMessage)
     {
+        // Поместить в сессию флаг сообщения об ошибке импорта
         Yii::$app->session->addFlash(
             'warning',
             Yii::t('edm', 'Unable to import register') . '<br>' . $errorMessage

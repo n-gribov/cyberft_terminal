@@ -22,7 +22,9 @@ class AcknowledgementActController extends Controller
         $this->ensureUserHasAccess($certId, $autobotId, $userAuthCertId);
         $model = $this->buildForm($certId, $autobotId, $userAuthCertId);
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
+            // Загрузить данные модели из формы в браузере
             $model->load(Yii::$app->request->post());
             if ($model->validate()) {
                 $isGenerated = $model->generateAct();
@@ -38,6 +40,7 @@ class AcknowledgementActController extends Controller
 
                     return null;
                 } else {
+                    // Поместить в сессию флаг сообщения об ошибке
                     Yii::$app->session->setFlash('error', 'Не удалось создать файл акта');
                 }
             }
@@ -50,9 +53,9 @@ class AcknowledgementActController extends Controller
     {
         if ($certId) {
             return CertAcknowledgementActForm::buildForCert($certId);
-        } elseif ($autobotId) {
+        } else if ($autobotId) {
             return CertAcknowledgementActForm::buildForAutobot($autobotId, Yii::$app->user->identity);
-        } elseif ($userAuthCertId) {
+        } else if ($userAuthCertId) {
             return CertAcknowledgementActForm::buildForUserAuthCert($userAuthCertId);
         }
         throw new \InvalidArgumentException('Neither certId nor autobotId nor userCertId is provided');
@@ -71,18 +74,19 @@ class AcknowledgementActController extends Controller
         }
 
         if ($userAuthCertId) {
-            $userIdentity = Yii::$app->user->identity;
-            if ($userIdentity->role == User::ROLE_ADMIN) {
+            // Получить модель пользователя из активной сессии
+            $user = Yii::$app->user->identity;
+            if ($user->role == User::ROLE_ADMIN) {
                 return;
             }
             $userAuthCert = UserAuthCert::findOne($userAuthCertId);
             if ($userAuthCert === null) {
                 throw new NotFoundHttpException();
             }
-            if ($userAuthCert->userId == $userIdentity->id) {
+            if ($userAuthCert->userId == $user->id) {
                 return;
             }
-            if ($userIdentity->role == User::ROLE_ADMIN && $userAuthCert->user->ownerId == $userIdentity->id) {
+            if ($user->role == User::ROLE_ADMIN && $userAuthCert->user->ownerId == $user->id) {
                 return;
             }
             throw new ForbiddenHttpException();

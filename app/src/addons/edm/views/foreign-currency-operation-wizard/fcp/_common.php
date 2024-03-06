@@ -53,12 +53,22 @@ $modelClass = strtolower(StringHelper::basename(get_class($model)));
                     'delay'    => 250,
                     'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                        if (!item.number) return item.text; return item.name + ", " + item.number;// + ", " + item.currencyInfo.name;
-                    }'),
-                'templateSelection' => new JsExpression('function(item) {
-                        if (!item.number) return item.text; return item.name + ", " + item.number;// + ", " + item.currencyInfo.name;
-                    }'),
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number;
+                    }
+                JS),
+                'templateSelection' => new JsExpression(<<<JS
+                    function(item) {
+                        if (!item.number) {
+                            return item.text;
+                        }
+                        return item.name + ', ' + item.number;
+                    }
+                JS),
             ],
             'pluginEvents' => [
                 'select2:select' => 'function(e) { fcp_applyPayer(e.params.data, "' . $modelClass . '"); }',
@@ -147,14 +157,22 @@ $modelClass = strtolower(StringHelper::basename(get_class($model)));
                             'delay'    => 250,
                             'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
                         ],
-                        'templateResult' => new JsExpression('function(item) {
-                            if (!item.swiftCode) return item.text;
-                            return item.swiftCode + item.branchCode + " " + item.name;
-                          }'),
-                        'templateSelection'=> new JsExpression('function(item) {
-                            if (!item.swiftCode) return item.text;
-                            return item.swiftCode + item.branchCode;
-                          }'),
+                        'templateResult' => new JsExpression(<<<JS
+                            function(item) {
+                                if (!item.swiftCode) {
+                                    return item.text;
+                                }
+                                return item.swiftCode + item.branchCode + ' ' + item.name;
+                            }
+                        JS),
+                        'templateSelection' => new JsExpression(<<<JS
+                            function(item) {
+                                if (!item.swiftCode) {
+                                    return item.text;
+                                }
+                                return item.swiftCode + item.branchCode;
+                            }
+                        JS),
                         'width' => '50%',
                     ],
                     'pluginEvents'  => [
@@ -210,16 +228,22 @@ $modelClass = strtolower(StringHelper::basename(get_class($model)));
                     'delay'    => 250,
                     'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
                 ],
-                'templateResult' => new JsExpression('function(item) {
-                    if (item.name) {
-                        return item.name + ", " + item.account;
+                'templateResult' => new JsExpression(<<<JS
+                    function(item) {
+                        if (item.name) {
+                            return item.name + ', ' + item.account;
+                        }
+                        return null;
                     }
-                  }'),
-                'templateSelection'=> new JsExpression('function(item) {
-                    if (item.name) {
-                        return item.name + ", " + item.account;
+                JS),
+                'templateSelection'=> new JsExpression(<<<JS
+                    function(item) {
+                        if (item.name) {
+                            return item.name + ', ' + item.account;
+                        }
+                        return null;
                     }
-                  }'),
+                JS),
             ],
             'pluginEvents'  => [
                 'select2:select' => 'function(e) { fcp_applyBeneficiaryAccount(e.params.data, "' . $modelClass . '"); }',
@@ -239,13 +263,11 @@ $modelClass = strtolower(StringHelper::basename(get_class($model)));
                 )->label('Счет')?>
             </div>
             <div>
-                <?=$form->field($model, 'beneficiary')->textarea(
-                    [
-                        'rows' => 4,
-                        'class' => 'form-control mtmultiline validate-mask',
-                        'data' => ['limit' => '4,35']
-                    ]
-                )->label('Название<br/>Адрес', ['style' => 'vertical-align: top;'])?>
+                <?=$form->field($model, 'beneficiary')->textarea([
+                    'rows' => 4,
+                    'class' => 'form-control mtmultiline validate-mask',
+                    'data' => ['limit' => '4,35']
+                ])->label('Название<br/>Адрес', ['style' => 'vertical-align: top;'])?>
             </div>
         </div>
     </div>
@@ -287,14 +309,22 @@ $modelClass = strtolower(StringHelper::basename(get_class($model)));
                             'delay'    => 250,
                             'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
                         ],
-                        'templateResult' => new JsExpression('function(item) {
-                                if (!item.swiftCode) return item.text;
-                                return item.swiftCode + item.branchCode + " " + item.name;
-                             }'),
-                        'templateSelection'=> new JsExpression('function(item) {
-                               if (!item.swiftCode) return item.text;
-                               return item.swiftCode + item.branchCode;
-                             }'),
+                        'templateResult' => new JsExpression(<<<JS
+                            function(item) {
+                                if (!item.swiftCode) {
+                                    return item.text;
+                                }
+                                return item.swiftCode + item.branchCode + ' ' + item.name;
+                            }
+                        JS),
+                        'templateSelection'=> new JsExpression(<<<JS
+                            function(item) {
+                                if (!item.swiftCode) {
+                                   return item.text;
+                                }
+                                return item.swiftCode + item.branchCode;
+                            }
+                        JS),
                         'width' => '50%',
                     ],
                     'pluginEvents'  => [
@@ -317,13 +347,11 @@ $modelClass = strtolower(StringHelper::basename(get_class($model)));
             </div>
 
             <div>
-                <?=$form->field($model, 'beneficiaryBankAccount')->textInput(
-                    [
-                        'maxlength' => 34,
-                        'class' => 'form-control validate-mask',
-                        'data' => ['allowed-chars' => '[\dA-Za-z\/\-\?\:\(\)\.\,\'\+\{\}]']
-                    ]
-                )->label('Номер счета')?>
+                <?=$form->field($model, 'beneficiaryBankAccount')->textInput([
+                    'maxlength' => 34,
+                    'class' => 'form-control validate-mask',
+                    'data' => ['allowed-chars' => '[\dA-Za-z\/\-\?\:\(\)\.\,\'\+\{\}]']
+                ])->label('Номер счета')?>
             </div>
         </div>
     </div>
@@ -373,13 +401,11 @@ $modelClass = strtolower(StringHelper::basename(get_class($model)));
                     ])->label(false)?>
             </div>
             <div class="col-md-2">
-                <?=$form->field($model, 'currency')->textInput(
-                    [
-                        'id' => 'foreigncurrencypaymenttype-currency-commission',
-                        'class' => 'form-control foreigncurrencypayment-currency-commission',
-                        'readonly' => true
-                    ]
-                )->label(false)?>
+                <?=$form->field($model, 'currency')->textInput([
+                    'id' => 'foreigncurrencypaymenttype-currency-commission',
+                    'class' => 'form-control foreigncurrencypayment-currency-commission',
+                    'readonly' => true
+                ])->label(false)?>
             </div>
         </div>
         </div>

@@ -48,7 +48,7 @@ use common\helpers\StringHelper;
     </div>
 </div>
 
-<?php if ($model->payerBank || $model->payerBankName || $model->payerBankAddress): ?>
+<?php if ($model->payerBank || $model->payerBankName || $model->payerBankAddress) : ?>
     <div class="row">
         <div class="col-md-12">
             <h4>Банк плательщика / Ordering institution</h4>
@@ -69,10 +69,10 @@ use common\helpers\StringHelper;
             <span class="attribute-value"><?= Html::encode($model->payerBankAddress) ?></span>
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
 
-<?php if ($model->intermediaryBank || $model->intermediaryBankNameAndAddress): ?>
+<?php if ($model->intermediaryBank || $model->intermediaryBankNameAndAddress) : ?>
     <div class="row">
         <div class="col-md-12">
             <h4>Банк посредник / Intermediary institution</h4>
@@ -91,7 +91,7 @@ use common\helpers\StringHelper;
             : null;
         ?>
 
-        <?php if ($swiftFinBank): ?>
+        <?php if ($swiftFinBank) : ?>
             <div class="col-md-12">
                 <span class="attribute-title">Наименование</span>
                 <span class="attribute-value"><?= Html::encode($swiftFinBank->name) ?></span>
@@ -100,14 +100,14 @@ use common\helpers\StringHelper;
                 <span class="attribute-title">Адрес</span>
                 <span class="attribute-value"><?= Html::encode($swiftFinBank->address) ?></span>
             </div>
-        <?php else: ?>
+        <?php else : ?>
             <div class="col-md-12">
                 <span class="attribute-title">Наименование и адрес</span>
                 <span class="attribute-value"><?= Html::encode($model->intermediaryBankNameAndAddress) ?></span>
             </div>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
 <div class="row">
     <div class="col-md-12">
@@ -152,7 +152,7 @@ use common\helpers\StringHelper;
         : null;
     ?>
 
-    <?php if ($swiftFinBank): ?>
+    <?php if ($swiftFinBank) : ?>
         <div class="col-md-12">
             <span class="attribute-title">Наименование</span>
             <span class="attribute-value"><?= Html::encode($swiftFinBank->name) ?></span>
@@ -161,12 +161,12 @@ use common\helpers\StringHelper;
             <span class="attribute-title">Адрес</span>
             <span class="attribute-value"><?= Html::encode($swiftFinBank->address) ?></span>
         </div>
-    <?php else: ?>
+    <?php else : ?>
         <div class="col-md-12">
             <span class="attribute-title">Наименование и адрес</span>
             <span class="attribute-value"><?= Html::encode($model->beneficiaryBankNameAndAddress) ?></span>
         </div>
-    <?php endif; ?>
+    <?php endif ?>
 </div>
 
 <div class="row">

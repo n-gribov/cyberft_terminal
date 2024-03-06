@@ -269,13 +269,13 @@ class BaseDocumentState
 
         $this->dataModel->setAttributes($attributes);
 
-        $result = $this->dataModel->save();
-
-        if (!$result) {
+        // Сохранить модель в БД
+        $isSaved = $this->dataModel->save();
+        if (!$isSaved) {
             $this->log('Could not save state: ' . var_export($this->dataModel->errors, true));
         }
 
-        return $result;
+        return $isSaved;
     }
 
     public function packString($s)

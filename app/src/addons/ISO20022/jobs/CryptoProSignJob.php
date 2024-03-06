@@ -66,27 +66,33 @@ class CryptoProSignJob extends Job
                     : CryptoProHelper::sign($this->_module->getServiceId(), $typeModel);
                 if (!$isSigned) {
                     $extModel->extStatus = ISO20022DocumentExt::STATUS_CRYPTOPRO_SIGNING_ERROR;
+                    // Сохранить модель в БД
                     $extModel->save();
                     $document->updateStatus(Document::STATUS_PROCESSING_ERROR);
 
+                    // Зарегистрировать событие ошибки подписания Криптопро в модуле мониторинга
                     Yii::$app->monitoring->log('document:CryptoProSigningError', 'document', $document->id, [
                         'terminalId' => $document->terminalId
                     ]);
 
+                    // Сохранить модель в БД
                     $document->save();
 
                     throw new \Resque_Job_DontPerform('CryptoProHelper::sign(ISO20022) failed');
                 }
 
                 $extModel->extStatus = ISO20022DocumentExt::STATUS_CRYPTOPRO_SIGNING_SUCCESS;
+                // Сохранить модель в БД
                 $extModel->save();
 
                 $this->modifyStoredFile($typeModel);
                 $this->log($typeModel->type . ' ' . $document->id . ' signed with cryptopro keys');
             } else {
                 $extModel->extStatus = '';
+                // Сохранить модель в БД
                 $extModel->save();
             }
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($document, true);
         } catch(Exception $ex) {
             $this->log($ex->getMessage(), true);

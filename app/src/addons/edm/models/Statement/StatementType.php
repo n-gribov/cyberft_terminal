@@ -48,10 +48,9 @@ class StatementType extends BaseType
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),
-            [
-                [array_values($this->attributes()), 'safe'],
-            ]);
+        return ArrayHelper::merge(parent::rules(), [
+            [array_values($this->attributes()), 'safe'],
+        ]);
     }
 
     public function loadFromDataObject($obj)
@@ -75,6 +74,7 @@ class StatementType extends BaseType
     public function getModelDataAsString($removeXmlDeclaration = true)
     {
         if (!$this->_xmlDom) {
+            // Сформировать XML
             $xml = $this->buildXml();
             $body = StringHelper::fixBOM($xml->ownerDocument->saveXML());
         } else {
@@ -140,19 +140,19 @@ class StatementType extends BaseType
 
             $paymentOrderTypeParams = [
                 /** @todo unmapped fields from PaymentOrder */
-//    public $documentSendDate;
-//    public $openingBalance = 0;
-//    public $debitTurnover = 0;
-//    public $creditTurnover = 0;
-//    public $closingBalance = 0;
-//    public $documentDateFrom;
-//    public $documentDateBefore;
-//    public $organizationCheckingAccount;
-//    public $acceptPeriod;
-//    public $paymentOrderPaymentPurpose;
-//    public $payerDateEnrollment;
-//    public $beneficiaryDateDebiting;
-//    public $code;
+                //    public $documentSendDate;
+                //    public $openingBalance = 0;
+                //    public $debitTurnover = 0;
+                //    public $creditTurnover = 0;
+                //    public $closingBalance = 0;
+                //    public $documentDateFrom;
+                //    public $documentDateBefore;
+                //    public $organizationCheckingAccount;
+                //    public $acceptPeriod;
+                //    public $paymentOrderPaymentPurpose;
+                //    public $payerDateEnrollment;
+                //    public $beneficiaryDateDebiting;
+                //    public $code;
 
                 //'' => $transaction['Reference'],
                 //'' => $transaction['OKUD'],
@@ -200,7 +200,7 @@ class StatementType extends BaseType
                 'paymentOrderPaymentPurpose' => $transaction['IncomeTypeCode'] ?? null,
             ];
 
-            // Поля требуемые для платежного поручения
+            // Поля, требуемые для платежного поручения
             $paymentOrderTypeParams['okud'] = isset($transaction['OKUD']) ? $transaction['OKUD'] : null;
             $paymentOrderTypeParams['acceptanceEndDate'] = isset($transaction['AcceptanceEndDate']) ? $transaction['AcceptanceEndDate'] : null;
             $paymentOrderTypeParams['paymentCondition1'] = isset($transaction['PaymentCondition1']) ? $transaction['PaymentCondition1'] : null;
@@ -213,16 +213,21 @@ class StatementType extends BaseType
         return null;
     }
 
-	public function getSearchFields()
-	{
-		return [
-			'body' => $this->getModelDataAsString()
-		];
-	}
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields()
+    {
+        return [
+            'body' => $this->getModelDataAsString()
+        ];
+    }
 
     public function isTodaysStatement(): bool
     {
         $today = (new \DateTime())->format('d.m.Y');
+
         return $this->statementPeriodStart === $today
             && $this->statementPeriodEnd === $today;
     }

@@ -1,17 +1,32 @@
 <?php
+/**
+ * Конфигурационный файл для отображения меню ISO20022
+  */
 return [
+    // id
     'id' => 'ISO20022',
+    // Название пункта меню
     'label'       => 'ISO20022',
+    // В каком окружении показывать
     'environment' => 'DEBUG',
+    // Ссылка на пункт меню
     'url'         => ['/ISO20022/documents'],
+    // Иконка меню
     'iconClass'   => 'ic-reload',
+    // Ид сервиса
     'serviceID'   => 'ISO20022',
+    // После какого пункта меню ставить
     'after'       => 'Edm',
-    'items'       => [
+    // Подразделы
+    'items' => [
         [
+            // Название подраздела
             'label'      => 'Document Register',
+            // Ссылка на подраздел
             'url'        => ['/ISO20022/documents'],
+            // Уровни доступа
             'permission' => \common\document\DocumentPermission::VIEW,
+            // Параметры уровней доступа
             'permissionParams' => ['serviceId' => \addons\ISO20022\ISO20022Module::SERVICE_ID],
 	],
         [

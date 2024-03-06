@@ -10,10 +10,12 @@ use yii\widgets\DetailView;
 $this->title = 'Сертификат ключа ' . $model->user->name .' ('. $model->fingerprint . ')';
 ?>
 <div class="tab-buttons" style="margin-bottom: 1em;">
-    <?= Html::a(Yii::t('app', 'Back'), '/user/view?id=' . $model->userId . '&tabMode=certs', ['class' => 'btn btn-default']) ?>
+    <?= Html::a(Yii::t('app', 'Back'), '/user/view?id=' . $model->userId . '&tabMode=certs',
+            ['class' => 'btn btn-default']) ?>
 <?php
     // Если keyId не подается, значит у нас предпросмотр
     if (isset($keyId)) {
+        // Вывести форму замены сертификата
         echo $this->render('@backend/views/user/certs/_replaceCertForm', ['model' => $uploadCertForm, 'userId' => $model->userId, 'certId' => $model->id]);
         echo Html::a(Yii::t('app', 'Delete'), ['/user-auth-cert/delete', 'id' => $model->id], ['class' => 'btn btn-danger', 'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?')]);
     }
@@ -24,8 +26,8 @@ $this->title = 'Сертификат ключа ' . $model->user->name .' ('. $m
     );
 ?>
 </div>
-
 <?php
+// Создать детализированное представление
 echo DetailView::widget([
     'model' => $model,
     'attributes' => [
@@ -42,11 +44,9 @@ echo DetailView::widget([
         ]
     ],
 ]);
-?>
 
-<?= Html::tag('p', Yii::t('app/cert', 'Certificate details')) ?>
-
-<?php
+echo Html::tag('p', Yii::t('app/cert', 'Certificate details'));
+// Создать детализированное представление
 echo DetailView::widget([
     'model' => $model,
     'attributes' => [
@@ -63,7 +63,7 @@ echo DetailView::widget([
 <div class="row">
     <div class="col-xs-4 beneficiary-block">
         <?php
-            // Подгружаем представление для организации работы со списком получателей
+            // Вывести блок для организации работы со списком получателей
             echo $this->render('_keysBeneficiaryList', [
                 'keyId' => $keyId,
                 'beneficiarySelected' => $beneficiarySelected,

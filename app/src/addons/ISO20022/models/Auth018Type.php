@@ -12,10 +12,9 @@ class Auth018Type extends ISO20022Type
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),
-            [
-                [array_values($this->attributes()), 'safe'],
-            ]);
+        return ArrayHelper::merge(parent::rules(), [
+            [array_values($this->attributes()), 'safe'],
+        ]);
     }
 
     public function getType()
@@ -30,6 +29,10 @@ class Auth018Type extends ISO20022Type
         $this->mmbId = (string) $this->_xml->CtrctRegnReq->CtrctRegn->RegnAgt->FinInstnId->ClrSysMmbId->MmbId;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
         return false;

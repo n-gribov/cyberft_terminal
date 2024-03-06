@@ -181,6 +181,7 @@ class Resque extends Component
         ];
         $model = new ProfilingData();
         $model->setAttributes($data);
+        // Сохранить модель в БД
         $model->save();
     }
 
@@ -190,12 +191,14 @@ class Resque extends Component
         $endTime = microtime(true);
         $time = $endTime - $model->startTime;
         $model->setAttributes(['time' => round($time, 3), 'endTime' => $endTime, 'memoryUsageEnd' => memory_get_usage()]);
+        // Сохранить модель в БД
         $model->save();
     }
 
     public function linkProfiling($entity, $entityId, $jobId)
     {
         $profilingLink = new ProfilingLink(['entity' => $entity, 'entityId' => $entityId, 'jobId' => $jobId]);
+        // Сохранить модель в БД
         $profilingLink->save();
     }
 

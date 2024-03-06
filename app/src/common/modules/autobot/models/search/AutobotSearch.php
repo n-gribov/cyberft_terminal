@@ -51,11 +51,12 @@ class AutobotSearch extends Autobot
         if (!$query) {
             $query = static::find()->joinWith('controller.terminal');
         }
-        // Для доп. администратора
-        // список ключей согласно доступным терминалам
 
+        // Получить модель пользователя из активной сессии
         $adminIdentity = Yii::$app->user->identity;
 
+        // Для доп. администратора
+        // список ключей согласно доступным терминалам
         if ($adminIdentity->role != User::ROLE_ADMIN) {
             $terminals = UserTerminal::getUserTerminalIds($adminIdentity->id);
 
@@ -83,9 +84,10 @@ class AutobotSearch extends Autobot
             'status' => $this->status
         ]);
 
-        $query->andFilterWhere(['like', 'controller.terminal.terminalId', $this->terminalId])
+        $query
+            ->andFilterWhere(['like', 'controller.terminal.terminalId', $this->terminalId])
             ->andFilterWhere(['like', 'name', $this->name])
-			->andFilterWhere(['like', 'updatedAt', $this->updatedAt])
+            ->andFilterWhere(['like', 'updatedAt', $this->updatedAt])
             ->andFilterWhere(['like', 'organizationName', $this->organizationName])
             ->andFilterWhere(['like', 'ownerSurname', $this->ownerFullName])
             ->orFilterWhere(['like', 'ownerName', $this->ownerFullName])
@@ -110,21 +112,19 @@ class AutobotSearch extends Autobot
         return $dataProvider;
     }
 
-	/**
-	 * Поиск автоботов по $terminalId
-	 * @param string $terminalId
-	 * @return ActiveDataProvider
-	 */
-	public function findByTerminalId($terminalId)
-	{
-		$query = static::find()
+    /**
+     * Поиск автоботов по $terminalId
+     * @param string $terminalId
+     * @return ActiveDataProvider
+     */
+    public function findByTerminalId($terminalId)
+    {
+        $query = static::find()
             ->joinWith('controller.terminal')
             ->where(['terminal.terminalId' => $terminalId]);
 
-        return new ActiveDataProvider([
-            'query' => $query
-        ]);
-	}
+        return new ActiveDataProvider(['query' => $query]);
+    }
 
     public function findUsedForSigning($terminalAddress)
     {

@@ -12,6 +12,7 @@ use common\helpers\UserHelper;
 
     echo Html::a(Yii::t('app', 'Back'), Yii::$app->cache->get('user/settings-' . Yii::$app->session->id), ['class' => 'btn btn-default']);
 
+    // Получить роль пользователя из активной сессии
     if (in_array(Yii::$app->user->identity->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN, User::ROLE_LSO, User::ROLE_RSO])) {
         // Администратор не может удалить сам себя
         if ($model->id != Yii::$app->user->id && UserHelper::userProfileAccess($model, true)) {

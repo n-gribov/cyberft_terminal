@@ -20,7 +20,9 @@ $this->registerJs("
     , yii\web\View::POS_END);
 ?>
     <h4><?=Yii::t('monitor/mailer', 'Users receiving notifications')?></h4>
-<?= GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'showOnEmpty' => false,
     'summary' => false,
     'emptyText'    => Yii::t('monitor/mailer', 'No users are receiving notifications'),
@@ -51,10 +53,9 @@ $this->registerJs("
         ],
     ],
 ]);
+
+echo Html::beginForm(Url::to(['/monitor/notifications/mailing-user-add']), 'post', ['id' => 'add-user-form']);
 ?>
-
-
-<?=Html::beginForm(Url::to(['/monitor/notifications/mailing-user-add']), 'post', ['id' => 'add-user-form'])?>
     <h4><?=Yii::t('monitor/mailer', 'Add new recipient')?></h4>
     <div class="row" style="margin-bottom: 25px;">
         <div class="col-lg-3">
@@ -92,4 +93,5 @@ $this->registerJs("
             <?=Html::submitButton(Yii::t('app', 'Add'), ['class' => 'btn btn-success btn-submit-form'])?>
         </div>
     </div>
-<?=Html::endForm()?>
+<?php
+echo Html::endForm();

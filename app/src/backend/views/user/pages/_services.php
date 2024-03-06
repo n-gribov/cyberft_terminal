@@ -19,15 +19,13 @@ use yii\helpers\Url;
             ActiveForm::begin([
                 'action' => Url::to(['set-services-permissions', 'id' => $model->id])
             ]);
-        ?>
 
-        <?php
             $createCheckboxOptions = function ($attribute) {
                 return function (UserServicesSettingsForm\Item $item, $key, $i, $col) use ($attribute): array {
                     return $item->createGridViewCheckboxOptions($attribute);
                 };
             };
-
+            // Создать таблицу для вывода
             echo GridView::widget([
                 'emptyText'    => Yii::t('other', 'Services not found'),
                 'summary'      => Yii::t('other', 'Available services'),
@@ -98,62 +96,62 @@ use yii\helpers\Url;
                         }
                     ]
                 ]
-            ])
-        ?>
+            ]);
 
-        <?php ActiveForm::end() ?>
+            ActiveForm::end();
 
-        <?php
             ActiveForm::begin([
                 'id' => 'form-user-update',
                 'action' => Url::to(['set-additional-services-access', 'id' => $model->id])
             ]);
+
+            // Создать таблицу для вывода        
+            echo GridView::widget([
+                'emptyText'    => Yii::t('other', 'Services not found'),
+                'summary'      => Yii::t('other', 'Available services'),
+                'dataProvider' => $additionalServiceAccess,
+                'options' => [
+                    'id' => 'additional-services-grid'
+                ],
+                'caption' => Yii::t('app/user', 'Additional services'),
+                'columns' => [
+                    [
+                        'attribute' => 'name',
+                        'label' => Yii::t('other', 'Service'),
+                    ],
+                    [
+                        'class' => CheckboxColumn::class,
+                        'header' => Yii::t('doc', 'Enabled'),
+                        'name' => 'serviceAccess',
+                        'checkboxOptions' => function ($model, $key, $index, $column) {
+                            return [
+                                'value' => $key,
+                                'checked' => $model['checked']
+                            ];
+                        }
+                    ],
+                    [
+                        'label' => Yii::t('app/user', 'Additional settings'),
+                        'format' => 'html',
+                        'value' => function ($item, $params) {
+                            return is_null($item['settingsUrl'])
+                                ? ''
+                                : Html::a(
+                                    '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app/user', 'More...'),
+                                    $item['settingsUrl']
+                                );
+                        }
+                    ],
+                ],
+            ]);
+            ActiveForm::end();
         ?>
-        <?= GridView::widget([
-            'emptyText'    => Yii::t('other', 'Services not found'),
-            'summary'      => Yii::t('other', 'Available services'),
-            'dataProvider' => $additionalServiceAccess,
-            'options' => [
-                'id' => 'additional-services-grid'
-            ],
-            'caption' => Yii::t('app/user', 'Additional services'),
-            'columns' => [
-                [
-                    'attribute' => 'name',
-                    'label' => Yii::t('other', 'Service'),
-                ],
-                [
-                    'class' => CheckboxColumn::class,
-                    'header' => Yii::t('doc', 'Enabled'),
-                    'name' => 'serviceAccess',
-                    'checkboxOptions' => function ($model, $key, $index, $column) {
-                        return [
-                            'value' => $key,
-                            'checked' => $model['checked']
-                        ];
-                    }
-                ],
-                [
-                    'label' => Yii::t('app/user', 'Additional settings'),
-                    'format' => 'html',
-                    'value' => function ($item, $params) {
-                        return is_null($item['settingsUrl'])
-                            ? ''
-                            : Html::a(
-                                '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app/user', 'More...'),
-                                $item['settingsUrl']
-                            );
-                    }
-                ],
-            ],
-        ]) ?>
-        <?php ActiveForm::end() ?>
     </div>
 </div>
 
 <?php
 
-$script = <<< JS
+$script = <<<JS
 $('#documents-permissions-grid input:checkbox').on('change', function() {
     var value = $(this).val();
     var name = $(this).attr('name');

@@ -20,9 +20,9 @@ function getViewUrl(Document $document)
 {
     if ($document->type === \addons\edm\models\VTBCredReg\VTBCredRegType::TYPE) {
         return '/edm/loan-agreement-registration-request/view';
-    } elseif ($document->type === \addons\edm\models\VTBContractUnReg\VTBContractUnRegType::TYPE) {
+    } else if ($document->type === \addons\edm\models\VTBContractUnReg\VTBContractUnRegType::TYPE) {
         return '/edm/contract-unregistration-request/view';
-    } elseif (VTBHelper::isVTBDocument($document)) {
+    } else if (VTBHelper::isVTBDocument($document)) {
         return '/edm/vtb-documents/view';
     } else {
         return '/edm/contract-registration-request/view';
@@ -106,7 +106,7 @@ $columns['amount'] = [
         $values = [];
         if ($extModel instanceof ContractRegistrationRequestExt) {
             $values = [$extModel->amount];
-        } elseif ($extModel instanceof VTBContractRequestExt) {
+        } else if ($extModel instanceof VTBContractRequestExt) {
             $values = array_map(
                 function (VTBContractRequestContract $contract) {
                     return $contract->amount;
@@ -114,6 +114,7 @@ $columns['amount'] = [
                 $extModel->contracts
             );
         }
+        // Вывести страницу
         return $this->render('_valuesTable', compact('values'));
     },
     'format' => 'raw',
@@ -142,7 +143,7 @@ $columns['currencyId'] = [
         $values = [];
         if ($extModel instanceof ContractRegistrationRequestExt) {
             $values = [$extModel->currency ? $extModel->currency->name : null];
-        } elseif ($extModel instanceof VTBContractRequestExt) {
+        } else if ($extModel instanceof VTBContractRequestExt) {
             $values = array_map(
                 function (VTBContractRequestContract $contract) {
                     return $contract->currency ? $contract->currency->name : null;
@@ -150,6 +151,7 @@ $columns['currencyId'] = [
                 $extModel->contracts
             );
         }
+        // Вывести страницу
         return $this->render('_valuesTable', compact('values'));
     },
     'format' => 'raw',
@@ -224,7 +226,7 @@ $columnsSettings['actions'] =     [
         }
     },
 ];
-
+// Создать таблицу для вывода
 echo InfiniteGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $filterModel,
@@ -252,8 +254,7 @@ echo ColumnsSettingsWidget::widget(
 
 $this->registerJS(<<<JS
     $('#contractregistrationrequestsearch-date').inputmask('99.99.9999', { placeholder: 'дд.мм.гггг' });
-JS
-);
+JS);
 ?>
 
 <style>

@@ -15,6 +15,9 @@ use common\models\sbbolxml\SBBOLTransportConfig;
 
 class RequestController extends BaseController
 {
+    /**
+     * Метод выводит текст с подсказкой
+     */
     public function actionIndex()
     {
         $this->run('/help', ['SBBOL/request']);

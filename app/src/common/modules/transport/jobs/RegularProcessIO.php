@@ -20,7 +20,7 @@ class RegularProcessIO extends RegularJob
         $notRunning = [];
         $invalidStompSettings = [];
 
-        foreach (Yii::$app->terminals->addresses as $terminalId) {
+        foreach (Yii::$app->exchange->addresses as $terminalId) {
             // Check terminal running status
             $terminalId = Address::fixSender($terminalId);
 
@@ -42,13 +42,14 @@ class RegularProcessIO extends RegularJob
                 continue;
             }
 
-            if (Yii::$app->terminals->isRunning($terminalId)) {
+            if (Yii::$app->exchange->isRunning($terminalId)) {
                 $stoppedStates = StateAR::find()
-                        ->where(['terminalId' => $terminalId])
-                        ->andWhere(['<', 'dateRetry', date('Y-m-d H:i:s', $nowTimestamp)])
-                        ->all();
+                    ->where(['terminalId' => $terminalId])
+                    ->andWhere(['<', 'dateRetry', date('Y-m-d H:i:s', $nowTimestamp)])
+                    ->all();
 
                 foreach ($stoppedStates as $state) {
+                    // Удалить состояние задания из БД
                     $state->delete();
                     $params = [
                         'terminalId' => $state->terminalId,

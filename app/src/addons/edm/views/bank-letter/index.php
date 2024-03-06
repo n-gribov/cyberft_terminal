@@ -278,7 +278,9 @@ if ($userCanCreateDocument) {
     'saveUrl' => Url::to(['/edm/documents/select-entries', 'tabMode' => $entriesSelectionCacheKey]),
 ]) ?>
 
-<?= $this->render('_search') ?>
+
+<?=  // Вывести форму поиска
+    $this->render('_search') ?>
 
 <div class="clearfix">
     <div class="pull-left">
@@ -293,6 +295,7 @@ if ($userCanCreateDocument) {
                 ]
             );
         }
+        // Получить роль пользователя из активной сессии
         if (Yii::$app->user->identity->role === User::ROLE_USER) {
             echo Html::a(
                 Yii::t('edm', 'Mark all as read'),
@@ -315,7 +318,8 @@ if ($userCanCreateDocument) {
     </div>
 </div>
 
-<?= InfiniteGridView::widget([
+<?php
+echo InfiniteGridView::widget([
     'id' => 'letters-grid',
     'emptyText' => Yii::t('other', 'No documents matched your query'),
     'summary' => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -352,21 +356,17 @@ if ($userCanCreateDocument) {
         return $options;
     },
     'options' => ['class' => 'grid-view documents-journal-grid'],
-])
-?>
-
-<?= ColumnsSettingsWidget::widget(
-    [
+]) ?>
+<?= ColumnsSettingsWidget::widget([
         'listType' => $listType,
         'columns' => array_keys($columns),
         'model' => $filterModel
-    ]
-);
-?>
+]) ?>
+<?= // Вывести модальное окно с формой поиска
+    $this->render('@addons/edm/views/documents/_searchModal', ['model' => $filterModel]) ?>
 
-<?= $this->render('@addons/edm/views/documents/_searchModal', ['model' => $filterModel]) ?>
-
-<?= $this->render('_formModal', ['model' => $newLetterForm]) ?>
+<?= // Вывести модальное окно с формой
+    $this->render('_formModal', ['model' => $newLetterForm]) ?>
 
     <div id="view-modal-placeholder"></div>
 
@@ -381,7 +381,7 @@ if ($userCanCreateDocument) {
 
 <?php
 
-$js = <<<'JS'
+$js = <<<JS
     function showLetter(documentId) {
         $('#view-modal-placeholder').load(
             '/edm/bank-letter/view?id=' + documentId,
@@ -465,8 +465,8 @@ if (!empty($savedDocumentId)) {
     $this->registerJs("showLetter($savedDocumentId);", View::POS_READY);
 }
 
-$this->registerCss('
-#view-modal .modal-footer .btn {
-    margin-left: 10px;
-}
-');
+$this->registerCss(<<<CSS
+    #view-modal .modal-footer .btn {
+        margin-left: 10px;
+    }
+CSS);

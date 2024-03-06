@@ -71,6 +71,7 @@ class CryptoproKeysController extends Controller
         $searchModel = new CryptoproKeySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        // Вывести страницу
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -84,20 +85,20 @@ class CryptoproKeysController extends Controller
      */
     public function actionView($id)
     {
+        // Получить из БД ключ с указанным id
         $model = $this->findModel($id);
+        // Получить модель пользователя из активной сессии
         $user = Yii::$app->user->identity;
 
-        // Пользователь может
-        // смотреть только доступные ему сертификаты
+        // Пользователь может смотреть только доступные ему сертификаты
         if ($user->role != User::ROLE_ADMIN) {
             if ($model->userId != $user->id) {
                 throw new ForbiddenHttpException();
             }
         }
 
-        return $this->render('view', [
-            'model' => $model,
-        ]);
+        // Вывести страницу просмотра
+        return $this->render('view', compact('model'));
     }
 
     /**
@@ -109,12 +110,13 @@ class CryptoproKeysController extends Controller
     {
         $model = new CryptoproKey();
 
+        // Если данные модели успешно загружены из формы в браузере и модель сохранена в БД
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // Перенаправить на страницу просмотра
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            // Вывести страницу
+            return $this->render('create', compact('model'));
         }
     }
 
@@ -126,7 +128,9 @@ class CryptoproKeysController extends Controller
      */
     public function actionUpdate($id)
     {
+        // Получить из БД ключ с указанным id
         $model = $this->findModel($id);
+        // Получить модель пользователя из активной сессии
         $user = Yii::$app->user->identity;
 
         // Пользователь может смотреть только доступные ему сертификаты
@@ -134,7 +138,9 @@ class CryptoproKeysController extends Controller
             throw new ForbiddenHttpException('Access denied');
         }
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
+            // Загрузить данные модели из формы в браузере
             $model->load(Yii::$app->request->post());
 
             // Если сертификат активен, то его можно редактировать только пользователю-владельцу
@@ -152,27 +158,30 @@ class CryptoproKeysController extends Controller
                 $model->active = 0;
             }
 
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
-                // Регистрация события изменения настроек ключа
+                // Зарегистрировать событие изменения настроек ключа в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('EditCryptoProKeySettings', ['fingerprint' => $model->keyId]);
+                // Поместить в сессию флаг сообщения об успешном сохранении ключа
                 Yii::$app->session->setFlash('success', Yii::t('app/fileact', 'Key updated'));
-
                 // Редирект, если есть соответствующий параметр
                 $redirect = Yii::$app->request->get('redirect');
                 if ($redirect) {
-
                     if ($model->active == 0) {
+                        // Поместить в сессию флаг сообщения об успешной деактивации ключа
                         Yii::$app->session->setFlash('success', Yii::t('app/cert', 'Key deactivated'));
                     }
-
+                    // Перенаправить на предыдущую страницу
                     return $this->redirect(Yii::$app->request->referrer);
                 }
             } else {
-                Yii::$app->session->setFlash('success', Yii::t('app/fileact', 'Error! Update failure'));
+                // Поместить в сессию флаг сообщения об ошибке сохранения ключа
+                Yii::$app->session->setFlash('error', Yii::t('app/fileact', 'Error! Update failure'));
 
                 // Редирект, если есть соответствующий параметр
                 $redirect = Yii::$app->request->get('redirect');
                 if ($redirect) {
+                    // Перенаправить на предыдущую страницу
                     return $this->redirect(Yii::$app->request->referrer);
                 }
             }
@@ -183,24 +192,10 @@ class CryptoproKeysController extends Controller
             }
         }
 
-//        $terminals = $model->terminals;
-//        $filterTerminals = [];
-//        foreach($terminals as $terminal) {
-//            $filterTerminals[] = $terminal->id;
-//        }
-//
-//        $terminalList = Terminal::find()
-//            ->where(['status' => Terminal::STATUS_ACTIVE])
-//            ->andWhere(['not in', 'id', $filterTerminals])
-//            ->all();
-//
-//        $freeTerminals = ArrayHelper::map($terminalList, 'id', 'terminalId');
-
         $data = $this->getKeyTerminalData($model->id);
         $data['model'] = $model;
 	
-//	\Yii::info(var_export(array_keys($data), true));
-
+        // Вывести страницу
         return $this->render('update', $data);
 
     }
@@ -213,9 +208,11 @@ class CryptoproKeysController extends Controller
         ]);
 
         if ($model) {
+            // Удалить ключ из БД
             $model->delete();
         }
 
+        // Перенаправить на страницу редактирование
         return $this->redirect(['update', 'id' => $keyId]);
     }
 
@@ -237,6 +234,7 @@ class CryptoproKeysController extends Controller
             $collection = CryptoProHelper::getCertInfo($output);
 
             if (!in_array($collection->errorCode, ['0x00000000', '0x8010002c'])) {
+                // Поместить в сессию флаг сообщения об ошибке удаления сертификата
                 Yii::$app->session->setFlash('error', Yii::t('app/cert', 'Error deleting key certificate'));
 
                 return false;
@@ -261,6 +259,7 @@ class CryptoproKeysController extends Controller
         $collection = CryptoProHelper::getCertInfo($output);
 
         if (!in_array($collection->errorCode, ['0x00000000', '0x80090019'. '0x80090019'])) {
+            // Поместить в сессию флаг сообщения об ошибке удаления контейнера
             Yii::$app->session->setFlash('error', Yii::t('app/cert', 'Error deleting the key container'));
 
             return false;
@@ -277,6 +276,7 @@ class CryptoproKeysController extends Controller
      */
     public function actionDelete($id)
     {
+        // Получить из БД сертификат с указанным id
         $model = $this->findModel($id);
 
         // Если сертификат активен, то его можно редактировать только пользователю-владельцу
@@ -308,37 +308,40 @@ class CryptoproKeysController extends Controller
         }
 
         if ($result) {
+            // Удалить ключ из БД
             $model->delete();
+            // Поместить в сессию флаг сообщения об успешном удалении ключа
             Yii::$app->session->setFlash('success', Yii::t('app/cert', 'The key was successfully deleted'));
         }
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**
-     * Finds the CryptoproKey model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return CryptoproKey the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * Метод ищет модель сертификата в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
      */
     protected function findModel($id)
     {
-        if (($model = CryptoproKey::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        // Получить из БД сертификат с указанным id
+        $model = CryptoproKey::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested page does not exist');
         }
+
+        return $model;
     }
 
     public function actionDownload($id)
     {
+        // Получить из БД сертификат с указанным id
         $model = $this->findModel($id);
 
         if (!empty($model->certData)) {
             CryptoProHelper::downloadCertificate($model->ownerName, $model->keyId, $model->certData);
         } else {
-            throw new NotFoundHttpException('The requested file does not exist.');
+            throw new NotFoundHttpException('The requested file does not exist');
         }
     }
 
@@ -361,9 +364,9 @@ class CryptoproKeysController extends Controller
                     $terminal = new CryptoproKeyTerminal();
                     $terminal->keyId = $keyId;
                     $terminal->terminalId = $terminalId;
+                    // Сохранить модель в БД
                     $terminal->save();
                 } else {
-
                     // Если не указан id конкретного терминала, то добавляем в список все доступные id терминалов
                     $terminals = Terminal::find()->where(['status' => Terminal::STATUS_ACTIVE])->all();
 
@@ -371,6 +374,7 @@ class CryptoproKeysController extends Controller
                         $newTerminal = new CryptoproKeyTerminal();
                         $newTerminal->keyId = $keyId;
                         $newTerminal->terminalId = $terminal->id;
+                        // Сохранить модель в БД
                         $newTerminal->save();
                     }
                 }
@@ -398,9 +402,9 @@ class CryptoproKeysController extends Controller
                     $terminal = new CryptoproKeyBeneficiary();
                     $terminal->keyId = $keyId;
                     $terminal->terminalId = $terminalId;
+                    // Сохранить модель в БД
                     $terminal->save();
                 } else {
-
                     // Если не указан id конкретного терминала, то добавляем в список все доступные id терминалов
                     $terminals = Terminal::find()->where(['status' => Terminal::STATUS_ACTIVE])->all();
 
@@ -408,6 +412,7 @@ class CryptoproKeysController extends Controller
                         $newTerminal = new CryptoproKeyBeneficiary();
                         $newTerminal->keyId = $keyId;
                         $newTerminal->terminalId = $terminal->id;
+                        // Сохранить модель в БД
                         $newTerminal->save();
                     }
                 }
@@ -416,7 +421,6 @@ class CryptoproKeysController extends Controller
             return $this->renderUserBeneficiaries($keyId);
         }
     }
-
 
     /**
      * Удаление терминала у ключа
@@ -484,6 +488,7 @@ class CryptoproKeysController extends Controller
 
     private function getKeyTerminalData($keyId)
     {
+        // Получить из БД сертификат с указанным id
         $model = $this->findModel($keyId);
 
         // Получение массивов с terminalId, с терминалами, которые уже выбраны для ключа
@@ -725,7 +730,6 @@ class CryptoproKeysController extends Controller
                 // Добавляем информацию о fingerprint,
                 // если ошибка связана с тем, что сертификат уже существует
                 if (isset($statusArray->container)) {
-                    $driver =
                     // Находим сертификат, к которому привязан контейнер
                     $fingerprint = $this->getFingerprintByContainer($statusArray->container);
                     $statusArray->msg = $statusArray->msg . " ({$fingerprint})";
@@ -734,9 +738,11 @@ class CryptoproKeysController extends Controller
 
                 return $statusContent;
             } else {
+                // Поместить в сессию флаг сообщения об успешном добавлении сертификата
                 Yii::$app->session->setFlash('success', Yii::t('app/cert', 'The certificate has been added'));
                 $redirectUrl = Yii::$app->cache->get('crypto-pro-back-link' . Yii::$app->session->id);
 
+                // Перенаправить на страницу перенаправления
                 return $this->redirect($redirectUrl);
             }
         } else {

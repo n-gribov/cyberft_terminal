@@ -13,7 +13,7 @@ $this->registerCss('
     }
 ');
 
-$script = <<< JS
+$script = <<<JS
     // Событие нажатия на кнопку, для поднятия в верхнюю часть окна
     $('.to-top-button-widget').on('click', function(e) {
         e.preventDefault();

@@ -30,13 +30,13 @@ class CertController extends Controller
     public function behaviors()
     {
         return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
                     $this->traitBehaviorsRules,
-					[
-						'allow' => true,
-						'actions' => [
+                    [
+                        'allow' => true,
+                            'actions' => [
                             'userkeys', 'user-key-download',
                             'user-remove-key', 'delete-cert',
                             'deactivate-key', 'get-activation-form',
@@ -44,19 +44,19 @@ class CertController extends Controller
                             'download-cert', 'view-cert',
                             'create-cert',
                         ],
-						'roles' => ['commonMyKeysCertificates'],
-					],
+                    'roles' => ['commonMyKeysCertificates'],
+                    ],
                     [
                         'allow' => true,
                         'actions' => ['create', 'delete', 'update'],
                         'roles' => ['user']
                     ],
-					[
-						'allow' => true,
-						'roles' => ['commonCertificates'],
-					],
-				],
-			],
+                    [
+                            'allow' => true,
+                            'roles' => ['commonCertificates'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -84,6 +84,7 @@ class CertController extends Controller
         // Все сертификаты
         $certs = Cert::find()->with('participant')->all();
 
+        // Получить модель пользователя из активной сессии
         $currentUser = Yii::$app->user->identity;
         $allowedParticipantIds = UserTerminal::getUserTerminalIds(Yii::$app->user->id);
 
@@ -103,6 +104,7 @@ class CertController extends Controller
             }
         }
 
+        // Вывести страницу
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -121,6 +123,7 @@ class CertController extends Controller
 
         $uploadCertForm = new UploadUserAuthCertForm();
 
+        // Вывести страницу ключей пользователя
         return $this->render('userkeys', [
             'model' => $model,
             'certDataProvider' => $certDataProvider,
@@ -129,87 +132,94 @@ class CertController extends Controller
         ]);
     }
 
-	/**
-	 * Генерирует ключи для пользователя
-	 * @return string
-	 */
-	public function actionUserCreateKey()
-	{
-		$keyFilePrefix = $this->getUserKeyPrefix();
-		$certManager = Yii::$app->getModule('certManager');
+    /**
+     * Генерирует ключи для пользователя
+     * @return string
+     */
+    public function actionUserCreateKey()
+    {
+        $keyFilePrefix = $this->getUserKeyPrefix();
+        $certManager = Yii::$app->getModule('certManager');
 
-		if (Yii::$app->request->isPost) {
+        // Если отправлены POST-данные
+        if (Yii::$app->request->isPost) {
             $model = new UserKeyForm();
+            // Загрузить данные модели из формы в браузере
             $model->load(Yii::$app->request->post());
-
             $privateKeyPassword = Yii::$app->request->post('password');
-            if(empty($privateKeyPassword) || ($privateKeyPassword !== Yii::$app->request->post('password_repeat'))){
+            if (empty($privateKeyPassword) || ($privateKeyPassword !== Yii::$app->request->post('password_repeat'))) {
+                // Поместить в сессию флаг сообщения о несовпадающих паролях
                 Yii::$app->session->setFlash('error', Yii::t('app/terminal', 'Passwords do not match'));
+                // Перенаправить на страницу пользовательских ключей
                 return $this->redirect(['userkeys']);
             }
 
             $keys = $certManager->generateUserKeys($keyFilePrefix, $privateKeyPassword, $model->getAttributes());
-            if($keys === FALSE){
+            if ($keys === false) {
+                // Поместить в сессию флаг сообщения об ошибке создания ключей
                 Yii::$app->session->setFlash('error', Yii::t('app', 'There was an error creating keys'));
+                // Перенаправить на страницу пользовательских ключей
                 return $this->redirect(['userkeys']);
             }
-
+            // Поместить в сессию флаг сообщения об успешном создании ключей
             Yii::$app->session->setFlash('success', Yii::t('app', 'User keys successfully created'));
-		}
+        }
 
-		return $this->redirect(['userkeys']);
-	}
+        // Перенаправить на страницу пользовательских ключей
+        return $this->redirect(['userkeys']);
+    }
 
-	/**
-	 * Удаляет сгенерированные ранее ключи пользователя
-	 * @return string
-	 */
-	public function actionUserRemoveKey()
-	{
-		$keyFilePrefix = $this->getUserKeyPrefix();
-		$path = Module::getUserKeyStoragePath();
-		$publicKey = $path . '/' . $keyFilePrefix . '.pub';
-		$privateKey = $path . '/' . $keyFilePrefix . '.key';
-		$certificate = $path . '/' . $keyFilePrefix . '.crt';
+    /**
+     * Удаляет сгенерированные ранее ключи пользователя
+     * @return string
+     */
+    public function actionUserRemoveKey()
+    {
+        $keyFilePrefix = $this->getUserKeyPrefix();
+        $path = Module::getUserKeyStoragePath();
+        $publicKey = $path . '/' . $keyFilePrefix . '.pub';
+        $privateKey = $path . '/' . $keyFilePrefix . '.key';
+        $certificate = $path . '/' . $keyFilePrefix . '.crt';
 
-		if (file_exists($publicKey)	&& is_writable($publicKey)) {
-			unlink($publicKey);
-		}
-		if (file_exists($privateKey) && is_writable($privateKey)) {
-			unlink($privateKey);
-		}
-		if (file_exists($certificate) && is_writable($certificate)) {
-			unlink($certificate);
-		}
+        if (file_exists($publicKey) && is_writable($publicKey)) {
+            unlink($publicKey);
+        }
+        if (file_exists($privateKey) && is_writable($privateKey)) {
+            unlink($privateKey);
+        }
+        if (file_exists($certificate) && is_writable($certificate)) {
+            unlink($certificate);
+        }
 
-		return $this->redirect(['userkeys']);
-	}
+        // Перенаправить на страницу пользовательских ключей
+        return $this->redirect(['userkeys']);
+    }
 
-	/**
-	 * Скачивает файл пользовательского ключа
-	 * @param string $type Расширение файла: pub, key, crt
-	 * @throws BadRequestHttpException
-	 */
-	public function actionUserKeyDownload($type)
-	{
-		$allowed_types = ['key' => true, 'pub' => true, 'crt' => true];
+    /**
+     * Скачивает файл пользовательского ключа
+     * @param string $type Расширение файла: pub, key, crt
+     * @throws BadRequestHttpException
+     */
+    public function actionUserKeyDownload($type)
+    {
+        $allowed_types = ['key' => true, 'pub' => true, 'crt' => true];
 
-		$keyFileName = $this->getUserKeyPrefix();
-		$certManager = Yii::$app->getModule('certManager');
-		$path = Module::getUserKeyStoragePath();
+        $keyFileName = $this->getUserKeyPrefix();
+        $certManager = Yii::$app->getModule('certManager');
+        $path = Module::getUserKeyStoragePath();
 
-		$file = $path . '/' . $keyFileName . '.' . $type;
+        $file = $path . '/' . $keyFileName . '.' . $type;
 
-		if (!isset($allowed_types[$type]) || !file_exists($file) || !is_readable($file)) {
-			throw new BadRequestHttpException(Yii::t('app', "Can't send file"));
-		}
+        if (!isset($allowed_types[$type]) || !file_exists($file) || !is_readable($file)) {
+            throw new BadRequestHttpException(Yii::t('app', "Can't send file"));
+        }
 
-		$keyFileName .= '-'
-				.  $certManager->getCertFingerprint($path . '/' . $keyFileName . '.crt')
-				. '.' . $type;
+        $keyFileName .= '-'
+            .  $certManager->getCertFingerprint($path . '/' . $keyFileName . '.crt')
+            . ".$type";
 
-		Yii::$app->response->sendFile($file, $keyFileName);
-	}
+        Yii::$app->response->sendFile($file, $keyFileName);
+    }
 
     /**
      * Displays a single Cert model.
@@ -218,7 +228,9 @@ class CertController extends Controller
      */
     public function actionView($id)
     {
+        // Вывести страницу просмотра
         return $this->render('view', [
+            // Получить из БД сертификат с указанным id
             'model' => $this->findModel($id),
         ]);
     }
@@ -231,91 +243,76 @@ class CertController extends Controller
     public function actionCreate()
     {
         $model = new Cert();
-		$model->setScenario('create');
+        $model->setScenario('create');
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
+            // Загрузить данные модели из формы в браузере
             $model->load(Yii::$app->request->post());
             $model->certificate = UploadedFile::getInstance($model, 'certificate');
             $model->userId = Yii::$app->user->getId();
 
-			if (!$model->hasErrors()) {
+            if (!$model->hasErrors()) {
 
                 $this->switchActiveCerts($model);
 
+                // Если модель успешно сохранена в БД
                 if ($model->save()) {
-                    // Регистрация события создания нового сертификата
+                    // Зарегистрировать событие создания нового сертификата в модуле мониторинга
                     Yii::$app->monitoring->extUserLog('CreateCert', ['id' => $model->id]);
 
+                    // Перенаправить на страницу просмотра
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
-			} else if (!$model->hasErrors('certificate') && !$model->hasErrors('terminalId')) {
-				$model->addError('certificate', Yii::t('app/cert', 'An unexpected error occurred. Failed to perform the operation.'));
-			}
+            } else if (!$model->hasErrors('certificate') && !$model->hasErrors('terminalId')) {
+                $model->addError('certificate', Yii::t('app/cert', 'An unexpected error occurred. Failed to perform the operation.'));
+            }
         }
 
-		return $this->render('create', ['model' => $model]);
+        // Вывести страницу создания сертификата
+        return $this->render('create', ['model' => $model]);
     }
 
     public function actionUpdate($id)
     {
+        // Получить из БД сертификат с указанным id
         $model = $this->findModel($id);
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($model->load(Yii::$app->request->post())) {
             $this->switchActiveCerts($model);
+            // Сохранить модель в БД
             $model->save();
-            // Регистрация события редактирования сертификата
+            // Зарегистрировать событие редактирования сертификата в модуле мониторинга
             Yii::$app->monitoring->extUserLog('EditCert', ['id' => $model->id]);
 
+            // Перенаправить на страницу просмотра
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            // Вывести страницу редактирования сертификата
             return $this->render('update', ['model' => $model]);
         }
     }
 
     public function actionDelete($id)
-	{
-        // Регистрация события удаления сертификата
+    {
+        // Зарегистрировать событие удаления сертификата в модуле мониторинга
         Yii::$app->monitoring->extUserLog('DeleteCert', ['id' => $id]);
 
+        // Получить из БД сертификат с указанным id
         $model = $this->findModel($id);
+        // Удалить сертификат из БД
         $model->delete();
 
+        // Перенаправить на страницу индекса
         return $this->redirect(['index', 'role' => $model->role]);
     }
 
-    protected function findModel($id)
+
+    private function getUserKeyPrefix()
     {
-        if (($model = Cert::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        return 'user' . Yii::$app->user->id;
     }
-
-	private function getUserKeyPrefix()
-    {
-		return 'user' . Yii::$app->user->id;
-	}
-
-	/**
-	 * Возвращает массив кодов терминалов, соответствующих получателю $id
-	 * @param $id
-	 * @return array
-	 * @throws NotFoundHttpException
-	 */
-//	public function actionTerminalCodes($id)
-//	{
-//		if (Yii::$app->request->isAjax) {
-//			Yii::$app->response->format = Response::FORMAT_JSON;
-//
-//			return [
-//                'more' => false,
-//				'results' => Yii::$app->getModule('certManager')->getTerminalCodesByParticipant($id)
-//			];
-//		} else {
-//			throw new NotFoundHttpException(Yii::t('app', 'This request must not be called directly'));
-//		}
-//	}
 
     /**
      * Метод для изменения статуса сертификата
@@ -348,8 +345,10 @@ class CertController extends Controller
             }
 
             if ($errorMsg) {
+                // Поместить в сессию флаг сообщения об ошибке
                 Yii::$app->session->setFlash('error', $errorMsg);
 
+                // Перенаправить на предыдущую страницу
                 return $this->redirect(Yii::$app->request->referrer);
             }
 
@@ -358,25 +357,27 @@ class CertController extends Controller
             $model->statusDescription = $changeReason;
             $this->switchActiveCerts($model);
 
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
-                // Запись в журнал событий
-                Yii::$app->monitoring->extUserLog('ChangeCertStatus',
-                    [
-                        'id' => $model->id,
-                        'status' => $model->getStatusLabel(),
-                        'reason' => $changeReason,
-                        'certName' => $model->certId
-                    ]
-                );
+                // Зарегистрировать событие в модуле мониторинга
+                Yii::$app->monitoring->extUserLog('ChangeCertStatus', [
+                    'id' => $model->id,
+                    'status' => $model->getStatusLabel(),
+                    'reason' => $changeReason,
+                    'certName' => $model->certId
+                ]);
 
+                // Поместить в сессию флаг сообщения об успешном изменении статуса сертификата
                 Yii::$app->session->setFlash('success', Yii::t('app/message', 'The certificate status is changed successfully'));
 
+                // Перенаправить на предыдущую страницу
                 return $this->redirect(Yii::$app->request->referrer);
             }
         }
-
+        // Поместить в сессию флаг сообщения об ошибке изменения статуса сертификата
         Yii::$app->session->setFlash('error', Yii::t('app/message', 'The certificate status change failed'));
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -388,8 +389,10 @@ class CertController extends Controller
 
         $id = Yii::$app->request->get('id');
 
-        if (($model = CryptoproKey::findOne($id)) === null) {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        // Получить из БД ключ с указанным id
+        $model = CryptoproKey::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested page does not exist');
         }
 
         return $this->renderAjax('_certActivation', [
@@ -406,9 +409,6 @@ class CertController extends Controller
         }
 
         $password = Yii::$app->request->post('password');
-//        if (!$password) {
-//            $msg = Yii::t('app/cert', 'Password is empty');
-//        }
 
         if (!($model = CryptoproKey::findOne($id))) {
             $msg = Yii::t('app/cert', 'Finding key in terminal base failed');
@@ -442,12 +442,16 @@ class CertController extends Controller
             $passwordKey = getenv('COOKIE_VALIDATION_KEY');
             $model->password = base64_encode(Yii::$app->security->encryptByKey($password, $passwordKey));
             $model->active = 1;
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
+                // Поместить в сессию флаг сообщения об успешной активации ключа
                 Yii::$app->session->setFlash('success', Yii::t('app/cert', 'Key activated'));
             } else {
+                // Поместить в сессию флаг сообщения об ошибке активации ключа
                 Yii::$app->session->setFlash('error', Yii::t('app/cert', 'Error saving key status'));
             }
 
+            // Перенаправить на страницу ключей пользователя
             return $this->redirect(['/certManager/cert/userkeys', 'tabMode' => 'tabCryptoProKeys']);
         }
 
@@ -504,12 +508,12 @@ class CertController extends Controller
         } else {
             // Выполнение скрипта выгрузки
             $certList = Cert::find()
-                    ->select(['id', 'userId', 'type', 'certType', 'validFrom', 'validBefore',
-                        'useBefore', 'participantCode', 'countryCode', 'sevenSymbol', 'delimiter',
-                        'terminalCode', 'participantUnitCode', 'fingerprint', 'status', 'email',
-                        'phone', 'post', 'role', 'signAccess', 'ownerId', 'lastName', 'firstName',
-                        'middleName', 'body'])
-                    ->asArray()->all();
+                ->select(['id', 'userId', 'type', 'certType', 'validFrom', 'validBefore',
+                    'useBefore', 'participantCode', 'countryCode', 'sevenSymbol', 'delimiter',
+                    'terminalCode', 'participantUnitCode', 'fingerprint', 'status', 'email',
+                    'phone', 'post', 'role', 'signAccess', 'ownerId', 'lastName', 'firstName',
+                    'middleName', 'body'])
+                ->asArray()->all();
 
             $fp = fopen($scriptPath . 'certs.csv', 'w');
             $count = 0;
@@ -532,8 +536,10 @@ class CertController extends Controller
             $msg = 'Сертификаты успешно выгружены';
         }
 
+        // Поместить в сессию флаг сообщения о результате операции
         Yii::$app->session->setFlash($status, $msg);
 
+        // Перенаправить на страницу сертификатов
         return $this->redirect('/certManager/cert');
     }
 
@@ -545,6 +551,7 @@ class CertController extends Controller
      */
     public function actionCheckControllerCertByTerminal($terminalId, $fingerprint = null)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $certs = CertSearch::searchActiveControllerCertsByTerminalId($terminalId, $fingerprint);
@@ -586,4 +593,17 @@ class CertController extends Controller
         }
     }
 
+    /**
+     * Метод ищет модель сертификата в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
+    protected function findModel($id)
+    {
+        // Получить из БД сертификат с указанным id
+        $model = Cert::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested page does not exist');
+        }
+        return $model;
+    }
 }

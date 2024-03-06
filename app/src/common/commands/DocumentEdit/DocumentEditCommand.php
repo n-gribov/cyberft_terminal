@@ -26,7 +26,7 @@ class DocumentEditCommand extends BaseCommand
      */
     public function getAcceptsCount()
     {
-        if(empty($this->_acceptsCount)){
+        if (empty($this->_acceptsCount)){
             $this->defineAcceptCount();
         }
 

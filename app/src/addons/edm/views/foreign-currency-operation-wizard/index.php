@@ -19,7 +19,6 @@ if (isset($currentStep) && array_key_exists($currentStep, $steps)) {
 }
 
 $this->params['breadcrumbs'][] = $navTitle;
-
 ?>
 
 <div class="pull-right">
@@ -34,9 +33,11 @@ $this->params['breadcrumbs'][] = $navTitle;
     </ul>
     <br/>
 <?php endif ?>
-<?=$this->render('step' . $currentStep, [
-    'model'       => $model,
-    'currentStep' => $currentStep,
-    'dataProvider' => isset($dataProvider) ? $dataProvider : null,
-    'data' => isset($data) ? $data : null
-])?>
+<?php
+    // Вывести форму редактирования
+    $this->render('step' . $currentStep, [
+        'model'       => $model,
+        'currentStep' => $currentStep,
+        'dataProvider' => isset($dataProvider) ? $dataProvider : null,
+        'data' => isset($data) ? $data : null
+    ]);

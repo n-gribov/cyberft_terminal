@@ -19,7 +19,7 @@ class DocumentAutoSignStep extends BaseDocumentStep
             return true;
         }
 
-        $termData = Yii::$app->terminals->getTerminalData();
+        $termData = Yii::$app->exchange->getTerminalData();
         $runningTerminals = [];
         foreach($termData as $terminalId => $data) {
             if (isset($data['isRunning']) && $data['isRunning'] == true) {
@@ -35,7 +35,7 @@ class DocumentAutoSignStep extends BaseDocumentStep
 
         if ($this->autosign($cyxDoc, $document)) {
             $document->updatestatus(Document::STATUS_AUTOSIGNED);
-            $primaryAutobot = Yii::$app->terminals->findAutobotUsedForSigning($cyxDoc->senderId);
+            $primaryAutobot = Yii::$app->exchange->findAutobotUsedForSigning($cyxDoc->senderId);
             if (empty($primaryAutobot)) {
                 $this->log('Failed to find primary autobot for sender ' . $cyxDoc->senderId);
 
@@ -80,7 +80,7 @@ class DocumentAutoSignStep extends BaseDocumentStep
 
             $document->updateStatus(Document::STATUS_AUTOSIGNING);
 
-			$terminalData = Yii::$app->terminals->findTerminalData($document->sender);
+			$terminalData = Yii::$app->exchange->findTerminalData($document->sender);
 			if (!is_array($terminalData)) {
 				$this->log('TerminalData is corrupted for sender ' . $document->sender);
                 $document->updateStatus(Document::STATUS_AUTOSIGNING_ERROR);

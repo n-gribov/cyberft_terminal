@@ -35,11 +35,9 @@ $viewUrlCreator = function (CurrencyPaymentDocumentSearch $model) {
     return ['view-register', 'id' => $model->id];
 };
 
-?>
+// Вывести блок закладок
+echo $this->render('_tabs');
 
-<?= $this->render('_tabs') ?>
-
-<?php
 $userCanCreateDocuments = Yii::$app->user->can(
     DocumentPermission::CREATE,
     [
@@ -69,18 +67,16 @@ if ($userCanDeleteDocuments) {
         []
     );
 }
-?>
-
-<?= $this->render(
+// Вывести блок управления
+echo $this->render(
     '_index-controls',
     compact('filterModel', 'userCanCreateDocuments', 'userCanDeleteDocuments', 'entriesSelectionCacheKey')
-) ?>
+);
 
-<?= SelectedDocumentsCache::widget([
+echo SelectedDocumentsCache::widget([
     'saveUrl' => Url::to(['/edm/documents/select-entries', 'tabMode' => $entriesSelectionCacheKey]),
-]) ?>
-
-<?php
+]);
+        
 $columns = [];
 if ($userCanDeleteDocuments && count($deletableDocumentsIds) > 0) {
     // Колонка с чекбоксом для удаления
@@ -272,9 +268,8 @@ $columns['actions'] = [
         }
     },
 ];
-?>
-
-<?= InfiniteGridView::widget([
+// Создать таблицу для вывода
+echo InfiniteGridView::widget([
     'emptyText'          => Yii::t('other', 'No documents matched your query'),
     'summary'            => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
     'dataProvider'       => $dataProvider,
@@ -305,19 +300,17 @@ $columns['actions'] = [
         return $options;
     },
     'onPageRendered' => new JsExpression('function () { checkForSelectableDocument(); }'),
-    'options'            => ['class' => 'grid-view documents-journal-grid'],
+    'options' => ['class' => 'grid-view documents-journal-grid'],
 ]);
-?>
 
-<?= $this->render('@addons/edm/views/documents/_searchModal', ['model' => $filterModel]) ?>
+// Вывести модальное окно с формой поиска
+echo $this->render('@addons/edm/views/documents/_searchModal', ['model' => $filterModel]);
+        
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($optionalColumns),
+    'model' => $filterModel
+]);
 
-<?= ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($optionalColumns),
-        'model' => $filterModel
-    ]
-);
-?>
-
-<?= $this->render('@addons/edm/views/documents/_fcoCreateModal'); ?>
+// Вывести модальное окно с формой создания
+echo $this->render('@addons/edm/views/documents/_fcoCreateModal');

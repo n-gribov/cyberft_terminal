@@ -86,6 +86,7 @@ class SBBOLCustomerHelper
             }
         }
 
+        // Сохранить модель в БД
         $isSaved = $customer->save();
         if (!$isSaved) {
             \Yii::info('Failed to save customer, errors: ' . var_export($customer->getErrors(), true));
@@ -170,6 +171,7 @@ class SBBOLCustomerHelper
             'inn' => $inn,
             'fullName' => $fullName,
         ]);
+        // Сохранить модель в БД
         $isSaved = $organization->save();
         if (!$isSaved) {
             \Yii::info('Failed to save organization, errors: ' . var_export($organization->getErrors(), true));

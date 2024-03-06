@@ -24,7 +24,7 @@ class CheckSenderStep extends BaseDocumentStep
 			}
 
 			// В цикле ищем соответствие участника терминалам, указанным в конфигурации терминала
-			foreach (Yii::$app->terminals->addresses as $terminalId) {
+			foreach (Yii::$app->exchange->addresses as $terminalId) {
 				if (($extracted = TerminalId::extract($terminalId))) {
 					$configuredParticipant = $extracted->participantId;
 				} else {

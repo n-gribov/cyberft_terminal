@@ -69,6 +69,7 @@ class CustomerImportService
             ],
             false
         );
+        // Сохранить модель в БД
         $isSaved = $customer->save();
         if (!$isSaved) {
             throw new Exception('Failed to save customer, errors: ' . var_export($customer->getErrors(), true));
@@ -132,6 +133,7 @@ class CustomerImportService
             ],
             false
         );
+        // Сохранить модель в БД
         $isSaved = $customerToken->save();
         if (!$isSaved) {
             throw new Exception('Failed to save customer access token');

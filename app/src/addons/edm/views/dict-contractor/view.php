@@ -33,4 +33,5 @@ $userCanCreateDocuments = Yii::$app->user->can(
     <?php } ?>
 </p>
 
-<?=$this->render('_view', ['model' => $model]) ?>
+<?= // Вывести страницу
+    $this->render('_view', ['model' => $model]) ?>

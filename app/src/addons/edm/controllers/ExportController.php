@@ -19,54 +19,58 @@ use yii\filters\AccessControl;
 
 class ExportController extends BaseServiceController
 {
-	const EXPORT_JOB_CLASS = '\addons\edm\jobs\EdmExportJob';
+    const EXPORT_JOB_CLASS = '\addons\edm\jobs\EdmExportJob';
 
-	/**
-	 * @var array $supportedTypes Supported types
-	 */
-	private $_supportedTypes = [
-		'excel' => ['name' => 'excel', 'ext' => 'xlsx'],
-		'1c' => ['name' => '1c', 'ext' => 'txt'],
+    /**
+     * @var array $supportedTypes Supported types
+     */
+    private $_supportedTypes = [
+        'excel' => ['name' => 'excel', 'ext' => 'xlsx'],
+        '1c' => ['name' => '1c', 'ext' => 'txt'],
         'pdf' => ['name' => 'pdf', 'ext' => 'pdf']
-	];
+    ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						// Accessible for authorized users only
-						'allow' => true,
-						'roles' => ['@'],
-					],
-				],
-			],
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                            // Accessible for authorized users only
+                            'allow' => true,
+                            'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
-	public function actionIndex()
-	{
-		return $this->redirect(['/edm/documents']);
-	}
-
+    /**
+     * Метод обрабатывает страницу индекса
+     */
+    public function actionIndex()
+    {
+        // Перенаправить на страницу со списком документов
+        return $this->redirect(['/edm/documents']);
+    }
 
     public function actionExportStatement($exportType, $id, $mode = null)
     {
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
 
         try {
             $typeModel = $this->getTypeModel($document);
             $statementTypeModel = StatementTypeConverter::convertFrom($typeModel);
 
-            $fileName = "Statement";
+            $fileName = 'Statement';
 
             if ($mode) {
-                $descriptor = $mode . ":" . 'transactions';
+                $descriptor = "$mode:transactions";
                 $fileName .= "_{$mode}";
             } else {
                 $descriptor = $mode;
@@ -78,13 +82,16 @@ class ExportController extends BaseServiceController
 
             return $this->export($document, $statementTypeModel, $fileName, $exportType, $descriptor);
         } catch (Exception $ex) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $ex->getMessage());
+            // Вывести страницу
             return $this->render('exportError');
         }
     }
 
     public function actionExportPaymentorder($exportType, $id)
     {
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
 
         try {
@@ -93,8 +100,10 @@ class ExportController extends BaseServiceController
 
             return $this->export($document, $typeModel, $fileName, $exportType);
         } catch (Exception $ex) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $ex->getMessage());
 
+            // Вывести страницу
             return $this->render('exportError');
         }
     }
@@ -102,6 +111,7 @@ class ExportController extends BaseServiceController
     public function actionExportFcc($id, $fccType)
     {
         try {
+            // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
             $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
 
             // Получение typeModel
@@ -121,14 +131,17 @@ class ExportController extends BaseServiceController
 
             return $this->export($document, $model, $fileName, 'excel', $descriptor);
         } catch (Exception $ex) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $ex->getMessage());
 
+            // Вывести страницу
             return $this->render('exportError');
         }
     }
 
     public function actionExportPaymentregisterPaymentorder($exportType, $id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $model = Yii::$app->terminalAccess->findModel(PaymentRegisterPaymentOrder::className(), $id);
 
         try {
@@ -139,13 +152,16 @@ class ExportController extends BaseServiceController
 
             return $this->export($model, $typeModel, $fileName, $exportType, $descriptor);
         } catch (Exception $ex) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $ex->getMessage());
+            // Вывести страницу
             return $this->render('exportError');
         }
     }
 
     public function actionExportStatementPaymentorder($exportType, $id, $num)
     {
+        // Получить из БД документ с указанным id
         $document = $this->findModel($id);
 
         try {
@@ -153,9 +169,9 @@ class ExportController extends BaseServiceController
             $statementTypeModel = StatementTypeConverter::convertFrom($typeModel);
 
             $paymentOrder = $statementTypeModel->getPaymentOrder($num);
-
-  			$fileName = str_replace('\\', '',
-                    "Statement-{$statementTypeModel->statementNumber}-{$statementTypeModel->statementAccountNumber}-{$paymentOrder->number}"
+            $fileName = str_replace(
+                '\\', '',
+                "Statement-{$statementTypeModel->statementNumber}-{$statementTypeModel->statementAccountNumber}-{$paymentOrder->number}"
             );
 
             $descriptor = 'StatementPaymentOrder:' . $num;
@@ -163,7 +179,9 @@ class ExportController extends BaseServiceController
             return $this->export($document, $statementTypeModel, $fileName, $exportType, $descriptor);
         } catch (Exception $ex) {
             Yii::$app->errorHandler->logException($ex);
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $ex->getMessage());
+            // Вывести страницу
             return $this->render('exportError');
         }
     }
@@ -180,11 +198,11 @@ class ExportController extends BaseServiceController
         return $typeModel;
     }
 
-	private function export($document, $typeModel, $fileName, $exportType, $descriptor = null)
-	{
+    private function export($document, $typeModel, $fileName, $exportType, $descriptor = null)
+    {
         try {
-       		$type = $this->getSupportedType($exportType);
-        	if ($type === false) {
+            $type = $this->getSupportedType($exportType);
+            if ($type === false) {
             	throw new Exception(Yii::t('edm', 'Wrong export type'));
             }
 
@@ -210,17 +228,20 @@ class ExportController extends BaseServiceController
                         } catch(Exception $e) {
 
                         }
-
+                        // Удалить файл
                         $storedFile->delete();
                     } else {
                         /** File found and processed */
+                        // Перенаправить на страницу скачивания файла
                         return $this->redirect(['/storage/download', 'id' => $storedFile->id]);
                     }
 
                 } else if ($storedFile->status === StoredFile::STATUS_PROCESSING) {
                     /** File found and processing */
+                    // Перенаправить на страницу статуса файла
                     return $this->redirect(['/storage/status', 'id' => $storedFile->id]);
                 } else {
+                    // Вывести страницу
                     return $this->render('exportError');
                 }
             }
@@ -232,7 +253,7 @@ class ExportController extends BaseServiceController
 
             $fileName .= '.' . $type['ext'];
 
-      		$storedFile = $this->module->storeDataExport('1');
+            $storedFile = $this->module->storeDataExport('1');
 
             $storedFile->entity       = $typeModel->type;
             $storedFile->entityId	  = $document->id;
@@ -245,32 +266,42 @@ class ExportController extends BaseServiceController
                 throw new Exception('Stored file save error');
             }
 
-            Yii::$app->resque->enqueue(static::EXPORT_JOB_CLASS,
-			[
+            Yii::$app->resque->enqueue(static::EXPORT_JOB_CLASS, [
                 'id' => $document->id,
                 'exportId' => $storedFile->id,
                 'type' => $type['name'],
                 'descriptor' => $descriptor,
             ]);
 
+            // Перенаправить на страницу статуса файла
             return $this->redirect(['/storage/status', 'id' => $storedFile->id]);
         } catch(Exception $ex) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $ex->getMessage());
+            // Вывести страницу
             return $this->render('exportError');
         }
-	}
+    }
 
-	private function getSupportedType($type)
-	{
-		if (isset($this->_supportedTypes[$type])) {
-			return $this->_supportedTypes[$type];
-		}
+    /**
+     * Метод получает список поддерживаемых типов для экспорта
+     */
+    private function getSupportedType($type)
+    {
+        if (isset($this->_supportedTypes[$type])) {
+            return $this->_supportedTypes[$type];
+        }
 
-		return FALSE;
-	}
+        return false;
+    }
 
+    /**
+     * Метод ищет модель документа в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
     protected function findModel($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         return Yii::$app->terminalAccess->findModel(Document::className(), $id);
     }
 

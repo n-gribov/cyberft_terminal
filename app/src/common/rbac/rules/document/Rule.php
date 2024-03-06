@@ -51,6 +51,7 @@ abstract class Rule extends YiiRule
 
     protected function hasAuthorizedUser()
     {
+        // Получить модель пользователя из активной сессии
         return !empty(Yii::$app->user) && !empty(Yii::$app->user->identity);
     }
 

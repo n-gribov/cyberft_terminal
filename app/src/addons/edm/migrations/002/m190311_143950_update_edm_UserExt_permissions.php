@@ -19,6 +19,7 @@ class m190311_143950_update_edm_UserExt_permissions extends Migration
                 $permissions = [];
             }
             $record->permissions = $permissions;
+            // Сохранить модель в БД
             $record->save();
         }
     }
@@ -39,6 +40,7 @@ class m190311_143950_update_edm_UserExt_permissions extends Migration
                 )
             );
             $record->permissions = $permissions;
+            // Сохранить модель в БД
             $record->save();
         }
     }

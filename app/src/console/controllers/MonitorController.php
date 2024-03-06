@@ -6,11 +6,10 @@ use Yii;
 use common\base\ConsoleController as ConsoleController;
 
 
-class MonitorController extends ConsoleController {
+class MonitorController extends ConsoleController
+{
     /**
-     * Help action
-     *
-     * @return integer Return 0 on success or 1 on error
+     * Метод выводит текст подсказки
      */
     public function actionIndex()
     {
@@ -43,15 +42,15 @@ class MonitorController extends ConsoleController {
      * @param integer $entityId Entity ID
      * @return integer Return 0 on success or 1 on error
      */
-    public function actionAddEvent($event, $param, $entity = 'NULL', $entityId = 0)
+    public function actionAddEvent($event, $param, $entity = 'null', $entityId = 0)
     {
-        if(empty($event) || empty($param)){
-            echo "Empty input params!\n";
+        if (empty($event) || empty($param)){
+            echo "Input params are empty\n";
             return self::EXIT_CODE_ERROR;
         }
 
         var_dump(
-            $this->module->log($event, $entity, $entityId, json_decode($param, TRUE))
+            $this->module->log($event, $entity, $entityId, json_decode($param, true))
         );
 
         return self::EXIT_CODE_NORMAL;

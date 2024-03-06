@@ -11,13 +11,14 @@ trait ChecksTerminalAccess
 {
     public function ensureUserHasTerminalAccess($terminalId)
     {
-        $userIdentity = Yii::$app->user->identity;
-        if ($userIdentity->role == User::ROLE_ADDITIONAL_ADMIN) {
-            $availableTerminals = UserTerminal::getUserTerminalIds($userIdentity->id);
+        // Получить модель пользователя из активной сессии
+        $user = Yii::$app->user->identity;
+        if ($user->role == User::ROLE_ADDITIONAL_ADMIN) {
+            $availableTerminals = UserTerminal::getUserTerminalIds($user->id);
             if (!isset($availableTerminals[$terminalId])) {
                 throw new ForbiddenHttpException();
             }
-        } elseif ($userIdentity->role != User::ROLE_ADMIN) {
+        } else if ($user->role != User::ROLE_ADMIN) {
             throw new ForbiddenHttpException();
         }
     }

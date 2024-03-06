@@ -30,18 +30,19 @@ class CustomerController extends BaseServiceController
         ];
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         $query = VTBCustomer::find()->orderBy(['fullName' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
-            'query'      => $query,
-            'sort'       => false,
+            'query' => $query,
+            'sort'=> false
         ]);
-        return $this->render(
-            'index',
-            compact('dataProvider')
-        );
+        // Вывести страницу
+        return $this->render('index', compact('dataProvider'));
     }
 
     public function actionView($id)
@@ -55,6 +56,7 @@ class CustomerController extends BaseServiceController
             throw new NotFoundHttpException();
         }
 
+        // Вывести страницу
         return $this->render('view', compact('model'));
     }
 
@@ -63,13 +65,18 @@ class CustomerController extends BaseServiceController
         $model = VTBCustomer::findOne($id);
         $model->scenario = VTBCustomer::SCENARIO_WEB_UPDATE;
 
+        // Если данные модели успешно загружены из формы в браузере
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
+                // Поместить в сессию флаг сообщения об успешном сохранении данных
                 Yii::$app->session->setFlash('success', Yii::t('app/vtb', 'Customer data is updated'));
+                // Перенаправить на страницу индекса
                 return $this->redirect('index');
             }
         }
 
+        // Вывести страницу
         return $this->render(
             'update',
             compact('model')
@@ -80,10 +87,13 @@ class CustomerController extends BaseServiceController
     {
         $isEnqueued = Yii::$app->resque->enqueue(UpdateVTBCustomersDataJob::class);
         if ($isEnqueued) {
+            // Поместить в сессию флаг сообщения об успешной отправке запроса
             Yii::$app->session->setFlash('success', Yii::t('app/vtb', 'Update request is in progress'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке отправки запроса
             Yii::$app->session->setFlash('error', Yii::t('app/vtb', 'Failed to schedule update job'));
         }
+        // Перенаправить на страницу индекса
         return $this->redirect('index');
     }
 
@@ -91,10 +101,13 @@ class CustomerController extends BaseServiceController
     {
         $isEnqueued = Yii::$app->resque->enqueue(SendClientTerminalSettingsJob::class, ['customerId' => $customerId]);
         if ($isEnqueued) {
+            // Поместить в сессию флаг сообщения об успешной отправке запроса
             Yii::$app->session->setFlash('success', Yii::t('app/vtb', 'Sending settings'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке отправки запроса
             Yii::$app->session->setFlash('error', Yii::t('app/vtb', 'Failed to schedule sending job'));
         }
+        // Перенаправить на страницу индекса
         return $this->redirect('index');
     }
 }

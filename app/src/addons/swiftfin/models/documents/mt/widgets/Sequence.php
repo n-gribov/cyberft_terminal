@@ -7,21 +7,16 @@ use yii\widgets\ActiveForm;
 
 class Sequence extends Widget
 {
-	/**
-	 * @var Model
-	 */
-	public $model;
-	/**
-	 * @var ActiveForm
-	 */
-	public $form;
+    /** @var Model */
+    public $model;
+    /** @var ActiveForm */
+    public $form;
 
-	public function run()
+    public function run()
     {
-		print $this->render('sequence',[
-			'model' => $this->model,
-			'form'  => $this->form,
-		]);
-	}
-
+        echo $this->render('sequence', [
+            'model' => $this->model,
+            'form'  => $this->form,
+        ]);
+    }
 }

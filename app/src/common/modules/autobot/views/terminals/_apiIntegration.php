@@ -16,6 +16,7 @@ $enableCheckboxLabel = $globalSettings->enableApi
     ? Yii::t('app', 'Use additional access token which is limited only to this terminal')
     : Yii::t('app', 'Enable importing and exporting documents via API');
 
+// Вывести страницу API интеграции
 echo $this->render(
     '@common/modules/autobot/views/shared/_apiIntegration',
     [

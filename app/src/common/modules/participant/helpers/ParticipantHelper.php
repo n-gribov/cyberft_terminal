@@ -20,8 +20,8 @@ class ParticipantHelper
         }
 
         $query = BICDirParticipant::find()
-                ->select('participantBIC, name')
-                ->andWhere(['in', 'participantBIC', array_keys($terminalIdsArrayMap)]);
+            ->select('participantBIC, name')
+            ->andWhere(['in', 'participantBIC', array_keys($terminalIdsArrayMap)]);
 
         if (isset($q)) {
             if ($isAdmin) {
@@ -55,4 +55,17 @@ class ParticipantHelper
     {
         return static::getParticipantListForDocumentSearch($dataProvider, 'receiver', $q);
     }
+    
+    /**
+     * Метод возвращает участника по адресу
+     * @param type $address
+     * @return BicDirParticipant|null
+     */
+    public static function findParticipant($address)
+    {
+        return BICDirParticipant::findOne(
+            ['participantBIC' => Address::truncateAddress($address)]
+        );
+    }
+
 }

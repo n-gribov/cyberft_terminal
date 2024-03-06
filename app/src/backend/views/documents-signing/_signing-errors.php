@@ -7,6 +7,6 @@ use yii\helpers\Html;
 
 ?>
 
-<?php foreach ($errors as $error): ?>
+<?php foreach ($errors as $error) : ?>
     <p><?= Html::encode($error) ?></p>
-<?php endforeach; ?>
+<?php endforeach ?>

@@ -37,6 +37,7 @@ if ($userCanDeleteDocuments) {
     echo DeleteSelectedDocumentsButton::widget(['checkboxesSelector' => '.delete-checkbox, .select-on-check-all']);
 }
 
+// Вывести форму поиска
 echo $this->render('_search', [
     'model' => $searchModel,
     'filterStatus' => $filterStatus,
@@ -51,7 +52,7 @@ if (Yii::$app->user->can('admin') || Yii::$app->user->can('additionalAdmin')) {
 }
 
 $columns['id'] = [
-    'attribute'          => 'id',
+    'attribute' => 'id',
     'width' => 'narrow',
     'textAlign' => 'center',
     'filterInputOptions' => [
@@ -75,8 +76,8 @@ $columns['type'] = [
     },
     'filterInputOptions' => [
         'class' => 'form-control selectpicker',
-        'data-width' => "120px",
-        'data-none-selected-text' => ""
+        'data-width' => '120px',
+        'data-none-selected-text' => ''
     ],
     'contentOptions' => [
         'style' => 'width: 120px'
@@ -102,8 +103,8 @@ $columns['direction'] = [
     },
     'filterInputOptions' => [
         'class' => 'form-control selectpicker',
-        'data-width' => "114px",
-        'data-none-selected-text' => ""
+        'data-width' => '114px',
+        'data-none-selected-text' => ''
     ],
     'contentOptions' => [
         'style' => 'width: 114px'
@@ -124,29 +125,21 @@ $columns[$senderColumnAttr] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'foreign-currency-control']),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax' => [
+                'url'      => Url::to(['documents/list', 'type' => 'sender', 'page' => 'foreign-currency-control']),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
-	    'select2:select' => 'function(e) {
-	        searchForField(e.params.data)
-	    }',
-            'select2:unselect' => 'function(e) {
-
-	      }'
+	    'select2:select' => 'function(e) { searchForField(e.params.data); }',
+            'select2:unselect' => 'function(e) {}'
 	],
     ]),
     'contentOptions' => [
@@ -168,21 +161,17 @@ $columns[$receiverColumnAttr] = [
             'prompt' => '',
 	],
 	'pluginOptions' => [
-		'minimumInputLength' => 0,
-		'ajax'               => [
-		    'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => 'foreign-currency-control']),
-		    'dataType' => 'json',
-		    'delay'    => 250,
-		    'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
-		],
-		'templateResult'     => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'templateSelection'  => new JsExpression('function(item) {
-			    return item.name;
-			}'),
-		'allowClear' => true,
-		'containerCssClass' => 'select2-cyberft',
+            'minimumInputLength' => 0,
+            'ajax'               => [
+                'url'      => Url::to(['documents/list', 'type' => 'receiver', 'page' => 'foreign-currency-control']),
+                'dataType' => 'json',
+                'delay'    => 250,
+                'data'     => new JsExpression('function(params) { return {q:params.term}; }'),
+            ],
+            'templateResult' => new JsExpression('function(item) { return item.name; }'),
+            'templateSelection'  => new JsExpression('function(item) { return item.name; }'),
+            'allowClear' => true,
+            'containerCssClass' => 'select2-cyberft',
 	],
 	'pluginEvents'  => [
 	    'select2:select' => 'function(e) {
@@ -206,22 +195,20 @@ $columns['mmbId'] = [
 $columns['dateCreate'] = [
     'attribute'          => 'dateCreate',
     'label'  => Yii::t('app/iso20022', 'Registered'),
-    'filter' => kartik\widgets\DatePicker::widget(
-        [
-            'model' => $searchModel,
-            'attribute' => 'dateCreate',
-            'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'orientation' => 'bottom'
-            ],
-            'options' => [
-                'class' => 'form-control'
-            ],
-        ]
-    ),
+    'filter' => kartik\widgets\DatePicker::widget([
+        'model' => $searchModel,
+        'attribute' => 'dateCreate',
+        'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'orientation' => 'bottom'
+        ],
+        'options' => [
+            'class' => 'form-control'
+        ],
+    ]),
     'filterInputOptions' => [
         'style'     => 'width: 100px',
     ],
@@ -249,7 +236,7 @@ $columns['status'] = [
             'containerCssClass' => 'select2-cyberft'
         ],
     ]),
-    'value'         => function ($item, $params) {
+    'value' => function ($item, $params) {
         return "<span title=\"Status: {$item->status}\">{$item->getStatusLabel()}</span>";
     },
 ];
@@ -258,13 +245,13 @@ $columns['statusCode'] = [
     'attribute' => 'statusCode',
     'filter' => DocumentHelper::getBusinessStatusesList(),
     'filterInputOptions' => [
-        'style' => "width: 197px"
+        'style' => 'width: 197px'
     ],
     'headerOptions' => [
-        'style'     => 'width: 197px',
+        'style' => 'width: 197px',
     ],
     'contentOptions' => [
-        'style'     => 'width: 197px',
+        'style' => 'width: 197px',
     ],
     'value' => function($item) {
         return $item->getBusinessStatusTranslation();
@@ -277,7 +264,7 @@ $columnsEnabled = [];
 
 if ($userCanDeleteDocuments && count($deletableDocumentsIds) > 0) {
     $columnsEnabled['delete'] = [
-        'class'           => 'yii\grid\CheckboxColumn',
+        'class' => 'yii\grid\CheckboxColumn',
         'checkboxOptions' => function ($model, $key, $index, $column) use ($deletableDocumentsIds) {
             $hidden = !in_array($model->id, $deletableDocumentsIds);
             return [
@@ -313,6 +300,7 @@ $columnsEnabled['actions'] = [
     ],
 ];
 
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'dataProvider' => $dataProvider,
@@ -334,13 +322,11 @@ $myGridWidget->end();
 
 echo ToTopButtonWidget::widget();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
 $this->registerCss('
     #delete-selected-documents-button {

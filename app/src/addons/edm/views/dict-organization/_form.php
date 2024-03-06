@@ -183,7 +183,7 @@ $this->registerCss('
 ');
 
 // JS для представления
-$script = <<< JS
+$script = <<<JS
     // Событие выбора терминала из списка
     $('#dictorganization-terminalid').on('change', function() {
         getTerminalTitle();

@@ -134,14 +134,14 @@ class Autobot extends ActiveRecord
     /**
      * @inheritdoc
      */
-	public function scenarios()
-	{
-		return ArrayHelper::merge(parent::scenarios(), [
-			'control' => [
-				'id'
-			],
-		]);
-	}
+    public function scenarios()
+    {
+        return ArrayHelper::merge(parent::scenarios(), [
+            'control' => [
+                'id'
+            ],
+        ]);
+    }
 
     /**
      * @inheritdoc
@@ -208,35 +208,37 @@ class Autobot extends ActiveRecord
      * @return string
      */
     public function getPrimaryLabel()
-	{
-		return !is_null($this->primary) && array_key_exists($this->primary,
-				$this->primaryLabels()) ? $this->primaryLabels()[$this->primary] : '';
-	}
+    {
+        return !is_null($this->primary)
+            && array_key_exists($this->primary, $this->primaryLabels())
+                ? $this->primaryLabels()[$this->primary]
+                : '';
+    }
 
     /**
      * @inheritdoc
      */
-	public function beforeSave($insert)
-	{
-		parent::beforeSave($insert);
+    public function beforeSave($insert)
+    {
+        parent::beforeSave($insert);
 
-		$this->updatedAt = gmdate('Y-m-d H:i:s');
+        $this->updatedAt = gmdate('Y-m-d H:i:s');
         if ($this->primary == 0) {
             $this->setAttributes([
                 'controllerVerificationFlag' => 0,
-                'userId' => NULL
+                'userId' => null
             ]);
         }
 
-		return true;
-	}
+        return true;
+    }
 
     /**
      * @inheritdoc
      */
-	public function afterSave($insert, $changedAttributes)
-	{
-		parent::afterSave($insert, $changedAttributes);
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
 
         if (empty($this->name)) {
             $this->name = Yii::t('app/autobot', 'Controller Key - {ownerName} - {organization}', [
@@ -244,6 +246,7 @@ class Autobot extends ActiveRecord
                 'organization' => $this->organizationName,
             ]);
 
+            // Сохранить модель в БД
             $this->save();
         }
     }
@@ -253,9 +256,9 @@ class Autobot extends ActiveRecord
      * @param string $terminalAddress
      * @return bool
      */
-	public function generate($privateKeyPassword, $terminalAddress)
-	{
-		try {
+    public function generate($privateKeyPassword, $terminalAddress)
+    {
+        try {
             /**
              * @var $certManager \common\modules\certManager\Module
              */
@@ -287,10 +290,9 @@ class Autobot extends ActiveRecord
             return true;
         } catch (\Exception $ex) {
             Yii::info($ex->getMessage());
-
             return false;
         }
-	}
+    }
 
     public function getUser()
     {
@@ -355,7 +357,7 @@ class Autobot extends ActiveRecord
         $terminalId = $this->controller->terminal->terminalId;
 
         // Запись пароля ключа в данные по терминалу
-        $terminals = Yii::$app->terminals;
+        $terminals = Yii::$app->exchange;
         $terminalData = $terminals->findTerminalData($terminalId);
         $passwords = $terminalData['passwords'] ?? [];
         $passwords[$this->id] = $password;
@@ -374,7 +376,7 @@ class Autobot extends ActiveRecord
         $terminalId = $this->controller->terminal->terminalId;
 
         // При деактивации удаление данных ключа из данных терминала
-        $terminals = Yii::$app->terminals;
+        $terminals = Yii::$app->exchange;
         $terminalData = $terminals->findTerminalData($terminalId);
         $passwords = $terminalData['passwords'] ?? [];
 
@@ -512,7 +514,7 @@ class Autobot extends ActiveRecord
 
     public function getPassword(): ?string
     {
-        $terminalData = Yii::$app->terminals->findTerminalData($this->controller->terminal->terminalId);
+        $terminalData = Yii::$app->exchange->findTerminalData($this->controller->terminal->terminalId);
         return $terminalData['passwords'][$this->id] ?? null;
     }
 

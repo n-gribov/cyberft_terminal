@@ -12,11 +12,13 @@ use yii\web\View;
 /* @var $model User */
 /* @var $uploadCertForm UploadUserAuthCertForm */
 ?>
-
 <p>
-    <?= $this->render('@backend/views/user/certs/_uploadCertForm', ['model' => $uploadCertForm, 'userId' => $model->id]) ?>
+    <?= // Вывести форму загрузки сертификата
+        $this->render('@backend/views/user/certs/_uploadCertForm',
+            ['model' => $uploadCertForm, 'userId' => $model->id]) ?>
 </p>
 <?php
+// Создать таблицу для вывода
 echo GridView::widget([
     'emptyText' => Yii::t('app/user', 'No certificates for selected user'),
     'summary' => Yii::t('other',
@@ -29,7 +31,7 @@ echo GridView::widget([
 
         if (!$model->isActive) {
             $options['class'] = 'danger';
-        } else if($model->isExpiringSoon()) {
+        } else if ($model->isExpiringSoon()) {
             $options['class'] = 'cert-expire-soon';
         }
 
@@ -39,11 +41,6 @@ echo GridView::widget([
         return $options;
     },
     'columns' => [
-//        [
-//            'attribute' => 'id',
-//            'label' => Yii::t('app/user', 'ID'),
-//            'enableSorting' => false,
-//        ],
         [
             'attribute' => 'subject',
             'format' => 'raw',
@@ -160,4 +157,3 @@ $js = <<<JS
 JS;
 
 $this->registerJs($js, View::POS_READY);
-?>

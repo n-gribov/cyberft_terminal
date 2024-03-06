@@ -39,9 +39,11 @@ class CryptoProSignStep extends BaseDocumentStep
 
             if (!$isSigned) {
                 $document->extModel->extStatus = ISO20022DocumentExt::STATUS_CRYPTOPRO_SIGNING_ERROR;
+                // Сохранить модель в БД
                 $document->extModel->save();
                 $document->updateStatus(Document::STATUS_PROCESSING_ERROR);
 
+                // Зарегистрировать событие ошибки подписания Криптопро в модуле мониторинга
                 Yii::$app->monitoring->log('document:CryptoProSigningError', 'document', $document->id, [
                     'terminalId' => $document->terminalId
                 ]);
@@ -50,6 +52,7 @@ class CryptoProSignStep extends BaseDocumentStep
                 return false;
             }
 
+            // Если модель использует сжатие в zip
             if ($typeModel->hasProperty('useZipContent') && $typeModel->useZipContent) {
                 ISO20022Helper::updateZipContent($typeModel);
             }
@@ -60,6 +63,7 @@ class CryptoProSignStep extends BaseDocumentStep
             $storedFile->updateData($this->state->cyxDoc->saveXML());
 
             $document->extModel->extStatus = ISO20022DocumentExt::STATUS_CRYPTOPRO_SIGNING_SUCCESS;
+            // Сохранить модель в БД
             $document->extModel->save();
             $this->log('Signed with CryptoPro keys');
 

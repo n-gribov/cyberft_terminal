@@ -11,9 +11,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app/fileact', 'Cryptopro ke
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fileact-cryptopro-keys-update">
-
-    <?php
-
+<?php
+    // Вывести блок с деталями сетификата
     echo $this->render('_certDetail', [
         'cert' => openssl_x509_parse($model->certData),
     ]);
@@ -23,11 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
     } else {
         $view = '_form';
     }
-
+    // Вывести форму
     echo $this->render($view, [
         'model' => $model,
     ]);
-
-    ?>
+?>
 
 </div>

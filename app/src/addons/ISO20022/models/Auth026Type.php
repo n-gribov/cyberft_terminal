@@ -10,12 +10,13 @@ use common\components\TerminalId;
 use common\components\xmlsec\xmlseclibs\XMLSecurityDSig;
 use common\helpers\Address;
 use common\helpers\CryptoProHelper;
+use common\helpers\SimpleXMLHelper;
 use common\helpers\StringHelper;
 use common\helpers\Uuid;
 use common\helpers\ZipHelper;
 use common\models\listitem\AttachedFile;
-use common\models\Terminal;
-use common\modules\participant\models\BICDirParticipant;
+use common\models\TerminalRemoteId;
+use common\modules\participant\helpers\ParticipantHelper;
 use Exception;
 use SimpleXMLElement;
 use Yii;
@@ -72,13 +73,16 @@ class Auth026Type extends BaseType
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),
-            [
-                [['fileName', 'embeddedAttachments'], 'safe'],
-                [array_values($this->attributes()), 'safe'],
-            ]);
+        return ArrayHelper::merge(parent::rules(), [
+            [['fileName', 'embeddedAttachments'], 'safe'],
+            [array_values($this->attributes()), 'safe'],
+        ]);
     }
 
+    /**
+     * Метод возвращает тип модели
+     * @return type
+     */
     public function getType()
     {
         if (!$this->_type) {
@@ -88,24 +92,39 @@ class Auth026Type extends BaseType
         return $this->_type;
     }
 
+    /**
+     * Метод возвращает полный тип модели
+     * @return type
+     */
     public function getFullType()
     {
         return $this->_fullType ?: static::FULL_TYPE;
     }
 
+    /**
+     * Метод устанавливает тип модели
+     * @param type $value
+     */
     public function setType($value)
     {
         $this->_type = $value;
     }
 
+    /**
+     * Метод устанавливает полный тип модели
+     * @param type $value
+     */
     public function setFullType($value)
     {
         $this->_fullType = $value;
     }
 
-
-    // Данная функция используется как сеттер для маппинга параметра
-    // fileName (см. $mapTags) в атрибут fileNames[]
+    /**
+     * Метод используется как сеттер для маппинга параметра
+     * fileName (см. $mapTags) в атрибут fileNames[]
+     * 
+     * @param type $value 
+     */
     public function setFileName($value)
     {
         if ($value !== null) {
@@ -113,21 +132,32 @@ class Auth026Type extends BaseType
         }
     }
 
+    /**
+     * Метод загружает данные модели из строки / файла
+     * @param type $data
+     * @param type $isFile
+     * @param type $encoding
+     * @return type
+     */
     public function loadFromString($data, $isFile = false, $encoding = null)
     {
         $this->_isValid = false;
         $this->_xml = null;
 
+        // Если передан файл и он существует, прочитать строку из файла
         if ($isFile && is_readable($data)) {
             $data = file_get_contents($data);
         }
 
         libxml_use_internal_errors(true);
+        // Построить XML из строки
         $xml = new SimpleXMLElement($data);
 
+        // Ошибка создания XML
         if ($xml === false) {
             $this->addError('xml', 'Error loading XML');
         } else {
+            // Неверный корневой узел в XML
             if ('Document' !== $xml->getName()) {
                 $this->addError('xml', 'Unknown root XML element');
             } else if (!$this->parseNamespace(array_values($xml->getNamespaces()))) {
@@ -136,8 +166,10 @@ class Auth026Type extends BaseType
         }
 
         if (!$this->hasErrors()) {
+            // Если нет ошибок, распарсить XML
             $this->parseXml($xml);
             $this->_xml = $xml;
+            // Модель валидна
             $this->_isValid = true;
         }
 
@@ -150,6 +182,7 @@ class Auth026Type extends BaseType
     public function getModelDataAsString($removeXmlDeclaration = true)
     {
         if (!$this->_xml) {
+            // Сформировать XML
             $this->buildXML();
         }
 
@@ -162,6 +195,13 @@ class Auth026Type extends BaseType
         }
     }
 
+    /**
+     * Метод парсит пространство имён XML, устанавливает флаг ошибки
+     * в случае неправильного имени
+     * 
+     * @param type $ns
+     * @return bool
+     */
     private function parseNamespace($ns)
     {
         if (is_array($ns) && count($ns)) {
@@ -193,13 +233,17 @@ class Auth026Type extends BaseType
         return false;
     }
 
+    /**
+     * Метод возвращает валидность модели
+     * @return type
+     */
     public function isValid()
     {
         return $this->_isValid;
     }
 
     /**
-     * Валидация по XSD xml-содержимого модели типа
+     * Метод валидирует модель по XSD
      * @return bool
      */
     public function validateXSD()
@@ -207,6 +251,10 @@ class Auth026Type extends BaseType
         return ISO20022Helper::validateXSD($this);
     }
 
+    /**
+     * Метод парсит XML и заполняет параметры модели
+     * @param type $xml
+     */
     protected function parseXml($xml)
     {
         foreach($xml->getDocNamespaces() as $strPrefix => $strNamespace) {
@@ -238,20 +286,23 @@ class Auth026Type extends BaseType
         $this->setAttributes($attributes);
     }
 
+    /**
+     * Метод создаёт XML из модели
+     */
     public function buildXML()
     {
         $xml = new SimpleXMLElement(
-                '<?xml version="1.0" encoding="UTF-8"?>'
-                . "\n"
-                . '<Document xmlns="' . self::DEFAULT_NS_URI . '" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"></Document>'
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            . "\n"
+            . '<Document xmlns="' . self::DEFAULT_NS_URI . '" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"></Document>'
         );
         $xml->CcyCtrlReqOrLttr->GrpHdr->MsgId = $this->getMsgId();
         $node = $xml->CcyCtrlReqOrLttr->GrpHdr;
         $node->CreDtTm = date('c', $this->dateCreated);
         $node->NbOfItms = $this->numberOfItems;
 
-        $senderParticipant = $this->findParticipant($this->sender);
-        $receiverParticipant = $this->findParticipant($this->receiver);
+        $senderParticipant = ParticipantHelper::findParticipant($this->sender);
+        $receiverParticipant = ParticipantHelper::findParticipant($this->receiver);
 
         if ($senderParticipant !== null) {
             $node->InitgPty->Pty->Nm = $senderParticipant->name;
@@ -280,8 +331,8 @@ class Auth026Type extends BaseType
             $node->Sndr->Pty->Nm = $senderParticipant->name;
         }
 
-        if ($this->isSwiftAddress($this->sender)) {
-            $node->Sndr->Pty->Id->OrgId->AnyBIC = static::extractBIC($this->sender);
+        if (Address::isSwiftAddress($this->sender)) {
+            $node->Sndr->Pty->Id->OrgId->AnyBIC = TerminalId::extractBIC($this->sender);
         }
 
         $node->Sndr->Pty->Id->OrgId->Othr->Id = $this->getRemoteSenderId();
@@ -291,11 +342,11 @@ class Auth026Type extends BaseType
             $node->Rcvr->Pty->Nm = $receiverParticipant->name;
         }
 
-        if (!$this->isSwiftAddress($this->receiver)) {
+        if (Address::isSwiftAddress($this->receiver)) {
+            $node->Rcvr->Pty->Id->OrgId->AnyBIC = TerminalId::extractBIC($this->receiver);
+        } else {
             $node->Rcvr->Pty->Id->OrgId->Othr->Id = $this->receiver;
             $node->Rcvr->Pty->Id->OrgId->Othr->SchmeNm->Prtry = 'CFTBIC';
-        } else {
-            $node->Rcvr->Pty->Id->OrgId->AnyBIC = static::extractBIC($this->receiver);
         }
 
         $node->Sbjt = $this->subject;
@@ -342,6 +393,11 @@ class Auth026Type extends BaseType
         $this->_xml = $xml;
     }
 
+    /**
+     * Метод возвращает MIME-тип модели
+     * @param string $fileContent
+     * @return string|null
+     */
     private function getMimeType(string $fileContent): ?string
     {
         $filePath = tempnam(sys_get_temp_dir(), '');
@@ -351,61 +407,33 @@ class Auth026Type extends BaseType
         return $mimeType;
     }
 
-    protected static function extractBIC($address)
-    {
-        $terminalId = TerminalId::extract($address);
-        if ($terminalId === null) {
-            return null;
-        }
-        return array_reduce(
-            ['participantCode', 'countryCode', 'sevenSymbol', 'delimiter', 'participantUnitCode'],
-            function ($carry, $part) use ($terminalId) {
-                return $carry . $terminalId->$part;
-            },
-            ''
-        );
-    }
-
-    protected function findParticipant($address)
-    {
-        $model = BICDirParticipant::findOne(['participantBIC' => Address::truncateAddress($address)]);
-        if (!empty($model)) {
-            return $model;
-        }
-
-        return null;
-    }
-
+    /**
+     * Метод возвращает код удалённого отправителя
+     * @return type
+     */
     protected function getRemoteSenderId()
     {
-        // Значение кода по умолчанию
-        $code = '00000';
-
-        // Поиск терминала по его id
-        $terminal = Terminal::findOne(['terminalId' => $this->sender]);
-
-        // Получаем значение кода из таблица кодов в системе получателя по терминалу
-        if ($terminal) {
-            $remoteCode = $terminal->getRemoteTerminalId($this->receiver);
-
-            if ($remoteCode) {
-                $code = htmlentities($remoteCode);
-            }
-        }
-
-        return $code;
+        return htmlentities(TerminalRemoteId::getRemoteIdByTerminal($this->sender, null, '00000'));
     }
 
-    protected function isSwiftAddress($address)
-    {
-        return strpos($address, '@') === false;
-    }
-
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
-        return [];
+        return false;
     }
 
+    /**
+     * Метод возвращает шаблон подписи
+     * 
+     * @param string $signatureId
+     * @param type $fingerprint
+     * @param type $algo
+     * @param type $certBody
+     * @return type
+     */
     public function getSignatureTemplate($signatureId, $fingerprint, $algo = null, $certBody = null)
     {
         if ($this->_isValid === false) {
@@ -428,16 +456,16 @@ class Auth026Type extends BaseType
         foreach ($this->_xml->getDocNamespaces() as $prefix => $uri) {
             if (self::CRYPTOPRO_SIGNATURE_NS === $uri) {
                 $signaturePrefix = $prefix;
-
                 break;
             }
         }
 
         $signatureId = $this->getPrefixSignature() . $signatureId;
 
-        /** @todo refactoring */
         $signatureTemplate = ISO20022Type::getActualSignatureTemplate();
-        $signatureTemplate = CryptoProHelper::updateSignatureTemplate($signatureTemplate, $signatureId, $fingerprint, $algo, $certBody);
+        $signatureTemplate = CryptoProHelper::updateSignatureTemplate(
+            $signatureTemplate, $signatureId, $fingerprint, $algo, $certBody
+        );
 
         if (empty($signaturePrefix)) {
             $this->_xml->addAttribute('xmlns:xmlns:default', 'http://www.w3.org/2000/09/xmldsig#');
@@ -461,9 +489,9 @@ class Auth026Type extends BaseType
             $rootElement->SplmtryData->Envlp->addChild('SgntrSt');
         }
 
-        $this->appendSimpleXML(
+        SimpleXMLHelper::insertAfter(
+            new SimpleXMLElement($signatureTemplate),
             $rootElement->SplmtryData->Envlp->SgntrSt,
-            new \SimpleXMLElement($signatureTemplate)
         );
 
         $out = $this->_xml->asXML();
@@ -471,23 +499,28 @@ class Auth026Type extends BaseType
         return $out;
     }
 
+    /**
+     * Метод возвращает префикс подписи
+     * @return string
+     */
     public function getPrefixSignature()
     {
         return 'id_';
     }
 
-    private function appendSimpleXML(\SimpleXMLElement $to, \SimpleXMLElement $from)
-    {
-        $toDom = dom_import_simplexml($to);
-        $fromDom = dom_import_simplexml($from);
-        $toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
-    }
-
+    /**
+     * Метод возвращает путь к файлу
+     * @return type
+     */
     public function getFilePath()
     {
         return $this->_filePath;
     }
 
+    /**
+     * Метод возвращает список XML-узлов с вложениями
+     * @return type
+     */
     public function getAttachmentNodes()
     {
         $xml = $this->getRawXml();
@@ -495,6 +528,11 @@ class Auth026Type extends BaseType
         return $xml->CcyCtrlReqOrLttr->ReqOrLttr->Attchmnt;
     }
 
+    /**
+     * Метод возвращает список вложений
+     * 
+     * @return AttachedFile
+     */
     public function getAttachedFileList()
     {
         $attachedFiles = [];
@@ -517,11 +555,21 @@ class Auth026Type extends BaseType
         return $attachedFiles;
     }
 
+    /**
+     * Метод создаёт имя файла
+     * 
+     * @return type
+     */
     public function createFilename()
     {
         return $this->sender . '_' . $this->getFullType() . '_' . $this->getMsgId();
     }
 
+    /**
+     * Метод возвращает идетификатор сообщения
+     * 
+     * @return type
+     */
     public function getMsgId()
     {
         if (empty($this->msgId)) {
@@ -531,11 +579,24 @@ class Auth026Type extends BaseType
         return $this->msgId;
     }
 
+    /**
+     * Метод возвращает XML-представление
+     * 
+     * @return type
+     */
     public function getRawXml()
     {
         return $this->_xml;
     }
 
+    /**
+     * Метод добавляет вложение в тело документа
+     * 
+     * @param string $fileName
+     * @param string $filePath
+     * @return void
+     * @throws Exception
+     */
     public function addEmbeddedAttachment(string $fileName, string $filePath): void
     {
         $fileSize = filesize($filePath);
@@ -551,11 +612,19 @@ class Auth026Type extends BaseType
         $this->embeddedAttachments[] = $fileContent;
     }
 
+    /**
+     * Метод извлекает вложения и возвращает их в виде списка,
+     * где имя файла это ключ, а путь к файлу это значение
+     * 
+     * @param string $targetDirPath Путь для сохранения файлов
+     * @return array [filename => content]
+     * @throws Exception
+     */
     public function extractAttachments(string $targetDirPath): array
     {
         $attachedFiles = [];
 
-        function extractAttachment(string $filePath, string $content): void
+        function saveAttachment(string $filePath, string $content): void
         {
             $saveResult = file_put_contents($filePath, $content);
             if ($saveResult === false) {
@@ -568,27 +637,40 @@ class Auth026Type extends BaseType
             return preg_replace('/^attach_/', '', $fileName);
         }
 
+        // Если используется упаковка в zip
         if ($this->useZipContent) {
+            // Создать временный архив на диске
             $zip = ZipHelper::createArchiveFileZipFromString($this->zipContent);
+            // Получить список файлов архива
             $filesFromZip = $zip->getFileList('cp866');
+            // Получить список узлов с вложениями
             $nodes = $this->getAttachmentNodes();
+            // Для каждого узла с вложением
             foreach ($nodes as $node) {
+                // Имя файла
                 $fileName = (string)$node->URL;
+                // Найти позицию в списке файлов архива по имени
                 $fileIndex = array_search($fileName, $filesFromZip);
+                // Если не найден файл, в архиве или в модели ошибка
                 if ($fileIndex === false) {
+                    // Выбросить исключение с текстом ошибки
                     throw new Exception("File $fileName is not found in zip archive");
                 }
+                // Получить контент вложения из архива по индексу
                 $content = $zip->getFromIndex($fileIndex);
                 $filePath = "$targetDirPath/$fileIndex";
-                extractAttachment($filePath, $content);
+                // Сохранить контент в целевую папку с именем как индекс
+                saveAttachment($filePath, $content);
+                // Поместить путь к сохранённому файлу в список вложений
                 $attachedFiles[normalizeFileName($fileName)] = $filePath;
             }
+            // Удалить временный архив
             $zip->purge();
         } else {
             foreach ($this->fileNames as $fileIndex => $fileName) {
                 $content = $this->embeddedAttachments[$fileIndex];
                 $filePath = "$targetDirPath/$fileIndex";
-                extractAttachment($filePath, $content);
+                saveAttachment($filePath, $content);
                 $attachedFiles[normalizeFileName($fileName)] = $filePath;
             }
         }

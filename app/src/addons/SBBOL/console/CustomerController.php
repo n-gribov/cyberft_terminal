@@ -12,6 +12,9 @@ use common\models\sbbolxml\SBBOLTransportConfig;
 
 class CustomerController extends BaseController
 {
+    /**
+     * Метод выводит текст с подсказкой
+     */
     public function actionIndex()
     {
         $this->run('/help', ['SBBOL/customer']);
@@ -103,6 +106,7 @@ class CustomerController extends BaseController
 
         $customer->addressSettlement = $locality;
 
+        // Если модель успешно сохранена в БД
         if ($customer->save()) {
             echo "Saved ok\n";
         } else {

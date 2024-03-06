@@ -61,6 +61,7 @@ class VTBCustomerAccount extends ActiveRecord
                 $account = new VTBCustomerAccount();
             }
             $account->setAttributes($attributes);
+            // Сохранить модель в БД
             $account->save();
             $toPreserveIds[] = $account->id;
         }

@@ -65,8 +65,7 @@ class InlineHelp extends Widget
             'glyphicon-question-sign'
         ];
 
-        // Получаем общий список классов,
-        // которые должны быть применены к кнопке помощи
+        // Получаем общий список классов, которые должны быть применены к кнопке помощи
         $this->classList = array_merge($defaultClassList, $this->setClassList);
 
         // Получаем список всех родительских статей для выбора
@@ -89,6 +88,7 @@ class InlineHelp extends Widget
 
     public function run()
     {
+        // Вывести страницу
         return $this->render('index', [
             'articleTitle' => $this->error ? 'Виджет раздела помощи' : $this->articleTitle,
             'classList' => $this->classList,

@@ -5,55 +5,50 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 
 /* @var $model WizardForm */
-
 ?>
 <div class="col-md-8">
-    <?php
-        $form = ActiveForm::begin([
-            'method'	=> 'post',
-            'action'	=> 'step3',
-            'options'	=> [
-                'enctype' => 'multipart/form-data',
-                'name' => 'step2Form',
-                'class' => 'iso-form'
-            ],
-        ]);
+<?php
+    $form = ActiveForm::begin([
+        'method'	=> 'post',
+        'action'	=> 'step3',
+        'options'	=> [
+            'enctype' => 'multipart/form-data',
+            'name' => 'step2Form',
+            'class' => 'iso-form'
+        ],
+    ]);
 
-        echo $form->field($model, 'subject')->textInput();
-        echo $form->field($model, 'descr')->textarea();
-        echo $form->field($model, 'typeCode')->dropDownList($settings->getTypeCodeList());
-        echo $form->field($model, 'file')->widget(
-            kartik\file\FileInput::class,
-            [
-                'pluginOptions' => [
-                    'showPreview' => false,
-                    'showUpload' => false
-                ]
+    echo $form->field($model, 'subject')->textInput();
+    echo $form->field($model, 'descr')->textarea();
+    echo $form->field($model, 'typeCode')->dropDownList($settings->getTypeCodeList());
+    echo $form->field($model, 'file')->widget(
+        kartik\file\FileInput::class,
+        [
+            'pluginOptions' => [
+                'showPreview' => false,
+                'showUpload' => false
             ]
-        )->label('Выбор файла');
+        ]
+    )->label('Выбор файла');
 
-        ActiveForm::end();
-    ?>
+    ActiveForm::end();
+?>
 </div>
 <?php if (!empty($model->fileName)) : ?>
-	Загружен файл: <?= $model->fileName ?>
+    Загружен файл: <?= $model->fileName ?>
 <?php endif ?>
 <div class="row">
-	<div class="row col-md-8">
-		<div class="col-md-offset-4 col-md-8">
-			<?=Html::a(Yii::t('app', 'Back'),	['index'], ['class' => 'btn btn-default'])?>
-			<?=Html::button(Yii::t('app', 'Next'), ['class' => 'btn btn-primary btn-submit-step2'])?>
-		</div>
-	</div>
+    <div class="row col-md-8">
+        <div class="col-md-offset-4 col-md-8">
+            <?=Html::a(Yii::t('app', 'Back'),	['index'], ['class' => 'btn btn-default'])?>
+            <?=Html::button(Yii::t('app', 'Next'), ['class' => 'btn btn-primary btn-submit-step2'])?>
+        </div>
+    </div>
 </div>
-
 <?php
-
-$script = <<< JS
-
+$script = <<<JS
     // Проверка состояния доступности кнопки отправки формы
     function submitButtonStatus() {
-
         // Получение значений требуемых полей
         var subject = $('#wizardform-subject').val();
         var description = $('#wizardform-descr').val();
@@ -131,5 +126,3 @@ $script = <<< JS
 JS;
 //маркер конца строки, обязательно сразу, без пробелов и табуляции
 $this->registerJs($script, yii\web\View::POS_READY);
-
-?>

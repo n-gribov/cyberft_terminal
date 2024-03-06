@@ -121,6 +121,7 @@ class FileActModule extends BaseBlock
             }
 
             Yii::$app->monitoring->log(
+                // Зарегистрировать событие ошибки обработки документа в модуле мониторинга
                'document:documentProcessError', 'document', $documentId,
                 [
                     'logLevel' => LogLevel::ERROR,
@@ -233,7 +234,7 @@ class FileActModule extends BaseBlock
      *
      * @param string $path Data for save in storage
      * @param string $filename File name
-     * @return StoredFile|NULL
+     * @return StoredFile|null
      */
     public function storeFileOut($path, $filename = '')
     {
@@ -245,7 +246,7 @@ class FileActModule extends BaseBlock
      *
      * @param string $data Data to save
      * @param string $filename File name
-     * @return StoredFile|NULL
+     * @return StoredFile|null
      */
     public function storeDataOut($data, $filename = '')
     {
@@ -256,7 +257,7 @@ class FileActModule extends BaseBlock
      * Get FileAct document instance
      *
      * @param integer $id FileAct document ID
-     * @return FileAct|NULL
+     * @return FileAct|null
      */
     public function getDocument($id)
     {
@@ -323,6 +324,7 @@ class FileActModule extends BaseBlock
 
             $document->extModel->extStatus = FileActDocumentExt::STATUS_FOR_CRYPTOPRO_SIGNING;
 
+            // Если модель успешно сохранена в БД
             if ($document->extModel->save()) {
                 Yii::$app->resque->enqueue('common\jobs\CryptoProSignJob',
                 [
@@ -357,6 +359,7 @@ class FileActModule extends BaseBlock
             $extModel->extStatus = FileActDocumentExt::STATUS_CRYPTOPRO_VERIFICATION_FAILED;
         }
 
+        // Сохранить модель в БД
         $extModel->save();
 
         return $result;

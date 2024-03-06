@@ -176,6 +176,7 @@ class SwiftFinDocumentExt extends ActiveRecord implements DocumentExtInterface
     public function isDocumentDeletable(User $user = null)
     {
         if ($user === null) {
+            // Получить модель пользователя из активной сессии
             $user = Yii::$app->user ? Yii::$app->user->identity : null;
         }
         if ($user != null && in_array($user->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN])) {

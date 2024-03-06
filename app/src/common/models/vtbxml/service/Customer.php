@@ -132,7 +132,7 @@ class Customer extends BaseObject
             if (array_key_exists($tag, static::TAGS)) {
                 $property = static::TAGS[$tag];
                 $customer->$property = static::formatPropertyValue($property, (string)$childElement);
-            } elseif ($tag === 'Branches') {
+            } else if ($tag === 'Branches') {
                 foreach ($childElement->Branch as $branchElement) {
                     $customer->branches[] = BankBranch::extractFromDom($branchElement);
                 }

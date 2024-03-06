@@ -9,9 +9,9 @@ use yii\widgets\DetailView;
 $this->title					 = $model->name;
 $this->params['breadcrumbs'][]	 = ['label' => Yii::t('doc/swiftfin', 'Banks Directory'), 'url' => ['index']];
 $this->params['breadcrumbs'][]	 = $this->title;
-?>
-<?=
-DetailView::widget([
+
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'swiftCode',

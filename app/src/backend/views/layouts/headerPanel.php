@@ -1,24 +1,21 @@
 <?php
-
 use common\models\User;
 use common\models\UserTerminal;
-use common\widgets\language\LanguageSwitcher;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use common\widgets\HeaderNotify\HeaderNotifyWidget;
-
 ?>
-
 <style>
-   .badge-notify{
-       background:red;
-       position:relative;
-       top: 10px;
-       left: -5px;
+.badge-notify{
+   background:red;
+   position:relative;
+   top: 10px;
+   left: -5px;
 }
 </style>
 <?php
     $isLoggedIn = !Yii::$app->user->isGuest;
+    // Получить роль пользователя из активной сессии
     $userRole = $isLoggedIn ? Yii::$app->user->identity->role : null;
     $isAdmin = $userRole === User::ROLE_ADMIN;
     $isAdditionalAdmin = $userRole == User::ROLE_ADDITIONAL_ADMIN;
@@ -32,13 +29,10 @@ use common\widgets\HeaderNotify\HeaderNotifyWidget;
                     <span class="ic-menu"></span>
                 </button>
             <?php endif ?>
-
-
             <?php
                 // Получение основного терминала пользователя
-                $primaryTerminal = Yii::$app->terminals->getPrimaryTerminal();
+                $primaryTerminal = Yii::$app->exchange->getPrimaryTerminal();
             ?>
-
             <div class="dropdown brand-dropdown pull-left">
                 <a class="navbar-brand" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <?= Html::encode($primaryTerminal->screenName)?>
@@ -76,22 +70,16 @@ use common\widgets\HeaderNotify\HeaderNotifyWidget;
 
                 <?php endif ?>
             </div>
-
-
         </div>
-
         <div class="navbar-collapse collapse navbar-right" id="navbar-main">
             <ul class="nav navbar-nav navbar-right">
                 <?php
-
                     // Уведомления
                     if ($isUser) {
                         // Документы к подписанию
                         echo HeaderNotifyWidget::widget(['type' => HeaderNotifyWidget::TYPE_FOR_SIGNING]);
-
                         // Новые документы
                         echo HeaderNotifyWidget::widget(['type' => HeaderNotifyWidget::TYPE_NEW]);
-
                         // Незапущенные терминалы пользователя
                         echo HeaderNotifyWidget::widget(['type' => HeaderNotifyWidget::TYPE_STOPPED_TERMINALS_USER]);
                     } else if ($isAdmin || $isAdditionalAdmin) {
@@ -99,18 +87,17 @@ use common\widgets\HeaderNotify\HeaderNotifyWidget;
                         echo HeaderNotifyWidget::widget(['type' => HeaderNotifyWidget::TYPE_STOPPED_TERMINALS_ADMIN]);
                     }
                 ?>
-
-                <?= $this->render('_languageDropDown') ?>
-
+                <?= // Вывести языковую панель
+                    $this->render('_languageDropDown') ?>
                 <li class="dropdown">
-                    <?php if(!Yii::$app->user->isGuest): ?>
+                    <?php if (!Yii::$app->user->isGuest) : ?>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <span class="ic-lockoff"></span> <?=Yii::$app->user->identity->screenName?> <span class="caret"></span>
                         </a>
-                    <?php else: ?>
+                    <?php else : ?>
                         <a href="<?=Url::toRoute('site/login')?>" title="<?= Yii::t('app', 'Log in') ?>"><?= Yii::t('app', 'Log in') ?> <i class="fa fa-sign-in"></i></a>
-                    <?php endif; ?>
-                    <?php if(!Yii::$app->user->isGuest): ?>
+                    <?php endif ?>
+                    <?php if (!Yii::$app->user->isGuest): ?>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="<?=Url::toRoute('/user/profile')?>"><?=Yii::t('app', 'Logged in as')?>&nbsp;<strong><?=Yii::$app->user->identity->screenName?></strong></a></li>
                             <li><a href="#"><?=Yii::t('app', 'Your role')?>&nbsp;<strong><?=Yii::$app->user->identity->roleLabel;?></strong></a></li>

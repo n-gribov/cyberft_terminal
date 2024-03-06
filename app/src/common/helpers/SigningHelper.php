@@ -104,7 +104,7 @@ class SigningHelper
         $xmlsec = new XMLSecEnc();
         $keys = $xmlsec->locateKeyInfo(null, $encryptedData);
 
-        $terminalData = Yii::$app->terminals->findTerminalData($cyxDoc->receiverId);
+        $terminalData = Yii::$app->exchange->findTerminalData($cyxDoc->receiverId);
         if (empty($terminalData)) {
             throw new Exception('Terminal data is empty for ' . $cyxDoc->receiverId);
         }
@@ -124,7 +124,7 @@ class SigningHelper
                     if (!empty($autobot)) {
                         $autobots[] = $autobot;
                     } else {
-                        $autobots = Yii::$app->terminals->findAutobotsUsedForDecryption($cyxDoc->receiverId);
+                        $autobots = Yii::$app->exchange->findAutobotsUsedForDecryption($cyxDoc->receiverId);
                     }
 
                     if (empty($autobots)) {

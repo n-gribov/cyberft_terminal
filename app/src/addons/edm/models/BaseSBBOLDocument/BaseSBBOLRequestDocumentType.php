@@ -50,6 +50,10 @@ abstract class BaseSBBOLRequestDocumentType extends BaseType implements Signable
         return $this;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
         return false;

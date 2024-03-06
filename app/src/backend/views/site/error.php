@@ -9,9 +9,9 @@ use yii\helpers\Html;
 
 $this->title = $name;
 ?>
-<?php if ($message): ?>
+<?php if ($message) : ?>
     <p><?= nl2br(Html::encode($message)) ?></p>
-<?php else: ?>
+<?php else : ?>
     <p>
         <?php
             if (!empty($exception) && $exception->getMessage()) {
@@ -21,4 +21,4 @@ $this->title = $name;
             }
         ?>
     </p>
-<?php endif; ?>
+<?php endif ?>

@@ -7,9 +7,9 @@ use common\models\cyberxml\CyberXmlContent;
 
 class StatementCyberXmlContent extends CyberXmlContent implements TypeCyberXmlContentInterface
 {
-	const ROOT_ELEMENT = 'Statement';
-	const DEFAULT_NS_URI = 'http://cyberft.ru/xsd/swiftfin.01';
-	const DEFAULT_NS_PREFIX = 'st';
+    const ROOT_ELEMENT = 'Statement';
+    const DEFAULT_NS_URI = 'http://cyberft.ru/xsd/swiftfin.01';
+    const DEFAULT_NS_PREFIX = 'st';
 
     protected $_typeModel;
 
@@ -23,6 +23,7 @@ class StatementCyberXmlContent extends CyberXmlContent implements TypeCyberXmlCo
             $this->_typeModel = $this->_parent->_typeModel;
         }
 
+        // Сформировать XML
         $this->_rootElement = $this->_typeModel->buildXml();
     }
 
@@ -32,14 +33,15 @@ class StatementCyberXmlContent extends CyberXmlContent implements TypeCyberXmlCo
         $this->_typeModel = new $typeModelClass();
     }
 
-	public function getDocumentData()
-	{
+    public function getDocumentData()
+    {
+        // Сформировать XML
         $this->_rootElement = $this->_typeModel->buildXml();
 
         return [
-			'mimeType'	=> 'application/xml',
-		];
-	}
+            'mimeType'	=> 'application/xml',
+        ];
+    }
 
     public function boundAttributes()
     {

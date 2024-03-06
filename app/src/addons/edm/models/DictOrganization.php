@@ -329,7 +329,7 @@ class DictOrganization extends ActiveRecord
                 $bIsTop = in_array($b->code, $topEntriesCodes);
                 if ($aIsTop !== $bIsTop) {
                     return intval($bIsTop) - intval($aIsTop);
-                } elseif ($aIsTop) {
+                } else if ($aIsTop) {
                     return array_search($a->code, $topEntriesCodes) - array_search($b->code, $topEntriesCodes);
                 }
                 return strcmp($a->name, $b->name);

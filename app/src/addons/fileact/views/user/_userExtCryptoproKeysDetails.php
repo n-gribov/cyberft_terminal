@@ -13,7 +13,9 @@ $dataProvider = $searchModel->searchUserKeys(Yii::$app->user->id);
         <h4><?= Yii::t('app/fileact', 'Available keys') ?></h4>
     </div>
     <div class="panel-body">
-        <?= GridView::widget([
+        <?php
+        // Создать таблицу для вывода
+        echo GridView::widget([
             'summary' => '',
             'dataProvider' => $dataProvider,
             'columns' => [
@@ -42,6 +44,7 @@ $dataProvider = $searchModel->searchUserKeys(Yii::$app->user->id);
                     }
                 ],
             ],
-        ]); ?>
+        ]);
+        ?>
     </div>
 </div>

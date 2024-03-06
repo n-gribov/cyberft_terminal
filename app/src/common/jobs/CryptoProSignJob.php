@@ -61,8 +61,8 @@ class CryptoProSignJob extends Job
         $this->_documentExt = $documentExt;
     }
 
-	public function perform()
-	{
+    public function perform()
+    {
         $model = CyberXmlDocument::read($this->_document->actualStoredFileId);
         $signedModel = CryptoProHelper::sign($this->_module->getServiceId(), $model, true);
 
@@ -71,7 +71,9 @@ class CryptoProSignJob extends Job
             $this->log($this->_document->type . ' ' . $this->_documentId . ' signed with cryptopro keys');
             $storedFile = Yii::$app->storage->get($this->_document->actualStoredFileId);
             $storedFile->updateData($model->saveXML());
+            // Обработать документ в модуле аддона
             $this->_module->processDocument($this->_document);
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($this->_document, true);
         } else {
             $this->_documentExt->extStatus = FileActDocumentExt::STATUS_CRYPTOPRO_SIGNING_ERROR;
@@ -79,12 +81,13 @@ class CryptoProSignJob extends Job
 
             $this->_document->updateStatus(Document::STATUS_PROCESSING_ERROR);
 
+            // Зарегистрировать событие ошибки подписания Криптопро в модуле мониторинга
             Yii::$app->monitoring->log('document:CryptoProSigningError', 'document', $this->_document->id, [
                 'terminalId' => $this->_document->terminalId
             ]);
         }
 
+        // Сохранить модель в БД
         $this->_documentExt->save();
-	}
-
+    }
 }

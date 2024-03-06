@@ -10,7 +10,6 @@ use common\models\ProfilingData;
 
 class ResqueController extends Controller
 {
-
     public function behaviors()
     {
         return [
@@ -28,6 +27,7 @@ class ResqueController extends Controller
 
     public function actionIndex()
     {
+        // Вывести страницу
         return $this->render('stat', ['stat' => Yii::$app->resque->info()]);
     }
 
@@ -40,6 +40,7 @@ class ResqueController extends Controller
                 'pageSize' => 10,
             ],
         ]);
+        // Вывести страницу
         return $this->render('profiling', ['dataProvider' => $dataProvider]);
     }
 }

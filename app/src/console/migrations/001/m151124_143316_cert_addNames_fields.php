@@ -17,33 +17,33 @@ class m151124_143316_cert_addNames_fields extends Migration
         $this->addColumn($this->_tableName, 'firstName', 'varchar(255) DEFAULT NULL');
         $this->addColumn($this->_tableName, 'middleName', 'varchar(255) DEFAULT NULL');
 
-        if(!$this->fromFullNameToFIO()){
+        if (!$this->fromFullNameToFIO()){
             $this->dropColumn($this->_tableName, 'lastName');
             $this->dropColumn($this->_tableName, 'firstName');
             $this->dropColumn($this->_tableName, 'middleName');
 
-            return FALSE;
+            return false;
         }
 
         $this->dropColumn($this->_tableName, 'fullName');
 
-        return TRUE;
+        return true;
     }
 
     public function down()
     {
         $this->addColumn($this->_tableName, 'fullName', 'varchar(255) DEFAULT NULL');
 
-        if(!$this->fromFIOToFullName()){
+        if (!$this->fromFIOToFullName()){
             $this->dropColumn($this->_tableName, 'fullName');
-            return FALSE;
+            return false;
         }
 
         $this->dropColumn($this->_tableName, 'middleName');
         $this->dropColumn($this->_tableName, 'firstName');
         $this->dropColumn($this->_tableName, 'lastName');
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -69,10 +69,10 @@ class m151124_143316_cert_addNames_fields extends Migration
                 Yii::$app->db->createCommand()->update($this->_tableName, $data, "id = {$value['id']}")->execute();
             }
 
-            return TRUE;
+            return true;
         } catch (\Exception $ex) {
             Yii::error($ex->getMessage());
-            return FALSE;
+            return false;
         }
     }
 
@@ -97,10 +97,10 @@ class m151124_143316_cert_addNames_fields extends Migration
                 Yii::$app->db->createCommand()->update($this->_tableName, $data, "id = {$value['id']}")->execute();
             }
 
-            return TRUE;
+            return true;
         } catch (\Exception $ex) {
             Yii::error($ex->getMessage());
-            return FALSE;
+            return false;
         }
     }
 }

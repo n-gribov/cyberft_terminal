@@ -23,6 +23,7 @@ use yii\web\JsExpression;
 $this->title = Yii::t('app', 'Documents');
 $this->params['breadcrumbs'][] = $this->title;
 
+// Получить роль пользователя из активной сессии
 $isAdmin = in_array(Yii::$app->user->identity->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN]);
 $userCanDeleteDocuments = $isAdmin;
 $deletableDocumentsIds = array_reduce(
@@ -54,7 +55,13 @@ $columns['id'] = [
     ]
 ];
 
-$columns['type'] = 'type';
+$columns['typePattern'] = [
+    'attribute' => 'typePattern',
+    'label' => Document::attributeLabels()['type'],
+    'value' => function($item) {
+        return $item->type;
+    }
+];
 
 $columns['direction'] = [
     'attribute' => 'direction',
@@ -126,13 +133,13 @@ $columns['dateCreate'] = [
 ];
 
 if ($searchModel->hasHighlights()) {
-	$columns['body'] = [
-		'label'     => Yii::t('doc', 'Document body'),
-		'format'        => 'html',
-		'value'         => function($item, $params) use($searchModel) {
-			return $searchModel->getHighlights($item, 'body', '');
-		}
-	];
+    $columns['body'] = [
+        'label'     => Yii::t('doc', 'Document body'),
+        'format'        => 'html',
+        'value'         => function($item, $params) use($searchModel) {
+            return $searchModel->getHighlights($item, 'body', '');
+        }
+    ];
 }
 
 if ($userCanDeleteDocuments) {
@@ -140,6 +147,7 @@ if ($userCanDeleteDocuments) {
     echo SelectedDocumentsCountLabel::widget(['checkboxesSelector' => '.delete-checkbox, .select-on-check-all']);
 }
 
+// Вывести форму поиска
 echo $this->render('_search', [
     'model' => $searchModel,
     'filterStatus' => $filterStatus,
@@ -186,14 +194,14 @@ $columnsEnabled = array_merge(
             'filterInputOptions' => [
                 'style'     => 'width: 20px'
             ],
-            'value'	=> function ($item, $params) use ($urlParams) {
+            'value' => function ($item, $params) use ($urlParams) {
                 return Html::a('<span class="ic-eye"></span>',
                     Url::toRoute(array_merge(['view', 'id' => $item->id, 'redirectUrl' => '/document/index'], $urlParams)), ['title' => 'Просмотр']);
             }
         ]
     ]
 );
-
+// Создать таблицу для вывода
 echo InfiniteGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
@@ -224,13 +232,11 @@ echo InfiniteGridView::widget([
     'options' => ['class' => 'grid-view documents-journal-grid'],
 ]);
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
 echo ToTopButtonWidget::widget();
 
@@ -241,7 +247,4 @@ $this->registerCss('#delete-selected-documents-button {display: none;}');
 
 $this->registerJS(<<<JS
     stickyTableHelperInit();
-JS
-);
-
-?>
+JS);

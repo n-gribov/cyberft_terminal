@@ -30,7 +30,7 @@ Modal::begin([
 <?php
 
 // JS
-$script = <<< JS
+$script = <<<JS
     $('#modal-activate-autobot').on('shown.bs.modal', function() {
       $(this).find('[autofocus]').focus();
     });
@@ -58,7 +58,7 @@ $script = <<< JS
 
               if (res.status === 'error') {
                 $('.activate-status-message').text(res.msg);
-              } else if(res.status === 'ok') {
+              } else if (res.status === 'ok') {
                  window.location.reload();
                  return false;
               }

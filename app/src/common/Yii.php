@@ -5,10 +5,10 @@
  */
 class Yii extends \yii\BaseYii
 {
-	/**
-	 * @var BaseApplication|WebApplication|ConsoleApplication the application instance
-	 */
-	public static $app;
+    /**
+     * @var BaseApplication|WebApplication|ConsoleApplication the application instance
+     */
+    public static $app;
 }
 
 spl_autoload_register(['Yii', 'autoload'], true, true);
@@ -23,7 +23,7 @@ Yii::$container = new yii\di\Container;
  * @property \common\components\RbacMenu $menu
  * @property \common\components\Registry $registry
  * @property \common\components\Resque $resque
- * @property \common\components\Terminal\Terminals $terminals
+ * @property \common\components\Terminal\Exchange $exchange
  * @property \common\components\ElasticSearch $elasticsearch
  * @property \common\components\Addon $addon
  * @property \common\components\CommandBus $commandBus

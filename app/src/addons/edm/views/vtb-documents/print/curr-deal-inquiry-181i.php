@@ -81,7 +81,7 @@ Yii::$app->formatter->nullDisplay = '';
         <th>12</th>
         <th>13</th>
     </tr>
-    <?php foreach ($bsDocument->DEALINFOBLOB as $i => $dealInfo): ?>
+    <?php foreach ($bsDocument->DEALINFOBLOB as $i => $dealInfo) : ?>
         <tr>
             <td><?= $i + 1 ?></td>
             <td><?= Html::encode($dealInfo->DOCUMENTNUMBER) ?></td>
@@ -97,7 +97,7 @@ Yii::$app->formatter->nullDisplay = '';
             <td><?= Yii::$app->formatter->asDate($dealInfo->EXPECTDATE, $dateFormat) ?></td>
             <td></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 
 <p>Примечание</p>
@@ -106,17 +106,18 @@ Yii::$app->formatter->nullDisplay = '';
         <th style="width: 100px;">№ строки</th>
         <th>Содержание</th>
     </tr>
-    <?php foreach ($bsDocument->DEALINFOBLOB as $index => $dealInfo): ?>
-        <?php if (!(empty($dealInfo->REMARK))): ?>
+    <?php foreach ($bsDocument->DEALINFOBLOB as $index => $dealInfo) : ?>
+        <?php if (!(empty($dealInfo->REMARK))) : ?>
             <tr>
                 <td><?= $index + 1 ?></td>
                 <td><?= Html::encode($dealInfo->REMARK) ?></td>
             </tr>
-        <?php endif; ?>
-    <?php endforeach; ?>
+        <?php endif ?>
+    <?php endforeach ?>
 </table>
 
-<?= $this->render(
+<?= // Вывести колонтитул
+    $this->render(
     '_bottom',
     [
         'typeModel' => $typeModel,

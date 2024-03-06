@@ -23,6 +23,9 @@ class SettingsController extends BaseServiceController
         ];
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         if (!empty(Yii::$app->request->isPost)) {
@@ -33,17 +36,21 @@ class SettingsController extends BaseServiceController
              * Fix for autotest: при вызове из теста с выключенным чекбоксом в посте не приходит поле совсем,
              * поэтому в setAttributes оно не попадает и не обновляется
              */
-
             $this->module->settings->setAttributes($attributes);
 
+            // Если настройки успешно сохранены в БД
             if ($this->module->settings->save()) {
+                // Поместить в сессию флаг сообщения об успешном сохранении настроек
                 Yii::$app->session->setFlash('success', Yii::t('app/fileact', 'Settings saved'));
+                // Перенаправить на страницу индекса настроек
                 return $this->redirect(['/sbbol2/settings']);
             } else {
+                // Поместить в сессию флаг сообщения об ошибке сохранения настроек
                 Yii::$app->session->setFlash('error', Yii::t('app/error', 'Error! Settings not saved!'));
             }
         }
 
+        // Вывести страницу
         return $this->render('index', [
             'settings' => $this->module->settings,
         ]);

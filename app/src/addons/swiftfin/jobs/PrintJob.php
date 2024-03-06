@@ -60,7 +60,7 @@ class PrintJob extends DocumentJob
     protected function printDocument($data)
     {
         try{
-            $pipes = NULL;
+            $pipes = null;
             $descriptorspec = [
                 0 => ['pipe', 'r'],
                 1 => ['pipe', 'w'],

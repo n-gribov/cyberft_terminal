@@ -1,15 +1,13 @@
 <?php
 use backend\assets\AppAsset;
 use yii\helpers\Html;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 AppAsset::register($this);
-?>
 
-<?php $this->beginPage() ?>
+$this->beginPage();
+?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?=Yii::$app->language?>">
@@ -27,9 +25,10 @@ $this->beginBody();
 print $content;
 $this->endBody();
 if (isset($this->blocks['javascripts'])) {
-	echo $this->blocks['javascripts'];
+    echo $this->blocks['javascripts'];
 }
 ?>
 </body>
 </html>
-<?php $this->endPage() ?>
+<?php
+$this->endPage();

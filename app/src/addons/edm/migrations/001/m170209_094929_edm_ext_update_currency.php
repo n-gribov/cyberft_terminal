@@ -30,6 +30,7 @@ class m170209_094929_edm_ext_update_currency extends Migration
             // Если валюта найдена в справочнике, заполняем выписку
             if ($currencyDict) {
                 $statement->currency = $currencyDict->name;
+                // Сохранить модель в БД
                 $statement->save();
             }
         }

@@ -6,13 +6,13 @@ use common\widgets\GridView;
 $this->title = Yii::t('app/menu', 'Documents for modification');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('edm', 'Banking registry'), 'url' => Url::toRoute(['index'])];
 $this->params['breadcrumbs'][] = $this->title;
-?>
 
-<?php echo $this->render('_search', [
+// Вывести форму поиска
+echo $this->render('_search', [
     'model' => $filterModel,
-    'filterStatus' => $filterStatus,
-]); ?>
-<?php
+    'filterStatus' => $filterStatus
+]);
+// Создать таблицу для вывода
 $myGridWidget = GridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -23,13 +23,13 @@ $myGridWidget = GridView::begin([
 
         if (in_array($model->status, array_merge($model->getErrorStatus(),['']))) {
             $options['class'] = 'bg-alert-danger';
-        } elseif (in_array($model->status, $model->getProcessingStatus())) {
+        } else if (in_array($model->status, $model->getProcessingStatus())) {
             $options['class'] = 'bg-alert-warning';
         }
 
         return $options;
     },
-    'columns'      => [
+    'columns' => [
         [
             'attribute' => 'id',
             'format' => 'html',
@@ -37,7 +37,7 @@ $myGridWidget = GridView::begin([
                 'class' => 'text-right',
             ],
             'filterInputOptions' => [
-                'style'     => 'float:right;width: 30px'
+                'style' => 'float: right; width: 30px'
             ],
             'contentOptions' => [
                 'class' => 'text-right',
@@ -90,7 +90,7 @@ $myGridWidget = GridView::begin([
             'filterInputOptions' => [
                 'style'     => 'width: 20px'
             ],
-            'value'	=> function ($item, $params) {
+            'value' => function ($item, $params) {
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
                         Url::toRoute(['/edm/wizard/edit', 'id' => $item->id]));
             }
@@ -101,4 +101,4 @@ $myGridWidget = GridView::begin([
 
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
-?>
+

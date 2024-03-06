@@ -7,7 +7,7 @@ use yii\jui\JuiAsset;
 
 JuiAsset::register($this);
 
-$script = <<< JS
+$script = <<<JS
    $('.btn-columns-settings').on('click', function(e) {
         e.preventDefault();
         $('#columnsSettingsModal').modal();

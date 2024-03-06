@@ -97,17 +97,19 @@ class DocumentEditHandler extends BaseHandler
         $this->_document->receiverParticipantId = Address::truncateAddress($model->recipient);
 
         if (!$this->_document->save(
-                false,
-                ['actualStoredFileId', 'receiver', 'receiverParticipantId']
+            false,
+            ['actualStoredFileId', 'receiver', 'receiverParticipantId']
         )) {
             \Yii::warning("Set storage ID[{$storageId}] to document ID[{$this->_document->id}] error!");
 
             return false;
         }
 
+        // Обработать документ в модуле аддона
         $this->_module->processDocument($this->_document);
 
         if ($this->_document->status == Document::STATUS_ACCEPTED) {
+            // Создать стейт отправки документа
             DocumentTransportHelper::createSendingState($this->_document);
         }
 

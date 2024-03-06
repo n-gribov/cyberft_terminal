@@ -112,6 +112,7 @@ class VTBModule extends BaseBlock
             'documentId' => $documentId,
             'status' => VTBDocumentImportRequest::STATUS_PENDING
         ]);
+        // Сохранить модель в БД и вернуть результат сохранения
         return $request->save();
     }
 
@@ -165,6 +166,7 @@ class VTBModule extends BaseBlock
             'documentId' => $documentId,
             'status'     => VTBDocumentImportRequest::STATUS_PENDING
         ]);
+        // Сохранить модель в БД и вернуть результат сохранения
         return $request->save();
     }
 
@@ -286,6 +288,7 @@ class VTBModule extends BaseBlock
             'vtbReferenceId'      => $vtbReferenceId,
         ]);
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             [
@@ -304,7 +307,7 @@ class VTBModule extends BaseBlock
         if ($context === false) {
             throw new Exception('Failed to create document context');
         }
-
+        // Создать стейт отправки документа
         DocumentTransportHelper::createSendingState($context['document']);
     }
 
@@ -350,7 +353,7 @@ class VTBModule extends BaseBlock
             'signatureInfo'   => $signatureData,
         ]);
 
-        $terminal = Yii::$app->terminals->defaultTerminal;
+        $terminal = Yii::$app->exchange->defaultTerminal;
 
         $filename = implode(
             '_',
@@ -362,6 +365,7 @@ class VTBModule extends BaseBlock
             ]
         );
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $responseTypeModel,
             [
@@ -377,11 +381,14 @@ class VTBModule extends BaseBlock
             null,
             ['filename' => "$filename.xml"]
         );
+
         if (empty($context)) {
             $this->log('Failed to create response document');
             return false;
         }
+        // Получить документ из контекста
         $document = $context['document'];
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($document, true);
 
         return true;

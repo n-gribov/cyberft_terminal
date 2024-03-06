@@ -43,12 +43,10 @@ if (isset($model)) {
     if ($model->getValidStoredFileId()) {
         $paymentOrder = CyberXmlDocument::getTypeModel($model->getValidStoredFileId());
     } else if ($model->status == $model::STATUS_CREATING) {
-        echo 'Документ еще не создан';
-
+        echo 'Документ ещё не создан';
         return;
     } else {
         echo 'К сожалению, нет возможности отобразить документ данного типа';
-
         return;
     }
 }
@@ -68,26 +66,29 @@ if (isset($model)) {
 
 <?php if (isset($model)) : ?>
 
-<?= DetailView::widget([
-        'template' => '<tr><th class="col-sm-1">{label}</th><td'
-            . ($model->businessStatus == 'RJCT' ? ' class="alert-danger"'
-            : null)
-            . '>{value}</td></tr>',
-        'model' => $model,
-        'attributes' => [
-            [
-                'attribute' => 'businessStatus',
-                'value' => !empty($model->businessStatusTranslation)
-                            ? ($model->businessStatusTranslation
-                                . (!empty($model->businessStatusDescription)
-                                    ? (': ' . $model->businessStatusDescription)
-                                    : null
-                                  )
-                              )
-                            : $model->businessStatusTranslation
-            ]
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
+    'template' => '<tr><th class="col-sm-1">{label}</th><td'
+        . ($model->businessStatus == 'RJCT' ? ' class="alert-danger"'
+        : null)
+        . '>{value}</td></tr>',
+    'model' => $model,
+    'attributes' => [
+        [
+            'attribute' => 'businessStatus',
+            'value' =>
+                !empty($model->businessStatusTranslation)
+                ? ($model->businessStatusTranslation
+                    . (!empty($model->businessStatusDescription)
+                       ? (': ' . $model->businessStatusDescription)
+                       : null
+                    )
+                )
+                : $model->businessStatusTranslation
         ]
-    ])
+    ]
+]);
 ?>
 <?php endif ?>
 <br/>
@@ -95,15 +96,12 @@ if (isset($model)) {
 <table class="table table-bordered" style="margin-bottom: -1px">
     <tr>
         <td width="30%" style="text-align: center"><strong><?=$paymentOrder->dateProcessingFormatted?></strong><br/></td>
-
         <?php if ($isPaymentRequirement) : ?>
             <td width="30%" style="text-align: center;">
                 <strong>
-                    <?php
-                        if ($paymentOrder->acceptanceEndDate) {
-                            echo $paymentOrder->acceptanceEndDateFormatted;
-                        }
-                    ?>
+                    <?php if ($paymentOrder->acceptanceEndDate) {
+                        echo $paymentOrder->acceptanceEndDateFormatted;
+                    } ?>
                 </strong><br/>
             </td>
         <?php endif ?>
@@ -113,11 +111,9 @@ if (isset($model)) {
         <?php if ($isPaymentRequirement) : ?>
             <td width="30%" style="text-align: center;">
                 <strong>
-                    <?php
-                        if ($isPaymentRequirement) {
-                            echo $paymentOrder->okud;
-                        }
-                    ?>
+                    <?php if ($isPaymentRequirement) {
+                        echo $paymentOrder->okud;
+                    } ?>
                 </strong>
             </td>
         <?php endif ?>
@@ -177,105 +173,102 @@ if (isset($model)) {
         <td style="text-align: center;"><?= Yii::t('doc', 'Date'); ?></td>
         <td style="text-align: center;"><?= Yii::t('doc', 'Payment type'); ?></td>
     </tr>
-	<tr style="visibility: hidden; border: none" class="iespike">
-		<td width="30%"></td>
-		<td width="30%"></td>
-		<td width="10%"></td>
-		<td width="10%"></td>
-		<td width="10%"></td>
-		<td width="10%"></td>
-	</tr>
-	<tr>
-		<td>ИНН: <strong><?=$paymentOrder->payerInn?></strong></td>
-		<td>КПП: <strong><?=$paymentOrder->payerKpp?></strong></td>
-		<td>Сумма</td>
+    <tr style="visibility: hidden; border: none" class="iespike">
+        <td width="30%"></td>
+        <td width="30%"></td>
+        <td width="10%"></td>
+        <td width="10%"></td>
+        <td width="10%"></td>
+        <td width="10%"></td>
+    </tr>
+    <tr>
+        <td>ИНН: <strong><?=$paymentOrder->payerInn?></strong></td>
+        <td>КПП: <strong><?=$paymentOrder->payerKpp?></strong></td>
+        <td>Сумма</td>
         <td colspan="3" class="text-left"><strong><?= Yii::$app->formatter->asDecimal($paymentOrder->sum, 2); ?></strong></td>
-	</tr>
-	<tr>
-		<td colspan="2">
-            <strong><?=$paymentOrder->payerName?></strong><br/>
-			<small>Плательщик</small>
-		</td>
-		<td>Сч. №</td>
+    </tr>
+    <tr>
+        <td colspan="2"><strong><?=$paymentOrder->payerName?></strong><br/>
+                    <small>Плательщик</small></td>
+        <td>Сч. №</td>
         <td colspan="3" class="text-left">
-            <strong><?=$paymentOrder->payerCheckingAccount?></strong>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" rowspan="2">
+            <strong><?=$paymentOrder->payerCheckingAccount?></strong></td>
+    </tr>
+    <tr>
+        <td colspan="2" rowspan="2">
             <strong><?=$paymentOrder->payerBank1?></strong><br/>
             <strong><?=$paymentOrder->payerBank2?></strong><br/>
-			<small>Банк плательщика</small>
-		</td>
-		<td>БИК</td>
-        <td colspan="3" class="text-left"><strong><?=$paymentOrder->payerBik?></strong></td>
-	</tr>
-	<tr>
-		<td>Сч. №</td>
+            <small>Банк плательщика</small>
+        </td>
+        <td>БИК</td>
+    <td colspan="3" class="text-left"><strong><?=$paymentOrder->payerBik?></strong></td>
+    </tr>
+    <tr>
+        <td>Сч. №</td>
         <td colspan="3" class="text-left"><strong><?=$paymentOrder->payerCorrespondentAccount?></strong></td>
-	</tr>
-	<tr>
-		<td colspan="2" rowspan="2">
+    </tr>
+    <tr>
+        <td colspan="2" rowspan="2">
             <strong><?=$paymentOrder->beneficiaryBank1?></strong><br/>
             <strong><?=$paymentOrder->beneficiaryBank2?></strong><br/>
 			<small>Банк получателя</small>
-		</td>
-		<td>БИК</td>
+        </td>
+        <td>БИК</td>
         <td colspan="3" class="text-left"><strong><?=$paymentOrder->beneficiaryBik?></strong></td>
-	</tr>
-	<tr>
-		<td>Сч. №</td>
+    </tr>
+    <tr>
+        <td>Сч. №</td>
         <td colspan="3" class="text-left"><strong><?=$paymentOrder->beneficiaryCorrespondentAccount?></strong></td>
-	</tr>
-	<tr>
-		<td>ИНН: <strong><?=$paymentOrder->beneficiaryInn?></strong></td>
-		<td>КПП: <strong><?=$paymentOrder->beneficiaryKpp?></strong></td>
-		<td>Сч. №</td>
+    </tr>
+    <tr>
+        <td>ИНН: <strong><?=$paymentOrder->beneficiaryInn?></strong></td>
+        <td>КПП: <strong><?=$paymentOrder->beneficiaryKpp?></strong></td>
+        <td>Сч. №</td>
         <td colspan="3" rowspan="2" class="text-left"><strong><?=$paymentOrder->beneficiaryCheckingAccount?></strong></td>
-	</tr>
-	<tr>
-		<td colspan="2" rowspan="4">
+    </tr>
+    <tr>
+        <td colspan="2" rowspan="4">
             <strong><?=$paymentOrder->beneficiaryName?></strong><br/>
-			<small>Получатель</small>
-		</td>
-	</tr>
-	<tr>
-		<td>Вид. оп.</td>
+                    <small>Получатель</small>
+        </td>
+    </tr>
+    <tr>
+        <td>Вид. оп.</td>
         <td class="text-left"><strong><?=$paymentOrder->payType?></strong></td>
-		<td>Срок. плат.</td>
-		<td><strong><?= $paymentOrder->maturity; ?></strong></td>
-	</tr>
-	<tr>
-		<td>Наз. пл.</td>
-		<td><strong><?= $paymentOrder->paymentOrderPaymentPurpose; ?></strong></td>
-		<td>Очер. плат.</td>
-		<td class="text-left"><strong><?=$paymentOrder->priority?></strong></td>
-	</tr>
-	<tr>
-		<td>Код</td>
+        <td>Срок. плат.</td>
+        <td><strong><?= $paymentOrder->maturity; ?></strong></td>
+    </tr>
+    <tr>
+        <td>Наз. пл.</td>
+        <td><strong><?= $paymentOrder->paymentOrderPaymentPurpose; ?></strong></td>
+        <td>Очер. плат.</td>
+        <td class="text-left"><strong><?=$paymentOrder->priority?></strong></td>
+    </tr>
+    <tr>
+        <td>Код</td>
         <td class="text-left"><strong><?= $paymentOrder->code; ?></strong></td>
-		<td>Рез. поле</td>
-		<td><strong><?= $paymentOrder->backingField; ?></strong></td>
-	</tr>
+        <td>Рез. поле</td>
+        <td><strong><?= $paymentOrder->backingField; ?></strong></td>
+    </tr>
 </table>
 <table class="table table-bordered" style="margin-bottom: -1px">
-	<tr>
+    <tr>
         <td width="14.2%" class="text-right"><?= $paymentOrder->indicatorKbk ?: '0' ?><br/></td>
-		<td width="14.2%" class="text-right"><?= $paymentOrder->okato ?: '0' ?></td>
-		<td width="14.2%" class="text-right"><?= $paymentOrder->indicatorReason ?: '0' ?></td>
-		<td width="14.2%" class="text-right"><?= $paymentOrder->indicatorPeriod ?: '0' ?></td>
-		<td width="14.2%" class="text-right"><?= $paymentOrder->indicatorNumber ?: '0' ?></td>
-		<td width="14.2%" class="text-right"><?= $paymentOrder->indicatorDate ?: '0' ?></td>
-		<td width="14.2%" class="text-right"><?= $paymentOrder->indicatorType ?: '0' ?></td>
-	</tr>
+        <td width="14.2%" class="text-right"><?= $paymentOrder->okato ?: '0' ?></td>
+        <td width="14.2%" class="text-right"><?= $paymentOrder->indicatorReason ?: '0' ?></td>
+        <td width="14.2%" class="text-right"><?= $paymentOrder->indicatorPeriod ?: '0' ?></td>
+        <td width="14.2%" class="text-right"><?= $paymentOrder->indicatorNumber ?: '0' ?></td>
+        <td width="14.2%" class="text-right"><?= $paymentOrder->indicatorDate ?: '0' ?></td>
+        <td width="14.2%" class="text-right"><?= $paymentOrder->indicatorType ?: '0' ?></td>
+    </tr>
 </table>
 <table class="table table-bordered">
-	<tr>
-		<td>
+    <tr>
+        <td>
             <strong><?=$paymentOrder->paymentPurpose?></strong><br/>
-			<small>Назначение платежа</small>
-		</td>
-	</tr>
+            <small>Назначение платежа</small>
+        </td>
+    </tr>
 </table>
 
 <?php if (isset($model) && !empty($model->dateProcessing)) : ?>
@@ -361,6 +354,7 @@ if (
     isset($model)
     && $signatures = $model->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER)
 ) {
+    // Вывести блок подписей
     echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
 }
 
@@ -374,11 +368,7 @@ $this->registerCss('
 $printUrl = Url::toRoute(['/edm/documents/print-statement-payment-order', 'id' => $documentId, 'num' => $num]);
 $printBtn = '.btn-statement-print';
 
-echo FastPrint::widget(
-    [
-        'printUrl' => $printUrl,
-        'printBtn' => $printBtn
-    ]
-);
-
-?>
+echo FastPrint::widget([
+    'printUrl' => $printUrl,
+    'printBtn' => $printBtn
+]);

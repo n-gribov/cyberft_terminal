@@ -14,17 +14,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="col-xs-12">
         <p>
-
             <?= Html::a(Yii::t('app/fileact', 'Download'), Url::toRoute(['/cryptopro-keys/download', 'id' => $model->id]),
                 ['class' => 'btn btn-success']) ?>
-
             <?php
                 // Кнопка удаления и изменения доступна только для неактивных сертификатов
                 if (!$model->active) {
-
                     echo Html::a(Yii::t('app/fileact', 'Update'), ['update', 'id' => $model->id],
                         ['class' => 'btn btn-primary']) . "&nbsp";
-
                     echo Html::a(Yii::t('app/fileact', 'Delete'), ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger',
                         'data' => [
@@ -35,8 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ?>
         </p>
-
-        <?= DetailView::widget([
+        <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $model,
             'attributes' => [
                 'id',
@@ -45,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'expireDate',
                 'certData:ntext',
             ],
-        ]) ?>
+        ]);
+        ?>
     </div>
 </div>

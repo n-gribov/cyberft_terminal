@@ -6,6 +6,7 @@ use addons\edm\models\ContractUnregistrationRequest\ContractUnregistrationReques
 /** @var ContractUnregistrationRequestForm\Contract[] $models */
 /** @var array $params */
 
+// Вывести страницу
 echo $this->render(
     '_nestedItemsListGridView',
     [

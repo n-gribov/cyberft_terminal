@@ -28,7 +28,9 @@ if ($isAdmin) {
     <?=InlineHelp::widget(['widgetId' => 'edm-payer-account-journal', 'setClassList' => ['edm-journal-wiki-widget']]);?>
 </div>
 
-<?=GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
     'columns'      => [

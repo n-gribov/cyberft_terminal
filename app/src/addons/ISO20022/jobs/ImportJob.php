@@ -48,7 +48,7 @@ class ImportJob extends RegularJob
 
             $serviceId = ISO20022Module::SERVICE_ID;
 
-            $this->_terminalId = Yii::$app->terminals->address;
+            $this->_terminalId = Yii::$app->exchange->address;
             $this->_module = Yii::$app->getModule($serviceId);
             $this->_importResource = Yii::$app->registry->getImportResource($serviceId);
             $this->_importResource1C = Yii::$app->registry->getImportResource($serviceId, '1c');
@@ -266,7 +266,7 @@ class ImportJob extends RegularJob
             return false;
         }
 
-        if(empty($receiver)) {
+        if (empty($receiver)) {
             Yii::error('Pain.001 => SberbankPaymentOrder failed. Empty receiver.');
             $this->moveToInvalid($file, $receiver);
             return false;
@@ -307,6 +307,7 @@ class ImportJob extends RegularJob
             if ($this->duplicatesberbankexists($documentTypeModel)) {
                 Yii::error("Pain.001 => SberbankPaymentOrder failed. Duplicate message uuid {$documentTypeModel->docExtId}");
 
+                // Зарегистрировать событие дубликата документа в модуле мониторинга
                 Yii::$app->monitoring->log('ISO20022:DuplicateDocument', null, null, [
                     'docPath' => $fileInfo['file'],
                     'msgId' => $documentTypeModel->docExtId
@@ -372,6 +373,7 @@ class ImportJob extends RegularJob
                 return false;
             }
 
+            // Создать контекст документа
             $result = DocumentHelper::createDocumentContext(
                 $document['typeModel'],
                 [
@@ -390,7 +392,7 @@ class ImportJob extends RegularJob
                 $this->moveToInvalid($file, $receiver);
                 return false;
             }
-
+            // Отправить документ на обработку в транспортном уровне
             DocumentTransportHelper::processDocument($result['document']);
 
             // Создание платежного поручения по SBBOLPayDocRu
@@ -402,6 +404,7 @@ class ImportJob extends RegularJob
             $paymentOrder->date = $paymentOrderType->dateCreated;
             $paymentOrder->registerId = $result['document']->id;
             $paymentOrder->terminalId = $document['terminalId'];
+            // Сохранить модель в БД
             $paymentOrder->save();
         }
 

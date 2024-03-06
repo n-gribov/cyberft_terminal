@@ -16,6 +16,9 @@ use yii\console\Controller;
 
 class DevInitController extends Controller
 {
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         // webdriver/dev_suite/002, 005 , 006. 016, 017, 122
@@ -146,6 +149,7 @@ class DevInitController extends Controller
             $account = new EdmPayerAccount($accData);
             echo "Creating account '" . $account->name . "'...";
 
+            // Если модель успешно сохранена в БД
             if ($account->save()) {
                 echo "OK\n";
             } else {

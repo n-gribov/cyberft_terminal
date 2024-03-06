@@ -1,6 +1,6 @@
 <?php
 
-$script = <<< JS
+$script = <<<JS
 
     function printIframe(id) {
         var iframe = document.getElementById(id).contentWindow;

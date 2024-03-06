@@ -31,7 +31,7 @@ class FinZipModule extends BaseBlock
             $cyxContent = $cyxDoc->getContent();
 
             $typeModel = $cyxContent->getTypeModel();
-            Yii::$app->terminals->setCurrentTerminalId($cyxDoc->receiverId);
+            Yii::$app->exchange->setCurrentTerminalId($cyxDoc->receiverId);
 
             $typeModel->subject = Yii::$app->xmlsec->encryptData($typeModel->subject, true);
             $typeModel->descr = Yii::$app->xmlsec->encryptData($typeModel->descr, true);
@@ -107,7 +107,7 @@ class FinZipModule extends BaseBlock
             return false;
         }
 
-        Yii::$app->terminals->setCurrentTerminalId($model->sender);
+        Yii::$app->exchange->setCurrentTerminalId($model->sender);
         $storedFile = $this->storeFileOutEnc($zipPath);
 
         if (empty($storedFile)) {
@@ -125,7 +125,7 @@ class FinZipModule extends BaseBlock
      *
      * @param string $path Data for save in storage
      * @param string $filename File name
-     * @return StoredFile | NULL
+     * @return StoredFile | null
      */
     public function storeFileOut($path, $filename = '')
     {
@@ -142,7 +142,7 @@ class FinZipModule extends BaseBlock
      *
      * @param string $data Data to save
      * @param string $filename File name
-     * @return StoredFile | NULL
+     * @return StoredFile | null
      */
     public function storeDataOut($data, $filename = '')
     {
@@ -158,7 +158,7 @@ class FinZipModule extends BaseBlock
      * Get FinZip document instance
      *
      * @param integer $id Document ID
-     * @return Document | NULL
+     * @return Document | null
      */
     public function getDocument($id)
     {

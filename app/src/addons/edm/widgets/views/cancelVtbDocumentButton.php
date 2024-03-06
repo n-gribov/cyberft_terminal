@@ -15,5 +15,6 @@ if ($userCanCancelDocument) {
             'data'  => ['toggle' => 'modal', 'target' => '#cancel-document-modal']
         ]
     );
+    // Вывести модальное окно отмены документа
     echo $this->render('_cancelVtbDocumentModal', ['model' => $cancellationForm]);
 }

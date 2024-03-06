@@ -39,14 +39,12 @@ if ($from === 'viewPaymentRegister' && !empty($model->registerId)) {
     $backUrl = Url::toRoute(['/edm/payment-register/payment-order']);
 }
 
-
-
 if ($from === 'wizard') {
     $js = <<<JS
         $('#create-and-sign-payment-register-button').click(function(e) {
             $('#create-payment-register-form').trigger('submit');
         });
-JS;
+    JS;
     $this->registerJs($js, View::POS_READY);
 
     ActiveForm::begin([
@@ -60,7 +58,6 @@ JS;
     echo Html::hiddenInput('from', 'wizard');
     ActiveForm::end();
 }
-
 ?>
 
 <style>
@@ -77,12 +74,9 @@ JS;
 </style>
 
 <div id="action-buttons-group" class="btn-group">
-
     <a class="btn btn-default" href="<?= $backUrl ?>"><?= Yii::t('app', 'Back') ?></a>
-
     <?php
     if ($from === 'wizard') {
-
         echo Html::button(
             Yii::t('doc', 'Sign and send'),
             [
@@ -99,7 +93,6 @@ JS;
         );
     }
     ?>
-
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?= Yii::t('app', $from === 'wizard' ? 'Other actions' : 'Actions') ?> <span class="caret"></span>
@@ -108,7 +101,6 @@ JS;
             <li><?= Html::a(Yii::t('app', 'Print'),
                     Url::toRoute(['/edm/documents/print', 'id' => $model->id, 'flagPaymentRegisterPaymentOrder' => 1]), ['target' => '_blank', 'class' => 'print-link']) ?>
             </li>
-
             <li><?= Html::a(Yii::t('app', 'Export as {format}', ['format' => 'Excel']),
                     Url::toRoute(['/edm/export/export-paymentregister-paymentorder', 'id' => $model->id, 'exportType' => 'excel',])) ?>
             </li>
@@ -125,7 +117,6 @@ JS;
             <?php endif ?>
         </ul>
     </div>
-
     <?= CancelVtbDocumentButton::widget([
         'document' => $model->paymentRegister,
         'documentNumber' => $model->number,
@@ -133,9 +124,9 @@ JS;
     ]) ?>
 </div>
 
-<?=$this->render('readable/paymentOrder', ['model' => $model])?>
-
 <?php
+// Вывести страницу
+echo $this->render('readable/paymentOrder', ['model' => $model]);
 
 $printUrl = Url::toRoute(['/edm/documents/print', 'id' => $model->id, 'flagPaymentRegisterPaymentOrder' => 1]);
 $printBtn = '.print-link';
@@ -148,5 +139,3 @@ echo FastPrint::widget([
     'documentId' => $documentId,
     'documentType' => $documentType
 ]);
-
-?>

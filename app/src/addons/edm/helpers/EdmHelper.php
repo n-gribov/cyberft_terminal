@@ -288,7 +288,7 @@ class EdmHelper
                 'orgId' => $org->id,
                 'date' => date('Y-m-d'),
             ];
-        } elseif ($isSbbol) {
+        } else if ($isSbbol) {
             $extAttributes = [
                 'sum' => $paymentOrder->sum,
                 'count' => 1,
@@ -298,7 +298,7 @@ class EdmHelper
                 'orgId' => $org->id,
                 'date' => date('Y-m-d'),
             ];
-        } elseif ($isSbbol2) {
+        } else if ($isSbbol2) {
             $extAttributes = [
                 'sum' => $paymentOrder->sum,
                 'count' => 1,
@@ -308,7 +308,7 @@ class EdmHelper
                 'orgId' => $org->id,
                 'date' => date('Y-m-d'),
             ];
-        } elseif ($isIso) {
+        } else if ($isIso) {
             $extAttributes = [
                 'sum' => $typeModel->getPaymentRegisterInfo()['sum'],
                 'count' => $typeModel->getPaymentRegisterInfo()['count'],
@@ -339,12 +339,14 @@ class EdmHelper
             $docAttributes['signaturesRequired'] = $account->requireSignQty;
         }
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext($typeModel, $docAttributes, $extAttributes);
 
         if (!$context) {
             throw new Exception(Yii::t('app', 'Save document error'));
         }
 
+        // Получить документ из контекста
         $document = $context['document'];
         $form->docId = $document->id;
 
@@ -464,6 +466,7 @@ class EdmHelper
 
     public static function getPaymentRegisterSignaturesList($id, $type = null, $filter = null)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::className(), $id);
 
         return $document->getSignatures($type, $filter);
@@ -514,6 +517,7 @@ class EdmHelper
         }
 
         $beneficiary->description = $foreignCurrencyPayment->beneficiary;
+        // Сохранить модель в БД
         $beneficiary->save();
 
         return $beneficiary;
@@ -1527,7 +1531,7 @@ N 7, ст. 904; N 48, ст. 6728; N 49, ст. 7040, ст. 7061) (далее - Ф
 
                 $paytKind = 0;
                 if (isset($xml->CstmrCdtTrfInitn->PmtInf->PmtTpInf->SvcLvl->Cd)) {
-                    if((string)$xml->CstmrCdtTrfInitn->PmtInf->PmtTpInf->SvcLvl->Cd == 'URGP') {
+                    if ((string)$xml->CstmrCdtTrfInitn->PmtInf->PmtTpInf->SvcLvl->Cd == 'URGP') {
                         $paytKind = 'срочно';
                     }
                 }
@@ -1577,7 +1581,7 @@ N 7, ст. 904; N 48, ст. 6728; N 49, ст. 7040, ст. 7061) (далее - Ф
                         $taxPeriod = null;
                         if ($ctgy === 0) {
                             $taxPeriod = 0;
-                        } elseif (in_array($ctgy, ['ТП', 'ЗД'])) {
+                        } else if (in_array($ctgy, ['ТП', 'ЗД'])) {
                             $year = date('Y', strtotime((string) $po->Tax->Rcrd->Prd->Yr));
 
                             if (isset($po->Tax->Rcrd->Prd->Tp)) {
@@ -1586,27 +1590,26 @@ N 7, ст. 904; N 48, ст. 6728; N 49, ст. 7040, ст. 7061) (далее - Ф
                                 if (strpos($tp, 'MM') !== false) {
                                     $month = substr($tp, 2, 2);
                                     $taxPeriod = "МС.{$month}.{$year}";
-                                } elseif (strpos($tp, 'QTR') !== false) {
+                                } else if (strpos($tp, 'QTR') !== false) {
                                     $qtr = substr($tp, 3, 1);
                                     $taxPeriod = "КВ.0{$qtr}.{$year}";
-                                } elseif (strpos($tp, 'HLF') !== false) {
+                                } else if (strpos($tp, 'HLF') !== false) {
                                     $hlf = substr($tp, 3, 1);
                                     $taxPeriod = "ПГ.0{$hlf}.{$year}";
                                 }
-
                             } else {
                                 $taxPeriod = "ГД.00.{$year}";
                             }
-                        } elseif (in_array($ctgy, ['ТР', 'РС', 'ОТ', 'РТ', 'ПБ', 'ПР'])) {
+                        } else if (in_array($ctgy, ['ТР', 'РС', 'ОТ', 'РТ', 'ПБ', 'ПР'])) {
                             $taxPeriod = date('d.m.Y', strtotime((string) $po->Tax->Rcrd->Prd->Yr));
-                        } elseif (in_array($ctgy, ['АП', 'АР'])) {
+                        } else if (in_array($ctgy, ['АП', 'АР'])) {
                             $taxPeriod = 0;
-                        } elseif (in_array($ctgy, ['00', 'ДЕ', 'ПО', 'КТ', 'ИД', 'ИП', 'ТУ', 'БД', 'КП'])) {
+                        } else if (in_array($ctgy, ['00', 'ДЕ', 'ПО', 'КТ', 'ИД', 'ИП', 'ТУ', 'БД', 'КП'])) {
                             $taxPeriod = (string) $po->Tax->Cdtr->RegnId;
-                        } elseif (in_array($ctgy, ['ИН'])) {
+                        } else if (in_array($ctgy, ['ИН'])) {
                             if (isset($po->Tax->Cdtr->RegnId)) {
                                 $taxPeriod = (string) $po->Tax->Cdtr->RegnId;
-                            } elseif(isset($po->Tax->Rcrd->Prd->Yr)) {
+                            } else if (isset($po->Tax->Rcrd->Prd->Yr)) {
                                 $taxPeriod = date('d.m.Y', strtotime((string) $po->Tax->Rcrd->Prd->Yr));
                             }
                         }

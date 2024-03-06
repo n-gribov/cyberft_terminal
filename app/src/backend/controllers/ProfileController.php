@@ -38,26 +38,27 @@ use yii\web\HttpException;
 
 class ProfileController extends Controller
 {
-	protected $_innerCache;
+    protected $_innerCache;
 
-	public function behaviors()
+    public function behaviors()
     {
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						// Accessible for authorized users only
-						'allow' => true,
-						'roles' => ['@'],
-					],
-				],
-			],
-		];
-	}
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        // Accessible for authorized users only
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function actionDashboard()
     {
+        // Получить роль пользователя из активной сессии
         $role = Yii::$app->user->identity->role;
 
         if ($role === User::ROLE_ADMIN || $role === User::ROLE_ADDITIONAL_ADMIN) {
@@ -69,11 +70,13 @@ class ProfileController extends Controller
 
     protected function dashboardAdmin()
     {
+        // Перенаправить на страницу индекса
         $this->redirect(['/autobot/multiprocesses/index']);
     }
 
     protected function dashboardUser()
     {
+        // Вывести кабинет пользователя
         return $this->render(
             'dashboardUser',
             [
@@ -83,19 +86,20 @@ class ProfileController extends Controller
         );
     }
 
-	/**
+    /**
      * Получение показателей для
      * стартовой страницы пользователя
-	 * @return array
-	 */
-	protected function getCounters()
+     * @return array
+     */
+    protected function getCounters()
     {
         // Массив с сформированными данными для статистики
         $statistics = [];
 
-        // Только для авторизованных пользователей
-        // и для пользователей, у которых есть терминалы
+        // Получить модель пользователя из активной сессии
         if (Yii::$app->user && Yii::$app->user->identity->terminals) {
+            // Только для авторизованных пользователей
+            // и для пользователей, у которых есть терминалы
 
             // Список модулей
             $modules = [
@@ -126,7 +130,7 @@ class ProfileController extends Controller
         }
 
         return $statistics;
-	}
+    }
 
     /**
      * Получение показателей для модуля EDM
@@ -782,6 +786,7 @@ class ProfileController extends Controller
             return [];
         }
 
+        // Получить из БД список организаций через компонент авторизации доступа к терминалам
         $queryOrganizations = Yii::$app->terminalAccess->query(DictOrganization::className());
         $queryOrganizations->select('id')->asArray();
         $organizations = $queryOrganizations->all();
@@ -812,12 +817,11 @@ class ProfileController extends Controller
      */
     private function statisticEdmTemplates()
     {
+        // Получить из БД список шаблонов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(PaymentRegisterPaymentOrderTemplate::className());
-
-        $arr = [];
-
         $templates = $query->all();
 
+        $arr = [];
         foreach($templates as $template) {
             $arr[] = [
                 'id' => $template->id,
@@ -839,6 +843,7 @@ class ProfileController extends Controller
      */
     private function statisticEdmForSigning($dateFrom = null, $dateTo = null)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -869,6 +874,7 @@ class ProfileController extends Controller
      */
     private function statisticEdmPaymentOrdersNew($dateFrom, $dateTo)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             PaymentRegisterPaymentOrder::className(),
             [
@@ -887,6 +893,7 @@ class ProfileController extends Controller
      */
     private function statisticEdmPaymentOrdersExecuted($dateFrom, $dateTo)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             PaymentRegisterPaymentOrder::className(),
             [
@@ -904,6 +911,7 @@ class ProfileController extends Controller
      */
     private function statisticEdmPaymentOrdersRejected($dateFrom, $dateTo)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             PaymentRegisterPaymentOrder::className(),
             [
@@ -921,6 +929,7 @@ class ProfileController extends Controller
      */
     private function statisticSwiftfinForSigning($dateFrom = null, $dateTo = null)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -945,6 +954,7 @@ class ProfileController extends Controller
      */
     private function statisticSwiftfinForCorrection($dateFrom = null, $dateTo = null)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -967,7 +977,7 @@ class ProfileController extends Controller
     private function statisticSwiftfinForVerification($dateFrom = null, $dateTo = null)
     {
         $module = Yii::$app->getModule('swiftfin');
-
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -998,6 +1008,7 @@ class ProfileController extends Controller
      */
     private function statisticIso($dateFrom, $dateTo, $format)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -1017,6 +1028,7 @@ class ProfileController extends Controller
      */
     private function statisticFileactForSigning($dateFrom = null, $dateTo = null)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -1041,6 +1053,7 @@ class ProfileController extends Controller
      */
     private function statisticFinzipForSigning($dateFrom = null, $dateTo = null)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -1065,7 +1078,7 @@ class ProfileController extends Controller
      */
     private function statisticStatements($dateFrom, $dateTo, $direction)
     {
-
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -1099,6 +1112,7 @@ class ProfileController extends Controller
 
     private function statisticErrors($dateFrom, $dateTo, $direction)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -1147,6 +1161,7 @@ class ProfileController extends Controller
      */
     private function statisticFinzip($dateFrom = null, $dateTo = null)
     {
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             [
@@ -1186,6 +1201,7 @@ class ProfileController extends Controller
             $queryOptions['status'] = $options['status'];
         }
 
+        // Получить из БД список документов через компонент авторизации доступа к терминалам
         $query = Yii::$app->terminalAccess->query(
             Document::className(),
             $queryOptions

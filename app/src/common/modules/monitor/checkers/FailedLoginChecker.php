@@ -59,7 +59,7 @@ class FailedLoginChecker extends BaseChecker
             'subject'  => $this->getCodeLabel(),
             'view'     => '@common/modules/monitor/views/mailer/failedLogin',
             'userList' => $data,
-            'url'      => Url::to(['/user'], TRUE),
+            'url'      => Url::to(['/user'], true),
         ];
     }
 

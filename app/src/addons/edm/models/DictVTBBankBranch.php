@@ -40,6 +40,7 @@ class DictVTBBankBranch extends ActiveRecord
                 $branch = new DictVTBBankBranch();
             }
             $branch->setAttributes($attributes);
+            // Сохранить модель в БД
             $branch->save();
         }
     }

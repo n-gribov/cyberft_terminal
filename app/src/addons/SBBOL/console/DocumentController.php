@@ -13,6 +13,9 @@ use common\models\cyberxml\CyberXmlDocument;
 
 class DocumentController extends BaseController
 {
+    /**
+     * Метод выводит текст с подсказкой
+     */
     public function actionIndex()
     {
         $this->run('/help', ['SBBOL/document']);

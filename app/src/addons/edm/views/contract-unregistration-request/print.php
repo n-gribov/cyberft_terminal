@@ -42,14 +42,14 @@ use yii\helpers\Html;
         <th>Пункт инструкции</th>
         <th>Основание для снятия с учета</th>
     </tr>
-    <?php foreach ($model->contracts as $contract): ?>
+    <?php foreach ($model->contracts as $contract) : ?>
         <tr>
             <td><?= Html::encode($contract->uniqueContractNumber) ?></td>
             <td><?= Html::encode($contract->uniqueContractNumberDate) ?></td>
             <td><?= Html::encode($contract->unregistrationGroundCode) ?></td>
             <td><?= Html::encode($contract->unregistrationGroundName) ?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 
 <table id="signatures-table">
@@ -59,7 +59,7 @@ use yii\helpers\Html;
         <th>От клиента</th>
         <th></th>
     </tr>
-    <?php foreach ($typeModel->signatureInfo->signatures as $signature): ?>
+    <?php foreach ($typeModel->signatureInfo->signatures as $signature) : ?>
         <tr>
             <td></td>
             <td style="border-bottom: 1px solid black;" class="text-center"><?= Html::encode($signature->uid) ?></td>
@@ -68,7 +68,7 @@ use yii\helpers\Html;
         <tr>
             <td colspan="4" class="text-right">(Дата подписания)</td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 
 <p>Информация уполномоченного банка</p>

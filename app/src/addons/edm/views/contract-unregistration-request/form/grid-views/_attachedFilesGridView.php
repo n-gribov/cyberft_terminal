@@ -9,7 +9,7 @@ use yii\web\View;
 
 /** @var View $this */
 /** @var ContractUnregistrationRequestForm\AttachedFile[] $models */
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'id' => 'attached-files-grid-view',
     'dataProvider' => new ArrayDataProvider([

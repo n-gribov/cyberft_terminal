@@ -53,7 +53,7 @@ use kartik\datecontrol\DateControl;
 
 <?php
 
-$script = <<< JS
+$script = <<<JS
     // Submit формы поиска по дате
     $('.btn-modal-search').on('click', function(e) {
         e.preventDefault();

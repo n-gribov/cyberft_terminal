@@ -20,136 +20,134 @@ use yii\web\UploadedFile;
  * @property \yii\web\UploadedFile $newFile - file for save or replace current file
  * @package common\modules\certManager\components\ssl
  */
-class X509FileModel extends \common\base\Model
-{
-	protected $_resource;
-	protected $_filePath;
-	protected $_body;
-	protected $_rawData;
-	protected $_fingerprint;
-	protected $_isFile = false;
-	protected $type;
+class X509FileModel extends \common\base\Model {
 
-	/**
-	 * @var \yii\web\UploadedFile путь до нового файла который необходимо использовать в каченстве сертификата
-	 */
-	protected $_newFile;
+    protected $_resource;
+    protected $_filePath;
+    protected $_body;
+    protected $_rawData;
+    protected $_fingerprint;
+    protected $_isFile = false;
+    protected $type;
 
-	/**
-	 * Функция подгружает сертификат из указанного параметром файла
-	 * @param $filePath Файл сертификата
-	 * @return X509FileModel
-	 */
-	public static function loadFile($filePath)
+    /**
+     * @var \yii\web\UploadedFile путь до нового файла который необходимо использовать в каченстве сертификата
+     */
+    protected $_newFile;
+
+    /**
+     * Функция подгружает сертификат из указанного параметром файла
+     * @param $filePath Файл сертификата
+     * @return X509FileModel
+     */
+    public static function loadFile($filePath)
     {
-		$item = new self;
+        $item = new self;
 
-		return $item->setFilePath($filePath)->initProperties($filePath);
-	}
+        return $item->setFilePath($filePath)->initProperties($filePath);
+    }
 
-	/**
-	 * Функция формирует сертификат из переданных данных
-	 * @param string $body данные сертификата
-	 * @return X509FileModel
-	 */
-	public static function loadData($body)
+    /**
+     * Функция формирует сертификат из переданных данных
+     * @param string $body данные сертификата
+     * @return X509FileModel
+     */
+    public static function loadData($body)
     {
-		$item = new self;
+        $item = new self;
 
-		return $item->initProperties($body);
-	}
+        return $item->initProperties($body);
+    }
 
-	public function rules()
+    public function rules()
     {
-		return [
-			[
-				'newFile', 'file',
-				'extensions' => ['crt','pem','der'],
-				'skipOnEmpty' => true,
+        return [
+            [
+                'newFile', 'file',
+                'extensions' => ['crt', 'pem', 'der'],
+                'skipOnEmpty' => true,
 //				'mimeTypes' => ['application/x-x509-ca-cert'],
-				'checkExtensionByMimeType' => false
-			],
-			['newFile','validateBody']
-		];
-	}
+                'checkExtensionByMimeType' => false
+            ],
+            ['newFile', 'validateBody']
+        ];
+    }
 
-	/**
-	 *
-	 * @return bool
-	 */
-	public function validateBody($attribute, $params)
+    /**
+     *
+     * @return bool
+     */
+    public function validateBody($attribute, $params)
     {
-		// пока кондово, если положат какую-либо чушь, то хотя бы одна из функций вальнется
-		try {
-			if ($this->_newFile) {
-				$path = $this->_newFile;
-			} else {
-				$path = $this->_filePath;
-			}
+        // пока кондово, если положат какую-либо чушь, то хотя бы одна из функций вальнется
+        try {
+            if ($this->_newFile) {
+                $path = $this->_newFile;
+            } else {
+                $path = $this->_filePath;
+            }
 
             if (($r = $this->readCertFile($path))) {
-				openssl_x509_free($r);
-				$this->initProperties($path);
+                openssl_x509_free($r);
+                $this->initProperties($path);
 
                 return true;
-			} else {
-				$this->addError($attribute, \Yii::t('app/cert', 'Source file could not be read'));
+            } else {
+                $this->addError($attribute, \Yii::t('app/cert', 'Source file could not be read'));
 
                 return false;
-			}
-		} catch (\Exception $e) {
-			$this->addError($attribute, \Yii::t('app/cert', 'Source file could not be read'));
+            }
+        } catch (\Exception $e) {
+            $this->addError($attribute, \Yii::t('app/cert', 'Source file could not be read'));
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 
-	public function attributes()
+    public function attributes()
     {
-		return [
-			'filePath',
-			'fingerprint',
-			'subject',
-			'subjectName',
-			'issuer',
-			'issuerName',
-			'validTo',
-			'validFrom',
-			'version',
-		];
-	}
+        return [
+            'filePath',
+            'fingerprint',
+            'subject',
+            'subjectName',
+            'issuer',
+            'issuerName',
+            'validTo',
+            'validFrom',
+            'version',
+        ];
+    }
 
-	public function attributeLabels()
+    public function attributeLabels()
     {
-		return [
-			'filePath'		=> \Yii::t('app/cert', 'Certificate file path'),
-			'newFile'		=> \Yii::t('app/cert', 'New certificate'),
-			'fingerprint'	=> \Yii::t('app/cert', 'Certificate Thumbprint'),
-			'serialNumber'	=> \Yii::t('app/cert', 'Serial Number'),
-			'subjectName'	=> \Yii::t('app/cert', 'Subject Name'),
-			'subject'		=> \Yii::t('app/cert', 'Subject'),
-			'issuerName'	=> \Yii::t('app/cert', 'Issuer Name'),
-			'issuer'		=> \Yii::t('app/cert', 'Issuer'),
-			'validTo'		=> \Yii::t('app/cert', 'Valid before'),
-			'validFrom'		=> \Yii::t('app/cert', 'Valid from'),
-			'version'		=> \Yii::t('app/cert', 'Format version'),
-			'body'			=> \Yii::t('app/cert', 'Body'),
-		];
-	}
+        return [
+            'filePath' => \Yii::t('app/cert', 'Certificate file path'),
+            'newFile' => \Yii::t('app/cert', 'New certificate'),
+            'fingerprint' => \Yii::t('app/cert', 'Certificate Thumbprint'),
+            'serialNumber' => \Yii::t('app/cert', 'Serial Number'),
+            'subjectName' => \Yii::t('app/cert', 'Subject Name'),
+            'subject' => \Yii::t('app/cert', 'Subject'),
+            'issuerName' => \Yii::t('app/cert', 'Issuer Name'),
+            'issuer' => \Yii::t('app/cert', 'Issuer'),
+            'validTo' => \Yii::t('app/cert', 'Valid before'),
+            'validFrom' => \Yii::t('app/cert', 'Valid from'),
+            'version' => \Yii::t('app/cert', 'Format version'),
+            'body' => \Yii::t('app/cert', 'Body'),
+        ];
+    }
 
-	public function getFingerprint(bool $forceUppercase = true)
+    public function getFingerprint(bool $forceUppercase = true)
     {
-		if (!is_resource($this->_resource)) {
-			return null;
-		}
+        if (!is_resource($this->_resource)) {
+            return null;
+        }
 
-		$fingerprint = openssl_x509_fingerprint($this->_resource, 'sha1', false);
-		return $forceUppercase
-            ? strtoupper($fingerprint)
-            : $fingerprint;
-	}
+        $fingerprint = openssl_x509_fingerprint($this->_resource, 'sha1', false);
+        return $forceUppercase ? strtoupper($fingerprint) : $fingerprint;
+    }
 
-	public function getSerialNumber()
+    public function getSerialNumber()
     {
         $serialNumber = $this->_rawData['serialNumber'] ?? null;
         if ($serialNumber === '' || $serialNumber === null) {
@@ -157,8 +155,8 @@ class X509FileModel extends \common\base\Model
         }
 
         // Если есть что-то кроме цифр, то считаем, что значение уже в hex
-		if (preg_match('/\D/', $serialNumber)) {
-		    return preg_replace('/^0x/i', '', $serialNumber);
+        if (preg_match('/\D/', $serialNumber)) {
+            return preg_replace('/^0x/i', '', $serialNumber);
         }
 
         // Серийный номер возвращается в десятиричном виде, нужно перевести в hex
@@ -169,33 +167,33 @@ class X509FileModel extends \common\base\Model
         }
 
         return $hexSerial;
-	}
+    }
 
-	public function getBody()
+    public function getBody()
     {
-		if ($this->type === 'DER') {
-			return $this->der2pem($this->_body);
-		} else {
-			return $this->_body;
-		}
-	}
+        if ($this->type === 'DER') {
+            return $this->der2pem($this->_body);
+        } else {
+            return $this->_body;
+        }
+    }
 
-	public function getRawData()
+    public function getRawData()
     {
-		return $this->_rawData;
-	}
+        return $this->_rawData;
+    }
 
-	/**
-	 * @return array|null
-	 */
-	public function getSubject()
+    /**
+     * @return array|null
+     */
+    public function getSubject()
     {
         return isset($this->_rawData['subject']) ? $this->_rawData['subject'] : null;
-	}
+    }
 
-	/**
-	 * @return string|null
-	 */
+    /**
+     * @return string|null
+     */
     public function getSubjectString()
     {
         if (!isset($this->_rawData['subject'])) {
@@ -208,7 +206,7 @@ class X509FileModel extends \common\base\Model
         }
 
         return implode(';', $out);
-	}
+    }
 
     public function getSubjectCN()
     {
@@ -216,12 +214,12 @@ class X509FileModel extends \common\base\Model
             return null;
         }
         return $this->_rawData['subject']['CN'];
-	}
+    }
 
-	/**
-	 * @return string|null
-	 */
-	public function getSubjectName()
+    /**
+     * @return string|null
+     */
+    public function getSubjectName()
     {
         // В случае использования не латинских символов $this->_rawData['name'] может быть закодирована в hex, поэтому
         // соберем имя из subject.
@@ -236,60 +234,56 @@ class X509FileModel extends \common\base\Model
         }
 
         return $this->fixEncoding($str);
-	}
+    }
 
-	/**
-	 * @return string|null
-	 */
-	public function getIssuer()
+    /**
+     * @return string|null
+     */
+    public function getIssuer()
     {
-		return isset($this->_rawData['issuer']) ? $this->_rawData['issuer'] : null;
-	}
+        return isset($this->_rawData['issuer']) ? $this->_rawData['issuer'] : null;
+    }
 
-	/**
-	 * @return string|null
-	 */
-	public function getIssuerName()
+    /**
+     * @return string|null
+     */
+    public function getIssuerName()
     {
-		if (!isset($this->_rawData['issuer'])) {
-			return null;
+        if (!isset($this->_rawData['issuer'])) {
+            return null;
         }
 
-		$str = '';
-		foreach ($this->_rawData['issuer'] as $k => $v) {
-			$str .= '/' . $k . '=' . $v;
-		}
+        $str = '';
+        foreach ($this->_rawData['issuer'] as $k => $v) {
+            $str .= '/' . $k . '=' . $v;
+        }
 
-		return $this->fixEncoding($str);
-	}
+        return $this->fixEncoding($str);
+    }
 
-	/**
-	 * @return string|null
-	 */
-	public function getVersion()
+    /**
+     * @return string|null
+     */
+    public function getVersion()
     {
-		return isset($this->_rawData['version']) ? $this->_rawData['version'] : null;
-	}
+        return isset($this->_rawData['version']) ? $this->_rawData['version'] : null;
+    }
 
-	/**
-	 * @return \DateTime|null
-	 */
-	public function getValidTo()
+    /**
+     * @return \DateTime|null
+     */
+    public function getValidTo()
     {
-		return isset($this->_rawData['validTo'])
-            ? static::parseValidityDateTime($this->_rawData['validTo'])
-			: null;
-	}
+        return isset($this->_rawData['validTo']) ? static::parseValidityDateTime($this->_rawData['validTo']) : null;
+    }
 
-	/**
-	 * @return \DateTime|null
-	 */
-	public function getValidFrom()
+    /**
+     * @return \DateTime|null
+     */
+    public function getValidFrom()
     {
-		return isset($this->_rawData['validFrom'])
-			? static::parseValidityDateTime($this->_rawData['validFrom'])
-			: null;
-	}
+        return isset($this->_rawData['validFrom']) ? static::parseValidityDateTime($this->_rawData['validFrom']) : null;
+    }
 
     /**
      * @return \DateTime|null
@@ -302,77 +296,77 @@ class X509FileModel extends \common\base\Model
         return $dateTime === false ? null : $dateTime;
     }
 
-	/**
-	 * @param string|UploadedFile $newFile
-	 * @return $this
-	 */
-	public function setNewFile($newFile)
+    /**
+     * @param string|UploadedFile $newFile
+     * @return $this
+     */
+    public function setNewFile($newFile)
     {
-		if (is_a($newFile, UploadedFile::className())) {
-			$this->_newFile = $newFile->tempName;
-		} else {
-			$this->_newFile = $newFile;
-		}
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getNewFile()
-    {
-		return $this->_newFile;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getFilePath()
-    {
-		return $this->_filePath;
-	}
-
-	/**
-	 * @param string $filePath
-	 * @return $this
-	 */
-	public function setFilePath($filePath)
-    {
-		$this->_filePath = $filePath;
-
-		return $this;
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public function getIsFile()
-    {
-		return $this->_isFile;
-	}
-
-	public function __destruct()
-    {
-		if(isset($this->_resource)) {
-			openssl_x509_free($this->_resource);
-		}
-	}
-
-	protected function initProperties($path)
-    {
-		if ($this->isFile($path)) {
-			$this->_resource = $this->readCertFile($path);
-			$this->_body = file_get_contents($path);
-			$this->_isFile	= true;
-		} else {
-			$this->_resource = $this->readCertBody($path);
-			$this->_body = $path;
-		}
-		$this->_rawData = openssl_x509_parse($this->_resource);
+        if (is_a($newFile, UploadedFile::className())) {
+            $this->_newFile = $newFile->tempName;
+        } else {
+            $this->_newFile = $newFile;
+        }
 
         return $this;
-	}
+    }
+
+    /**
+     * @return string
+     */
+    public function getNewFile()
+    {
+        return $this->_newFile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilePath()
+    {
+        return $this->_filePath;
+    }
+
+    /**
+     * @param string $filePath
+     * @return $this
+     */
+    public function setFilePath($filePath)
+    {
+        $this->_filePath = $filePath;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsFile()
+    {
+        return $this->_isFile;
+    }
+
+    public function __destruct()
+    {
+        if (isset($this->_resource)) {
+            openssl_x509_free($this->_resource);
+        }
+    }
+
+    protected function initProperties($path)
+    {
+        if ($this->isFile($path)) {
+            $this->_resource = $this->readCertFile($path);
+            $this->_body = file_get_contents($path);
+            $this->_isFile = true;
+        } else {
+            $this->_resource = $this->readCertBody($path);
+            $this->_body = $path;
+        }
+        $this->_rawData = openssl_x509_parse($this->_resource);
+
+        return $this;
+    }
 
     private function isFile(string $path): bool
     {
@@ -381,31 +375,31 @@ class X509FileModel extends \common\base\Model
         } catch (\Throwable $exception) {
             return false;
         }
-	}
+    }
 
-	/**
-	 * @param $path
-	 * @return resource
-	 */
-	protected function readCertFile($path)
+    /**
+     * @param $path
+     * @return resource
+     */
+    protected function readCertFile($path)
     {
-		if ('application/octet-stream' === mime_content_type($path)) {
-			$this->type = 'DER';
+        if ('application/octet-stream' === mime_content_type($path)) {
+            $this->type = 'DER';
 
-			return openssl_x509_read($this->der2pem(file_get_contents($path)));
-		} else {
-			$this->type = 'PEM';
+            return openssl_x509_read($this->der2pem(file_get_contents($path)));
+        } else {
+            $this->type = 'PEM';
 
             return openssl_x509_read('file://' . $path);
-		}
-	}
+        }
+    }
 
-	/**
-	 * Читает тело сертификата из строки
-	 * @param string $body
-	 * @return resource
-	 */
-	protected function readCertBody($body)
+    /**
+     * Читает тело сертификата из строки
+     * @param string $body
+     * @return resource
+     */
+    protected function readCertBody($body)
     {
         if (static::isCertificate($body)) {
             $this->type = 'PEM';
@@ -415,33 +409,34 @@ class X509FileModel extends \common\base\Model
             $pemBody = $this->der2pem($body);
         }
 
-		return openssl_x509_read($pemBody);
-	}
-	/**
-	 * @param $der_data
-	 * @return string
-	 */
-	protected function der2pem($der_data)
+        return openssl_x509_read($pemBody);
+    }
+
+    /**
+     * @param $der_data
+     * @return string
+     */
+    protected function der2pem($der_data)
     {
-		$pem = chunk_split(base64_encode($der_data), 64, "\n");
+        $pem = chunk_split(base64_encode($der_data), 64, "\n");
 
-		return "-----BEGIN CERTIFICATE-----\n" . $pem . "-----END CERTIFICATE-----\n";
-	}
+        return "-----BEGIN CERTIFICATE-----\n" . $pem . "-----END CERTIFICATE-----\n";
+    }
 
-	/**
-	 * @param $pem_data
-	 * @return string
-	 */
-	protected function pem2der($pem_data)
+    /**
+     * @param $pem_data
+     * @return string
+     */
+    protected function pem2der($pem_data)
     {
-		$begin = 'CERTIFICATE-----';
-		$end   = '-----END';
-		$pem_data = substr($pem_data, strpos($pem_data, $begin) + strlen($begin));
-		$pem_data = substr($pem_data, 0, strpos($pem_data, $end));
-		$der = base64_decode($pem_data);
+        $begin = 'CERTIFICATE-----';
+        $end = '-----END';
+        $pem_data = substr($pem_data, strpos($pem_data, $begin) + strlen($begin));
+        $pem_data = substr($pem_data, 0, strpos($pem_data, $end));
+        $der = base64_decode($pem_data);
 
-		return $der;
-	}
+        return $der;
+    }
 
     public static function isCertificate($data)
     {
@@ -462,8 +457,8 @@ class X509FileModel extends \common\base\Model
                 return utf8_decode($string);
             }
         } catch (\Exception $exception) {
+            
         }
         return $string;
     }
-
 }

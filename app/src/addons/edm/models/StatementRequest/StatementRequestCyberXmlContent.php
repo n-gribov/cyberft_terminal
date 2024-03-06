@@ -22,11 +22,13 @@ class StatementRequestCyberXmlContent extends CyberXmlContent implements TypeCyb
             $this->_typeModel = $this->_parent->_typeModel;
         }
 
+        // Сформировать XML
         $this->_rootElement = $this->_typeModel->buildXml();
     }
 
     public function getDocumentData()
     {
+        // Сформировать XML
         $this->_rootElement = $this->_typeModel->buildXml();
 
         return [

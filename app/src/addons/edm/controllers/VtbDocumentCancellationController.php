@@ -43,11 +43,13 @@ class VtbDocumentCancellationController extends BaseServiceController
 
     public function actionSendPrepareCancellationRequest($id)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $document = $this->findDocument($id);
         $form = new VTBPrepareCancellationRequestForm(['document' => $document]);
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $requestDocument = $this->cancellationService->sendPrepareCancellationRequest($form);
@@ -75,15 +77,22 @@ class VtbDocumentCancellationController extends BaseServiceController
 
     public function actionProceedCancellation($prepareCancellationRequestDocumentId)
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $cancellationStatus = $this->cancellationService->proceedCancellation($prepareCancellationRequestDocumentId);
         if ($cancellationStatus->getStatus() === VTBDocumentCancellationService\CancellationStatus::SIGNATURE_REQUIRED) {
             $cancellationRequestDocument = $cancellationStatus->getCancellationRequestDocument();
             if (!$cancellationRequestDocument->isSignableByUserLevel()) {
+                // Поместить в сессию флаг сообщения о создании запроса на отзыв
                 Yii::$app->session->setFlash('info', Yii::t('edm', 'Call-off request has been created and is waiting to be signed'));
             }
-            return $this->redirect(['/edm/vtb-documents/view', 'id' => $cancellationRequestDocument->id, 'triggerSigning' => 1]);
+            // Перенаправить на страницу просмотра
+            return $this->redirect([
+                '/edm/vtb-documents/view',
+                'id' => $cancellationRequestDocument->id,
+                'triggerSigning' => 1
+            ]);
         }
 
         return ['status' => $cancellationStatus->getStatus()];
@@ -91,6 +100,7 @@ class VtbDocumentCancellationController extends BaseServiceController
 
     private function findDocument($id)
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         return Yii::$app->terminalAccess->findModel(Document::className(), $id);
     }
 }

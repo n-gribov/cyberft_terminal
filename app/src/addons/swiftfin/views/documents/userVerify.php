@@ -47,8 +47,10 @@ $this->registerJs($js, yii\web\View::POS_READY);
             <div class="mt20 mt-new-ui">
                 <?php
                 if (isset($model->view)) {
+                    // Вывести страницу
                     print $this->render($model->view, ['model' => $model, 'form' => $form]);
                 } else {
+                    // Вывести страницу
                     print $this->render($model->getViewPath($model->type), ['model' => $model, 'form' => $form]);
                 }
                 ?>

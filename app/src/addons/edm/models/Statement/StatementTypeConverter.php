@@ -20,8 +20,8 @@ use common\models\vtbxml\documents\StatementRuDocument;
 use DateTime;
 use Exception;
 
-class StatementTypeConverter {
-
+class StatementTypeConverter
+{
     /**
      * @param StatementType|VTBStatementRuType|SBBOLStatementType|RaiffeisenStatementType|ISO20022Type $typeModel
      * @return StatementType
@@ -86,8 +86,6 @@ class StatementTypeConverter {
             'companyName' => isset($account) ? $account->payerName : null,
             'currency' => isset($account) ? $account->edmDictCurrencies->name : null,
         ];
-
-
 
         if (isset($statement->ElctrncSeqNb)) {
             $statementArray['statementNumber'] = (string) $statement->ElctrncSeqNb;
@@ -165,7 +163,7 @@ class StatementTypeConverter {
             $taxDocDate = null;
             if (strlen($entry->NtryDtls->TxDtls->Tax->Mtd ?? '') > 0) {
                 $taxDocDate = $entry->NtryDtls->TxDtls->Tax->Mtd;
-            } elseif (isset($entry->NtryDtls->TxDtls->Tax->Dt)) {
+            } else if (isset($entry->NtryDtls->TxDtls->Tax->Dt)) {
                 $taxDocDate = date('d.m.Y', strtotime($entry->NtryDtls->TxDtls->Tax->Dt));
             }
 
@@ -518,8 +516,9 @@ class StatementTypeConverter {
         };
 
         $statementTypeModel->transactions = array_map(
-                $createTransaction, $statement->getDocs()
+            $createTransaction, $statement->getDocs()
         );
+        // Сформировать XML
         $statementTypeModel->buildXml();
 
         return $statementTypeModel;

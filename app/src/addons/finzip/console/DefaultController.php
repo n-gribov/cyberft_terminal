@@ -6,7 +6,10 @@ use common\base\ConsoleController;
 
 class DefaultController extends ConsoleController
 {
-	public function actionIndex() {
-		$this->run('/help', ['finzip']);
-	}
+    /**
+     * Метод выводит текст подсказки
+     */
+    public function actionIndex() {
+        $this->run('/help', ['finzip']);
+    }
 }

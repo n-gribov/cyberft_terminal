@@ -66,7 +66,7 @@ class ContractRegistrationRequestTranche extends ActiveRecord
         if ($request = $this->request) {
             return $request->currencyDescription;
         } else {
-            return "";
+            return '';
         }
     }
 
@@ -75,7 +75,7 @@ class ContractRegistrationRequestTranche extends ActiveRecord
         if ($request = $this->request) {
             return $request->currencyCode;
         } else {
-            return "";
+            return '';
         }
     }
 }

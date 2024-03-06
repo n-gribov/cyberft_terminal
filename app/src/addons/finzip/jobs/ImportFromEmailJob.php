@@ -109,8 +109,8 @@ class ImportFromEmailJob extends RegularJob
             throw new \Exception('Error saving zip archive to storage');
         }
 
-        Yii::$app->terminals->setCurrentTerminalId($typeModel->sender);
-
+        Yii::$app->exchange->setCurrentTerminalId($typeModel->sender);
+        // Атрибуты документа
         $docAttributes = [
             'type'               => $typeModel->getType(),
             'direction'          => Document::DIRECTION_OUT,
@@ -122,6 +122,7 @@ class ImportFromEmailJob extends RegularJob
             'isEncrypted' => true
         ];
 
+        // Атрибуты расширяющей модели
         $extModelAttributes = [
             'fileCount'       => $typeModel->fileCount,
             'subject'         => Yii::$app->xmlsec->encryptData($typeModel->subject, true),
@@ -129,6 +130,7 @@ class ImportFromEmailJob extends RegularJob
             'zipStoredFileId' => $typeModel->zipStoredFileId,
         ];
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             $docAttributes,
@@ -139,6 +141,7 @@ class ImportFromEmailJob extends RegularJob
             throw new \Exception('Failed to create FinZip document');
         }
 
+        // Создать стейт отправки документа
         $sendJobId = DocumentTransportHelper::createSendingState($context['document']);
         if ($sendJobId === false) {
             throw new \Exception('Failed to create sending state');

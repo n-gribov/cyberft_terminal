@@ -19,6 +19,9 @@ use common\models\Terminal;
 use Yii;
 use yii\filters\AccessControl;
 
+/**
+ * Класс визарда содержит методы для создания документа
+ */
 class WizardController extends BaseServiceController
 {
     use TerminalCodes;
@@ -39,9 +42,13 @@ class WizardController extends BaseServiceController
         ];
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         /** @var WizardForm $form */
+        // Получить кэшированный документ
         $form = $this->getCachedDocument();
 
         if (!$form) {
@@ -52,7 +59,7 @@ class WizardController extends BaseServiceController
             $form->subject = null;
             $form->descr = null;
 
-            /*
+            /**
              * @todo Обратное преобразование получателя, если мы вернулись на шаг 1
              * (если модель уже существует)
              * Необходимо для правильной инициализации Select2 для выбора получателя
@@ -64,54 +71,62 @@ class WizardController extends BaseServiceController
             }
         }
 
-        $form->sender = Yii::$app->terminals->defaultTerminal->terminalId;
+        $form->sender = Yii::$app->exchange->defaultTerminal->terminalId;
 
+        // Если данные модели успешно загружены из формы в браузере
         if ($form->load(Yii::$app->request->post())) {
             $recipient = TerminalId::extract($form->recipient);
-            /**
-             * Если указанный адрес получателя является адресом участника, то
-             * учитываем код терминала для формирования финального адреса
-             */
+            // Если указанный адрес получателя является адресом участника, то
+            // учитываем код терминала для формирования финального адреса
             if ($recipient->getType() === TerminalId::TYPE_PARTICIPANT) {
                 $recipient->terminalCode = strlen($form->terminalCode) == 1
-                                            ? $form->terminalCode
-                                            : TerminalId::DEFAULT_TERMINAL_CODE;
+                    ? $form->terminalCode
+                    : TerminalId::DEFAULT_TERMINAL_CODE;
             }
-
+            // Присвоить получателя в форме редактирования
             $form->recipient = (string)$recipient;
+            // Кэшировать форму редактирования
             $this->cacheDocument($form);
 
+            // Перенаправить на страницу 2-го шага визарда
             return $this->redirect(['step2']);
         }
-
+        // Кэшировать форму редактирования
         $this->cacheDocument($form);
 
-        // Далее отрисовываем первый шаг визарда
+        // Вывести страницу индекса визарда
         return $this->render('index', [
-            'model'       => $form,
+            'model' => $form,
             'currentStep' => 1,
-            'errors'      => !empty($form->errors) ? $form->errors : false
+            'errors' => !empty($form->errors) ? $form->errors : false
         ]);
     }
 
+    /**
+     * Метод обрабатывает шаг 2 визарда
+     * @return type
+     */
     public function actionStep2()
     {
+        // Получить кэшированный документ
         $form = $this->getCachedDocument();
 
-        // Если в кэше нет документа, возвращаемся на первый шаг визарда
+        // Если в кэше нет документа, вернуться на первый шаг визарда
         if (!$form) {
+            // Поместить в сессию флаг сообщения об отсутствии данных визарда
             Yii::$app->session->setFlash('error', Yii::t('doc', 'No wizard data available'));
 
-            return $this->redirect(['index']);
+            // Перенаправить на страницу индекса
+            return $this->redirect('index');
         }
 
         if (Yii::$app->session->hasFlash('error')) {
             $form->validate();
         }
 
-        // Далее будет отрисован 2-й шаг визарда в нужном режиме отображения
+        // Вывести страницу 2-го шага визарда в нужном режиме отображения
         return $this->render('index', [
-            'model'       => $form,
+            'model' => $form,
             'currentStep' => 2,
             'settings' => $this->module->settings
         ]);
@@ -119,49 +134,65 @@ class WizardController extends BaseServiceController
 
     public function actionStep3()
     {
+        // Получить кэшированный документ
         $form = $this->getCachedDocument();
-        // Если в кэше нет документа, возвращаемся на первый шаг визарда
+        // Если в кэше нет документа, вернуться на первый шаг визарда
         if (!$form) {
+            // Поместить в сессию флаг сообщения об отсутствии данных визарда
             Yii::$app->session->setFlash('error', Yii::t('doc', 'No wizard data available'));
-            return $this->redirect(['index']);
+            // Перенаправить на страницу индекса
+            return $this->redirect('index');
         }
-
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             if (empty(Yii::$app->request->post('wizardComplete'))) {
-
+                // Загрузить данные модели из формы в браузере
                 $form->load(Yii::$app->request->post());
+                // Кэшировать форму редактирования
                 $this->cacheDocument($form);
-
+                // Если форма не валидируется
                 if (!$form->validate()) {
+                    // Поместить в сессию флаг сообщения о некорректных данных визарда
                     Yii::$app->session->setFlash('error', Yii::t('doc', 'Invalid wizard data'));
 
+                    // Перенаправить на страницу 2-го шага визарда
                     return $this->redirect(['step2']);
                 }
             } else {
-
                 $documentId = $this->createAuth026Document($form);
                 if (empty($documentId)) {
+                    // Поместить в сессию флаг сообщения об ошибке создания документа
                     Yii::$app->session->setFlash('error', Yii::t('doc', '{type} document creation failed', ['type' => 'auth.026']));
 
+                    // Перенаправить на страницу 2-го шага визарда
                     return $this->redirect(['step2']);
                 }
-
+                // Очистить кэшированный документ
                 $this->clearCachedDocument();
 
+                // Поместить в сессию флаг сообщения об успешном создании документа
                 Yii::$app->session->setFlash('success', Yii::t('doc', '{type} document created', ['type' => Auth026Type::TYPE]));
 
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['/ISO20022/documents/view', 'id' => $documentId]);
             }
         }
 
+        // Вывести страницу 3-го шага визарда
         return $this->render('index', [
-            'model'       => $form,
+            'model' => $form,
             'currentStep' => 3,
         ]);
     }
 
+    /**
+     * Метод создаёт документ auth.026
+     * @param WizardForm $form
+     * @return bool
+     */
     public function createAuth026Document(WizardForm $form)
     {
+        // Создать тайп-модель из данных формы визарда
         $typeModel = new Auth026Type([
             'typeCode' => $form->typeCode,
             'dateCreated' => time(),
@@ -172,20 +203,25 @@ class WizardController extends BaseServiceController
             'numberOfItems' => 1,
         ]);
 
+        // Получить вложение из данных формы визарда
         $attachedFile = $this->getAttachedFile($form);
 
+        // Если есть вложение
         if (!empty($attachedFile)) {
+            // Если терминал является шлюзом Росбанка
             if (RosbankHelper::isGatewayTerminal($form->recipient)) {
+                // Внедрить вложение в модель
                 $typeModel->addEmbeddedAttachment($attachedFile->name, $attachedFile->path);
             } else {
+                // Поместить вложения в модель в виде zip
                 ISO20022Helper::attachZipContent($typeModel, [$attachedFile]);
             }
         }
-
+        // Сформировать XML
         $typeModel->buildXML();
-
-        $terminal = Terminal::findOne(['terminalId' =>  $typeModel->sender]);
-
+        // Найти терминал отправителя
+        $terminal = Terminal::findOne(['terminalId' => $typeModel->sender]);
+        // Атрибуты документа
         $docAttributes = [
             'direction' => Document::DIRECTION_OUT,
             'origin' => Document::ORIGIN_WEB,
@@ -194,6 +230,7 @@ class WizardController extends BaseServiceController
             'terminalId' => $terminal->id
         ];
 
+        // Атрибуты расширяющей модели
         $extModelAttributes = [
             'typeCode' => $form->typeCode,
             'subject' => $form->subject,
@@ -203,16 +240,19 @@ class WizardController extends BaseServiceController
             'msgId' => $typeModel->msgId
         ];
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             $docAttributes,
             $extModelAttributes
         );
 
+        // Если контекст не создался, вернуть ошибку
         if (!isset($context['document'])) {
             return false;
         }
 
+        // Получить документ из контекста
         $document = $context['document'];
         Yii::$app->resque->enqueue('addons\ISO20022\jobs\CryptoProSignJob', ['id' => $document->id]);
 
@@ -228,6 +268,7 @@ class WizardController extends BaseServiceController
     }
 
     /**
+     * Метод возвращает кэшированный документ
      * @return WizardForm
      */
     protected function getCachedDocument()
@@ -242,6 +283,7 @@ class WizardController extends BaseServiceController
 
     protected function clearCachedDocument()
     {
+        // Удалить кешированный документ
         Yii::$app->cache->delete('ISO20022/wizard/doc-' . Yii::$app->session->id);
     }
 
@@ -253,7 +295,7 @@ class WizardController extends BaseServiceController
             $attachFilename = $fileData['name'];
 
             $fileParts = FileHelper::mb_pathinfo($attachFilename);
-            $attachFilename = 'attach_' . $fileParts['filename']; // mb_substr($fileParts['filename'], 0, 62);
+            $attachFilename = 'attach_' . $fileParts['filename'];
 
             if (Yii::$app->settings->get('ISO20022:ISO20022')->useUniqueAttachmentName) {
                 $attachFilename .= '_' . $form->sender . date('YmdHis');
@@ -271,5 +313,4 @@ class WizardController extends BaseServiceController
 
         return null;
     }
-
 }

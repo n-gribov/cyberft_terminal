@@ -65,7 +65,7 @@ class SendSbbol2DocumentsJob extends BaseJob
         if (!$result->hasError()) {
             $request->updateStatus(Sbbol2DocumentImportRequest::STATUS_SENT);
             $request->updateExternalDocumentId($result->getExternalId());
-        } elseif (!$result->canRetry()) {
+        } else if (!$result->canRetry()) {
             $request->updateStatus(Sbbol2DocumentImportRequest::STATUS_SENDING_ERROR);
         }
     }

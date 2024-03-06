@@ -35,7 +35,7 @@ class HandleErrorStep extends BaseStep
         if ($error->getCode() === static::BAD_SESSION_ERROR_CODE) {
             $this->log('Bad session, will delete cached session and try next time with a new one');
             $this->state->module->sessionManager->deleteSession($request->customer->holdingHeadId);
-        } elseif (!static::isTemporaryError($error)) {
+        } else if (!static::isTemporaryError($error)) {
 
             if ($request->incomingDocumentId) {
                 DocumentTransportHelper::sendStatusReport(

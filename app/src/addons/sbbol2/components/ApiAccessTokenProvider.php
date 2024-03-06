@@ -73,6 +73,7 @@ class ApiAccessTokenProvider extends Component
             if ($this->isClientAuthorizationRenewalRequired($exception)) {
                 Yii::info("Will set token status to inactive, customer: {$customerToken->customerId}");
                 $customerToken->isActive = false;
+                // Сохранить модель в БД
                 $customerToken->save();
             }
             throw $exception;
@@ -90,6 +91,7 @@ class ApiAccessTokenProvider extends Component
         $customerToken->accessToken = $newToken->getToken();
         $customerToken->refreshToken = $newToken->getParam('refresh_token');
         $customerToken->accessTokenExpiryTime = $expiryTime;
+        // Сохранить модель в БД
         $isSaved = $customerToken->save();
         if (!$isSaved) {
             throw new Exception(

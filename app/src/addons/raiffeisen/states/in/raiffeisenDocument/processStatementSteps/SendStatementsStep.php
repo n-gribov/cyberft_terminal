@@ -39,9 +39,10 @@ class SendStatementsStep extends BaseStep
             ->setCreateTime(new \DateTime())
             ->addToStatementsRaif($statement);
         $responseTypeModel = new RaiffeisenStatementType(['response' => $responseDocument]);
-        $senderTerminal = Yii::$app->terminals->defaultTerminal;
+        $senderTerminal = Yii::$app->exchange->defaultTerminal;
         $filename = $this->createStatementFileName($statement);
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $responseTypeModel,
             [
@@ -60,7 +61,9 @@ class SendStatementsStep extends BaseStep
         if (empty($context)) {
             return $this->fail('Failed to create response document');
         }
+        // Получить документ из контекста
         $document = $context['document'];
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($document, true);
 
         return true;

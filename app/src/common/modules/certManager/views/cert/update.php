@@ -11,22 +11,20 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app/cert', 'Certificates'),
 $this->params['breadcrumbs'][] = ['label' => $model->certId, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app/cert', 'Editing');
 
+// Вывести форму редактирования сертификата
 echo $this->render('_form', ['model' => $model]);
 
 if ($model->isActive()) {
+    $this->registerJs(<<<JS
+        function deactivateCertModalConfirm() {
+            $('#manage-cert').submit();
+        }
 
-    $this->registerJs(
-<<<JS
-    function deactivateCertModalConfirm() {
-        $('#manage-cert').submit();
-    }
+        function getModelRole() {
+            return $('#cert-role').val();
+        }
+    JS, View::POS_READY);
 
-    function getModelRole() {
-        return $('#cert-role').val();
-    }
-JS
-    , View::POS_READY);
+    // Вывести модальное окно деактивации сертификата
     echo $this->render('_deactivateCertModal', ['model' => $model, 'buttonId' => 'btn-manage-cert']);
-
 }
-?>

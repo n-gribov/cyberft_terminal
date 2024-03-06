@@ -25,8 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=Html::a(Yii::t('edm', 'Add payer account'), ['edm-payer-account/create', 'name' => $model->name], 
             ['class' => 'btn btn-success'], 'ic-plus')?>
 </p>
-
-<?=DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model'      => $model,
     'attributes' => [
         'typeLabel',
@@ -47,12 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
 
     ],
-])?>
-
+]);
+?>
 <h4 class="dict-organization-address-title dict-organization-title " 
    style="cursor: pointer; color: #00529c;"><?= Yii::t('edm', 'Address') ?></h4>
 <div class="dict-organization-address-block">
-<?=DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model'      => $model,
     'attributes' => [
         'state',
@@ -64,13 +67,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'buildingNumber',
         'apartment'
     ],
-])?>
+]);
+?>
 </div>
-
 <h4 class="dict-organization-details-title dict-organization-title" 
     style="cursor: pointer; color: #00529c;"><?= Yii::t('edm', 'Details in latin') ?></h4>
 <div class="dict-organization-details-block">
-<?=DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model'      => $model,
     'attributes' => [
         [
@@ -80,10 +85,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'addressLatin',
         'locationLatin'
     ],
-])?>
+]);
+?>
 </div>
-
-<?=GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => $accountsDataProvider,
     'filterModel'  => $accountsModel,
     'columns'      => [
@@ -148,13 +155,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]
     ],
-]);?>
-
-<?php
+]);
         
-$script = <<< JS
-    // Колонки второй таблицы по ширине
-    // должны соответстовать колонкам первой
+$script = <<<JS
+    // Колонки второй таблицы по ширине должны соответствовать колонкам первой
     var thWidth = $('#w0 th:first').width();
     $('#w1 th:first').width(thWidth);
     $('#w2 th:first').width(thWidth);
@@ -174,7 +178,8 @@ $script = <<< JS
         }
    );
         
-    // (CYB-4440) Прячем блоки "Адрес" и "Реквизиты" по умолчанию. Показываем/прячем их по нажатию на заголовке.    
+    // (CYB-4440) Прячем блоки "Адрес" и "Реквизиты" по умолчанию.
+    // Показываем/прячем их по нажатию на заголовке.    
     $('.dict-organization-address-block').hide(); 
     $('.dict-organization-details-block').hide(); 
         
@@ -188,5 +193,3 @@ $script = <<< JS
 JS;
 
 $this->registerJs($script, View::POS_READY);
-
-?>

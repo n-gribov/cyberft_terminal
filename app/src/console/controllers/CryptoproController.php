@@ -17,7 +17,7 @@ class CryptoproController extends Controller
     ];
 
     /**
-     * Help message
+     * Метод выводит текст подсказки
      */
     public function actionIndex()
     {
@@ -432,5 +432,4 @@ class CryptoproController extends Controller
             return self::EXIT_CODE_ERROR;
         }
     }
-
 }

@@ -21,6 +21,7 @@ $this->title = Yii::t('doc', 'View document {type} #{id}', ['type' => $model->ty
 $this->params['breadcrumbs'][]   = ['label' => $backTitle, 'url' => $backUrl];
 $this->params['breadcrumbs'][] = $this->title;
 
+// Вывести страницу
 echo $this->render(
     '@common/views/document/_header',
     [
@@ -33,5 +34,3 @@ echo $this->render(
         'showSignaturesMask' => $showSignaturesMask
     ]
 );
-
-?>

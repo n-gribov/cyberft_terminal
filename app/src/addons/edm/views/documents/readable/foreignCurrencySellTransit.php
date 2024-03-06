@@ -54,7 +54,6 @@ $organization = $model->getOrganization();
         <strong><?=$model->getAttributeLabel('amount')?></strong>: <?=Yii::$app->formatter->asDecimal($model->amount, 2) ?> <?= $model->amountCurrency ?>
     </div>
 </div>
-
 <div class="row margin-bottom-30">
     <div class="col-md-12">
         <strong><?=$model->getAttributeLabel('foreignAccount')?></strong>: <?=$model->foreignAccount?>
@@ -91,7 +90,8 @@ $organization = $model->getOrganization();
     </div>
 </div>
 <div class="row">
-    <?= $this->render('@common/views/document/_signatures', ['signatures' => $signatureList]) ?>
+    <?= // Вывести блок подписей страницу
+        $this->render('@common/views/document/_signatures', ['signatures' => $signatureList]) ?>
 </div>
 <style>
     .margin-bottom-10 {

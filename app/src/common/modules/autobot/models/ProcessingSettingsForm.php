@@ -54,6 +54,7 @@ class ProcessingSettingsForm extends Model
         $appSettings->processing['dsn'] = $processing->dsn;
         $appSettings->processing['address'] = $processing->address;
 
+        // Сохранить модель в БД и вернуть результат сохранения
         return $appSettings->save();
     }
 }

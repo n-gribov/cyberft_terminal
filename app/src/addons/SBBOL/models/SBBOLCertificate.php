@@ -118,6 +118,7 @@ class SBBOLCertificate extends \yii\db\ActiveRecord
             $certificate->setAttributes($certificateAttributes, false);
 
             try {
+                // Сохранить модель в БД
                 $isSaved = $certificate->save();
                 if (!$isSaved) {
                     \Yii::info("Failed to save certificate {$certificate->fingerprint}, errors: " . VarDumper::dumpAsString($certificate->getErrors()));

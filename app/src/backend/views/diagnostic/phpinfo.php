@@ -1,12 +1,9 @@
 <?php
 $this->title = Yii::t('app/diagnostic', 'Environment');
 
-/**
- * @var $this View
- */
+// Вывести подменю
+echo $this->render('_submenu');
 ?>
-<?=$this->render('_submenu');?>
-
 <div class="panel-heading">
     <h4>Phpinfo</h4>
 </div>
@@ -43,5 +40,3 @@ $this->title = Yii::t('app/diagnostic', 'Environment');
         <?=$data?>
     </div>
 </div>
-
-

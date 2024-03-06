@@ -80,6 +80,7 @@ class SaveNewPublishedCertificateStep extends BaseStep
         $key->certificateBody = $certificateBody;
         $key->status = SBBOLKey::STATUS_CERTIFICATE_IS_RECEIVED;
 
+        // Сохранить модель в БД
         $isSaved = $key->save();
         if (!$isSaved) {
             return $this->fail('Failed to save key, errors: ' . var_export($key->getErrors(), true));

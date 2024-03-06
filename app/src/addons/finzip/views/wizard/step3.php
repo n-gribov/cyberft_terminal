@@ -54,7 +54,9 @@ $request      = Yii::$app->request;
 <?php if (isset($dataProvider) && $dataProvider->totalCount) : ?>
     <div class="row">
         <div class="col-md-6">
-            <?=GridView::widget([
+            <?php
+            // Создать таблицу для вывода
+            echo GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns'      => [
                     [

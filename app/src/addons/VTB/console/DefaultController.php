@@ -36,6 +36,9 @@ use yii\db\Expression;
 
 class DefaultController extends ConsoleController
 {
+    /**
+     * Метод выводит текст подсказки
+     */
     public function actionIndex()
     {
         $this->run('/help', ['VTB']);

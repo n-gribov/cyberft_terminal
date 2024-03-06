@@ -147,7 +147,7 @@ class XMLSec extends BaseObject
 			return $nodeset;
 		}
 
-		return NULL;
+		return null;
 	}
 
 	/**
@@ -224,7 +224,7 @@ class XMLSec extends BaseObject
 			return $nodeset;
 		}
 
-		return NULL;
+		return null;
 	}
 
 	/**
@@ -409,23 +409,23 @@ class XMLSec extends BaseObject
 	/**
 	 * Функция выполняет подписание XML-документа по технологии XML Signature,
 	 * используя формат файлов XML-CyberFT
-     * @param string $terminalId Терминал отправителя
+         * @param string $terminalId Терминал отправителя
 	 * @param DOMDocument $domDocument Документ для подписания
 	 * @param string $privateKey Приватный ключ для подписания
 	 * @param string $passphrase Пароль приватного ключа
 	 * @param string $fingerprint Отпечаток сертификата
-     * @param string $certificate
+         * @param string $certificate
 	 * @return boolean Возвращает true в случае успешного завершения и false
 	 * в противном случае.
 	 */
 	public function signDocument($terminalId, $domDocument, $privateKey, $passphrase, $fingerprint, $certificate)
 	{
-        $useCompatibility = \Yii::$app->settings->get('app', $terminalId)->useCompatibleSigning;
+            $useCompatibility = \Yii::$app->settings->get('app', $terminalId)->useCompatibleSigning;
 
-		$facility = $this->getFacility($useCompatibility);
-        $facility->terminalId = $terminalId;
+            $facility = $this->getFacility($useCompatibility);
+            $facility->terminalId = $terminalId;
 
-        return $facility->signDocument($domDocument, $privateKey, $passphrase, $fingerprint, $certificate, $this->config);
+            return $facility->signDocument($domDocument, $privateKey, $passphrase, $fingerprint, $certificate, $this->config);
 	}
 
 	/**
@@ -583,7 +583,7 @@ class XMLSec extends BaseObject
 
     public function encryptData($data, $useBase64 = false)
     {
-        $terminalId = Yii::$app->terminals->getCurrentTerminalId();
+        $terminalId = Yii::$app->exchange->getCurrentTerminalId();
 
         if (isset($this->_certsData[$terminalId])) {
             $cert = $this->_certsData[$terminalId];
@@ -689,7 +689,7 @@ class XMLSec extends BaseObject
 
     public function decryptData($data, $useBase64 = false)
     {
-        $terminalId = Yii::$app->terminals->getCurrentTerminalId();
+        $terminalId = Yii::$app->exchange->getCurrentTerminalId();
 
         $autobot = Yii::$app->getModule('autobot');
 
@@ -841,7 +841,6 @@ class XMLSec extends BaseObject
         }
 
         return $this->_facilityList[$useCompatibility];
-
     }
 
 }

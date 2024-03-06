@@ -64,7 +64,7 @@ class ExtractSignDataJob extends Job
             $this->_document->setSignData($this->_cyxDoc->extractSignData());
 
             if ($this->_document->status == Document::STATUS_PENDING) {
-                // Если документ попал в джоб в статусе PENDING, то значит это был
+                // Если документ попал в задание в статусе PENDING, то значит это был
                 // документ, требующий подписания
                 $this->_document->status = Document::STATUS_FORSIGNING;
             }
@@ -90,7 +90,7 @@ class ExtractSignDataJob extends Job
      */
     protected function checkArgs()
     {
-        $this->_documentId = (isset($this->args['id'])) ? $this->args['id'] : NULL;
+        $this->_documentId = (isset($this->args['id'])) ? $this->args['id'] : null;
         if (empty($this->_documentId)) {
             $this->log('Document ID is empty');
 

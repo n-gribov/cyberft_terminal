@@ -32,12 +32,16 @@ class CertificateController extends BaseServiceController
         ];
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
             'query' => SBBOLCertificate::find()->orderBy('dateCreate'),
             'sort'  => false,
         ]);
+        // Вывести страницу
         return $this->render(
             'index',
             compact('dataProvider')
@@ -72,12 +76,15 @@ class CertificateController extends BaseServiceController
         }
 
         if (!$hasErrors) {
+            // Поместить в сессию флаг сообщения об успешной отправке запроса
             Yii::$app->session->setFlash('success', Yii::t('app/sbbol', 'Update request is sent'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке отправки запроса
             Yii::$app->session->setFlash('error', Yii::t('app/sbbol', 'Failed to get send update request'));
         }
 
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
 
     private function sendCertificatesRequest(SBBOLCustomer $customer)

@@ -15,16 +15,16 @@ class SwiftRouteController extends Controller
     public function behaviors()
     {
         return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => ['commonParticipants'],
-					],
-				],
-			],
-			'verbs' => [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['commonParticipants'],
+                    ],
+                ],
+            ],
+            'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
@@ -43,6 +43,7 @@ class SwiftRouteController extends Controller
             'query' => Participant::find(),
         ]);
 
+        // Вывести страницу
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -55,7 +56,9 @@ class SwiftRouteController extends Controller
      */
     public function actionView($id)
     {
+        // Вывести страницу
         return $this->render('view', [
+            // Получить из БД участника с указанным id
             'model' => $this->findModel($id),
         ]);
     }
@@ -69,12 +72,13 @@ class SwiftRouteController extends Controller
     {
         $model = new Participant();
 
+        // Если данные модели успешно загружены из формы в браузере и модель сохранена в БД
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // Перенаправить на страницу просмотра
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            // Вывести страницу создания
+            return $this->render('create', compact('model'));
         }
     }
 
@@ -86,14 +90,16 @@ class SwiftRouteController extends Controller
      */
     public function actionUpdate($id)
     {
+        // Получить из БД участника с указанным id
         $model = $this->findModel($id);
 
+        // Если данные модели успешно загружены из формы в браузере и модель сохранена в БД
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // Перенаправить на страницу просмотра
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            // Вывести страницу редактирования
+            return $this->render('update', compact('model'));
         }
     }
 
@@ -105,24 +111,24 @@ class SwiftRouteController extends Controller
      */
     public function actionDelete($id)
     {
+        // Получить из БД участника с указанным id и удалить его из БД
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
     }
 
     /**
-     * Finds the Participant model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Participant the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * Метод ищет модель участника в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
      */
     protected function findModel($id)
     {
-        if (($model = Participant::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        // Получить из БД участника с указанным id
+        $model = Participant::findOne($id);
+        if ($model == null) {
+            throw new NotFoundHttpException('The requested page does not exist');
         }
+        return $model;
     }
 }

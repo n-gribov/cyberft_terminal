@@ -478,7 +478,7 @@ EOT;
 		 * Dependency Inversion or Death mother fucker!
 		 */
 		$envelope = sprintf($template,
-			Yii::$app->terminals->address,
+			Yii::$app->exchange->address,
 			'TESTRUM3A001',
 			$this->type,
 			base64_encode($this->packData())

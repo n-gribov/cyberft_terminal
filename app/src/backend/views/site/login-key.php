@@ -23,7 +23,7 @@ $this->title = Yii::t('app', 'Login with key');
     ) ?>
 </div>
 
-<?php $form	= ActiveForm::begin(['id' => 'login-form']); ?>
+<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
     <?= Html::button(Yii::t('app', 'Log in'), ['id' => 'login-button', 'class' => 'btn btn-primary btn-block']) ?>
     <?= Html::hiddenInput('cert-body', '', ['id' => 'cert', 'class' => 'form-control hidden', 'readonly' => 'true']) ?>
     <?= Html::hiddenInput('signature', '', ['id' => 'signature', 'class' => 'form-control hidden', 'readonly' => 'true']) ?>
@@ -63,7 +63,8 @@ function onSignComplete(data, parameters)
     } else {
         $('#cert').val(parameters.fingerprint);
     }
-    $("#login-form").submit();
+
+    $('#login-form').submit();
 }
 
 function startSigning()

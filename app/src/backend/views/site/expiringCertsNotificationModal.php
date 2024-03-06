@@ -13,10 +13,10 @@ use common\helpers\Html;
             </div>
 
             <div class="modal-body">
-                <?php foreach($certs as $group => $type): ?>
+                <?php foreach($certs as $group => $type) : ?>
                     <h3><?=$group?>:</h3>
 
-                    <?php foreach($type as $label => $content): ?>
+                    <?php foreach($type as $label => $content) : ?>
                         <h4><?=$label?></h4>
 
                         <table class="table">
@@ -38,7 +38,7 @@ use common\helpers\Html;
                             </thead>
                             <tbody>
 
-                            <?php foreach ($content as $cert): ?>
+                            <?php foreach ($content as $cert) : ?>
                                 <tr>
                                     <td><?= Html::encode($cert['terminal']) ?></td>
                                     <td><?= Html::encode($cert['terminalName']) ?></td>
@@ -46,12 +46,12 @@ use common\helpers\Html;
                                     <td><?= Html::encode($cert['fingerprint']) ?></td>
                                     <td><?= Html::encode($cert['date']) ?></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                             </tbody>
                         </table>
 
-                    <?php endforeach; ?>
-                <?php endforeach; ?>
+                    <?php endforeach ?>
+                <?php endforeach ?>
 
                 <p style="font-weight: bold">
 
@@ -63,9 +63,7 @@ use common\helpers\Html;
                     <a href="mailto:support@cyberft.ru">support@cyberft.ru</a>
                 </p>
                 
-                <?php 
-                
-                if(isset($isPlatinaBik) && $isPlatinaBik) { ?>
+                <?php if (isset($isPlatinaBik) && $isPlatinaBik) : ?>
                 
                 <p style="font-weight: bold; color: red"> <?= Yii::t('app/cert', 'Attention! Important information for the customers of Platina CB LLC.') ?> </p>
 
@@ -77,7 +75,7 @@ use common\helpers\Html;
                                                 target="_blank">
                         <?= Yii::t('app/cert', 'Detailed information') ?></a></p>
                     
-                <?php } ?>
+                <?php endif ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app', 'Close') ?></button>

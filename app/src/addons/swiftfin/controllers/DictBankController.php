@@ -23,32 +23,32 @@ use yii\web\MethodNotAllowedHttpException;
 
 class DictBankController extends BaseServiceController
 {
-	public function behaviors() {
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
                     [
                         'allow' => true,
                         'actions' => ['index', 'list', 'view', 'get-bank-info'],
                         'roles' => [DocumentPermission::VIEW],
                         'roleParams' => ['serviceId' => SwiftfinModule::SERVICE_ID],
                     ],
-					[
-						'allow' => true,
+                    [
+                        'allow' => true,
                         'actions' => ['upload'],
-						'roles' => ['admin'],
-					],
-				],
-			],
-			'verbs' => [
-				'class'   => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['post'],
-				],
-			],
-		];
-	}
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class'   => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Lists all DictBank models.
@@ -61,6 +61,7 @@ class DictBankController extends BaseServiceController
         $searchModel = new SwiftFinDictBankSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        // Вывести страницу
         return $this->render('index', [
             'lastUpload' => $monitorLog ? $monitorLog : null,
             'searchModel' => $searchModel,
@@ -75,36 +76,43 @@ class DictBankController extends BaseServiceController
      */
     public function actionView($swiftCode, $branchCode)
     {
+        // Вывести страницу
         return $this->render('view', [
+            // Получить из БД банк с указанным Свифт-кодом и кодом отделения
             'model' => $this->findModel($swiftCode, $branchCode),
         ]);
     }
 
-	public function actionUpload()
+    public function actionUpload()
     {
-		if (!Yii::$app->request->getIsPost()) {
-			return $this->redirect('index');
-		}
+        if (!Yii::$app->request->getIsPost()) {
+            // Перенаправить на страницу индекса
+            return $this->redirect('index');
+        }
 
-		$file   = UploadedFile::getInstanceByName('file');
+        $file = UploadedFile::getInstanceByName('file');
 
         if (!$file) {
-			Yii::$app->session->setFlash('error', Yii::t('yii', '{attribute} cannot be blank.', ['attribute' => Yii::t('app', 'File')]));
-		} else if (!in_array($file->type, [
+            // Поместить в сессию флаг сообщения об отсутствующем файле
+            Yii::$app->session->setFlash('error', Yii::t('yii', '{attribute} cannot be blank.', ['attribute' => Yii::t('app', 'File')]));
+        } else if (!in_array($file->type, [
             'application/x-7z-compressed', 'application/x-zip-compressed',
             'application/zip', 'application/octet-stream'])
         ) {
-			Yii::$app->session->setFlash('error', Yii::t('app/error', 'Invalid source file format'));
-		} else {
-			try {
+            // Поместить в сессию флаг сообщения об ошибке формата файла
+            Yii::$app->session->setFlash('error', Yii::t('app/error', 'Invalid source file format'));
+        } else {
+            try {
                 $this->processFile($file);
-			} catch (\Exception $ex) {
-				Yii::$app->session->setFlash('error', $ex->getMessage());
-			}
-		}
+            } catch (\Exception $ex) {
+                // Поместить в сессию флаг сообщения об ошибке
+                Yii::$app->session->setFlash('error', $ex->getMessage());
+            }
+        }
 
-        return $this->redirect(['index']);
-	}
+        // Перенаправить на страницу индекса
+        return $this->redirect('index');
+    }
 
     private function processFile($file)
     {
@@ -120,8 +128,9 @@ class DictBankController extends BaseServiceController
         $event = BaseEvent::getEventObject($eventCode, $params);
         $event->entity = 'user';
         $event->entityId = Yii::$app->user->identity->id;
+        // Зарегистрировать событие загрузки справочника в модуле мониторинга
         $loggedEvent = Yii::$app->monitoring->log(
-                $event->code, $event->entity, $event->entityId, $params
+            $event->code, $event->entity, $event->entityId, $params
         );
 
         try {
@@ -195,7 +204,7 @@ class DictBankController extends BaseServiceController
 
             $event->status = DictionaryUploadedEvent::STATUS_PROCESSED;
 
-            // Регистрация события загрузки справочника swift-кодов
+            // Зарегистрировать событие загрузки справочника swift-кодов в модуле мониторинга
             Yii::$app->monitoring->extUserLog('UploadSwiftCodes');
 
         } catch(Exception $ex) {
@@ -203,16 +212,17 @@ class DictBankController extends BaseServiceController
             throw $ex;
         } finally {
             $loggedEvent->loadEvent($event);
+            // Сохранить модель в БД
             $loggedEvent->save();
         }
     }
 
-	public function actionList($q = null)
+    public function actionList($q = null)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         return SwiftfinHelper::getBanksList($q);
-	}
+    }
 
     public function actionGetBankInfo($swiftInfo)
     {
@@ -226,12 +236,17 @@ class DictBankController extends BaseServiceController
         return json_encode($bankInfo);
     }
 
+    /**
+     * Метод ищет модель банка в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
     protected function findModel($swiftCode, $branchCode)
     {
-        if (($model = SwiftFinDictBank::findOne(['swiftCode' => $swiftCode, 'branchCode' => $branchCode])) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        // Получить из БД банк с указанным БИК и кодом отделения
+        $model = SwiftFinDictBank::findOne(['swiftCode' => $swiftCode, 'branchCode' => $branchCode]);
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested page does not exist');
         }
+        return $model;
     }
 }

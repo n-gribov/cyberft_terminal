@@ -21,7 +21,6 @@ use common\helpers\FileHelper;
 use common\helpers\vtb\VTBHelper;
 use common\helpers\vtb\VTBLetterHelper;
 use common\models\cyberxml\CyberXmlDocument;
-use common\models\listitem\AttachedFile;
 use common\models\Terminal;
 use common\models\User;
 use common\models\UserTerminal;
@@ -115,7 +114,7 @@ class BankLetterForm extends Model
         $tmpDirPath = $tempResource->createDir(uniqid('bank_letter_', true));
         if (VTBHelper::isVTBDocument($document)) {
             $attachments = VTBLetterHelper::extractAttachments($typeModel, $tmpDirPath);
-        } elseif ($typeModel instanceof Auth026Type) {
+        } else if ($typeModel instanceof Auth026Type) {
             $attachments = $typeModel->extractAttachments($tmpDirPath);
         } else {
             throw new InvalidArgumentException("Unsupported document type: {$typeModel->getType()}");
@@ -300,6 +299,7 @@ class BankLetterForm extends Model
         $typeModel = $this->createDocumentTypeModel($senderTerminal, $receiverTerminalAddress);
         $attachments = $this->storeAttachments();
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             $this->createDocumentAttributes($typeModel, $senderTerminal, $receiverTerminalAddress),
@@ -310,6 +310,7 @@ class BankLetterForm extends Model
             throw new Exception('Failed to create document context');
         }
 
+        // Получить документ из контекста
         /** @var Document $document */
         $document = $context['document'];
         if ($document->status == Document::STATUS_SERVICE_PROCESSING) {
@@ -360,6 +361,7 @@ class BankLetterForm extends Model
 
             /** @var EdmModule $module */
             $module = Yii::$app->getModule(EdmModule::SERVICE_ID);
+            // Обработать документ в модуле аддона
             $module->processDocument($document);
 
             $transaction->commit();
@@ -479,6 +481,7 @@ class BankLetterForm extends Model
             }
         }
 
+        // Сформировать XML
         $typeModel->buildXML();
 
         return $typeModel;

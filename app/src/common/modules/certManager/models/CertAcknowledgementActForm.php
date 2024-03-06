@@ -244,6 +244,7 @@ class CertAcknowledgementActForm extends Model
             'certOwnerPassportAuthority'     => $this->certOwnerPassportAuthority,
             'certOwnerPassportIssueDate'     => DateHelper::convertFormat($this->certOwnerPassportIssueDate, 'd.m.Y', 'Y-m-d'),
         ]);
+        // Сохранить модель в БД
         $isSaved = $controllerActData->save();
         if (!$isSaved) {
             Yii::info('Failed to save controller act data, errors: ' . var_export($controllerActData->getErrors(), true));

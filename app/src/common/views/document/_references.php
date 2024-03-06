@@ -16,34 +16,34 @@ use addons\ISO20022\models\Auth027Type;
 /* @var $referencingDataProvider ActiveDataProvider */
 
 if ($referencingDataProvider->totalCount < 1) {
-	echo Yii::t('doc', 'No referencing documents found');
+    echo Yii::t('doc', 'No referencing documents found');
 } else {
-	echo GridView::widget([
-		'emptyText' => Yii::t('app/diagnostic', 'No referencing documents'),
-		'summary' => Yii::t('app/diagnostic', 'Shown from {begin} to {end} out of {totalCount} found'),
-		'dataProvider' => $referencingDataProvider,
-//'doubleClickView' => true,
+    // Создать таблицу для вывода
+    echo GridView::widget([
+        'emptyText' => Yii::t('app/diagnostic', 'No referencing documents'),
+        'summary' => Yii::t('app/diagnostic', 'Shown from {begin} to {end} out of {totalCount} found'),
+        'dataProvider' => $referencingDataProvider,
+        //'doubleClickView' => true,
         'rowOptions' => function ($model){
             $options['ondblclick'] = "window.location='" . Url::toRoute(['view', 'id' => $model->id]) . "'";
 
             return $options;
         },
-		'columns' => [
-			['attribute' => 'id', 'enableSorting' => false],
-			['attribute' => 'direction', 'enableSorting' => false],
-			['attribute' => 'dateCreate'],
-			[
-			    'attribute' => $model->direction === Document::DIRECTION_IN ? 'receiver' : 'sender',
+        'columns' => [
+            ['attribute' => 'id', 'enableSorting' => false],
+            ['attribute' => 'direction', 'enableSorting' => false],
+            ['attribute' => 'dateCreate'],
+            [
+                'attribute' => $model->direction === Document::DIRECTION_IN ? 'receiver' : 'sender',
                 'enableSorting' => false,
             ],
-			['attribute' => 'type', 'enableSorting' => false],
-			['attribute' => 'uuid', 'enableSorting' => false],
-			['attribute' => 'uuidReference', 'enableSorting' => false],
-			[
-				'attribute' => 'Status report',
-				'format' => 'html',
-				'value' => function($data, $params) use($model) {
-
+            ['attribute' => 'type', 'enableSorting' => false],
+            ['attribute' => 'uuid', 'enableSorting' => false],
+            ['attribute' => 'uuidReference', 'enableSorting' => false],
+            [
+                'attribute' => 'Status report',
+                'format' => 'html',
+                'value' => function($data, $params) use($model) {
                     if (in_array($data->type, ['CFTStatusReport', 'StatusReport', Pain002Type::TYPE, Auth027Type::TYPE])) {
                         $typeModel = CyberXmlDocument::getTypeModel($data->actualStoredFileId);
                         $result = '';
@@ -63,7 +63,7 @@ if ($referencingDataProvider->totalCount < 1) {
                         }
 
                         return $result;
-					} else if ($data->type == PaymentStatusReportType::TYPE) {
+                    } else if ($data->type == PaymentStatusReportType::TYPE) {
                         $typeModel = CyberXmlDocument::getTypeModel($data->actualStoredFileId);
 
                         if (!empty($typeModel)) {
@@ -74,10 +74,9 @@ if ($referencingDataProvider->totalCount < 1) {
 
                         return $result;
                     }
-
-					return '';
-				}
-			],
+                    return '';
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'template' => '{view}',
@@ -89,6 +88,6 @@ if ($referencingDataProvider->totalCount < 1) {
                     ]);
                 }
             ]
-		],
-	]);
+        ],
+    ]);
 }

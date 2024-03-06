@@ -50,7 +50,7 @@ if ($extModel) {
         if ($extModel->errorDescription) {
             $businessStatusDescription = $extModel->errorDescription;
         }
-    } elseif ($document->direction == Document::DIRECTION_OUT) {
+    } else if ($document->direction == Document::DIRECTION_OUT) {
         if ($extModel->hasAttribute('businessStatus')) {
             $businessStatusLabels = DocumentHelper::getBusinessStatusesListWithPartially();
             if (array_key_exists($extModel->businessStatus, $businessStatusLabels)) {
@@ -89,17 +89,23 @@ Modal::begin([
 
 <div class="row">
     <div class="col-lg-7">
-        <?= DetailView::widget([
+    <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $document,
             'attributes' => $infoAttributes
-        ]) ?>
+        ]);
+    ?>
     </div>
     <div class="col-lg-5">
-        <?= DetailView::widget([
+    <?php
+        // Создать детализированное представление
+        echo DetailView::widget([
             'model' => $document,
             'template' => '<tr><th width="50%">{label}</th><td>{value}</td></tr>',
             'attributes' => $detailsAttributes
-        ]) ?>
+        ]);
+    ?>
     </div>
 </div>
 
@@ -111,5 +117,3 @@ $this->registerCss('
         width: 900px;
     }
 ');
-
-?>

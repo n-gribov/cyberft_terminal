@@ -34,6 +34,7 @@ class m151221_154951_add_senderTerminalAddress_to_fileactCryptoproCert extends M
         $defaultTerminal = Terminal::getDefaultTerminal();
         foreach ($cryptoproCerts as $cert) {
             $cert->terminalId = $defaultTerminal->id;
+            // Сохранить модель в БД
             $cert->save();
         }
     }

@@ -25,18 +25,18 @@ $userCanCreateStatementRequests = Yii::$app->user->can(
     DocumentPermission::CREATE,
     ['serviceId' => EdmModule::SERVICE_ID, 'documentTypeGroup' => EdmDocumentTypeGroup::STATEMENT]
 ) || Yii::$app->user->can('admin') || Yii::$app->user->can('additionalAdmin');
-?>
 
-<?php if ($userCanCreateStatementRequests): ?>
-    <?= $this->render('_sendRequestForm') ?>
-<?php endif ?>
-<?php echo $this->render('_search', [
+if ($userCanCreateStatementRequests) {
+    // Вывести форму отправки запроса
+    echo $this->render('_sendRequestForm');
+}
+
+// Вывести форму поиска
+echo $this->render('_search', [
     'model' => $model,
     'filterStatus' => $filterStatus,
     'hideNullTurnovers' => $hideNullTurnovers
-]); ?>
-
-<?php
+]);
 
 $urlParams['from'] = 'statement';
 
@@ -198,7 +198,6 @@ $columns['debitTurnover'] = [
 
 $columns['creditTurnover'] = [
     'attribute'     => 'creditTurnover',
-//    'value'         => 'documentExtEdmStatement.creditTurnover',
     'format' => ['decimal', 2],
     'filter' => MaskedInput::widget([
         'attribute' => 'creditTurnover',
@@ -308,7 +307,7 @@ $columnsEnabled = UserColumnsSettings::getEnabledColumnsByType($columns, $listTy
 $today = new DateTime;
 $todayFormat = $today->format('Y-m-d');
 $isAdmin = Yii::$app->user->can('admin');
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'id' => 'statements-grid',
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
@@ -320,19 +319,18 @@ $myGridWidget = InfiniteGridView::begin([
         'decimalSeparator' => '.'
     ],
     'rowOptions' => function ($model) use ($urlParams, $todayFormat, $isAdmin) {
-        $options['onclick'] = "window.location='".
-                Url::toRoute(array_merge(['view', 'id' => $model->id, 'mode' => 'source'], $urlParams)) ."'";
+        $options['onclick'] = "window.location='"
+            . Url::toRoute(array_merge(['view', 'id' => $model->id, 'mode' => 'source'], $urlParams)) . "'";
 
         if (in_array($model->status, array_merge($model->getErrorStatus(), ['']))) {
             $options['class'] = 'bg-alert-danger';
-        } elseif (in_array($model->status, $model->getProcessingStatus())) {
+        } else if (in_array($model->status, $model->getProcessingStatus())) {
             $options['class'] = 'bg-alert-warning';
         }
 
         // Выделение непросмотренных
         // документов за сегодняшний день
         if (!$isAdmin) {
-
             $date = new DateTime($model->dateCreate);
             $dateFormat = $date->format('Y-m-d');
 
@@ -353,17 +351,15 @@ $myGridWidget = InfiniteGridView::begin([
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $model
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $model
+]);
 
 echo ToTopButtonWidget::widget();
 
-$script = <<< JS
+$script = <<<JS
     // Изменение свойства отображения
     // документов с нулевыми оборотами
     $('#hide-null-turnover').on('click', function(e) {
@@ -408,13 +404,11 @@ JS;
 
 $this->registerJs($script, View::POS_READY);
 
-$this->registerCss('
-.select2-cyberft {
-    width: 200px;
-}
-');
+$this->registerCss(<<<CSS
+    .select2-cyberft {
+        width: 200px;
+    }
+CSS);
 
-// Модальное окно формы поиска
+// Вывести модальное окно с формой поиска
 echo $this->render('_searchModal', ['model' => $model]);
-
-?>

@@ -43,7 +43,7 @@ $form = ActiveForm::begin(['id' => 'contract-unregistration-request-form']); ?>
     ->field($model, 'organizationId')
     ->dropDownList($organizationSelectOptions, ['prompt' => count($organizationSelectOptions) > 1 ? '-' : null])
 ?>
-<?php foreach ($availableOrganizations as $organization): ?>
+<?php foreach ($availableOrganizations as $organization) : ?>
     <div class="organization-info hidden" data-id="<?= Html::encode($organization->id) ?>">
         <p>
             <strong><?= Yii::t('edm', 'INN') ?></strong>
@@ -63,7 +63,7 @@ $form = ActiveForm::begin(['id' => 'contract-unregistration-request-form']); ?>
             <span class="value"><?= Html::encode($organization->fullAddress) ?></span>
         </p>
     </div>
-<?php endforeach; ?>
+<?php endforeach ?>
 
 <fieldset class="form-inline">
     <?= $form->field($model, 'contactPerson')->textInput(['maxlength' => 40, 'size' => 42]) ?>
@@ -80,7 +80,8 @@ $form = ActiveForm::begin(['id' => 'contract-unregistration-request-form']); ?>
 <hr>
 
 <h4><?= Yii::t('edm', 'Contracts (loan agreements)') ?></h4>
-<?= $this->render('form/grid-views/_contractsGridView', ['models' => $model->contracts]) ?>
+<?= // Вывести страницу
+    $this->render('form/grid-views/_contractsGridView', ['models' => $model->contracts]) ?>
 <?= Html::button(
     Yii::t('app', 'Add'),
     [
@@ -89,9 +90,9 @@ $form = ActiveForm::begin(['id' => 'contract-unregistration-request-form']); ?>
     ]
 ) ?>
 <hr>
-
 <h4><?= Yii::t('edm', 'Attached files') ?></h4>
-<?= $this->render('form/grid-views/_attachedFilesGridView', ['models' => $model->attachedFiles]) ?>
+<?= // Вывести страницу
+    $this->render('form/grid-views/_attachedFilesGridView', ['models' => $model->attachedFiles]) ?>
 <?= Html::button(
     Yii::t('app', 'Add'),
     [
@@ -115,13 +116,15 @@ $form = ActiveForm::begin(['id' => 'contract-unregistration-request-form']); ?>
     <input type="file" name="file" class="hidden" />
 </form>
 
-<?= $this->render('form/modals/_contractFormModal', ['model' => new ContractUnregistrationRequestForm\Contract()]) ?>
+<?= // Вывести страницу
+    $this->render('form/modals/_contractFormModal', ['model' => new ContractUnregistrationRequestForm\Contract()]) ?>
 
 <?php
 $this->registerJsFile(
     '@web/js/edm/contract-unregistration-request/contract-unregistration-request-form.js',
     ['depends' => [JqueryAsset::className()]]
 );
+
 $this->registerCss(<<<CSS
     .form-inline .form-group {
         margin-right: 10px;
@@ -139,5 +142,4 @@ $this->registerCss(<<<CSS
     .organization-info .value {
         margin-right: 15px;
     }
-CSS
-);
+CSS);

@@ -33,6 +33,7 @@ if ($userCanDeleteDocuments) {
     echo DeleteSelectedDocumentsButton::widget(['checkboxesSelector' => '.delete-checkbox, .select-on-check-all']);
 }
 
+// Вывести форму поиска
 echo $this->render('_search', [
     'model' => $searchModel,
     'filterStatus' => $filterStatus,
@@ -61,7 +62,6 @@ $columns['binFileName'] = [
     'attribute' => 'binFileName',
 ];
 
-
 $columns['direction'] = [
     'attribute' => 'direction',
     'format' => 'html',
@@ -76,7 +76,6 @@ $columns['direction'] = [
         'data-none-selected-text' => ''
     ],
 ];
-
 
 $columns[$sender] = [
     'attribute' => $sender,
@@ -129,7 +128,6 @@ $columns['dateCreate'] = [
 $columnsEnabled = [];
 
 // Колонка с чекбоксом удаления
-
 if ($userCanDeleteDocuments && count($deletableDocumentsIds) > 0) {
     $columnsEnabled['delete'] = [
         'class'           => 'yii\grid\CheckboxColumn',
@@ -162,12 +160,12 @@ $columnsEnabled['actions'] = [
     'filterInputOptions' => [
         'style' => 'width: 20px'
     ],
-    'value'	=> function ($item, $params) use ($urlParams) {
+    'value' => function ($item, $params) use ($urlParams) {
         return Html::a('<span class="ic-eye"></span>',
             Url::toRoute(array_merge(['default/view', 'id' => $item->id, 'redirectUrl' => '/fileact/default'], $urlParams)));
     }
 ];
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
     'emptyText'    => Yii::t('other', 'No documents matched your query'),
     'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
@@ -201,7 +199,6 @@ $this->registerJS(<<<JS
 JS
 );
 
-$this->registerCss('#delete-selected-documents-button {display: none;}');
+$this->registerCss('#delete-selected-documents-button {display: none}');
 
-?>
 

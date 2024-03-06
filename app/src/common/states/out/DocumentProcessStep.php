@@ -14,6 +14,7 @@ class DocumentProcessStep extends BaseDocumentStep
     {
         $document = $this->state->document;
 
+        // Обработать документ в модуле аддона
         $this->state->module->processDocument($document);
 
         if ($document->direction == Document::DIRECTION_OUT && $document->signaturesRequired > 0) {

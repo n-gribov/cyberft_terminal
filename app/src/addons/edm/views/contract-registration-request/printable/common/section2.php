@@ -28,12 +28,12 @@ $countryCodesList = EdmHelper::countryCodesList();
             <td>2</td>
             <td>3</td>
         </tr>
-        <?php foreach($model->nonresidentsItems as $nonresident): ?>
+        <?php foreach($model->nonresidentsItems as $nonresident) : ?>
             <tr>
                 <td colspan="5"><?=$nonresident->name?></td>
                 <td><?=$nonresident->countryName?></td>
                 <td><?=$nonresident->numericCountryCode?></td>
             </tr>
-        <?php endforeach;?>
+        <?php endforeach ?>
     </table>
 </div>

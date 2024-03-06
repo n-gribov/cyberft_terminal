@@ -23,7 +23,6 @@ use yii\web\ForbiddenHttpException;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
-use yii\web\UploadedFile;
 use ZipArchive;
 
 class DefaultController extends BaseController
@@ -63,15 +62,17 @@ class DefaultController extends BaseController
     }
 
     /**
-     * Детальный просмотр инфромации о ключе автобота по его id
+     * Детальный просмотр информации о ключе автобота по его id
      * @param int $id
      * @return string
      */
     public function actionView($id)
     {
+        // Получить из БД ключ автоподписанта с указанным id
         $model = $this->findModel($id);
         $this->checkSettingsAdditionalAdmin($model);
 
+        // Вывести страницу
         return $this->render('view', compact('model'));
     }
 
@@ -81,20 +82,28 @@ class DefaultController extends BaseController
         if ($controller === null) {
             throw new NotFoundHttpException();
         }
+
         $this->ensureUserHasTerminalAccess($controller->terminalId);
 
         if ($controller->isUpdateRequired) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Please, fill in all required fields in controller settings'));
+            
+            // Перенаправить на страницу автоподписанта
             return $this->redirect(['/autobot/terminals/index', 'id' => $controller->terminalId, 'tabMode' => 'tabAutobot']);
         }
 
         $form = new CreateAutobotForm();
+        // Если данные модели успешно загружены из формы в браузере
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->autobotService->createWithNewKey($controller, $form->password);
+                // Поместить в сессию флаг сообщения об успешном создании ключа
                 Yii::$app->session->setFlash('success', Yii::t('app/autobot', 'Key created'));
+                // Перенаправить на страницу автоподписанта
                 return $this->redirect(['/autobot/terminals/index', 'id' => $controller->terminalId, 'tabMode' => 'tabAutobot']);
             } catch (\DomainException $exception) {
+                // Поместить в сессию флаг сообщения об ошибке
                 Yii::$app->session->setFlash('error', $exception->getMessage());
             }
         }
@@ -111,17 +120,23 @@ class DefaultController extends BaseController
         $this->ensureUserHasTerminalAccess($controller->terminalId);
 
         if ($controller->isUpdateRequired) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Please, fill in all required fields in controller settings'));
+            // Перенаправить на страницу автоподписанта
             return $this->redirect(['/autobot/terminals/index', 'id' => $controller->terminalId, 'tabMode' => 'tabAutobot']);
         }
 
         $form = new ImportAutobotForm();
+        // Если данные модели успешно загружены из формы в браузере
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->autobotService->createWithImportedKey($controller, $form);
+                // Поместить в сессию флаг сообщения об успешном импорте ключа
                 Yii::$app->session->setFlash('success', Yii::t('app/autobot', 'Key imported'));
+                // Перенаправить на страницу автоподписанта
                 return $this->redirect(['/autobot/terminals/index', 'id' => $controller->terminalId, 'tabMode' => 'tabAutobot']);
             } catch (\DomainException $exception) {
+                // Поместить в сессию флаг сообщения об ошибке
                 Yii::$app->session->setFlash('error', $exception->getMessage());
             }
         }
@@ -135,13 +150,17 @@ class DefaultController extends BaseController
             throw new MethodNotAllowedHttpException;
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
+        // Получить из БД ключ автоподписанта
         $model = $this->findModel($id);
 
         // Редактирование ключа только в статусе неактивен
         if (!$model->isBlocked) {
+            // Поместить в сессию флаг сообщения о недоступности редактирования ключа
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Key editing is not available in the current status'));
+            // Перенаправить на страницу просмотра
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -149,8 +168,9 @@ class DefaultController extends BaseController
 
         $result = [];
 
+        // Если данные модели успешно загружены из формы в браузере и модель сохранилась в БД
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            // Регистрация события изменения ключа контроллера
+            // Зарегистрировать событие изменения ключа контроллера в модуле мониторинга
             Yii::$app->monitoring->extUserLog('EditControllerKey', ['id' => $model->id]);
             $result['status'] = 'ok';
         } else {
@@ -168,21 +188,25 @@ class DefaultController extends BaseController
      */
     public function actionDelete($id)
     {
+        // Получить из БД ключ автоподписанта
         $autobot = $this->findModel($id);
         $this->checkSettingsAdditionalAdmin($autobot);
 
         try {
+            // Удалить автоподписанта из БД
             $this->autobotService->delete($autobot);
             Yii::$app->session->set('success', Yii::t('app/terminal', 'Deleted controller key "{name}"', ['name' => $autobot->name]));
+            // Зарегистрировать событие в модуле мониторинга
             Yii::$app->monitoring->extUserLog('DeleteControllerKey', ['id' => $id]);
         } catch (\Exception $exception) {
             Yii::$app->errorHandler->logException($exception);
             $errorMessage = $exception instanceof \DomainException
                 ? $exception->getMessage()
                 : Yii::t('app/autobot', 'Failed to delete controller key');
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $errorMessage);
         }
-
+        // Перенаправить на страницу автоподписанта
         return $this->redirect($autobot->getListUrl());
     }
 
@@ -191,6 +215,7 @@ class DefaultController extends BaseController
      */
     public function actionDownload($id)
     {
+        // Получить из БД ключ автоподписанта
         $model = $this->findModel($id);
         $this->checkSettingsAdditionalAdmin($model);
 
@@ -210,6 +235,7 @@ class DefaultController extends BaseController
 
     public function actionDownloadArchive($id)
     {
+        // Получить из БД ключ автоподписанта
         $model = $this->findModel($id);
         $this->checkSettingsAdditionalAdmin($model);
 
@@ -218,9 +244,9 @@ class DefaultController extends BaseController
 
         if ($model->ownerSurname && $model->ownerName) {
             $basename = "{$model->ownerSurname}-{$model->ownerName}-";
-        } elseif ($model->ownerSurname) {
+        } else if ($model->ownerSurname) {
             $basename = "{$model->ownerSurname}-";
-        } elseif ($model->ownerName) {
+        } else if ($model->ownerName) {
             $basename = "{$model->ownerName}-";
         } else {
             $basename = '';
@@ -255,9 +281,10 @@ class DefaultController extends BaseController
 
     public function actionControl()
     {
-        $terminals = Yii::$app->terminals;
+        $terminals = Yii::$app->exchange;
         $activeTab = null;
 
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             // Имя управляемого терминала
             $action = Yii::$app->request->post('action');
@@ -271,50 +298,36 @@ class DefaultController extends BaseController
                 if (false === $terminals->isRunning($terminalId)) {
                     $this->start($terminalId);
                 } else {
+                    // Поместить в сессию флаг сообщения о запущенном процессе
                     Yii::$app->session->setFlash(
                         'error',
-                            Yii::t('app/autobot', 'Automatic process already started for terminal {terminal}', ['terminal' => $terminalId])
+                        Yii::t('app/autobot', 'Automatic process already started for terminal {terminal}', ['terminal' => $terminalId])
                     );
                 }
-            } elseif ('stop' === $action) {
+            } else if ('stop' === $action) {
                 // Останов автопроцессов
                 if (true === $terminals->isRunning($terminalId)) {
                     $this->stop($terminalId);
 
-                    // Регистрация события остановки обмена с CyberFT
+                    // Зарегистрировать событие остановки обмена с CyberFT в модуле мониторинга
                     Yii::$app->monitoring->extUserLog('StopAutoprocesses');
                 } else {
+                    // Поместить в сессию флаг сообщения об остановленном процессе
                     Yii::$app->session->setFlash(
                         'error',
-                            Yii::t('app/autobot', 'Automatic process already stopped for terminal {terminal}', ['terminal' => $terminalId])
+                        Yii::t('app/autobot', 'Automatic process already stopped for terminal {terminal}', ['terminal' => $terminalId])
                     );
                 }
             }
         }
 
+        // Перенаправить на страницу автопроцессов
         return $this->redirect(['autoprocesses', 'activeTab' => $activeTab]);
-    }
-
-    /**
-     * Finds the Autobot model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Autobot model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Autobot::findOne($id)) !== null) {
-            $this->ensureUserHasTerminalAccess($model->controller->terminal->terminalId);
-            return $model;
-        } else {
-            throw new NotFoundHttpException();
-        }
     }
 
     protected function start($terminalId)
     {
-        $terminals = Yii::$app->terminals;
+        $terminals = Yii::$app->exchange;
 
         // Подсчитываем число автоботов, участвовавших в запросе
         $count = count(Yii::$app->request->post('Autobot', []));
@@ -340,28 +353,31 @@ class DefaultController extends BaseController
             if (true === $terminals->verifyKeyPasswords($terminalId, $keys)) {
                 $terminals->start($terminalId, $keys);
 
+                // Поместить в сессию флаг сообщения о запуске процесса
                 Yii::$app->session->setFlash(
                     'success',
-                        Yii::t('app/autobot', 'Automatic process started for terminal {terminal}', ['terminal' => $terminalId])
+                    Yii::t('app/autobot', 'Automatic process started for terminal {terminal}', ['terminal' => $terminalId])
                 );
 
-                // Регистрация события запуска обмена с CyberFT
+                // Зарегистрировать событие запуска обмена с CyberFT в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('StartAutoprocesses');
             }
         } catch (Exception $ex) {
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $ex->getMessage());
         }
     }
 
     protected function stop($terminalId)
     {
-        $terminals = Yii::$app->terminals;
+        $terminals = Yii::$app->exchange;
 
         $terminals->stop($terminalId);
 
+        // Поместить в сессию флаг сообщения об остановке процесса
         Yii::$app->session->setFlash(
             'success',
-                Yii::t('app/autobot', "Automatic process stopped for terminal {terminal}", ['terminal' => $terminalId])
+            Yii::t('app/autobot', "Automatic process stopped for terminal {terminal}", ['terminal' => $terminalId])
         );
     }
 
@@ -426,10 +442,11 @@ class DefaultController extends BaseController
     private function getTerminalsList()
     {
         $terminals = [];
+        // Получить модель пользователя из активной сессии
         $adminIdentity = Yii::$app->user->identity;
         $terminalsList = UserTerminal::getUserTerminalIds($adminIdentity->id);
 
-        foreach (Yii::$app->terminals->addresses as $terminalId) {
+        foreach (Yii::$app->exchange->addresses as $terminalId) {
             // Для доп. админа отображаем информацию только о доступных ему терминалах
             if ($adminIdentity->role == User::ROLE_ADDITIONAL_ADMIN
                     && !in_array($terminalId, $terminalsList)
@@ -471,6 +488,7 @@ class DefaultController extends BaseController
         } else if (empty($keyId)) {
             $msg = 'Ошибка определения ключа контролера';
         } else {
+            // Получить из БД ключ автоподписанта
             $autobot = $this->findModel($keyId);
             $result = $autobot->isCorrectPassword($password);
 
@@ -482,9 +500,11 @@ class DefaultController extends BaseController
             }
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         if ($status == 'ok') {
+            // Поместить в сессию флаг сообщения об успешной активации ключа
             Yii::$app->session->setFlash('success', 'Ключ успешно активирован');
         }
 
@@ -493,6 +513,7 @@ class DefaultController extends BaseController
 
     public function actionBlock($id)
     {
+        // Получить из БД ключ автоподписанта
         $model = $this->findModel($id);
         try {
             $this->autobotService->block($model);
@@ -502,23 +523,30 @@ class DefaultController extends BaseController
             $errorMessage = $exception instanceof \DomainException
                 ? $exception->getMessage()
                 : Yii::t('app/autobot', 'Failed to block controller key');
+            // Поместить в сессию флаг сообщения об ошибке
             Yii::$app->session->setFlash('error', $errorMessage);
         }
+        
+        // Перенаправить на предыдущую страницу
         return $this->redirect(Yii::$app->request->referrer);
     }
 
     public function actionUseForSigning($id)
     {
+        // Получить из БД ключ автоподписанта
         $model = $this->findModel($id);
 
         if ($model->isExpired()) {
+            // Поместить в сессию флаг сообщения об истёкшем ключе
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'Expired key is not allowed to be used for signing'));
-        } elseif ($model->primary == false) {
+        } else if ($model->primary == false) {
+            // Поместить в сессию флаг сообщения о недоступности опции для ключей автоподписания
             Yii::$app->session->setFlash('error', Yii::t('app/autobot', 'This option is not available for auto-signing keys'));
         } else {
             $model->useForSigning();
         }
 
+        // Перенаправить на предыдущую страницу
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -539,6 +567,7 @@ class DefaultController extends BaseController
 
     private function checkSettingsAdditionalAdmin($model)
     {
+        // Получить модель пользователя из активной сессии
         $adminIdentity = Yii::$app->user->identity;
         $terminalsList = UserTerminal::getUserTerminalIds($adminIdentity->id);
 
@@ -549,6 +578,21 @@ class DefaultController extends BaseController
             && array_search($model->terminalId, $terminalsList) === false
         ) {
             throw new ForbiddenHttpException();
+        }
+    }
+
+    /**
+     * Метод ищет модель автоподписанта в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
+    protected function findModel($id)
+    {
+        // Найти автоподписанта в БД по указанному id
+        if (($model = Autobot::findOne($id)) !== null) {
+            $this->ensureUserHasTerminalAccess($model->controller->terminal->terminalId);
+            return $model;
+        } else {
+            throw new NotFoundHttpException();
         }
     }
 }

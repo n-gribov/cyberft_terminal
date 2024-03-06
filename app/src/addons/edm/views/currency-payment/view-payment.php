@@ -60,10 +60,13 @@ if ($isPaymentFromRegister) {
 </a>
 
 <div class="transport-info">
-    <?=DetailView::widget([
+<?php
+    // Создать детализированное представление
+    echo DetailView::widget([
         'model' => $document,
         'attributes' => $transportInfoAttributes,
-    ])?>
+    ]);
+?>
 </div>
 
 <div class="row margin-bottom-10">
@@ -75,7 +78,8 @@ if ($isPaymentFromRegister) {
     </div>
 </div>
 
-<?=$this->render('@addons/edm/views/documents/readable/foreignCurrencyPayment', ['model' => $model])?>
+<?= // Вывести страницу
+    $this->render('@addons/edm/views/documents/readable/foreignCurrencyPayment', ['model' => $model]) ?>
 
 <script>
     $('#fcoViewModal .modal-header h4').text('<?= Yii::t('edm', 'Foreign currency payment') ?>');
@@ -98,6 +102,7 @@ if ($isPaymentFromRegister) {
 <?php
 $signatures = $document->getSignatures(Document::SIGNATURES_TYPEMODEL, Cert::ROLE_SIGNER);
 
+// Вывести блок подписей
 echo $this->render('@common/views/document/_signatures', ['signatures' => $signatures]);
 
 echo FastPrint::widget([
@@ -127,7 +132,7 @@ $this->registerCss('
     }
 ');
 
-$script = <<< JS
+$script = <<<JS
     $('.btn-transport-info').on('click', function(e) {
         e.preventDefault();
         $('.transport-info').slideToggle('400');

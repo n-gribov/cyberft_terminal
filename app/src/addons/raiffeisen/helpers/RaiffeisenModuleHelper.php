@@ -53,6 +53,8 @@ class RaiffeisenModuleHelper
     private static function createAndSendDocument(BaseType $typeModel, $senderId, $receiverId, $uuidReference = null)
     {
         $terminal = Terminal::find()->where(['terminalId' => $senderId])->one();
+
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             [
@@ -72,7 +74,9 @@ class RaiffeisenModuleHelper
             return false;
         }
 
+        // Получить документ из контекста
         $reportDocument = $context['document'];
+        // Создать стейт отправки документа
         return DocumentTransportHelper::createSendingState($reportDocument);
     }
 

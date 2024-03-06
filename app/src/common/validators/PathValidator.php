@@ -9,16 +9,16 @@ use yii\validators\Validator;
  */
 class PathValidator extends Validator
 {
-	public $checkFile = false;
+    public $checkFile = false;
 
-	public function validateAttribute($model, $attribute)
-	{
-		if(!is_dir($model->$attribute) && ($this->checkFile && !is_file($model->$attribute))) {
-			$this->addError($model, $attribute, \Yii::t('app', 'Path {value} not found'));
-		}
+    public function validateAttribute($model, $attribute)
+    {
+        if (!is_dir($model->$attribute) && ($this->checkFile && !is_file($model->$attribute))) {
+            $this->addError($model, $attribute, \Yii::t('app', 'Path {value} not found'));
+        }
 
-		if(!is_readable($model->$attribute) || !is_writable($model->$attribute)) {
-			$this->addError($model, $attribute, \Yii::t('app', 'No access to the directory {value}'));
-		}
-	}
+        if (!is_readable($model->$attribute) || !is_writable($model->$attribute)) {
+            $this->addError($model, $attribute, \Yii::t('app', 'No access to the directory {value}'));
+        }
+    }
 }

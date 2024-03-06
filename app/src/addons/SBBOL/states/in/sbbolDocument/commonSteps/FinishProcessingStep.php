@@ -16,6 +16,7 @@ class FinishProcessingStep extends BaseStep
         $request = SBBOLRequest::findOne($this->state->requestId);
         if (!$request->hasFinalStatus()) {
             $request->status = SBBOLRequest::STATUS_PROCESSED;
+            // Сохранить модель в БД
             $request->save();
         }
 

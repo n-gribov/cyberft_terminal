@@ -47,32 +47,38 @@ trait CryptoproCertsActions
 
     public function actionUpdate($id)
     {
+        // Получить из БД сертификат с указанным id
         $model = $this->findModel($id);
         return $this->proccessCertForm($model);
     }
 
     public function actionView($id)
     {
+        // Вывести страницу
         return $this->render('@backend/views/cryptopro-certs/view', [
+            // Получить из БД сертификат с указанным id
             'model' => $this->findModel($id),
         ]);
     }
 
     public function actionDelete($id)
     {
+        // Получить из БД сертификат с указанным id и удалить его из БД
         $this->findModel($id)->delete();
 
+        // Перенаправить на страницу индекса
         return $this->redirect($this->journalLink);
     }
 
     public function actionDownload($id)
     {
+        // Получить из БД сертификат с указанным id
         $model = $this->findModel($id);
 
         if (!empty($model->certData)) {
             CryptoProHelper::downloadCertificate($model->ownerName, $model->keyId, $model->certData);
         } else {
-            throw new NotFoundHttpException('The requested file does not exist.');
+            throw new NotFoundHttpException('The requested file does not exist');
         }
     }
 
@@ -84,7 +90,7 @@ trait CryptoproCertsActions
 
         //  если параметры не найдены
         if (empty($id) || empty($status)) {
-            throw new InvalidParamException;
+            throw new InvalidParamException();
         }
 
         // Находим сертификат по id
@@ -92,31 +98,26 @@ trait CryptoproCertsActions
         $cert = $certModel::findOne($id);
         $cert->status = $status;
 
+        // Если модель успешно сохранена в БД
         if ($cert->save()) {
             CryptoProHelper::addCertificateFromTerminal($cert);
 
+            // Поместить в сессию флаг сообщения об изменении статуса сертификата
             Yii::$app->session->setFlash('success', Yii::t('app/message', 'The certificate status is changed successfully'));
-            return $this->redirect(['view', 'id' => $cert->id]);
-
         } else {
+            // Поместить в сессию флаг сообщения об ошибке изменения статуса сертификата
             Yii::$app->session->setFlash('error', Yii::t('app/message', 'The certificate status change failed'));
-            return $this->redirect(['view', 'id' => $cert->id]);
         }
-    }
-
-    private function findModel($id)
-    {
-        $certModel = $this->certModel;
-        if (($model = $certModel::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+ 
+        // Перенаправить на страницу просмотра
+        return $this->redirect(['view', 'id' => $cert->id]);
     }
 
     private function proccessCertForm($model)
     {
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
+            // Загрузить данные модели из формы в браузере
             $model->load(Yii::$app->request->post());
             // hack for VTB
             if ($model->formName() == 'VTBCryptoproCert') {
@@ -128,28 +129,35 @@ trait CryptoproCertsActions
                 // Создание нового сертификата
                 $model->certificate = UploadedFile::getInstance($model, 'certificate');
 
+                // Если модель успешно сохранена в БД
                 if ($model->save()) {
+                    // Поместить в сессию флаг сообщения об успешном создании сертификата
                     Yii::$app->session->setFlash('success', Yii::t('app/cert', 'Certificate created'));
 
-                    // Регистрация события добавления нового сертификата для ключа КриптоПро
+                    // Зарегистрировать событие добавления нового сертификата для ключа КриптоПро в модуле мониторинга
                     Yii::$app->monitoring->extUserLog('AddIsoCertificate', [
                         'id' => $model->id,
                         'fingerprint' => $model->keyId,
                         'senderTerminal' => $model->senderTerminalAddress
                     ]);
 
+                    // Перенаправить на страницу просмотра
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
+                    // Поместить в сессию флаг сообщения об ошибке создании сертификата
                     Yii::$app->session->setFlash('error', Yii::t('app/message', 'Creating error'));
                 }
             } else {
                 // Редактирование сертификата
                 $model->status = $model::STATUS_NOT_READY;
 
+                // Если модель успешно сохранена в БД
                 if ($model->save()) {
-                    Yii::$app->session->setFlash('success', Yii::t('app/message', 'Edit error'));
+                    // Поместить в сессию флаг сообщения об успешном сохранении сертификата
+                    Yii::$app->session->setFlash('success', Yii::t('app/message', 'Edit successful'));
                 } else {
-                    Yii::$app->session->setFlash('success', Yii::t('app/iso20022', 'Error! Update failure'));
+                    // Поместить в сессию флаг сообщения об ошибке сохранения сертификата
+                    Yii::$app->session->setFlash('error', Yii::t('app/iso20022', 'Error! Update failure'));
                 }
             }
         }
@@ -157,6 +165,7 @@ trait CryptoproCertsActions
         $sendersList = $this->getSendersList();
         $receiversLists = $this->getReceiversList();
 
+        // Вывести форму
         return $this->render('@backend/views/cryptopro-certs/_form', [
             'model' => $model,
             'sendersList' => $sendersList,
@@ -214,9 +223,7 @@ trait CryptoproCertsActions
     }
 
     /**
-     * Получение адреса участника по адресу терминала
-     * @param $address
-     * @return null|static
+     * Метод ищет адрес участника по адресу терминала
      */
     private function getParticipantByAddress($address)
     {
@@ -226,5 +233,20 @@ trait CryptoproCertsActions
         $participant = BICDirParticipant::findOne(['participantBIC' => $participantTerminalId]);
 
         return $participant;
+    }
+
+    /**
+     * Метод ищет модель сертификата в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
+    public function findModel($id)
+    {
+        // Получить из БД сертификат с указанным id
+        $certModel = $this->certModel;
+        $model = $certModel::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested page does not exist');
+        }
+        return $model;
     }
 }

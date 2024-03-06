@@ -53,8 +53,8 @@ class VTBDocumentCryptoproSignJob extends Job
         }
     }
 
-	public function perform()
-	{
+    public function perform()
+    {
         $success = true;
 
         $keys = CryptoproKey::findByTerminalId($this->document->terminalId);
@@ -65,19 +65,18 @@ class VTBDocumentCryptoproSignJob extends Job
 	$validKeys = [];
 	// Фильтруем ключи в зависимости от указанного в документе получателя (CYB-4581)
 	foreach ($keys as $cryptoProSignKey) {
-		$cryptoProBeneficiaries = CryptoproKeyBeneficiary::findAll(['keyId' => $cryptoProSignKey->id]);
-		if (count($cryptoProBeneficiaries) == 0) {
-			$validKeys[] = $cryptoProSignKey;
-			continue;
-		}
-		$cryptoProBeneficiaries = CryptoproKeyBeneficiary::findAll(
-			[
-			    'keyId' => $cryptoProSignKey->id,
-			    'terminalId' => $receiver
-			]);
-		if (count($cryptoProBeneficiaries) != 0) {
-			$validKeys[] = $cryptoProSignKey;
-		}
+            $cryptoProBeneficiaries = CryptoproKeyBeneficiary::findAll(['keyId' => $cryptoProSignKey->id]);
+            if (count($cryptoProBeneficiaries) == 0) {
+                $validKeys[] = $cryptoProSignKey;
+                continue;
+            }
+            $cryptoProBeneficiaries = CryptoproKeyBeneficiary::findAll([
+                'keyId' => $cryptoProSignKey->id,
+                'terminalId' => $receiver
+            ]);
+            if (count($cryptoProBeneficiaries) != 0) {
+                $validKeys[] = $cryptoProSignKey;
+            }
 	}
 	
         if (!empty($validKeys)) {
@@ -88,22 +87,27 @@ class VTBDocumentCryptoproSignJob extends Job
         }
 	
         if (!$success) {
+            // Зарегистрировать событие ошибки подписания Криптопро в модуле мониторинга
             Yii::$app->monitoring->log('document:CryptoProSigningError', 'document', $this->document->id);
             $this->signingRequest->status = CryptoproSigningRequest::STATUS_SIGNING_ERROR;
+            // Сохранить модель в БД
             $this->signingRequest->save();
             $this->document->updateStatus(Document::STATUS_PROCESSING_ERROR);
         } else {
             $this->signingRequest->status = CryptoproSigningRequest::STATUS_SIGNED;
+            // Сохранить модель в БД
             $this->signingRequest->save();
             $this->log("{$this->document->type} {$this->document->id} is signed with cryptopro keys");
 
             Yii::$app->resque->enqueue(ExtractSignDataJob::class, ['id' => $this->document->id]);
+            // Обработать документ в модуле аддона
             Yii::$app->addon->getModule('edm')->processDocument($this->document);
             if ($this->document->status == Document::STATUS_ACCEPTED) {
+                // Создать стейт отправки документа
                 DocumentTransportHelper::createSendingState($this->document);
             }
         }
-	}
+    }
 
     private function signWithKeys($keys)
     {

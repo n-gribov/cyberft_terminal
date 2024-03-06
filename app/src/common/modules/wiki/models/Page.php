@@ -179,6 +179,7 @@ class Page extends ActiveRecord
     protected function deleteAttachments()
     {
         foreach ($this->attachments as $attach) {
+            // Удалить вложение из БД
             if (!$attach->delete()) {
                 return false;
             }

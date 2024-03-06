@@ -162,16 +162,22 @@ class ContractUnregistrationRequestForm extends Model
         $senderOrganization = DictOrganization::findOne($this->organizationId);
         $receiverBank = DictBank::findOne(['bik' => $this->receiverBankBik]);
 
+        // Создать тайп-модель
         $typeModel = $this->createTypeModel($senderOrganization);
+        // Атрибуты документа
         $docAttributes = $this->createDocumentAttributes($senderOrganization, $receiverBank);
+        // Атрибуты расширяющей модели
         $extModelAttributes = $this->createExtModelAttributes($typeModel);
 
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext($typeModel, $docAttributes, $extModelAttributes);
         if (!$context) {
             throw new Exception(\Yii::t('app', 'Save document error'));
         }
 
+        // Получить документ из контекста
         $document = $context['document'];
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($document, true);
 
         return $document;
@@ -182,8 +188,11 @@ class ContractUnregistrationRequestForm extends Model
         $senderOrganization = DictOrganization::findOne($this->organizationId);
         $receiverBank = DictBank::findOne(['bik' => $this->receiverBankBik]);
 
+        // Создать тайп-модель
         $typeModel = $this->createTypeModel($senderOrganization);
+        // Атрибуты документа
         $docAttributes = $this->createDocumentAttributes($senderOrganization, $receiverBank);
+        // Атрибуты расширяющей модели
         $extModelAttributes = $this->createExtModelAttributes($typeModel);
 
         $cyxDocument = CyberXmlDocument::read($document->actualStoredFileId);
@@ -208,7 +217,9 @@ class ContractUnregistrationRequestForm extends Model
 
         /** @var EdmModule $module */
         $module = Yii::$app->getModule('edm');
+        // Обработать документ в модуле аддона
         $module->processDocument($document, $document->sender, $document->receiver);
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($document, true);
     }
 

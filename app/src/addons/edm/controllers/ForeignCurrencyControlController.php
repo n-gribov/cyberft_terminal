@@ -30,7 +30,6 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -121,6 +120,7 @@ class ForeignCurrencyControlController extends BaseServiceController
             if (Yii::$app->request->get('clearWizardCache')) {
                 WizardCacheHelper::deleteFCCWizardCache();
 
+                // Перенаправить на страницу создания
                 return $this->redirect('/edm/foreign-currency-control/create');
             }
 
@@ -128,7 +128,8 @@ class ForeignCurrencyControlController extends BaseServiceController
 
             // Если создание на основе имеющегося документа
             if ($id = Yii::$app->request->get('id')) {
-                $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
+                // Получить из БД документ с указанным id
+                $document = $this->findModel($id);
                 $extModel = ForeignCurrencyOperationInformationExt::findOne(['documentId' => $document->id]);
                 $typeModel = CyberXmlDocument::getTypeModel($document->actualStoredFileId);
                 $this->fillRelatedData($extModel, $typeModel);
@@ -160,13 +161,16 @@ class ForeignCurrencyControlController extends BaseServiceController
      */
     public function actionUpdate($id)
     {
-        $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
+        // Получить из БД документ с указанным id
+        $document = $this->findModel($id);
 
         // если документ уже отправлен, с ним ничего нельзя делать
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
             Yii::$app->session->setFlash('error', 'Ошибка модификации документа');
 
-            return $this->redirect([$this->fccJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->fccJournalUrl);
         }
 
         $extModel = ForeignCurrencyOperationInformationExt::findOne(['documentId' => $document->id]);
@@ -231,7 +235,8 @@ class ForeignCurrencyControlController extends BaseServiceController
      */
     public function actionView($id)
     {
-        $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
+        // Получить из БД документ с указанным id
+        $document = $this->findModel($id);
         $extModel = ForeignCurrencyOperationInformationExt::findOne(['documentId' => $document->id]);
         $typeModel = CyberXmlDocument::getTypeModel($document->getValidStoredFileId());
         $files = $typeModel->getAttachedFileList();
@@ -248,7 +253,11 @@ class ForeignCurrencyControlController extends BaseServiceController
             $statusEvent = Yii::$app->monitoring->getLastEvent('edm:registerSigningRejected', ['entityId' => $id]);
         }
 
-        return $this->render('view', compact('extModel', 'document', 'files', 'backUrl', 'statusReportsData', 'statusEvent'));
+        // Вывести страницу
+        return $this->render(
+            'view',
+            compact('extModel', 'document', 'files', 'backUrl', 'statusReportsData', 'statusEvent')
+        );
     }
 
     /**
@@ -259,14 +268,15 @@ class ForeignCurrencyControlController extends BaseServiceController
     public function actionPrint($id)
     {
         $this->layout = '/print';
-
-        $document = $this->findDocument($id);
+        // Получить из БД документ с указанным id
+        $document = $this->findModel($id);
 
         $extModel = ForeignCurrencyOperationInformationExt::findOne(['documentId' => $document->id]);
         $typeModel = CyberXmlDocument::getTypeModel($document->getValidStoredFileId());
         $statusReportsData = new DocumentStatusReportsData($document);
         $files = $typeModel->getAttachedFileList();
 
+        // Вывести страницу
         return $this->render('print', compact('extModel', 'document', 'files', 'statusReportsData'));
     }
 
@@ -277,26 +287,33 @@ class ForeignCurrencyControlController extends BaseServiceController
      */
     public function actionDelete($id)
     {
-        $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
+        // Получить из БД документ с указанным id
+        $document = $this->findModel($id);
 
         if (!$document->isModifiable()) {
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
             Yii::$app->session->setFlash('error', 'Ошибка модификации документа');
 
-            return $this->redirect([$this->fccJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->fccJournalUrl);
         }
 
         $model = ForeignCurrencyOperationInformationExt::findOne(['documentId' => $document->id]);
 
+        // Удалить экст-модель и документ из БД
         if ($model->delete() && $document->delete()) {
             if ($document->extModel->storedFileId) {
                 Yii::$app->storage->remove($document->extModel->storedFileId);
             }
+            // Поместить в сессию флаг сообщения об успешном удалении документа
             Yii::$app->session->setFlash('success', Yii::t('document', 'Document deleted'));
         } else {
+            // Поместить в сессию флаг сообщения об ошибке удаления документа
             Yii::$app->session->setFlash('error', Yii::t('document', 'Failed to delete document'));
         }
 
-        return $this->redirect([$this->fccJournalUrl]);
+        // Перенаправить на страницу индекса
+        return $this->redirect($this->fccJournalUrl);
     }
 
     /**
@@ -306,26 +323,34 @@ class ForeignCurrencyControlController extends BaseServiceController
      */
     public function actionSend($id)
     {
-        $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
+        // Получить из БД документ с указанным id
+        $document = $this->findModel($id);
 
         if (!$document->isModifiable()) {
-            Yii::$app->session->setFlash('error',
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
+            Yii::$app->session->setFlash(
+                'error',
                 Yii::t('edm', 'Modification error. Foreign currency information is already sent')
             );
-            return $this->redirect([$this->fccJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->fccJournalUrl);
         }
 
         $signResult = $this->signCryptoPro($document);
 
         if (!$signResult) {
-            return $this->redirect([$this->fccJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->fccJournalUrl);
         }
 
+        // Отправить документ на обработку в транспортном уровне
         DocumentTransportHelper::processDocument($document, true);
 
+        // Поместить в сессию флаг сообщения об успешной отправке документа
         Yii::$app->session->setFlash('success', 'Документ отправлен');
 
-        return $this->redirect(Url::to([$this->fccJournalUrl]));
+        // Перенаправить на страницу индекса
+        return $this->redirect($this->fccJournalUrl);
     }
 
     /**
@@ -340,6 +365,7 @@ class ForeignCurrencyControlController extends BaseServiceController
             throw new MethodNotAllowedHttpException();
         }
 
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $result = FCCHelper::processDocumentForm(
@@ -349,47 +375,6 @@ class ForeignCurrencyControlController extends BaseServiceController
 
         return $result;
     }
-
-    /**
-     * Массовое удаление документов из журнала
-     * UPD: Непонятно, зачем, пока комментирую
-     * @return Response
-     */
-//    public function actionDeleteForeignCurrencyInformations()
-//    {
-//        $cached = $this->foreignCurrencyInformationCache->get();
-//        $idList = array_keys($cached['entries']);
-//
-//        Yii::$app->db->createCommand('SET FOREIGN_KEY_CHECKS=0')->execute();
-//
-//        $extList = ISO20022DocumentExt::find()->select('storedFileId')->where(['documentId' => $idList])->asArray()->all();
-//        $storedIds = array_values(
-//            array_filter(
-//                ArrayHelper::getColumn($extList, 'storedFileId')
-//            )
-//        );
-//
-//        foreach ($storedIds as $storedId) {
-//            Yii::$app->storage->remove($storedId);
-//        }
-//
-//        ISO20022DocumentExt::deleteAll(['documentId' => $idList]);
-//        ForeignCurrencyOperationInformationItem::deleteAll(['documentId' => $idList]);
-//        ForeignCurrencyOperationInformationExt::deleteAll(['documentId' => $idList]);
-//        Document::deleteAll(['id' => $idList]);
-//
-//        Yii::$app->db->createCommand('SET FOREIGN_KEY_CHECKS=1')->execute();
-//
-//        $this->foreignCurrencyInformationCache->clear();
-//
-//        Yii::$app->session->setFlash('info',
-//            Yii::t('edm', 'Deleted {count} foreign currency informations',
-//                ['count' => count($idList)]));
-//
-//        return $this->redirect([$this->fccJournalUrl]);
-//    }
-
-
 
     /**
      * Обработка справки о валютных операциях
@@ -430,6 +415,7 @@ class ForeignCurrencyControlController extends BaseServiceController
                 }
             }
 
+            // Вывести форму
             return $this->render('_form', [
                 'model' => $extModel, 'organizations' => $orgList,
             ]);
@@ -444,10 +430,12 @@ class ForeignCurrencyControlController extends BaseServiceController
         //$auth024Type->validateXSD();
 
         if ($auth024Type->errors) {
+            // Поместить в сессию флаг сообщения об ошибке XSD-валидации
             Yii::$app->session->setFlash('error', Yii::t('app/iso20022', 'Auth.024 validation against XSD-scheme failed'));
             Yii::info('Auth.024 validation against XSD-scheme failed');
             Yii::info($auth024Type->getErrorsSummary());
 
+            // Вывести форму
             return $this->render('_form', ['model' => $extModel]);
         }
 
@@ -456,11 +444,14 @@ class ForeignCurrencyControlController extends BaseServiceController
             $context = $this->createCyberXml($extModel, $auth024Type);
 
             if (!$context) {
+                // Поместить в сессию флаг сообщения об ошибке создания документа
                 Yii::$app->session->setFlash('error', Yii::t('edm', 'Failed to create foreign currency information'));
 
+                // Вывести форму
                 return $this->render('_form', ['model' => $extModel]);
             }
 
+            // Получить документ из контекста
             $document = $context['document'];
             // Модификация ext-модели
             $extModel->documentId = $document->id;
@@ -470,29 +461,35 @@ class ForeignCurrencyControlController extends BaseServiceController
             FCCHelper::updateCyberXml($document, $extModel, $auth024Type);
         }
 
+        // Сохранить модель в БД
         $extModel->save();
         DocumentTransportHelper::extractSignData($document);
-
         WizardCacheHelper::deleteFCCWizardCache();
 
+        // Перенаправить на страницу просмотра
         return $this->redirect(['view', 'id' => $extModel->documentId]);
     }
 
     public function actionBeforeSigning($id)
     {
-        $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
+        // Получить из БД документ с указанным id
+        $document = $this->findModel($id);
 
         if (!$document->isModifiable()) {
-            Yii::$app->session->setFlash('error',
+            // Поместить в сессию флаг сообщения об ошибке модификации документа
+            Yii::$app->session->setFlash(
+                'error',
                 Yii::t('edm', 'Modification error. Foreign currency information is already sent')
             );
 
-            return $this->redirect([$this->fccJournalUrl]);
+            // Перенаправить на страницу индекса
+            return $this->redirect($this->fccJournalUrl);
         }
 
         if ($document->extModel->extStatus == ISO20022DocumentExt::STATUS_FOR_CRYPTOPRO_SIGNING) {
             if (!$this->signCryptoPro($document)) {
-                return $this->redirect([$this->fccJournalUrl]);
+                // Перенаправить на страницу индекса
+                return $this->redirect($this->fccJournalUrl);
             }
 
             DocumentTransportHelper::extractSignData($document);
@@ -503,6 +500,7 @@ class ForeignCurrencyControlController extends BaseServiceController
 
     public function actionRejectSigning()
     {
+        // Если отправлены POST-данные
         if (Yii::$app->request->isPost) {
             $id = Yii::$app->request->post('id');
 
@@ -510,14 +508,18 @@ class ForeignCurrencyControlController extends BaseServiceController
             $businessStatusComment = (string) Yii::$app->request->post('businessStatusComment');
 
             if (empty($businessStatusComment)) {
+                // Поместить в сессию флаг сообщения об необходимости описать причину отказа
                 Yii::$app->session->addFlash('warning', Yii::t('edm', 'Please provide reject reason'));
 
+                // Перенаправить на страницу просмотра
                 return $this->redirect(['view', 'id' => $id]);
             }
 
             $model->status = Document::STATUS_SIGNING_REJECTED;
 
+            // Если модель успешно сохранена в БД
             if ($model->save()) {
+                // Зарегистрировать событие отказа в подписании реестра в модуле мониторинга
                 Yii::$app->monitoring->log(
                     'edm:registerSigningRejected',
                     $model->type,
@@ -529,19 +531,21 @@ class ForeignCurrencyControlController extends BaseServiceController
                     ]
                 );
 
-                // Регистрация события отмены подписания документа
+                // Зарегистрировать событие отмены подписания документа в модуле мониторинга
                 Yii::$app->monitoring->extUserLog('RejectSigningDocument', ['documentId' => $id]);
             }
 
+            // Перенаправить на страницу просмотра
             return $this->redirect(['view', 'id' => $id]);
         }
-
     }
 
     private function signCryptoPro($document)
     {
         if (!FCCHelper::signCryptoPro($document)) {
+            // Поместить в сессию флаг сообщения об ошибке подписания Криптопро
             Yii::$app->session->setFlash('error', Yii::t('document', 'CryptoPro signing error'));
+            // Зарегистрировать событие ошибки подписания Криптопро в модуле мониторинга
             Yii::$app->monitoring->log('document:CryptoProSigningError', 'document', $document->id, [
                 'terminalId' => $document->terminalId
             ]);
@@ -568,13 +572,16 @@ class ForeignCurrencyControlController extends BaseServiceController
             $messageType = 'info';
         }
 
+        // Поместить в сессию флаг сообщения о результате подписания
         Yii::$app->session->setFlash($messageType, Yii::$app->session->getFlash($messageType));
 
-        return $this->redirect([$this->fccJournalUrl]);
+        // Перенаправить на страницу индекса
+        return $this->redirect($this->fccJournalUrl);
     }
 
     public function actionUploadAttachedFile()
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $uploadedFile = UploadedFile::getInstanceByName('file');
@@ -604,8 +611,10 @@ class ForeignCurrencyControlController extends BaseServiceController
      */
     private function validateForm($extModel)
     {
+        // Загрузить данные модели из формы в браузере
         $extModel->load(Yii::$app->request->post());
-        if ($p = strpos($extModel->organizationId, '_') !== false) {
+        $p = strpos($extModel->organizationId, '_');
+        if ($p !== false) {
             $extModel->organizationId = substr($extModel->organizationId, 0, $p);
         }
 
@@ -617,8 +626,10 @@ class ForeignCurrencyControlController extends BaseServiceController
         if (!$extModel->validate()) {
             if ($extModel->hasErrors('operations')) {
                 // Если не указаны операции, прерываем обработку формы
+                // Поместить в сессию флаг сообщения об отсутствии операций
                 Yii::$app->session->setFlash('error', Yii::t('edm', 'Operations for foreign currency information are not specified'));
             } else {
+                // Поместить в сессию флаг сообщения об ошибке создания документа
                 Yii::$app->session->setFlash('error', Yii::t('edm', 'Failed to create foreign currency information'));
                 Yii::info(var_export($extModel->getErrors(), true));
             }
@@ -637,6 +648,7 @@ class ForeignCurrencyControlController extends BaseServiceController
         }
 
         if (!$operationsCheckResult ) {
+            // Поместить в сессию флаг сообщения об ошибке создания документа
             Yii::$app->session->setFlash('error', Yii::t('edm', 'Failed to create foreign currency information'));
         }
 
@@ -665,7 +677,7 @@ class ForeignCurrencyControlController extends BaseServiceController
         $items = [];
 
         /**
-         * получаем список ForeignCurrencyOperationInformationItem
+         * Получить список ForeignCurrencyOperationInformationItem
          * через AR-связь и помещаем их в массив
          */
         foreach($extModel->items as $item) {
@@ -673,9 +685,9 @@ class ForeignCurrencyControlController extends BaseServiceController
         }
 
         /**
-         * получаем аттачменты из зип-контента тайпмодели.
-         * они сохраняются в temp-директории и в сессии
-         * для каждого item, полученного из ext-модели, добавляем аттачменты
+         * Получить вложения из зип-контента тайпмодели.
+         * Они сохраняются в temp-директории и в сессии.
+         * Добавить вложения для каждого item, полученного из ext-модели
          */
         if ($typeModel) {
             $attachedFiles = $this->getAttachedFileList($typeModel);
@@ -693,7 +705,6 @@ class ForeignCurrencyControlController extends BaseServiceController
     {
         $attachedFiles = $typeModel->getAttachedFileList();
 
-
         $zip = ZipHelper::createArchiveFileZipFromString($typeModel->zipContent);
         $zipFiles = array_flip($zip->getFileList('cp866'));
 
@@ -707,7 +718,7 @@ class ForeignCurrencyControlController extends BaseServiceController
                 }
             }
         }
-
+        // Удалить архив
         $zip->purge();
 
         return $attachedFiles;
@@ -715,9 +726,11 @@ class ForeignCurrencyControlController extends BaseServiceController
 
     public function actionDownloadAttachment($id, $item, $pos)
     {
-        $document = $this->findDocument($id);
+        // Получить из БД документ с указанным id
+        $document = $this->findModel($id);
         $typeModel = $document->getCyberXml()->getContent()->getTypeModel();
         $attachedFiles = $typeModel->getAttachedFileList();
+
         try {
             if (!isset($attachedFiles[$item][$pos])) {
                 throw new \Exception("File offset $item:$pos not found");
@@ -745,8 +758,13 @@ class ForeignCurrencyControlController extends BaseServiceController
         }
     }
 
-    private function findDocument($id): Document
+    /**
+     * Метод ищет модель документа в БД по первичному ключу.
+     * Если модель не найдена, выбрасывается исключение HTTP 404
+     */
+    protected function findModel($id): Document
     {
+        // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
         $document = Yii::$app->terminalAccess->findModel(Document::class, $id);
 
         return $document;

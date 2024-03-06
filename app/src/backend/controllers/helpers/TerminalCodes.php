@@ -12,26 +12,27 @@ trait TerminalCodes
         'allow' => true,
         'actions' => ['terminal-codes'],
         'roles' => ['@'],
-	];
+    ];
 
     /**
-	 * Возвращает массив кодов терминалов, соответствующих получателю $id
-	 * @param $id
-	 * @return array
-	 * @throws NotFoundHttpException
-	 */
-	public function actionTerminalCodes($id)
-	{
-		if (Yii::$app->request->isAjax) {
-			Yii::$app->response->format = Response::FORMAT_JSON;
+     * Возвращает массив кодов терминалов, соответствующих получателю $id
+     * @param $id
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionTerminalCodes($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            // Включить формат вывода JSON
+            Yii::$app->response->format = Response::FORMAT_JSON;
 
-			return [
+            return [
                 'more' => false,
-				'results' => Yii::$app->getModule('certManager')->getTerminalCodesByParticipant($id)
-			];
-		} else {
-			throw new NotFoundHttpException(Yii::t('app', 'This request must not be called directly'));
-		}
-	}
+                'results' => Yii::$app->getModule('certManager')->getTerminalCodesByParticipant($id)
+            ];
+        } else {
+            throw new NotFoundHttpException(Yii::t('app', 'This request must not be called directly'));
+        }
+    }
 
 }

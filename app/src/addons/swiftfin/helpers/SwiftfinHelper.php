@@ -33,7 +33,7 @@ class SwiftfinHelper
     const FILE_FORMAT_CYBERXML      = 'cyberxml';
 
     /**
-     * Функция определяет формат входного файла
+     * Метод определяет формат входного файла
      * @param string $path Путь к файлу
      * @return string FILE_FORMAT_SWIFT_PACKAGE | FILE_FORMAT_SWIFT | FILE_FORMAT_CYBERXML | FILE_FORMAT_UNKNOWN
      */
@@ -50,7 +50,7 @@ class SwiftfinHelper
     }
 
     /**
-     * Determine string foramt
+     * Метод определяет формат строки
      *
      * @param string $content Data
      * @return string Return FILE_FORMAT_SWIFT_PACKAGE | FILE_FORMAT_SWIFT | FILE_FORMAT_CYBERXML | FILE_FORMAT_UNKNOWN
@@ -72,7 +72,7 @@ class SwiftfinHelper
     }
 
     /**
-     * Check on CyberXml document
+     * Метод валидирует CyberXml документ
      *
      * @param string $content File content
      * @return string Return file format type
@@ -97,8 +97,9 @@ class SwiftfinHelper
     }
 
     /**
+     * Метод проверяет возможность авторизации документа
      * @param Document $document
-     * @param int $userId If not null, check for specified user id
+     * @param int $userId если не null, проверить для указанного userId
      * @return boolean
      */
     public static function isAuthorizable(Document $document, $userId = null)
@@ -108,7 +109,6 @@ class SwiftfinHelper
          * в состоянии CREATING (когда не требуется сверка)
          * или USER_VERIFIED (уже сверен) или собственном STATUS_SERVICE_PROCESSING
          */
-
         $extModel = SwiftFinDocumentExt::findOne(['documentId' => $document->id]);
 
         if ($document->status !== Document::STATUS_CREATING
@@ -143,7 +143,7 @@ class SwiftfinHelper
 
             if (empty($extUser)) {
                 /**
-                 * такого чувака нет либо он не пекётся о таких вещах
+                 * такого пользователя нет либо он не может авторизовать
                  */
                 return false;
             }
@@ -155,7 +155,7 @@ class SwiftfinHelper
 
             /**
              * если он преавторизатор, а документ уже прошел преавторизацию,
-             * ему также нечего ловить
+             * ему также нечего делать
              */
             if ($extUser->role == SwiftFinUserExt::ROLE_PREAUTHORIZER
                 && $extModel->extStatus === SwiftFinDocumentExt::STATUS_AUTHORIZATION
@@ -183,7 +183,7 @@ class SwiftfinHelper
             )
             ->where([
                 'or',
-                ['uxa.userExtId' => NULL],
+                ['uxa.userExtId' => null],
                 [
                     'and',
                     ['uxa.currency' => $extModel->currency],
@@ -200,7 +200,7 @@ class SwiftfinHelper
         $uxList = $query->all();
 
         if (!count($uxList)) {
-            // Авторизаторов нет, делать тут нечего
+            // Авторизаторов нет, вернуться
             return false;
         }
 
@@ -211,14 +211,13 @@ class SwiftfinHelper
          * 3. мы нашли авторизаторов и юзер-авторизатор в их числе
          * 4. мы нашли авторизаторов и юзер-авторизатор не в их числе
          */
-
         if (is_null($userId)) {
             // вариант 1
             return true;
         }
 
         if ($extUser->role == SwiftFinUserExt::ROLE_PREAUTHORIZER) {
-            // вариант 2, возвращаем правду смело, т.к. остальные проверки для
+            // вариант 2, вернуть успех, т.к. остальные проверки для
             // преавторизатора были сделаны выше
             return true;
         }
@@ -234,7 +233,7 @@ class SwiftfinHelper
         // наконец, варианты 3 и 4
         foreach($uxList as $ux) {
             if ($ux->userId == $userId) {
-                // наш человек
+                // подходящий пользователь
                 return true;
             }
         }
@@ -243,13 +242,14 @@ class SwiftfinHelper
     }
 
     /**
+     * Метод экспортирует отчёт от доставке
      * @param Document $doc
      * @return bool|string
      * @throws ErrorException
      * @throws \yii\base\Exception
      */
-	public static function exportDeliveredReport($doc)
-	{
+    public static function exportDeliveredReport($doc)
+    {
         if ($doc->status != Document::STATUS_DELIVERED
             || $doc->typeGroup != SwiftfinModule::SERVICE_ID) {
             return false;
@@ -257,24 +257,22 @@ class SwiftfinHelper
 
         $model = SwiftfinModule::getInstance()->mtDispatcher->instantiateMt('011');
         if (empty($model)) {
-            throw new ErrorException(
-                    'Error: could not instantiate MT011 model for export');
+            throw new ErrorException('Error: could not instantiate MT011 model for export');
         }
 
         $storedFile = Yii::$app->storage->get($doc->getValidStoredFileId());
 
         if (empty($storedFile)) {
             throw new ErrorException(
-                    'Error: could not find stored file for document ID '
-                    . $doc->id
+                'Error: could not find stored file for document ID ' . $doc->id
             );
         }
 
         $exportResource = static::getExportResource($doc->receiver, SwiftfinModule::RESOURCE_EXPORT_DELIVERY);
         if (empty($exportResource)) {
             throw new ErrorException(
-                    'Error: could not allocate resource '
-                    . SwiftfinModule::SERVICE_ID . '/' . SwiftfinModule::RESOURCE_EXPORT_DELIVERY
+                'Error: could not allocate resource '
+                . SwiftfinModule::SERVICE_ID . '/' . SwiftfinModule::RESOURCE_EXPORT_DELIVERY
             );
         }
 
@@ -307,41 +305,39 @@ class SwiftfinHelper
         $container->updateMessageFields();
 
         return $exportResource->putData($container->getRawText(), SwiftfinModule::$exportExtension);
+    }
 
-	}
-
-	/**
-	 * Функция экспортирует MT010 для недоставленных документов
-	 * в соответствии с настройками терминала
-	 * @param Document $doc
-	 * @return boolean success or fail
-	 */
-	public static function exportUndeliveredReport($doc)
-	{
+    /**
+     * Метод экспортирует MT010 для недоставленных документов
+     * в соответствии с настройками терминала
+     * @param Document $doc
+     * @return boolean success or fail
+     */
+    public static function exportUndeliveredReport($doc)
+    {
         if ($doc->typeGroup != SwiftfinModule::SERVICE_ID) {
             return false;
         }
 
         $model = SwiftfinModule::getInstance()->mtDispatcher->instantiateMt('010');
         if (empty($model)) {
-            throw new ErrorException(
-                    'Error: could not instantiate MT010 model for export');
+            throw new ErrorException('Error: could not instantiate MT010 model for export');
         }
 
         $storedFile = Yii::$app->storage->get($doc->getValidStoredFileId());
 
         if (empty($storedFile)) {
             throw new ErrorException(
-                    'Error: could not find stored file for document ID '
-                    . $doc->id
+                'Error: could not find stored file for document ID '
+                . $doc->id
             );
         }
 
         $exportResource = static::getExportResource($doc->receiver, SwiftfinModule::RESOURCE_EXPORT_DELIVERY);
         if (empty($exportResource)) {
             throw new ErrorException(
-                    'Error: could not allocate resource '
-                    . SwiftfinModule::SERVICE_ID . '/' . SwiftfinModule::RESOURCE_EXPORT_DELIVERY
+                'Error: could not allocate resource '
+                . SwiftfinModule::SERVICE_ID . '/' . SwiftfinModule::RESOURCE_EXPORT_DELIVERY
             );
         }
 
@@ -375,27 +371,27 @@ class SwiftfinHelper
 
         $exportResource->putData($container->getRawText(), SwiftfinModule::$exportExtension);
 
-		return true;
-	}
+        return true;
+    }
 
     /**
-     * Создание ack-документа
+     * Метод создаёт ack-документ
      */
-    public static function createAck($mtText, $terminalAdress) {
-
+    public static function createAck($mtText, $terminalAdress)
+    {
         $content = '';
 
         // Получаем значение поля 1
         preg_match_all('#{1:.+?}#m', $mtText, $array);
 
         $field01 = $array[0][0];
-        $field01 = str_replace("F01", "F21", $field01);
+        $field01 = str_replace('F01', 'F21', $field01);
 
         $content .= $field01;
 
         // Получение текущей даты
         $date = date('ymdHi');
-        $content .= "{4:{177:" . $date . "}{451:0}";
+        $content .= '{4:{177:' . $date . '}{451:0}';
 
         // Получаем значение поля 3
         preg_match_all('#{3:.+?}#m', $mtText, $array);
@@ -403,19 +399,19 @@ class SwiftfinHelper
         if (isset($array[0][0])) {
 
             $field03 = $array[0][0];
-            $field03 = str_replace("{3:", "", $field03);
-            $field03 = str_replace("}", "", $field03);
+            $field03 = str_replace('{3:', '', $field03);
+            $field03 = str_replace('}', '', $field03);
 
-            $content .= $field03 . "}}";
+            $content .= $field03 . '}}';
         } else {
-            $content .= "}";
+            $content .= '}';
         }
 
         $content .= "\r\n";
 
-        // Добавляем текст исходного документа
+        // Добавить текст исходного документа
 
-        // Убираем лишние символы
+        // Убрать лишние символы
         $mtText = preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $mtText);
 
         $content .= $mtText;
@@ -425,44 +421,44 @@ class SwiftfinHelper
     }
 
     /**
-     * Cоздание nak-документа
+     * Метод создаёт nak-документ
+     * @param type $mtText
+     * @param type $terminalAdress
      */
     public static function createNak($mtText, $terminalAdress)
     {
-        $content = "";
+        $content = '';
 
-        // Получаем значение поля 1
+        // Получить значение поля 1
         preg_match_all('#{1:.+?}#m', $mtText, $array);
 
         $field01 = $array[0][0];
-        $field01 = str_replace("F01", "F21", $field01);
+        $field01 = str_replace('F01', 'F21', $field01);
 
         $content .= $field01;
 
-        // Получение текущей даты
+        // Получить текущую дату
         $date = date('ymdHi');
-        $content .= "{4:{177:" . $date . "}{451:1}{405:T02}";
+        $content .= '{4:{177:' . $date . '}{451:1}{405:T02}';
 
-        // Получаем значение поля 3
+        // Получить значение поля 3
         preg_match_all('#{3:.+?}#m', $mtText, $array);
 
         if (isset($array[0][0])) {
-
             $field03 = $array[0][0];
-            $field03 = str_replace("{3:", "", $field03);
-            $field03 = str_replace("{", "", $field03);
-            $field03 = str_replace("}", "", $field03);
-
-            $content .= "{" . $field03 . "}}";
+            $field03 = str_replace('{3:', '', $field03);
+            $field03 = str_replace('{', '', $field03);
+            $field03 = str_replace('}', '', $field03);
+            $content .= '{' . $field03 . '}}';
         } else {
-            $content .= "}";
+            $content .= '}';
         }
 
         $content .= "\r\n";
 
-        // Добавляем текст исходного документа
+        // Добавить текст исходного документа
 
-        // Убираем лишние символы
+        // Убрать лишние символы
         $mtText = preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $mtText);
 
         $content .= $mtText;
@@ -472,12 +468,15 @@ class SwiftfinHelper
     }
 
     /**
-     * Проверка существования референса в рамках
+     * Метод проверяет существования референса в рамках
      * исходящих документов swift указанного терминала
+     * @param type $reference
+     * @param type $terminalId
+     * @return bool
      */
     public static function checkOperationReferenceExisted($reference, $terminalId)
     {
-        // Ничего не проверяем, если референс не указан
+        // Ничего не проверять, если референс не указан
         if (!$reference) {
             return false;
         }
@@ -498,7 +497,7 @@ class SwiftfinHelper
     }
 
     /**
-     * Получение списка банков
+     * Метод получает список банков
      * @param $q
      * @param int $limit
      * @return array
@@ -531,7 +530,7 @@ class SwiftfinHelper
     }
 
     /**
-     * Получение имени/адреса swift банка по коду
+     * Метод получает имя/адрес swift банка по коду
      * @param $code
      * @return string
      */
@@ -559,6 +558,12 @@ class SwiftfinHelper
         return $bankInfo;
     }
 
+    /**
+     * Метод получает ресурс экспорта
+     * @param type $terminalAddress
+     * @param type $dirId
+     * @return type
+     */
     private static function getExportResource($terminalAddress, $dirId)
     {
         return static::shouldUseGlobalExportSettings($terminalAddress)
@@ -566,10 +571,16 @@ class SwiftfinHelper
             : Yii::$app->registry->getTerminalExportResource(SwiftfinModule::SERVICE_ID, $terminalAddress, $dirId);
     }
 
+    /**
+     * Метод определяет необходимость использования глобальных настроек экспорта
+     * @param type $terminalAddress
+     * @return bool
+     */
     private static function shouldUseGlobalExportSettings($terminalAddress): bool
     {
         /** @var AppSettings $terminalSettings */
         $terminalSettings = Yii::$app->settings->get('app', $terminalAddress);
+
         return (bool)$terminalSettings->useGlobalExportSettings;
     }
 }

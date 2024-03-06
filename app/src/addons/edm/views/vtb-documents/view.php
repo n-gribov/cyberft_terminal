@@ -15,12 +15,9 @@ use yii\web\View;
 /** @var \common\models\vtbxml\documents\BSDocument $bsDocument */
 /** @var \addons\edm\models\VTBPrepareCancellationRequest\VTBPrepareCancellationRequestForm $cancellationForm */
 /** @var boolean $isPrintable */
-
 $this->title = \addons\edm\models\VTBDocument\VTBDocumentType::getName($document->type);
 $backUrl = Yii::$app->request->get('backUrl', Yii::$app->request->referrer);
-
 ?>
-
 <div style="margin-bottom: 1em">
     <?php
     echo Html::a(
@@ -61,10 +58,10 @@ $backUrl = Yii::$app->request->get('backUrl', Yii::$app->request->referrer);
     </div>
 </div>
 
-<?= $this->render('_bsDocumentDetails', compact('document', 'bsDocument')) ?>
+<?= // Вывести блок детализации документа
+    $this->render('_bsDocumentDetails', compact('document', 'bsDocument')) ?>
 
 <div id="view-table-record-modal-placeholder"></div>
-
 <?= TransportInfoModal::widget(['document' => $document]) ?>
 
 <?= FastPrint::widget([
@@ -73,7 +70,6 @@ $backUrl = Yii::$app->request->get('backUrl', Yii::$app->request->referrer);
 ]) ?>
 
 <?php
-
 $this->registerJsFile(
     '@web/js/edm/vtb-documents/view.js',
     [

@@ -22,7 +22,7 @@ class StatementToIsoExport extends StatementExport
             $typeModel = $this->cyxDocument->getContent()->getTypeModel();
             $statement = $typeModel->response->getStatements()->getStatement()[0];
             $statementUuid = str_replace('-', '', $statement->getDocId());
-        } elseif ($this->document->type === RaiffeisenStatementType::TYPE) {
+        } else if ($this->document->type === RaiffeisenStatementType::TYPE) {
             /** @var RaiffeisenStatementType $typeModel */
             $typeModel = $this->cyxDocument->getContent()->getTypeModel();
             $statement = $typeModel->response->getStatementsRaif()[0];
@@ -106,7 +106,7 @@ class StatementToIsoExport extends StatementExport
     {
         if ($this->isIncrementalExport()) {
             return Camt052Type::TYPE;
-        } elseif ($this->typeModel->isTodaysStatement()) {
+        } else if ($this->typeModel->isTodaysStatement()) {
             return Camt054Type::TYPE;
         } else {
             return Camt053Type::TYPE;

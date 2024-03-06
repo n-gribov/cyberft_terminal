@@ -13,23 +13,18 @@ use common\models\User;
  * Class PageManagementPermissionRule
  * @package common\rbac\rules
  */
-
 class ImportErrorsPermissionRule extends Rule
 {
     public $name = 'importErrorsRule';
 
     public function execute($userId, $item, $params)
     {
-        // Если пользователь не идентифицирован,
-        // дальнейшее не имеет смысла
+        // Если пользователь не идентифицирован, дальнейшее не имеет смысла
         if (empty(Yii::$app->user) || empty(Yii::$app->user->identity)) {
             return false;
         }
 
-        /**
-         * Администратор
-         * по-умолчанию имеет доступ
-         */
+        // Администратор по умолчанию имеет доступ
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             return true;
         }
@@ -45,9 +40,7 @@ class ImportErrorsPermissionRule extends Rule
             return !empty($userSetting);
 
         } catch (Exception $ex) {
-
             return false;
         }
-
     }
 }

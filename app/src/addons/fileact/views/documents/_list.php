@@ -105,41 +105,36 @@ $columnsEnabled['actions'] = [
     'attribute' => '',
     'format' => 'html',
     'filterInputOptions' => [
-        'style'     => 'width: 20px'
+        'style' => 'width: 20px'
     ],
-    'value'	=> function ($item, $params) use ($urlParams) {
+    'value' => function ($item, $params) use ($urlParams) {
         return Html::a('<span class="ic-eye"></span>', Url::toRoute(array_merge(['default/view', 'id' => $item->id], $urlParams)));
     }
 ];
-
+// Создать таблицу для вывода
 $myGridWidget = InfiniteGridView::begin([
-	'emptyText'    => Yii::t('other', 'No documents matched your query'),
-	'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
-	'dataProvider' => $dataProvider,
-	'filterModel'  => $filterModel,
-	'rowOptions' => function ($model, $key, $index, $grid) {
-		$options['ondblclick'] = "window.location='" . Url::toRoute(['default/view', 'id' => $model->id]) . "'";
+    'emptyText'    => Yii::t('other', 'No documents matched your query'),
+    'summary'      => Yii::t('other', 'Shown from {begin} to {end} out of {totalCount} found'),
+    'dataProvider' => $dataProvider,
+    'filterModel'  => $filterModel,
+    'rowOptions' => function ($model, $key, $index, $grid) {
+        $options['ondblclick'] = "window.location='" . Url::toRoute(['default/view', 'id' => $model->id]) . "'";
 
-		if (in_array($model->status, array_merge(FileActSearch::getErrorStatus(),['']))) {
-			$options['class'] = 'bg-alert-danger';
-		} elseif (in_array($model->status, FileActSearch::getProcessingStatus())) {
-			$options['class'] = 'bg-alert-warning';
-		} /*elseif (in_array($model->status, FileAct::getSuccessStatus())) {
-			$options['class'] = 'bg-alert-success';
-		}*/
-
-		return $options;
-	},
-	'columns' => $columnsEnabled
+        if (in_array($model->status, array_merge(FileActSearch::getErrorStatus(),['']))) {
+            $options['class'] = 'bg-alert-danger';
+        } else if (in_array($model->status, FileActSearch::getProcessingStatus())) {
+            $options['class'] = 'bg-alert-warning';
+        }
+        return $options;
+    },
+    'columns' => $columnsEnabled
 ]);
 
 $myGridWidget->formatter->nullDisplay = '';
 $myGridWidget->end();
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $filterModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $filterModel
+]);

@@ -14,7 +14,7 @@ echo Html::a(
     ['request-update'],
     ['class' => 'btn btn-success']
 );
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [

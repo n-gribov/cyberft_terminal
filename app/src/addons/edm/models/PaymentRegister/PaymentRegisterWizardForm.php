@@ -71,7 +71,7 @@ class PaymentRegisterWizardForm extends Model
                     if ($terminal) {
                         $this->sender = $terminal->terminalId;
                     } else {
-                        $this->sender = Yii::$app->terminals->defaultTerminal->terminalId;
+                        $this->sender = Yii::$app->exchange->defaultTerminal->terminalId;
                     }
                 }
 

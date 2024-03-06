@@ -56,9 +56,8 @@ $useGlobalExportSettingsOptions = [
 
     <div class="row">
         <div class="col-md-6">
-
-            <?php
-
+        <?php
+            // Создать таблицу для вывода
             echo GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [

@@ -55,6 +55,7 @@ $deleteButtonOptions = [
     'url' => '/edm/confirming-document-information/delete-cdi'
 ];
 
+// Вывести страницу
 echo $this->render('@addons/edm/views/documents/_fccIndexHeader', [
     'userCanCreateDocuments' => $userCanCreateDocuments,
     'userCanDeleteDocuments' => $userCanDeleteDocuments,
@@ -179,17 +180,6 @@ $columns['date'] = [
 
 $columns['contractPassport'] = 'contractPassport';
 
-//$columns['person'] = 'person';
-//$columns['contactNumber'] = 'contactNumber';
-//
-//$columns['direction'] = [
-//    'attribute' => 'direction',
-//    'format' => 'html',
-//    'value' => function ($item, $params) {
-//        return Html::tag('span', Document::directionLabel($direction), ['title' => $item->direction]);
-//    }
-//];
-
 $columns['status'] = [
     'attribute' => 'status',
     'format' => 'html',
@@ -205,21 +195,20 @@ $columns['status'] = [
 
 $columns['dateCreate'] = [
     'attribute' => 'dateCreate',
-    'filter' => kartik\widgets\DatePicker::widget(
-        [
-            'model' => $searchModel,
-            'attribute' => 'dateCreate',
-            'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'orientation' => 'bottom'
-            ],
-            'options' => [
-                'class' => 'form-control',
-            ],
-        ]),
+    'filter' => kartik\widgets\DatePicker::widget([
+        'model' => $searchModel,
+        'attribute' => 'dateCreate',
+        'type' => \kartik\widgets\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'orientation' => 'bottom'
+        ],
+        'options' => [
+            'class' => 'form-control',
+        ],
+    ]),
 ];
 
 $columns['businessStatus'] = [
@@ -306,7 +295,7 @@ $columnsSettings['actions'] = [
         },
     ]
 ];
-
+// Создать таблицу для вывода
 echo InfiniteGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
@@ -342,13 +331,11 @@ echo InfiniteGridView::widget([
     'options' => ['class' => 'grid-view documents-journal-grid'],
 ]);
 
-echo ColumnsSettingsWidget::widget(
-    [
-        'listType' => $listType,
-        'columns' => array_keys($columns),
-        'model' => $searchModel
-    ]
-);
+echo ColumnsSettingsWidget::widget([
+    'listType' => $listType,
+    'columns' => array_keys($columns),
+    'model' => $searchModel
+]);
 
 $this->registerJS(<<<JS
     $('#confirmingdocumentinformationsearch-date').inputmask('99.99.9999', { placeholder: 'дд.мм.гггг' });

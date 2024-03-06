@@ -15,6 +15,10 @@ class VTBRegisterCurType extends BaseType
         return static::TYPE;
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
         return false;

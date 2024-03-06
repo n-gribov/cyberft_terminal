@@ -69,9 +69,9 @@ class Country extends \yii\db\ActiveRecord
     {
         if (preg_match('/^\d{3}$/', $anyCode)) {
             $searchAttribute = 'numericCode';
-        } elseif (preg_match('/^[A-Z]{2}$/', $anyCode)) {
+        } else if (preg_match('/^[A-Z]{2}$/', $anyCode)) {
             $searchAttribute = 'alfa2Code';
-        } elseif (preg_match('/^[A-Z]{3}$/', $anyCode)) {
+        } else if (preg_match('/^[A-Z]{3}$/', $anyCode)) {
             $searchAttribute = 'alfa3Code';
         } else {
             Yii::warning("Cannot detect country code type for $anyCode");

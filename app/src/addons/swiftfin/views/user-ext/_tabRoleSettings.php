@@ -52,42 +52,46 @@ ActiveForm::end();
 ?>
 <div class="panel-body">
 <?php
+// Создать таблицу для вывода
 echo GridView::widget([
-	'dataProvider' => $dataProvider,
+    'dataProvider' => $dataProvider,
     'emptyText' => Yii::t('app/user', 'No conditions are defined - this user will be able to authorize any document'),
     'emptyTextOptions' => ['class' => 'alert alert-info'],
-	'summary' => false,
-	'columns' => [
-		'docType',
-		'currency',
-		[
+    'summary' => false,
+    'columns' => [
+        'docType',
+        'currency',
+        [
             'attribute' => 'minSum',
             'value' => function($item) {
                 return $item->minSum == 0 ? null : $item->minSum;
             }
         ],
-		[
+        [
             'attribute' => 'maxSum',
             'value' => function($item) {
                 return $item->maxSum == 0 ? null : $item->maxSum;
             }
         ],
-
-		[
-			'class' => '\yii\grid\ActionColumn',
-			'options' => ['style' => 'width: 30px'],
-			'template' => '{delete-role-setting}',
-			'buttons' => [
-				'delete-role-setting' => function ($url, $item, $key) use($extModel) {
-					return Html::a('<span class="glyphicon glyphicon-trash"></span>',
-							Url::toRoute(['delete-role-setting',
-                                'userId' => $extModel->userId,
-                                'id' => $item->id,
-								'tabMode' => Yii::$app->request->get('tabMode')]));
-				}
-			]
-		]
-	]
+        [
+            'class' => '\yii\grid\ActionColumn',
+            'options' => ['style' => 'width: 30px'],
+            'template' => '{delete-role-setting}',
+            'buttons' => [
+                'delete-role-setting' => function ($url, $item, $key) use($extModel) {
+                    return Html::a(
+                        '<span class="glyphicon glyphicon-trash"></span>',
+                        Url::toRoute([
+                            'delete-role-setting',
+                            'userId' => $extModel->userId,
+                            'id' => $item->id,
+                            'tabMode' => Yii::$app->request->get('tabMode')
+                        ])
+                    );
+                }
+            ]
+        ]
+    ]
 ]);
 ?>
 </div>

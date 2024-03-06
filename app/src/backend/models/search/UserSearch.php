@@ -58,7 +58,7 @@ class UserSearch extends User
             $query = User::find();
         }
 
-        // Получаем текущего пользователя
+        // Получить модель пользователя из активной сессии
         $userIdentity = Yii::$app->user->identity;
 
         if (!in_array($userIdentity->role, [User::ROLE_ADMIN, User::ROLE_LSO, User::ROLE_RSO])) {

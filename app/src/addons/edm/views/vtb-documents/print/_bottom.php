@@ -14,21 +14,21 @@ $stampDate = $statusReportsData->getStatusDate($stampStatus);
 
 ?>
 
-<?php if ($stampDate): ?>
+<?php if ($stampDate) : ?>
     <div class="stamp">
         <strong><?= Html::encode($bankName) ?></strong><br>
         <strong>Принято</strong><br>
         <?= Yii::$app->formatter->asDate($stampDate, $dateFormat) ?>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
 <p class="signatures-header">Электронные подписи</p>
-<?php foreach ($typeModel->signatureInfo->signatures as $signature): ?>
+<?php foreach ($typeModel->signatureInfo->signatures as $signature) : ?>
     <p><?= Html::encode($signature->uid) ?></p>
-<?php endforeach; ?>
-<?php if (count($typeModel->signatureInfo->signatures) === 0): ?>
+<?php endforeach ?>
+<?php if (count($typeModel->signatureInfo->signatures) === 0) : ?>
     <p>(нет)</p>
-<?php endif; ?>
+<?php endif ?>
 
 <?php
 $accpDate = $statusReportsData->getStatusDate('ACCP');

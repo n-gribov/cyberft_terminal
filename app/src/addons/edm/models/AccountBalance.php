@@ -38,6 +38,7 @@ class AccountBalance extends ActiveRecord
                 false
             );
         }
+        // Сохранить модель в БД
         $isSaved = $record->save();
         if (!$isSaved) {
             throw new \Exception("Failed to save balance for account $accountNumber, errors: " . var_export($record->errors, true));

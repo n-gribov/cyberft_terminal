@@ -28,7 +28,7 @@ class SigningFacility
 	const SECDSIG_PREFIX = 'secdsig';
 	const XMLDSIGNS = 'http://www.w3.org/2000/09/xmldsig#';
 
-	const SIGNATURE_TEMPLATE = <<< XML
+	const SIGNATURE_TEMPLATE = <<<XML
 <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
     <SignedInfo>
         <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
@@ -179,7 +179,7 @@ XML;
 
         // Получение digestValue
         if (!$this->terminalId) {
-            $this->terminalId = Yii::$app->terminals->defaultTerminal->terminalId;
+            $this->terminalId = Yii::$app->exchange->defaultTerminal->terminalId;
         }
 
         $x509Info = X509FileModel::loadData($certificate);
@@ -234,106 +234,106 @@ XML;
 	 */
 	public function signDocument($domDocument, $privateKey, $passphrase, $fingerprint, $certificate, $config)
 	{
-        // Создаем объект для поиска узла, в котором будет храниться подпись
-		$docXpath = new DOMXPath($domDocument);
-		$docXpath->registerNamespace($config['defaultNamespacePrefix'], $config['defaultNamespace']);
+            // Создаем объект для поиска узла, в котором будет храниться подпись
+            $docXpath = new DOMXPath($domDocument);
+            $docXpath->registerNamespace($config['defaultNamespacePrefix'], $config['defaultNamespace']);
 
-		// Получаем заголовок xml-документа, в который будет добавлена подпись
-		$headerNode = $docXpath->query($config['headerPath']);
-		if ($headerNode->length) {
-			// Получаем узел заголовка, куда будет впоследствии добавлена подпись
-			$headerNode = $headerNode->item(0);
-		} else {
-			return false;
-		}
-
-		$sigNode = static::signatureFromTemplate();
-    	$sigXpath = new DOMXPath($sigNode->ownerDocument);
-        $sigXpath->registerNamespace(static::SECDSIG_PREFIX, static::XMLDSIGNS);
-
-		$sMethod = $sigXpath->query('./secdsig:SignedInfo/secdsig:SignatureMethod', $sigNode)->item(0);
-		$sMethod->setAttribute('Algorithm', $config['keyClass']);
-
-		$algo = $sigXpath->query('./secdsig:SignedInfo/secdsig:Reference/secdsig:DigestMethod', $sigNode)->item(0);
-		$algo->setAttribute('Algorithm', $config['algorithm']);
-
-		$keyName = $sigXpath->query('./secdsig:KeyInfo/secdsig:KeyName', $sigNode)->item(0);
-        $keyName->nodeValue = $fingerprint;
-
-        try {
-            // Добавляем время подписания
-            $signatureId = $this->buildSigningInfo($sigNode, $certificate, $sigXpath);
-
-            // Добавляем подпись в структуру документа, создавая тэг-контейнер подписи
-            $containerNode = $domDocument->createElementNS($config['defaultNamespace'], $config['signatureContainerTag']);
-            $headerNode->appendChild($containerNode);
-
-            $signatureElement = $domDocument->importNode($sigNode, true);
-            $signatureXml = $signatureElement->ownerDocument->saveXML($signatureElement);
-            DOMCyberXml::insertBefore($containerNode, $signatureXml, null);
-
-            $keyPath = Yii::getAlias('@temp/k' . FileHelper::uniqueName());
-            file_put_contents($keyPath, $privateKey);
-
-            $certPath = Yii::getAlias('@temp/c' . FileHelper::uniqueName());
-            file_put_contents($certPath, $certificate);
-
-            $command = 'LD_LIBRARY_PATH="/usr/local/openssl-1.1.1/lib/:${LD_LIBRARY_PATH}"'
-                        . ' cyberft-crypt sign --cert="' . $certPath . '"'
-                        . ' --key="' . $keyPath . '"'
-                        . ' --provider=cryptocom --cpagent=builtin --facility=syslog'
-                        . ' --sigpath="//*[@Id=\'id_' . $signatureId . '\']"';
-
-
-            $pipes = [];
-
-            $descriptorspec = [
-                0 => ['pipe', 'r'],
-                1 => ['pipe', 'w'],
-                2 => ['pipe', 'w'],
-            ];
-
-            $process = proc_open($command, $descriptorspec, $pipes);
-
-            if (!is_resource($process)) {
-                throw new Exception('Error running cyberft-crypt');
+            // Получаем заголовок xml-документа, в который будет добавлена подпись
+            $headerNode = $docXpath->query($config['headerPath']);
+            if ($headerNode->length) {
+                // Получаем узел заголовка, куда будет впоследствии добавлена подпись
+                $headerNode = $headerNode->item(0);
+            } else {
+                return false;
             }
 
-            fwrite($pipes[0], base64_encode($passphrase) . PHP_EOL . $domDocument->saveXML());
-            fclose($pipes[0]);
+            $sigNode = static::signatureFromTemplate();
+            $sigXpath = new DOMXPath($sigNode->ownerDocument);
+            $sigXpath->registerNamespace(static::SECDSIG_PREFIX, static::XMLDSIGNS);
 
-            $out = stream_get_contents($pipes[1]);
-            fclose($pipes[1]);
+            $sMethod = $sigXpath->query('./secdsig:SignedInfo/secdsig:SignatureMethod', $sigNode)->item(0);
+            $sMethod->setAttribute('Algorithm', $config['keyClass']);
 
-            $error = stream_get_contents($pipes[2]);
-            fclose($pipes[2]);
+            $algo = $sigXpath->query('./secdsig:SignedInfo/secdsig:Reference/secdsig:DigestMethod', $sigNode)->item(0);
+            $algo->setAttribute('Algorithm', $config['algorithm']);
 
-            if (!empty($error)) {
-                throw new Exception($error);
+            $keyName = $sigXpath->query('./secdsig:KeyInfo/secdsig:KeyName', $sigNode)->item(0);
+            $keyName->nodeValue = $fingerprint;
+
+            try {
+                // Добавляем время подписания
+                $signatureId = $this->buildSigningInfo($sigNode, $certificate, $sigXpath);
+
+                // Добавляем подпись в структуру документа, создавая тэг-контейнер подписи
+                $containerNode = $domDocument->createElementNS($config['defaultNamespace'], $config['signatureContainerTag']);
+                $headerNode->appendChild($containerNode);
+
+                $signatureElement = $domDocument->importNode($sigNode, true);
+                $signatureXml = $signatureElement->ownerDocument->saveXML($signatureElement);
+                DOMCyberXml::insertBefore($containerNode, $signatureXml, null);
+
+                $keyPath = Yii::getAlias('@temp/k' . FileHelper::uniqueName());
+                file_put_contents($keyPath, $privateKey);
+
+                $certPath = Yii::getAlias('@temp/c' . FileHelper::uniqueName());
+                file_put_contents($certPath, $certificate);
+
+                $command = 'LD_LIBRARY_PATH="/usr/local/openssl-1.1.1/lib/:${LD_LIBRARY_PATH}"'
+                            . ' cyberft-crypt sign --cert="' . $certPath . '"'
+                            . ' --key="' . $keyPath . '"'
+                            . ' --provider=cryptocom --cpagent=builtin --facility=syslog'
+                            . ' --sigpath="//*[@Id=\'id_' . $signatureId . '\']"';
+
+
+                $pipes = [];
+
+                $descriptorspec = [
+                    0 => ['pipe', 'r'],
+                    1 => ['pipe', 'w'],
+                    2 => ['pipe', 'w'],
+                ];
+
+                $process = proc_open($command, $descriptorspec, $pipes);
+
+                if (!is_resource($process)) {
+                    throw new Exception('Error running cyberft-crypt');
+                }
+
+                fwrite($pipes[0], base64_encode($passphrase) . PHP_EOL . $domDocument->saveXML());
+                fclose($pipes[0]);
+
+                $out = stream_get_contents($pipes[1]);
+                fclose($pipes[1]);
+
+                $error = stream_get_contents($pipes[2]);
+                fclose($pipes[2]);
+
+                if (!empty($error)) {
+                    throw new Exception($error);
+                }
+
+                proc_close($process);
+                unlink($keyPath);
+                unlink($certPath);
+
+                $domDocument->loadXML($out);
+
+            } catch (InvalidValueException $ex) {
+                // Обработка исключения в случае отсутствия сертификата контроллера
+                Yii::error($ex->getMessage(), 'system');
+                // Выбросить новое исключение для задания подписания
+                throw new InvalidValueException('failed to sign - ' . $ex->getMessage());
+            } catch (\Exception $ex) {
+                // Обработка остальных исключений
+                Yii::error($ex->getMessage(), 'system');
+
+                return false;
             }
 
-            proc_close($process);
-            unlink($keyPath);
-            unlink($certPath);
-
-            $domDocument->loadXML($out);
-
-        } catch (InvalidValueException $ex) {
-            // Обработка исключения в случае отсутствия сертификата контроллера
-            Yii::error($ex->getMessage(), 'system');
-            // Создание нового исключения для джоба подписания
-            throw new InvalidValueException('failed to sign - ' . $ex->getMessage());
-        } catch (\Exception $ex) {
-            // Обработка остальных исключений
-            Yii::error($ex->getMessage(), 'system');
-
-            return false;
-        }
-
-		return true;
+            return true;
 	}
 
-    /**
+        /**
 	 * Функция верифицирует подпись с указанными параметрами
 	 * @param int $signaturePos номер подписи, подлежащая проверке
 	 * @param string $certBody Сертификат для проверки подписи

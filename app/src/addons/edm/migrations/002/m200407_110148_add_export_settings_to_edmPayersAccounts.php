@@ -91,7 +91,7 @@ class m200407_110148_add_export_settings_to_edmPayersAccounts extends Migration
         $exportFormat = null;
         if ($exportStatementsToISO) {
             $exportFormat = ExportFormat::ISO20022;
-        } elseif ($exportStatementsTo1C) {
+        } else if ($exportStatementsTo1C) {
             $exportFormat = ExportFormat::ONE_C;
         }
 

@@ -21,6 +21,7 @@ class UserAuthCertService
     {
         $transaction = Yii::$app->db->beginTransaction();
         try {
+            // Сохранить модель в БД
             $isSaved = $authCert->save();
             if (!$isSaved) {
                 throw new \RuntimeException('Failed to save user certificate to database, errors: ' . var_export($authCert->getErrors(), true));

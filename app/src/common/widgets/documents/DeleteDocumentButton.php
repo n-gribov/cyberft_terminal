@@ -12,6 +12,7 @@ class DeleteDocumentButton extends Widget
 
     public function run()
     {
+        // Вывести кнопку удаления документа
         return $this->render(
             'deleteDocumentButton',
             [

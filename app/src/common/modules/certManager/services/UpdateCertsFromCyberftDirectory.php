@@ -72,6 +72,7 @@ class UpdateCertsFromCyberftDirectory
         $cert->validFrom = $x509->getValidFrom()->format(self::DB_DATE_FORMAT);
         $cert->validBefore = $x509->getValidTo()->format(self::DB_DATE_FORMAT);
         $cert->useBefore = $certificateFromDirectory->getEndDate()->format(self::DB_DATE_FORMAT);
+        // Сохранить модель в БД
         $isSaved = $cert->save();
         if (!$isSaved) {
             throw new \Exception('Cannot save certificate to database, errors: ' . var_export($cert->getErrors(), true));
@@ -91,6 +92,7 @@ class UpdateCertsFromCyberftDirectory
         foreach ($certs as $cert) {
             $keyCode = "{$cert->terminalId}-{$cert->fingerprint}";
             if (!in_array($keyCode, $keyCodesToRetain)) {
+                // Удалить сертификат из БД
                 $cert->delete();
             }
         }

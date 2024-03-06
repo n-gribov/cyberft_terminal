@@ -93,6 +93,7 @@ class ReceiveVTBBankDocumentsJob extends BaseJob
             'customerId' => $customer->customerId,
             'externalId' => $recordId,
         ]);
+        // Сохранить модель в БД
         $isSaved = $incomingDocument->save();
         if (!$isSaved) {
             throw new \Exception('Failed to save VTBIncomingDocument, errors: ' . var_export($incomingDocument->getErrors(), true));
@@ -108,7 +109,9 @@ class ReceiveVTBBankDocumentsJob extends BaseJob
             'signatureInfo' => $signInfo,
         ]);
 
-        $terminal = Yii::$app->terminals->defaultTerminal;
+        $terminal = Yii::$app->exchange->defaultTerminal;
+
+        // Создать контекст документа
         $context = DocumentHelper::createDocumentContext(
             $typeModel,
             [
@@ -129,7 +132,9 @@ class ReceiveVTBBankDocumentsJob extends BaseJob
             throw new \Exception('Failed to create document');
         }
 
+        // Получить документ из контекста
         $document = $context['document'];
+        // Создать стейт отправки документа
         DocumentTransportHelper::createSendingState($document);
         return $document;
     }

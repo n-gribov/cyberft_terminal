@@ -34,6 +34,7 @@ class m151221_133038_add_senderTerminalAddress_to_iso20022CryptoproCert extends 
         $defaultTerminal = Terminal::getDefaultTerminal();
         foreach ($cryptoproCerts as $cert) {
             $cert->terminalId = $defaultTerminal->id;
+            // Сохранить модель в БД
             $cert->save();
         }
     }

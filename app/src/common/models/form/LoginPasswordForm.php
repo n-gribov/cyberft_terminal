@@ -107,6 +107,7 @@ class LoginPasswordForm extends Model
                 }
 
             } catch (Exception $ex) {
+                // Поместить в сессию флаг сообщения об ошибке
                 Yii::$app->session->setFlash('error', $errorFlashMessage ?: $ex->getMessage());
                 $this->addError($attribute, $ex->getMessage());
             }

@@ -37,7 +37,7 @@ class Cryptography extends Component implements CryptographyInterface
      * @param string  $certificate    Certificate. X.509 resource or string. String may contain key path or key in PEM format
      * @param string  $hash_algorithm Hash algorithms
      * @param boolean $raw_output     Output type. Raw or hex
-     * @return string|boolean Return fingerprint or FALSE on error
+     * @return string|boolean Return fingerprint or false on error
      */
     public function getFingerprint($certificate, $hash_algorithm = 'sha1', $raw_output = false)
     {
@@ -46,7 +46,7 @@ class Cryptography extends Component implements CryptographyInterface
        return $driver->getFingerprint($certificate, $hash_algorithm, $raw_output);
     }
 
-    public function sign($data, $privateKey, $password = NULL)
+    public function sign($data, $privateKey, $password = null)
     {
         // not implemented
         return false;

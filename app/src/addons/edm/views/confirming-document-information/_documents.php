@@ -24,7 +24,7 @@ use common\helpers\Html;
     <?php
     $i = 0;
     ?>
-    <?php foreach ($childObjectData as $uuid => $document): ?>
+    <?php foreach ($childObjectData as $uuid => $document) : ?>
         <?php /** @var \addons\edm\models\ConfirmingDocumentInformation\ConfirmingDocumentInformationItem $document */ ?>
         <tr class="documents-item">
             <td>
@@ -59,7 +59,7 @@ use common\helpers\Html;
             </td>
             <td class="attachments-cell">
                 <ul>
-                    <?php foreach ($document->attachedFiles as $attachedFile): ?>
+                    <?php foreach ($document->attachedFiles as $attachedFile) : ?>
                         <li>
                             <?= Html::a(
                                 $attachedFile->name, [
@@ -69,7 +69,7 @@ use common\helpers\Html;
                                 ]
                             ) ?>
                         </li>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </ul>
             </td>
             <td class="action-column">
@@ -96,12 +96,12 @@ use common\helpers\Html;
                 ?>
             </td>
         </tr>
-    <?php endforeach;?>
+    <?php endforeach ?>
 </table>
 
 <?php
 
-$script = <<< JS
+$script = <<<JS
     // Удаление строки с документом
     $('.delete-document').on('click', function(e) {
         e.preventDefault();

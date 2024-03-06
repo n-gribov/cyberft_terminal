@@ -44,6 +44,7 @@ class m160922_073434_create_user_terminal_table extends Migration
                     $userTerminal = new UserTerminal();
                     $userTerminal->userId = $user->id;
                     $userTerminal->terminalId = $value;
+                    // Сохранить модель в БД
                     $userTerminal->save();
                 }
             } else {
@@ -54,6 +55,7 @@ class m160922_073434_create_user_terminal_table extends Migration
                     $userTerminal = new UserTerminal();
                     $userTerminal->userId = $user->id;
                     $userTerminal->terminalId = $user->terminalId;
+                    // Сохранить модель в БД
                     $userTerminal->save();
                 }
             }

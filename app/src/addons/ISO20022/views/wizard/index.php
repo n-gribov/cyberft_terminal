@@ -21,16 +21,17 @@ $this->title = Yii::t('app/menu', 'Create free format document');
     <br/>
 <?php endif ?>
 <hr/>
-<?=$this->render('step' . $currentStep, [
-    'model'       => $model,
-    'currentStep' => $currentStep,
-    'data' => isset($data) ? $data : null,
-    'settings' => isset($settings) ? $settings : null
-])?>
+<?= // Вывести страницу
+    $this->render('step' . $currentStep, [
+        'model'       => $model,
+        'currentStep' => $currentStep,
+        'data' => isset($data) ? $data : null,
+        'settings' => isset($settings) ? $settings : null
+    ]) ?>
 
 <?php
 
-$script = <<< JS
+$script = <<<JS
     $('.iso-form').change(function() {
         $.post('/wizard-cache/iso-free-format', $(this).serialize());
     });

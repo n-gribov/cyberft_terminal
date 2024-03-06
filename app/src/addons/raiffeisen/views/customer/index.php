@@ -15,9 +15,8 @@ echo Html::a(
     Url::toRoute('create'),
     ['class' => 'btn btn-success']
 );
-?>
 
-<?php
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'rowOptions' => function (RaiffeisenCustomer $model, $key, $index, $grid) {

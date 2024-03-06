@@ -21,7 +21,7 @@ class EdmTemplateSearch extends Model
                 // Шаблоны платежных поручений
                 $paymentOrdersTemplates = $this->getPaymentOrderTemplates($params);
                 $templates = array_merge($templates, $paymentOrdersTemplates);
-            } elseif ($params['type'] == 'foreignCurrencyPayment') {
+            } else if ($params['type'] == 'foreignCurrencyPayment') {
                 // Шаблоны валютных операций
                 $fcpTemplates = $this->getFCPTemplates($params);
                 $templates = array_merge($templates, $fcpTemplates);

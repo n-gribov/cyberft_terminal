@@ -15,7 +15,7 @@ $dataProvider = new ArrayDataProvider([
 
 $submitSaveText = Yii::t('app','Save');
 //Yii::$app->formatter->decimalSeparator = '.';
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'emptyText' => false,
@@ -73,7 +73,7 @@ echo GridView::widget([
     ]
 ]);
 
-$script = <<< JS
+$script = <<<JS
     // Удаление строки с операцией
     $('.delete-operation').on('click', function(e) {
         e.preventDefault();
@@ -120,5 +120,3 @@ $script = <<< JS
 JS;
 
 $this->registerJs($script, View::POS_READY);
-
-?>

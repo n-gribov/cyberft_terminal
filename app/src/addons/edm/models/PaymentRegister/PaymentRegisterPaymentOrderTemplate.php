@@ -85,6 +85,7 @@ class PaymentRegisterPaymentOrderTemplate extends PaymentRegisterPaymentOrder {
         $this->payerName = $account->getPayerName();
         $this->body = (string)$typeModel;
 
+        // Сохранить модель в БД и вернуть результат сохранения
         return $this->save();
     }
 }

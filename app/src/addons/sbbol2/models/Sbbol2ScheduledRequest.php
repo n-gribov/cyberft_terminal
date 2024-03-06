@@ -102,7 +102,7 @@ class Sbbol2ScheduledRequest extends ActiveRecord
     public function updateStatus($status)
     {
         $this->status = $status;
-
+        // Сохранить модель в БД и вернуть результат сохранения
         return $this->save();
     }
 

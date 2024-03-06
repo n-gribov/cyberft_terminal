@@ -115,27 +115,24 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'cl
 </div>
 
 <div class="documents" style="margin: 25px 0;">
-    <?php
-    // Вывод уже существующих документов
+<?php
+    // Вывести страницу уже существующих документов
     echo $this->render('_documents', ['childObjectData' => $model->documents]);
-    ?>
+?>
 </div>
 
 <div>
     <div class="action-buttons">
         <a href="#" class="btn btn-primary btn-block btn-new-document"><?= Yii::t('edm', 'Add document') ?></a>
-        <?=Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'),
-            [
-                'id' => 'btn-submit-cdi',
-                'class' => 'btn btn-success btn-block',
-                'data' => [
-                    'toggle' => 'tooltip',
-                    'placement' => 'right',
-                    'title' => 'Добавьте подтверждающие документы перед созданием документа'
-                ]
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), [
+            'id' => 'btn-submit-cdi',
+            'class' => 'btn btn-success btn-block',
+            'data' => [
+                'toggle' => 'tooltip',
+                'placement' => 'right',
+                'title' => 'Добавьте подтверждающие документы перед созданием документа'
             ]
-        )
-        ?>
+        ]) ?>
     </div>
 </div>
 
@@ -173,7 +170,7 @@ $this->registerCss('
     }
 ');
 
-$script = <<< JS
+$script = <<<JS
     function updateBankOptions() {
         var orgId = $('#confirmingdocumentinformationext-organizationid').val();
         var banksByOrganization = $banksByOrganizationJson;
@@ -226,7 +223,7 @@ JS;
 
 // Если документ уже сформирован, выдаем предупреждение перед созданием
 if ($model->documentId && $model->document->signaturesCount > 0) {
-    $script .= <<< JS
+    $script .= <<<JS
     $('#btn-submit-cdi').on('click', function() {
         var result = confirm('Внимание! Документ подписан! ' +
         'В случае изменения документа подписи будут автоматически отозваны! Редактировать документ?');

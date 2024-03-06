@@ -170,16 +170,18 @@ class ForeignCurrencyPaymentType extends BaseType
             [
                 'commissionSum', 'number', 'min' => 0
             ],
-//            [
-//                'commissionSum', 'required', 'when' => function($model) {
-//                    return $model->commission == self::COMMISSION_BEN;
-//                }
-//            ],
         ];
     }
 
-    public function getSearchFields() {}
-    
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
+    public function getSearchFields()
+    {
+        return false;
+    }
+
     /*
      * Проверка заполнения многострочных полей со строкой в 35 символов
      */

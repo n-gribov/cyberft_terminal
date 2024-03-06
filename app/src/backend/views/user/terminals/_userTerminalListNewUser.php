@@ -11,7 +11,7 @@ use kartik\select2\Select2;
 
 // Получение терминалов пользователя для формирования списка доступных ему терминалов
 $terminals = Terminal::find()->where(['status' => Terminal::STATUS_ACTIVE]);
-
+// Получить модель пользователя из активной сессии
 $adminIdentity = Yii::$app->user->identity;
 
 // Для доп. админа получаем только доступные ему терминалы
@@ -64,9 +64,8 @@ if (count($terminalsList) > 1) {
 // Базовый url для добавления терминалов
 $addTerminalUrl = Url::to('/user/add-terminal-new-user');
 
+// Вывод списка доступных для выбора терминалов и кнопки добавления терминалов
 ?>
-
-<!-- Вывод списка доступных для выбора терминалов и кнопки добавления терминалов -->
 <div class="row">
     <div class="col-lg-10">
         <?= $form->field($model, 'terminalsList')->widget(Select2::classname(), [
@@ -81,10 +80,8 @@ $addTerminalUrl = Url::to('/user/add-terminal-new-user');
         <a id="add-new-user-terminal" href="<?=$addTerminalUrl?>" class="btn btn-primary"><?= Yii::t('app', 'Add') ?></a>
     </div>
 </div>
-
-
 <?php
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'user-terminals-list',
@@ -113,9 +110,7 @@ echo GridView::widget([
 ]);
 
 $this->registerCss(
-    "#add-new-user-terminal {
+    '#add-new-user-terminal {
       margin-top: 22px;
-    }"
+    }'
 );
-
-?>

@@ -19,6 +19,7 @@ class CertStatusManagementPermissionRule extends Rule
             return false;
         }
 
+        // Получить роль пользователя из активной сессии
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             return true;
         }

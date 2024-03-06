@@ -6,6 +6,10 @@ use common\helpers\Lock;
 use PharData;
 use Yii;
 
+/**
+ * Адаптер хранения файлов с автоматическим разбиением на папки
+ */
+
 class PartitionedAdapter extends BaseAdapter
 {
     private $_path;
@@ -16,38 +20,38 @@ class PartitionedAdapter extends BaseAdapter
 
         if (!empty($this->directory)) {
             $this->_path .= '/' . $this->directory;
-		}
+        }
     }
 
     /**
-	 * Create path to save file
-	 *
-	 * @param string  $filename File name
-	 * @return string
-	 */
-	public function createPath($filename = '')
-	{
-		$path = $this->_path;
+     * Create path to save file
+     *
+     * @param string  $filename File name
+     * @return string
+     */
+    public function createPath($filename = '')
+    {
+        $path = $this->_path;
 
-		if ($this->usePartition) {
-			$path .= '/' . $this->getActualDir($path);
-		}
+        if ($this->usePartition) {
+            $path .= '/' . $this->getActualDir($path);
+        }
 
-		if (!empty($filename)) {
-			$path .= '/' . $filename;
-		}
+        if (!empty($filename)) {
+            $path .= '/' . $filename;
+        }
 
-		return $path;
-	}
+        return $path;
+    }
 
-	/**
-	 * Get actual dir
-	 *
-	 * @param string $path Path
-	 * @return string
-	 */
-	private function getActualDir($path)
-	{
+    /**
+     * Get actual dir
+     *
+     * @param string $path Path
+     * @return string
+     */
+    private function getActualDir($path)
+    {
         $count = 10;
         $keyVal = FileHelper::uniqueName();
         while(!Lock::acquire($path, $keyVal)) {
@@ -58,57 +62,57 @@ class PartitionedAdapter extends BaseAdapter
             }
         }
 
-		$subdirs = glob($path . '/0?????');
-		if (empty($subdirs)) {
+        $subdirs = glob($path . '/0?????');
+        if (empty($subdirs)) {
             $actualDir = '000000';
-			FileHelper::createDirectory($path . '/' . $actualDir, $this->permissions, true);
-		} else {
-    		$lastDir = end($subdirs);
-    		$contents = FileHelper::findFiles($lastDir);
+            FileHelper::createDirectory($path . '/' . $actualDir, $this->permissions, true);
+        } else {
+            $lastDir = end($subdirs);
+            $contents = FileHelper::findFiles($lastDir);
             $actualDir = basename($lastDir);
             $fileCount = count($contents);
-        	if ($fileCount >= $this->_maxFiles) {
+            if ($fileCount >= $this->_maxFiles) {
                 $prevNumber = (int) $actualDir;
                 if ($prevNumber > 999998) {
-                    // При достижении числа 999999 сбрасываем нумерацию на 0
+                // При достижении числа 999999 сбрасываем нумерацию на 0
                     $prevNumber = 0;
                 } else {
                     $prevNumber++;
                 }
-            	$actualDir = str_pad($prevNumber, 6, '0', STR_PAD_LEFT);
+                $actualDir = str_pad($prevNumber, 6, '0', STR_PAD_LEFT);
                 FileHelper::createDirectory($path . '/' . $actualDir, $this->permissions, true);
             }
         }
 
         Lock::release($path, $keyVal);
 
-		return $actualDir;
-	}
+        return $actualDir;
+    }
 
     public function getContents($path = null, $full = true)
-	{
-		if (is_null($path)) {
+    {
+        if (is_null($path)) {
             $path = $this->path;
         }
 
         $items = scandir($path);
-		foreach ($items as $key => &$fileName) {
-			if (in_array($fileName, ['.', '..'])) {
-				unset($items[$key]);
-			} else {
+        foreach ($items as $key => &$fileName) {
+            if (in_array($fileName, ['.', '..'])) {
+                unset($items[$key]);
+            } else {
                 $fullPath = $path . '/' . $fileName;
                 if (is_dir($fullPath)) {
                     unset($items[$key]);
                 } else {
-    				if ($full) {
+                    if ($full) {
                         $fileName = $fullPath;
                     }
                 }
-			}
-		}
+            }
+        }
 
-		return array_values($items);
-	}
+        return array_values($items);
+    }
 
     public function chmod($path, $permissions)
     {
@@ -136,69 +140,80 @@ class PartitionedAdapter extends BaseAdapter
         return false;
     }
 
-	/**
-	 * Delete old files
-	 *
-	 * @param integer $maxDays Maximum lifetime
-	 */
-	public function deleteOldFiles($maxDays)
-	{
-		$dirs = array_merge([$this->_path], $this->getDirSubfolders($this->_path));
+    /**
+     * Delete old files
+     *
+     * @param integer $maxDays Maximum lifetime
+     */
+    public function deleteOldFiles($maxDays)
+    {
+        $dirs = array_merge([$this->_path], $this->getDirSubfolders($this->_path));
 
         foreach ($dirs as $dir) {
             $command = 'find ' . $dir . ' -type f -mtime +' . $maxDays . ' -exec rm -rf {} \;';
-
             passthru($command);
         }
-	}
+    }
 
     /**
-	 * Save stream into storage
-	 *
-	 * @param stream $readStream Stream to save
-	 * @param string $filename   File name
-	 * @return string Storage path
-	 */
-	public function putStream($readStream, $filename = '')
-	{
-		if (empty($filename)) {
-			$filename = FileHelper::uniqueName();
-		} else {
-			$filename = FileHelper::mb_basename($filename);
-		}
+     * Save stream into storage
+     *
+     * @param stream $readStream Stream to save
+     * @param string $filename   File name
+     * @return string Storage path
+     */
+    public function putStream($readStream, $filename = '')
+    {
+        if (empty($filename)) {
+            $filename = FileHelper::uniqueName();
+        } else {
+            $filename = FileHelper::mb_basename($filename);
+        }
 
-		$filePath = $this->createPath() . '/' . $this->createFileName($filename);
-		$writeStream = fopen($filePath, 'w');
+        $filePath = $this->createPath() . '/' . $this->createFileName($filename);
+        $writeStream = fopen($filePath, 'w');
 
-		stream_copy_to_stream($readStream, $writeStream);
-		fclose($readStream);
-		fclose($writeStream);
+        stream_copy_to_stream($readStream, $writeStream);
+        fclose($readStream);
+        fclose($writeStream);
+        // Вернуть информацию о файле
+        return $this->getFileInfo($filePath);
+    }
 
-		return $this->getFileInfo($filePath);
-	}
-
-   	public function putData($data, $filename = '')
-	{
-		$savePath = $this->createPath() . '/' . $this->createFileName($filename);
+    public function putData($data, $filename = '')
+    {
+        $savePath = $this->createPath() . '/' . $this->createFileName($filename);
 
         if (file_put_contents($savePath, $data) === false) {
             return false;
         }
-
+        // Вернуть информацию о файле
+        return $this->getFileInfo($savePath);
+    }
+    
+    /**
+     * Метод копирует файл в хранилище
+     * @param type $path
+     * @param type $filename
+     * @return bool
+     */
+    public function putFile($path, $filename = '')
+    {
+        // Создать путь для копирования
+        $savePath = $this->createPath() . '/' . $this->createFileName($filename);
+        // Скопировать
+        if (!copy($path,  $savePath)) {
+            return false;
+        }
+        // Вернуть информацию о файле
         return $this->getFileInfo($savePath);
     }
 
-    public function putFile($path, $filename = '')
-	{
-		$savePath = $this->createPath() . '/' . $this->createFileName($filename);
-
-        if (!copy($path,  $savePath)) {
-            return false;
-		}
-
-        return $this->getFileInfo($savePath);
-	}
-
+    /**
+     * Метод возвращает информацию о файле
+     * @param type $path
+     * @return type
+     */
     public function getFileInfo($path)
     {
         return [
@@ -210,29 +225,41 @@ class PartitionedAdapter extends BaseAdapter
         ];
     }
 
+    /**
+     * Метод обновляет данные в файле
+     * @param type $relPath
+     * @param type $data
+     * @return null
+     */
     public function updateData($relPath, $data)
     {
+        // Получить полный путь к файлу
         $path = $this->getPath($relPath);
+        // Если файл существует
         if (is_file($path)) {
+            // Поместить данные в файл
             if (file_put_contents($path, $data) === false) {
                 return null;
             }
         } else {
+            // Иначе искать в архиве
             $tarPath = dirname($path) . '.tar';
+            // если нет архива, вернуть null
             if (!is_file($tarPath)) {
                 return null;
             }
-
+            // Открыть архив
             $phar = new PharData($tarPath);
+            // Поместить данные в архив
             $phar->addFromString(basename($path), $data);
-
+            // Наёти путь в кеше для этого файла
             $cachePath = $this->getPath() . '/.cache/' . str_replace('/', '_', $relPath);
-
+            // Если файл существовал в кеше, удалить его, т.к. данные изменились)
             if (file_exists($cachePath)) {
                 unlink($cachePath);
             }
         }
-
+        // Вернуть информацию о файле
         return $this->getFileInfo($path);
     }
 
@@ -297,13 +324,13 @@ class PartitionedAdapter extends BaseAdapter
     }
 
     public function getPath($relPath = null)
-	{
-		if (!$relPath) {
+    {
+        if (!$relPath) {
             return $this->_path;
         }
 
         return $this->_path . '/' . $relPath;
-	}
+    }
 
     public function fsname()
     {

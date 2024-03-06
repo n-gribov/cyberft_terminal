@@ -68,6 +68,7 @@ class DocumentCorrectionForm extends Model
     public function toCorrection()
     {
         try {
+            // Получить из БД документ с указанным id через компонент авторизации доступа к терминалам
             $document = Yii::$app->terminalAccess->findModel(Document::className(), $this->documentId);
         } catch (Exception $ex) {
             Yii::warning("Cannot find document ID[{$this->documentId}]");

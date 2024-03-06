@@ -20,34 +20,34 @@ class DocumentsController extends BaseServiceController
 {
     private $cache;
 
-	public function behaviors()
-	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
                     [
                         'allow' => true,
                         'actions' => ['signing-index'],
                         'roles' => [DocumentPermission::SIGN],
                         'roleParams' => ['serviceId' => FinZipModule::SERVICE_ID],
                     ],
-					[
-						'allow' => true,
-						'roles' => [DocumentPermission::VIEW],
+                    [
+                        'allow' => true,
+                        'roles' => [DocumentPermission::VIEW],
                         'roleParams' => ['serviceId' => FinZipModule::SERVICE_ID],
-					],
-				],
-			],
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['post'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
                     'select-entries' => ['post']
-				],
-			],
-		];
-	}
+                ],
+            ],
+        ];
+    }
 
     public function __construct($id, $module, array $config = [])
     {
@@ -67,39 +67,44 @@ class DocumentsController extends BaseServiceController
     
     public function actionList($type, $page, $q = null)
     {
+        // Включить формат вывода JSON
 	Yii::$app->response->format = Response::FORMAT_JSON;
         $searchModel = new FinZipSearch();
 	
 	switch ($page) 
 	{
-		case 'index':
-			$dataProvider = $searchModel->search([]);
-			break;
-		case 'signing-index':
-			$dataProvider = $searchModel->searchForSigning([]);
-			break;
+            case 'index':
+                $dataProvider = $searchModel->search([]);
+                break;
+            case 'signing-index':
+                $dataProvider = $searchModel->searchForSigning([]);
+                break;
 	}
 	
 	switch ($type)
 	{
-		case 'sender':
-			$out['results'] = ParticipantHelper::getSenderListForDocumentSearch($dataProvider, $q);
-			break;
-		case 'receiver':
-			$out['results'] = ParticipantHelper::getReceiverListForDocumentSearch($dataProvider, $q);
-			break;
+            case 'sender':
+                $out['results'] = ParticipantHelper::getSenderListForDocumentSearch($dataProvider, $q);
+                break;
+            case 'receiver':
+                $out['results'] = ParticipantHelper::getReceiverListForDocumentSearch($dataProvider, $q);
+                break;
 		
 	}
 
 	return $out;
     }
 
+    /**
+     * Метод обрабатывает страницу индекса
+     */
     public function actionIndex()
     {
         $searchModel = new FinZipSearch();
         $model = new Document();
         Url::remember();
 
+        // Вывести страницу
         return $this->render('@addons/finzip/views/default/index', [
             'searchModel' => $searchModel,
             'model' => $model,
@@ -110,15 +115,16 @@ class DocumentsController extends BaseServiceController
         ]);
     }
 
-	public function actionSigningIndex()
-	{
-		$searchModel	 = new FinZipSearch();
-		$dataProvider	 = $searchModel->searchForSigning(Yii::$app->request->queryParams);
+    public function actionSigningIndex()
+    {
+        $searchModel	 = new FinZipSearch();
+        $dataProvider	 = $searchModel->searchForSigning(Yii::$app->request->queryParams);
 
-		Url::remember(Url::to());
+        Url::remember(Url::to());
         $cachedEntries = $this->cache->get();
 
-		return $this->render('forSigning', [
+        // Вывести страницу
+        return $this->render('forSigning', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'cachedEntries' => $cachedEntries,
@@ -126,8 +132,8 @@ class DocumentsController extends BaseServiceController
             'filterStatus' => !empty(Yii::$app->request->queryParams),
             'listType' => 'finZipSigning',
             'controllerCacheKey' => $this->cache->getKey(),
-		]);
-	}
+        ]);
+    }
 
     public function actionSelectEntries()
     {
@@ -151,6 +157,7 @@ class DocumentsController extends BaseServiceController
 
     public function actionGetSelectedEntriesIds()
     {
+        // Включить формат вывода JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $cachedEntries = $this->cache->get();

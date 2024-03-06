@@ -16,8 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>
         <?php //Html::a(Yii::t('app/fileact', 'Create cryptopro key'), ['create'], ['class' => 'btn btn-success']) ?>
         </p>
-
-        <?= GridView::widget([
+        <?php
+        // Создать таблицу для вывода
+        echo GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [
@@ -26,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],
-        ]); ?>
+        ]);
+        ?>
     </div>
 </div>

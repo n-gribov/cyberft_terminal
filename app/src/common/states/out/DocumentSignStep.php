@@ -18,7 +18,7 @@ class DocumentSignStep extends BaseDocumentStep
 
         $sender = $this->state->cyxDoc->senderId;
 
-        $primaryAutobot = Yii::$app->terminals->findUsedForSigningAutobot($sender);
+        $primaryAutobot = Yii::$app->exchange->findUsedForSigningAutobot($sender);
 
         if (empty($primaryAutobot)) {
             $this->log('failed to find used for signing autobot for ' . $sender);
@@ -27,7 +27,7 @@ class DocumentSignStep extends BaseDocumentStep
             return false;
         }
 
-        $terminalData = Yii::$app->terminals->findTerminalData($sender);
+        $terminalData = Yii::$app->exchange->findTerminalData($sender);
 
         if (empty($terminalData['isRunning'])|| empty($terminalData['passwords'])) {
             $this->log('failed to find terminal data for ' . $sender);
@@ -61,7 +61,7 @@ class DocumentSignStep extends BaseDocumentStep
             // Смена статуса на ошибку подписания
             $document->updateStatus(Document::STATUS_SIGNING_ERROR, $ex->getMessage());
 
-            // Создание события для журнала событий
+            // Зарегистрировать событие ошибки подписания контролером документа в модуле мониторинга
             Yii::$app->monitoring->log(
                 'document:documentContSignError',
                 'document',

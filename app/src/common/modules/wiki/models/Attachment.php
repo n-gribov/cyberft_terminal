@@ -197,5 +197,4 @@ class Attachment extends ActiveRecord
         parent::afterDelete();
         Dump::flushCachedData();
     }
-
 }

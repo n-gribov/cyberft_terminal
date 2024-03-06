@@ -101,7 +101,8 @@ $organizationAccountBank = $typeModel->getBank();
     <?php if (count($signatures) > 0): ?>
         <div class="row">
             <div class="col-md-5 pull-right">
-                <?= $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
+                <?= // Вывести блок подписей
+                    $this->render('@common/views/document/_signatures', ['signatures' => $signatures]) ?>
             </div>
         </div>
     <?php endif ?>

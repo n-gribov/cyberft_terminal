@@ -21,11 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 </p>
 
-<?= DetailView::widget([
+<?php
+// Создать детализированное представление
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'id',
         'address',
         'info:ntext',
     ],
-]) ?>
+]);

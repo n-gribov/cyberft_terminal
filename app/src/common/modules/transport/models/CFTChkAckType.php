@@ -18,10 +18,9 @@ class CFTChkAckType extends BaseType
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),
-            [
-                [array_values($this->attributes()), 'safe'],
-            ]);
+        return ArrayHelper::merge(parent::rules(), [
+            [array_values($this->attributes()), 'safe'],
+        ]);
     }
 
     public function getType()
@@ -43,9 +42,12 @@ class CFTChkAckType extends BaseType
         $this->refSenderId = (string) $this->_xmlDom->RefSenderId;
     }
 
-	public function getSearchFields()
-	{
-		return false;
-	}
-
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return array|bool
+     */
+    public function getSearchFields()
+    {
+        return false;
+    }
 }

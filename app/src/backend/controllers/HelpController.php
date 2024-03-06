@@ -11,32 +11,30 @@ class HelpController extends Controller
      * @inheritdoc
      */
     public function behaviors() {
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						// Accessible for authorized users only
-						'allow' => true,
-						'roles' => ['@'],
-					],
-				],
-			],
-		];
-	}
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        // Accessible for authorized users only
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Help index action
      *
-     * dummy action - redirect to about action.
+     * dummy action
      */
     public function actionIndex()
     {
-        /**
-         * Dummy action.
-         */
+        // Dummy action
+        // Вывести страницу
         return $this->render('about');
-        //return $this->redirect(['/help/about']);
     }
 
     /**
@@ -44,6 +42,7 @@ class HelpController extends Controller
      */
     public function actionAbout()
     {
+        // Вывести страницу
         return $this->render('about');
     }
 

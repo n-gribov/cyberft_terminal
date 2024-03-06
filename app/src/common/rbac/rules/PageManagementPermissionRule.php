@@ -13,30 +13,26 @@ use common\models\User;
  * Class PageManagementPermissionRule
  * @package common\rbac\rules
  */
-
 class PageManagementPermissionRule extends Rule
 {
     public $name = 'pageManagementRule';
 
     public function execute($userId, $item, $params)
     {
-        // Если пользователь не идентифицирован,
-        // дальнейшее не имеет смысла
+        // Если пользователь не идентифицирован, дальнейшее не имеет смысла
         if (empty(Yii::$app->user) || empty(Yii::$app->user->identity)) {
             return false;
         }
 
         /**
-         * Главный администратор может
-         * управлять страницами документации
+         * Главный администратор может управлять страницами документации
          */
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             return true;
         }
 
         try {
-            // Проверяем возможность пользователя
-            // управлять виджетами документации
+            // Проверяем возможность пользователя управлять виджетами документации
             $userSetting = CommonUserExt::findOne([
                 'type' => CommonUserExt::DOCUMENTATION_WIDGETS,
                 'userId' => $userId,
@@ -44,11 +40,8 @@ class PageManagementPermissionRule extends Rule
             ]);
 
             return !empty($userSetting);
-
         } catch (Exception $ex) {
-
             return false;
         }
-
     }
 }

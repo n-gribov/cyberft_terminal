@@ -8,19 +8,19 @@ use yii\widgets\DetailView;
 /** @var $model Document */
 
 $attributes = [
-	'id',
-	[
-		'attribute' => 'direction',
-		'value' => $model->getDirectionLabel(),
-	],
-	'statusLabel',
-	'sender',
-	'receiver',
-	'uuid',
-	'uuidReference',
-	'uuidRemote',
-	'dateCreate',
-	'dateUpdate',
+    'id',
+    [
+        'attribute' => 'direction',
+        'value' => $model->getDirectionLabel(),
+    ],
+    'statusLabel',
+    'sender',
+    'receiver',
+    'uuid',
+    'uuidReference',
+    'uuidRemote',
+    'dateCreate',
+    'dateUpdate',
 ];
 
 if (!empty($model->dateDue)) {
@@ -32,20 +32,25 @@ if (!empty($model->dateDue)) {
 }
 
 $attributes = ArrayHelper::merge($attributes, [
-	[
-		'attribute' => 'sourceId',
-		'label' => Yii::t('other', 'Original message'),
-		'format' => 'html',
-		'value' => '<span class=" glyphicon glyphicon-download-alt"></span>&nbsp;'.Html::a(Yii::t('other',
-					'Download'),
-					Url::to(['/storage/download', 'id' => $model->getValidStoredFileId(), 'name' => "{$model->uuid}.src"])),
-	],
-	'signaturesRequired',
-	'signaturesCount'
-]
-);
-
+    [
+        'attribute' => 'sourceId',
+        'label' => Yii::t('other', 'Original message'),
+        'format' => 'html',
+        'value' => '<span class=" glyphicon glyphicon-download-alt"></span>&nbsp;'
+            . Html::a(
+                Yii::t('other', 'Download'),
+                Url::to([
+                    '/storage/download',
+                    'id' => $model->getValidStoredFileId(),
+                    'name' => "{$model->uuid}.src"
+                ])
+            ),
+    ],
+    'signaturesRequired',
+    'signaturesCount'
+]);
+// Создать детализированное представление
 echo DetailView::widget([
-	'model' => $model,
-	'attributes' => $attributes
+    'model' => $model,
+    'attributes' => $attributes
 ]);

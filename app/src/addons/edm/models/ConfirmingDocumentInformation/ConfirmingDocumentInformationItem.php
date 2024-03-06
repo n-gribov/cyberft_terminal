@@ -128,7 +128,7 @@ class ConfirmingDocumentInformationItem extends ActiveRecord
             return $this->currencyDocument->code;
         }
 
-        return "";
+        return '';
     }
 
     public function getCurrencyContractCode()
@@ -137,7 +137,7 @@ class ConfirmingDocumentInformationItem extends ActiveRecord
             return $this->currencyContract->code;
         }
 
-        return "";
+        return '';
     }
 
     public function getNumericCountryCode()

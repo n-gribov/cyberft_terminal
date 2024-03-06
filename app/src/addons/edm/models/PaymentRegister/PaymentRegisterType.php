@@ -172,6 +172,7 @@ class PaymentRegisterType extends BaseType implements SignableType
     public function getModelDataAsString($removeXmlDeclaration = true)
     {
         if (empty($this->_xml)) {
+            // Сформировать XML
             $this->buildXml();
         }
 
@@ -354,6 +355,7 @@ class PaymentRegisterType extends BaseType implements SignableType
     public function getSignaturesTemplate()
     {
         if (!$this->_xml) {
+            // Сформировать XML
             $this->buildXml();
         }
 
@@ -365,6 +367,7 @@ class PaymentRegisterType extends BaseType implements SignableType
     public function getSignaturesList()
     {
         if (!$this->_xml) {
+            // Сформировать XML
             $this->buildXml();
         }
 
@@ -510,9 +513,13 @@ class PaymentRegisterType extends BaseType implements SignableType
         $reference->DigestValue = hash('sha256', $body);
     }
 
+    /**
+     * Метод возвращает поля для поиска в ElasticSearch
+     * @return bool
+     */
     public function getSearchFields()
     {
-        return null;
+        return false;
     }
 
     public function getType()

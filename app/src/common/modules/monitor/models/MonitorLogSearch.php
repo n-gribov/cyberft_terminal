@@ -31,7 +31,7 @@ class MonitorLogSearch extends MonitorLogAR
         $query = $this->find();
         $query = $this->filterByTerminalAccess($query);
 
-		$this->applyQueryFilters($params, $query);
+        $this->applyQueryFilters($params, $query);
 
         $dataProvider = new InfiniteActiveDataProvider([
             'query'      => $query,
@@ -67,7 +67,6 @@ class MonitorLogSearch extends MonitorLogAR
         ]);
 
         return $dataProvider;
-
     }
 
     public function applyQueryFilters($params, $query)
@@ -100,7 +99,7 @@ class MonitorLogSearch extends MonitorLogAR
     {
         if (!empty(Yii::$app->user) && !empty(Yii::$app->user->identity) &&
             Yii::$app->user->identity->role != User::ROLE_ADMIN) {
-
+            // Получить модель пользователя из активной сессии
             $user = Yii::$app->user->identity;
 
             $terminalId = $user->terminalId;

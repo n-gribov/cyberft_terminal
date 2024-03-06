@@ -24,7 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a(Yii::t('doc', 'Go to template registry'), Url::toRoute('index'), ['class' => 'btn']) ?>
 </p>
 
-<?= DetailView::widget([
+<?php
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'id',
@@ -36,4 +37,4 @@ $this->params['breadcrumbs'][] = $this->title;
         'bankPriority',
         'text:ntext',
     ],
-]) ?>
+]);

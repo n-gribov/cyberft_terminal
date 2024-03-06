@@ -9,34 +9,34 @@ use common\base\BaseServiceController;
 
 class DefaultController extends BaseServiceController
 {
-	public function behaviors() {
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => [DocumentPermission::VIEW],
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [DocumentPermission::VIEW],
                         'roleParams' => ['serviceId' => EdmModule::SERVICE_ID, 'documentTypeGroup' => '*']
-					],
-				],
-			],
-			'verbs' => [
-				'class'   => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['post'],
-				],
-			],
-		];
-	}
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class'   => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
+        ];
+    }
 
-	/**
-	 * Lists all Edm models.
-	 * @return mixed
-	 */
-	public function actionIndex()
-	{
+    /**
+     * Lists all Edm models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        // Вывести страницу
         return $this->render('index');
-//        return $this->redirect(['/edm/documents']);
-	}
+    }
 }

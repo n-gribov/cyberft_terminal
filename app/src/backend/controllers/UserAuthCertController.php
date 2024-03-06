@@ -71,13 +71,13 @@ class UserAuthCertController extends Controller
 
         if ($executorRole === User::ROLE_ADMIN) {
             return $model;
-        } elseif ($executorRole === User::ROLE_USER) {
+        } else if ($executorRole === User::ROLE_USER) {
             if ($id == Yii::$app->user->id) {
                 return $model;
             } else {
                 throw new NotFoundHttpException(Yii::t('app/user', 'Requested page not found'));
             }
-        } elseif ($executorRole === User::ROLE_ADDITIONAL_ADMIN) {
+        } else if ($executorRole === User::ROLE_ADDITIONAL_ADMIN) {
                 if ($ownerId == Yii::$app->user->id or $id == Yii::$app->user->id) {
                     return $model;
                 } else {
@@ -95,8 +95,7 @@ class UserAuthCertController extends Controller
 
         if ($executorRole === User::ROLE_USER) {
             return ['/certManager/cert/userkeys'];
-        } else if ($executorRole === User::ROLE_ADMIN ||
-                  $executorRole === User::ROLE_ADDITIONAL_ADMIN) {
+        } else if ($executorRole === User::ROLE_ADMIN || $executorRole === User::ROLE_ADDITIONAL_ADMIN) {
             return ['/user/view', 'id' => $userId, 'tabMode' => 'certs'];
         }
     }
@@ -108,8 +107,7 @@ class UserAuthCertController extends Controller
 
         if ($executorRole === User::ROLE_USER) {
             return '@common/modules/certManager/views/cert/viewUserAuthCert';
-        } elseif ($executorRole === User::ROLE_ADMIN ||
-                  $executorRole === User::ROLE_ADDITIONAL_ADMIN) {
+        } else if ($executorRole === User::ROLE_ADMIN || $executorRole === User::ROLE_ADDITIONAL_ADMIN) {
             return '/user/viewUserAuthCert';
         }
     }
@@ -122,7 +120,7 @@ class UserAuthCertController extends Controller
 
     public function actionView($id)
     {
-        $render = $this->getRenderViewCertPath();
+        $view = $this->getRenderViewCertPath();
 
         $model = $this->findUserAuthCertModel($id);
         $userId = $model->userId;
@@ -130,18 +128,19 @@ class UserAuthCertController extends Controller
         $data['model'] = $model;
         $data['uploadCertForm'] = new UploadUserAuthCertForm();
 
-        return $this->render($render, $data);
+        // Вывести страницу
+        return $this->render($view, $data);
     }
 
     public function actionPreview($model, $userId = null)
     {
-        $render = $this->getRenderViewCertPath();
+        $view = $this->getRenderViewCertPath();
         $data = $this->getKeyTerminalData(null, $userId);
 
         $data['model'] = $model;
         $data['uploadCertForm'] = new UploadUserAuthCertForm();
 
-        return $this->render($render, $data);
+        return $this->render($view, $data);
     }
 
     public function actionDelete($id)
@@ -153,26 +152,27 @@ class UserAuthCertController extends Controller
         $this->setAuthCertService();
 
         if ($this->authCertService->deleteCertificate($model) === false) {
-            \Yii::$app->session->addFlash('error',
-                \Yii::t('app/user', 'Failed to delete certificate'));
+            // Поместить в сессию флаг сообщения об ошибке удаления сертификата
+            \Yii::$app->session->addFlash('error', \Yii::t('app/user', 'Failed to delete certificate'));
         } else {
-            \Yii::$app->session->addFlash('success',
-                \Yii::t('app/user', 'Certificate was deleted'));
+            // Поместить в сессию флаг сообщения об успешном удалении сертификата
+            \Yii::$app->session->addFlash('success', \Yii::t('app/user', 'Certificate was deleted'));
 
             UserAuthCertBeneficiary::deleteAll(['keyId' => $id]);
 
-            $count = UserAuthCert::find()
-                    ->where(['userId' => $userId])
-                    ->count();
+            $count = UserAuthCert::find()->where(['userId' => $userId])->count();
+
             if ($count == 1) {
                 $cert = UserAuthCert::findOne(['userId' => $userId]);
                 $cert->status = 'active';
+                // Сохранить модель в БД
                 $cert->save();
             }
 
             UserHelper::sendUserToSecurityOfficersAcceptance($userId);
         }
 
+        // Перенаправить на страницу перенаправления
         return $this->redirect($redirect);
     }
 
@@ -188,6 +188,7 @@ class UserAuthCertController extends Controller
         $this->setAuthCertService();
 
         $form = new UploadUserAuthCertForm();
+        // Если данные модели успешно загружены из формы в браузере
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post())) {
             if ($form->validate()) {
                 $expiryDate = $form->certificate->getValidTo();
@@ -196,9 +197,13 @@ class UserAuthCertController extends Controller
                 if (!$expiryDate || (strtotime($expiryDate) < mktime())) {
                     $redirect = $this->getRedirectPath($id);
 
-                    $errorMessage = Yii::t('app/user', 'The certificate has expired! Could not load expired certificate!');
-                    Yii::$app->session->setFlash('error', $errorMessage);
+                    // Поместить в сессию флаг сообщения об истёкшем сертификате
+                    Yii::$app->session->setFlash(
+                        'error',
+                        Yii::t('app/user', 'The certificate has expired! Could not load expired certificate!')
+                    );
 
+                    // Перенаправить на страницу перенаправления
                     return $this->redirect($redirect);
                 }
                 // Если указан certId, значит у нас кейс замены сертификата
@@ -220,31 +225,38 @@ class UserAuthCertController extends Controller
                 }
                 if ($this->authCertService->saveCertificate($model)) {
                     if ($form->certId) {
+                        // Поместить в сессию флаг сообщения об успешном сохранении сертификата
                         Yii::$app->session->setFlash('success', \Yii::t('app/user', 'Certificate was updated'));
                     } else {
+                        // Поместить в сессию флаг сообщения об успешном создании сертификата
                         Yii::$app->session->setFlash('success', \Yii::t('app/user', 'Certificate was created'));
 
                     }
 
                     UserHelper::sendUserToSecurityOfficersAcceptance(Yii::$app->user->id);
 
+                    // Перенаправить на страницу перенаправления
                     return $this->redirect($redirect);
                 } else {
                     Yii::info('Failed to save certificate, errors: ' . var_export($model->getErrors(), true));
                     $errorMessage = $model->getErrorSummary(false)[0] ?? Yii::t('app/user', 'Certificate create error');
+                    // Поместить в сессию флаг сообщения об ошибке
                     Yii::$app->session->setFlash('error', $errorMessage);
 
+                    // Перенаправить на страницу перенаправления
                     return $this->redirect($redirect);
                 }
                 return;
             } else {
                 Yii::info('Certificate validation failed, errors: ' . var_export($form->getErrors(), true));
+                // Поместить в сессию флаг сообщения об ошибке
                 Yii::$app->session->setFlash('error', $form->getErrorsSummary(true));
             }
         }
 
         $redirect = $this->getRedirectPath($id);
 
+        // Перенаправить на страницу перенаправления
         return $this->redirect($redirect);
     }
 
@@ -268,6 +280,7 @@ class UserAuthCertController extends Controller
         $this->setAuthCertService();
 
         if ($this->authCertService->saveCertificate($model)) {
+            // Поместить в сессию флаг сообщения об успешном создании сертификата
             Yii::$app->session->setFlash('success', \Yii::t('app/user', 'Certificate was created'));
 
             UserHelper::sendUserToSecurityOfficersAcceptance(Yii::$app->user->id);
@@ -278,6 +291,7 @@ class UserAuthCertController extends Controller
                 $modelBeneficiary = new UserAuthCertBeneficiary();
                 $modelBeneficiary->keyId = $id;
                 $modelBeneficiary->terminalId = $item->terminalId;
+                // Сохранить модель в БД
                 $modelBeneficiary->save();
             }
 
@@ -286,10 +300,12 @@ class UserAuthCertController extends Controller
             $count = UserAuthCert::find()->where(['userId' => $model->userId])->count();
             if ($count == 1) {
                 $model->status = 'active';
+                // Сохранить модель в БД
                 $model->save();
             } else {
                 if (count($beneficiaries) == 0) {
                     $model->status = 'inactive';
+                    // Сохранить модель в БД
                     $model->save();
                 } else {
                     $activeNoBeneficiaryCerts = UserAuthCert::findAll(['status' => 'active']);
@@ -299,23 +315,28 @@ class UserAuthCertController extends Controller
                                     ->count();
                         if ($count == 0) {
                             $cert->status = 'inactive';
+                            // Сохранить модель в БД
                             $cert->save();
                         }
                     }
 
                     $model->status = 'active';
+                    // Сохранить модель в БД
                     $model->save();
                 }
             }
 
+            // Перенаправить на страницу перенаправления
             return $this->redirect($redirect);
         } else {
             Yii::info('Failed to save certificate, errors: ' . var_export($model->getErrors(), true));
             $errorMessage = $model->getErrorSummary(false)[0] ?? Yii::t('app/user', 'Certificate create error');
+            // Поместить в сессию флаг сообщения об ошибке создания сертификата
             Yii::$app->session->setFlash('error', $errorMessage);
 
             $redirect = $this->getRedirectPath($userAuthCert['userId']);
 
+            // Перенаправить на страницу перенаправления
             return $this->redirect($redirect);
         }
         return;
@@ -327,6 +348,7 @@ class UserAuthCertController extends Controller
         $selectedList = [];
 
         $certLinks = UserAuthCertBeneficiary::find()->all();
+        // Если не указан id пользователя, получить его из активной сессии
         $userId = $userId ?: Yii::$app->user->identity->id;
 
         foreach($certLinks as $link) {
@@ -394,9 +416,11 @@ class UserAuthCertController extends Controller
                 $model = new UserAuthCertBeneficiary();
                 $model->keyId = $id;
                 $model->terminalId = $item->terminalId;
+                // Сохранить модель в БД
                 $model->save();
             }
             $cert->status = 'active';
+            // Сохранить модель в БД
             $cert->save();
 
             $activeNoBeneficiaryCerts = UserAuthCert::findAll(['status' => 'active']);
@@ -406,17 +430,21 @@ class UserAuthCertController extends Controller
                             ->count();
                 if ($count == 0) {
                     $cert->status = 'inactive';
+                    // Сохранить модель в БД
                     $cert->save();
                 }
             }
         } else {
             $cert->status = 'inactive';
+            // Сохранить модель в БД
             $cert->save();
         }
 
+        // Поместить в сессию флаг сообщения об успешном сохранении сертификата
         Yii::$app->session->setFlash('success', Yii::t('app/cert', 'Certificate data was successfully saved'));
 
         $redirect = $this->getRedirectPath($cert->userId);
+        // Перенаправить на страницу перенаправления
         return $this->redirect($redirect);
     }
 

@@ -28,33 +28,33 @@ if (count($beneficiaryList) > 1) {
         <a id="add-user-beneficiary" href="#" class="btn btn-primary" data-id="<?=$keyId?>"><?= Yii::t('app', 'Add') ?></a>        
     </div>
 </div>
-
 <?php
-    echo GridView::widget([
-        'dataProvider' => $dataProviderBeneficiary,
-        'id' => 'user-terminals-list',
-        'columns' => [
-            [
-                'label' => 'Терминал',
-                'value' => 'terminalId'
-            ],
-            [
-                'label' => 'Наименование',
-                'value' => 'title'
-            ],
-            [
-                'format' => 'raw',
-                'value' => function($model) use ($keyId) {
-                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', '#',
-                        [
-                            'class' => 'delete-beneficiary',
-                            'data' => [
-                                'key-id' => $keyId,
-                                'beneficiary-id' => $model['terminalId']
-                            ],
-                        ]);
-                }
-            ],
+// Создать таблицу для вывода
+echo GridView::widget([
+    'dataProvider' => $dataProviderBeneficiary,
+    'id' => 'user-terminals-list',
+    'columns' => [
+        [
+            'label' => 'Терминал',
+            'value' => 'terminalId'
         ],
-    ]);
-?>
+        [
+            'label' => 'Наименование',
+            'value' => 'title'
+        ],
+        [
+            'format' => 'raw',
+            'value' => function($model) use ($keyId) {
+                return Html::a('<span class="glyphicon glyphicon-trash"></span>', '#',
+                    [
+                        'class' => 'delete-beneficiary',
+                        'data' => [
+                            'key-id' => $keyId,
+                            'beneficiary-id' => $model['terminalId']
+                        ],
+                    ]);
+            }
+        ],
+    ],
+]);
+

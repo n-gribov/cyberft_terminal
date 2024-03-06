@@ -35,11 +35,11 @@ $this->title = Yii::t('app/cert', 'Add certificate');
                     ]
                 ]) ?>
             </div>
-            <?php if($model->hasErrors('certificate')): ?>
+            <?php if ($model->hasErrors('certificate')) : ?>
                 <div class="alert-danger alert" style="clear: both">
                     <?=implode("\n<br/>",$model->getErrors('certificate'))?>
                 </div>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
 
         <?= $form->field($model, 'terminalId')->textInput(['maxlength' => 12]) ?>

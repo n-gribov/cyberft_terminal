@@ -3,7 +3,6 @@
 use addons\swiftfin\models\DictBankSearch;
 use common\models\User;
 use kartik\form\ActiveForm;
-use kartik\widgets\FileInput;
 use yii\data\ActiveDataProvider;
 use common\widgets\GridView;
 use yii\helpers\Html;
@@ -17,10 +16,8 @@ use yii\web\View;
 $this->title = Yii::t('app/menu', 'SWIFT code directory');
 $this->params['breadcrumbs'][] = $this->title;
 
-?>
-
-
-<?php if (Yii::$app->user->identity->role == User::ROLE_ADMIN) : ?>
+// Получить роль пользователя из активной сессии
+ if (Yii::$app->user->identity->role == User::ROLE_ADMIN) : ?>
     <div class="panel-body">
 		<?php $form = ActiveForm::begin([
 			'enableClientValidation' => false,
@@ -74,7 +71,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?php $form->end() ?>
 	</div>
 <?php endif ?>
-<?=GridView::widget([
+<?php
+// Создать таблицу для вывода
+echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
     'columns'      => [

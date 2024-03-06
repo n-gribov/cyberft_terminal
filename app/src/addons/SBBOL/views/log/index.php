@@ -6,7 +6,7 @@ use common\widgets\GridView;
 /** @var $dataProvider \yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app/menu', 'Logs');
-
+// Создать таблицу для вывода
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [

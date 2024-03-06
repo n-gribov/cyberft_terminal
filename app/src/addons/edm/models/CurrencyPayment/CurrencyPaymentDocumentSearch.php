@@ -77,12 +77,14 @@ class CurrencyPaymentDocumentSearch extends DocumentSearch
     }
 
     /**
+     * Метод добавляет к запросу расширенные поля и фильтры поиска
      * @param ActiveQuery $query
      * @return void
      */
     public function applyExtFilters($query)
     {
         $query
+            // Объединить с ext-таблицей по признаку платёжных документов
             ->leftJoin(
                 ForeignCurrencyOperationDocumentExt::tableName() . ' paymentExt',
                 [
@@ -91,6 +93,7 @@ class CurrencyPaymentDocumentSearch extends DocumentSearch
                     ['document.type' => $this->getPaymentDocumentTypes()]
                 ]
             )
+            // Объединить с ext-таблицей по признаку реестров
             ->leftJoin(
                 CurrencyPaymentRegisterDocumentExt::tableName() . ' registerExt',
                 [
@@ -100,20 +103,23 @@ class CurrencyPaymentDocumentSearch extends DocumentSearch
                 ]
             );
 
+        // Объединить с таблицей счетов плательщика по признаку совпадения счёта
         $query->innerJoin(
             EdmPayerAccount::tableName() . ' payerAccount',
             'payerAccount.number = paymentExt.debitAccount or payerAccount.number = registerExt.debitAccount'
         );
+        // Объединить с таблицей организаций по признаку совпадения организации
         $query->innerJoin(
             DictOrganization::tableName() . ' org',
             'org.id = payerAccount.organizationId'
         );
-
+        // Объединить со справочником банков по признаку совпадения банка у счёта
         $query->innerJoin(
             DictBank::tableName() . ' debitAccountBank',
             'debitAccountBank.bik = payerAccount.bankBik'
         );
 
+        // Выбрать поля для получения
         $this->_select[] = 'paymentExt.numberDocument';
         $this->_select[] = 'paymentExt.sum';
         $this->_select[] = 'paymentExt.currencySum';
@@ -127,6 +133,8 @@ class CurrencyPaymentDocumentSearch extends DocumentSearch
         $this->_select[] = 'debitAccountBank.name as bankName';
         $this->_select[] = 'debitAccountBank.bik as bankBik';
 
+        // Фильтровать по пользовательскому доступу
+        // Получить модель пользователя из активной сессии
         $currentUser = Yii::$app->user->identity;
         if (!in_array($currentUser->role, [User::ROLE_ADMIN, User::ROLE_ADDITIONAL_ADMIN])) {
             $accountsNumbers = EdmPayerAccountUser::getUserAllowAccountsNumbers($currentUser->id);
@@ -170,7 +178,7 @@ class CurrencyPaymentDocumentSearch extends DocumentSearch
 
         if ($this->documentKind === static::DOCUMENT_TYPE_PAYMENT) {
             $query->andWhere(['document.type' => $this->getPaymentDocumentTypes()]);
-        } elseif ($this->documentKind === static::DOCUMENT_KIND_REGISTER) {
+        } else if ($this->documentKind === static::DOCUMENT_KIND_REGISTER) {
             $query->andWhere(['document.type' => $this->getRegisterDocumentTypes()]);
         }
 
