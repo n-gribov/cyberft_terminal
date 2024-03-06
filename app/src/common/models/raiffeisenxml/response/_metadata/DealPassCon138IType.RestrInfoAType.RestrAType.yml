@@ -1,0 +1,43 @@
+common\models\raiffeisenxml\response\DealPassCon138IType\RestrInfoAType\RestrAType:
+    properties:
+        rerNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: RerNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRerNumber
+                setter: setRerNumber
+            type: int
+        rerDate:
+            expose: true
+            access_type: public_method
+            serialized_name: RerDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRerDate
+                setter: setRerDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        rerRefNum:
+            expose: true
+            access_type: public_method
+            serialized_name: RerRefNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRerRefNum
+                setter: setRerRefNum
+            type: string
+        rerRefDate:
+            expose: true
+            access_type: public_method
+            serialized_name: RerRefDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRerRefDate
+                setter: setRerRefDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

@@ -1,0 +1,31 @@
+common\models\sbbolxml\request\BigFilesDownloadPrintFormLinkType:
+    properties:
+        extension:
+            expose: true
+            access_type: public_method
+            serialized_name: extension
+            accessor:
+                getter: getExtension
+                setter: setExtension
+            xml_attribute: true
+            type: string
+        statement:
+            expose: true
+            access_type: public_method
+            serialized_name: Statement
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getStatement
+                setter: setStatement
+            type: common\models\sbbolxml\request\BigFilesDownloadPrintFormLinkType\StatementAType
+        document:
+            expose: true
+            access_type: public_method
+            serialized_name: Document
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocument
+                setter: setDocument
+            type: common\models\sbbolxml\request\BigFilesDownloadPrintFormLinkType\DocumentAType

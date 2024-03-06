@@ -1,0 +1,20 @@
+common\models\sbbolxml\request\DictType:
+    properties:
+        dictId:
+            expose: true
+            access_type: public_method
+            serialized_name: dictId
+            accessor:
+                getter: getDictId
+                setter: setDictId
+            xml_attribute: true
+            type: string
+        stepId:
+            expose: true
+            access_type: public_method
+            serialized_name: stepId
+            accessor:
+                getter: getStepId
+                setter: setStepId
+            xml_attribute: true
+            type: string

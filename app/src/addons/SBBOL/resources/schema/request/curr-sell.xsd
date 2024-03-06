@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CurrSell">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="CurrComDocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты платёжного документа ДБО</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Trans" type="CurrSellTrans">
+                        <xs:annotation>
+                            <xs:documentation>Сделка</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BankAgreement" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Соглашение с банком</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="3000"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="AddInfo" type="AddInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Дополнительная информация</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LinkedDocs" type="LinkedDocs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Связанные документы, например, платежное поручение или валютный перевод
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CurrSellTrans">
+        <xs:sequence>
+            <xs:element name="SumSell" type="CurrAmountType">
+                <xs:annotation>
+                    <xs:documentation>Сумма продаваемой валюты</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TermSell" type="TermDeal">
+                <xs:annotation>
+                    <xs:documentation>Условия продажи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AccountSell" type="AccountRubType">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты счёта списания валюты</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AccountCredit" type="OurRubAccountType">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты счёта зачисления рублей</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Commis" type="Commision" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Комиссионное вознаграждение (ComAcc ИЛИ ComOrder)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

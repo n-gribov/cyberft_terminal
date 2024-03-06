@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\request\AttachmentsType:
+    properties:
+        attachment:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAttachment
+                setter: setAttachment
+            xml_list:
+                inline: true
+                entry_name: Attachment
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\AttachmentsType\AttachmentAType>

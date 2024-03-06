@@ -1,0 +1,43 @@
+common\models\sbbolxml\request\CorpCardExtContactInfoType:
+    properties:
+        phoneHome:
+            expose: true
+            access_type: public_method
+            serialized_name: PhoneHome
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPhoneHome
+                setter: setPhoneHome
+            type: common\models\sbbolxml\request\PhoneNumWithCodeType
+        phoneWork:
+            expose: true
+            access_type: public_method
+            serialized_name: PhoneWork
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPhoneWork
+                setter: setPhoneWork
+            type: common\models\sbbolxml\request\PhoneNumWithCodeType
+        phoneMobile:
+            expose: true
+            access_type: public_method
+            serialized_name: PhoneMobile
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPhoneMobile
+                setter: setPhoneMobile
+            type: common\models\sbbolxml\request\PhoneNumWithCodeType
+        emailAddr:
+            expose: true
+            access_type: public_method
+            serialized_name: EmailAddr
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmailAddr
+                setter: setEmailAddr
+            type: string

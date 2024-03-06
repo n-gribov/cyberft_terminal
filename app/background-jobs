@@ -1,0 +1,123 @@
+#!/bin/bash
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source $DIR/.env
+
+##########################################
+#regular jobs -- should be only one worker
+regular_q=1
+#incoming jobs - can be many workers
+incoming_q=7
+#outgoing jobs - can be many workers
+outgoing_q=7
+#general jobs - can be many workers
+default_q=7
+##########################################
+
+status() {
+
+    if [ `ps ax | grep '[b]in/dispatcher' | wc -l` -eq 0 ]; then
+        echo 'Dispatcher not running'
+    else
+        ps ax | grep '[b]in/dispatcher'
+    fi
+
+
+    if [ `ps ax | grep '[b]in/dispatcher_stomp' | wc -l` -eq 0 ]; then
+        echo 'Dispatcher_stomp not running'
+    fi
+
+
+    if [ `ps ax | grep '[r]esque' | wc -l` -eq 0 ]; then
+        echo 'Resque not running'
+    else
+        ps ax | grep '[r]esque'
+    fi
+
+}
+
+start() {
+
+    if [ `ps ax | grep '[b]in/dispatcher$' | wc -l` -eq 1 ]; then
+        echo 'Dispatcher is already running'
+    else
+        echo "Starting Dispatcher"
+        sudo -u $NGINX_USER $DIR/src/bin/dispatcher
+    fi
+
+
+    if [ `ps ax | grep '[b]in/dispatcher_stomp' | wc -l` -eq 1 ]; then
+        echo 'Dispatcher_stomp is already running'
+    else
+        echo "Starting Dispatcher Stomp"
+        sudo -u $NGINX_USER $DIR/src/bin/dispatcher_stomp
+    fi
+
+
+    if [ `ps ax | egrep '[r]esque' | wc -l` -eq $(($regular_q + $incoming_q + $outgoing_q + $default_q + 1)) ]; then
+        echo 'Resque and workers already running'
+    else
+        echo 'Resque does not have all workers or not running, Starting'
+        wait $(kill -9 $(ps ax | grep '[r]esque' | awk '{print $1}') 2>/dev/null);
+        workers;
+        echo 'Resque and workers started successfully'
+    fi
+
+}
+
+stop() {
+
+    if [ `ps ax | grep '[b]in/dispatcher' | wc -l` -eq 0 ]; then
+        echo 'Dispatcher not running'
+    else
+        echo "Stopping Dispatcher"
+        wait $(kill -9 $(ps ax | grep '[b]in/dispatcher' | awk '{print $1}'))
+    fi
+
+
+    if [ `ps ax | grep '[b]in/dispatcher_stomp' | wc -l` -eq 0 ]; then
+        echo 'Dispatcher_stomp not running'
+    else
+        echo "Stopping Dispatcher_stomp"
+        wait $(kill -9 $(ps ax | grep '[b]in/dispatcher_stomp' | awk '{print $1}'))
+    fi
+
+
+    if [ `ps ax | grep '[r]esque' | wc -l` -eq 0 ]; then
+        echo 'Resque not running'
+    else
+        echo "Stopping Resque and workers"
+        wait $(kill -9 $(ps ax | grep '[r]esque' | awk '{print $1}') 2>/dev/null);
+    fi
+
+}
+
+workers() {
+
+    wait $(sudo -u $NGINX_USER BLOCKING=1 QUEUE=regular COUNT=$regular_q nohup $DIR/src/bin/resque > /dev/null 2>&1 &)
+
+    wait $(sudo -u $NGINX_USER BLOCKING=1 QUEUE=incoming COUNT=$incoming_q nohup $DIR/src/bin/resque > /dev/null 2>&1 &)
+
+    wait $(sudo -u $NGINX_USER BLOCKING=1 QUEUE=outgoing COUNT=$outgoing_q nohup $DIR/src/bin/resque > /dev/null 2>&1 &)
+
+    wait $(sudo -u $NGINX_USER BLOCKING=1 QUEUE=default COUNT=$default_q nohup $DIR/src/bin/resque > /dev/null 2>&1 &)
+
+}
+
+case "$1" in
+  status)
+    status
+    ;;
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+esac

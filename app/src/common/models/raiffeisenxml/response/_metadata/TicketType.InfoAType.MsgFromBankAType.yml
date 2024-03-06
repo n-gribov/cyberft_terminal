@@ -1,0 +1,20 @@
+common\models\raiffeisenxml\response\TicketType\InfoAType\MsgFromBankAType:
+    properties:
+        author:
+            expose: true
+            access_type: public_method
+            serialized_name: author
+            accessor:
+                getter: getAuthor
+                setter: setAuthor
+            xml_attribute: true
+            type: string
+        message:
+            expose: true
+            access_type: public_method
+            serialized_name: message
+            accessor:
+                getter: getMessage
+                setter: setMessage
+            xml_attribute: true
+            type: string

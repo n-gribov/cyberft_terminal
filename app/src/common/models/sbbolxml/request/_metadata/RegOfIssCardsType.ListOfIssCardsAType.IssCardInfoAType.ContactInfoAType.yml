@@ -1,0 +1,45 @@
+common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType\ContactInfoAType:
+    properties:
+        homePhone:
+            expose: true
+            access_type: public_method
+            serialized_name: HomePhone
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getHomePhone
+                setter: setHomePhone
+            type: string
+        officePhone:
+            expose: true
+            access_type: public_method
+            serialized_name: OfficePhone
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOfficePhone
+                setter: setOfficePhone
+            type: string
+        mobPhone:
+            expose: true
+            access_type: public_method
+            serialized_name: MobPhone
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMobPhone
+                setter: setMobPhone
+            type: common\models\sbbolxml\request\MobPhoneType
+        email:
+            expose: true
+            access_type: public_method
+            serialized_name: Email
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmail
+                setter: setEmail
+            type: string

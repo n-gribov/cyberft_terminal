@@ -1,0 +1,65 @@
+common\models\sbbolxml\response\RZKSalaryDocType\SalContractAType:
+    properties:
+        admissionValue:
+            expose: true
+            access_type: public_method
+            serialized_name: admissionValue
+            accessor:
+                getter: getAdmissionValue
+                setter: setAdmissionValue
+            xml_attribute: true
+            type: string
+        contrNum:
+            expose: true
+            access_type: public_method
+            serialized_name: contrNum
+            accessor:
+                getter: getContrNum
+                setter: setContrNum
+            xml_attribute: true
+            type: string
+        contrDate:
+            expose: true
+            access_type: public_method
+            serialized_name: contrDate
+            accessor:
+                getter: getContrDate
+                setter: setContrDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        filialBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: filialBankName
+            accessor:
+                getter: getFilialBankName
+                setter: setFilialBankName
+            xml_attribute: true
+            type: string
+        filialBankNum:
+            expose: true
+            access_type: public_method
+            serialized_name: filialBankNum
+            accessor:
+                getter: getFilialBankNum
+                setter: setFilialBankNum
+            xml_attribute: true
+            type: string
+        bankINN:
+            expose: true
+            access_type: public_method
+            serialized_name: bankINN
+            accessor:
+                getter: getBankINN
+                setter: setBankINN
+            xml_attribute: true
+            type: string
+        corAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: corAcc
+            accessor:
+                getter: getCorAcc
+                setter: setCorAcc
+            xml_attribute: true
+            type: string

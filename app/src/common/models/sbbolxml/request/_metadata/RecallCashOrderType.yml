@@ -1,0 +1,21 @@
+common\models\sbbolxml\request\RecallCashOrderType:
+    properties:
+        recallDocRef:
+            expose: true
+            access_type: public_method
+            serialized_name: recallDocRef
+            accessor:
+                getter: getRecallDocRef
+                setter: setRecallDocRef
+            xml_attribute: true
+            type: string
+        docDataRecallCashOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: DocDataRecallCashOrder
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocDataRecallCashOrder
+                setter: setDocDataRecallCashOrder
+            type: common\models\sbbolxml\request\DocDataRecallCashOrderType

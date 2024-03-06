@@ -1,0 +1,640 @@
+#!/usr/bin/env php
+<?php
+
+use common\base\Daemon;
+use common\components\Resque;
+use common\document\Document;
+use common\helpers\Uuid;
+use common\models\cyberxml\CyberXmlDocument;
+use common\models\Terminal;
+use common\modules\transport\helpers\DocumentTransportHelper;
+use common\modules\transport\TransportModule;
+use common\states\in\InitialInState;
+use Psr\Log\LogLevel;
+use yii\console\Application;
+
+require(__DIR__ . '/app-include.php');
+
+$DEBUG = getenv('DEBUG') ? true : false;
+
+class DispatcherStompDaemon extends Daemon
+{
+    const MESSAGES_PER_JOB = 100;
+    const HEARTBEAT_INTERVAL = 12;
+
+    public $maxMessages;
+    private $_transportModule;
+    private $_stomp;
+
+    private $_connections;
+    private $_notRunning;
+    private $_corrupted;
+    private $_error;
+    private $_lastUpdated;
+    private $_refreshed;
+    private $_heartbeatCount = 0;
+    private $_noreadCount = 0;
+
+    public function run()
+    {
+        $logger = Yii::getLogger();
+        $logger->flushInterval = 10;
+
+        $this->_transportModule = Yii::$app->getModule('transport');
+
+        if (!$this->_transportModule) {
+            $this->log('Transport module is not available');
+
+            throw new Exception('Transport module is not available');
+        }
+
+        $this->maxMessages = static::MESSAGES_PER_JOB;
+
+        $this->_stomp = $this->_transportModule->stomp;
+
+        $this->_connections = [];
+        $this->_notRunning = [];
+        $this->_corrupted = [];
+        $this->_error = [];
+        $this->_lastUpdated = [];
+        $this->_refreshed = [];
+
+        parent::run();
+    }
+
+    private function registerError($terminalAddress)
+    {
+        if (!isset($this->_error[$terminalAddress])) {
+            $this->_error[$terminalAddress] = 1;
+        } else {
+            $this->_error[$terminalAddress]++;
+        }
+    }
+
+    protected function perform()
+    {
+        $settings = Yii::$app->settings->getVolatile('app');
+
+        // heartbeat
+        if ($this->_heartbeatCount > static::HEARTBEAT_INTERVAL) {
+            $this->_heartbeatCount = 0;
+
+            // Оживляем линк с дб
+            try {
+                Yii::$app->db->createCommand('select now()')->queryScalar();
+            } catch (Exception $ex) {
+                $this->log('Heartbeat error: ' . $ex->getMessage());
+
+                return;
+            }
+
+            if (!$settings->jobsEnabled) {
+                $this->log('jobs disabled');
+                if (!empty($this->_connections)) {
+                    foreach ($this->_connections as $connection) {
+                        $this->_stomp->closeConnection($connection);
+                    }
+                    $this->_connections = [];
+                }
+            } else {
+                $this->log(
+                    'idle requests: ' . $this->_noreadCount
+                            . ', connections: ' . count($this->_connections)
+                );
+            }
+
+            $this->_noreadCount = 0;
+
+            if (!empty($this->_connections)) {
+                $list = [];
+                foreach ($this->_connections as $terminalAddress => $connection) {
+                    if (isset($this->_refreshed[$terminalAddress])) {
+                        $terminalAddress .= '*';
+                    }
+                    $list[] = $terminalAddress;
+                }
+                $this->log('running: ' . join(', ', $list));
+                $this->_refreshed = [];
+            }
+
+            if (!empty($this->_notRunning)) {
+                $this->log('not running: ' . join(', ', $this->_notRunning));
+            }
+
+            if (!empty($this->_corrupted)) {
+                $this->log('bad settings: ' . join(', ', $this->_corrupted));
+            }
+
+            if (!empty($this->_error)) {
+                $errorMsg = [];
+                foreach ($this->_error as $terminalAddress => $count) {
+                    $errorMsg[] = $terminalAddress . ':' . $count;
+                }
+                $this->log('connection errors: ' . join(', ', $errorMsg));
+                $this->_error = [];
+            }
+        } else {
+            $this->_heartbeatCount++;
+        }
+
+        if (!$settings->jobsEnabled) {
+            return;
+        }
+
+        $this->updateTerminalData();
+        $this->processConnections();
+    }
+
+    private function updateTerminalData()
+    {
+        $currentTime = time();
+        foreach (Yii::$app->terminals->addresses as $terminalAddress) {
+            if (!isset($this->_lastUpdated[$terminalAddress])) {
+                $this->_lastUpdated[$terminalAddress] = $currentTime;
+            }
+
+            // узнать наличие в остановленных
+            $notRunningKey = array_search($terminalAddress, $this->_notRunning);
+            // узнать наличие коннекшена
+            $hasConnection = isset($this->_connections[$terminalAddress]);
+
+            try {
+                if (!Yii::$app->terminals->isRunning($terminalAddress)) {
+                    // терминал остановлен, проверить, не открыто ли соединение
+                    // если открыто, то закрыть
+                    if ($hasConnection) {
+                        $this->closeConnection($terminalAddress);
+                        $this->log($terminalAddress . ' changed state from running to not running');
+                    }
+                    // добавить в остановленные, если его там нет (не должно быть)
+                    if ($notRunningKey === false) {
+                        $this->_notRunning[] = $terminalAddress;
+                    }
+                } else {
+                    // терминал запущен и у него должно быть соединение
+                    // проверить, есть ли он в остановленных
+                    if ($notRunningKey !== false) {
+                        // удалить из остановленных
+                        unset($this->_notRunning[$notRunningKey]);
+                        $this->log($terminalAddress . ' changed state from not running to running');
+                    }
+
+                    // если соединение есть, проверяем два подозрительных кейса
+                    if ($hasConnection) {
+                        // если терминал с открытым соединением находился в списке notRunning,
+                        // значит что-то пошло не так, закрываем соединение на всякий случай
+                        if ($notRunningKey !== false) {
+                            $this->log('*** Terminal ' . $terminalAddress . ' has connection but was in not running list');
+                            $this->closeConnection($terminalAddress);
+                            $hasConnection = false;
+                        } else {
+                            // Если на соединение последние 5 минут ничего не поступало, то возможно оно зависло
+                            // На данный момент делаем переоткрытие соединения
+                            $time = $this->_lastUpdated[$terminalAddress] + 300;
+                            if ($time < $currentTime) {
+                                $this->_refreshed[$terminalAddress] = true;
+                                // will be reconnected below
+                                $this->closeConnection($terminalAddress);
+                                $hasConnection = false;
+                            }
+                        }
+                    }
+
+                    // проверить, есть ли он в открытых соединениях, и добавить, если нет
+                    if (!$hasConnection) {
+                        $this->createConnection($terminalAddress);
+                        $this->_lastUpdated[$terminalAddress] = $currentTime;
+                    }
+                }
+            } catch (Exception $ex) {
+                $this->log(
+                    'ERROR at ' . $terminalAddress . ': ' . $ex->getMessage()
+                    . ' ' . $ex->getFile() . ': ' . $ex->getLine()
+                );
+
+                $this->registerError($terminalAddress);
+
+                continue;
+            }
+        }
+    }
+
+    private function processConnections()
+    {
+        if (!count($this->_connections)) {
+            return;
+        }
+
+        $keys = array_keys($this->_connections);
+        $term = $keys[0];
+        $cn = $this->_connections[$term];
+        $read = false;
+        $readFrames = [];
+
+        do {
+            $tmpSockets = [];
+            $socketMap = [];
+            $terminalMap = [];
+
+            foreach ($this->_connections as $terminalAddress => $connection) {
+                $socket = $connection->getSocket();
+                $tmpSockets[] = $socket;
+                $socketId = (string)$socket;
+                $socketMap[$socketId] = $connection;
+                $terminalMap[$socketId] = $terminalAddress;
+            }
+
+            if (empty($tmpSockets)) {
+                $this->log('No terminals to connect');
+
+                break;
+            }
+
+            $read = $this->_stomp->selectReadConnections($cn, $tmpSockets);
+
+            if (!$read) {
+                $this->_noreadCount++;
+
+                break;
+            }
+
+            foreach ($read as $socket) {
+                $socketId = (string) $socket;
+                $terminalAddress = $terminalMap[$socketId];
+
+                try {
+                    $connection = $socketMap[$socketId];
+                    $frame = $this->_stomp->readFrame(true, false, $connection);
+                    if ($this->_stomp->hasErrors()) {
+                        $this->log(var_export($this->_stomp->getErrors(), true));
+                        $this->_stomp->clearErrors();
+                        $this->log('Unable to read from queue ' . $terminalAddress);
+
+                        Yii::$app->monitoring->log(
+                            'transport:stompFailed',
+                            '',
+                            0,
+                            [
+                                'logLevel' => LogLevel::ERROR,
+                                'errorCode' => 'badConnection',
+                                'terminalId' => Terminal::getIdByAddress($terminalAddress),
+                            ]
+                        );
+
+                        // will be reconnected on next perform() in updateTerminalData()
+                        $this->closeConnection($terminalAddress);
+
+                        $this->registerError($terminalAddress);
+
+                        continue;
+                    }
+
+                    if (!$frame) {
+                        continue;
+                    }
+
+                    if (!isset($readFrames[$terminalAddress])) {
+                        $readFrames[$terminalAddress] = ['stomp' => 0, 'cftcp' => 0];
+                    }
+
+                    if ($this->isStompContent($frame)) {
+                        $this->processStompMessage($frame, $this->_transportModule, $terminalAddress);
+                        $readFrames[$terminalAddress]['stomp']++;
+                    } else {
+                        $this->processCftcpMessage($frame, $this->_transportModule);
+                        $readFrames[$terminalAddress]['cftcp']++;
+                    }
+                } catch (Exception $ex) {
+                    $this->log('ERROR: ' . $ex->getMessage() . ' ' . $ex->getFile() . ': ' . $ex->getLine());
+
+                    continue;
+                }
+            }
+        } while ($read);
+
+        foreach ($readFrames as $terminalAddress => $data) {
+            $this->_lastUpdated[$terminalAddress] = time();
+            $this->log($terminalAddress . ': read ' . $data['stomp'] . ' stomp / ' . $data['cftcp'] . ' cftcp frames');
+        }
+
+//        foreach($this->_connections as $connection) {
+//            $this->_stomp->closeConnection($connection);
+//        }
+    }
+
+    private function closeConnection($terminalAddress)
+    {
+        if (isset($this->_connections[$terminalAddress])) {
+            $connection = $this->_connections[$terminalAddress];
+            $this->_stomp->closeConnection($connection);
+            unset($this->_connections[$terminalAddress]);
+        }
+    }
+
+    private function createConnection($terminalAddress)
+    {
+        $stompSettings = $this->_transportModule->getStompSettings($terminalAddress, true);
+
+        if (empty($stompSettings)) {
+            $this->_corrupted[] = $terminalAddress;
+            Yii::$app->monitoring->log(
+                'transport:stompFailed',
+                '',
+                0,
+                [
+                    'logLevel' => LogLevel::ERROR,
+                    'errorCode' => 'badConfig',
+                    'terminalId' => Terminal::getIdByAddress($terminalAddress)
+                ]
+            );
+
+            return false;
+        }
+
+        $login = $stompSettings['login'];
+        $password = $stompSettings['password'];
+        $connection = $this->_stomp->getConnection($login, $password);
+        if (!$connection) {
+            $this->registerError($terminalAddress);
+
+            return false;
+        }
+        $connection->subscribe($terminalAddress, null, true);
+        $this->_connections[$terminalAddress] = $connection;
+
+        return $connection;
+    }
+
+    /**
+     * Detect STOMP message
+     *
+     * @param array $frame Stomp message frame
+     * @return
+     */
+    private function isStompContent($frame)
+    {
+        /**
+         * Check "file_id" header
+         */
+        if (!isset($frame->headers['file_id']) || empty($frame->headers['file_id'])) {
+            return true;
+        }
+
+        /**
+         * Check safe mode
+         */
+        return Yii::$app->settings->get('app')->processing['safeMode'];
+    }
+
+    /**
+     * Process STOMP message
+     *
+     * @param array $frame Stomp frames
+     * @param TransportModule $myTransport Transport module
+     */
+    private function processStompMessage($frame, $myTransport, $terminalAddress)
+    {
+        // Если документ не сервисный, то проверяем его на дублирование
+        if (isset($frame->headers) && !in_array($frame->headers['doc_type'], Document::$techMessageTypes)) {
+
+            // Проверяем наличие во фрейме DocId
+            if (isset($frame->headers) && isset($frame->headers['doc_id'])) {
+                $docId = $frame->headers['doc_id'];
+
+                // Проверяем документ на дублирование
+                $document = Document::findOne(['uuidRemote' => $docId]);
+
+                // Если такой документ уже был, шлем ответный CFTAck
+                if ($document) {
+                    // Логируем уведомление
+                    $this->log('Incoming document already exists. Remote uuid: ' . $docId);
+
+                    // Записываем событие в журнал
+                    Yii::$app->monitoring->log(
+                        'document:DublicateIncomingDocument',
+                        'document',
+                        $document->id,
+                        [
+                            'type' => $frame->headers['doc_type'],
+                            'uuid' => $docId
+                        ]
+                    );
+
+                    // Получаем CyberXML конверт из документа
+                    $cyxDoc = new CyberXmlDocument(['storageId' => $document->actualStoredFileId]);
+
+                    // Инициируем отправку ответного CFTAck
+                    DocumentTransportHelper::ack($cyxDoc, $docId);
+
+                    return false;
+                }
+            }
+        }
+
+        if (isset($frame->body)) {
+            //echo $frame->body . "\n";
+            $contentLength = strlen($frame->body);
+            $this->log("Read {$contentLength} bytes");
+
+            /**
+             * Save frame message into storage
+             */
+            $storedFile = $myTransport->storeData($frame->body, $myTransport::STORAGE_RESOURCE_IN);
+
+            if (!$storedFile) {
+                $this->log('Failed to create stored file');
+
+                return false;
+            }
+
+            $initialState = new InitialInState([
+                'storedFileId' => $storedFile->id,
+                'queue' => $terminalAddress
+            ]);
+
+            try {
+                $result = $initialState->run();
+                if (!$result) {
+                    return false;
+                }
+
+                $nextState = $initialState->decideState();
+
+                if ($nextState) {
+                    Yii::$app->resque->enqueue(
+                        'common\jobs\StateJob',
+                        [
+                            'stateClass' => get_class($nextState),
+                            'params' => serialize([
+                                'storedFileId' => $storedFile->id,
+                                'queue' => $terminalAddress,
+                                'documentId' => $initialState->document->id,
+                            ])
+                        ],
+                        true,
+                        Resque::INCOMING_QUEUE
+                    );
+                }
+            } catch (Exception $ex) {
+                $this->log('*** Exception while processing CFTCP frame: ' . $ex->getMessage());
+                $this->log('*** Stored file id: ' . $storedFile->id);
+                $this->log('*** Stored file data: ' . $storedFile->getData());
+            }
+        } else {
+            $this->log('Empty frame body');
+        }
+
+        return true;
+    }
+
+    /**
+     * Process cftcp message
+     *
+     * @param array $frame Stomp frames
+     * @param TransportModule $myTransport Transport module
+     */
+    private function processCftcpMessage($frame, $myTransport)
+    {
+        // Если документ не сервисный, то проверяем его на дублирование
+        if (isset($frame->headers) && !in_array($frame->headers['doc_type'], Document::$techMessageTypes)) {
+
+            // Проверяем наличие во фрейме DocId
+            if (isset($frame->headers) && isset($frame->headers['doc_id'])) {
+                $docId = $frame->headers['doc_id'];
+
+                // Проверяем документ на дублирование
+                $document = Document::findOne(['uuidRemote' => $docId]);
+
+                // Если такой документ уже был, шлем ответный CFTAck
+                if ($document) {
+                    // Логируем уведомление
+                    $this->log('Incoming document already exists. Remote uuid: ' . $docId);
+
+                    // Записываем событие в журнал
+                    Yii::$app->monitoring->log(
+                        'document:DublicateIncomingDocument',
+                        'document',
+                        $document->id,
+                        [
+                            'type' => $frame->headers['doc_type'],
+                            'uuid' => $docId
+                        ]
+                    );
+
+                    // Получаем CyberXML конверт из документа
+                    $cyxDoc = new CyberXmlDocument(['storageId' => $document->actualStoredFileId]);
+
+                    // Инициируем отправку ответного CFTAck
+                    DocumentTransportHelper::ack($cyxDoc, $docId);
+
+                    return false;
+                }
+            }
+        }
+
+        $frameDocId = $frame->headers['doc_id'];
+        $frameFileId = $frame->headers['file_id'];
+
+        /**
+         * Reserve file in storege
+         */
+        $myStoredFile = $myTransport->storeData('1', $myTransport::STORAGE_RESOURCE_IN);
+
+        if (is_null($myStoredFile)) {
+            $this->log("RegisterCftcpDocument: stored file error, frame doc_id {$frameDocId}");
+
+            return false;
+        }
+
+        $receiver = $frame->headers['destination'];
+        $document = new Document();
+        $document->type = $document::TYPE_UNKNOWN;
+        $document->direction = $document::DIRECTION_IN;
+        $document->status = $document::STATUS_FORDOWNLOADING;
+        $document->origin = $document::ORIGIN_WEB;
+        $document->uuid = Uuid::generate();
+        $document->uuidRemote = $frameDocId;
+        $document->encryptedStoredFileId = $myStoredFile->id;
+        $document->receiver = $receiver;
+        $document->fileId = $frameFileId;
+        $document->terminalId = Terminal::getIdByAddress($receiver);
+
+        $result = $document->save(false, [
+            'type',
+            'direction',
+            'origin',
+            'uuid',
+            'uuidRemote',
+            'encryptedStoredFileId',
+            'receiver',
+            'status',
+            'fileId',
+            'terminalId'
+        ]);
+
+        if (!$result) {
+            $this->log("RegisterCftcpDocument: document save error, frame doc_id {$frameDocId}");
+
+            return false;
+        }
+
+        Yii::$app->resque->enqueue(
+            'common\jobs\StateJob',
+            [
+                'stateClass' => '\common\modules\transport\states\in\CftcpDownloadState',
+                'params' => serialize([
+                    'documentId' => $document->id
+                ])
+            ],
+            true,
+            Resque::INCOMING_QUEUE
+        );
+
+        return true;
+    }
+
+    protected function log($msg, $level = 1)
+    {
+        Yii::info($msg, 'stomp');
+    }
+}
+
+if (!$DEBUG) {
+    $child_pid = pcntl_fork();
+    if ($child_pid) {
+        // Выходим из родительского, привязанного к консоли, процесса
+        exit();
+    }
+    // Делаем основным процессом дочерний.
+    posix_setsid();
+    declare(ticks=1) {
+        $baseDir = dirname(dirname(__FILE__));
+    }
+    ini_set('error_log', $baseDir . '/logs/error.log');
+    fclose(STDIN);
+    fclose(STDOUT);
+    fclose(STDERR);
+    $STDIN = fopen('/dev/null', 'r');
+    $STDOUT = fopen(Yii::getAlias('@logs/dispatcher-stomp.log'), 'ab');
+    $STDERR = fopen(Yii::getAlias('@logs/dispatcher-stomp-error.log'), 'ab');
+}
+
+do {
+    try {
+        echo date('[Y-m-d H:i:s]') . " Starting STOMP dispatcher...\n";
+
+        $app = new Application($config);
+        $daemon = new DispatcherStompDaemon();
+        $daemon->run();
+
+        echo date('[Y-m-d H:i:s]') . " STOMP dispatcher exited\n";
+    } catch (Exception $ex) {
+        echo date('[Y-m-d H:i:s]') . " Stopping STOMP dispatcher:\n" . $ex->getMessage()
+            . ' in ' . $ex->getFile() . ':' . $ex->getLine() . "\n";
+    }
+
+    sleep(10);
+    echo date('[Y-m-d H:i:s]') . " Restarting...\n";
+} while (true);
+
+?>

@@ -1,0 +1,44 @@
+common\models\sbbolxml\request\RevocationCertifRequestType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\RevocationCertifRequestType\DocDataAType
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\OrgDataType
+        idCrypto:
+            expose: true
+            access_type: public_method
+            serialized_name: IdCrypto
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIdCrypto
+                setter: setIdCrypto
+            type: string
+        reason:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getReason
+                setter: setReason
+            type: string

@@ -1,0 +1,56 @@
+common\models\sbbolxml\response\RemainResponseType\AccountsAType\AccountAType:
+    properties:
+        outBal:
+            expose: true
+            access_type: public_method
+            serialized_name: outBal
+            accessor:
+                getter: getOutBal
+                setter: setOutBal
+            xml_attribute: true
+            type: float
+        remindDateTime:
+            expose: true
+            access_type: public_method
+            serialized_name: remindDateTime
+            accessor:
+                getter: getRemindDateTime
+                setter: setRemindDateTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        limit:
+            expose: true
+            access_type: public_method
+            serialized_name: limit
+            accessor:
+                getter: getLimit
+                setter: setLimit
+            xml_attribute: true
+            type: float
+        restLimit:
+            expose: true
+            access_type: public_method
+            serialized_name: restLimit
+            accessor:
+                getter: getRestLimit
+                setter: setRestLimit
+            xml_attribute: true
+            type: float
+        usedLimit:
+            expose: true
+            access_type: public_method
+            serialized_name: usedLimit
+            accessor:
+                getter: getUsedLimit
+                setter: setUsedLimit
+            xml_attribute: true
+            type: float
+        accountState:
+            expose: true
+            access_type: public_method
+            serialized_name: accountState
+            accessor:
+                getter: getAccountState
+                setter: setAccountState
+            xml_attribute: true
+            type: string

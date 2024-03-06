@@ -1,0 +1,236 @@
+common\models\raiffeisenxml\response\ResponseType:
+    properties:
+        createTime:
+            expose: true
+            access_type: public_method
+            serialized_name: createTime
+            accessor:
+                getter: getCreateTime
+                setter: setCreateTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        responseId:
+            expose: true
+            access_type: public_method
+            serialized_name: responseId
+            accessor:
+                getter: getResponseId
+                setter: setResponseId
+            xml_attribute: true
+            type: string
+        requestId:
+            expose: true
+            access_type: public_method
+            serialized_name: requestId
+            accessor:
+                getter: getRequestId
+                setter: setRequestId
+            xml_attribute: true
+            type: string
+        version:
+            expose: true
+            access_type: public_method
+            serialized_name: version
+            accessor:
+                getter: getVersion
+                setter: setVersion
+            xml_attribute: true
+            type: string
+        sender:
+            expose: true
+            access_type: public_method
+            serialized_name: sender
+            accessor:
+                getter: getSender
+                setter: setSender
+            xml_attribute: true
+            type: string
+        receiver:
+            expose: true
+            access_type: public_method
+            serialized_name: receiver
+            accessor:
+                getter: getReceiver
+                setter: setReceiver
+            xml_attribute: true
+            type: string
+        errors:
+            expose: true
+            access_type: public_method
+            serialized_name: Errors
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getErrors
+                setter: setErrors
+            type: array<common\models\raiffeisenxml\response\ErrorType>
+            xml_list:
+                inline: false
+                entry_name: Error
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        tickets:
+            expose: true
+            access_type: public_method
+            serialized_name: Tickets
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getTickets
+                setter: setTickets
+            type: array<common\models\raiffeisenxml\response\TicketType>
+            xml_list:
+                inline: false
+                entry_name: Ticket
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        statements:
+            expose: true
+            access_type: public_method
+            serialized_name: Statements
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getStatements
+                setter: setStatements
+            type: array<common\models\raiffeisenxml\response\StatementType>
+            xml_list:
+                inline: false
+                entry_name: Statement
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        statementsRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: StatementsRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getStatementsRaif
+                setter: setStatementsRaif
+            type: array<common\models\raiffeisenxml\response\StatementTypeRaifType>
+            xml_list:
+                inline: false
+                entry_name: StatementRaif
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        lettersFromBank:
+            expose: true
+            access_type: public_method
+            serialized_name: LettersFromBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLettersFromBank
+                setter: setLettersFromBank
+            type: array<common\models\raiffeisenxml\response\LetterFromBankType>
+            xml_list:
+                inline: false
+                entry_name: LetterFromBank
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        cryptopros:
+            expose: true
+            access_type: public_method
+            serialized_name: Cryptopros
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCryptopros
+                setter: setCryptopros
+            type: array<common\models\raiffeisenxml\response\CryptoproType>
+            xml_list:
+                inline: false
+                entry_name: Cryptopro
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        certificates:
+            expose: true
+            access_type: public_method
+            serialized_name: Certificates
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCertificates
+                setter: setCertificates
+            type: array<common\models\raiffeisenxml\response\ResponseType\CertificatesAType\CertificateAType>
+            xml_list:
+                inline: false
+                entry_name: Certificate
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        orgsInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgsInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOrgsInfo
+                setter: setOrgsInfo
+            type: array<common\models\raiffeisenxml\response\OrgInfoType>
+            xml_list:
+                inline: false
+                entry_name: OrgInfo
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        dicts:
+            expose: true
+            access_type: public_method
+            serialized_name: Dicts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDicts
+                setter: setDicts
+            type: array<common\models\raiffeisenxml\response\DictType>
+            xml_list:
+                inline: false
+                entry_name: Dict
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        changePasswordResponse:
+            expose: true
+            access_type: public_method
+            serialized_name: ChangePasswordResponse
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getChangePasswordResponse
+                setter: setChangePasswordResponse
+            type: common\models\raiffeisenxml\response\ResponseType\ChangePasswordResponseAType
+        clientAppUpdates:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientAppUpdates
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getClientAppUpdates
+                setter: setClientAppUpdates
+            type: array<common\models\raiffeisenxml\response\ClientAppUpdateType>
+            xml_list:
+                inline: false
+                entry_name: ClientAppUpdates
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        dealPassCon138I:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCon138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDealPassCon138I
+                setter: setDealPassCon138I
+            type: common\models\raiffeisenxml\response\DealPassCon138IType
+        dealPassCred138I:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCred138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDealPassCred138I
+                setter: setDealPassCred138I
+            type: common\models\raiffeisenxml\response\DealPassCred138IType

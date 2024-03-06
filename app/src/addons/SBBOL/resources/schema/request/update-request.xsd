@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="UpdateRequest">
+        <xs:sequence>
+            <xs:element name="ClientAppType" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Тип клиентского приложения.
+                        Передаем константу:
+                        1- Однопользователькое приложение;
+                        2- Многопользовательское приложение
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ClientAppVersion" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Версия клиентского приложения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ClientOS" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Тип ОС у клиента</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ClientOSArh" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Разрядность ОС</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ClientOSVersion" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Версия ОС</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="JvmVersion" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Версия JVM</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ClientOSLocale" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Региональные настройки операционной системы</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

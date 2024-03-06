@@ -1,0 +1,32 @@
+common\models\sbbolxml\request\BusinessStandingType:
+    properties:
+        writingReferencesFromSBRFClients:
+            expose: true
+            access_type: public_method
+            serialized_name: WritingReferencesFromSBRFClients
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getWritingReferencesFromSBRFClients
+                setter: setWritingReferencesFromSBRFClients
+            type: boolean
+        writingReferencesFromCredOrgs:
+            expose: true
+            access_type: public_method
+            serialized_name: WritingReferencesFromCredOrgs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getWritingReferencesFromCredOrgs
+                setter: setWritingReferencesFromCredOrgs
+            type: boolean
+        noReferencesGiven:
+            expose: true
+            access_type: public_method
+            serialized_name: NoReferencesGiven
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getNoReferencesGiven
+                setter: setNoReferencesGiven
+            type: boolean

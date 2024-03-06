@@ -1,0 +1,89 @@
+common\models\sbbolxml\request\ChapterType:
+    properties:
+        strNum:
+            expose: true
+            access_type: public_method
+            serialized_name: StrNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getStrNum
+                setter: setStrNum
+            type: integer
+        dpChapter:
+            expose: true
+            access_type: public_method
+            serialized_name: DpChapter
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpChapter
+                setter: setDpChapter
+            type: string
+        dpSubchapter:
+            expose: true
+            access_type: public_method
+            serialized_name: DpSubchapter
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpSubchapter
+                setter: setDpSubchapter
+            type: string
+        dpParagraph:
+            expose: true
+            access_type: public_method
+            serialized_name: DpParagraph
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpParagraph
+                setter: setDpParagraph
+            type: string
+        dpSubparagraph:
+            expose: true
+            access_type: public_method
+            serialized_name: DpSubparagraph
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpSubparagraph
+                setter: setDpSubparagraph
+            type: string
+        dpColumns:
+            expose: true
+            access_type: public_method
+            serialized_name: DpColumns
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpColumns
+                setter: setDpColumns
+            type: string
+        dpString:
+            expose: true
+            access_type: public_method
+            serialized_name: DpString
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpString
+                setter: setDpString
+            type: string
+        dpAddInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DpAddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpAddInfo
+                setter: setDpAddInfo
+            type: string

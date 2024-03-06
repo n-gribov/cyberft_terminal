@@ -1,0 +1,103 @@
+common\models\sbbolxml\request\RegOfIssCardsType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\RegOfIssCardsType\DocDataAType
+        authPers:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthPers
+                setter: setAuthPers
+            type: common\models\sbbolxml\request\RegOfIssCardsType\AuthPersAType
+        salaryContract:
+            expose: true
+            access_type: public_method
+            serialized_name: SalaryContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSalaryContract
+                setter: setSalaryContract
+            type: common\models\sbbolxml\request\RegOfIssCardsType\SalaryContractAType
+        orgAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgAddress
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgAddress
+                setter: setOrgAddress
+            type: common\models\sbbolxml\request\AddressRegOfIssType
+        accept:
+            expose: true
+            access_type: public_method
+            serialized_name: Accept
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccept
+                setter: setAccept
+            type: boolean
+        total:
+            expose: true
+            access_type: public_method
+            serialized_name: Total
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTotal
+                setter: setTotal
+            type: integer
+        listOfIssCards:
+            expose: true
+            access_type: public_method
+            serialized_name: ListOfIssCards
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getListOfIssCards
+                setter: setListOfIssCards
+            type: array<common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType>
+            xml_list:
+                inline: false
+                entry_name: IssCardInfo
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\sbbolxml\request\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

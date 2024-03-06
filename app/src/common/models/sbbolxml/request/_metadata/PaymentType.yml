@@ -1,0 +1,97 @@
+common\models\sbbolxml\request\PaymentType:
+    properties:
+        isDocumentNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: IsDocumentNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIsDocumentNumber
+                setter: setIsDocumentNumber
+            type: boolean
+        docNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: DocNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocNumber
+                setter: setDocNumber
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DocDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        paymentAmount:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentAmount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPaymentAmount
+                setter: setPaymentAmount
+            type: float
+        currCode:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCurrCode
+                setter: setCurrCode
+            type: string
+        currNameOper:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrNameOper
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCurrNameOper
+                setter: setCurrNameOper
+            type: string
+        payDirection:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDirection
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPayDirection
+                setter: setPayDirection
+            type: string
+        operDate:
+            expose: true
+            access_type: public_method
+            serialized_name: OperDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOperDate
+                setter: setOperDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        currDocType:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDocType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCurrDocType
+                setter: setCurrDocType
+            type: string

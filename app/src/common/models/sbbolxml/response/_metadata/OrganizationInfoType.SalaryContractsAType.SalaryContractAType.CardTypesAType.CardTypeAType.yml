@@ -1,0 +1,83 @@
+common\models\sbbolxml\response\OrganizationInfoType\SalaryContractsAType\SalaryContractAType\CardTypesAType\CardTypeAType:
+    properties:
+        id:
+            expose: true
+            access_type: public_method
+            serialized_name: id
+            accessor:
+                getter: getId
+                setter: setId
+            xml_attribute: true
+            type: string
+        typeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: typeCode
+            accessor:
+                getter: getTypeCode
+                setter: setTypeCode
+            xml_attribute: true
+            type: string
+        typeName:
+            expose: true
+            access_type: public_method
+            serialized_name: typeName
+            accessor:
+                getter: getTypeName
+                setter: setTypeName
+            xml_attribute: true
+            type: string
+        bonusProgramCode:
+            expose: true
+            access_type: public_method
+            serialized_name: bonusProgramCode
+            accessor:
+                getter: getBonusProgramCode
+                setter: setBonusProgramCode
+            xml_attribute: true
+            type: string
+        peopleGroupName:
+            expose: true
+            access_type: public_method
+            serialized_name: peopleGroupName
+            accessor:
+                getter: getPeopleGroupName
+                setter: setPeopleGroupName
+            xml_attribute: true
+            type: string
+        peopleGroupCode:
+            expose: true
+            access_type: public_method
+            serialized_name: peopleGroupCode
+            accessor:
+                getter: getPeopleGroupCode
+                setter: setPeopleGroupCode
+            xml_attribute: true
+            type: string
+        depositTypeCode1C:
+            expose: true
+            access_type: public_method
+            serialized_name: depositTypeCode1C
+            accessor:
+                getter: getDepositTypeCode1C
+                setter: setDepositTypeCode1C
+            xml_attribute: true
+            type: string
+        depositSubTypeCode1C:
+            expose: true
+            access_type: public_method
+            serialized_name: depositSubTypeCode1C
+            accessor:
+                getter: getDepositSubTypeCode1C
+                setter: setDepositSubTypeCode1C
+            xml_attribute: true
+            type: string
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endDate
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

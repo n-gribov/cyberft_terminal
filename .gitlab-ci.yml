@@ -1,0 +1,345 @@
+stages:
+  - install+tests
+  - tag
+  - make
+  - deploy
+  - check
+########################################        install+tests section
+dev-install+tests:
+  stage: install+tests
+  script:
+    - /home/selenium/tmpclean.sh
+    - utils/ci-cleaner.sh
+    - distr/docker/install.sh --data-file=test_params.json
+    - utils/checkout_branch.sh
+    - app/src/tests/utils/dev_runner.sh
+  except:
+    - /^master|^rc-.*/
+  environment: dev
+  tags:
+    - CyberFT-Terminal
+    - tests
+rc_console_test:
+  stage: install+tests
+  script:
+    - /home/selenium/tmpclean.sh
+    - utils/cleaner.sh
+    - utils/ci-cleaner.sh
+    - distr/docker/install.sh --data-file=test_params.json
+    - utils/checkout_branch.sh
+    - app/src/tests/utils/console_test.sh
+  only:
+    - /^rc-.*/
+  tags:
+    - CyberFT-Terminal
+    - tests
+rc_pages_test:
+  stage: install+tests
+  script:
+    - /home/selenium/tmpclean.sh
+    - utils/cleaner.sh
+    - utils/ci-cleaner.sh
+    - distr/docker/install.sh --data-file=test_params.json
+    - utils/checkout_branch.sh
+    - app/src/tests/utils/pages_test.sh
+  only:
+    - /^rc-.*/
+  tags:
+    - CyberFT-Terminal
+    - tests
+rc-install+tests:
+  before_script:
+    - docker stop selenium-firefox-two selenium-firefox selenium-chrome-two selenium-chrome selenium-hub
+    - docker start selenium-hub
+    - sleep 10
+    - docker start selenium-firefox-two selenium-firefox selenium-chrome-two selenium-chrome
+  stage: install+tests
+  script:
+    - utils/cleaner.sh
+    - utils/ci-cleaner.sh
+    - distr/docker/install.sh --data-file=test_params.json
+    - utils/checkout_branch.sh
+    - app/src/tests/utils/smoke_test.sh
+    - app/src/tests/utils/rc_runner.sh
+  only:
+    - /^rc-.*/
+  environment: rc_build
+  tags:
+    - CyberFT-Terminal
+    - tests
+  except:
+    - tags
+rc-vtb-install+tests:
+  stage: install+tests
+  script:
+    - /home/selenium/tmpclean.sh
+    - utils/cleaner.sh
+    - utils/ci-cleaner.sh
+    - distr/docker/install.sh --data-file=test_params.json
+    - utils/checkout_branch.sh
+    - app/src/tests/utils/smoke_test.sh
+    - app/src/tests/utils/rc_runner.sh
+  only:
+    - /^vtb_rc.*/
+  tags:
+    - CyberFT-Terminal
+    - tests
+  except:
+    - tags
+only_rc_tests:
+  stage: install+tests
+  script:
+    - /home/selenium/tmpclean.sh
+    - utils/cleaner.sh
+    - utils/ci-cleaner.sh
+    - distr/docker/install.sh --data-file=test_params.json
+    - utils/checkout_branch.sh
+    - app/src/tests/utils/smoke_test.sh
+    - app/src/tests/utils/rc_runner.sh
+  when: manual
+  tags:
+    - CyberFT-Terminal
+    - tests
+  except:
+    - /^master|^rc-.*/
+########################################
+
+########################################       tag section
+tagger:
+  stage: tag
+  script:
+    - utils/checkout_branch.sh
+    - app/src/tests/utils/tagger.sh
+  only:
+    - /^no_test_rc|^rc-.*/
+  tags:
+    - CyberFT-Terminal
+    - tag
+vtb_tagger:
+  stage: tag
+  script:
+    - utils/checkout_branch.sh
+    - app/src/tests/utils/vtb_tagger.sh
+  only:
+    - /^vtb_rc.*/
+  tags:
+    - CyberFT-Terminal
+    - tag
+########################################
+
+########################################         make section
+
+maker:
+  stage: make
+  script:
+    - utils/cleaner.sh
+    - utils/ci-cleaner.sh
+    - utils/maker.sh /home/_builds/images
+  tags:
+    - CyberFT-Terminal
+    - make
+  only:
+    - /^no_test_rc|^rc-.*/
+maker_vtb:
+  stage: make
+  script:
+    - utils/cleaner.sh
+    - utils/ci-cleaner.sh
+    - utils/vtb_maker.sh /home/_builds/images
+  tags:
+    - CyberFT-Terminal
+    - make
+  only:
+    - /^vtb_rc.*/
+
+maker_raiffeisen:
+  stage: make
+  script:
+    - utils/cleaner.sh
+    - utils/ci-cleaner.sh
+    - utils/raiffeisen_maker.sh /home/_builds/images
+  tags:
+    - CyberFT-Terminal
+    - make
+  only:
+    - /^raiffeisen_rc.*/
+########################################
+
+########################################        check section (unused)
+#Appchecker:
+#  stage: check
+#  script:
+#  - utils/appchecker.sh
+#  only:
+#  - /^rc-.*/
+
+########################################
+
+########################################        deploy test servers section
+
+deploy-to-cyberft-note-bankrumm:
+  stage: deploy
+  script:
+    - ssh root@cyberft-note-bankrumm 'bash -s' < utils/git-updater.sh /home/cyberft/cyberft/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@cyberft-note-bankrumm 'bash -s' < utils/addons_remove.sh /home/cyberft/cyberft/ VTB SBBOL sbbol2 raiffeisen
+  when: manual
+  only:
+    - /^rc-.*/
+  environment: DEV/notebook_1
+  tags:
+    - CyberFT-Terminal
+    - deploy-test
+  allow_failure: true
+
+deploy-to-cyberft-note-platrumm:
+  stage: deploy
+  script:
+    - ssh root@cyberft-note-platrumm 'bash -s' < utils/git-updater.sh  /home/cyberft/cyberft/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@cyberft-note-platrumm 'bash -s' < utils/addons_remove.sh  /home/cyberft/cyberft/ VTB SBBOL sbbol2 raiffeisen
+  when: manual
+  only:
+    - /^rc-.*/
+  environment: DEV/notebook_2
+  tags:
+    - CyberFT-Terminal
+    - deploy-test
+  allow_failure: true
+
+deploy-to-test-sber/vtb:
+  stage: deploy
+  script:
+    - ssh root@192.168.6.38 'bash -s' < utils/git-updater.sh /opt/QA/Sber/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@192.168.6.38 'bash -s' < utils/addons_remove.sh /opt/QA/Sber/ VTB . . raiffeisen
+
+    - ssh root@192.168.6.38 'bash -s' < utils/git-updater.sh /opt/QA/Sber_Main/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@192.168.6.38 'bash -s' < utils/addons_remove.sh /opt/QA/Sber_Main/ VTB . . raiffeisen
+
+    - ssh root@192.168.6.38 'bash -s' < utils/git-updater.sh /opt/QA/VTB/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@192.168.6.38 'bash -s' < utils/addons_remove.sh /opt/QA/VTB/ . SBBOL sbbol2 raiffeisen
+
+    - ssh root@192.168.6.38 'bash -s' < utils/git-updater.sh /opt/QA/VTB_PO/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@192.168.6.38 'bash -s' < utils/addons_remove.sh /opt/QA/VTB_PO/ . SBBOL sbbol2 raiffeisen
+
+    - ssh root@192.168.6.38 'bash -s' < utils/git-updater.sh /opt/QA/VTB_PGK_GATE/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@192.168.6.38 'bash -s' < utils/addons_remove.sh /opt/QA/VTB_PGK_GATE/ . SBBOL sbbol2 raiffeisen
+  when: manual
+  only:
+    - /^dev|^rc-.*/
+  environment: DEV/sber_vtb
+  tags:
+    - CyberFT-Terminal
+    - deploy-test
+  allow_failure: true
+
+
+deploy-to-60.104(ex 57.4):
+  stage: deploy
+  script:
+    - ssh root@$RC_SERVER 'bash -s' < utils/git-updater.sh  /home/cyberft/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@$RC_SERVER 'bash -s' < utils/addons_remove.sh  /home/cyberft/ VTB SBBOL sbbol2 raiffeisen
+  only:
+    - /^dev/|^rc-.*/
+  tags:
+    - CyberFT-Terminal
+    - deploy-test
+  environment: DEV/actual
+
+deploy-to-demo-client-stend(60.23):
+  stage: deploy
+  script:
+    - ssh root@192.168.61.23 'bash -s' < utils/git-updater.sh  /home/CyberFT/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@192.168.61.23 'bash -s' < utils/addons_remove.sh  /home/CyberFT/ VTB SBBOL sbbol2 raiffeisen
+  only:
+    - /^rc-.*/
+  environment: DEV/demo_server
+  tags:
+    - CyberFT-Terminal
+    - deploy-test
+
+deploy-to-unicredit-demo(60.188):
+  stage: deploy
+  script:
+    - ssh root@192.168.60.188 'bash -s' < utils/git-updater.sh  /home/cyberft/cyberft/ $CI_BUILD_REF $CI_BUILD_REF_NAME
+    - ssh root@192.168.60.188 'bash -s' < utils/addons_remove.sh  /home/cyberft/cyberft/ VTB SBBOL sbbol2 raiffeisen
+  when: manual
+  tags:
+    - CyberFT-Terminal
+    - deploy-test
+  only:
+    - /^dev/
+
+########################################
+
+########################################        deploy prod servers section
+
+
+deploy-to-platina:
+  stage: deploy
+  script:
+    - ssh root@$PLATINA_SERVER 'bash -s' < utils/git-updater.sh  /home/cyberft/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@$PLATINA_SERVER 'bash -s' < utils/addons_remove.sh  /home/cyberft/ VTB SBBOL sbbol2 raiffeisen
+  when: manual
+  only:
+    - /^rc-.*/
+  environment: PRODUCTION/platina
+  tags:
+    - CyberFT-Terminal
+    - deploy-prod
+  allow_failure: false
+
+deploy-to-multiterm:
+  stage: deploy
+  script:
+    - ssh root@$MULTITERM_SERVER 'bash -s' < utils/git-updater.sh  /home/fwww/cyberft/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@$MULTITERM_SERVER 'bash -s' < utils/addons_remove.sh  /home/fwww/cyberft/ VTB SBBOL sbbol2 raiffeisen
+  when: manual
+  only:
+    - /^rc-.*/
+  environment: PRODUCTION/multiterm
+  tags:
+    - CyberFT-Terminal
+    - deploy-prod
+  allow_failure: false
+
+deploy-to-rpole:
+  stage: deploy
+  script:
+    - ssh root@$RODNOEPOLE_SERVER 'bash -s' < utils/git-updater.sh  /home/cyberft3/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@$RODNOEPOLE_SERVER 'bash -s' < utils/addons_remove.sh  /home/cyberft3/ VTB SBBOL sbbol2 raiffeisen
+  when: manual
+  only:
+    - /^rc-.*/
+  environment: PRODUCTION/rpole
+  tags:
+    - CyberFT-Terminal
+    - deploy-prod
+  allow_failure: false
+
+
+deploy-to-sber:
+  stage: deploy
+  script:
+    - ssh root@$SBERBANK_SERVER 'bash -s' < utils/git-updater.sh  /home/fwww/cyberft/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@$SBERBANK_SERVER 'bash -s' < utils/addons_remove.sh /home/fwww/cyberft/ VTB . . raiffeisen
+  when: manual
+  only:
+    - /^rc-.*/
+  environment: PRODUCTION/sberbank
+  tags:
+    - CyberFT-Terminal
+    - deploy-prod
+  allow_failure: false
+
+deploy-to-dbovtb:
+  stage: deploy
+  script:
+    - ssh root@$DBOVTB_SERVER 'bash -s' < utils/git-updater.sh  /home/cyberft/ $CI_BUILD_REF $CI_BUILD_REF_NAME $Crypto_pro_key
+    - ssh root@$DBOVTB_SERVER 'bash -s' < utils/addons_remove.sh /home/cyberft/ . SBBOL sbbol2 raiffeisen
+  when: manual
+  only:
+    - /^rc-.*/
+  environment: PRODUCTION/dbovtb
+  tags:
+    - CyberFT-Terminal
+    - deploy-prod
+  allow_failure: false

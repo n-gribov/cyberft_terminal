@@ -1,0 +1,22 @@
+common\models\sbbolxml\response\ResponseType\StatusSMSAType:
+    properties:
+        status:
+            expose: true
+            access_type: public_method
+            serialized_name: status
+            accessor:
+                getter: getStatus
+                setter: setStatus
+            xml_attribute: true
+            type: boolean
+        exeption:
+            expose: true
+            access_type: public_method
+            serialized_name: Exeption
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getExeption
+                setter: setExeption
+            type: string

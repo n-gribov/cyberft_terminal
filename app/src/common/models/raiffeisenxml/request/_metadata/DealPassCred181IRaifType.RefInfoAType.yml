@@ -1,0 +1,23 @@
+common\models\raiffeisenxml\request\DealPassCred181IRaifType\RefInfoAType:
+    properties:
+        resInType:
+            expose: true
+            access_type: public_method
+            serialized_name: ResInType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getResInType
+                setter: setResInType
+            type: string
+        resInDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ResInDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getResInDate
+                setter: setResInDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

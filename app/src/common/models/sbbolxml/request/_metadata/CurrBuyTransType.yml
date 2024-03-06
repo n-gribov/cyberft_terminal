@@ -1,0 +1,62 @@
+common\models\sbbolxml\request\CurrBuyTransType:
+    properties:
+        acc:
+            expose: true
+            access_type: public_method
+            serialized_name: Acc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcc
+                setter: setAcc
+            type: common\models\sbbolxml\request\CurrBuyTransType\AccAType
+        amountTransf:
+            expose: true
+            access_type: public_method
+            serialized_name: AmountTransf
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAmountTransf
+                setter: setAmountTransf
+            type: common\models\sbbolxml\request\CurrBuyTransType\AmountTransfAType
+        termBuy:
+            expose: true
+            access_type: public_method
+            serialized_name: TermBuy
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTermBuy
+                setter: setTermBuy
+            type: common\models\sbbolxml\request\TermDealType
+        accountNumTransf:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountNumTransf
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccountNumTransf
+                setter: setAccountNumTransf
+            type: common\models\sbbolxml\request\CurrBuyTransType\AccountNumTransfAType
+        payDocBuy:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocBuy
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocBuy
+                setter: setPayDocBuy
+            type: common\models\sbbolxml\request\CurrBuyTransType\PayDocBuyAType
+        commis:
+            expose: true
+            access_type: public_method
+            serialized_name: Commis
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCommis
+                setter: setCommis
+            type: common\models\sbbolxml\request\CommisionType

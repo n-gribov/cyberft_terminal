@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\response\ResponseType\DictsAType:
+    properties:
+        dict:
+            expose: true
+            access_type: public_method
+            serialized_name: Dict
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDict
+                setter: setDict
+            xml_list:
+                inline: true
+                entry_name: Dict
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\DictType>

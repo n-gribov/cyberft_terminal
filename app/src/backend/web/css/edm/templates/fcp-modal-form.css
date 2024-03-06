@@ -1,0 +1,12 @@
+#edmTemplateFCPModal .modal-dialog {
+    width: 720px;
+}
+
+#edmTemplateFCPModal .modal-body {
+    height: 800px;
+    overflow: auto;
+}
+
+#edmTemplateFCPModal {
+    margin-top: -15px;
+}

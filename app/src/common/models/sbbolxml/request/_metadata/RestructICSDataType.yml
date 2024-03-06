@@ -1,0 +1,85 @@
+common\models\sbbolxml\request\RestructICSDataType:
+    properties:
+        iCSDocId:
+            expose: true
+            access_type: public_method
+            serialized_name: ICSDocId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getICSDocId
+                setter: setICSDocId
+            type: string
+        iCSNum:
+            expose: true
+            access_type: public_method
+            serialized_name: ICSNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getICSNum
+                setter: setICSNum
+            type: string
+        iCSDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ICSDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getICSDate
+                setter: setICSDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        changeInUSRLE:
+            expose: true
+            access_type: public_method
+            serialized_name: ChangeInUSRLE
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChangeInUSRLE
+                setter: setChangeInUSRLE
+            type: boolean
+        changedContentInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ChangedContentInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getChangedContentInfo
+                setter: setChangedContentInfo
+            type: string
+        prolongation:
+            expose: true
+            access_type: public_method
+            serialized_name: Prolongation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getProlongation
+                setter: setProlongation
+            type: boolean
+        groundInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: GroundInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGroundInfo
+                setter: setGroundInfo
+            type: common\models\sbbolxml\request\GroundInfoICSType
+        tableDealPassIcs:
+            expose: true
+            access_type: public_method
+            serialized_name: TableDealPassIcs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTableDealPassIcs
+                setter: setTableDealPassIcs
+            type: common\models\sbbolxml\request\TableDealPassIcsType

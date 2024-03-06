@@ -1,0 +1,32 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\AuthSignsAType\AuthSignAType\AcceptAType:
+    properties:
+        credentials:
+            expose: true
+            access_type: public_method
+            serialized_name: Credentials
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCredentials
+                setter: setCredentials
+            type: boolean
+        durationFrom:
+            expose: true
+            access_type: public_method
+            serialized_name: DurationFrom
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDurationFrom
+                setter: setDurationFrom
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        durationTill:
+            expose: true
+            access_type: public_method
+            serialized_name: DurationTill
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDurationTill
+                setter: setDurationTill
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

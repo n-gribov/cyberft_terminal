@@ -1,0 +1,39 @@
+common\models\sbbolxml\request\VerifySMSSignType:
+    properties:
+        smsCode:
+            expose: true
+            access_type: public_method
+            serialized_name: smsCode
+            accessor:
+                getter: getSmsCode
+                setter: setSmsCode
+            xml_attribute: true
+            type: string
+        smsId:
+            expose: true
+            access_type: public_method
+            serialized_name: smsId
+            accessor:
+                getter: getSmsId
+                setter: setSmsId
+            xml_attribute: true
+            type: string
+        cryptoProfileID:
+            expose: true
+            access_type: public_method
+            serialized_name: cryptoProfileID
+            accessor:
+                getter: getCryptoProfileID
+                setter: setCryptoProfileID
+            xml_attribute: true
+            type: string
+        sMSSignReqParams:
+            expose: true
+            access_type: public_method
+            serialized_name: SMSSignReqParams
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSMSSignReqParams
+                setter: setSMSSignReqParams
+            type: common\models\sbbolxml\request\SMSSignReqParamsType

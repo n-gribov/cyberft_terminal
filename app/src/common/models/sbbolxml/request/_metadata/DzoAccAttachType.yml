@@ -1,0 +1,55 @@
+common\models\sbbolxml\request\DzoAccAttachType:
+    properties:
+        operationType:
+            expose: true
+            access_type: public_method
+            serialized_name: operationType
+            accessor:
+                getter: getOperationType
+                setter: setOperationType
+            xml_attribute: true
+            type: string
+        headOrgId:
+            expose: true
+            access_type: public_method
+            serialized_name: headOrgId
+            accessor:
+                getter: getHeadOrgId
+                setter: setHeadOrgId
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\DzoAccAttachDocDataType
+        dzoOrgData:
+            expose: true
+            access_type: public_method
+            serialized_name: DzoOrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDzoOrgData
+                setter: setDzoOrgData
+            type: common\models\sbbolxml\request\DzoOrgDataType
+        accounts:
+            expose: true
+            access_type: public_method
+            serialized_name: Accounts
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccounts
+                setter: setAccounts
+            type: array<common\models\sbbolxml\request\AccountType>
+            xml_list:
+                inline: false
+                entry_name: Account
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'

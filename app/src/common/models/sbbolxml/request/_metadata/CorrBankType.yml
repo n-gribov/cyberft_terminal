@@ -1,0 +1,35 @@
+common\models\sbbolxml\request\CorrBankType:
+    properties:
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        bic:
+            expose: true
+            access_type: public_method
+            serialized_name: bic
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBic
+                setter: setBic
+            type: string
+        correspAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: correspAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCorrespAcc
+                setter: setCorrespAcc
+            type: string

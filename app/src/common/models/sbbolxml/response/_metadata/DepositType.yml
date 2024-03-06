@@ -1,0 +1,155 @@
+common\models\sbbolxml\response\DepositType:
+    properties:
+        depositType:
+            expose: true
+            access_type: public_method
+            serialized_name: depositType
+            accessor:
+                getter: getDepositType
+                setter: setDepositType
+            xml_attribute: true
+            type: string
+        depositSum:
+            expose: true
+            access_type: public_method
+            serialized_name: depositSum
+            accessor:
+                getter: getDepositSum
+                setter: setDepositSum
+            xml_attribute: true
+            type: float
+        depositSumCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: depositSumCurrCode
+            accessor:
+                getter: getDepositSumCurrCode
+                setter: setDepositSumCurrCode
+            xml_attribute: true
+            type: string
+        depositTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: depositTerm
+            accessor:
+                getter: getDepositTerm
+                setter: setDepositTerm
+            xml_attribute: true
+            type: integer
+        depositFromDate:
+            expose: true
+            access_type: public_method
+            serialized_name: depositFromDate
+            accessor:
+                getter: getDepositFromDate
+                setter: setDepositFromDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        depositToDate:
+            expose: true
+            access_type: public_method
+            serialized_name: depositToDate
+            accessor:
+                getter: getDepositToDate
+                setter: setDepositToDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        interestRate:
+            expose: true
+            access_type: public_method
+            serialized_name: interestRate
+            accessor:
+                getter: getInterestRate
+                setter: setInterestRate
+            xml_attribute: true
+            type: float
+        interestRateOnClose:
+            expose: true
+            access_type: public_method
+            serialized_name: interestRateOnClose
+            accessor:
+                getter: getInterestRateOnClose
+                setter: setInterestRateOnClose
+            xml_attribute: true
+            type: float
+        interestPayment:
+            expose: true
+            access_type: public_method
+            serialized_name: interestPayment
+            accessor:
+                getter: getInterestPayment
+                setter: setInterestPayment
+            xml_attribute: true
+            type: string
+        paymentAmount:
+            expose: true
+            access_type: public_method
+            serialized_name: paymentAmount
+            accessor:
+                getter: getPaymentAmount
+                setter: setPaymentAmount
+            xml_attribute: true
+            type: float
+        paymentCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: paymentCurrCode
+            accessor:
+                getter: getPaymentCurrCode
+                setter: setPaymentCurrCode
+            xml_attribute: true
+            type: string
+        accruedAmount:
+            expose: true
+            access_type: public_method
+            serialized_name: accruedAmount
+            accessor:
+                getter: getAccruedAmount
+                setter: setAccruedAmount
+            xml_attribute: true
+            type: float
+        accruedCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: accruedCurrCode
+            accessor:
+                getter: getAccruedCurrCode
+                setter: setAccruedCurrCode
+            xml_attribute: true
+            type: string
+        amountChange:
+            expose: true
+            access_type: public_method
+            serialized_name: amountChange
+            accessor:
+                getter: getAmountChange
+                setter: setAmountChange
+            xml_attribute: true
+            type: boolean
+        fillUpDate:
+            expose: true
+            access_type: public_method
+            serialized_name: fillUpDate
+            accessor:
+                getter: getFillUpDate
+                setter: setFillUpDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        review:
+            expose: true
+            access_type: public_method
+            serialized_name: review
+            accessor:
+                getter: getReview
+                setter: setReview
+            xml_attribute: true
+            type: boolean
+        reviewFromDate:
+            expose: true
+            access_type: public_method
+            serialized_name: reviewFromDate
+            accessor:
+                getter: getReviewFromDate
+                setter: setReviewFromDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

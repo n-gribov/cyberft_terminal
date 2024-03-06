@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\AdmCashierType\ADMTemplatesAType\TemplateAType:
+    properties:
+        templateId:
+            expose: true
+            access_type: public_method
+            serialized_name: templateId
+            accessor:
+                getter: getTemplateId
+                setter: setTemplateId
+            xml_attribute: true
+            type: string

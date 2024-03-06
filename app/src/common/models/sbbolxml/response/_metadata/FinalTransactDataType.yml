@@ -1,0 +1,82 @@
+common\models\sbbolxml\response\FinalTransactDataType:
+    properties:
+        transactionDate:
+            expose: true
+            access_type: public_method
+            serialized_name: TransactionDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getTransactionDate
+                setter: setTransactionDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        totalCredit:
+            expose: true
+            access_type: public_method
+            serialized_name: TotalCredit
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getTotalCredit
+                setter: setTotalCredit
+            type: float
+        totalDebit:
+            expose: true
+            access_type: public_method
+            serialized_name: TotalDebit
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getTotalDebit
+                setter: setTotalDebit
+            type: float
+        incNonresidLiabilitySum:
+            expose: true
+            access_type: public_method
+            serialized_name: IncNonresidLiabilitySum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIncNonresidLiabilitySum
+                setter: setIncNonresidLiabilitySum
+            type: float
+        incResidentLiabilitySum:
+            expose: true
+            access_type: public_method
+            serialized_name: IncResidentLiabilitySum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIncResidentLiabilitySum
+                setter: setIncResidentLiabilitySum
+            type: float
+        decNonresToResidentLiabSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DecNonresToResidentLiabSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDecNonresToResidentLiabSum
+                setter: setDecNonresToResidentLiabSum
+            type: float
+        decResidentToNonresLiabSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DecResidentToNonresLiabSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDecResidentToNonresLiabSum
+                setter: setDecResidentToNonresLiabSum
+            type: float
+        balance:
+            expose: true
+            access_type: public_method
+            serialized_name: Balance
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBalance
+                setter: setBalance
+            type: float

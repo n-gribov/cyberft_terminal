@@ -1,0 +1,21 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\MainAType\ExecutiveBankAType:
+    properties:
+        executiveBank:
+            expose: true
+            access_type: public_method
+            serialized_name: executiveBank
+            accessor:
+                getter: getExecutiveBank
+                setter: setExecutiveBank
+            xml_attribute: true
+            type: string
+        otherBank:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOtherBank
+                setter: setOtherBank
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\MainAType\ExecutiveBankAType\OtherBankAType

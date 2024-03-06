@@ -1,0 +1,74 @@
+common\models\raiffeisenxml\request\CIDPRaif181iType\DpInfoAType\TransfConAType:
+    properties:
+        chngBank:
+            expose: true
+            access_type: public_method
+            serialized_name: chngBank
+            accessor:
+                getter: getChngBank
+                setter: setChngBank
+            xml_attribute: true
+            type: string
+        agrNum:
+            expose: true
+            access_type: public_method
+            serialized_name: agrNum
+            accessor:
+                getter: getAgrNum
+                setter: setAgrNum
+            xml_attribute: true
+            type: string
+        agrDate:
+            expose: true
+            access_type: public_method
+            serialized_name: agrDate
+            accessor:
+                getter: getAgrDate
+                setter: setAgrDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        orgName:
+            expose: true
+            access_type: public_method
+            serialized_name: orgName
+            accessor:
+                getter: getOrgName
+                setter: setOrgName
+            xml_attribute: true
+            type: string
+        ogrn:
+            expose: true
+            access_type: public_method
+            serialized_name: ogrn
+            accessor:
+                getter: getOgrn
+                setter: setOgrn
+            xml_attribute: true
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        kpp:
+            expose: true
+            access_type: public_method
+            serialized_name: kpp
+            accessor:
+                getter: getKpp
+                setter: setKpp
+            xml_attribute: true
+            type: string
+        orgAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: orgAddress
+            accessor:
+                getter: getOrgAddress
+                setter: setOrgAddress
+            xml_attribute: true
+            type: string

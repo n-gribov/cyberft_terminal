@@ -1,0 +1,54 @@
+common\models\raiffeisenxml\request\DealPassCon138IType\ResInfoAType:
+    properties:
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: common\models\raiffeisenxml\request\DealPassCon138IType\ResInfoAType\AddressAType
+        oGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: OGRN
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOGRN
+                setter: setOGRN
+            type: string
+        regDate:
+            expose: true
+            access_type: public_method
+            serialized_name: RegDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRegDate
+                setter: setRegDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        kpp:
+            expose: true
+            access_type: public_method
+            serialized_name: Kpp
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getKpp
+                setter: setKpp
+            type: common\models\raiffeisenxml\request\DealPassCon138IType\ResInfoAType\KppAType

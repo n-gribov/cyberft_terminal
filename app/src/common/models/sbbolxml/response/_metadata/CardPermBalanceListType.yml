@@ -1,0 +1,25 @@
+common\models\sbbolxml\response\CardPermBalanceListType:
+    properties:
+        stepId:
+            expose: true
+            access_type: public_method
+            serialized_name: stepId
+            accessor:
+                getter: getStepId
+                setter: setStepId
+            xml_attribute: true
+            type: integer
+        cardPermBalance:
+            expose: true
+            access_type: public_method
+            serialized_name: CardPermBalance
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCardPermBalance
+                setter: setCardPermBalance
+            xml_list:
+                inline: true
+                entry_name: CardPermBalance
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\CardPermBalanceType>

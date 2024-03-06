@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\request\ChanDPConRaifType\DealPassportsAType:
+    properties:
+        dealPass:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPass
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPass
+                setter: setDealPass
+            xml_list:
+                inline: true
+                entry_name: DealPass
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\ChanDPConRaifType\DealPassportsAType\DealPassAType>

@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\request\ChanDPType\DpInfoAType\OperAType\ChapterInfoAType:
+    properties:
+        chapter:
+            expose: true
+            access_type: public_method
+            serialized_name: Chapter
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChapter
+                setter: setChapter
+            xml_list:
+                inline: true
+                entry_name: Chapter
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\ChanDPType\DpInfoAType\OperAType\ChapterInfoAType\ChapterAType>

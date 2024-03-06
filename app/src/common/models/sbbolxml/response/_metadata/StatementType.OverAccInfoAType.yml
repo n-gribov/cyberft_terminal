@@ -1,0 +1,38 @@
+common\models\sbbolxml\response\StatementType\OverAccInfoAType:
+    properties:
+        limit:
+            expose: true
+            access_type: public_method
+            serialized_name: limit
+            accessor:
+                getter: getLimit
+                setter: setLimit
+            xml_attribute: true
+            type: float
+        restLimit:
+            expose: true
+            access_type: public_method
+            serialized_name: restLimit
+            accessor:
+                getter: getRestLimit
+                setter: setRestLimit
+            xml_attribute: true
+            type: float
+        usedLimit:
+            expose: true
+            access_type: public_method
+            serialized_name: usedLimit
+            accessor:
+                getter: getUsedLimit
+                setter: setUsedLimit
+            xml_attribute: true
+            type: float
+        accountState:
+            expose: true
+            access_type: public_method
+            serialized_name: accountState
+            accessor:
+                getter: getAccountState
+                setter: setAccountState
+            xml_attribute: true
+            type: string

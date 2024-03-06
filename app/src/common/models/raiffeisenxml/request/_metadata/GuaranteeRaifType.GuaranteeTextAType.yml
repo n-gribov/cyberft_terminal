@@ -1,0 +1,22 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType\GuaranteeTextAType:
+    properties:
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: type
+            accessor:
+                getter: getType
+                setter: setType
+            xml_attribute: true
+            type: string
+        text:
+            expose: true
+            access_type: public_method
+            serialized_name: Text
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getText
+                setter: setText
+            type: string

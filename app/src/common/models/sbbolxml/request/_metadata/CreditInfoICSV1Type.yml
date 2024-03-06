@@ -1,0 +1,33 @@
+common\models\sbbolxml\request\CreditInfoICSV1Type:
+    properties:
+        nonResident:
+            expose: true
+            access_type: public_method
+            serialized_name: NonResident
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNonResident
+                setter: setNonResident
+            type: string
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: common\models\sbbolxml\request\CountryNameType
+        principial:
+            expose: true
+            access_type: public_method
+            serialized_name: Principial
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPrincipial
+                setter: setPrincipial
+            type: common\models\sbbolxml\request\CreditInfoPrincipalICSV1Type

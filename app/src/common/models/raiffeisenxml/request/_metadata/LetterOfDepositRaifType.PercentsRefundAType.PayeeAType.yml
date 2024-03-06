@@ -1,0 +1,31 @@
+common\models\raiffeisenxml\request\LetterOfDepositRaifType\PercentsRefundAType\PayeeAType:
+    properties:
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        personalAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: personalAcc
+            accessor:
+                getter: getPersonalAcc
+                setter: setPersonalAcc
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string

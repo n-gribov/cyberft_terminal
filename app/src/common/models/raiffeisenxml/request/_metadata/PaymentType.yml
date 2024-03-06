@@ -1,0 +1,74 @@
+common\models\raiffeisenxml\request\PaymentType:
+    properties:
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: Num
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getNum
+                setter: setNum
+            type: int
+        currDigitalType:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDigitalType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCurrDigitalType
+                setter: setCurrDigitalType
+            type: string
+        principalDate:
+            expose: true
+            access_type: public_method
+            serialized_name: PrincipalDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPrincipalDate
+                setter: setPrincipalDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        principalSum:
+            expose: true
+            access_type: public_method
+            serialized_name: PrincipalSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPrincipalSum
+                setter: setPrincipalSum
+            type: float
+        interestDate:
+            expose: true
+            access_type: public_method
+            serialized_name: InterestDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getInterestDate
+                setter: setInterestDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        interestSum:
+            expose: true
+            access_type: public_method
+            serialized_name: InterestSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getInterestSum
+                setter: setInterestSum
+            type: float
+        desc:
+            expose: true
+            access_type: public_method
+            serialized_name: Desc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDesc
+                setter: setDesc
+            type: string

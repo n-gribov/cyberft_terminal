@@ -1,0 +1,70 @@
+common\models\raiffeisenxml\request\AccreditiveRubRaifType\ExecutiveBankAType:
+    properties:
+        executiveBank:
+            expose: true
+            access_type: public_method
+            serialized_name: executiveBank
+            accessor:
+                getter: getExecutiveBank
+                setter: setExecutiveBank
+            xml_attribute: true
+            type: string
+        commission:
+            expose: true
+            access_type: public_method
+            serialized_name: commission
+            accessor:
+                getter: getCommission
+                setter: setCommission
+            xml_attribute: true
+            type: string
+        partialPayments:
+            expose: true
+            access_type: public_method
+            serialized_name: partialPayments
+            accessor:
+                getter: getPartialPayments
+                setter: setPartialPayments
+            xml_attribute: true
+            type: string
+        confirmation:
+            expose: true
+            access_type: public_method
+            serialized_name: confirmation
+            accessor:
+                getter: getConfirmation
+                setter: setConfirmation
+            xml_attribute: true
+            type: string
+        anotherExBank:
+            expose: true
+            access_type: public_method
+            serialized_name: AnotherExBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAnotherExBank
+                setter: setAnotherExBank
+            type: string
+        anotherComission:
+            expose: true
+            access_type: public_method
+            serialized_name: AnotherComission
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAnotherComission
+                setter: setAnotherComission
+            type: string
+        execution:
+            expose: true
+            access_type: public_method
+            serialized_name: Execution
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExecution
+                setter: setExecution
+            type: common\models\raiffeisenxml\request\AccreditiveRubRaifType\ExecutiveBankAType\ExecutionAType

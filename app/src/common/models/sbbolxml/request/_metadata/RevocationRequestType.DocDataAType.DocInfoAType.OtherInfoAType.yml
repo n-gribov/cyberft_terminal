@@ -1,0 +1,51 @@
+common\models\sbbolxml\request\RevocationRequestType\DocDataAType\DocInfoAType\OtherInfoAType:
+    properties:
+        docType:
+            expose: true
+            access_type: public_method
+            serialized_name: docType
+            accessor:
+                getter: getDocType
+                setter: setDocType
+            xml_attribute: true
+            type: string
+        docNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: docNumber
+            accessor:
+                getter: getDocNumber
+                setter: setDocNumber
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        documentInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DocumentInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocumentInfo
+                setter: setDocumentInfo
+            type: string
+        documentInfo2:
+            expose: true
+            access_type: public_method
+            serialized_name: DocumentInfo2
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocumentInfo2
+                setter: setDocumentInfo2
+            type: string

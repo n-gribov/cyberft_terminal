@@ -1,0 +1,20 @@
+common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecDataAType\LiborRateCodeAType:
+    properties:
+        value:
+            expose: true
+            access_type: public_method
+            serialized_name: value
+            accessor:
+                getter: getValue
+                setter: setValue
+            xml_attribute: true
+            type: string
+        isoCode:
+            expose: true
+            access_type: public_method
+            serialized_name: isoCode
+            accessor:
+                getter: getIsoCode
+                setter: setIsoCode
+            xml_attribute: true
+            type: string

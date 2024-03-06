@@ -1,0 +1,84 @@
+common\models\raiffeisenxml\response\ResponseType\CertificatesAType\CertificateAType:
+    properties:
+        __value:
+            expose: true
+            xml_value: true
+            access_type: public_method
+            accessor:
+                getter: value
+                setter: value
+            type: string
+            xml_element:
+                cdata: false
+        certificateGuid:
+            expose: true
+            access_type: public_method
+            serialized_name: certificateGuid
+            accessor:
+                getter: getCertificateGuid
+                setter: setCertificateGuid
+            xml_attribute: true
+            type: string
+        signDeviceId:
+            expose: true
+            access_type: public_method
+            serialized_name: signDeviceId
+            accessor:
+                getter: getSignDeviceId
+                setter: setSignDeviceId
+            xml_attribute: true
+            type: string
+        cryptoTypeId:
+            expose: true
+            access_type: public_method
+            serialized_name: cryptoTypeId
+            accessor:
+                getter: getCryptoTypeId
+                setter: setCryptoTypeId
+            xml_attribute: true
+            type: string
+        client:
+            expose: true
+            access_type: public_method
+            serialized_name: client
+            accessor:
+                getter: getClient
+                setter: setClient
+            xml_attribute: true
+            type: bool
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: bank
+            accessor:
+                getter: getBank
+                setter: setBank
+            xml_attribute: true
+            type: bool
+        privateKeyRef:
+            expose: true
+            access_type: public_method
+            serialized_name: privateKeyRef
+            accessor:
+                getter: getPrivateKeyRef
+                setter: setPrivateKeyRef
+            xml_attribute: true
+            type: string
+        validFrom:
+            expose: true
+            access_type: public_method
+            serialized_name: validFrom
+            accessor:
+                getter: getValidFrom
+                setter: setValidFrom
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        validTill:
+            expose: true
+            access_type: public_method
+            serialized_name: validTill
+            accessor:
+                getter: getValidTill
+                setter: setValidTill
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime

@@ -1,0 +1,33 @@
+common\models\raiffeisenxml\request\AccreditiveRubRaifType\ReceiverAType\LegalEntityAType:
+    properties:
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: string

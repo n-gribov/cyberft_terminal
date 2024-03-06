@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\OrganizationInfoType\AuthPersonsAType\AuthPersonAType\UserRestrictionsAType:
+    properties:
+        userRestriction:
+            expose: true
+            access_type: public_method
+            serialized_name: UserRestriction
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getUserRestriction
+                setter: setUserRestriction
+            xml_list:
+                inline: true
+                entry_name: UserRestriction
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\UserRestrictionType>

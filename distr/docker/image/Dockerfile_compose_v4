@@ -1,0 +1,20 @@
+FROM cyberft:v4
+
+COPY deps/cacert.pem /usr/local/openssl-1.1.1/ssl/cert.pem
+RUN  pear config-set http_proxy $http_proxy \
+&& pecl upgrade timezonedb \
+&& sudo bash -c "echo extension=/usr/lib/php/20180731/timezonedb.so > /etc/php/7.3/mods-available/timezonedb.ini" \
+&& phpenmod timezonedb
+
+COPY compose_deps/php.ini /etc/php/7.3/fpm/
+COPY compose_deps/www.conf /etc/php/7.3/fpm/pool.d/
+COPY compose_deps/start.sh /opt/
+COPY compose_deps/connection.sh /opt/
+RUN chmod -R 0777 /opt/start.sh \
+&& chmod -R 0777  /opt/connection.sh
+LABEL CyberFT="compose_v4"
+EXPOSE 80
+EXPOSE 443
+WORKDIR /var/www/cyberft/app/src
+ENV LD_LIBRARY_PATH "/usr/local/openssl-1.1.1/lib/"
+CMD ["/bin/bash"]

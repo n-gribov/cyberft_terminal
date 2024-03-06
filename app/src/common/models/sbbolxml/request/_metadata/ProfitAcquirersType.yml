@@ -1,0 +1,32 @@
+common\models\sbbolxml\request\ProfitAcquirersType:
+    properties:
+        profitAcquirersUL:
+            expose: true
+            access_type: public_method
+            serialized_name: ProfitAcquirersUL
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getProfitAcquirersUL
+                setter: setProfitAcquirersUL
+            type: array<common\models\sbbolxml\request\ProfitAcquirerULType>
+            xml_list:
+                inline: false
+                entry_name: ProfitAcquirerUL
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        profitAcquirersIP:
+            expose: true
+            access_type: public_method
+            serialized_name: ProfitAcquirersIP
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getProfitAcquirersIP
+                setter: setProfitAcquirersIP
+            type: array<common\models\sbbolxml\request\ProfitAcquirerIPType>
+            xml_list:
+                inline: false
+                entry_name: ProfitAcquirerIP
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

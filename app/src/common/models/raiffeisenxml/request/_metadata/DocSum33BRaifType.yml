@@ -1,0 +1,12 @@
+common\models\raiffeisenxml\request\DocSum33BRaifType:
+    properties:
+        writeOffSum:
+            expose: true
+            access_type: public_method
+            serialized_name: WriteOffSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getWriteOffSum
+                setter: setWriteOffSum
+            type: common\models\raiffeisenxml\request\DocSum33BRaifType\WriteOffSumAType

@@ -1,0 +1,29 @@
+common\models\sbbolxml\request\ComOrderType:
+    properties:
+        numPayDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: numPayDoc
+            accessor:
+                getter: getNumPayDoc
+                setter: setNumPayDoc
+            xml_attribute: true
+            type: string
+        datePayDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: datePayDoc
+            accessor:
+                getter: getDatePayDoc
+                setter: setDatePayDoc
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        purposePayDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: purposePayDoc
+            accessor:
+                getter: getPurposePayDoc
+                setter: setPurposePayDoc
+            xml_attribute: true
+            type: string

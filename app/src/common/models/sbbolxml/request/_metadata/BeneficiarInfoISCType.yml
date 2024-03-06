@@ -1,0 +1,13 @@
+common\models\sbbolxml\request\BeneficiarInfoISCType:
+    properties:
+        beneficiarId:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiarId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBeneficiarId
+                setter: setBeneficiarId
+            type: string

@@ -1,0 +1,55 @@
+common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecDataAType\ResCredInfoAType:
+    properties:
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: Num
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNum
+                setter: setNum
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: string
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecDataAType\ResCredInfoAType\SumAType
+        share:
+            expose: true
+            access_type: public_method
+            serialized_name: Share
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getShare
+                setter: setShare
+            type: float

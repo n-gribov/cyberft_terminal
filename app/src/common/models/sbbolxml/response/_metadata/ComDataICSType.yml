@@ -1,0 +1,61 @@
+common\models\sbbolxml\response\ComDataICSType:
+    properties:
+        checkNum:
+            expose: true
+            access_type: public_method
+            serialized_name: checkNum
+            accessor:
+                getter: getCheckNum
+                setter: setCheckNum
+            xml_attribute: true
+            type: boolean
+        checkSum:
+            expose: true
+            access_type: public_method
+            serialized_name: checkSum
+            accessor:
+                getter: getCheckSum
+                setter: setCheckSum
+            xml_attribute: true
+            type: boolean
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: Num
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getNum
+                setter: setNum
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: Date
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDate
+                setter: setDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\sbbolxml\response\CurrAmountType
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: EndDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

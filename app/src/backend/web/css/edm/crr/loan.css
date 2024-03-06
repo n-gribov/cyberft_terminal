@@ -1,0 +1,162 @@
+.crr-loan-table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.crr-loan-table td {
+    border: 1px solid #000;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+    vertical-align: top;
+}
+
+.section-header-format {
+    position: relative;
+    padding-left: 30px;
+}
+
+.section-header-format .number {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/** Секция 3 */
+.section3-1-field {
+    margin-bottom: 10px;
+}
+
+.section3-1-field table td:nth-child(3) {
+    width: 24%;
+}
+
+.section3-2-field table td:nth-child(1) {
+    width: 23%;
+}
+
+.section3-2-field table tr:nth-child(1) td:nth-child(2) {
+    width: 24%;
+}
+
+.section3-2-field tr:nth-child(2) td:nth-child(2) {
+    width: 12%;
+}
+
+/** Секция 8 */
+.section-8 .section-header {
+    margin-bottom: 10px;
+}
+
+.section-8-1-field {
+    margin-bottom: 10px;
+}
+
+.section-8-2-field {
+    border: 1px solid #000;
+    height: 40px;
+    margin-bottom: 15px;
+}
+
+.section-8-3-field {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-8-3-field-label,
+.section-8-3-field-content {
+    width: 50%;
+}
+
+.section-8-3-table {
+    width: 100%;
+}
+
+.section-8-3-table td {
+    width: 50%;
+}
+
+/** Секция 9 */
+.section-9 .section-header {
+    margin-bottom: 10px;
+}
+
+.section-9-1-item {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15px;
+    width: 457px;
+
+}
+
+.section-9-1 {
+    margin-bottom: 15px;
+}
+
+.section-subheader-9-1 {
+    margin-bottom: 10px;
+}
+
+.section-9-1-item-number {
+    width: 32px;
+    margin-right: 20px;
+}
+
+.section-9-1-item-title {
+    width: 230px;
+}
+
+.section-9-1-item-field {
+    border: 1px solid #000;
+    height: 18px;
+    width: 70px;
+    margin-left: auto;
+    text-align: center;
+}
+
+.section-9-1-item:first-child .section-9-1-item-field {
+    border-bottom: 0;
+}
+
+.section-9-2 {
+    margin-bottom: 15px;
+}
+
+.section-9-2 table td {
+    vertical-align: middle;
+}
+
+.section-9-3 {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.section-9-3 .section-subheader {
+    width: 590px;
+}
+
+.section-9-3-field {
+    border: 1px solid #000;
+    height: 18px;
+    width: 50px;
+    text-align: center;
+}
+
+.section-9-4 {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.section-9-4 .section-subheader {
+    width: 590px;
+}
+
+.section-9-4-field {
+    border: 1px solid #000;
+    height: 18px;
+    width: 167px;
+    padding-left: 10px;
+}

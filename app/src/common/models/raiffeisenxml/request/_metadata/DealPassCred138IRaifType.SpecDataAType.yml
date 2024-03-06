@@ -1,0 +1,33 @@
+common\models\raiffeisenxml\request\DealPassCred138IRaifType\SpecDataAType:
+    properties:
+        percent:
+            expose: true
+            access_type: public_method
+            serialized_name: Percent
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPercent
+                setter: setPercent
+            type: common\models\raiffeisenxml\request\DealPassCred138IRaifType\SpecDataAType\PercentAType
+        otherPay:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherPay
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOtherPay
+                setter: setOtherPay
+            type: string
+        debtSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DebtSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDebtSum
+                setter: setDebtSum
+            type: common\models\raiffeisenxml\request\DealPassCred138IRaifType\SpecDataAType\DebtSumAType

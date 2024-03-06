@@ -1,0 +1,34 @@
+common\models\raiffeisenxml\request\CIDPRaif181iType\DpInfoAType\OperAType:
+    properties:
+        strNum:
+            expose: true
+            access_type: public_method
+            serialized_name: StrNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getStrNum
+                setter: setStrNum
+            type: string
+        dpNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DpNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpNum
+                setter: setDpNum
+            type: string
+        dpDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DpDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDpDate
+                setter: setDpDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

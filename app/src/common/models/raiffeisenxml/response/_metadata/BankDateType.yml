@@ -1,0 +1,56 @@
+common\models\raiffeisenxml\response\BankDateType:
+    properties:
+        chargeOffDate:
+            expose: true
+            access_type: public_method
+            serialized_name: chargeOffDate
+            accessor:
+                getter: getChargeOffDate
+                setter: setChargeOffDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        fileDate:
+            expose: true
+            access_type: public_method
+            serialized_name: fileDate
+            accessor:
+                getter: getFileDate
+                setter: setFileDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        signDate:
+            expose: true
+            access_type: public_method
+            serialized_name: signDate
+            accessor:
+                getter: getSignDate
+                setter: setSignDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        receiptDate:
+            expose: true
+            access_type: public_method
+            serialized_name: receiptDate
+            accessor:
+                getter: getReceiptDate
+                setter: setReceiptDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        dpp:
+            expose: true
+            access_type: public_method
+            serialized_name: dpp
+            accessor:
+                getter: getDpp
+                setter: setDpp
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        recDate:
+            expose: true
+            access_type: public_method
+            serialized_name: recDate
+            accessor:
+                getter: getRecDate
+                setter: setRecDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

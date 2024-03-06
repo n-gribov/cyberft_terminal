@@ -1,0 +1,26 @@
+#mtForm .input-group-addon.service {
+	min-width: 16px;
+	background: inherit;
+	border: none;
+	font-size: inherit;
+}
+
+#mtForm .tagAttribute {
+	width: 44px;
+	display: inline-table;
+	padding: 0;
+}
+
+#mtForm .linebreak {
+	clear: both;
+}
+
+#mtForm input.error {
+	border-color: red;
+	color: red;
+}
+
+.verifyTag {
+    background-color: #7edf62;
+    border: solid 2px #6bc75d!important;
+}

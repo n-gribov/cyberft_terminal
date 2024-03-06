@@ -1,0 +1,25 @@
+common\models\raiffeisenxml\request\DealPassCred181IRaifType\HelpInfoAType\PaymentsAType:
+    properties:
+        ground:
+            expose: true
+            access_type: public_method
+            serialized_name: ground
+            accessor:
+                getter: getGround
+                setter: setGround
+            xml_attribute: true
+            type: string
+        return:
+            expose: true
+            access_type: public_method
+            serialized_name: Return
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReturn
+                setter: setReturn
+            xml_list:
+                inline: true
+                entry_name: Return
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\DealPassCred181IRaifType\HelpInfoAType\PaymentsAType\ReturnAType>

@@ -1,0 +1,38 @@
+common\models\sbbolxml\request\GroundDocDataICSType:
+    properties:
+        numCheck:
+            expose: true
+            access_type: public_method
+            serialized_name: numCheck
+            accessor:
+                getter: getNumCheck
+                setter: setNumCheck
+            xml_attribute: true
+            type: boolean
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docName:
+            expose: true
+            access_type: public_method
+            serialized_name: docName
+            accessor:
+                getter: getDocName
+                setter: setDocName
+            xml_attribute: true
+            type: string

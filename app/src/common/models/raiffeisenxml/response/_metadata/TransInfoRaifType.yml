@@ -1,0 +1,661 @@
+common\models\raiffeisenxml\response\TransInfoRaifType:
+    properties:
+        extId:
+            expose: true
+            access_type: public_method
+            serialized_name: extId
+            accessor:
+                getter: getExtId
+                setter: setExtId
+            xml_attribute: true
+            type: string
+        avisType:
+            expose: true
+            access_type: public_method
+            serialized_name: avisType
+            accessor:
+                getter: getAvisType
+                setter: setAvisType
+            xml_attribute: true
+            type: string
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: bank
+            accessor:
+                getter: getBank
+                setter: setBank
+            xml_attribute: true
+            type: string
+        receiverBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: receiverBankName
+            accessor:
+                getter: getReceiverBankName
+                setter: setReceiverBankName
+            xml_attribute: true
+            type: string
+        payerBankCorrAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: payerBankCorrAccount
+            accessor:
+                getter: getPayerBankCorrAccount
+                setter: setPayerBankCorrAccount
+            xml_attribute: true
+            type: string
+        receiverBankCorrAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: receiverBankCorrAccount
+            accessor:
+                getter: getReceiverBankCorrAccount
+                setter: setReceiverBankCorrAccount
+            xml_attribute: true
+            type: string
+        codeVO:
+            expose: true
+            access_type: public_method
+            serialized_name: codeVO
+            accessor:
+                getter: getCodeVO
+                setter: setCodeVO
+            xml_attribute: true
+            type: int
+        corrAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: corrAcc
+            accessor:
+                getter: getCorrAcc
+                setter: setCorrAcc
+            xml_attribute: true
+            type: string
+        corrBIC:
+            expose: true
+            access_type: public_method
+            serialized_name: corrBIC
+            accessor:
+                getter: getCorrBIC
+                setter: setCorrBIC
+            xml_attribute: true
+            type: string
+        payerCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: payerCurrCode
+            accessor:
+                getter: getPayerCurrCode
+                setter: setPayerCurrCode
+            xml_attribute: true
+            type: string
+        receiverCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: receiverCurrCode
+            accessor:
+                getter: getReceiverCurrCode
+                setter: setReceiverCurrCode
+            xml_attribute: true
+            type: string
+        dc:
+            expose: true
+            access_type: public_method
+            serialized_name: dc
+            accessor:
+                getter: getDc
+                setter: setDc
+            xml_attribute: true
+            type: int
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: docSum
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            xml_attribute: true
+            type: float
+        docSumNat:
+            expose: true
+            access_type: public_method
+            serialized_name: docSumNat
+            accessor:
+                getter: getDocSumNat
+                setter: setDocSumNat
+            xml_attribute: true
+            type: float
+        operDate:
+            expose: true
+            access_type: public_method
+            serialized_name: operDate
+            accessor:
+                getter: getOperDate
+                setter: setOperDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        paymentOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: paymentOrder
+            accessor:
+                getter: getPaymentOrder
+                setter: setPaymentOrder
+            xml_attribute: true
+            type: string
+        paytKind:
+            expose: true
+            access_type: public_method
+            serialized_name: paytKind
+            accessor:
+                getter: getPaytKind
+                setter: setPaytKind
+            xml_attribute: true
+            type: string
+        paytCode:
+            expose: true
+            access_type: public_method
+            serialized_name: paytCode
+            accessor:
+                getter: getPaytCode
+                setter: setPaytCode
+            xml_attribute: true
+            type: string
+        personalAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: personalAcc
+            accessor:
+                getter: getPersonalAcc
+                setter: setPersonalAcc
+            xml_attribute: true
+            type: string
+        personalINN:
+            expose: true
+            access_type: public_method
+            serialized_name: personalINN
+            accessor:
+                getter: getPersonalINN
+                setter: setPersonalINN
+            xml_attribute: true
+            type: string
+        receiverINN:
+            expose: true
+            access_type: public_method
+            serialized_name: receiverINN
+            accessor:
+                getter: getReceiverINN
+                setter: setReceiverINN
+            xml_attribute: true
+            type: string
+        personalKPP:
+            expose: true
+            access_type: public_method
+            serialized_name: personalKPP
+            accessor:
+                getter: getPersonalKPP
+                setter: setPersonalKPP
+            xml_attribute: true
+            type: string
+        priority:
+            expose: true
+            access_type: public_method
+            serialized_name: priority
+            accessor:
+                getter: getPriority
+                setter: setPriority
+            xml_attribute: true
+            type: int
+        psNum:
+            expose: true
+            access_type: public_method
+            serialized_name: psNum
+            accessor:
+                getter: getPsNum
+                setter: setPsNum
+            xml_attribute: true
+            type: int
+        receiptDate:
+            expose: true
+            access_type: public_method
+            serialized_name: receiptDate
+            accessor:
+                getter: getReceiptDate
+                setter: setReceiptDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        receiverKPP:
+            expose: true
+            access_type: public_method
+            serialized_name: receiverKPP
+            accessor:
+                getter: getReceiverKPP
+                setter: setReceiverKPP
+            xml_attribute: true
+            type: string
+        transKind:
+            expose: true
+            access_type: public_method
+            serialized_name: transKind
+            accessor:
+                getter: getTransKind
+                setter: setTransKind
+            xml_attribute: true
+            type: string
+        turnoverKind:
+            expose: true
+            access_type: public_method
+            serialized_name: turnoverKind
+            accessor:
+                getter: getTurnoverKind
+                setter: setTurnoverKind
+            xml_attribute: true
+            type: int
+        valueDate:
+            expose: true
+            access_type: public_method
+            serialized_name: valueDate
+            accessor:
+                getter: getValueDate
+                setter: setValueDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        writeOffDate:
+            expose: true
+            access_type: public_method
+            serialized_name: writeOffDate
+            accessor:
+                getter: getWriteOffDate
+                setter: setWriteOffDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        receiverAccountName:
+            expose: true
+            access_type: public_method
+            serialized_name: receiverAccountName
+            accessor:
+                getter: getReceiverAccountName
+                setter: setReceiverAccountName
+            xml_attribute: true
+            type: string
+        chargeDetails:
+            expose: true
+            access_type: public_method
+            serialized_name: chargeDetails
+            accessor:
+                getter: getChargeDetails
+                setter: setChargeDetails
+            xml_attribute: true
+            type: string
+        intRef:
+            expose: true
+            access_type: public_method
+            serialized_name: intRef
+            accessor:
+                getter: getIntRef
+                setter: setIntRef
+            xml_attribute: true
+            type: string
+        extRef:
+            expose: true
+            access_type: public_method
+            serialized_name: extRef
+            accessor:
+                getter: getExtRef
+                setter: setExtRef
+            xml_attribute: true
+            type: string
+        filingDate:
+            expose: true
+            access_type: public_method
+            serialized_name: filingDate
+            accessor:
+                getter: getFilingDate
+                setter: setFilingDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        partPayNum:
+            expose: true
+            access_type: public_method
+            serialized_name: partPayNum
+            accessor:
+                getter: getPartPayNum
+                setter: setPartPayNum
+            xml_attribute: true
+            type: string
+        bankRef:
+            expose: true
+            access_type: public_method
+            serialized_name: bankRef
+            accessor:
+                getter: getBankRef
+                setter: setBankRef
+            xml_attribute: true
+            type: string
+        midlBank:
+            expose: true
+            access_type: public_method
+            serialized_name: midlBank
+            accessor:
+                getter: getMidlBank
+                setter: setMidlBank
+            xml_attribute: true
+            type: string
+        comissionWrittenOff:
+            expose: true
+            access_type: public_method
+            serialized_name: comissionWrittenOff
+            accessor:
+                getter: getComissionWrittenOff
+                setter: setComissionWrittenOff
+            xml_attribute: true
+            type: string
+        transferComission:
+            expose: true
+            access_type: public_method
+            serialized_name: transferComission
+            accessor:
+                getter: getTransferComission
+                setter: setTransferComission
+            xml_attribute: true
+            type: float
+        thirdBankFee:
+            expose: true
+            access_type: public_method
+            serialized_name: thirdBankFee
+            accessor:
+                getter: getThirdBankFee
+                setter: setThirdBankFee
+            xml_attribute: true
+            type: float
+        commissionForSWIFT:
+            expose: true
+            access_type: public_method
+            serialized_name: commissionForSWIFT
+            accessor:
+                getter: getCommissionForSWIFT
+                setter: setCommissionForSWIFT
+            xml_attribute: true
+            type: float
+        nOSTROBankComission:
+            expose: true
+            access_type: public_method
+            serialized_name: NOSTROBankComission
+            accessor:
+                getter: getNOSTROBankComission
+                setter: setNOSTROBankComission
+            xml_attribute: true
+            type: float
+        rBComission:
+            expose: true
+            access_type: public_method
+            serialized_name: RBComission
+            accessor:
+                getter: getRBComission
+                setter: setRBComission
+            xml_attribute: true
+            type: float
+        setAmt:
+            expose: true
+            access_type: public_method
+            serialized_name: SetAmt
+            accessor:
+                getter: getSetAmt
+                setter: setSetAmt
+            xml_attribute: true
+            type: float
+        setCur:
+            expose: true
+            access_type: public_method
+            serialized_name: SetCur
+            accessor:
+                getter: getSetCur
+                setter: setSetCur
+            xml_attribute: true
+            type: string
+        payAmt:
+            expose: true
+            access_type: public_method
+            serialized_name: PayAmt
+            accessor:
+                getter: getPayAmt
+                setter: setPayAmt
+            xml_attribute: true
+            type: float
+        payCur:
+            expose: true
+            access_type: public_method
+            serialized_name: PayCur
+            accessor:
+                getter: getPayCur
+                setter: setPayCur
+            xml_attribute: true
+            type: string
+        sender:
+            expose: true
+            access_type: public_method
+            serialized_name: sender
+            accessor:
+                getter: getSender
+                setter: setSender
+            xml_attribute: true
+            type: string
+        receiver:
+            expose: true
+            access_type: public_method
+            serialized_name: receiver
+            accessor:
+                getter: getReceiver
+                setter: setReceiver
+            xml_attribute: true
+            type: string
+        receiptName:
+            expose: true
+            access_type: public_method
+            serialized_name: receiptName
+            accessor:
+                getter: getReceiptName
+                setter: setReceiptName
+            xml_attribute: true
+            type: string
+        senderCharges:
+            expose: true
+            access_type: public_method
+            serialized_name: senderCharges
+            accessor:
+                getter: getSenderCharges
+                setter: setSenderCharges
+            xml_attribute: true
+            type: string
+        currRate:
+            expose: true
+            access_type: public_method
+            serialized_name: currRate
+            accessor:
+                getter: getCurrRate
+                setter: setCurrRate
+            xml_attribute: true
+            type: float
+        payerBankBic:
+            expose: true
+            access_type: public_method
+            serialized_name: payerBankBic
+            accessor:
+                getter: getPayerBankBic
+                setter: setPayerBankBic
+            xml_attribute: true
+            type: string
+        payDtls:
+            expose: true
+            access_type: public_method
+            serialized_name: payDtls
+            accessor:
+                getter: getPayDtls
+                setter: setPayDtls
+            xml_attribute: true
+            type: string
+        docShifr:
+            expose: true
+            access_type: public_method
+            serialized_name: docShifr
+            accessor:
+                getter: getDocShifr
+                setter: setDocShifr
+            xml_attribute: true
+            type: string
+        payNum:
+            expose: true
+            access_type: public_method
+            serialized_name: payNum
+            accessor:
+                getter: getPayNum
+                setter: setPayNum
+            xml_attribute: true
+            type: string
+        payDate:
+            expose: true
+            access_type: public_method
+            serialized_name: payDate
+            accessor:
+                getter: getPayDate
+                setter: setPayDate
+            xml_attribute: true
+            type: string
+        sumRest:
+            expose: true
+            access_type: public_method
+            serialized_name: sumRest
+            accessor:
+                getter: getSumRest
+                setter: setSumRest
+            xml_attribute: true
+            type: float
+        notDelAmt:
+            expose: true
+            access_type: public_method
+            serialized_name: notDelAmt
+            accessor:
+                getter: getNotDelAmt
+                setter: setNotDelAmt
+            xml_attribute: true
+            type: float
+        notDelCur:
+            expose: true
+            access_type: public_method
+            serialized_name: notDelCur
+            accessor:
+                getter: getNotDelCur
+                setter: setNotDelCur
+            xml_attribute: true
+            type: string
+        pnar:
+            expose: true
+            access_type: public_method
+            serialized_name: pnar
+            accessor:
+                getter: getPnar
+                setter: setPnar
+            xml_attribute: true
+            type: string
+        mtGVC:
+            expose: true
+            access_type: public_method
+            serialized_name: mtGVC
+            accessor:
+                getter: getMtGVC
+                setter: setMtGVC
+            xml_attribute: true
+            type: string
+        speedUPC:
+            expose: true
+            access_type: public_method
+            serialized_name: speedUPC
+            accessor:
+                getter: getSpeedUPC
+                setter: setSpeedUPC
+            xml_attribute: true
+            type: string
+        mtTratCode:
+            expose: true
+            access_type: public_method
+            serialized_name: mtTratCode
+            accessor:
+                getter: getMtTratCode
+                setter: setMtTratCode
+            xml_attribute: true
+            type: string
+        uip:
+            expose: true
+            access_type: public_method
+            serialized_name: uip
+            accessor:
+                getter: getUip
+                setter: setUip
+            xml_attribute: true
+            type: string
+        personalName:
+            expose: true
+            access_type: public_method
+            serialized_name: PersonalName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPersonalName
+                setter: setPersonalName
+            type: string
+        purpose:
+            expose: true
+            access_type: public_method
+            serialized_name: Purpose
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPurpose
+                setter: setPurpose
+            type: string
+        departmentalInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DepartmentalInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDepartmentalInfo
+                setter: setDepartmentalInfo
+            type: common\models\raiffeisenxml\response\DepartmentalInfoRaifType
+        params:
+            expose: true
+            access_type: public_method
+            serialized_name: Params
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getParams
+                setter: setParams
+            type: array<common\models\raiffeisenxml\response\ParamsType\ParamAType>
+            xml_list:
+                inline: false
+                entry_name: Param
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

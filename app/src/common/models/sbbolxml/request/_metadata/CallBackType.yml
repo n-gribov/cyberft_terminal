@@ -1,0 +1,98 @@
+common\models\sbbolxml\request\CallBackType:
+    properties:
+        extOfferId:
+            expose: true
+            access_type: public_method
+            serialized_name: ExtOfferId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getExtOfferId
+                setter: setExtOfferId
+            type: string
+        userID:
+            expose: true
+            access_type: public_method
+            serialized_name: UserID
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUserID
+                setter: setUserID
+            type: integer
+        userGuid:
+            expose: true
+            access_type: public_method
+            serialized_name: UserGuid
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getUserGuid
+                setter: setUserGuid
+            type: string
+        createdDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CreatedDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreatedDate
+                setter: setCreatedDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        phone:
+            expose: true
+            access_type: public_method
+            serialized_name: Phone
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPhone
+                setter: setPhone
+            type: string
+        callDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CallDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCallDate
+                setter: setCallDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        callTime:
+            expose: true
+            access_type: public_method
+            serialized_name: CallTime
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCallTime
+                setter: setCallTime
+            type: string
+        userTimeZone:
+            expose: true
+            access_type: public_method
+            serialized_name: UserTimeZone
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getUserTimeZone
+                setter: setUserTimeZone
+            type: string
+        userComment:
+            expose: true
+            access_type: public_method
+            serialized_name: UserComment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getUserComment
+                setter: setUserComment
+            type: string

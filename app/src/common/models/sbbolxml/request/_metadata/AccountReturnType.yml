@@ -1,0 +1,66 @@
+common\models\sbbolxml\request\AccountReturnType:
+    properties:
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: accNum
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            xml_attribute: true
+            type: string
+        beneficiar:
+            expose: true
+            access_type: public_method
+            serialized_name: beneficiar
+            accessor:
+                getter: getBeneficiar
+                setter: setBeneficiar
+            xml_attribute: true
+            type: string
+        benefBankSwift:
+            expose: true
+            access_type: public_method
+            serialized_name: benefBankSwift
+            accessor:
+                getter: getBenefBankSwift
+                setter: setBenefBankSwift
+            xml_attribute: true
+            type: string
+        benefBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: benefBankName
+            accessor:
+                getter: getBenefBankName
+                setter: setBenefBankName
+            xml_attribute: true
+            type: string
+        iMediaBankSwift:
+            expose: true
+            access_type: public_method
+            serialized_name: iMediaBankSwift
+            accessor:
+                getter: getIMediaBankSwift
+                setter: setIMediaBankSwift
+            xml_attribute: true
+            type: string
+        iMediaBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: iMediaBankName
+            accessor:
+                getter: getIMediaBankName
+                setter: setIMediaBankName
+            xml_attribute: true
+            type: string
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: Bank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBank
+                setter: setBank
+            type: common\models\sbbolxml\request\AccountReturnType\BankAType

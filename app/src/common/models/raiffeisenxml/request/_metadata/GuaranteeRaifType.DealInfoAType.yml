@@ -1,0 +1,27 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType:
+    properties:
+        grounds:
+            expose: true
+            access_type: public_method
+            serialized_name: Grounds
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGrounds
+                setter: setGrounds
+            type: array<common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType\GroundsAType\GroundAType>
+            xml_list:
+                inline: false
+                entry_name: Ground
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
+        contractInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractInfo
+                setter: setContractInfo
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType\ContractInfoAType

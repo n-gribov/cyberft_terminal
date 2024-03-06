@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\SalaryDocDataType:
+    properties:
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string

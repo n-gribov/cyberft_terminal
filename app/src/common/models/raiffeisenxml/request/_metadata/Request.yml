@@ -1,0 +1,3 @@
+common\models\raiffeisenxml\request\Request:
+    xml_root_name: Request
+    xml_root_namespace: 'http://bssys.com/upg/request'

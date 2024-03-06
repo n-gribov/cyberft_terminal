@@ -1,0 +1,56 @@
+common\models\sbbolxml\response\AdmPaymentTemplateType\BudgetAType:
+    properties:
+        budgetAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: budgetAccount
+            accessor:
+                getter: getBudgetAccount
+                setter: setBudgetAccount
+            xml_attribute: true
+            type: string
+        budgetInn:
+            expose: true
+            access_type: public_method
+            serialized_name: budgetInn
+            accessor:
+                getter: getBudgetInn
+                setter: setBudgetInn
+            xml_attribute: true
+            type: string
+        budgetKbk:
+            expose: true
+            access_type: public_method
+            serialized_name: budgetKbk
+            accessor:
+                getter: getBudgetKbk
+                setter: setBudgetKbk
+            xml_attribute: true
+            type: string
+        budgetKpp:
+            expose: true
+            access_type: public_method
+            serialized_name: budgetKpp
+            accessor:
+                getter: getBudgetKpp
+                setter: setBudgetKpp
+            xml_attribute: true
+            type: string
+        budgetName:
+            expose: true
+            access_type: public_method
+            serialized_name: budgetName
+            accessor:
+                getter: getBudgetName
+                setter: setBudgetName
+            xml_attribute: true
+            type: string
+        budgetOktmo:
+            expose: true
+            access_type: public_method
+            serialized_name: budgetOktmo
+            accessor:
+                getter: getBudgetOktmo
+                setter: setBudgetOktmo
+            xml_attribute: true
+            type: string

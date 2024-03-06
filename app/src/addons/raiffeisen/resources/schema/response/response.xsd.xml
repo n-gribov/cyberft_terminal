@@ -1,0 +1,1098 @@
+<res:Response createTime="2008-09-29T05:49:45" responseId="string" requestId="string" version="string" sender="string" receiver="string" xmlns:res="http://bssys.com/upg/response">
+    <!--You have a CHOICE of the next 2 items at this level-->
+    <res:Errors>
+        <!--1 or more repetitions:-->
+        <res:Error>
+            <res:Code>string</res:Code>
+            <!--Optional:-->
+            <res:Identifier>string</res:Identifier>
+            <!--Optional:-->
+            <res:Type>string</res:Type>
+            <!--Optional:-->
+            <res:Desc>string</res:Desc>
+        </res:Error>
+    </res:Errors>
+    <!--Optional:-->
+    <res:Tickets>
+        <!--1 or more repetitions:-->
+        <res:Ticket docId="string" createTime="2014-09-19T03:18:33">
+            <res:Info statusStateCode="string" orgId="string" docExtId="string">
+                <!--Optional:-->
+                <res:BankDate chargeOffDate="2006-08-19+04:00" fileDate="2009-05-16" signDate="2003-08-09+04:00" receiptDate="2012-09-13+04:00" dpp="2009-10-14" recDate="2010-03-18"/>
+                <!--Optional:-->
+                <res:MsgFromBank author="string" message="string"/>
+                <!--Optional:-->
+                <res:AddInfo>
+                    <!--You have a CHOICE of the next 4 items at this level-->
+                    <res:PayDocCur>
+                        <res:ValueDate>2018-12-28+03:00</res:ValueDate>
+                        <!--Optional:-->
+                        <res:Rate>1000.00</res:Rate>
+                        <!--Optional:-->
+                        <res:ConvSum sum="1000.00" code="str"/>
+                        <!--Optional:-->
+                        <res:ChargeSum sum="1000.00" code="str"/>
+                        <res:DebetSum sum="1000.00" code="str"/>
+                        <res:TransSum sum="1000.00" code="str"/>
+                    </res:PayDocCur>
+                    <res:CurrConv>
+                        <res:ValueDate>2017-11-01+03:00</res:ValueDate>
+                        <res:Rate>1000.00</res:Rate>
+                        <!--Optional:-->
+                        <res:ChargeSum sum="1000.00" code="str"/>
+                        <res:DealSum sum="1000.00" code="str"/>
+                        <res:RevSum sum="1000.00" code="str"/>
+                    </res:CurrConv>
+                    <res:MandatorySale>
+                        <!--Optional:-->
+                        <res:TotalSum sum="1000.00" code="str"/>
+                        <!--Optional:-->
+                        <res:Sell>
+                            <res:ValueDate>2014-06-10+04:00</res:ValueDate>
+                            <!--Optional:-->
+                            <res:Sum sum="1000.00" code="str"/>
+                            <res:Rate>1000.00</res:Rate>
+                            <!--Optional:-->
+                            <res:ChargeSum sum="1000.00" code="str"/>
+                            <!--Optional:-->
+                            <res:SumRub sum="1000.00" code="str"/>
+                        </res:Sell>
+                        <!--Optional:-->
+                        <res:OSell>
+                            <res:ValueDate>2003-11-10+03:00</res:ValueDate>
+                            <!--Optional:-->
+                            <res:Sum sum="1000.00" code="str"/>
+                            <res:Rate>1000.00</res:Rate>
+                            <!--Optional:-->
+                            <res:ChargeSum sum="1000.00" code="str"/>
+                        </res:OSell>
+                        <!--Optional:-->
+                        <res:Trans>
+                            <res:Sum sum="1000.00" code="str"/>
+                            <!--Optional:-->
+                            <res:ChargeSum sum="1000.00" code="str"/>
+                        </res:Trans>
+                        <!--Optional:-->
+                        <res:TotalChargeSum sum="1000.00" code="str"/>
+                    </res:MandatorySale>
+                    <res:DealPass>
+                        <!--You have a CHOICE of the next 3 items at this level-->
+                        <res:DPIs>
+                            <res:NumFull>string</res:NumFull>
+                            <!--Optional:-->
+                            <res:NumParts>
+                                <res:Part1>string</res:Part1>
+                                <!--Optional:-->
+                                <res:Part2>string</res:Part2>
+                                <!--Optional:-->
+                                <res:Part3>string</res:Part3>
+                                <res:Part4>string</res:Part4>
+                                <!--Optional:-->
+                                <res:Part5>string</res:Part5>
+                            </res:NumParts>
+                            <res:Date>2000-09-25</res:Date>
+                        </res:DPIs>
+                        <res:DPRe>
+                            <res:Num>st</res:Num>
+                            <res:Date>2015-11-05</res:Date>
+                            <!--Optional:-->
+                            <res:DPIs>
+                                <res:NumFull>string</res:NumFull>
+                                <!--Optional:-->
+                                <res:NumParts>
+                                    <res:Part1>string</res:Part1>
+                                    <!--Optional:-->
+                                    <res:Part2>string</res:Part2>
+                                    <!--Optional:-->
+                                    <res:Part3>string</res:Part3>
+                                    <res:Part4>string</res:Part4>
+                                    <!--Optional:-->
+                                    <res:Part5>string</res:Part5>
+                                </res:NumParts>
+                                <res:Date>2017-10-20</res:Date>
+                            </res:DPIs>
+                        </res:DPRe>
+                        <res:DPEnd>
+                            <res:Date>2000-01-07</res:Date>
+                            <!--Optional:-->
+                            <res:Reason>string</res:Reason>
+                            <!--Optional:-->
+                            <res:DPIs>
+                                <res:NumFull>string</res:NumFull>
+                                <!--Optional:-->
+                                <res:NumParts>
+                                    <res:Part1>string</res:Part1>
+                                    <!--Optional:-->
+                                    <res:Part2>string</res:Part2>
+                                    <!--Optional:-->
+                                    <res:Part3>string</res:Part3>
+                                    <res:Part4>string</res:Part4>
+                                    <!--Optional:-->
+                                    <res:Part5>string</res:Part5>
+                                </res:NumParts>
+                                <res:Date>2017-08-18</res:Date>
+                            </res:DPIs>
+                        </res:DPEnd>
+                    </res:DealPass>
+                </res:AddInfo>
+            </res:Info>
+            <!--Optional:-->
+            <res:OtherParams>
+                <!--1 or more repetitions:-->
+                <res:Param name="string" value="string"/>
+            </res:OtherParams>
+            <res:Signs>
+                <!--1 or more repetitions:-->
+                <res:Sign>
+                    <!--Optional:-->
+                    <res:Issuer>string</res:Issuer>
+                    <res:SN>string</res:SN>
+                    <res:Value>cGVjdG9yZQ==</res:Value>
+                    <!--Optional:-->
+                    <res:DigestName>string</res:DigestName>
+                    <!--Optional:-->
+                    <res:DigestVersion>string</res:DigestVersion>
+                    <res:SignType>string</res:SignType>
+                    <!--Optional:-->
+                    <res:Fio>string</res:Fio>
+                    <!--Optional:-->
+                    <res:Position>string</res:Position>
+                </res:Sign>
+            </res:Signs>
+        </res:Ticket>
+    </res:Tickets>
+    <!--Optional:-->
+    <res:Statements>
+        <!--1 or more repetitions:-->
+        <res:Statement docId="string" docExtId="string" stmtDateTime="2015-10-10T13:07:56+03:00" bic="stringstr" lastMovetDate="2018-07-19+03:00" datePLast="2004-12-06+03:00" acc="stringstringstringst" rateIn="1000.00" rateOut="1000.00" enterBal="1000.00" enterBalNat="1000.00" outBal="1000.00" outBalNat="1000.00" planOutBal="1000.00" planOutBalNat="1000.00" beginDate="2006-12-05" endDate="2016-09-11" stmtType="6" requestDate="2008-02-06+03:00" docNum="string" accountName="string" orgName="string" debetSum="1000.00" creditSum="1000.00" debetSumNat="1000.00" creditSumNat="1000.00" author="string" docComment="string" ldgBal="1000.00" ldgBalNat="1000.00">
+            <!--Optional:-->
+            <res:Docs>
+                <!--1 or more repetitions:-->
+                <res:TransInfo payeeINN="string" payeeAcc="string" payeeName="string" payeeKPP="string" payerINN="string" payerAcc="string" payerName="string" payerKPP="string" payeeBankName="string" payeeBankBic="string" payeeBankCorrAcc="string" payerBankName="string" payerBankCorrAcc="string" payerBankBic="string" chargeOffDate="2015-08-04" fileDate="2007-09-09" signDate="2001-07-26" receiptDate="2002-05-25" dpp="2005-06-10" recDate="2015-07-31+03:00" dc="true" docNum="string" docDate="2006-08-04T14:16:57" docCurr="str" docSum="1000.00" docSumNat="1000.00" purpose="string" branchCode="string" paymentOrder="3" paytKind="0" transKind="st" bankNumDoc="string" carryDate="2005-05-29T13:30:53+04:00" writeOffDate="2016-06-29T02:30:01" s_TI="string" valueDate="2012-06-26" avisType="string">
+                    <!--Optional:-->
+                    <res:DepartmentalInfo drawerStatus="st" cbc="string" okato="string" paytReason="st" taxPeriod="string" docNo="string" docDate="string" taxPaytKind="st" kpp103="string" kpp102="string"/>
+                    <!--Optional:-->
+                    <res:DiffDoc payingCondition="string" letterOfCreditType="string" operContent="string" letterOfCreditPaymCond="string" letterOfCreditDemandDocs="string" letterOfCreditAddCond="string" letterOfCreditPeriodVal="2014-10-15" letterOfCreditPayAcc="string" docShifr="st" docDateCard="2003-02-28+03:00" docNumberCard="string" sumRestCard="1000.00" numPaymentCard="string" letterOfCreditAcceptDate="3" endAcceptDate="2007-06-23+04:00"/>
+                    <!--Optional:-->
+                    <res:Cur s_Type="string" s_Originator="string" s_Destinator="string" s_OriginatorE="string" s_DestinatorE="string" s_Number="string" s_Sent="string" s_Rcpt="string" s_30="string" s_32A="string" s_32B="string" s_33B="string" s_71A="string" s_71F="string" s_71G="string" s_77T="string" s_SA="string" s_S3="string" s_RA="string" s_S4="string" s_S2="string" s_R3="string" s_R4="string" s_R2="string" s_B3="string" s_B2="string" s_20="string" s_21="string" s_23="string" s_23B="string" s_23E="string" s_26T="string" s_25="string" s_36="string" s_72="string" s_SI="string" s_PAYERNAME="string" s_SS="string" s_PAYERBANKNAME="string" s_IS="string" s_IB="string" s_RS="string" s_RECEIVERBANKNAME="string" s_RECEIVERNAME="string" s_77B="string"/>
+                    <!--Optional:-->
+                    <res:Info>string</res:Info>
+                    <!--Optional:-->
+                    <res:Sign>
+                        <!--Optional:-->
+                        <res:Issuer>string</res:Issuer>
+                        <res:SN>string</res:SN>
+                        <res:Value>bnViaWJ1cw==</res:Value>
+                        <!--Optional:-->
+                        <res:DigestName>string</res:DigestName>
+                        <!--Optional:-->
+                        <res:DigestVersion>string</res:DigestVersion>
+                        <res:SignType>string</res:SignType>
+                        <!--Optional:-->
+                        <res:Fio>string</res:Fio>
+                        <!--Optional:-->
+                        <res:Position>string</res:Position>
+                    </res:Sign>
+                    <!--Optional:-->
+                    <res:Params>
+                        <!--1 or more repetitions:-->
+                        <res:Param name="string" value="string"/>
+                    </res:Params>
+                </res:TransInfo>
+            </res:Docs>
+            <!--Optional:-->
+            <res:Params>
+                <!--1 or more repetitions:-->
+                <res:Param name="string" value="string"/>
+            </res:Params>
+            <!--Optional:-->
+            <res:Signs>
+                <!--1 or more repetitions:-->
+                <res:Sign>
+                    <!--Optional:-->
+                    <res:Issuer>string</res:Issuer>
+                    <res:SN>string</res:SN>
+                    <res:Value>ZXQ=</res:Value>
+                    <!--Optional:-->
+                    <res:DigestName>string</res:DigestName>
+                    <!--Optional:-->
+                    <res:DigestVersion>string</res:DigestVersion>
+                    <res:SignType>string</res:SignType>
+                    <!--Optional:-->
+                    <res:Fio>string</res:Fio>
+                    <!--Optional:-->
+                    <res:Position>string</res:Position>
+                </res:Sign>
+            </res:Signs>
+            <!--Optional:-->
+            <res:InitialDoc docNum="string" docDate="2006-11-30+03:00" docRef="string" operDayReq="2010-01-27"/>
+        </res:Statement>
+    </res:Statements>
+    <!--Optional:-->
+    <res:StatementsRaif>
+        <!--1 or more repetitions:-->
+        <res:StatementRaif extId="string" acc="string" bic="string" creditSum="1000.00" currCode="string" debetSum="1000.00" docDate="2003-03-06" docTime="06:01:16" acceptDate="2019-07-04" outBal="1000.00" stmtDate="2008-06-03" stmtType="100" ldgBalance="1000.00" docComment="string" author="string" beginDate="2005-05-11+04:00" endDate="2004-06-16+04:00" lastMovetDate="2016-09-16+03:00" lastStmtDate="2011-06-29" enterBal="1000.00" enterBalNat="1000.00" debetSumNat="1000.00" creditSumNat="1000.00" card1Sum="1000.00" card2Sum="1000.00" rateIn="1000.00" rateOut="1000.00" outBalNat="1000.00" docNum="string">
+            <!--Optional:-->
+            <res:Docs>
+                <!--Zero or more repetitions:-->
+                <res:TransInfo extId="string" avisType="string" bank="string" receiverBankName="string" payerBankCorrAccount="string" receiverBankCorrAccount="string" codeVO="100" corrAcc="string" corrBIC="string" payerCurrCode="string" receiverCurrCode="string" dc="100" docDate="2010-05-01+04:00" docNum="string" docSum="1000.00" docSumNat="1000.00" operDate="2012-11-05+04:00" paymentOrder="string" paytKind="string" paytCode="string" personalAcc="string" personalINN="string" receiverINN="string" personalKPP="string" priority="100" psNum="100" receiptDate="2002-12-04+03:00" receiverKPP="string" transKind="string" turnoverKind="100" valueDate="2001-04-20" writeOffDate="2004-02-01+03:00" receiverAccountName="string" chargeDetails="string" intRef="string" extRef="string" filingDate="2009-10-26+03:00" partPayNum="string" bankRef="string" midlBank="string" comissionWrittenOff="string" transferComission="1000.00" thirdBankFee="1000.00" commissionForSWIFT="1000.00"
+                               NOSTROBankComission="1000.00" RBComission="1000.00" SetAmt="1000.00" SetCur="string" PayAmt="1000.00" PayCur="string" sender="string" receiver="string" receiptName="string" senderCharges="string" currRate="1000.00" payerBankBic="string" payDtls="string" docShifr="string" payNum="string" payDate="string" sumRest="1000.00" notDelAmt="1000.00" notDelCur="string" pnar="string" mtGVC="string" speedUPC="string" mtTratCode="string" uip="string">
+                    <!--Optional:-->
+                    <res:PersonalName>string</res:PersonalName>
+                    <res:Purpose>string</res:Purpose>
+                    <res:DepartmentalInfo cbc="string" docDate="string" docNo="string" drawerStatus="string" okato="string" paytReason="string" taxPaytKind="string" taxPeriod="string"/>
+                    <!--Optional:-->
+                    <res:Params>
+                        <!--1 or more repetitions:-->
+                        <res:Param name="string" value="string"/>
+                    </res:Params>
+                </res:TransInfo>
+            </res:Docs>
+            <!--Optional:-->
+            <res:Signs>
+                <!--1 or more repetitions:-->
+                <res:Sign>
+                    <!--Optional:-->
+                    <res:Issuer>string</res:Issuer>
+                    <res:SN>string</res:SN>
+                    <res:Value>aW5zdXBlcg==</res:Value>
+                    <!--Optional:-->
+                    <res:DigestName>string</res:DigestName>
+                    <!--Optional:-->
+                    <res:DigestVersion>string</res:DigestVersion>
+                    <res:SignType>string</res:SignType>
+                    <!--Optional:-->
+                    <res:Fio>string</res:Fio>
+                    <!--Optional:-->
+                    <res:Position>string</res:Position>
+                </res:Sign>
+            </res:Signs>
+        </res:StatementRaif>
+    </res:StatementsRaif>
+    <!--Optional:-->
+    <res:LettersFromBank>
+        <!--1 or more repetitions:-->
+        <res:LetterFromBank docExtId="string">
+            <res:DocData docDate="2003-05-15+04:00" docNum="string" bankName="string" bankNum="string">
+                <res:OrgData extID="string" inn="string" kpp="string">
+                    <res:Name>string</res:Name>
+                </res:OrgData>
+            </res:DocData>
+            <!--Optional:-->
+            <res:Type>string</res:Type>
+            <res:Theme>string</res:Theme>
+            <res:AddInfo>string</res:AddInfo>
+            <!--Optional:-->
+            <res:LinkedDocs>
+                <!--1 or more repetitions:-->
+                <res:LDoc type="string" docExtId="string">
+                    <!--Optional:-->
+                    <res:Params>
+                        <!--1 or more repetitions:-->
+                        <res:Param name="string" value="string"/>
+                    </res:Params>
+                </res:LDoc>
+            </res:LinkedDocs>
+            <!--Optional:-->
+            <res:Attachments>
+                <!--1 or more repetitions:-->
+                <res:Attachment>
+                    <!--Optional:-->
+                    <res:AttachmentName>string</res:AttachmentName>
+                    <!--Optional:-->
+                    <res:Description>string</res:Description>
+                    <res:Body>bWFnbm8=</res:Body>
+                </res:Attachment>
+            </res:Attachments>
+            <res:MustRead>true</res:MustRead>
+            <!--Optional:-->
+            <res:AccNum>stringstringstringst</res:AccNum>
+            <!--Optional:-->
+            <res:Signs>
+                <!--1 or more repetitions:-->
+                <res:Sign>
+                    <!--Optional:-->
+                    <res:Issuer>string</res:Issuer>
+                    <res:SN>string</res:SN>
+                    <res:Value>Z2Vybw==</res:Value>
+                    <!--Optional:-->
+                    <res:DigestName>string</res:DigestName>
+                    <!--Optional:-->
+                    <res:DigestVersion>string</res:DigestVersion>
+                    <res:SignType>string</res:SignType>
+                    <!--Optional:-->
+                    <res:Fio>string</res:Fio>
+                    <!--Optional:-->
+                    <res:Position>string</res:Position>
+                </res:Sign>
+            </res:Signs>
+        </res:LetterFromBank>
+    </res:LettersFromBank>
+    <!--Optional:-->
+    <res:Cryptopros>
+        <!--1 or more repetitions:-->
+        <res:Cryptopro id="string" cryptoType="s">
+            <res:Destinys>
+                <!--1 or more repetitions:-->
+                <res:Destiny orgId="string" inn="stringstring">
+                    <res:SignType>string</res:SignType>
+                    <res:Duration beginDate="2017-01-03" endDate="2015-08-31+03:00" unlimited="true"/>
+                </res:Destiny>
+            </res:Destinys>
+            <res:Name>string</res:Name>
+            <!--Optional:-->
+            <res:Users>
+                <!--1 or more repetitions:-->
+                <res:User login="string" name="string"/>
+            </res:Users>
+        </res:Cryptopro>
+    </res:Cryptopros>
+    <!--Optional:-->
+    <res:Certificates>
+        <!--1 or more repetitions:-->
+        <res:Certificate certificateGuid="string" signDeviceId="string" cryptoTypeId="string" client="true" bank="false" privateKeyRef="string" validFrom="2008-05-12T14:21:35+04:00" validTill="2015-08-29T00:12:20+03:00">aXBzYQ==</res:Certificate>
+    </res:Certificates>
+    <!--Optional:-->
+    <res:OrgsInfo>
+        <res:OrgInfo>
+            <!--Optional:-->
+            <res:OrgData>
+                <res:ShortName>string</res:ShortName>
+                <res:OrgId>string</res:OrgId>
+                <res:Accounts>
+                    <!--1 or more repetitions:-->
+                    <res:Account accountId="string" accountType="string" accNum="stringstringstringst">
+                        <res:Bank bic="stringstr" correspAcc="stringstringstringst">
+                            <res:Name>string</res:Name>
+                            <!--Optional:-->
+                            <res:BankCity>string</res:BankCity>
+                            <!--Optional:-->
+                            <res:SettlementType>string</res:SettlementType>
+                        </res:Bank>
+                        <!--Optional:-->
+                        <res:OtherAccountData>
+                            <!--Optional:-->
+                            <res:Name>string</res:Name>
+                            <!--Optional:-->
+                            <res:CurrencyCode>str</res:CurrencyCode>
+                            <!--Optional:-->
+                            <res:CurrencyISOCode>str</res:CurrencyISOCode>
+                            <!--Optional:-->
+                            <res:AccountType>04</res:AccountType>
+                            <!--Optional:-->
+                            <res:AccountTypeP>true</res:AccountTypeP>
+                            <!--Optional:-->
+                            <res:Business>string</res:Business>
+                            <!--Optional:-->
+                            <res:IsNotDelay>true</res:IsNotDelay>
+                            <!--Optional:-->
+                            <res:IsUrgent>true</res:IsUrgent>
+                            <!--Optional:-->
+                            <res:CreateDate>2011-04-18+04:00</res:CreateDate>
+                            <!--Optional:-->
+                            <res:CloseDate>2013-11-20+04:00</res:CloseDate>
+                            <!--Optional:-->
+                            <res:Closed>false</res:Closed>
+                            <!--Optional:-->
+                            <res:SumOvd>1000.00</res:SumOvd>
+                            <!--Optional:-->
+                            <res:AddInfo>string</res:AddInfo>
+                        </res:OtherAccountData>
+                    </res:Account>
+                </res:Accounts>
+                <res:INN>string</res:INN>
+                <!--Optional:-->
+                <res:FullName>string</res:FullName>
+                <!--Optional:-->
+                <res:OrgForm>string</res:OrgForm>
+                <res:StateCode>string</res:StateCode>
+                <res:StateType>true</res:StateType>
+                <!--Optional:-->
+                <res:OGRN>stringstringstr</res:OGRN>
+                <!--Optional:-->
+                <res:DateOGRN>2009-08-11</res:DateOGRN>
+                <!--Optional:-->
+                <res:OKPO>stringstri</res:OKPO>
+                <!--Optional:-->
+                <res:OKATO>string</res:OKATO>
+                <res:Addresses>
+                    <!--1 or more repetitions:-->
+                    <res:Address>
+                        <!--Optional:-->
+                        <res:AddressTypeCode>string</res:AddressTypeCode>
+                        <!--Optional:-->
+                        <res:AddressType>string</res:AddressType>
+                        <res:Country>string</res:Country>
+                        <res:CountryName>string</res:CountryName>
+                        <res:CountryShortName>string</res:CountryShortName>
+                        <!--Optional:-->
+                        <res:Zip>string</res:Zip>
+                        <!--Optional:-->
+                        <res:Sub>string</res:Sub>
+                        <!--Optional:-->
+                        <res:Area>string</res:Area>
+                        <!--Optional:-->
+                        <res:City>string</res:City>
+                        <!--Optional:-->
+                        <res:SettlType>string</res:SettlType>
+                        <!--Optional:-->
+                        <res:SettlName>string</res:SettlName>
+                        <!--Optional:-->
+                        <res:Str>string</res:Str>
+                        <!--Optional:-->
+                        <res:HNumber>string</res:HNumber>
+                        <!--Optional:-->
+                        <res:Corp>string</res:Corp>
+                        <!--Optional:-->
+                        <res:Office>string</res:Office>
+                        <!--Optional:-->
+                        <res:MailBox>string</res:MailBox>
+                        <!--Optional:-->
+                        <res:FullAddress>string</res:FullAddress>
+                        <!--Optional:-->
+                        <res:AddInfoAddress>string</res:AddInfoAddress>
+                    </res:Address>
+                </res:Addresses>
+                <!--Optional:-->
+                <res:OtherOrgData>
+                    <!--Optional:-->
+                    <res:Locked>string</res:Locked>
+                    <!--Optional:-->
+                    <res:Contacts>
+                        <!--Optional:-->
+                        <res:Manager>string</res:Manager>
+                        <!--Optional:-->
+                        <res:ManagerPhone>string</res:ManagerPhone>
+                        <!--Optional:-->
+                        <res:Accountant>string</res:Accountant>
+                        <!--Optional:-->
+                        <res:AccountantPhone>string</res:AccountantPhone>
+                        <!--Optional:-->
+                        <res:Fax>string</res:Fax>
+                        <!--Optional:-->
+                        <res:Email>string</res:Email>
+                        <!--Optional:-->
+                        <res:AdditionalInfo>string</res:AdditionalInfo>
+                    </res:Contacts>
+                    <!--Optional:-->
+                    <res:OrgKpps>
+                        <!--1 or more repetitions:-->
+                        <res:OrgKpp>
+                            <res:KPPIndex>string</res:KPPIndex>
+                            <!--Optional:-->
+                            <res:CheckKPP>s</res:CheckKPP>
+                        </res:OrgKpp>
+                    </res:OrgKpps>
+                    <!--Optional:-->
+                    <res:InternationalName>string</res:InternationalName>
+                    <!--Optional:-->
+                    <res:CurControlCertificatesName>string</res:CurControlCertificatesName>
+                    <!--Optional:-->
+                    <res:CurControlPassportsName>string</res:CurControlPassportsName>
+                    <!--Optional:-->
+                    <res:CertAuthId>string</res:CertAuthId>
+                    <!--Optional:-->
+                    <res:LastCertifNum>string</res:LastCertifNum>
+                </res:OtherOrgData>
+            </res:OrgData>
+            <!--Optional:-->
+            <res:Branches>
+                <!--1 or more repetitions:-->
+                <res:Branch bic="stringstr">
+                    <res:BranchId>string</res:BranchId>
+                    <res:BankName>string</res:BankName>
+                    <!--Optional:-->
+                    <res:ParentId>string</res:ParentId>
+                    <!--Optional:-->
+                    <res:Addresses>
+                        <!--1 or more repetitions:-->
+                        <res:Address>
+                            <!--Optional:-->
+                            <res:AddressTypeCode>string</res:AddressTypeCode>
+                            <!--Optional:-->
+                            <res:AddressType>string</res:AddressType>
+                            <res:Country>string</res:Country>
+                            <res:CountryName>string</res:CountryName>
+                            <res:CountryShortName>string</res:CountryShortName>
+                            <!--Optional:-->
+                            <res:Zip>string</res:Zip>
+                            <!--Optional:-->
+                            <res:Sub>string</res:Sub>
+                            <!--Optional:-->
+                            <res:Area>string</res:Area>
+                            <!--Optional:-->
+                            <res:City>string</res:City>
+                            <!--Optional:-->
+                            <res:SettlType>string</res:SettlType>
+                            <!--Optional:-->
+                            <res:SettlName>string</res:SettlName>
+                            <!--Optional:-->
+                            <res:Str>string</res:Str>
+                            <!--Optional:-->
+                            <res:HNumber>string</res:HNumber>
+                            <!--Optional:-->
+                            <res:Corp>string</res:Corp>
+                            <!--Optional:-->
+                            <res:Office>string</res:Office>
+                            <!--Optional:-->
+                            <res:FullAddress>string</res:FullAddress>
+                            <!--Optional:-->
+                            <res:AddInfoAddress>string</res:AddInfoAddress>
+                        </res:Address>
+                    </res:Addresses>
+                    <!--Optional:-->
+                    <res:Params>
+                        <!--1 or more repetitions:-->
+                        <res:Param>
+                            <res:ParamId>string</res:ParamId>
+                            <res:Name>string</res:Name>
+                            <res:Value>string</res:Value>
+                        </res:Param>
+                    </res:Params>
+                </res:Branch>
+            </res:Branches>
+            <!--Optional:-->
+            <res:SignDevices>
+                <!--1 or more repetitions:-->
+                <res:SignDevice token="false" tokenBss="false" safeTouch="true">
+                    <res:SignDeviceId>string</res:SignDeviceId>
+                    <res:CryptotypeId>string</res:CryptotypeId>
+                    <res:CryptoTypeName>string</res:CryptoTypeName>
+                    <res:ProfileName>string</res:ProfileName>
+                    <!--Optional:-->
+                    <res:TelForSms>string</res:TelForSms>
+                    <!--Optional:-->
+                    <res:ActiveSertId>string</res:ActiveSertId>
+                    <!--Optional:-->
+                    <res:SN>string</res:SN>
+                    <!--Optional:-->
+                    <res:Issuer>string</res:Issuer>
+                    <!--Optional:-->
+                    <res:Certificates>
+                        <!--1 or more repetitions:-->
+                        <res:Certificate active="true" privateKeyRef="string" validFrom="2007-02-08T05:18:22+03:00" validTill="2018-12-11T06:36:57+03:00">aWxsaQ==</res:Certificate>
+                    </res:Certificates>
+                </res:SignDevice>
+            </res:SignDevices>
+            <!--Optional:-->
+            <res:ServicePackages>
+                <!--1 or more repetitions:-->
+                <res:ServicePackage>
+                    <res:PackageId>string</res:PackageId>
+                    <res:PackageName>string</res:PackageName>
+                    <!--1 or more repetitions:-->
+                    <res:Service>
+                        <res:ServiceId>string</res:ServiceId>
+                        <res:ServiceName>string</res:ServiceName>
+                    </res:Service>
+                </res:ServicePackage>
+            </res:ServicePackages>
+            <!--Optional:-->
+            <res:Contracts>
+                <!--1 or more repetitions:-->
+                <res:Contract>
+                    <res:ContractInfo>
+                        <res:ContractId>string</res:ContractId>
+                        <res:OrgName>string</res:OrgName>
+                        <res:BranchId>string</res:BranchId>
+                        <res:ContractNum>string</res:ContractNum>
+                        <res:ContractDate>2016-06-03</res:ContractDate>
+                        <!--Optional:-->
+                        <res:BlockInfo>
+                            <!--Optional:-->
+                            <res:StopedService>false</res:StopedService>
+                            <!--Optional:-->
+                            <res:FinBlock>false</res:FinBlock>
+                            <!--Optional:-->
+                            <res:ContractRescission>false</res:ContractRescission>
+                            <!--Optional:-->
+                            <res:DateRescission>2014-09-23+04:00</res:DateRescission>
+                            <!--Optional:-->
+                            <res:Reason>string</res:Reason>
+                        </res:BlockInfo>
+                    </res:ContractInfo>
+                    <!--Optional:-->
+                    <res:ContractServices>
+                        <!--1 or more repetitions:-->
+                        <res:ContractService branchId="string" orgId="string" blocked="true" allAccounts="false">
+                            <!--Optional:-->
+                            <res:Accounts>
+                                <!--1 or more repetitions:-->
+                                <res:Account accountId="string" blocked="true">
+                                    <!--Optional:-->
+                                    <res:PaymentControl sum1="1000.00" sum2="1000.00" sum3="1000.00"/>
+                                </res:Account>
+                            </res:Accounts>
+                            <!--Optional:-->
+                            <res:ServicePacks>
+                                <!--1 or more repetitions:-->
+                                <res:ServicePack packageId="string"/>
+                            </res:ServicePacks>
+                        </res:ContractService>
+                    </res:ContractServices>
+                </res:Contract>
+            </res:Contracts>
+            <!--Optional:-->
+            <res:AuthPersons>
+                <!--1 or more repetitions:-->
+                <res:AuthPerson>
+                    <res:AuthPersonId>string</res:AuthPersonId>
+                    <res:FIO>string</res:FIO>
+                    <res:OrgId>string</res:OrgId>
+                    <!--Optional:-->
+                    <res:Position>string</res:Position>
+                    <res:ContractId>string</res:ContractId>
+                    <!--Optional:-->
+                    <res:Accounts>
+                        <!--1 or more repetitions:-->
+                        <res:Account accountId="string"/>
+                    </res:Accounts>
+                    <!--Optional:-->
+                    <res:SignDevices>
+                        <!--1 or more repetitions:-->
+                        <res:SignDevice>
+                            <res:SignDeviceId>string</res:SignDeviceId>
+                        </res:SignDevice>
+                    </res:SignDevices>
+                    <!--Optional:-->
+                    <res:AuthSigns>
+                        <!--1 or more repetitions:-->
+                        <res:AuthSign>
+                            <res:SignType>string</res:SignType>
+                            <res:Duration beginDate="2000-10-06+04:00" endDate="2016-05-09" unlimited="true"/>
+                            <!--Optional:-->
+                            <res:SignDevices>
+                                <!--You have a CHOICE of the next 2 items at this level-->
+                                <!--1 or more repetitions:-->
+                                <res:SignDevice>
+                                    <res:SignDeviceId>string</res:SignDeviceId>
+                                </res:SignDevice>
+                                <res:All>true</res:All>
+                            </res:SignDevices>
+                            <!--Optional:-->
+                            <res:Accounts>
+                                <!--You have a CHOICE of the next 2 items at this level-->
+                                <res:All>true</res:All>
+                                <!--1 or more repetitions:-->
+                                <res:Account accountId="string">
+                                    <res:Ammount docSum="1000.00" noLimit="false"/>
+                                </res:Account>
+                            </res:Accounts>
+                            <!--Optional:-->
+                            <res:Docs>
+                                <!--You have a CHOICE of the next 2 items at this level-->
+                                <res:All>true</res:All>
+                                <!--1 or more repetitions:-->
+                                <res:Doc>
+                                    <res:DocType>string</res:DocType>
+                                </res:Doc>
+                            </res:Docs>
+                        </res:AuthSign>
+                    </res:AuthSigns>
+                    <!--Optional:-->
+                    <res:ServicePackages>
+                        <!--1 or more repetitions:-->
+                        <res:ServicePackage packageId="string"/>
+                    </res:ServicePackages>
+                </res:AuthPerson>
+            </res:AuthPersons>
+            <!--Optional:-->
+            <res:Sign>
+                <!--Optional:-->
+                <res:Issuer>string</res:Issuer>
+                <res:SN>string</res:SN>
+                <res:Value>dHJhbnNmaXhv</res:Value>
+                <!--Optional:-->
+                <res:DigestName>string</res:DigestName>
+                <!--Optional:-->
+                <res:DigestVersion>string</res:DigestVersion>
+                <res:SignType>string</res:SignType>
+                <!--Optional:-->
+                <res:Fio>string</res:Fio>
+                <!--Optional:-->
+                <res:Position>string</res:Position>
+            </res:Sign>
+        </res:OrgInfo>
+    </res:OrgsInfo>
+    <!--Optional:-->
+    <res:Dicts>
+        <!--Zero or more repetitions:-->
+        <res:Dict dictId="string">
+            <!--1 or more repetitions:-->
+            <res:Step postFix="string" stepId="string" order="3">
+                <res:Sign>
+                    <!--Optional:-->
+                    <res:Issuer>string</res:Issuer>
+                    <res:SN>string</res:SN>
+                    <res:Value>aW5zdXBlcg==</res:Value>
+                    <!--Optional:-->
+                    <res:DigestName>string</res:DigestName>
+                    <!--Optional:-->
+                    <res:DigestVersion>string</res:DigestVersion>
+                    <res:SignType>string</res:SignType>
+                    <!--Optional:-->
+                    <res:Fio>string</res:Fio>
+                    <!--Optional:-->
+                    <res:Position>string</res:Position>
+                </res:Sign>
+            </res:Step>
+        </res:Dict>
+    </res:Dicts>
+    <!--Optional:-->
+    <res:ChangePasswordResponse>
+        <res:Login>string</res:Login>
+    </res:ChangePasswordResponse>
+    <!--Optional:-->
+    <res:ClientAppUpdates>
+        <res:ClientAppUpdates>
+            <res:PostFix>string</res:PostFix>
+            <res:FileName>string</res:FileName>
+            <res:ClientAppVersion>string</res:ClientAppVersion>
+            <res:ClientAppType>string</res:ClientAppType>
+            <res:ClientOS>string</res:ClientOS>
+            <res:ClientOSArh>string</res:ClientOSArh>
+            <!--Optional:-->
+            <res:ClientOSVersion>string</res:ClientOSVersion>
+            <!--Optional:-->
+            <res:JvmVersion>string</res:JvmVersion>
+            <!--Optional:-->
+            <res:ClientOSLocale>string</res:ClientOSLocale>
+            <res:Sign>
+                <!--Optional:-->
+                <res:Issuer>string</res:Issuer>
+                <res:SN>string</res:SN>
+                <res:Value>ZWdv</res:Value>
+                <!--Optional:-->
+                <res:DigestName>string</res:DigestName>
+                <!--Optional:-->
+                <res:DigestVersion>string</res:DigestVersion>
+                <res:SignType>string</res:SignType>
+                <!--Optional:-->
+                <res:Fio>string</res:Fio>
+                <!--Optional:-->
+                <res:Position>string</res:Position>
+            </res:Sign>
+        </res:ClientAppUpdates>
+    </res:ClientAppUpdates>
+    <!--Optional:-->
+    <res:DealPassCon138I docId="string">
+        <res:DocData docDate="2004-12-18" docNum="string" bankName="string" bankNum="string" authBankName="string">
+            <res:OrgData inn="string" orgName="string" okpo="stringstri"/>
+        </res:DocData>
+        <res:DpData>
+            <res:Part1>stringst</res:Part1>
+            <res:Part2>stri</res:Part2>
+            <res:Part3>stri</res:Part3>
+            <res:Part4>3</res:Part4>
+            <res:Part5>3</res:Part5>
+            <res:PsDate>2017-11-19+03:00</res:PsDate>
+        </res:DpData>
+        <res:ResInfo>
+            <res:Name>string</res:Name>
+            <res:Address>
+                <!--Optional:-->
+                <res:State>string</res:State>
+                <!--Optional:-->
+                <res:District>string</res:District>
+                <!--Optional:-->
+                <res:City>string</res:City>
+                <!--Optional:-->
+                <res:PlaceType>string</res:PlaceType>
+                <!--Optional:-->
+                <res:Place>string</res:Place>
+                <!--Optional:-->
+                <res:Street>string</res:Street>
+                <!--Optional:-->
+                <res:Building>string</res:Building>
+                <!--Optional:-->
+                <res:Block>string</res:Block>
+                <!--Optional:-->
+                <res:Office>string</res:Office>
+            </res:Address>
+            <res:OGRN>string</res:OGRN>
+            <res:Inn_Kpp inn="string" kpp="string"/>
+        </res:ResInfo>
+        <res:BeneficiarInfo>
+            <!--1 or more repetitions:-->
+            <res:Beneficiar>
+                <res:Name>string</res:Name>
+                <res:Country code="string" name="string"/>
+            </res:Beneficiar>
+        </res:BeneficiarInfo>
+        <res:Response checkNum="false" checkSum="false">
+            <!--Optional:-->
+            <res:Num>string</res:Num>
+            <res:Date>2007-08-10+04:00</res:Date>
+            <res:Curr code="string" name="string"/>
+            <!--Optional:-->
+            <res:Sum sum="1000.00" code="str"/>
+            <res:EndDate>2009-09-16+04:00</res:EndDate>
+        </res:Response>
+        <!--Optional:-->
+        <res:RegInfo>
+            <!--Zero or more repetitions:-->
+            <res:Reg>
+                <!--Optional:-->
+                <res:RefClose>string</res:RefClose>
+                <!--Optional:-->
+                <res:BankRegNum>string</res:BankRegNum>
+                <!--Optional:-->
+                <res:DateIn>2004-10-05</res:DateIn>
+                <!--Optional:-->
+                <res:DateClose>2019-08-14+03:00</res:DateClose>
+                <!--Optional:-->
+                <res:ReqNumber>100</res:ReqNumber>
+            </res:Reg>
+        </res:RegInfo>
+        <!--Optional:-->
+        <res:RestrInfo>
+            <!--Zero or more repetitions:-->
+            <res:Restr>
+                <!--Optional:-->
+                <res:RerNumber>100</res:RerNumber>
+                <!--Optional:-->
+                <res:RerDate>2014-12-20+03:00</res:RerDate>
+                <!--Optional:-->
+                <res:RerRefNum>string</res:RerRefNum>
+                <!--Optional:-->
+                <res:RerRefDate>2011-09-16+04:00</res:RerRefDate>
+            </res:Restr>
+        </res:RestrInfo>
+        <!--Optional:-->
+        <res:NumPS>string</res:NumPS>
+        <res:RefInfo>
+            <res:ResInType>string</res:ResInType>
+            <res:ResInDate>2017-08-20</res:ResInDate>
+            <res:RegSendType>string</res:RegSendType>
+            <res:ReqSendDate>2003-01-06+03:00</res:ReqSendDate>
+        </res:RefInfo>
+        <!--Optional:-->
+        <res:AddInfo>string</res:AddInfo>
+        <!--Optional:-->
+        <res:LinkedDocs>
+            <!--1 or more repetitions:-->
+            <res:LDoc type="string" docExtId="string">
+                <!--Optional:-->
+                <res:Params>
+                    <!--1 or more repetitions:-->
+                    <res:Param name="string" value="string"/>
+                </res:Params>
+            </res:LDoc>
+        </res:LinkedDocs>
+        <!--Optional:-->
+        <res:Attachments>
+            <!--1 or more repetitions:-->
+            <res:Attachment>
+                <!--Optional:-->
+                <res:AttachmentName>string</res:AttachmentName>
+                <!--Optional:-->
+                <res:Description>string</res:Description>
+                <res:Body>c29ub3Jhcw==</res:Body>
+            </res:Attachment>
+        </res:Attachments>
+    </res:DealPassCon138I>
+    <!--Optional:-->
+    <res:DealPassCred138I docId="string">
+        <res:DocData docDate="2013-11-23" docNum="string" bankName="string" bankNum="string" authBankName="string">
+            <res:OrgData inn="string" orgName="string" okpo="stringstri"/>
+        </res:DocData>
+        <res:DpData>
+            <res:Part1>stringst</res:Part1>
+            <res:Part2>stri</res:Part2>
+            <res:Part3>stri</res:Part3>
+            <res:Part4>5</res:Part4>
+            <res:Part5>0</res:Part5>
+            <res:PsDate>2009-09-13+04:00</res:PsDate>
+        </res:DpData>
+        <res:ResInfo>
+            <res:Name>string</res:Name>
+            <res:Address>
+                <!--Optional:-->
+                <res:State>string</res:State>
+                <!--Optional:-->
+                <res:District>string</res:District>
+                <!--Optional:-->
+                <res:City>string</res:City>
+                <!--Optional:-->
+                <res:PlaceType>string</res:PlaceType>
+                <!--Optional:-->
+                <res:Place>string</res:Place>
+                <!--Optional:-->
+                <res:Street>string</res:Street>
+                <!--Optional:-->
+                <res:Building>string</res:Building>
+                <!--Optional:-->
+                <res:Block>string</res:Block>
+                <!--Optional:-->
+                <res:Office>string</res:Office>
+            </res:Address>
+            <res:OGRN>string</res:OGRN>
+            <res:Inn_Kpp inn="string" kpp="string"/>
+        </res:ResInfo>
+        <res:BeneficiarInfo>
+            <!--1 or more repetitions:-->
+            <res:Beneficiar>
+                <res:Name>string</res:Name>
+                <res:Country code="string" name="string"/>
+            </res:Beneficiar>
+        </res:BeneficiarInfo>
+        <res:ComData checkNum="false" checkSum="false">
+            <!--Optional:-->
+            <res:Num>string</res:Num>
+            <res:Date>2008-05-11+04:00</res:Date>
+            <res:Curr code="string" name="string"/>
+            <!--Optional:-->
+            <res:Sum sum="1000.00" code="str"/>
+            <res:EndDate>2009-10-30</res:EndDate>
+            <!--Optional:-->
+            <res:SumTransfer sum="1000.00" code="str"/>
+            <!--Optional:-->
+            <res:SumCurr sum="1000.00" code="str"/>
+            <!--Optional:-->
+            <res:Tranche>8</res:Tranche>
+        </res:ComData>
+        <!--Optional:-->
+        <res:TrancheInfo>
+            <!--1 or more repetitions:-->
+            <res:Oper>
+                <!--Optional:-->
+                <res:Sum sum="1000.00" code="str"/>
+                <!--Optional:-->
+                <res:Code>1</res:Code>
+                <!--Optional:-->
+                <res:Date>2004-11-15+03:00</res:Date>
+            </res:Oper>
+        </res:TrancheInfo>
+        <!--Optional:-->
+        <res:RegInfo>
+            <!--Zero or more repetitions:-->
+            <res:Reg>
+                <!--Optional:-->
+                <res:RefClose>string</res:RefClose>
+                <!--Optional:-->
+                <res:BankRegNum>string</res:BankRegNum>
+                <!--Optional:-->
+                <res:DateIn>2011-12-09+04:00</res:DateIn>
+                <!--Optional:-->
+                <res:DateClose>2003-10-10+04:00</res:DateClose>
+                <!--Optional:-->
+                <res:ReqNumber>string</res:ReqNumber>
+            </res:Reg>
+        </res:RegInfo>
+        <!--Optional:-->
+        <res:RerInfo>
+            <!--Zero or more repetitions:-->
+            <res:Rer>
+                <!--Optional:-->
+                <res:RerNumber>string</res:RerNumber>
+                <!--Optional:-->
+                <res:RerDate>2010-05-14+04:00</res:RerDate>
+                <!--Optional:-->
+                <res:RerRefNum>string</res:RerRefNum>
+                <!--Optional:-->
+                <res:RerRefDate>2007-05-30</res:RerRefDate>
+            </res:Rer>
+        </res:RerInfo>
+        <!--Optional:-->
+        <res:NumPS>string</res:NumPS>
+        <res:RefInfo>
+            <res:ResInType>string</res:ResInType>
+            <res:ResInDate>2010-11-05</res:ResInDate>
+            <res:RegSendType>string</res:RegSendType>
+            <res:ReqSendDate>2015-05-14+03:00</res:ReqSendDate>
+        </res:RefInfo>
+        <res:SpecData>
+            <!--Optional:-->
+            <res:Percent>
+                <!--Optional:-->
+                <res:FixPercent>1000.00</res:FixPercent>
+                <!--Optional:-->
+                <res:LIBOR>string</res:LIBOR>
+                <!--Optional:-->
+                <res:OtherMethod>string</res:OtherMethod>
+                <!--Optional:-->
+                <res:IncrPercent>1000.00</res:IncrPercent>
+            </res:Percent>
+            <!--Optional:-->
+            <res:OtherPay>string</res:OtherPay>
+            <!--Optional:-->
+            <res:DebtSum sum="1000.00" code="str"/>
+        </res:SpecData>
+        <res:HelpInfo>
+            <!--Optional:-->
+            <res:Payments ground="false">
+                <!--1 or more repetitions:-->
+                <res:Return>
+                    <!--Optional:-->
+                    <res:strNum>100</res:strNum>
+                    <!--Optional:-->
+                    <res:PercentInfo>
+                        <!--Optional:-->
+                        <res:Date>2003-11-19+03:00</res:Date>
+                        <!--Optional:-->
+                        <res:Sum sum="1000.00" code="str"/>
+                    </res:PercentInfo>
+                    <!--Optional:-->
+                    <res:DebtInfo>
+                        <!--Optional:-->
+                        <res:Date>2006-11-16</res:Date>
+                        <!--Optional:-->
+                        <res:Sum sum="1000.00" code="str"/>
+                    </res:DebtInfo>
+                    <!--Optional:-->
+                    <res:SpecConditions>string</res:SpecConditions>
+                </res:Return>
+            </res:Payments>
+            <!--Optional:-->
+            <res:DirectInvesting check="true"/>
+            <!--Optional:-->
+            <res:CredReceipt>
+                <!--2 or more repetitions:-->
+                <res:Oper>
+                    <res:BeneficiarInfo>
+                        <res:Name>string</res:Name>
+                        <res:Country code="string" name="string"/>
+                    </res:BeneficiarInfo>
+                    <!--You have a CHOICE of the next 2 items at this level-->
+                    <res:Sum sum="1000.00" code="str"/>
+                    <res:Percent>99</res:Percent>
+                </res:Oper>
+                <res:Oper>
+                    <res:BeneficiarInfo>
+                        <res:Name>string</res:Name>
+                        <res:Country code="string" name="string"/>
+                    </res:BeneficiarInfo>
+                    <!--You have a CHOICE of the next 2 items at this level-->
+                    <res:Sum sum="1000.00" code="str"/>
+                    <res:Percent>99</res:Percent>
+                </res:Oper>
+            </res:CredReceipt>
+            <!--Optional:-->
+            <res:DepositSum sum="1000.00" code="str"/>
+        </res:HelpInfo>
+        <!--Optional:-->
+        <res:AddInfo>string</res:AddInfo>
+        <!--Optional:-->
+        <res:LinkedDocs>
+            <!--1 or more repetitions:-->
+            <res:LDoc type="string" docExtId="string">
+                <!--Optional:-->
+                <res:Params>
+                    <!--1 or more repetitions:-->
+                    <res:Param name="string" value="string"/>
+                </res:Params>
+            </res:LDoc>
+        </res:LinkedDocs>
+        <!--Optional:-->
+        <res:Attachments>
+            <!--1 or more repetitions:-->
+            <res:Attachment>
+                <!--Optional:-->
+                <res:AttachmentName>string</res:AttachmentName>
+                <!--Optional:-->
+                <res:Description>string</res:Description>
+                <res:Body>YXVzdHJpcw==</res:Body>
+            </res:Attachment>
+        </res:Attachments>
+    </res:DealPassCred138I>
+</res:Response>

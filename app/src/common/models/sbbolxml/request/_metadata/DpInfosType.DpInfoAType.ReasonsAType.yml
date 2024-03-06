@@ -1,0 +1,82 @@
+common\models\sbbolxml\request\DpInfosType\DpInfoAType\ReasonsAType:
+    properties:
+        reason7111:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason7111
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReason7111
+                setter: setReason7111
+            type: boolean
+        reason7112:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason7112
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReason7112
+                setter: setReason7112
+            type: boolean
+        reason712:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason712
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReason712
+                setter: setReason712
+            type: boolean
+        reason713:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason713
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReason713
+                setter: setReason713
+            type: boolean
+        reason714:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason714
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReason714
+                setter: setReason714
+            type: boolean
+        reason715:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason715
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReason715
+                setter: setReason715
+            type: boolean
+        reason716:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason716
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReason716
+                setter: setReason716
+            type: boolean
+        reason204:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason204
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReason204
+                setter: setReason204
+            type: boolean

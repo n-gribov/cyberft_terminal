@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\response\ResponseType\CertificatesAType:
+    properties:
+        certificate:
+            expose: true
+            access_type: public_method
+            serialized_name: Certificate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCertificate
+                setter: setCertificate
+            xml_list:
+                inline: true
+                entry_name: Certificate
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\ResponseType\CertificatesAType\CertificateAType>

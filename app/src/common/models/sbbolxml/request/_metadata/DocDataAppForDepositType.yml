@@ -1,0 +1,83 @@
+common\models\sbbolxml\request\DocDataAppForDepositType:
+    properties:
+        bankSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: bankSystemName
+            accessor:
+                getter: getBankSystemName
+                setter: setBankSystemName
+            xml_attribute: true
+            type: string
+        actualCard:
+            expose: true
+            access_type: public_method
+            serialized_name: actualCard
+            accessor:
+                getter: getActualCard
+                setter: setActualCard
+            xml_attribute: true
+            type: string
+        contractNum:
+            expose: true
+            access_type: public_method
+            serialized_name: contractNum
+            accessor:
+                getter: getContractNum
+                setter: setContractNum
+            xml_attribute: true
+            type: string
+        contractDate:
+            expose: true
+            access_type: public_method
+            serialized_name: contractDate
+            accessor:
+                getter: getContractDate
+                setter: setContractDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        confirming:
+            expose: true
+            access_type: public_method
+            serialized_name: confirming
+            accessor:
+                getter: getConfirming
+                setter: setConfirming
+            xml_attribute: true
+            type: boolean
+        transferType:
+            expose: true
+            access_type: public_method
+            serialized_name: transferType
+            accessor:
+                getter: getTransferType
+                setter: setTransferType
+            xml_attribute: true
+            type: string
+        prolongation:
+            expose: true
+            access_type: public_method
+            serialized_name: prolongation
+            accessor:
+                getter: getProlongation
+                setter: setProlongation
+            xml_attribute: true
+            type: boolean
+        prolongationNum:
+            expose: true
+            access_type: public_method
+            serialized_name: prolongationNum
+            accessor:
+                getter: getProlongationNum
+                setter: setProlongationNum
+            xml_attribute: true
+            type: string
+        prolongationDate:
+            expose: true
+            access_type: public_method
+            serialized_name: prolongationDate
+            accessor:
+                getter: getProlongationDate
+                setter: setProlongationDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

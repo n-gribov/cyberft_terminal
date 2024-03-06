@@ -1,0 +1,43 @@
+common\models\raiffeisenxml\request\DealPassDataType:
+    properties:
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: Num
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNum
+                setter: setNum
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: Date
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDate
+                setter: setDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        contractCurSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractCurSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractCurSum
+                setter: setContractCurSum
+            type: common\models\raiffeisenxml\request\DealPassDataType\ContractCurSumAType
+        expTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: ExpTerm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExpTerm
+                setter: setExpTerm
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

@@ -1,0 +1,20 @@
+common\models\raiffeisenxml\request\RequestType\CryptoIncomingAType\CertificatesAType:
+    properties:
+        client:
+            expose: true
+            access_type: public_method
+            serialized_name: client
+            accessor:
+                getter: getClient
+                setter: setClient
+            xml_attribute: true
+            type: bool
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: bank
+            accessor:
+                getter: getBank
+                setter: setBank
+            xml_attribute: true
+            type: bool

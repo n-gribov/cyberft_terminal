@@ -1,0 +1,172 @@
+common\models\sbbolxml\response\ResponseType\OrgSettingsAType:
+    properties:
+        usedArchitectureControl:
+            expose: true
+            access_type: public_method
+            serialized_name: UsedArchitectureControl
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getUsedArchitectureControl
+                setter: setUsedArchitectureControl
+            type: boolean
+        useSignCorrDict:
+            expose: true
+            access_type: public_method
+            serialized_name: UseSignCorrDict
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getUseSignCorrDict
+                setter: setUseSignCorrDict
+            type: boolean
+        remoteAccessProtect:
+            expose: true
+            access_type: public_method
+            serialized_name: RemoteAccessProtect
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRemoteAccessProtect
+                setter: setRemoteAccessProtect
+            type: boolean
+        correspondentDictChanged:
+            expose: true
+            access_type: public_method
+            serialized_name: CorrespondentDictChanged
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCorrespondentDictChanged
+                setter: setCorrespondentDictChanged
+            type: boolean
+        bicDictChanged:
+            expose: true
+            access_type: public_method
+            serialized_name: BicDictChanged
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBicDictChanged
+                setter: setBicDictChanged
+            type: boolean
+        sendCRL:
+            expose: true
+            access_type: public_method
+            serialized_name: SendCRL
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSendCRL
+                setter: setSendCRL
+            type: boolean
+        orgDataVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgDataVersion
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOrgDataVersion
+                setter: setOrgDataVersion
+            type: integer
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType
+        beneficiarDictChanged:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiarDictChanged
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBeneficiarDictChanged
+                setter: setBeneficiarDictChanged
+            type: boolean
+        requestISK:
+            expose: true
+            access_type: public_method
+            serialized_name: RequestISK
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRequestISK
+                setter: setRequestISK
+            type: boolean
+        orgUPGLogsRequests:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgUPGLogsRequests
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOrgUPGLogsRequests
+                setter: setOrgUPGLogsRequests
+            type: common\models\sbbolxml\response\ResponseType\OrgSettingsAType\OrgUPGLogsRequestsAType
+        dictsForDepositsDictChanged:
+            expose: true
+            access_type: public_method
+            serialized_name: DictsForDepositsDictChanged
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDictsForDepositsDictChanged
+                setter: setDictsForDepositsDictChanged
+            type: boolean
+        cardPermBalanceDictChanged:
+            expose: true
+            access_type: public_method
+            serialized_name: CardPermBalanceDictChanged
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCardPermBalanceDictChanged
+                setter: setCardPermBalanceDictChanged
+            type: boolean
+        cardDepositDictChanged:
+            expose: true
+            access_type: public_method
+            serialized_name: CardDepositDictChanged
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCardDepositDictChanged
+                setter: setCardDepositDictChanged
+            type: boolean
+        currencyControlStart181I:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrencyControlStart_181I
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCurrencyControlStart181I
+                setter: setCurrencyControlStart181I
+            type: boolean
+        commonSettingsDictChanged:
+            expose: true
+            access_type: public_method
+            serialized_name: CommonSettingsDictChanged
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCommonSettingsDictChanged
+                setter: setCommonSettingsDictChanged
+            type: boolean
+        maxLastIncomingTime:
+            expose: true
+            access_type: public_method
+            serialized_name: MaxLastIncomingTime
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getMaxLastIncomingTime
+                setter: setMaxLastIncomingTime
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime

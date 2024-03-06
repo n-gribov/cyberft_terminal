@@ -1,0 +1,34 @@
+common\models\sbbolxml\response\ServicePackageType\ServiceAType:
+    properties:
+        serviceId:
+            expose: true
+            access_type: public_method
+            serialized_name: ServiceId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getServiceId
+                setter: setServiceId
+            type: string
+        serviceName:
+            expose: true
+            access_type: public_method
+            serialized_name: ServiceName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getServiceName
+                setter: setServiceName
+            type: string
+        availableInStandIn9999:
+            expose: true
+            access_type: public_method
+            serialized_name: AvailableInStandIn9999
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAvailableInStandIn9999
+                setter: setAvailableInStandIn9999
+            type: boolean

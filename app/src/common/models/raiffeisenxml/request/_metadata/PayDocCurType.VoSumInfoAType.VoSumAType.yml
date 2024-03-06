@@ -1,0 +1,23 @@
+common\models\raiffeisenxml\request\PayDocCurType\VoSumInfoAType\VoSumAType:
+    properties:
+        vo:
+            expose: true
+            access_type: public_method
+            serialized_name: Vo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getVo
+                setter: setVo
+            type: string
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\request\CurrAmountType

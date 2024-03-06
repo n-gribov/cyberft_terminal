@@ -1,0 +1,43 @@
+common\models\raiffeisenxml\request\TrancheInfoType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: float
+        curr:
+            expose: true
+            access_type: public_method
+            serialized_name: Curr
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurr
+                setter: setCurr
+            type: common\models\raiffeisenxml\request\TrancheInfoType\CurrAType
+        supplyDate:
+            expose: true
+            access_type: public_method
+            serialized_name: SupplyDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSupplyDate
+                setter: setSupplyDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        attractTermCode:
+            expose: true
+            access_type: public_method
+            serialized_name: AttractTermCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAttractTermCode
+                setter: setAttractTermCode
+            type: string

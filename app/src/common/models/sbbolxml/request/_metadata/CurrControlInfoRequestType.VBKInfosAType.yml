@@ -1,0 +1,16 @@
+common\models\sbbolxml\request\CurrControlInfoRequestType\VBKInfosAType:
+    properties:
+        vBKInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: VBKInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVBKInfo
+                setter: setVBKInfo
+            xml_list:
+                inline: true
+                entry_name: VBKInfo
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\VBKInfoType>

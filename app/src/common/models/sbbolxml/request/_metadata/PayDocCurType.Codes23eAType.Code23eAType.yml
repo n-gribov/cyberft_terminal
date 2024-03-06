@@ -1,0 +1,35 @@
+common\models\sbbolxml\request\PayDocCurType\Codes23eAType\Code23eAType:
+    properties:
+        instr23EInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: Instr23EInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getInstr23EInfo
+                setter: setInstr23EInfo
+            type: string
+        code:
+            expose: true
+            access_type: public_method
+            serialized_name: Code
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCode
+                setter: setCode
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

@@ -1,0 +1,47 @@
+common\models\sbbolxml\request\DocDataRecallCashOrderType:
+    properties:
+        docNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: docNumber
+            accessor:
+                getter: getDocNumber
+                setter: setDocNumber
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        recallDocDate:
+            expose: true
+            access_type: public_method
+            serialized_name: recallDocDate
+            accessor:
+                getter: getRecallDocDate
+                setter: setRecallDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        recallDocNum:
+            expose: true
+            access_type: public_method
+            serialized_name: recallDocNum
+            accessor:
+                getter: getRecallDocNum
+                setter: setRecallDocNum
+            xml_attribute: true
+            type: string
+        reason:
+            expose: true
+            access_type: public_method
+            serialized_name: reason
+            accessor:
+                getter: getReason
+                setter: setReason
+            xml_attribute: true
+            type: string

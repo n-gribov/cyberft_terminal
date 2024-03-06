@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\PeriodType:
+    properties:
+        beginDate:
+            expose: true
+            access_type: public_method
+            serialized_name: BeginDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeginDate
+                setter: setBeginDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: EndDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

@@ -1,0 +1,43 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\AccrSumAType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\AccrSumAType\SumAType
+        sumDeviation:
+            expose: true
+            access_type: public_method
+            serialized_name: SumDeviation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumDeviation
+                setter: setSumDeviation
+            type: bool
+        deviation:
+            expose: true
+            access_type: public_method
+            serialized_name: Deviation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDeviation
+                setter: setDeviation
+            type: string
+        tolerance:
+            expose: true
+            access_type: public_method
+            serialized_name: Tolerance
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTolerance
+                setter: setTolerance
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\AccrSumAType\ToleranceAType

@@ -1,0 +1,32 @@
+common\models\sbbolxml\request\FinancialSituationInfoTypeOneType:
+    properties:
+        matterOfBankruptcy:
+            expose: true
+            access_type: public_method
+            serialized_name: MatterOfBankruptcy
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMatterOfBankruptcy
+                setter: setMatterOfBankruptcy
+            type: boolean
+        liquidationProcedure:
+            expose: true
+            access_type: public_method
+            serialized_name: LiquidationProcedure
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLiquidationProcedure
+                setter: setLiquidationProcedure
+            type: boolean
+        bankruptcyCourtDecision:
+            expose: true
+            access_type: public_method
+            serialized_name: BankruptcyCourtDecision
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBankruptcyCourtDecision
+                setter: setBankruptcyCourtDecision
+            type: boolean

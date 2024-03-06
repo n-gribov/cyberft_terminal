@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\BudgetDepartmentalInfoType:
+    properties:
+        cbc:
+            expose: true
+            access_type: public_method
+            serialized_name: cbc
+            accessor:
+                getter: getCbc
+                setter: setCbc
+            xml_attribute: true
+            type: string

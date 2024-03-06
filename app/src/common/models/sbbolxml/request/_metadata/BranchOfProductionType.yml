@@ -1,0 +1,173 @@
+common\models\sbbolxml\request\BranchOfProductionType:
+    properties:
+        renderingOfServices:
+            expose: true
+            access_type: public_method
+            serialized_name: RenderingOfServices
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRenderingOfServices
+                setter: setRenderingOfServices
+            type: boolean
+        paid:
+            expose: true
+            access_type: public_method
+            serialized_name: Paid
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPaid
+                setter: setPaid
+            type: boolean
+        wholesaleTrade:
+            expose: true
+            access_type: public_method
+            serialized_name: WholesaleTrade
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getWholesaleTrade
+                setter: setWholesaleTrade
+            type: boolean
+        development:
+            expose: true
+            access_type: public_method
+            serialized_name: Development
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDevelopment
+                setter: setDevelopment
+            type: boolean
+        energetics:
+            expose: true
+            access_type: public_method
+            serialized_name: Energetics
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEnergetics
+                setter: setEnergetics
+            type: boolean
+        armamentProduction:
+            expose: true
+            access_type: public_method
+            serialized_name: ArmamentProduction
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getArmamentProduction
+                setter: setArmamentProduction
+            type: boolean
+        touristIndustry:
+            expose: true
+            access_type: public_method
+            serialized_name: TouristIndustry
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTouristIndustry
+                setter: setTouristIndustry
+            type: boolean
+        commissionBusinessAuto:
+            expose: true
+            access_type: public_method
+            serialized_name: CommissionBusinessAuto
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCommissionBusinessAuto
+                setter: setCommissionBusinessAuto
+            type: boolean
+        commissionBusinessArt:
+            expose: true
+            access_type: public_method
+            serialized_name: CommissionBusinessArt
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCommissionBusinessArt
+                setter: setCommissionBusinessArt
+            type: boolean
+        commissionBusinessAntiques:
+            expose: true
+            access_type: public_method
+            serialized_name: CommissionBusinessAntiques
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCommissionBusinessAntiques
+                setter: setCommissionBusinessAntiques
+            type: boolean
+        commissionBusinessFurniture:
+            expose: true
+            access_type: public_method
+            serialized_name: CommissionBusinessFurniture
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCommissionBusinessFurniture
+                setter: setCommissionBusinessFurniture
+            type: boolean
+        gamblingIndustry:
+            expose: true
+            access_type: public_method
+            serialized_name: GamblingIndustry
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGamblingIndustry
+                setter: setGamblingIndustry
+            type: boolean
+        jewelleryBusiness:
+            expose: true
+            access_type: public_method
+            serialized_name: JewelleryBusiness
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getJewelleryBusiness
+                setter: setJewelleryBusiness
+            type: boolean
+        realEstateBusiness:
+            expose: true
+            access_type: public_method
+            serialized_name: RealEstateBusiness
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRealEstateBusiness
+                setter: setRealEstateBusiness
+            type: boolean
+        charity:
+            expose: true
+            access_type: public_method
+            serialized_name: Charity
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCharity
+                setter: setCharity
+            type: boolean
+        otherBranchOfProduction:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherBranchOfProduction
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOtherBranchOfProduction
+                setter: setOtherBranchOfProduction
+            type: boolean
+        otherBranchOfProductionText:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherBranchOfProductionText
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOtherBranchOfProductionText
+                setter: setOtherBranchOfProductionText
+            type: string

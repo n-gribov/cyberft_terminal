@@ -1,0 +1,33 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType\ContractInfoAType\GuaranteeReceiverAType:
+    properties:
+        receiver:
+            expose: true
+            access_type: public_method
+            serialized_name: receiver
+            accessor:
+                getter: getReceiver
+                setter: setReceiver
+            xml_attribute: true
+            type: string
+        bankSwift:
+            expose: true
+            access_type: public_method
+            serialized_name: BankSwift
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBankSwift
+                setter: setBankSwift
+            type: string
+        bankName:
+            expose: true
+            access_type: public_method
+            serialized_name: BankName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBankName
+                setter: setBankName
+            type: string

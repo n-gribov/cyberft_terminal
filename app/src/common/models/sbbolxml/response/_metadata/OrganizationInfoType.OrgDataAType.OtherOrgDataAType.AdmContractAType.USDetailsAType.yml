@@ -1,0 +1,65 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OtherOrgDataAType\AdmContractAType\USDetailsAType:
+    properties:
+        selfContractNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: selfContractNumber
+            accessor:
+                getter: getSelfContractNumber
+                setter: setSelfContractNumber
+            xml_attribute: true
+            type: string
+        selfEndDate:
+            expose: true
+            access_type: public_method
+            serialized_name: selfEndDate
+            accessor:
+                getter: getSelfEndDate
+                setter: setSelfEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        selfLimit:
+            expose: true
+            access_type: public_method
+            serialized_name: selfLimit
+            accessor:
+                getter: getSelfLimit
+                setter: setSelfLimit
+            xml_attribute: true
+            type: float
+        selfOrgId:
+            expose: true
+            access_type: public_method
+            serialized_name: selfOrgId
+            accessor:
+                getter: getSelfOrgId
+                setter: setSelfOrgId
+            xml_attribute: true
+            type: string
+        selfPurpose:
+            expose: true
+            access_type: public_method
+            serialized_name: selfPurpose
+            accessor:
+                getter: getSelfPurpose
+                setter: setSelfPurpose
+            xml_attribute: true
+            type: string
+        selfStartDate:
+            expose: true
+            access_type: public_method
+            serialized_name: selfStartDate
+            accessor:
+                getter: getSelfStartDate
+                setter: setSelfStartDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        selfStatus:
+            expose: true
+            access_type: public_method
+            serialized_name: selfStatus
+            accessor:
+                getter: getSelfStatus
+                setter: setSelfStatus
+            xml_attribute: true
+            type: string

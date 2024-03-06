@@ -1,0 +1,46 @@
+common\models\raiffeisenxml\request\ChanDPType\DpInfoAType\OperAType\ChapterInfoAType\ChapterAType:
+    properties:
+        strNum:
+            expose: true
+            access_type: public_method
+            serialized_name: StrNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getStrNum
+                setter: setStrNum
+            type: string
+        chapter:
+            expose: true
+            access_type: public_method
+            serialized_name: Chapter
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getChapter
+                setter: setChapter
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        columns:
+            expose: true
+            access_type: public_method
+            serialized_name: Columns
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getColumns
+                setter: setColumns
+            type: string

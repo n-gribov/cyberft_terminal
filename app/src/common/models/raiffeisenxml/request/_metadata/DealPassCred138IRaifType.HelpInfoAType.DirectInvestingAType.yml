@@ -1,0 +1,11 @@
+common\models\raiffeisenxml\request\DealPassCred138IRaifType\HelpInfoAType\DirectInvestingAType:
+    properties:
+        check:
+            expose: true
+            access_type: public_method
+            serialized_name: check
+            accessor:
+                getter: getCheck
+                setter: setCheck
+            xml_attribute: true
+            type: bool

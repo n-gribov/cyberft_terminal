@@ -1,0 +1,74 @@
+common\models\sbbolxml\response\DPReissueDataType:
+    properties:
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: Num
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getNum
+                setter: setNum
+            type: string
+        dPReDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DPReDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDPReDate
+                setter: setDPReDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DocNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DocDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        result:
+            expose: true
+            access_type: public_method
+            serialized_name: Result
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getResult
+                setter: setResult
+            type: boolean
+        formalCause:
+            expose: true
+            access_type: public_method
+            serialized_name: FormalCause
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFormalCause
+                setter: setFormalCause
+            type: common\models\sbbolxml\response\CaseType
+        formalCauseData:
+            expose: true
+            access_type: public_method
+            serialized_name: FormalCauseData
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFormalCauseData
+                setter: setFormalCauseData
+            type: common\models\sbbolxml\response\FormalCauseDataType

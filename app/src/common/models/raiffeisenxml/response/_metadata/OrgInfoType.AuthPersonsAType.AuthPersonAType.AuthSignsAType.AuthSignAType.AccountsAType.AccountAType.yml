@@ -1,0 +1,21 @@
+common\models\raiffeisenxml\response\OrgInfoType\AuthPersonsAType\AuthPersonAType\AuthSignsAType\AuthSignAType\AccountsAType\AccountAType:
+    properties:
+        accountId:
+            expose: true
+            access_type: public_method
+            serialized_name: accountId
+            accessor:
+                getter: getAccountId
+                setter: setAccountId
+            xml_attribute: true
+            type: string
+        ammount:
+            expose: true
+            access_type: public_method
+            serialized_name: Ammount
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAmmount
+                setter: setAmmount
+            type: common\models\raiffeisenxml\response\OrgInfoType\AuthPersonsAType\AuthPersonAType\AuthSignsAType\AuthSignAType\AccountsAType\AccountAType\AmmountAType

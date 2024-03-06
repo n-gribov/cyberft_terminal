@@ -1,0 +1,89 @@
+common\models\sbbolxml\response\RzkParamsType:
+    properties:
+        budgetId:
+            expose: true
+            access_type: public_method
+            serialized_name: BudgetId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBudgetId
+                setter: setBudgetId
+            type: string
+        budgetCaption:
+            expose: true
+            access_type: public_method
+            serialized_name: BudgetCaption
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBudgetCaption
+                setter: setBudgetCaption
+            type: string
+        estimateId:
+            expose: true
+            access_type: public_method
+            serialized_name: EstimateId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getEstimateId
+                setter: setEstimateId
+            type: string
+        estimateCaption:
+            expose: true
+            access_type: public_method
+            serialized_name: EstimateCaption
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getEstimateCaption
+                setter: setEstimateCaption
+            type: string
+        product:
+            expose: true
+            access_type: public_method
+            serialized_name: Product
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getProduct
+                setter: setProduct
+            type: string
+        rzkStatus:
+            expose: true
+            access_type: public_method
+            serialized_name: RzkStatus
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRzkStatus
+                setter: setRzkStatus
+            type: string
+        rzkAction:
+            expose: true
+            access_type: public_method
+            serialized_name: RzkAction
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRzkAction
+                setter: setRzkAction
+            type: string
+        distributedSign:
+            expose: true
+            access_type: public_method
+            serialized_name: DistributedSign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDistributedSign
+                setter: setDistributedSign
+            type: boolean

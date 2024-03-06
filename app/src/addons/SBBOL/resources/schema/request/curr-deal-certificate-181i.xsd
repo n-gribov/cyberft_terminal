@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CurrDealCertificate181I">
+        <xs:sequence>
+            <xs:element name="DocData" type="DocDataCC181I">
+                <xs:annotation>
+                    <xs:documentation>Общие реквизиты документа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CurrDealCertificateDocs181I">
+                <xs:annotation>
+                    <xs:documentation>Содержит данные табличных полей</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="CurrDealCertificateDoc181I" type="CurrDealCertificateDoc181I"
+                                    maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Информация о валютных операциях</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="LinkedDocs" type="LinkedDocs" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Содержит информацию о связном документе
+                        (РПП, валютный перевод, распоряжение об обязательной продаже, уведомление и т.п., доставленные по системе СББОЛ)
+                        по списанию или зачислению, корректируемое СВО
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Приложенные к документу отсканированные образы-вложения - для АС БФ
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="docExtId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Уникальный* идентификатор документа в учетной системе (УС) Клиента.
+                    *Уникальность контролируется на стороне банка
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataCC181I">
+        <xs:sequence>
+            <xs:element name="DealNum">
+                <xs:annotation>
+                    <xs:documentation>Номер документа (клиентский)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="AccountInOtherBank" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Признак счёта в другом банке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Account" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата справки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Payment" type="Payment" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Данные валютной операции</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OrgData" type="OrgDataCC">
+                <xs:annotation>
+                    <xs:documentation>
+                        Основные реквизиты организации - резидента, указываемые в документе
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Adjustment" type="BoolType">
+                <xs:annotation>
+                    <xs:documentation>
+                        Признак корректировки (0 – признак не установлен; 1 – признак установлен)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AdjustmentNumber" type="AdjustmentNumber" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Порядковый номер корректировки
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Country" type="CountryName" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код страны банка-нерезидента</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AddInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дополнительная информация</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="AuthPers" type="AuthPers">
+                <xs:annotation>
+                    <xs:documentation>ФИО и телефон исполнителя</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="docDate" type="xs:date">
+            <xs:annotation>
+                <xs:documentation>Дата документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="Payment">
+        <xs:sequence>
+            <xs:element name="IsDocumentNumber" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Признак отсутствия номера валютного документа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocNumber" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер документа по валютной операции</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DocDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата валютного документа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PaymentAmount" type="xs:decimal">
+                <xs:annotation>
+                    <xs:documentation>Сумма платежа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CurrCode" type="CurrCodeDigitalType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Цифровой код валюты операции</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CurrNameOper" type="CurrCodeLetterType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>ISO-код валюты валюты (3-х буквенный код валюты)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PayDirection">
+                <xs:annotation>
+                    <xs:documentation>
+                        Направление платежа
+                        Признак платежа
+                        1 - зачисление резиденту, в т.ч. оформившему ПС
+                        2 - списание резидента, в т.ч. оформившего ПС
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="OperDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата операции</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CurrDocType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Тип валютного документа:
+                        MandatorySale - Распоряжение об осуществлении обязательной продажи;
+                        PayDocCur - Поручение на перевод валюты;
+                        PayDocRu - Рублевое платежное поручение.
+                        CurrencyNotices - Уведомлений о зачислении (поступлении) иностранной валюты на транзитный
+                        валютный счет
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="MandatorySale"/>
+                        <xs:enumeration value="PayDocCur"/>
+                        <xs:enumeration value="PayDocRu"/>
+                        <xs:enumeration value="CurrencyNotices"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CurrDealCertificateDoc181I">
+        <xs:sequence>
+            <xs:element name="OperInfo" type="OperInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Вид валютной операции</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PaymentSum" type="CurrAmountType">
+                <xs:annotation>
+                    <xs:documentation>Сумма платежа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:choice minOccurs="0">
+                <xs:element name="Contract" type="ContractDateOptional" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Информация о контракте
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DealPassNum" type="DealPassNumFullType" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Уникальный номер контракта (строка со слешами)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+            <xs:element name="ContractSum" type="CurrAmountType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сумма платежа в валюте цены контракта (кредитного договора)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ExpectedTerm" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Ожидаемый срок исполнения обязательств по контракту</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AddInfo" type="AddInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Примечания по данной строке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OperationBase">
+                <xs:annotation>
+                    <xs:documentation>Код основания проведения операции
+                        1 - Контракт (кредитный договор) с нерезидентом, сумма которого не превышает 200 000 рублей РФ
+                        2 - Контракт (кредитный договор) с нерезидентом, не требующий постановки на учет, сумма которого превышает 200 000 рублей РФ
+                        3 - Контракт (кредитный договор), поставленный на учет в банке
+                        4 - Иные
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="1"/>
+                        <xs:enumeration value="2"/>
+                        <xs:enumeration value="3"/>
+                        <xs:enumeration value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DataComposition" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код перечисления возможных составов предоставляемой информации:
+                        1 - Информация об уникальном номере контракта (кредитного договора)
+                        2 - Документы, связанные с проведением операции
+                        3 - Информация о коде вида операции
+                        4 - Информация об уникальном номере контракта и коде вида операции
+                        5 - Информация об уникальном номере контракта и документы, связанные с проведением операции
+                        6 - Документы, связанные с проведением операции, представлены ранее
+                        8 - Сведения уполномоченного банка о проведении операции с указанием уникального номера контракта (кредитного договора)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[0-9]{1}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="TermOfPayment" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Условия расчетов
+                        "0"- Аванс
+                        "1"- По факту
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="0"/>
+                        <xs:enumeration value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="lineNumber" type="xs:int">
+            <xs:annotation>
+                <xs:documentation>Порядковый номер строки в справке</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="OperInfo">
+        <xs:sequence>
+            <xs:element name="OperCode" type="OperCodeType">
+                <xs:annotation>
+                    <xs:documentation>Код вида операции</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OperName">
+                <xs:annotation>
+                    <xs:documentation>Наименование вида валютной операции
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="700"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

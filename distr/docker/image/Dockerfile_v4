@@ -1,0 +1,126 @@
+#Dockerfile CyberFT system
+#version 4 (php7.4 + cpro 4 + cyberft-crypt include libs )
+
+FROM debian:stretch
+ENV DEBIAN_FRONTEND noninteractive
+
+#step 1 - core and tools
+RUN echo "deb http://httpredir.debian.org/debian jessie main" >> /etc/apt/sources.list \
+&& apt-get -y update \
+&& apt-get -y upgrade \
+&& apt-get -y install nano libnspr4 libnss3 apt-utils debconf-utils sudo wget autoconf libtool liblzma-dev python-dev software-properties-common python-software-properties locales libc6-i386 lib32z1 libwebp5 libx11-6 libxpm4 \
+&& apt-get -y install alien locales libc6-i386 lib32z1 \
+&& apt-get -y -t=jessie install lsb-security lsb-core \
+&& apt-mark hold lsb lsb-base lsb-core lsb-security
+
+#step 2 - mysql
+RUN wget https://www.dotdeb.org/dotdeb.gpg \
+&& sudo apt-key add dotdeb.gpg \
+&& rm -rf dotdeb.gpg \
+&& echo "deb http://packages.dotdeb.org jessie all"  >> /etc/apt/sources.list \
+&& echo "deb-src http://packages.dotdeb.org jessie all" >> /etc/apt/sources.list \
+&& echo "mysql-server mysql-server/root_password password 123qwe" | debconf-set-selections \
+&& echo "mysql-server mysql-server/root_password_again password 123qwe" | debconf-set-selections \
+&& apt-get -y install mysql-server
+
+#step3 - php
+RUN apt -y install lsb-release apt-transport-https ca-certificates \
+&& wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
+&& echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php7.3.list \
+&& apt-get update \
+&& apt-get -y install libxslt1.1 libzip2 gcc  \
+&& apt-get -y install php7.3-readline php7.3-fpm php7.3-common php7.3-cli php7.3-curl php-mcrypt php7.3-mysqlnd php7.3-intl php7.3-mbstring php7.3-zip php7.3-xml php7.3-ssh2 php7.3-soap php7.3-gmp php7.3-imap php7.3-gd php7.3-bcmath
+
+#step 4 - java
+RUN echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/linuxuprising-java.list \
+#&& apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EA8CACC073C3DB2A \
+&& apt-get -y --force-yes update \
+&& echo oracle-java11-installer shared/accepted-oracle-license-v1-2 select true | sudo /usr/bin/debconf-set-selections \
+&& apt-get -y --allow-unauthenticated install oracle-java11-set-default
+
+#step5 - nginx
+RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list \
+&& echo "deb-src http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list \
+&& wget https://nginx.org/keys/nginx_signing.key \
+&& sudo apt-key add nginx_signing.key \
+&& apt-get update \
+&& apt-get -y --allow-unauthenticated install nginx \
+&& rm -rf /etc/nginx/sites-enabled/default
+
+#step6 - elasticsearch
+COPY deps/elasticsearch-2.4.1.deb /root
+RUN dpkg -i /root/elasticsearch-2.4.1.deb \
+&& rm -rf /root/elasticsearch-2.4.1.deb
+
+#step7 - redis-server
+RUN apt-get -y install redis-server
+
+#step8 - stunnel4
+RUN apt-get install -y stunnel4 \
+&& sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/stunnel4
+
+#step9 - incrontab
+COPY deps/incron_0.5.10-1_amd64.deb /root/
+RUN dpkg -i /root/incron_0.5.10-1_amd64.deb \
+&& echo "root" >> "/etc/incron.allow" \
+&& rm -rf /root/incron_0.5.10-1_amd64.deb
+
+#step10 - openssl
+COPY deps/cyberft-crypt /usr/bin
+RUN cd /root \
+&& apt-get install make \
+&& wget https://www.openssl.org/source/openssl-1.1.1.tar.gz \
+&& tar xvf openssl-1.1.1.tar.gz \
+&& cd ./openssl-1.1.1 \
+&& ./config --prefix=/usr/local/openssl-1.1.1 shared \
+&& make \
+&& make install \
+&& echo "openssl_conf = openssl_def\n$(cat /usr/local/openssl-1.1.1/ssl/openssl.cnf)" > /usr/local/openssl-1.1.1/ssl/openssl.cnf \
+&& echo "[openssl_def]\nengines = engine_section\n[engine_section]\ngost = gost_section\n[gost_section]\nengine_id = gost\ndynamic_path = /usr/local/openssl-1.1.1/lib/gost.so\ndefault_algorithms = ALL\nCRYPT_PARAMS = id-Gost28147-89-CryptoPro-A-ParamSet" >> /usr/local/openssl-1.1.1/ssl/openssl.cnf \
+&& echo 'OPENSSL_CONF="/usr/local/openssl-1.1.1/ssl/openssl.cnf"' >  /etc/environment \
+&& export OPENSSL_CONF="/usr/local/openssl-1.1.1/ssl/openssl.cnf" \
+&& mv /usr/lib/ssl/openssl.cnf /usr/lib/ssl/openssl.cnf_bak \
+&& rm -rf /usr/bin/opensssl \
+&& ln -sf /usr/local/openssl-1.1.1/bin/openssl /usr/bin/openssl \
+&& ln -sf /usr/local/openssl-1.1.1/ssl/openssl.cnf /usr/lib/ssl/openssl.cnf
+COPY deps/gost.so /usr/local/openssl-1.1.1/lib/
+
+#step11- crypto-pro
+COPY deps/linux-amd64.tgz /root
+RUN cd /root/ \
+&& tar -xf linux-amd64.tgz \
+&& cd linux-amd64 \
+&& alien -kci cprocsp-compat-altlinux-64-1.0.0-1.noarch.rpm \
+&& alien -kci lsb-cprocsp-base-4.0.9944-5.noarch.rpm \
+&& alien -kci lsb-cprocsp-rdr-64-4.0.9944-5.x86_64.rpm \
+&& alien -kci lsb-cprocsp-capilite-64-4.0.9944-5.x86_64.rpm \
+&& alien -kci lsb-cprocsp-kc1-64-4.0.9944-5.x86_64.rpm \
+&& alien -kci cprocsp-stunnel-64-4.0.9944-5.x86_64.rpm \
+&& alien -kci cprocsp-curl-64-4.0.9944-5.x86_64.rpm \
+&& echo "warning_time_gen_2001=ll:131907744000000000" >> /etc/opt/cprocsp/config64.ini \
+&& echo "warning_time_sign_2001=ll:131907744000000000" >> /etc/opt/cprocsp/config64.ini
+
+
+#step12 - configure and clean
+COPY deps/sudoers /etc/sudoers
+RUN cd /root \
+&& apt-get install ccze \
+&& apt-get -y autoremove \
+&& rm -rf /etc/apt/apt.conf \
+&& rm -rf /etc/apt/sources.list \
+&& rm -rf /var/lib/apt/lists/* \
+&& rm -rf  /var/lib/apt/* \
+&& rm -rf /root/* \
+&& find /var/cache/* -type f -exec rm {} \; \
+&& chmod -R 0644 /etc/sudoers \
+&& echo 'LD_LIBRARY_PATH="/usr/local/openssl-1.1.1/lib/:${LD_LIBRARY_PATH}"' >>  /etc/environment \
+&& echo "alias logs='tail -f /var/www/cyberft/app/logs/* | ccze -A'" >> /root/.bashrc \
+&& echo "alias services='/var/www/cyberft/app/background-jobs stop && /var/www/cyberft/app/src/yii resque/purge && /var/www/cyberft/app/src/yii app/update && /var/www/cyberft/app/background-jobs start'" >> /root/.bashrc \
+&& echo "alias src='cd /var/www/cyberft/app/src'" >> /root/.bashrc
+
+EXPOSE 80
+EXPOSE 443
+WORKDIR /var/www/cyberft/app
+LABEL CyberFT="4"
+ENV LD_LIBRARY_PATH "/usr/local/openssl-1.1.1/lib/"
+CMD ["/bin/bash"]

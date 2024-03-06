@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\UpdateListOfEmployeesType:
+    properties:
+        clientState:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientState
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getClientState
+                setter: setClientState
+            type: common\models\sbbolxml\request\ClientStateType
+        lastUpdate:
+            expose: true
+            access_type: public_method
+            serialized_name: LastUpdate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLastUpdate
+                setter: setLastUpdate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime

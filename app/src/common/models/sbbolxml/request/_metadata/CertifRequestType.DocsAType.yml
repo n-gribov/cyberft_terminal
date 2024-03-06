@@ -1,0 +1,16 @@
+common\models\sbbolxml\request\CertifRequestType\DocsAType:
+    properties:
+        doc:
+            expose: true
+            access_type: public_method
+            serialized_name: Doc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDoc
+                setter: setDoc
+            xml_list:
+                inline: true
+                entry_name: Doc
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\CertifRequestType\DocsAType\DocAType>

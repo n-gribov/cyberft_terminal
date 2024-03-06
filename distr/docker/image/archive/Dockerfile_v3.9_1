@@ -1,0 +1,29 @@
+FROM cyberft:v3.9
+#add php7.0-gd
+
+RUN echo "deb http://packages.dotdeb.org jessie all"  >> /etc/apt/sources.list \
+&& echo "deb-src http://packages.dotdeb.org jessie all" >> /etc/apt/sources.list \
+&& echo "deb http://httpredir.debian.org/debian jessie main" >> /etc/apt/sources.list \
+&& echo "deb-src http://httpredir.debian.org/debian jessie main" >> /etc/apt/sources.list \
+&& apt-get -y update \
+&& apt-get -y upgrade \
+&& apt-get -y install libwebp5 libx11-6 libxpm4 php7.0-gd \
+&& apt-get -y autoremove \
+&& rm -rf /etc/apt/apt.conf \
+&& rm -rf /etc/apt/sources.list \
+&& rm -rf /var/lib/apt/lists/* \
+&& rm -rf  /var/lib/apt/* \
+&& rm -rf /root/* \
+&& find /var/cache/* -type f -exec rm {} \; \
+&& chmod -R 0644 /etc/sudoers \
+&& echo 'LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/usr/local/xmlsec1-1.2.23/lib:/usr/local/openssl-1.0.2/lib:/usr/local/libxml2-2.9.4/lib:${LD_LIBRARY_PATH}"' >>  /etc/environment \
+&& echo "alias logs='tail -f /var/www/cyberft/app/logs/* | ccze -A'" >> /root/.bashrc \
+&& echo "alias services='/var/www/cyberft/app/background-jobs stop && /var/www/cyberft/app/src/yii resque/purge && /var/www/cyberft/app/src/yii app/update && /var/www/cyberft/app/background-jobs start'" >> /root/.bashrc \
+&& echo "alias src='cd /var/www/cyberft/app/src'" >> /root/.bashrc
+
+EXPOSE 80
+EXPOSE 443
+WORKDIR /var/www/cyberft/app
+LABEL CyberFT="3.9_1"
+ENV LD_LIBRARY_PATH "/usr/lib/x86_64-linux-gnu:/usr/local/xmlsec1-1.2.23/lib:/usr/local/openssl-1.0.2/lib:/usr/local/libxml2-2.9.4/lib:${LD_LIBRARY_PATH}"
+CMD ["/bin/bash"]

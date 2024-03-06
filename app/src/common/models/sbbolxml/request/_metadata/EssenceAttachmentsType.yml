@@ -1,0 +1,12 @@
+common\models\sbbolxml\request\EssenceAttachmentsType:
+    properties:
+        essenceAttachment:
+            expose: true
+            access_type: public_method
+            serialized_name: EssenceAttachment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEssenceAttachment
+                setter: setEssenceAttachment
+            type: common\models\sbbolxml\request\EssenceAttachmentType

@@ -1,0 +1,18 @@
+attributes:
+  OrgId:  /Request/@orgId
+  Sender: /Request/@sender
+  ExtId:  /Request/StmtReq/@docExtId
+fields:
+  BeginDate: /Request/StmtReq/@beginDate
+  EndDate:   /Request/StmtReq/@endDate
+  StmtType:  /Request/StmtReq/@stmtType
+tables:
+- name: Accounts
+  path: /Request/StmtReq/Accounts
+  fields:
+    DocNum:  /Account/@docNum
+    Bic:     /Account/@bic
+    Account: /Account
+  sort_by:
+  - Bic
+  - Account

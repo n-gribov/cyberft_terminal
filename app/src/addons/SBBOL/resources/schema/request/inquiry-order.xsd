@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="InquiryOrder">
+        <xs:annotation>
+            <xs:documentation>Запрос справки</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="ComDocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа Запрос справки</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InquiryInfo" type="InquiryInfo">
+                        <xs:annotation>
+                            <xs:documentation>Тип справки для Запроса справки</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="InquiryInfo">
+        <xs:annotation>
+            <xs:documentation>Реквизиты Запроса справки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="InquiryCode" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Код справки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="350"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="InquiryGet">
+                <xs:annotation>
+                    <xs:documentation>Способ получения справки: POST - Почта, VSP - ВСП и EI - E-Invoicing</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="350"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="SecType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Тип ценной бумаги</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="InquiryGetAddress" minOccurs="0" >
+                <xs:annotation>
+                    <xs:documentation>Почтовый адрес получателя (заполняется только если ./inquiryGet принимает значение: 2)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Amount" minOccurs="0" >
+                <xs:annotation>
+                    <xs:documentation>Количество экземпляров</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="BeginDate" type="xs:date" minOccurs="0" >
+                <xs:annotation>
+                    <xs:documentation>Период с</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="EndDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Начало периода</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TypeOfFilling" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Параметры запроса:
+                        TOTAL_SUM_TYPE5 - общей суммой;
+                        DETAILS_TYPE5 - с расшифровкой; (Заполняется при указании типа справки Type 5 )
+                        CURRENCY_ACCOUNT_DAILY - в валюте счета посуточно;
+                        CURRENCY_ACCOUNT_PER_MONTH - в валюте счета помесячно;
+                        CURRENCY_ACCOUNT_WITHOUT_LOANS - в валюте счета без учета кредитов;
+                        NATIONAL_DAILY - в нац. покрытии посуточно;
+                        NATIONAL_PER_MONTH - в нац. покрытии помесячно;
+                        NATIONAL_WITHOUT_LOANS - в нац. покрытии без учета кредитов; (Заполняется при указании типа справки Type 6 )
+                        TOTAL_SUM_TYPE7 - общей суммой;
+                        DETAILS_TYPE7 - с расшифровкой; (Заполняется при указании типа справки Type 7 )
+                        TOTAL_SUM_TYPE8 - общей суммой;
+                        DETAILS_TYPE8 - с расшифровкой; (Заполняется при указании типа справки Type 8 )
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="DETAILS_TYPE8" />
+                        <xs:enumeration value="TOTAL_SUM_TYPE8" />
+                        <xs:enumeration value="DETAILS_TYPE7" />
+                        <xs:enumeration value="TOTAL_SUM_TYPE7" />
+                        <xs:enumeration value="DETAILS_TYPE5" />
+                        <xs:enumeration value="TOTAL_SUM_TYPE5" />
+                        <xs:enumeration value="NATIONAL_WITHOUT_LOANS" />
+                        <xs:enumeration value="NATIONAL_PER_MONTH" />
+                        <xs:enumeration value="NATIONAL_DAILY" />
+                        <xs:enumeration value="CURRENCY_ACCOUNT_WITHOUT_LOANS" />
+                        <xs:enumeration value="CURRENCY_ACCOUNT_PER_MONTH" />
+                        <xs:enumeration value="CURRENCY_ACCOUNT_DAILY" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="PayDocsInfo" type="PayDocsInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Платежные документы/реестры на зачисление</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="RequiredFor" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Справка необходима для (место предоставления справки)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="AddInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дополнительная информация</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="1024"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Accounts" type="Accounts" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Счета</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PayDocsInfo">
+        <xs:annotation>
+            <xs:documentation>Платежные документы/реестры на зачисление</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="PayDocInfo" type="PayDocInfo" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Платежный документ/реестр на зачисление</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Accounts">
+        <xs:annotation>
+            <xs:documentation>Счета</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Account" type="AccNumBicType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты счета</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PayDocInfo">
+        <xs:annotation>
+            <xs:documentation>Реквизиты платежного документа/реестра на зачисление</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docNum">
+            <xs:annotation>
+                <xs:documentation>Номер платежного документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="7"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date">
+            <xs:annotation>
+                <xs:documentation>Дата платежного документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="account" type="AccNumType">
+            <xs:annotation>
+                <xs:documentation>Счет платежного документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docSum" type="xs:decimal">
+            <xs:annotation>
+                <xs:documentation>Сумма платежного документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="regNum">
+            <xs:annotation>
+                <xs:documentation>Номер реестра</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="20"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="fileFormat">
+            <xs:annotation>
+                <xs:documentation>Формат файла: DBF - 0, XML - 1</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="1"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

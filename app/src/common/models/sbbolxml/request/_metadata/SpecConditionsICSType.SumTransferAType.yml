@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\SpecConditionsICSType\SumTransferAType:
+    properties:
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: docSum
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            xml_attribute: true
+            type: float

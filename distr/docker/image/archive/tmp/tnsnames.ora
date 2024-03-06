@@ -1,0 +1,697 @@
+PLATOR =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-brg.cyberplat.com )(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-nsk.cyberplat.com )(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-wtc.cyberplat.com )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = splat.cyberplat.com)
+    )
+  )
+
+# for dealer stat
+PLAT =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-brg.cyberplat.com )(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-nsk.cyberplat.com )(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-wtc.cyberplat.com )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = splat.cyberplat.com)
+    )
+  )
+
+# developer db PLATOR
+DEV_PLATOR       = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-test-wtc   )(PORT=1521)))(CONNECT_DATA=(SID=PLAT)))
+
+# developer db clone from PLATOR from 16.05.2014 by task 36950 by Ushakov
+REZPLAT_ARCH     = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-archive-brg  )(PORT=1521)))(CONNECT_DATA=(SID=PLAT    )))
+
+# developer db
+# clone from PLATOR 31.07.2008 (moved to db-logpacker-brg 7.12.2009)
+# in case reallocate db in new server talk Ushakov
+REZPLAT          = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-logpacker-brg)(PORT=1521)))(CONNECT_DATA=(SID=REZPLAT )))
+
+# actual archive db
+PLATOR_ARCH=
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-brg.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-nsk.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-backup-brg.cyberplat.com )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sARCH.CYBERPLAT.COM)
+    )
+  )
+
+# 
+# OLAP DB 
+# Task https://forge.cyberplat.com/issues/20690 by Третьяков
+OLAP =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-olap-brg )(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-aa)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = OLAP.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+# Repository for BI
+# 
+BI_REP =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-olap-brg )(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-aa)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = BI_REP.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+  
+#tested db 27.10.2006 new place
+# in case reallocate db in new server talk Ushakov
+PLATEST =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-test-wtc.cyberplat.com    ) (PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-dev-2.microsoft.platina.ru) (PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sPLATEST.cyberplat.com)
+    )
+  )
+
+# template for cyberplat db 64-bit change 05.05.2009
+# for testing department
+INSTALL64        = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-dev-2)(PORT=1521)))(CONNECT_DATA=(SID=BASE64  )))
+
+# install_mc for zajavka pestryakov at 27.10.2010
+# for testing department
+INSTALL_MC       = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-dev-2)(PORT=1521)))(CONNECT_DATA=(SID=BASE_MC )))
+
+
+#PLATOR_TS2 20..05.2009 11g
+PLATOR_TS2 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-wtc.cyberplat.com )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sPTS2S.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+
+#dublicate PLATOR_TS2 19/07/2011 11g
+PLATOR_TS3 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-wtc.cyberplat.com )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sPTS3S.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+#REZPLAT_ARCH_TS2 02.07.2009 Zayavka Kondrashkin
+#copy of PLATOR_TS2 for testing department
+REZPLAT_ARCH_TS2 = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-logpacker-brg)(PORT=1521)))(CONNECT_DATA=(SID=TTS2    )))
+
+# clone crypto_rs27 at 12.11.2010
+CRYPTO2 =
+  (DESCRIPTION =  
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.20.240)(PORT = 1521))
+    (CONNECT_DATA = 
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = CRY.cyberplat.com)
+    )
+  )
+
+
+# clone crypto2 at 12.08.2014
+CRYPTO_NSK =
+  (DESCRIPTION =  
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.50.240)(PORT = 1521))
+    (CONNECT_DATA = 
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = CRY.cyberplat.com)
+    )
+  )
+
+# clone crypto at 13.11.2009 po prosbe pestryakova 
+CRYPTO_RS64 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST =  109.72.128.170)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = CRY.cyberplat.com)
+    )
+  )
+
+
+# developer db install 28.05.2008 / 26.10.2008 change to CRY / renamed from CRYPTO 14.10
+CRYPTO_DEMO =
+  (DESCRIPTION =  
+    (ADDRESS = (PROTOCOL = TCP)(HOST = ru-demo-bg)(PORT = 1521))
+    (CONNECT_DATA = 
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = CRY.cyberplat.com)
+    )
+  )
+
+# upgrage to 11 test
+TEST_CC =
+  (DESCRIPTION =  
+    (ADDRESS = (PROTOCOL = TCP)(HOST = rigel)(PORT = 1521))
+    (CONNECT_DATA = 
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = CCARD.cyberplat.com)
+    )
+  )
+
+# INSTALL at 20.07.2008
+# Multicurrency db
+PLATOR_MC =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-mc-glatt.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-mc-brg.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-nsk.cyberplat.com)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sPLAT_MC.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+PLATOR_MC1522    = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-mc-glatt     )(PORT=1522)))(CONNECT_DATA=(SID=PLAT_MC )))
+
+# 
+# INSTALL at 24.11.2010 
+# Indian db
+PLATOR_IN =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-mu.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-nsk.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-in2.cyberplat.com)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sPLAT_IN.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+
+# INSTALL at
+# Kazah db
+PLATOR_KZ =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-brg.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-aa.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-nsk.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-kz.cyberplat.com)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sPLAT_KZ.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+# Test kazah db - 08/08/2016 Ushakov
+TEST_KZ =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-kz.cyberplat.com)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sTEST_KZ.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+# developer db 
+REZPLAT_IN       = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-dev-4        )(PORT=1521)))(CONNECT_DATA=(SID=PLAT_IN )))
+REZPLAT_KZ       = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-dev-4        )(PORT=1521)))(CONNECT_DATA=(SID=PLAT_KZ )))
+
+#Pertsev 30.03.2009
+#Zayavka from Rudnev clone plator_mc for tesing department
+DBTEST_MC        = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-test-wtc     )(PORT=1521)))(CONNECT_DATA=(SID=TEST_MC )))
+
+#Terminal monitoring DB. Forge task 16144 by Roshin at 16.05.2001
+TMON =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-mc-brg.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-brg.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-mc-glatt.cyberplat.com)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sTMON.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+#Copy of TMON, task #27033 at 18/09/2012 by Бикбов Евгений
+DEV_TMON         = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-logpacker-brg)(PORT=1521)))(CONNECT_DATA=(SID=DEV_TMON)))
+TTMON            = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-test-wtc     )(PORT=1521)))(CONNECT_DATA=(SID=TTMON   )))
+
+#Terminal monitoring India. Forge task #37990 by Житников at 22.07.2014
+TMON_IN =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-mu.cyberplat.com  )(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-in2.cyberplat.com )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sTMON_IN.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+#38005 by Tretyakov at 22.07.2014
+CYBERSWIFT =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-brg.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-nsk.cyberplat.com)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sCYBERSW.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+#48314 Cоздание базы для процессинга администрации CyberFT, Михаил Гудов 27.01.2016
+CYBERFTADM =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-wtc.cyberplat.com)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-mc-glatt.cyberplat.com  )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sCFT_ADM.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+# Fiscal Kazakhstan DB, owner Jhitnikov Petr
+FISCAL_KZ =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-fiscal-kz.cyberplat.com)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = FISKZ.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+# Developer fiscal Kazakhstan DB, owner Bykov
+DEV_FISCAL_KZ =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-devfiscal-kz.cyberplat.com)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sDevFisKZ.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+# 
+AURORA =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-mc-brg     )(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-plator-wtc )(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-archive-nsk)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sAURORA.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+DEV_AURORA       = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-test-wtc)(PORT=1521)))(CONNECT_DATA=(SID=AURORA  )))
+
+#==========================CARDS=====================================
+
+#ONLINE           = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.2     )(PORT=1521)))(CONNECT_DATA=(SID=db1     )))
+ONLINE =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = online.cyberplat.ru)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cards-bck.cards.lan)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = online2.cards.lan)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sonline.cyberplat.ru )
+      (SERVER = DEDICATED)
+    )
+  )
+
+
+db1_online       = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.2     )(PORT=1521)))(CONNECT_DATA=(SID=db1     )))
+
+#TESTONL          = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.46    )(PORT=1521)))(CONNECT_DATA=(SID=db2     )))
+
+TESTONL =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = backoffice2)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sTEST_ON.cyberplat.ru )
+      (SERVER = DEDICATED)
+    )
+  )
+
+TEST_ON =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = backoffice2)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sTEST_ON.cyberplat.ru )
+      (SERVER = DEDICATED)
+    )
+  )
+
+# 03/02/2009 Shaburov. Cards asks to create test2 ONLINE base
+ONLINE2          = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.35    )(PORT=1521)))(CONNECT_DATA=(SID=db1     )))
+
+#24.10.2008 Shaburov 
+PRIMEDB =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = backoffice.cyberplat.ru)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cards-bck.cards.lan)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = backoffice2.cards.lan)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sprimedb.cyberplat.ru )
+      (SERVER = DEDICATED)
+    )
+  )
+
+# dublicate
+PRIME_LIVE =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = backoffice.cyberplat.ru)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cards-bck.cards.lan)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = backoffice2.cards.lan)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sprimedb.cyberplat.ru )
+      (SERVER = DEDICATED)
+    )
+  )
+
+
+#30.10.2008 Pertsev
+PRIMEDEV         = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.46    )(PORT=1521)))(CONNECT_DATA=(SID=primed  )))
+#dublicate
+PRIME_TEST       = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.21    )(PORT=1521)))(CONNECT_DATA=(SID=TEST_PR  )))
+TEST_PR          = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.21    )(PORT=1521)))(CONNECT_DATA=(SID=TEST_PR  )))
+
+
+#create db for Masharov on ticket 14799
+PRIMEDBVISA      = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.46    )(PORT=1521)))(CONNECT_DATA=(SID=PRIMED2 )))
+
+#CARD
+CARD =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.4.21 )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = kard.cyberplat.ru)
+    )
+  )
+
+CARD1 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.4.21 )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = skard.cyberplat.ru)
+    )
+  )
+
+# dublicate
+CARDLIVE =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.4.46 )(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = kard.cyberplat.ru)
+    )
+  )
+
+#Pertsev 21.11.2008
+INVO =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = backoffice.cyberplat.ru)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cards-bck.cards.lan)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cards-2.cards.lan)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sretail.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+#Pertsev 01.12.2008
+INVO_TEST        = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.30    )(PORT=1521)))(CONNECT_DATA=(SID=TEST_IN)))
+TEST_IN          = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.4.30    )(PORT=1521)))(CONNECT_DATA=(SID=TEST_IN)))
+
+#Shaburov 15/02/2017
+ONLINE4 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cards-1.cards.lan)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cards-2.cards.lan)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sOn4.platina.ru )
+      (SERVER = DEDICATED)
+    )
+  )
+
+TEST_ON4        = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-cards-2.cards.lan)(PORT=1521)))(CONNECT_DATA=(SID=TestOn4)))
+
+PRIME4 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cards-1.cards.lan)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cards-2.cards.lan)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sPr4.platina.ru )
+      (SERVER = DEDICATED)
+    )
+  )
+
+TEST_PR4        = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-cards-2.cards.lan)(PORT=1521)))(CONNECT_DATA=(SID=TestPr4)))
+
+POS =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.4.8)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = sPOS.platina.ru)
+    )
+  )
+
+#===========================bank======================================
+# century21 5.06.2008
+#ODB21S =
+#  (DESCRIPTION =
+#    (ADDRESS_LIST =
+#      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.110.19)(PORT = 1521))
+#      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.110.12)(PORT = 1521))
+#    )
+#    (CONNECT_DATA =
+#      (SERVICE_NAME = sODB21S.cyberplat.com)
+#    )
+#  )
+
+ODB21S =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.110.16)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sODB21s_test.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+ODB21 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.110.19)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.110.12)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sODB21S.cyberplat.com)
+    )
+  )
+  
+ODB21_OLD =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.110.12)(PORT = 1522))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sodb.cyberplat.com)
+    )
+  )
+
+AUD_ODB =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.110.12)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sAUD_ODB.cyberplat.com)
+    )
+  )
+
+DEV_ODB          = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.110.12  )(PORT=1521)))(CONNECT_DATA=(SID=DEV_ODB )))
+TEST_ODB         = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.110.12  )(PORT=1521)))(CONNECT_DATA=(SID=TEST_ODB)))
+ODB18            = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.110.12  )(PORT=1521)))(CONNECT_DATA=(SID=ODB     )))
+
+
+# bank-client
+IBC =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-bc-1)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-bc-2)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-dev-6)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sibc.microsoft.platina.ru)
+    )
+  )
+
+# bank-client dev
+DEV_IBC =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.10.156)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sdev_ibc.microsoft.platina.ru)
+    )
+  )
+
+TEST_IBC =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-bc-2)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = stest_ibc.microsoft.platina.ru)
+    )
+  )
+
+IBCS =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-bc-2)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sIBCS.microsoft.platina.ru)
+    )
+  )
+
+IBCS2 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-bc-2)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sIBCS2.microsoft.platina.ru)
+    )
+  )
+
+
+#42963 by Tretyakov at 14.05.2015
+PLATRUMM =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cyberft-1)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cyberft-2)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sPLATRUMM.cyberplat.com )
+      (SERVER = DEDICATED)
+    )
+  )
+
+#by Obukhov at 08.02.2017
+LEP =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cyberft-1.microsoft.platina.ru)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-cyberft-2.microsoft.platina.ru)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sLEP.platina.ru )
+      (SERVER = DEDICATED)
+    )
+  )
+
+DEV_LEP          = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-cyberft-2.microsoft.platina.ru )(PORT=1521)))(CONNECT_DATA=(SID=DEV_LEP )))
+
+#====================================================================
+REZPLAT_UPD      = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-dev-4     )(PORT=1521)))(CONNECT_DATA=(SID=PLAT    )))
+
+# 07.08.2014 shaburov по заявке Ушакова №37307
+CRYPTO_CARD      = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-mc-brg    )(PORT=1521)))(CONNECT_DATA=(SID=CCARD   )))
+DEV_CRYPTO_CARD  = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-test-wtc  )(PORT=1521)))(CONNECT_DATA=(SID=XECCARD )))
+CCARD            = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-test-wtc  )(PORT=1521)))(CONNECT_DATA=(SID=CCARD   )))
+
+CFT1 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = db-test-wtc)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = sCFT1.cyberplat.com)
+    )
+  )
+
+#mobile cft1 version
+CFT2             = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=cft2         )(PORT=1521)))(CONNECT_DATA=(SID=CFT1    )))
+
+DEV2_CYBERSW     = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=db-dev-5     )(PORT=1521)))(CONNECT_DATA=(SID=CYBERSW )))
+
+# clone crypto at 06.07.2009 
+CRYPTO_RS =
+  (DESCRIPTION =  
+    (ADDRESS = (PROTOCOL = TCP)(HOST = rs64)(PORT = 1521))
+    (CONNECT_DATA = 
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = CRY.cyberplat.com)
+    )
+  )
+

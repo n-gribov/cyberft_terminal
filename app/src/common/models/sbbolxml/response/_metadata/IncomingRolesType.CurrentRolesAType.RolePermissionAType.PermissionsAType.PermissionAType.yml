@@ -1,0 +1,24 @@
+common\models\sbbolxml\response\IncomingRolesType\CurrentRolesAType\RolePermissionAType\PermissionsAType\PermissionAType:
+    properties:
+        serviceCode:
+            expose: true
+            access_type: public_method
+            serialized_name: ServiceCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getServiceCode
+                setter: setServiceCode
+            type: string
+        accessMode:
+            expose: true
+            access_type: public_method
+            serialized_name: AccessMode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccessMode
+                setter: setAccessMode
+            type: string

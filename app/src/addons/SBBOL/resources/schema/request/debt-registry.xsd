@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="DebtRegistry">
+        <xs:annotation>
+            <xs:documentation>Реестр задолженностей</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DebtRegistryData" type="DebtRegistryData">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты реестра задолженностей</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RecordNum" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Количество записей</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EPSIDName">
+                        <xs:annotation>
+                            <xs:documentation>Наменование EPSID</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="125"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="EssenceAttachments" type="EssenceAttachments">
+                        <xs:annotation>
+                            <xs:documentation>Данные о файлах реестра задолженностей</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DebtRegistryData">
+        <xs:annotation>
+            <xs:documentation>Реквизиты реестра задолженностей</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата составления документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="inn" type="InnType" use="required">
+            <xs:annotation>
+                <xs:documentation>ИНН клиента</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="orgName" use="required">
+            <xs:annotation>
+                <xs:documentation>Наименование организации клиента (сокращенное наименование как в платёжных рублёвых
+                    документах)
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="160"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docNum" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="6"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="EssenceAttachments">
+        <xs:annotation>
+            <xs:documentation>Данные о файлах реестра задолженностей</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="EssenceAttachment" type="EssenceAttachment" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Данные о файле реестра задолженностей</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EssenceAttachment">
+        <xs:annotation>
+            <xs:documentation>Данные о файле реестра задолженностей</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="UploadJobId" type="UuidSeparated">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор задания на загрузку файла в БФ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="FileName">
+                <xs:annotation>
+                    <xs:documentation>Имя файла</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="FileSize" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Размер файла</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

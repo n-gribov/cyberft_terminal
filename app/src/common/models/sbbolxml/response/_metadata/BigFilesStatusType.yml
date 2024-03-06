@@ -1,0 +1,61 @@
+common\models\sbbolxml\response\BigFilesStatusType:
+    properties:
+        uploadJobId:
+            expose: true
+            access_type: public_method
+            serialized_name: UploadJobId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getUploadJobId
+                setter: setUploadJobId
+            type: string
+        downloadJobId:
+            expose: true
+            access_type: public_method
+            serialized_name: DownloadJobId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDownloadJobId
+                setter: setDownloadJobId
+            type: string
+        fileNetId:
+            expose: true
+            access_type: public_method
+            serialized_name: FileNetId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFileNetId
+                setter: setFileNetId
+            type: string
+        status:
+            expose: true
+            access_type: public_method
+            serialized_name: Status
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getStatus
+                setter: setStatus
+            type: string
+        errors:
+            expose: true
+            access_type: public_method
+            serialized_name: Errors
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getErrors
+                setter: setErrors
+            type: array<common\models\sbbolxml\response\BFErrorType>
+            xml_list:
+                inline: false
+                entry_name: Error
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

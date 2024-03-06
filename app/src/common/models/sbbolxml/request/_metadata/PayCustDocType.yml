@@ -1,0 +1,59 @@
+common\models\sbbolxml\request\PayCustDocType:
+    properties:
+        customCardId:
+            expose: true
+            access_type: public_method
+            serialized_name: customCardId
+            accessor:
+                getter: getCustomCardId
+                setter: setCustomCardId
+            xml_attribute: true
+            type: string
+        customOperatorID:
+            expose: true
+            access_type: public_method
+            serialized_name: customOperatorID
+            accessor:
+                getter: getCustomOperatorID
+                setter: setCustomOperatorID
+            xml_attribute: true
+            type: string
+        deadLine:
+            expose: true
+            access_type: public_method
+            serialized_name: deadLine
+            accessor:
+                getter: getDeadLine
+                setter: setDeadLine
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\sbbolxml\request\PayCustDocAccDocType
+        payCustDocParams:
+            expose: true
+            access_type: public_method
+            serialized_name: PayCustDocParams
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayCustDocParams
+                setter: setPayCustDocParams
+            type: common\models\sbbolxml\request\PayCustDocParamsType
+        departmentalInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DepartmentalInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDepartmentalInfo
+                setter: setDepartmentalInfo
+            type: common\models\sbbolxml\request\DepartmentalInfoType

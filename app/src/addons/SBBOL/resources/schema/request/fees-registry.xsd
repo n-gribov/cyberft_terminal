@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="FeesRegistry">
+        <xs:annotation>
+            <xs:documentation>Реестр задолженностей</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="FeesRegistryData" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты реестра задолженностей</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="lastRequestTime" type="xs:dateTime" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Дата и время последнего запроса реестров платежей</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="beginDate" type="xs:date" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Дата начала периода</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="endDate" type="xs:date" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Дата окончания периода</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="acceptState" type="BoolType" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Признак запроса документов в статусе "Принят"</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="implementState" type="BoolType" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Признак запроса документов в статусе "Обработан"</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

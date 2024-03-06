@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="FeesRegistryDownload">
+        <xs:annotation>
+            <xs:documentation>Запрос на скачивание реестра платежей</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="docId" type="UuidSeparated">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор документа, файл которого необходимо скачать</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="linkUUID" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Уникальный идентификатор запроса, используется клиентским приложением для связывания запроса ссылки и самой ссылки</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

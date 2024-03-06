@@ -1,0 +1,10 @@
+.fcvn-hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.fcvn-debit-account-currency,
+.fcvn-credit-account-currency {
+    margin-top: 31px;
+    font-weight: bold;
+}

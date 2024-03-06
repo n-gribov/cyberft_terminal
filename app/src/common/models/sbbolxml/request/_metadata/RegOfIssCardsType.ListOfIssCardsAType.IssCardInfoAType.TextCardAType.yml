@@ -1,0 +1,29 @@
+common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType\TextCardAType:
+    properties:
+        field1:
+            expose: true
+            access_type: public_method
+            serialized_name: field1
+            accessor:
+                getter: getField1
+                setter: setField1
+            xml_attribute: true
+            type: string
+        field2:
+            expose: true
+            access_type: public_method
+            serialized_name: field2
+            accessor:
+                getter: getField2
+                setter: setField2
+            xml_attribute: true
+            type: string
+        field3:
+            expose: true
+            access_type: public_method
+            serialized_name: field3
+            accessor:
+                getter: getField3
+                setter: setField3
+            xml_attribute: true
+            type: string

@@ -1,0 +1,23 @@
+common\models\raiffeisenxml\request\CurrBuyTransType\AccTransAType\OtherAType:
+    properties:
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: Bank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBank
+                setter: setBank
+            type: common\models\raiffeisenxml\request\CurrBuyTransType\AccTransAType\OtherAType\BankAType
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: AccNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            type: string

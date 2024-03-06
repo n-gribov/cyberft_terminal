@@ -1,0 +1,83 @@
+common\models\sbbolxml\response\AdmOperationType\OperationInfoAType:
+    properties:
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        operationID:
+            expose: true
+            access_type: public_method
+            serialized_name: operationID
+            accessor:
+                getter: getOperationID
+                setter: setOperationID
+            xml_attribute: true
+            type: string
+        operationTime:
+            expose: true
+            access_type: public_method
+            serialized_name: operationTime
+            accessor:
+                getter: getOperationTime
+                setter: setOperationTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        operationSumm:
+            expose: true
+            access_type: public_method
+            serialized_name: operationSumm
+            accessor:
+                getter: getOperationSumm
+                setter: setOperationSumm
+            xml_attribute: true
+            type: float
+        payDocComment:
+            expose: true
+            access_type: public_method
+            serialized_name: payDocComment
+            accessor:
+                getter: getPayDocComment
+                setter: setPayDocComment
+            xml_attribute: true
+            type: string
+        payDocId:
+            expose: true
+            access_type: public_method
+            serialized_name: payDocId
+            accessor:
+                getter: getPayDocId
+                setter: setPayDocId
+            xml_attribute: true
+            type: string
+        payDocNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: payDocNumber
+            accessor:
+                getter: getPayDocNumber
+                setter: setPayDocNumber
+            xml_attribute: true
+            type: string
+        payDocStateSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: payDocStateSystemName
+            accessor:
+                getter: getPayDocStateSystemName
+                setter: setPayDocStateSystemName
+            xml_attribute: true
+            type: string
+        rejectReason:
+            expose: true
+            access_type: public_method
+            serialized_name: rejectReason
+            accessor:
+                getter: getRejectReason
+                setter: setRejectReason
+            xml_attribute: true
+            type: string

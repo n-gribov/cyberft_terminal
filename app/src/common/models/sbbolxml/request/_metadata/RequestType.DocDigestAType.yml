@@ -1,0 +1,12 @@
+common\models\sbbolxml\request\RequestType\DocDigestAType:
+    properties:
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: DocId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            type: common\models\sbbolxml\request\RequestType\DocDigestAType\DocIdAType

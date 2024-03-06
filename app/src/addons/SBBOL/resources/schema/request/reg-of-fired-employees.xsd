@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="RegOfFiredEmployees">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:attribute name="docDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата составления документа</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="docNum" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Номер документа</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="6"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="bankName">
+                                <xs:annotation>
+                                    <xs:documentation>Наименование подразделения банка получателя заявления</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="bankNum" type="xs:string" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Номер подразделения банка получателя заявления в ДБО</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="AuthPers">
+                        <xs:annotation>
+                            <xs:documentation>Уполномоченный сотрудник организации клиента</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Name">
+                                    <xs:annotation>
+                                        <xs:documentation>Имя уполномоченного сотрудника организации клиента</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="255"/>
+                                            <xs:minLength value="1"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="Telfax">
+                                    <xs:annotation>
+                                        <xs:documentation>Номер телефона, факса уполномоченного сотрудника организации клиента
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="255"/>
+                                            <xs:minLength value="1"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OrgData">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Account" type="AccNumBicType" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Реквизиты расчётного счёта клиента</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="SalaryContract">
+                                    <xs:annotation>
+                                        <xs:documentation>Реквизиты зарплатного договра</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:attribute name="contrID" type="UuidSeparated" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Идентификатор договора</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="number" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Номер контракта</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="date" type="xs:date" use="optional">
+                                            <xs:annotation>
+                                                <xs:documentation>Дата контракта</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="branchName" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation>Наименование подразделения банка ("держатель контракта")
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="branchNum" type="xs:string">
+                                            <xs:annotation>
+                                                <xs:documentation>Номер филиала, указанный в справочнике з.договоров СББОЛ
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attribute name="kpp" type="KppType">
+                                <xs:annotation>
+                                    <xs:documentation>КПП клиента</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="okato" type="OkatoType">
+                                <xs:annotation>
+                                    <xs:documentation>ОКАТО клиента</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="inn" type="InnType" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>ИНН клиента</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="orgName" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Наименование организации клиента (сокращенное наименование - как в платежных руб. документах)</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="160"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="okpo" type="OkpoType">
+                                <xs:annotation>
+                                    <xs:documentation>ОКПО клиента</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="orgOGRN" type="OgrnType">
+                                <xs:annotation>
+                                    <xs:documentation>ОГРН клиента</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ListOFiredEmployees">
+                        <xs:annotation>
+                            <xs:documentation>Список содержит общую информацию по сотрудникам, статус которых требуется изменить
+                                на "уволен"
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="FiredEmployeesInfo" maxOccurs="unbounded">
+                                    <xs:annotation>
+                                        <xs:documentation>Информацию по каждому сотруднику, статус которого требуется изменить
+                                            на "уволен"
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="NoRef">
+                                                <xs:annotation>
+                                                    <xs:documentation>Уникальный номер ФЛ (референс номер)</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:minLength value="1"/>
+                                                        <xs:maxLength value="255"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:element>
+                                            <xs:element name="SName">
+                                                <xs:annotation>
+                                                    <xs:documentation>Фамилия физического лица</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:minLength value="1"/>
+                                                        <xs:maxLength value="32"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:element>
+                                            <xs:element name="Name">
+                                                <xs:annotation>
+                                                    <xs:documentation>Имя физического лица</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:minLength value="1"/>
+                                                        <xs:maxLength value="32"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:element>
+                                            <xs:element name="MiddleName" minOccurs="0">
+                                                <xs:annotation>
+                                                    <xs:documentation>Отчество физического лица (у некоторых иностранцев нет
+                                                        отчества)
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:minLength value="1"/>
+                                                        <xs:maxLength value="32"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:element>
+                                            <xs:element name="Account" type="AccNumType" minOccurs="0">
+                                                <xs:annotation>
+                                                    <xs:documentation>Счет физ. лица</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element name="IdentityDoc">
+                                                <xs:annotation>
+                                                    <xs:documentation>Документ, удостоверяющий личность</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="DocTypeCode">
+                                                            <xs:annotation>
+                                                                <xs:documentation>код вида документа по классификатору
+                                                                    ФЕДЕРАЛЬНОЙ НАЛОГОВОЙ СЛУЖБЫ ПРИКАЗ от 13 октября 2006 г. N
+                                                                    САЭ-3-04/706 "ОБ УТВЕРЖДЕНИИ ФОРМЫ СВЕДЕНИЙ О ДОХОДАХ
+                                                                    ФИЗИЧЕСКИХ ЛИЦ"
+                                                                </xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:length value="2"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
+                                                        </xs:element>
+                                                        <xs:element name="Series" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Серия</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:minLength value="1"/>
+                                                                    <xs:maxLength value="14"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
+                                                        </xs:element>
+                                                        <xs:element name="Number">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Номер</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:minLength value="1"/>
+                                                                    <xs:maxLength value="20"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
+                                                        </xs:element>
+                                                        <xs:element name="Date" type="xs:date">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Дата выдачи</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                        <xs:element name="Branch">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Кем выдан</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:minLength value="1"/>
+                                                                    <xs:maxLength value="250"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
+                                                        </xs:element>
+                                                        <xs:element name="BranchCode" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Код органа, выдавшего документ</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:minLength value="1"/>
+                                                                    <xs:maxLength value="10"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="DateOfDismissal" type="xs:date">
+                                                <xs:annotation>
+                                                    <xs:documentation>Дата увольнения</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                        </xs:sequence>
+                                        <xs:attribute name="numSt" type="xs:string" use="required" form="unqualified">
+                                            <xs:annotation>
+                                                <xs:documentation>Номер п/п (обязательно д.б. возвращен в тикете)
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Total" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Итоговое количество сотрудниокв</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer"/>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

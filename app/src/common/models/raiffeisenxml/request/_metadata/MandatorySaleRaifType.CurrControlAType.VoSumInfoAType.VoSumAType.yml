@@ -1,0 +1,43 @@
+common\models\raiffeisenxml\request\MandatorySaleRaifType\CurrControlAType\VoSumInfoAType\VoSumAType:
+    properties:
+        vo:
+            expose: true
+            access_type: public_method
+            serialized_name: Vo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getVo
+                setter: setVo
+            type: string
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\request\MandatorySaleRaifType\CurrControlAType\VoSumInfoAType\VoSumAType\SumAType
+        dealPassData:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassData
+                setter: setDealPassData
+            type: common\models\raiffeisenxml\request\DealPassDataType
+        contractData:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractData
+                setter: setContractData
+            type: common\models\raiffeisenxml\request\ContractType

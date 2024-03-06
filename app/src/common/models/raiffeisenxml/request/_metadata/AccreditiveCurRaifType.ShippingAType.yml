@@ -1,0 +1,85 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\ShippingAType:
+    properties:
+        partialShipment:
+            expose: true
+            access_type: public_method
+            serialized_name: partialShipment
+            accessor:
+                getter: getPartialShipment
+                setter: setPartialShipment
+            xml_attribute: true
+            type: bool
+        overload:
+            expose: true
+            access_type: public_method
+            serialized_name: overload
+            accessor:
+                getter: getOverload
+                setter: setOverload
+            xml_attribute: true
+            type: bool
+        shippingPlace:
+            expose: true
+            access_type: public_method
+            serialized_name: ShippingPlace
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getShippingPlace
+                setter: setShippingPlace
+            type: string
+        depPlace:
+            expose: true
+            access_type: public_method
+            serialized_name: DepPlace
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDepPlace
+                setter: setDepPlace
+            type: string
+        destination:
+            expose: true
+            access_type: public_method
+            serialized_name: Destination
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDestination
+                setter: setDestination
+            type: string
+        arrPlace:
+            expose: true
+            access_type: public_method
+            serialized_name: ArrPlace
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getArrPlace
+                setter: setArrPlace
+            type: string
+        notLater:
+            expose: true
+            access_type: public_method
+            serialized_name: NotLater
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getNotLater
+                setter: setNotLater
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        shipmentPeriod:
+            expose: true
+            access_type: public_method
+            serialized_name: ShipmentPeriod
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getShipmentPeriod
+                setter: setShipmentPeriod
+            type: string

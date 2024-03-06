@@ -1,0 +1,11 @@
+common\models\sbbolxml\response\ComDocDataFromBankType:
+    properties:
+        requiredForRead:
+            expose: true
+            access_type: public_method
+            serialized_name: requiredForRead
+            accessor:
+                getter: getRequiredForRead
+                setter: setRequiredForRead
+            xml_attribute: true
+            type: boolean

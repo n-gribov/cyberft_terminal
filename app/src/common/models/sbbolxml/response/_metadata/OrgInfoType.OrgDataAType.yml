@@ -1,0 +1,187 @@
+common\models\sbbolxml\response\OrgInfoType\OrgDataAType:
+    properties:
+        shortName:
+            expose: true
+            access_type: public_method
+            serialized_name: ShortName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getShortName
+                setter: setShortName
+            type: string
+        vkFullName:
+            expose: true
+            access_type: public_method
+            serialized_name: VkFullName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getVkFullName
+                setter: setVkFullName
+            type: string
+        orgId:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOrgId
+                setter: setOrgId
+            type: string
+        accounts:
+            expose: true
+            access_type: public_method
+            serialized_name: Accounts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAccounts
+                setter: setAccounts
+            type: array<common\models\sbbolxml\response\AccountRubType>
+            xml_list:
+                inline: false
+                entry_name: Account
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        iNN:
+            expose: true
+            access_type: public_method
+            serialized_name: INN
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getINN
+                setter: setINN
+            type: string
+        fullName:
+            expose: true
+            access_type: public_method
+            serialized_name: FullName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFullName
+                setter: setFullName
+            type: string
+        orgForm:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgForm
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOrgForm
+                setter: setOrgForm
+            type: string
+        stateCode:
+            expose: true
+            access_type: public_method
+            serialized_name: StateCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getStateCode
+                setter: setStateCode
+            type: string
+        stateType:
+            expose: true
+            access_type: public_method
+            serialized_name: StateType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getStateType
+                setter: setStateType
+            type: boolean
+        oGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: OGRN
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOGRN
+                setter: setOGRN
+            type: string
+        dateOGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: DateOGRN
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDateOGRN
+                setter: setDateOGRN
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        oKPO:
+            expose: true
+            access_type: public_method
+            serialized_name: OKPO
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOKPO
+                setter: setOKPO
+            type: string
+        oKATO:
+            expose: true
+            access_type: public_method
+            serialized_name: OKATO
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOKATO
+                setter: setOKATO
+            type: string
+        addresses:
+            expose: true
+            access_type: public_method
+            serialized_name: Addresses
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAddresses
+                setter: setAddresses
+            type: array<common\models\sbbolxml\response\OrgInfoType\OrgDataAType\AddressesAType\AddressAType>
+            xml_list:
+                inline: false
+                entry_name: Address
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        correspondents:
+            expose: true
+            access_type: public_method
+            serialized_name: Correspondents
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCorrespondents
+                setter: setCorrespondents
+            type: array<common\models\sbbolxml\response\OrgInfoType\OrgDataAType\CorrespondentsAType\CorrespondentAType>
+            xml_list:
+                inline: false
+                entry_name: Correspondent
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        otherOrgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherOrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOtherOrgData
+                setter: setOtherOrgData
+            type: common\models\sbbolxml\response\OrgInfoType\OrgDataAType\OtherOrgDataAType

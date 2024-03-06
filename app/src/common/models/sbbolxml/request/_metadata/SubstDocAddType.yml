@@ -1,0 +1,71 @@
+common\models\sbbolxml\request\SubstDocAddType:
+    properties:
+        essenceId:
+            expose: true
+            access_type: public_method
+            serialized_name: essenceId
+            accessor:
+                getter: getEssenceId
+                setter: setEssenceId
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        substDocType:
+            expose: true
+            access_type: public_method
+            serialized_name: substDocType
+            accessor:
+                getter: getSubstDocType
+                setter: setSubstDocType
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: name
+            accessor:
+                getter: getName
+                setter: setName
+            xml_attribute: true
+            type: string
+        accountNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: accountNumber
+            accessor:
+                getter: getAccountNumber
+                setter: setAccountNumber
+            xml_attribute: true
+            type: string
+        bFAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BFAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBFAttachments
+                setter: setBFAttachments
+            type: array<common\models\sbbolxml\request\BFAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BFAttachment
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'

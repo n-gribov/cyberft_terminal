@@ -1,0 +1,47 @@
+common\models\sbbolxml\request\CashTokenReqType:
+    properties:
+        count:
+            expose: true
+            access_type: public_method
+            serialized_name: count
+            accessor:
+                getter: getCount
+                setter: setCount
+            xml_attribute: true
+            type: integer
+        cashTokenValue:
+            expose: true
+            access_type: public_method
+            serialized_name: cashTokenValue
+            accessor:
+                getter: getCashTokenValue
+                setter: setCashTokenValue
+            xml_attribute: true
+            type: float
+        cashTokenName:
+            expose: true
+            access_type: public_method
+            serialized_name: cashTokenName
+            accessor:
+                getter: getCashTokenName
+                setter: setCashTokenName
+            xml_attribute: true
+            type: string
+        cashTokenCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: cashTokenCurrCode
+            accessor:
+                getter: getCashTokenCurrCode
+                setter: setCashTokenCurrCode
+            xml_attribute: true
+            type: string
+        cashTokenType:
+            expose: true
+            access_type: public_method
+            serialized_name: cashTokenType
+            accessor:
+                getter: getCashTokenType
+                setter: setCashTokenType
+            xml_attribute: true
+            type: integer

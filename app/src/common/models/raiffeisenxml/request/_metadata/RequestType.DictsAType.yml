@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\request\RequestType\DictsAType:
+    properties:
+        dict:
+            expose: true
+            access_type: public_method
+            serialized_name: Dict
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDict
+                setter: setDict
+            xml_list:
+                inline: true
+                entry_name: Dict
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\DictType>

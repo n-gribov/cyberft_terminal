@@ -1,0 +1,46 @@
+common\models\sbbolxml\request\OrgDataIPType:
+    properties:
+        clientNameIntheGenitive:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientNameIntheGenitive
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getClientNameIntheGenitive
+                setter: setClientNameIntheGenitive
+            type: string
+        fio:
+            expose: true
+            access_type: public_method
+            serialized_name: Fio
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFio
+                setter: setFio
+            type: string
+        birthDayAndPlace:
+            expose: true
+            access_type: public_method
+            serialized_name: BirthDayAndPlace
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBirthDayAndPlace
+                setter: setBirthDayAndPlace
+            type: string
+        citizenship:
+            expose: true
+            access_type: public_method
+            serialized_name: Citizenship
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCitizenship
+                setter: setCitizenship
+            type: string

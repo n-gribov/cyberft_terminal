@@ -1,0 +1,16 @@
+common\models\sbbolxml\request\ConfDocCertificate138IType\ConfDocCertificateDocs138IAType:
+    properties:
+        confDocCertificateDoc138I:
+            expose: true
+            access_type: public_method
+            serialized_name: ConfDocCertificateDoc138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConfDocCertificateDoc138I
+                setter: setConfDocCertificateDoc138I
+            xml_list:
+                inline: true
+                entry_name: ConfDocCertificateDoc138I
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\ConfDocCertificateDoc138IType>

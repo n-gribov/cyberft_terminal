@@ -1,0 +1,12 @@
+common\models\sbbolxml\request\ConfDocCertificateDoc181IType:
+    properties:
+        adjustmentDate:
+            expose: true
+            access_type: public_method
+            serialized_name: AdjustmentDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdjustmentDate
+                setter: setAdjustmentDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

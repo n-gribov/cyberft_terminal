@@ -1,0 +1,12 @@
+common\models\sbbolxml\request\LinkedDocsEMType:
+    properties:
+        lDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: LDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLDoc
+                setter: setLDoc
+            type: common\models\sbbolxml\request\LinkedDocsEMType\LDocAType

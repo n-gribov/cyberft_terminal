@@ -1,0 +1,3 @@
+common\models\sbbolxml\response\Response:
+    xml_root_name: Response
+    xml_root_namespace: 'http://bssys.com/upg/response'

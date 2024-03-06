@@ -1,0 +1,79 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OtherOrgDataAType\ContactsAType:
+    properties:
+        directorFio:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectorFio
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDirectorFio
+                setter: setDirectorFio
+            type: string
+        directorTel:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectorTel
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDirectorTel
+                setter: setDirectorTel
+            type: string
+        accountantFio:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountantFio
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccountantFio
+                setter: setAccountantFio
+            type: string
+        accountantTel:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountantTel
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccountantTel
+                setter: setAccountantTel
+            type: string
+        fax:
+            expose: true
+            access_type: public_method
+            serialized_name: Fax
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFax
+                setter: setFax
+            type: string
+        email:
+            expose: true
+            access_type: public_method
+            serialized_name: Email
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getEmail
+                setter: setEmail
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

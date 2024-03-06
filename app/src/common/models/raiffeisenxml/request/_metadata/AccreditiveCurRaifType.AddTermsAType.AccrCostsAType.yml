@@ -1,0 +1,32 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\AddTermsAType\AccrCostsAType:
+    properties:
+        acc1:
+            expose: true
+            access_type: public_method
+            serialized_name: Acc1
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcc1
+                setter: setAcc1
+            type: common\models\raiffeisenxml\request\AccountType
+        acc2:
+            expose: true
+            access_type: public_method
+            serialized_name: Acc2
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcc2
+                setter: setAcc2
+            type: common\models\raiffeisenxml\request\AccountType
+        acc3:
+            expose: true
+            access_type: public_method
+            serialized_name: Acc3
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcc3
+                setter: setAcc3
+            type: common\models\raiffeisenxml\request\AccountType

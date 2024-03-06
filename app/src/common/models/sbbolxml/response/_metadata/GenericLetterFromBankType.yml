@@ -1,0 +1,73 @@
+common\models\sbbolxml\response\GenericLetterFromBankType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        orgId:
+            expose: true
+            access_type: public_method
+            serialized_name: orgId
+            accessor:
+                getter: getOrgId
+                setter: setOrgId
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\response\GenLetDocDataType
+        pSFType:
+            expose: true
+            access_type: public_method
+            serialized_name: PSFType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPSFType
+                setter: setPSFType
+            type: string
+        pSFTypeSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: PSFTypeSystemName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPSFTypeSystemName
+                setter: setPSFTypeSystemName
+            type: string
+        text:
+            expose: true
+            access_type: public_method
+            serialized_name: Text
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getText
+                setter: setText
+            type: string
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

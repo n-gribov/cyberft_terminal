@@ -1,0 +1,288 @@
+common\models\sbbolxml\response\RZKPayDocRuType\RzkAType\RzkDocanalyticsAType\RzkDocanalyticAType:
+    properties:
+        fieldSetId:
+            expose: true
+            access_type: public_method
+            serialized_name: FieldSetId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFieldSetId
+                setter: setFieldSetId
+            type: string
+        tableRow:
+            expose: true
+            access_type: public_method
+            serialized_name: TableRow
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getTableRow
+                setter: setTableRow
+            type: string
+        docContentId:
+            expose: true
+            access_type: public_method
+            serialized_name: DocContentId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDocContentId
+                setter: setDocContentId
+            type: string
+        amount:
+            expose: true
+            access_type: public_method
+            serialized_name: Amount
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAmount
+                setter: setAmount
+            type: float
+        budgetId:
+            expose: true
+            access_type: public_method
+            serialized_name: BudgetId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBudgetId
+                setter: setBudgetId
+            type: integer
+        classifier1Id:
+            expose: true
+            access_type: public_method
+            serialized_name: Classifier1Id
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getClassifier1Id
+                setter: setClassifier1Id
+            type: integer
+        class1Code:
+            expose: true
+            access_type: public_method
+            serialized_name: Class1Code
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getClass1Code
+                setter: setClass1Code
+            type: string
+        class1Description:
+            expose: true
+            access_type: public_method
+            serialized_name: Class1Description
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getClass1Description
+                setter: setClass1Description
+            type: string
+        financeTypeDescription:
+            expose: true
+            access_type: public_method
+            serialized_name: FinanceTypeDescription
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFinanceTypeDescription
+                setter: setFinanceTypeDescription
+            type: string
+        financeTypeId:
+            expose: true
+            access_type: public_method
+            serialized_name: FinanceTypeId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFinanceTypeId
+                setter: setFinanceTypeId
+            type: integer
+        kesrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: KesrCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getKesrCode
+                setter: setKesrCode
+            type: integer
+        kesrDescription:
+            expose: true
+            access_type: public_method
+            serialized_name: KesrDescription
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getKesrDescription
+                setter: setKesrDescription
+            type: string
+        orgGroupCaption:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgGroupCaption
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOrgGroupCaption
+                setter: setOrgGroupCaption
+            type: string
+        orgGroupId:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgGroupId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOrgGroupId
+                setter: setOrgGroupId
+            type: integer
+        pactDate:
+            expose: true
+            access_type: public_method
+            serialized_name: PactDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPactDate
+                setter: setPactDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        pactId:
+            expose: true
+            access_type: public_method
+            serialized_name: PactId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPactId
+                setter: setPactId
+            type: integer
+        pactNum:
+            expose: true
+            access_type: public_method
+            serialized_name: PactNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPactNum
+                setter: setPactNum
+            type: string
+        pactSubject:
+            expose: true
+            access_type: public_method
+            serialized_name: PactSubject
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPactSubject
+                setter: setPactSubject
+            type: string
+        payCodeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: PayCodeCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPayCodeCode
+                setter: setPayCodeCode
+            type: string
+        payCodeDescription:
+            expose: true
+            access_type: public_method
+            serialized_name: PayCodeDescription
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPayCodeDescription
+                setter: setPayCodeDescription
+            type: string
+        payCodeId:
+            expose: true
+            access_type: public_method
+            serialized_name: PayCodeId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayCodeId
+                setter: setPayCodeId
+            type: integer
+        projectStdCode:
+            expose: true
+            access_type: public_method
+            serialized_name: ProjectStdCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getProjectStdCode
+                setter: setProjectStdCode
+            type: string
+        projectStdDescription:
+            expose: true
+            access_type: public_method
+            serialized_name: ProjectStdDescription
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getProjectStdDescription
+                setter: setProjectStdDescription
+            type: string
+        projectStdId:
+            expose: true
+            access_type: public_method
+            serialized_name: ProjectStdId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getProjectStdId
+                setter: setProjectStdId
+            type: integer
+        reasonDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ReasonDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getReasonDate
+                setter: setReasonDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        reasonNum:
+            expose: true
+            access_type: public_method
+            serialized_name: ReasonNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getReasonNum
+                setter: setReasonNum
+            type: string
+        reasonType:
+            expose: true
+            access_type: public_method
+            serialized_name: ReasonType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getReasonType
+                setter: setReasonType
+            type: string

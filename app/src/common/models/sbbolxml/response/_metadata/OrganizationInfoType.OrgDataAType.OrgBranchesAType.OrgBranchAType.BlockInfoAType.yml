@@ -1,0 +1,86 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OrgBranchesAType\OrgBranchAType\BlockInfoAType:
+    properties:
+        stopedService:
+            expose: true
+            access_type: public_method
+            serialized_name: StopedService
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getStopedService
+                setter: setStopedService
+            type: boolean
+        stopInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: StopInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getStopInfo
+                setter: setStopInfo
+            type: string
+        finBlock:
+            expose: true
+            access_type: public_method
+            serialized_name: FinBlock
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFinBlock
+                setter: setFinBlock
+            type: boolean
+        finBlockInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: FinBlockInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFinBlockInfo
+                setter: setFinBlockInfo
+            type: string
+        contractRescission:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractRescission
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContractRescission
+                setter: setContractRescission
+            type: boolean
+        contractRescissionInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractRescissionInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getContractRescissionInfo
+                setter: setContractRescissionInfo
+            type: string
+        dateRescission:
+            expose: true
+            access_type: public_method
+            serialized_name: DateRescission
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDateRescission
+                setter: setDateRescission
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        reason:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getReason
+                setter: setReason
+            type: string

@@ -1,0 +1,13 @@
+common\models\sbbolxml\response\OrgInfoType\AuthPersonsAType\AuthPersonAType\SignDevicesAType\SignDeviceAType:
+    properties:
+        signDeviceId:
+            expose: true
+            access_type: public_method
+            serialized_name: SignDeviceId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSignDeviceId
+                setter: setSignDeviceId
+            type: string

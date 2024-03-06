@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\OrganizationInfoType\BranchesAType:
+    properties:
+        branch:
+            expose: true
+            access_type: public_method
+            serialized_name: Branch
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBranch
+                setter: setBranch
+            xml_list:
+                inline: true
+                entry_name: Branch
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\OrganizationInfoType\BranchesAType\BranchAType>

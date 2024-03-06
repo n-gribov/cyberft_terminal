@@ -1,0 +1,20 @@
+common\models\sbbolxml\request\AdmCashierType\DeviceInfoAType:
+    properties:
+        deviceType:
+            expose: true
+            access_type: public_method
+            serialized_name: deviceType
+            accessor:
+                getter: getDeviceType
+                setter: setDeviceType
+            xml_attribute: true
+            type: string
+        tradePointName:
+            expose: true
+            access_type: public_method
+            serialized_name: tradePointName
+            accessor:
+                getter: getTradePointName
+                setter: setTradePointName
+            xml_attribute: true
+            type: string

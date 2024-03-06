@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\ResponseType\GenericLettersFromBankAType:
+    properties:
+        genericLetterFromBank:
+            expose: true
+            access_type: public_method
+            serialized_name: GenericLetterFromBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getGenericLetterFromBank
+                setter: setGenericLetterFromBank
+            xml_list:
+                inline: true
+                entry_name: GenericLetterFromBank
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\GenericLetterFromBankType>

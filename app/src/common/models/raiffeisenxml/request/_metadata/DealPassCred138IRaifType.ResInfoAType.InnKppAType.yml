@@ -1,0 +1,20 @@
+common\models\raiffeisenxml\request\DealPassCred138IRaifType\ResInfoAType\InnKppAType:
+    properties:
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        kpp:
+            expose: true
+            access_type: public_method
+            serialized_name: kpp
+            accessor:
+                getter: getKpp
+                setter: setKpp
+            xml_attribute: true
+            type: string

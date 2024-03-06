@@ -1,0 +1,12 @@
+common\models\sbbolxml\request\ComDataCredType:
+    properties:
+        specConditions:
+            expose: true
+            access_type: public_method
+            serialized_name: SpecConditions
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSpecConditions
+                setter: setSpecConditions
+            type: common\models\sbbolxml\request\SpecConditionsType

@@ -1,0 +1,84 @@
+common\models\sbbolxml\request\DpDataType:
+    properties:
+        strNum:
+            expose: true
+            access_type: public_method
+            serialized_name: StrNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getStrNum
+                setter: setStrNum
+            type: integer
+        dpNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DpNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpNum
+                setter: setDpNum
+            type: string
+        dpDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DpDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDpDate
+                setter: setDpDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        contract:
+            expose: true
+            access_type: public_method
+            serialized_name: Contract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContract
+                setter: setContract
+            type: common\models\sbbolxml\request\ContractType
+        groundInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: GroundInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGroundInfo
+                setter: setGroundInfo
+            type: array<common\models\sbbolxml\request\GroundType>
+            xml_list:
+                inline: false
+                entry_name: Ground
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
+        chapterInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ChapterInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChapterInfo
+                setter: setChapterInfo
+            type: array<common\models\sbbolxml\request\ChapterType>
+            xml_list:
+                inline: false
+                entry_name: Chapter
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
+        attachInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AttachInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAttachInfo
+                setter: setAttachInfo
+            type: string

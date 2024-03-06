@@ -1,0 +1,32 @@
+common\models\sbbolxml\response\SmsTimeoutsType:
+    properties:
+        generalSmsTimeout:
+            expose: true
+            access_type: public_method
+            serialized_name: GeneralSmsTimeout
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getGeneralSmsTimeout
+                setter: setGeneralSmsTimeout
+            type: integer
+        fraudSmsTimeout:
+            expose: true
+            access_type: public_method
+            serialized_name: FraudSmsTimeout
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFraudSmsTimeout
+                setter: setFraudSmsTimeout
+            type: integer
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

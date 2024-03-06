@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\CurrBuyTransType\AmountTransfAType:
+    properties:
+        sumBuy:
+            expose: true
+            access_type: public_method
+            serialized_name: SumBuy
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumBuy
+                setter: setSumBuy
+            type: common\models\sbbolxml\request\CurrAmountType
+        sumThrough:
+            expose: true
+            access_type: public_method
+            serialized_name: SumThrough
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumThrough
+                setter: setSumThrough
+            type: common\models\sbbolxml\request\CurrAmountType

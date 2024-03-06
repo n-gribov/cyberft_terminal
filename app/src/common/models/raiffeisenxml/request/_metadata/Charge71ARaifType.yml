@@ -1,0 +1,21 @@
+common\models\raiffeisenxml\request\Charge71ARaifType:
+    properties:
+        chargesParty:
+            expose: true
+            access_type: public_method
+            serialized_name: chargesParty
+            accessor:
+                getter: getChargesParty
+                setter: setChargesParty
+            xml_attribute: true
+            type: string
+        accCommis:
+            expose: true
+            access_type: public_method
+            serialized_name: AccCommis
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccCommis
+                setter: setAccCommis
+            type: common\models\raiffeisenxml\request\AccountNoNameType

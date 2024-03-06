@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\RevocationRequestType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\RevocationRequestType\DocDataAType
+        linkedDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLinkedDoc
+                setter: setLinkedDoc
+            type: common\models\sbbolxml\request\RevocationRequestType\LinkedDocAType

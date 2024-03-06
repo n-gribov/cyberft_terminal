@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\RZKSalaryDocType\RzkAType\RzkDocanalyticsAType:
+    properties:
+        rzkDocanalytic:
+            expose: true
+            access_type: public_method
+            serialized_name: RzkDocanalytic
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRzkDocanalytic
+                setter: setRzkDocanalytic
+            xml_list:
+                inline: true
+                entry_name: RzkDocanalytic
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\RZKSalaryDocType\RzkAType\RzkDocanalyticsAType\RzkDocanalyticAType>

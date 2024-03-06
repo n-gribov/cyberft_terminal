@@ -1,0 +1,40 @@
+#Dockerfile CyberFT system
+#version 4 (php7.4 + cpro 4 + cyberft-crypt include libs )
+
+FROM cyberft:v4
+
+
+COPY deps/cacert.pem /usr/local/openssl-1.1.1/ssl/cert.pem
+COPY deps/sources.list /etc/apt/sources.list
+RUN apt-get update \
+&& apt-get -y --allow-unauthenticated install php7.3-dev php-pear libcurl3-openssl-dev gcc make autoconf libc-dev pkg-config libmcrypt-dev   \
+&& pear config-set http_proxy $http_proxy \
+&& pecl channel-update pecl.php.net \
+&& yes "" | pecl install mcrypt-1.0.2 \
+&& sudo bash -c "echo extension=/usr/lib/php/20180731/mcrypt.so > /etc/php/7.3/cli/conf.d/mcrypt.ini"
+
+
+#step12 - configure and clean
+COPY deps/sudoers /etc/sudoers
+RUN cd /root \
+&& apt-get install ccze \
+&& apt-get -y autoremove \
+&& rm -rf /etc/apt/apt.conf \
+&& rm -rf /etc/apt/sources.list \
+&& rm -rf /var/lib/apt/lists/* \
+&& rm -rf  /var/lib/apt/* \
+&& rm -rf /root/* \
+&& find /var/cache/* -type f -exec rm {} \; \
+&& chmod -R 0644 /etc/sudoers \
+&& echo 'LD_LIBRARY_PATH="/usr/local/openssl-1.1.1/lib/:${LD_LIBRARY_PATH}"' >>  /etc/environment \
+&& echo "alias logs='tail -f /var/www/cyberft/app/logs/* | ccze -A'" >> /root/.bashrc \
+&& echo "alias services='/var/www/cyberft/app/background-jobs stop && /var/www/cyberft/app/src/yii resque/purge && /var/www/cyberft/app/src/yii app/update && /var/www/cyberft/app/background-jobs start'" >> /root/.bashrc \
+&& echo "alias src='cd /var/www/cyberft/app/src'" >> /root/.bashrc
+
+EXPOSE 80
+EXPOSE 443
+WORKDIR /var/www/cyberft/app/src
+LABEL CyberFT="4"
+ENV DEBIAN_FRONTEND noninteractive
+ENV LD_LIBRARY_PATH "/usr/local/openssl-1.1.1/lib/"
+CMD ["/bin/bash"]

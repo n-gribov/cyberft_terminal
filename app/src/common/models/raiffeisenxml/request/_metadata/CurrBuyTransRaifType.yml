@@ -1,0 +1,63 @@
+common\models\raiffeisenxml\request\CurrBuyTransRaifType:
+    properties:
+        amountBuy:
+            expose: true
+            access_type: public_method
+            serialized_name: AmountBuy
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAmountBuy
+                setter: setAmountBuy
+            type: common\models\raiffeisenxml\request\CurrBuyTransRaifType\AmountBuyAType
+        amountRu:
+            expose: true
+            access_type: public_method
+            serialized_name: AmountRu
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAmountRu
+                setter: setAmountRu
+            type: float
+        writeOffDate:
+            expose: true
+            access_type: public_method
+            serialized_name: WriteOffDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getWriteOffDate
+                setter: setWriteOffDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\raiffeisenxml\request\AccountType
+        enrollAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: EnrollAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEnrollAcc
+                setter: setEnrollAcc
+            type: common\models\raiffeisenxml\request\AccountType
+        dealType:
+            expose: true
+            access_type: public_method
+            serialized_name: DealType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealType
+                setter: setDealType
+            type: string

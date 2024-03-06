@@ -1,0 +1,20 @@
+common\models\sbbolxml\request\OurRubAccountTypeRequiredType:
+    properties:
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: type
+            accessor:
+                getter: getType
+                setter: setType
+            xml_attribute: true
+            type: string
+        additionalRequisite:
+            expose: true
+            access_type: public_method
+            serialized_name: AdditionalRequisite
+            accessor:
+                getter: getAdditionalRequisite
+                setter: setAdditionalRequisite
+            xml_attribute: true
+            type: string

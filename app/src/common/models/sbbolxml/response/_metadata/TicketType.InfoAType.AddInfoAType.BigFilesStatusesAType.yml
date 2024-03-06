@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\TicketType\InfoAType\AddInfoAType\BigFilesStatusesAType:
+    properties:
+        bigFilesStatus:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFilesStatus
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBigFilesStatus
+                setter: setBigFilesStatus
+            xml_list:
+                inline: true
+                entry_name: BigFilesStatus
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\BigFilesStatusType>

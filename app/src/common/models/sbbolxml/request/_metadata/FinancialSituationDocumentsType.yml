@@ -1,0 +1,52 @@
+common\models\sbbolxml\request\FinancialSituationDocumentsType:
+    properties:
+        balanceSheet:
+            expose: true
+            access_type: public_method
+            serialized_name: BalanceSheet
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBalanceSheet
+                setter: setBalanceSheet
+            type: boolean
+        financialStatements:
+            expose: true
+            access_type: public_method
+            serialized_name: FinancialStatements
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFinancialStatements
+                setter: setFinancialStatements
+            type: boolean
+        taxReturn:
+            expose: true
+            access_type: public_method
+            serialized_name: TaxReturn
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTaxReturn
+                setter: setTaxReturn
+            type: boolean
+        auditReport:
+            expose: true
+            access_type: public_method
+            serialized_name: AuditReport
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuditReport
+                setter: setAuditReport
+            type: boolean
+        certificateOfTaxPayment:
+            expose: true
+            access_type: public_method
+            serialized_name: CertificateOfTaxPayment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCertificateOfTaxPayment
+                setter: setCertificateOfTaxPayment
+            type: boolean

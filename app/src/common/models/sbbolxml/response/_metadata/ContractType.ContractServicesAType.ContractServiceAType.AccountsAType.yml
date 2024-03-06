@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\ContractType\ContractServicesAType\ContractServiceAType\AccountsAType:
+    properties:
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            xml_list:
+                inline: true
+                entry_name: Account
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\ContractType\ContractServicesAType\ContractServiceAType\AccountsAType\AccountAType>

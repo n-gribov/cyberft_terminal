@@ -1,0 +1,1332 @@
+common\models\sbbolxml\request\RequestType:
+    properties:
+        requestId:
+            expose: true
+            access_type: public_method
+            serialized_name: requestId
+            accessor:
+                getter: getRequestId
+                setter: setRequestId
+            xml_attribute: true
+            type: string
+        orgId:
+            expose: true
+            access_type: public_method
+            serialized_name: orgId
+            accessor:
+                getter: getOrgId
+                setter: setOrgId
+            xml_attribute: true
+            type: string
+        version:
+            expose: true
+            access_type: public_method
+            serialized_name: version
+            accessor:
+                getter: getVersion
+                setter: setVersion
+            xml_attribute: true
+            type: string
+        sender:
+            expose: true
+            access_type: public_method
+            serialized_name: sender
+            accessor:
+                getter: getSender
+                setter: setSender
+            xml_attribute: true
+            type: string
+        receiver:
+            expose: true
+            access_type: public_method
+            serialized_name: receiver
+            accessor:
+                getter: getReceiver
+                setter: setReceiver
+            xml_attribute: true
+            type: string
+        senderKey:
+            expose: true
+            access_type: public_method
+            serialized_name: senderKey
+            accessor:
+                getter: getSenderKey
+                setter: setSenderKey
+            xml_attribute: true
+            type: string
+        bankOnly:
+            expose: true
+            access_type: public_method
+            serialized_name: bankOnly
+            accessor:
+                getter: getBankOnly
+                setter: setBankOnly
+            xml_attribute: true
+            type: boolean
+        protocolVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: protocolVersion
+            accessor:
+                getter: getProtocolVersion
+                setter: setProtocolVersion
+            xml_attribute: true
+            type: string
+        docIds:
+            expose: true
+            access_type: public_method
+            serialized_name: DocIds
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocIds
+                setter: setDocIds
+            type: array<common\models\sbbolxml\request\RequestType\DocIdsAType\DocIdAType>
+            xml_list:
+                inline: false
+                entry_name: DocId
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        payDocRu:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocRu
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocRu
+                setter: setPayDocRu
+            type: common\models\sbbolxml\request\PayDocRuType
+        holdingInfoRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: HoldingInfoRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getHoldingInfoRequest
+                setter: setHoldingInfoRequest
+            type: string
+        ticket:
+            expose: true
+            access_type: public_method
+            serialized_name: Ticket
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTicket
+                setter: setTicket
+            type: common\models\sbbolxml\request\TicketClType
+        incoming:
+            expose: true
+            access_type: public_method
+            serialized_name: Incoming
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIncoming
+                setter: setIncoming
+            type: common\models\sbbolxml\request\RequestType\IncomingAType
+        cryptoIncoming:
+            expose: true
+            access_type: public_method
+            serialized_name: CryptoIncoming
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCryptoIncoming
+                setter: setCryptoIncoming
+            type: common\models\sbbolxml\request\RequestType\CryptoIncomingAType
+        activateCert:
+            expose: true
+            access_type: public_method
+            serialized_name: ActivateCert
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getActivateCert
+                setter: setActivateCert
+            type: common\models\sbbolxml\request\ActivateCertType
+        stmtReq:
+            expose: true
+            access_type: public_method
+            serialized_name: StmtReq
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getStmtReq
+                setter: setStmtReq
+            type: common\models\sbbolxml\request\StmtReqType
+        payDocRuGetSMS:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocRuGetSMS
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocRuGetSMS
+                setter: setPayDocRuGetSMS
+            type: common\models\sbbolxml\request\RequestType\PayDocRuGetSMSAType
+        payDocRuSMS:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocRuSMS
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocRuSMS
+                setter: setPayDocRuSMS
+            type: common\models\sbbolxml\request\RequestType\PayDocRuSMSAType
+        salaryDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: SalaryDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSalaryDoc
+                setter: setSalaryDoc
+            type: common\models\sbbolxml\request\SalaryDocType
+        accept:
+            expose: true
+            access_type: public_method
+            serialized_name: Accept
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccept
+                setter: setAccept
+            type: common\models\sbbolxml\request\AcceptType
+        letterInBank:
+            expose: true
+            access_type: public_method
+            serialized_name: LetterInBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLetterInBank
+                setter: setLetterInBank
+            type: common\models\sbbolxml\request\LetterInBankType
+        currDealCertificate138I:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDealCertificate138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrDealCertificate138I
+                setter: setCurrDealCertificate138I
+            type: common\models\sbbolxml\request\CurrDealCertificate138IType
+        confDocCertificate138I:
+            expose: true
+            access_type: public_method
+            serialized_name: ConfDocCertificate138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConfDocCertificate138I
+                setter: setConfDocCertificate138I
+            type: common\models\sbbolxml\request\ConfDocCertificate138IType
+        confDocCertificate181I:
+            expose: true
+            access_type: public_method
+            serialized_name: ConfDocCertificate181I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConfDocCertificate181I
+                setter: setConfDocCertificate181I
+            type: common\models\sbbolxml\request\ConfDocCertificate181IType
+        icsRestruct181I:
+            expose: true
+            access_type: public_method
+            serialized_name: IcsRestruct181I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIcsRestruct181I
+                setter: setIcsRestruct181I
+            type: common\models\sbbolxml\request\IcsRestruct181IType
+        dzoAccAttach:
+            expose: true
+            access_type: public_method
+            serialized_name: DzoAccAttach
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDzoAccAttach
+                setter: setDzoAccAttach
+            type: common\models\sbbolxml\request\DzoAccAttachType
+        dealPassICS:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassICS
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassICS
+                setter: setDealPassICS
+            type: common\models\sbbolxml\request\DealPassICSType
+        dealPassCon138I:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCon138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassCon138I
+                setter: setDealPassCon138I
+            type: common\models\sbbolxml\request\DealPassCon138IType
+        dealPassCred138I:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCred138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassCred138I
+                setter: setDealPassCred138I
+            type: common\models\sbbolxml\request\DealPassCred138IType
+        dealPassRestruct:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassRestruct
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassRestruct
+                setter: setDealPassRestruct
+            type: common\models\sbbolxml\request\DealPassRestructType
+        dealPassClose:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassClose
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassClose
+                setter: setDealPassClose
+            type: common\models\sbbolxml\request\DealPassCloseType
+        certifRequestQualified:
+            expose: true
+            access_type: public_method
+            serialized_name: CertifRequestQualified
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCertifRequestQualified
+                setter: setCertifRequestQualified
+            type: common\models\sbbolxml\request\CertifRequestQualifiedType
+        certifRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: CertifRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCertifRequest
+                setter: setCertifRequest
+            type: common\models\sbbolxml\request\CertifRequestType
+        revocationCertifRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: RevocationCertifRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRevocationCertifRequest
+                setter: setRevocationCertifRequest
+            type: common\models\sbbolxml\request\RevocationCertifRequestType
+        payDocCur:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocCur
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocCur
+                setter: setPayDocCur
+            type: common\models\sbbolxml\request\PayDocCurType
+        currBuy:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrBuy
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrBuy
+                setter: setCurrBuy
+            type: common\models\sbbolxml\request\CurrBuyType
+        currSell:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrSell
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrSell
+                setter: setCurrSell
+            type: common\models\sbbolxml\request\CurrSellType
+        mandatorySale:
+            expose: true
+            access_type: public_method
+            serialized_name: MandatorySale
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMandatorySale
+                setter: setMandatorySale
+            type: common\models\sbbolxml\request\MandatorySaleType
+        regOfCorpCards:
+            expose: true
+            access_type: public_method
+            serialized_name: RegOfCorpCards
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRegOfCorpCards
+                setter: setRegOfCorpCards
+            type: common\models\sbbolxml\request\RegOfCorpCardsType
+        applForContract:
+            expose: true
+            access_type: public_method
+            serialized_name: ApplForContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getApplForContract
+                setter: setApplForContract
+            type: common\models\sbbolxml\request\ApplForContractType
+        regOfIssCards:
+            expose: true
+            access_type: public_method
+            serialized_name: RegOfIssCards
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRegOfIssCards
+                setter: setRegOfIssCards
+            type: common\models\sbbolxml\request\RegOfIssCardsType
+        regOfFiredEmployees:
+            expose: true
+            access_type: public_method
+            serialized_name: RegOfFiredEmployees
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRegOfFiredEmployees
+                setter: setRegOfFiredEmployees
+            type: common\models\sbbolxml\request\RegOfFiredEmployeesType
+        dict:
+            expose: true
+            access_type: public_method
+            serialized_name: Dict
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDict
+                setter: setDict
+            xml_list:
+                inline: true
+                entry_name: Dict
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\DictType>
+        rzkDictUpdate:
+            expose: true
+            access_type: public_method
+            serialized_name: RzkDictUpdate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRzkDictUpdate
+                setter: setRzkDictUpdate
+            xml_list:
+                inline: true
+                entry_name: RzkDictUpdate
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\RzkDictUpdateType>
+        personalInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: PersonalInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPersonalInfo
+                setter: setPersonalInfo
+            type: common\models\sbbolxml\request\PersonalInfoType
+        docTypeConfigInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DocTypeConfigInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocTypeConfigInfo
+                setter: setDocTypeConfigInfo
+            type: common\models\sbbolxml\request\DocTypeConfigInfoType
+        clientAppUpdateRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientAppUpdateRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getClientAppUpdateRequest
+                setter: setClientAppUpdateRequest
+            type: common\models\sbbolxml\request\UpdateRequestType
+        payRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: PayRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayRequest
+                setter: setPayRequest
+            type: common\models\sbbolxml\request\PayRequestType
+        creditOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditOrder
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditOrder
+                setter: setCreditOrder
+            type: common\models\sbbolxml\request\CreditOrderType
+        revocationRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: RevocationRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRevocationRequest
+                setter: setRevocationRequest
+            type: common\models\sbbolxml\request\RevocationRequestType
+        remainRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: RemainRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRemainRequest
+                setter: setRemainRequest
+            type: common\models\sbbolxml\request\OverdraftRequestType
+        firmwareUpdateRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: FirmwareUpdateRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFirmwareUpdateRequest
+                setter: setFirmwareUpdateRequest
+            type: common\models\sbbolxml\request\FirmwareUpdateRequestType
+        corrAdd:
+            expose: true
+            access_type: public_method
+            serialized_name: CorrAdd
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCorrAdd
+                setter: setCorrAdd
+            type: common\models\sbbolxml\request\CorrAddType
+        substDocAdd:
+            expose: true
+            access_type: public_method
+            serialized_name: SubstDocAdd
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSubstDocAdd
+                setter: setSubstDocAdd
+            type: common\models\sbbolxml\request\SubstDocAddType
+        corrDel:
+            expose: true
+            access_type: public_method
+            serialized_name: CorrDel
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCorrDel
+                setter: setCorrDel
+            type: common\models\sbbolxml\request\CorrDelType
+        genSMSSign:
+            expose: true
+            access_type: public_method
+            serialized_name: GenSMSSign
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGenSMSSign
+                setter: setGenSMSSign
+            type: common\models\sbbolxml\request\SMSSignReqParamsType
+        verifySMSSign:
+            expose: true
+            access_type: public_method
+            serialized_name: VerifySMSSign
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVerifySMSSign
+                setter: setVerifySMSSign
+            type: common\models\sbbolxml\request\VerifySMSSignType
+        benefAdd:
+            expose: true
+            access_type: public_method
+            serialized_name: BenefAdd
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBenefAdd
+                setter: setBenefAdd
+            type: common\models\sbbolxml\request\BenefAddType
+        benefDel:
+            expose: true
+            access_type: public_method
+            serialized_name: BenefDel
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBenefDel
+                setter: setBenefDel
+            type: common\models\sbbolxml\request\BenefDelType
+        enableUseSignCorrDict:
+            expose: true
+            access_type: public_method
+            serialized_name: EnableUseSignCorrDict
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEnableUseSignCorrDict
+                setter: setEnableUseSignCorrDict
+            type: common\models\sbbolxml\request\EnableUseSignCorrDictType
+        corpCardExtIssueRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: CorpCardExtIssueRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCorpCardExtIssueRequest
+                setter: setCorpCardExtIssueRequest
+            type: common\models\sbbolxml\request\CorpCardExtIssueRequestType
+        updateListOfEmployees:
+            expose: true
+            access_type: public_method
+            serialized_name: UpdateListOfEmployees
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUpdateListOfEmployees
+                setter: setUpdateListOfEmployees
+            type: common\models\sbbolxml\request\UpdateListOfEmployeesType
+        exchangeMessagesWithBank:
+            expose: true
+            access_type: public_method
+            serialized_name: ExchangeMessagesWithBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExchangeMessagesWithBank
+                setter: setExchangeMessagesWithBank
+            type: common\models\sbbolxml\request\ExchangeMessagesWithBankType
+        currControlInfoRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrControlInfoRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrControlInfoRequest
+                setter: setCurrControlInfoRequest
+            type: common\models\sbbolxml\request\CurrControlInfoRequestType
+        iskForUL:
+            expose: true
+            access_type: public_method
+            serialized_name: IskForUL
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIskForUL
+                setter: setIskForUL
+            type: common\models\sbbolxml\request\ISKForULType
+        iskForIP:
+            expose: true
+            access_type: public_method
+            serialized_name: IskForIP
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIskForIP
+                setter: setIskForIP
+            type: common\models\sbbolxml\request\ISKForIPType
+        incomingRequestISK:
+            expose: true
+            access_type: public_method
+            serialized_name: IncomingRequestISK
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIncomingRequestISK
+                setter: setIncomingRequestISK
+            type: common\models\sbbolxml\request\IncomingRequestISKType
+        dealPassFromAnotherBank:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassFromAnotherBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassFromAnotherBank
+                setter: setDealPassFromAnotherBank
+            type: common\models\sbbolxml\request\DealPassFromAnotherBankType
+        chatWithBank:
+            expose: true
+            access_type: public_method
+            serialized_name: ChatWithBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChatWithBank
+                setter: setChatWithBank
+            type: common\models\sbbolxml\request\ChatWithBankMsgType
+        requestChatFromBankMsgs:
+            expose: true
+            access_type: public_method
+            serialized_name: RequestChatFromBankMsgs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRequestChatFromBankMsgs
+                setter: setRequestChatFromBankMsgs
+            type: common\models\sbbolxml\request\RequestChatFromBankMsgsType
+        chatWithBankMsgStatus:
+            expose: true
+            access_type: public_method
+            serialized_name: ChatWithBankMsgStatus
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChatWithBankMsgStatus
+                setter: setChatWithBankMsgStatus
+            type: common\models\sbbolxml\request\ChatWithBankMsgStatusType
+        inquiryOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: InquiryOrder
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getInquiryOrder
+                setter: setInquiryOrder
+            type: common\models\sbbolxml\request\InquiryOrderType
+        accountStatement:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountStatement
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccountStatement
+                setter: setAccountStatement
+            type: common\models\sbbolxml\request\AccountStatementType
+        rzkPayDocsRu:
+            expose: true
+            access_type: public_method
+            serialized_name: RzkPayDocsRu
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRzkPayDocsRu
+                setter: setRzkPayDocsRu
+            type: common\models\sbbolxml\request\RzkPayDocsRuType
+        currCourseEntry:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrCourseEntry
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrCourseEntry
+                setter: setCurrCourseEntry
+            type: common\models\sbbolxml\request\CurrCourseEntryType
+        gozDocUpdate:
+            expose: true
+            access_type: public_method
+            serialized_name: GozDocUpdate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGozDocUpdate
+                setter: setGozDocUpdate
+            xml_list:
+                inline: true
+                entry_name: GozDocUpdate
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\DictType>
+        admDictUpdate:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmDictUpdate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmDictUpdate
+                setter: setAdmDictUpdate
+            xml_list:
+                inline: true
+                entry_name: AdmDictUpdate
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\DictType>
+        supplyDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: SupplyDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSupplyDoc
+                setter: setSupplyDoc
+            type: common\models\sbbolxml\request\SupplyDocType
+        bigFilesUploadLinksRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFilesUploadLinksRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBigFilesUploadLinksRequest
+                setter: setBigFilesUploadLinksRequest
+            type: array<common\models\sbbolxml\request\BigFilesUploadLinksRequestType\BigFilesUploadLinkRequestAType>
+            xml_list:
+                inline: false
+                entry_name: BigFilesUploadLinkRequest
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        bigFilesStatusRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFilesStatusRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBigFilesStatusRequest
+                setter: setBigFilesStatusRequest
+            type: common\models\sbbolxml\request\BigFilesStatusRequestType
+        incomingDealConf:
+            expose: true
+            access_type: public_method
+            serialized_name: IncomingDealConf
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIncomingDealConf
+                setter: setIncomingDealConf
+            type: common\models\sbbolxml\request\IncomingDealConfType
+        dealAns:
+            expose: true
+            access_type: public_method
+            serialized_name: DealAns
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealAns
+                setter: setDealAns
+            type: common\models\sbbolxml\request\DealAnsType
+        smsTimeouts:
+            expose: true
+            access_type: public_method
+            serialized_name: SmsTimeouts
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSmsTimeouts
+                setter: setSmsTimeouts
+            type: string
+        payCustDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: PayCustDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayCustDoc
+                setter: setPayCustDoc
+            type: common\models\sbbolxml\request\PayCustDocType
+        contractAdd:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractAdd
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractAdd
+                setter: setContractAdd
+            type: common\models\sbbolxml\request\ContractAddType
+        actAdd:
+            expose: true
+            access_type: public_method
+            serialized_name: ActAdd
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getActAdd
+                setter: setActAdd
+            type: common\models\sbbolxml\request\ActAddType
+        incomingRoles:
+            expose: true
+            access_type: public_method
+            serialized_name: IncomingRoles
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIncomingRoles
+                setter: setIncomingRoles
+            type: array<string>
+            xml_list:
+                inline: false
+                entry_name: Role
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        incomingUserRoles:
+            expose: true
+            access_type: public_method
+            serialized_name: IncomingUserRoles
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIncomingUserRoles
+                setter: setIncomingUserRoles
+            type: array<string>
+            xml_list:
+                inline: false
+                entry_name: UserLogin
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        incomingOffers:
+            expose: true
+            access_type: public_method
+            serialized_name: IncomingOffers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIncomingOffers
+                setter: setIncomingOffers
+            type: array<string>
+            xml_list:
+                inline: false
+                entry_name: OfferId
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        offerResponses:
+            expose: true
+            access_type: public_method
+            serialized_name: OfferResponses
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOfferResponses
+                setter: setOfferResponses
+            type: array<common\models\sbbolxml\request\OfferResponseType>
+            xml_list:
+                inline: false
+                entry_name: OfferResponse
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        crms:
+            expose: true
+            access_type: public_method
+            serialized_name: Crms
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCrms
+                setter: setCrms
+            type: array<common\models\sbbolxml\request\CrmType>
+            xml_list:
+                inline: false
+                entry_name: Crm
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        callBacks:
+            expose: true
+            access_type: public_method
+            serialized_name: CallBacks
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCallBacks
+                setter: setCallBacks
+            type: array<common\models\sbbolxml\request\CallBackType>
+            xml_list:
+                inline: false
+                entry_name: CallBack
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        admPayTemplate:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmPayTemplate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmPayTemplate
+                setter: setAdmPayTemplate
+            type: common\models\sbbolxml\request\AdmPaymentTemplateType
+        admPayTemplateBlock:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmPayTemplateBlock
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmPayTemplateBlock
+                setter: setAdmPayTemplateBlock
+            type: common\models\sbbolxml\request\AdmPaymentTemplateBlockType
+        admCashierDel:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmCashierDel
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmCashierDel
+                setter: setAdmCashierDel
+            type: common\models\sbbolxml\request\RequestType\AdmCashierDelAType
+        admPayTemplateDel:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmPayTemplateDel
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmPayTemplateDel
+                setter: setAdmPayTemplateDel
+            type: common\models\sbbolxml\request\AdmPaymentTemplateDelType
+        admCashierAdd:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmCashierAdd
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmCashierAdd
+                setter: setAdmCashierAdd
+            type: common\models\sbbolxml\request\AdmCashierType
+        admPayTemplateList:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmPayTemplateList
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmPayTemplateList
+                setter: setAdmPayTemplateList
+            type: common\models\sbbolxml\request\AdmPaymentTemplateListType
+        admCashierList:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmCashierList
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmCashierList
+                setter: setAdmCashierList
+            type: common\models\sbbolxml\request\AdmCashierListType
+        admOperationList:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmOperationList
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmOperationList
+                setter: setAdmOperationList
+            type: common\models\sbbolxml\request\AdmOperationListType
+        admGenSMSPass:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmGenSMSPass
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmGenSMSPass
+                setter: setAdmGenSMSPass
+            type: common\models\sbbolxml\request\AdmGenSMSPassType
+        admCashierGetLogin:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmCashierGetLogin
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmCashierGetLogin
+                setter: setAdmCashierGetLogin
+            type: common\models\sbbolxml\request\AdmCashierGetLoginType
+        auditLetter:
+            expose: true
+            access_type: public_method
+            serialized_name: AuditLetter
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuditLetter
+                setter: setAuditLetter
+            type: common\models\sbbolxml\request\AuditLetterType
+        earlyRecall:
+            expose: true
+            access_type: public_method
+            serialized_name: EarlyRecall
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEarlyRecall
+                setter: setEarlyRecall
+            type: common\models\sbbolxml\request\EarlyRecallDataType
+        changeAccDetails:
+            expose: true
+            access_type: public_method
+            serialized_name: ChangeAccDetails
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChangeAccDetails
+                setter: setChangeAccDetails
+            type: common\models\sbbolxml\request\ChangeAccDetailsDataType
+        cardDeposits:
+            expose: true
+            access_type: public_method
+            serialized_name: CardDeposits
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCardDeposits
+                setter: setCardDeposits
+            type: common\models\sbbolxml\request\CardDepositsType
+        appForDepositNew:
+            expose: true
+            access_type: public_method
+            serialized_name: AppForDepositNew
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAppForDepositNew
+                setter: setAppForDepositNew
+            type: common\models\sbbolxml\request\AppForDepositType
+        permBalanceNew:
+            expose: true
+            access_type: public_method
+            serialized_name: PermBalanceNew
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPermBalanceNew
+                setter: setPermBalanceNew
+            type: common\models\sbbolxml\request\PermBalanceDataType
+        cardPermBalance:
+            expose: true
+            access_type: public_method
+            serialized_name: CardPermBalance
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCardPermBalance
+                setter: setCardPermBalance
+            type: common\models\sbbolxml\request\CardPermBalanceType
+        genAuthSMSSign:
+            expose: true
+            access_type: public_method
+            serialized_name: GenAuthSMSSign
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getGenAuthSMSSign
+                setter: setGenAuthSMSSign
+            type: string
+        verifyAuthSMSSign:
+            expose: true
+            access_type: public_method
+            serialized_name: VerifyAuthSMSSign
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVerifyAuthSMSSign
+                setter: setVerifyAuthSMSSign
+            type: common\models\sbbolxml\request\VerifyAuthSMSSignType
+        audit:
+            expose: true
+            access_type: public_method
+            serialized_name: Audit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAudit
+                setter: setAudit
+            type: common\models\sbbolxml\request\AuditType
+        feesRegistry:
+            expose: true
+            access_type: public_method
+            serialized_name: FeesRegistry
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFeesRegistry
+                setter: setFeesRegistry
+            type: common\models\sbbolxml\request\FeesRegistryType
+        feesRegistryDownload:
+            expose: true
+            access_type: public_method
+            serialized_name: FeesRegistryDownload
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFeesRegistryDownload
+                setter: setFeesRegistryDownload
+            type: common\models\sbbolxml\request\FeesRegistryDownloadType
+        feesRegistryAccept:
+            expose: true
+            access_type: public_method
+            serialized_name: FeesRegistryAccept
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFeesRegistryAccept
+                setter: setFeesRegistryAccept
+            type: common\models\sbbolxml\request\FeesRegistryAcceptType
+        essenceLinks:
+            expose: true
+            access_type: public_method
+            serialized_name: EssenceLinks
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEssenceLinks
+                setter: setEssenceLinks
+            type: array<common\models\sbbolxml\request\EssenceLinkType>
+            xml_list:
+                inline: false
+                entry_name: EssenceLink
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        debtRegistry:
+            expose: true
+            access_type: public_method
+            serialized_name: DebtRegistry
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDebtRegistry
+                setter: setDebtRegistry
+            type: common\models\sbbolxml\request\DebtRegistryType
+        cashOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: CashOrder
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCashOrder
+                setter: setCashOrder
+            type: common\models\sbbolxml\request\CashOrderType
+        recallCashOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: RecallCashOrder
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRecallCashOrder
+                setter: setRecallCashOrder
+            type: common\models\sbbolxml\request\RecallCashOrderType
+        currDealCertificate181I:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDealCertificate181I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrDealCertificate181I
+                setter: setCurrDealCertificate181I
+            type: common\models\sbbolxml\request\CurrDealCertificate181IType
+        intCtrlStatementXML181I:
+            expose: true
+            access_type: public_method
+            serialized_name: IntCtrlStatementXML181I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIntCtrlStatementXML181I
+                setter: setIntCtrlStatementXML181I
+            type: common\models\sbbolxml\request\IntCtrlStatementXML181IType
+        bigFilesDownloadPrintFormLink:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFilesDownloadPrintFormLink
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBigFilesDownloadPrintFormLink
+                setter: setBigFilesDownloadPrintFormLink
+            type: common\models\sbbolxml\request\BigFilesDownloadPrintFormLinkType
+        genericLetterToBank:
+            expose: true
+            access_type: public_method
+            serialized_name: GenericLetterToBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGenericLetterToBank
+                setter: setGenericLetterToBank
+            type: common\models\sbbolxml\request\GenericLetterToBankType
+        incrementStatements:
+            expose: true
+            access_type: public_method
+            serialized_name: IncrementStatements
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIncrementStatements
+                setter: setIncrementStatements
+            type: common\models\sbbolxml\request\IncrementStatementsType
+        docDigest:
+            expose: true
+            access_type: public_method
+            serialized_name: DocDigest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocDigest
+                setter: setDocDigest
+            type: common\models\sbbolxml\request\RequestType\DocDigestAType
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSign
+                setter: setSign
+            xml_list:
+                inline: true
+                entry_name: Sign
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\DigitalSignType>
+        fraud:
+            expose: true
+            access_type: public_method
+            serialized_name: Fraud
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFraud
+                setter: setFraud
+            type: common\models\sbbolxml\request\FraudType

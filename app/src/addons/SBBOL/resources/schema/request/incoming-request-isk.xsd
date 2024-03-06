@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="IncomingRequestISK">
+        <xs:annotation>
+            <xs:documentation>Проверка наличия запроса на получение сведений об организации</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

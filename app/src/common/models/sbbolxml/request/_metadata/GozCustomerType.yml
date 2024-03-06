@@ -1,0 +1,47 @@
+common\models\sbbolxml\request\GozCustomerType:
+    properties:
+        custINN:
+            expose: true
+            access_type: public_method
+            serialized_name: custINN
+            accessor:
+                getter: getCustINN
+                setter: setCustINN
+            xml_attribute: true
+            type: string
+        custKPP:
+            expose: true
+            access_type: public_method
+            serialized_name: custKPP
+            accessor:
+                getter: getCustKPP
+                setter: setCustKPP
+            xml_attribute: true
+            type: string
+        custAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: custAcc
+            accessor:
+                getter: getCustAcc
+                setter: setCustAcc
+            xml_attribute: true
+            type: string
+        custName:
+            expose: true
+            access_type: public_method
+            serialized_name: custName
+            accessor:
+                getter: getCustName
+                setter: setCustName
+            xml_attribute: true
+            type: string
+        resident:
+            expose: true
+            access_type: public_method
+            serialized_name: resident
+            accessor:
+                getter: getResident
+                setter: setResident
+            xml_attribute: true
+            type: boolean

@@ -1,0 +1,41 @@
+common\models\sbbolxml\request\MandatorySaleType\SellAType:
+    properties:
+        flagNSSell:
+            expose: true
+            access_type: public_method
+            serialized_name: flagNSSell
+            accessor:
+                getter: getFlagNSSell
+                setter: setFlagNSSell
+            xml_attribute: true
+            type: boolean
+        dealType:
+            expose: true
+            access_type: public_method
+            serialized_name: DealType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealType
+                setter: setDealType
+            type: common\models\sbbolxml\request\TermDealTypeRequiredType
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        acc:
+            expose: true
+            access_type: public_method
+            serialized_name: Acc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcc
+                setter: setAcc
+            type: common\models\sbbolxml\request\OurRubAccountTypeRequiredType

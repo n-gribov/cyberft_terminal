@@ -1,0 +1,12 @@
+common\models\sbbolxml\response\DealPassUpdateResultType\PhoneNumbersAType:
+    properties:
+        phoneNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: PhoneNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPhoneNumber
+                setter: setPhoneNumber
+            type: common\models\sbbolxml\response\DealPassUpdateResultType\PhoneNumbersAType\PhoneNumberAType

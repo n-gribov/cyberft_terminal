@@ -1,0 +1,103 @@
+common\models\sbbolxml\response\LetterFromBankType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        orgId:
+            expose: true
+            access_type: public_method
+            serialized_name: orgId
+            accessor:
+                getter: getOrgId
+                setter: setOrgId
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\response\ComLettDataType
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: Type
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getType
+                setter: setType
+            type: string
+        theme:
+            expose: true
+            access_type: public_method
+            serialized_name: Theme
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getTheme
+                setter: setTheme
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\sbbolxml\response\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\response\AttachmentType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

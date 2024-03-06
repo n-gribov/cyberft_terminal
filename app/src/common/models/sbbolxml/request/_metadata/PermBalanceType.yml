@@ -1,0 +1,119 @@
+common\models\sbbolxml\request\PermBalanceType:
+    properties:
+        pbType:
+            expose: true
+            access_type: public_method
+            serialized_name: pbType
+            accessor:
+                getter: getPbType
+                setter: setPbType
+            xml_attribute: true
+            type: string
+        pbCondition:
+            expose: true
+            access_type: public_method
+            serialized_name: pbCondition
+            accessor:
+                getter: getPbCondition
+                setter: setPbCondition
+            xml_attribute: true
+            type: string
+        pbSum:
+            expose: true
+            access_type: public_method
+            serialized_name: pbSum
+            accessor:
+                getter: getPbSum
+                setter: setPbSum
+            xml_attribute: true
+            type: float
+        pbSumFrom:
+            expose: true
+            access_type: public_method
+            serialized_name: pbSumFrom
+            accessor:
+                getter: getPbSumFrom
+                setter: setPbSumFrom
+            xml_attribute: true
+            type: float
+        pbSumTo:
+            expose: true
+            access_type: public_method
+            serialized_name: pbSumTo
+            accessor:
+                getter: getPbSumTo
+                setter: setPbSumTo
+            xml_attribute: true
+            type: float
+        pbSumCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: pbSumCurrCode
+            accessor:
+                getter: getPbSumCurrCode
+                setter: setPbSumCurrCode
+            xml_attribute: true
+            type: string
+        pbSumCurrCodeISO:
+            expose: true
+            access_type: public_method
+            serialized_name: pbSumCurrCodeISO
+            accessor:
+                getter: getPbSumCurrCodeISO
+                setter: setPbSumCurrCodeISO
+            xml_attribute: true
+            type: string
+        pbStartDate:
+            expose: true
+            access_type: public_method
+            serialized_name: pbStartDate
+            accessor:
+                getter: getPbStartDate
+                setter: setPbStartDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        pbEndDate:
+            expose: true
+            access_type: public_method
+            serialized_name: pbEndDate
+            accessor:
+                getter: getPbEndDate
+                setter: setPbEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        pbTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: pbTerm
+            accessor:
+                getter: getPbTerm
+                setter: setPbTerm
+            xml_attribute: true
+            type: integer
+        pbTermFrom:
+            expose: true
+            access_type: public_method
+            serialized_name: pbTermFrom
+            accessor:
+                getter: getPbTermFrom
+                setter: setPbTermFrom
+            xml_attribute: true
+            type: integer
+        pbTermTo:
+            expose: true
+            access_type: public_method
+            serialized_name: pbTermTo
+            accessor:
+                getter: getPbTermTo
+                setter: setPbTermTo
+            xml_attribute: true
+            type: integer
+        interestRate:
+            expose: true
+            access_type: public_method
+            serialized_name: interestRate
+            accessor:
+                getter: getInterestRate
+                setter: setInterestRate
+            xml_attribute: true
+            type: float

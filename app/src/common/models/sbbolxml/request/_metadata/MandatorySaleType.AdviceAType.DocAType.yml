@@ -1,0 +1,44 @@
+common\models\sbbolxml\request\MandatorySaleType\AdviceAType\DocAType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\DocDataType
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        operCode:
+            expose: true
+            access_type: public_method
+            serialized_name: OperCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOperCode
+                setter: setOperCode
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

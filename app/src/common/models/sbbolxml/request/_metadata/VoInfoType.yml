@@ -1,0 +1,75 @@
+common\models\sbbolxml\request\VoInfoType:
+    properties:
+        vo:
+            expose: true
+            access_type: public_method
+            serialized_name: Vo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getVo
+                setter: setVo
+            type: string
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        psNum:
+            expose: true
+            access_type: public_method
+            serialized_name: PsNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPsNum
+                setter: setPsNum
+            type: string
+        contract:
+            expose: true
+            access_type: public_method
+            serialized_name: Contract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContract
+                setter: setContract
+            type: common\models\sbbolxml\request\ContractType
+        contractSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractSum
+                setter: setContractSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        expectedDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ExpectedDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExpectedDate
+                setter: setExpectedDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

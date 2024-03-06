@@ -1,0 +1,43 @@
+common\models\sbbolxml\request\DebtRegistryType:
+    properties:
+        debtRegistryData:
+            expose: true
+            access_type: public_method
+            serialized_name: DebtRegistryData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDebtRegistryData
+                setter: setDebtRegistryData
+            type: common\models\sbbolxml\request\DebtRegistryDataType
+        recordNum:
+            expose: true
+            access_type: public_method
+            serialized_name: RecordNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRecordNum
+                setter: setRecordNum
+            type: integer
+        ePSIDName:
+            expose: true
+            access_type: public_method
+            serialized_name: EPSIDName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEPSIDName
+                setter: setEPSIDName
+            type: string
+        essenceAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: EssenceAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEssenceAttachments
+                setter: setEssenceAttachments
+            type: common\models\sbbolxml\request\EssenceAttachmentsType

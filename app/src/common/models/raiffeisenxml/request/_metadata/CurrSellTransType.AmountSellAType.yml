@@ -1,0 +1,22 @@
+common\models\raiffeisenxml\request\CurrSellTransType\AmountSellAType:
+    properties:
+        our:
+            expose: true
+            access_type: public_method
+            serialized_name: Our
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOur
+                setter: setOur
+            type: common\models\raiffeisenxml\request\AccountRUType
+        other:
+            expose: true
+            access_type: public_method
+            serialized_name: Other
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOther
+                setter: setOther
+            type: common\models\raiffeisenxml\request\AccountRUType

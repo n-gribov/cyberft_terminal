@@ -1,0 +1,83 @@
+common\models\sbbolxml\response\AdmCashierType\CashierInfoAType\DocInfoAType:
+    properties:
+        docType:
+            expose: true
+            access_type: public_method
+            serialized_name: docType
+            accessor:
+                getter: getDocType
+                setter: setDocType
+            xml_attribute: true
+            type: string
+        docName:
+            expose: true
+            access_type: public_method
+            serialized_name: docName
+            accessor:
+                getter: getDocName
+                setter: setDocName
+            xml_attribute: true
+            type: string
+        docNumb:
+            expose: true
+            access_type: public_method
+            serialized_name: docNumb
+            accessor:
+                getter: getDocNumb
+                setter: setDocNumb
+            xml_attribute: true
+            type: string
+        docSeries:
+            expose: true
+            access_type: public_method
+            serialized_name: docSeries
+            accessor:
+                getter: getDocSeries
+                setter: setDocSeries
+            xml_attribute: true
+            type: string
+        docIssueDt:
+            expose: true
+            access_type: public_method
+            serialized_name: docIssueDt
+            accessor:
+                getter: getDocIssueDt
+                setter: setDocIssueDt
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docIssuePlace:
+            expose: true
+            access_type: public_method
+            serialized_name: docIssuePlace
+            accessor:
+                getter: getDocIssuePlace
+                setter: setDocIssuePlace
+            xml_attribute: true
+            type: string
+        docIssueCode:
+            expose: true
+            access_type: public_method
+            serialized_name: docIssueCode
+            accessor:
+                getter: getDocIssueCode
+                setter: setDocIssueCode
+            xml_attribute: true
+            type: string
+        citizenship:
+            expose: true
+            access_type: public_method
+            serialized_name: citizenship
+            accessor:
+                getter: getCitizenship
+                setter: setCitizenship
+            xml_attribute: true
+            type: string
+        citizenshipCountryName:
+            expose: true
+            access_type: public_method
+            serialized_name: citizenshipCountryName
+            accessor:
+                getter: getCitizenshipCountryName
+                setter: setCitizenshipCountryName
+            xml_attribute: true
+            type: string

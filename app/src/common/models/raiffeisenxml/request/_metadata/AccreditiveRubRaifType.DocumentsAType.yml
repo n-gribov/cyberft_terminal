@@ -1,0 +1,24 @@
+common\models\raiffeisenxml\request\AccreditiveRubRaifType\DocumentsAType:
+    properties:
+        listAndReq:
+            expose: true
+            access_type: public_method
+            serialized_name: ListAndReq
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getListAndReq
+                setter: setListAndReq
+            type: string
+        submission:
+            expose: true
+            access_type: public_method
+            serialized_name: Submission
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSubmission
+                setter: setSubmission
+            type: string

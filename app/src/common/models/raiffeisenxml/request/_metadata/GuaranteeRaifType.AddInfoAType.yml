@@ -1,0 +1,71 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType\AddInfoAType:
+    properties:
+        agreementNum:
+            expose: true
+            access_type: public_method
+            serialized_name: agreementNum
+            accessor:
+                getter: getAgreementNum
+                setter: setAgreementNum
+            xml_attribute: true
+            type: string
+        agreementDate:
+            expose: true
+            access_type: public_method
+            serialized_name: agreementDate
+            accessor:
+                getter: getAgreementDate
+                setter: setAgreementDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        dealPass:
+            expose: true
+            access_type: public_method
+            serialized_name: dealPass
+            accessor:
+                getter: getDealPass
+                setter: setDealPass
+            xml_attribute: true
+            type: string
+        submission:
+            expose: true
+            access_type: public_method
+            serialized_name: Submission
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSubmission
+                setter: setSubmission
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\AddInfoAType\SubmissionAType
+        reqDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: ReqDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getReqDocs
+                setter: setReqDocs
+            type: string
+        accWriteOffCover:
+            expose: true
+            access_type: public_method
+            serialized_name: AccWriteOffCover
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccWriteOffCover
+                setter: setAccWriteOffCover
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\AddInfoAType\AccWriteOffCoverAType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

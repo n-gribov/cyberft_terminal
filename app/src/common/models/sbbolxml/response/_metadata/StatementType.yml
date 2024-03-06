@@ -1,0 +1,367 @@
+common\models\sbbolxml\response\StatementType:
+    properties:
+        stmtDateTime:
+            expose: true
+            access_type: public_method
+            serialized_name: stmtDateTime
+            accessor:
+                getter: getStmtDateTime
+                setter: setStmtDateTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        bic:
+            expose: true
+            access_type: public_method
+            serialized_name: bic
+            accessor:
+                getter: getBic
+                setter: setBic
+            xml_attribute: true
+            type: string
+        lastMovetDate:
+            expose: true
+            access_type: public_method
+            serialized_name: lastMovetDate
+            accessor:
+                getter: getLastMovetDate
+                setter: setLastMovetDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        datePLast:
+            expose: true
+            access_type: public_method
+            serialized_name: datePLast
+            accessor:
+                getter: getDatePLast
+                setter: setDatePLast
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        acc:
+            expose: true
+            access_type: public_method
+            serialized_name: acc
+            accessor:
+                getter: getAcc
+                setter: setAcc
+            xml_attribute: true
+            type: string
+        rateIn:
+            expose: true
+            access_type: public_method
+            serialized_name: rateIn
+            accessor:
+                getter: getRateIn
+                setter: setRateIn
+            xml_attribute: true
+            type: float
+        rateOut:
+            expose: true
+            access_type: public_method
+            serialized_name: rateOut
+            accessor:
+                getter: getRateOut
+                setter: setRateOut
+            xml_attribute: true
+            type: float
+        enterBal:
+            expose: true
+            access_type: public_method
+            serialized_name: enterBal
+            accessor:
+                getter: getEnterBal
+                setter: setEnterBal
+            xml_attribute: true
+            type: float
+        enterBalNat:
+            expose: true
+            access_type: public_method
+            serialized_name: enterBalNat
+            accessor:
+                getter: getEnterBalNat
+                setter: setEnterBalNat
+            xml_attribute: true
+            type: float
+        outBal:
+            expose: true
+            access_type: public_method
+            serialized_name: outBal
+            accessor:
+                getter: getOutBal
+                setter: setOutBal
+            xml_attribute: true
+            type: float
+        outBalNat:
+            expose: true
+            access_type: public_method
+            serialized_name: outBalNat
+            accessor:
+                getter: getOutBalNat
+                setter: setOutBalNat
+            xml_attribute: true
+            type: float
+        planOutBal:
+            expose: true
+            access_type: public_method
+            serialized_name: planOutBal
+            accessor:
+                getter: getPlanOutBal
+                setter: setPlanOutBal
+            xml_attribute: true
+            type: float
+        planOutBalNat:
+            expose: true
+            access_type: public_method
+            serialized_name: planOutBalNat
+            accessor:
+                getter: getPlanOutBalNat
+                setter: setPlanOutBalNat
+            xml_attribute: true
+            type: float
+        beginDate:
+            expose: true
+            access_type: public_method
+            serialized_name: beginDate
+            accessor:
+                getter: getBeginDate
+                setter: setBeginDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endDate
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        stmtType:
+            expose: true
+            access_type: public_method
+            serialized_name: stmtType
+            accessor:
+                getter: getStmtType
+                setter: setStmtType
+            xml_attribute: true
+            type: string
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        accountName:
+            expose: true
+            access_type: public_method
+            serialized_name: accountName
+            accessor:
+                getter: getAccountName
+                setter: setAccountName
+            xml_attribute: true
+            type: string
+        orgId:
+            expose: true
+            access_type: public_method
+            serialized_name: orgId
+            accessor:
+                getter: getOrgId
+                setter: setOrgId
+            xml_attribute: true
+            type: string
+        orgName:
+            expose: true
+            access_type: public_method
+            serialized_name: orgName
+            accessor:
+                getter: getOrgName
+                setter: setOrgName
+            xml_attribute: true
+            type: string
+        debetSum:
+            expose: true
+            access_type: public_method
+            serialized_name: debetSum
+            accessor:
+                getter: getDebetSum
+                setter: setDebetSum
+            xml_attribute: true
+            type: float
+        creditSum:
+            expose: true
+            access_type: public_method
+            serialized_name: creditSum
+            accessor:
+                getter: getCreditSum
+                setter: setCreditSum
+            xml_attribute: true
+            type: float
+        debetSumNat:
+            expose: true
+            access_type: public_method
+            serialized_name: debetSumNat
+            accessor:
+                getter: getDebetSumNat
+                setter: setDebetSumNat
+            xml_attribute: true
+            type: float
+        creditSumNat:
+            expose: true
+            access_type: public_method
+            serialized_name: creditSumNat
+            accessor:
+                getter: getCreditSumNat
+                setter: setCreditSumNat
+            xml_attribute: true
+            type: float
+        author:
+            expose: true
+            access_type: public_method
+            serialized_name: author
+            accessor:
+                getter: getAuthor
+                setter: setAuthor
+            xml_attribute: true
+            type: string
+        docComment:
+            expose: true
+            access_type: public_method
+            serialized_name: docComment
+            accessor:
+                getter: getDocComment
+                setter: setDocComment
+            xml_attribute: true
+            type: string
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        finalStatement:
+            expose: true
+            access_type: public_method
+            serialized_name: finalStatement
+            accessor:
+                getter: getFinalStatement
+                setter: setFinalStatement
+            xml_attribute: true
+            type: boolean
+        statementIncrement:
+            expose: true
+            access_type: public_method
+            serialized_name: statementIncrement
+            accessor:
+                getter: getStatementIncrement
+                setter: setStatementIncrement
+            xml_attribute: true
+            type: boolean
+        lastModifyDate:
+            expose: true
+            access_type: public_method
+            serialized_name: lastModifyDate
+            accessor:
+                getter: getLastModifyDate
+                setter: setLastModifyDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        docs:
+            expose: true
+            access_type: public_method
+            serialized_name: Docs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocs
+                setter: setDocs
+            type: array<common\models\sbbolxml\response\TransInfoType>
+            xml_list:
+                inline: false
+                entry_name: TransInfo
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        outdatedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: OutdatedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOutdatedDocs
+                setter: setOutdatedDocs
+            type: array<common\models\sbbolxml\response\StatementType\OutdatedDocsAType\TransInfoAType>
+            xml_list:
+                inline: false
+                entry_name: TransInfo
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        infoForStamp:
+            expose: true
+            access_type: public_method
+            serialized_name: InfoForStamp
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getInfoForStamp
+                setter: setInfoForStamp
+            type: common\models\sbbolxml\response\InfoForStampType
+        blockedInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BlockedInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBlockedInfo
+                setter: setBlockedInfo
+            type: common\models\sbbolxml\response\StatementType\BlockedInfoAType
+        cartotecaDocInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: CartotecaDocInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCartotecaDocInfo
+                setter: setCartotecaDocInfo
+            type: common\models\sbbolxml\response\CartotecaDocType
+        overAccInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: OverAccInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOverAccInfo
+                setter: setOverAccInfo
+            type: common\models\sbbolxml\response\StatementType\OverAccInfoAType
+        params:
+            expose: true
+            access_type: public_method
+            serialized_name: Params
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getParams
+                setter: setParams
+            type: array<common\models\sbbolxml\response\ParamsType\ParamAType>
+            xml_list:
+                inline: false
+                entry_name: Param
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

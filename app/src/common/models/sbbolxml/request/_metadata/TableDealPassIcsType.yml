@@ -1,0 +1,12 @@
+common\models\sbbolxml\request\TableDealPassIcsType:
+    properties:
+        chapterInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ChapterInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChapterInfo
+                setter: setChapterInfo
+            type: common\models\sbbolxml\request\ICSChapterInfoType

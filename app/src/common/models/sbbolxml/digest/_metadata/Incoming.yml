@@ -1,0 +1,9 @@
+attributes:
+  OrgId:     /Request/@orgId
+  RequestId: /Request/@requestId
+tables:
+- name: Accounts
+  path: /Request/Incoming/Accounts
+  fields:
+    Value: /Account
+    Bic:   /Account/@bic

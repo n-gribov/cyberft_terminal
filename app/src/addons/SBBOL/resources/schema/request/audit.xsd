@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="Audit">
+        <xs:annotation>
+            <xs:documentation>Информация для   фиксирования в журнале аудита СББОЛ</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="eventTypeSystemName" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор типа события (таблица AUD_LOG_EVENT_TYPE. SYSTEMNAME)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="userLogin" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Логин пользователя, который осуществил действие</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ipAddress" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>IP-адрес</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

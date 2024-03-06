@@ -1,0 +1,56 @@
+common\models\sbbolxml\response\AdmOperationType\DeviceInfoAType:
+    properties:
+        deviceType:
+            expose: true
+            access_type: public_method
+            serialized_name: deviceType
+            accessor:
+                getter: getDeviceType
+                setter: setDeviceType
+            xml_attribute: true
+            type: string
+        adaptedPayCashSymbolName:
+            expose: true
+            access_type: public_method
+            serialized_name: adaptedPayCashSymbolName
+            accessor:
+                getter: getAdaptedPayCashSymbolName
+                setter: setAdaptedPayCashSymbolName
+            xml_attribute: true
+            type: string
+        usAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: usAddress
+            accessor:
+                getter: getUsAddress
+                setter: setUsAddress
+            xml_attribute: true
+            type: string
+        admId:
+            expose: true
+            access_type: public_method
+            serialized_name: admId
+            accessor:
+                getter: getAdmId
+                setter: setAdmId
+            xml_attribute: true
+            type: string
+        cashSymbol:
+            expose: true
+            access_type: public_method
+            serialized_name: cashSymbol
+            accessor:
+                getter: getCashSymbol
+                setter: setCashSymbol
+            xml_attribute: true
+            type: string
+        tradePointName:
+            expose: true
+            access_type: public_method
+            serialized_name: tradePointName
+            accessor:
+                getter: getTradePointName
+                setter: setTradePointName
+            xml_attribute: true
+            type: string

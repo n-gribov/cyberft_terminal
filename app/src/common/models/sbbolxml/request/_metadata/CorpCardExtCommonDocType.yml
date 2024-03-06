@@ -1,0 +1,30 @@
+common\models\sbbolxml\request\CorpCardExtCommonDocType:
+    properties:
+        embossingMainText:
+            expose: true
+            access_type: public_method
+            serialized_name: embossingMainText
+            accessor:
+                getter: getEmbossingMainText
+                setter: setEmbossingMainText
+            xml_attribute: true
+            type: string
+        cardType:
+            expose: true
+            access_type: public_method
+            serialized_name: cardType
+            accessor:
+                getter: getCardType
+                setter: setCardType
+            xml_attribute: true
+            type: string
+        total:
+            expose: true
+            access_type: public_method
+            serialized_name: Total
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTotal
+                setter: setTotal
+            type: integer

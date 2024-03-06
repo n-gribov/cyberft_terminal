@@ -1,0 +1,29 @@
+common\models\sbbolxml\request\ContractDateOptionalType:
+    properties:
+        numCheck:
+            expose: true
+            access_type: public_method
+            serialized_name: numCheck
+            accessor:
+                getter: getNumCheck
+                setter: setNumCheck
+            xml_attribute: true
+            type: boolean
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: num
+            accessor:
+                getter: getNum
+                setter: setNum
+            xml_attribute: true
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: date
+            accessor:
+                getter: getDate
+                setter: setDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

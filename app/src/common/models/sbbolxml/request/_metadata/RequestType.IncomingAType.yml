@@ -1,0 +1,239 @@
+common\models\sbbolxml\request\RequestType\IncomingAType:
+    properties:
+        correspondentDictStepId:
+            expose: true
+            access_type: public_method
+            serialized_name: correspondentDictStepId
+            accessor:
+                getter: getCorrespondentDictStepId
+                setter: setCorrespondentDictStepId
+            xml_attribute: true
+            type: integer
+        bicDictStepId:
+            expose: true
+            access_type: public_method
+            serialized_name: bicDictStepId
+            accessor:
+                getter: getBicDictStepId
+                setter: setBicDictStepId
+            xml_attribute: true
+            type: integer
+        lastIncomingTime:
+            expose: true
+            access_type: public_method
+            serialized_name: lastIncomingTime
+            accessor:
+                getter: getLastIncomingTime
+                setter: setLastIncomingTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        beneficiarDictStepId:
+            expose: true
+            access_type: public_method
+            serialized_name: beneficiarDictStepId
+            accessor:
+                getter: getBeneficiarDictStepId
+                setter: setBeneficiarDictStepId
+            xml_attribute: true
+            type: integer
+        includeRZKPayDocsRu:
+            expose: true
+            access_type: public_method
+            serialized_name: includeRZKPayDocsRu
+            accessor:
+                getter: getIncludeRZKPayDocsRu
+                setter: setIncludeRZKPayDocsRu
+            xml_attribute: true
+            type: boolean
+        includeRZKPayDocsCurr:
+            expose: true
+            access_type: public_method
+            serialized_name: includeRZKPayDocsCurr
+            accessor:
+                getter: getIncludeRZKPayDocsCurr
+                setter: setIncludeRZKPayDocsCurr
+            xml_attribute: true
+            type: boolean
+        includeRZKSalaryDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: includeRZKSalaryDocs
+            accessor:
+                getter: getIncludeRZKSalaryDocs
+                setter: setIncludeRZKSalaryDocs
+            xml_attribute: true
+            type: boolean
+        includeStatements:
+            expose: true
+            access_type: public_method
+            serialized_name: includeStatements
+            accessor:
+                getter: getIncludeStatements
+                setter: setIncludeStatements
+            xml_attribute: true
+            type: boolean
+        includeExchangeMessageFromBank:
+            expose: true
+            access_type: public_method
+            serialized_name: includeExchangeMessageFromBank
+            accessor:
+                getter: getIncludeExchangeMessageFromBank
+                setter: setIncludeExchangeMessageFromBank
+            xml_attribute: true
+            type: boolean
+        includeNews:
+            expose: true
+            access_type: public_method
+            serialized_name: includeNews
+            accessor:
+                getter: getIncludeNews
+                setter: setIncludeNews
+            xml_attribute: true
+            type: boolean
+        includeLetterFromBanks:
+            expose: true
+            access_type: public_method
+            serialized_name: includeLetterFromBanks
+            accessor:
+                getter: getIncludeLetterFromBanks
+                setter: setIncludeLetterFromBanks
+            xml_attribute: true
+            type: boolean
+        includePayRequests:
+            expose: true
+            access_type: public_method
+            serialized_name: includePayRequests
+            accessor:
+                getter: getIncludePayRequests
+                setter: setIncludePayRequests
+            xml_attribute: true
+            type: boolean
+        includeChangedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: includeChangedDocs
+            accessor:
+                getter: getIncludeChangedDocs
+                setter: setIncludeChangedDocs
+            xml_attribute: true
+            type: boolean
+        includeOrgSettings:
+            expose: true
+            access_type: public_method
+            serialized_name: includeOrgSettings
+            accessor:
+                getter: getIncludeOrgSettings
+                setter: setIncludeOrgSettings
+            xml_attribute: true
+            type: boolean
+        includeIntCtrlStatement:
+            expose: true
+            access_type: public_method
+            serialized_name: includeIntCtrlStatement
+            accessor:
+                getter: getIncludeIntCtrlStatement
+                setter: setIncludeIntCtrlStatement
+            xml_attribute: true
+            type: boolean
+        includeDealPassCon138I:
+            expose: true
+            access_type: public_method
+            serialized_name: includeDealPassCon138I
+            accessor:
+                getter: getIncludeDealPassCon138I
+                setter: setIncludeDealPassCon138I
+            xml_attribute: true
+            type: boolean
+        includeDealPassCred138I:
+            expose: true
+            access_type: public_method
+            serialized_name: includeDealPassCred138I
+            accessor:
+                getter: getIncludeDealPassCred138I
+                setter: setIncludeDealPassCred138I
+            xml_attribute: true
+            type: boolean
+        includeCurrencyNotice:
+            expose: true
+            access_type: public_method
+            serialized_name: includeCurrencyNotice
+            accessor:
+                getter: getIncludeCurrencyNotice
+                setter: setIncludeCurrencyNotice
+            xml_attribute: true
+            type: boolean
+        includeGenericLettersFromBank:
+            expose: true
+            access_type: public_method
+            serialized_name: includeGenericLettersFromBank
+            accessor:
+                getter: getIncludeGenericLettersFromBank
+                setter: setIncludeGenericLettersFromBank
+            xml_attribute: true
+            type: boolean
+        dictsForDepositsDictStepId:
+            expose: true
+            access_type: public_method
+            serialized_name: dictsForDepositsDictStepId
+            accessor:
+                getter: getDictsForDepositsDictStepId
+                setter: setDictsForDepositsDictStepId
+            xml_attribute: true
+            type: integer
+        cardDepositDictStepId:
+            expose: true
+            access_type: public_method
+            serialized_name: cardDepositDictStepId
+            accessor:
+                getter: getCardDepositDictStepId
+                setter: setCardDepositDictStepId
+            xml_attribute: true
+            type: integer
+        cardPermBalanceDictStepId:
+            expose: true
+            access_type: public_method
+            serialized_name: cardPermBalanceDictStepId
+            accessor:
+                getter: getCardPermBalanceDictStepId
+                setter: setCardPermBalanceDictStepId
+            xml_attribute: true
+            type: integer
+        commonSettingsDictStepId:
+            expose: true
+            access_type: public_method
+            serialized_name: commonSettingsDictStepId
+            accessor:
+                getter: getCommonSettingsDictStepId
+                setter: setCommonSettingsDictStepId
+            xml_attribute: true
+            type: integer
+        accounts:
+            expose: true
+            access_type: public_method
+            serialized_name: Accounts
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccounts
+                setter: setAccounts
+            type: array<common\models\sbbolxml\request\AccountType>
+            xml_list:
+                inline: false
+                entry_name: Account
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        orgs:
+            expose: true
+            access_type: public_method
+            serialized_name: Orgs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgs
+                setter: setOrgs
+            type: array<string>
+            xml_list:
+                inline: false
+                entry_name: Org
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

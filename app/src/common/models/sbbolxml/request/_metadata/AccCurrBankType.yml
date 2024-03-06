@@ -1,0 +1,53 @@
+common\models\sbbolxml\request\AccCurrBankType:
+    properties:
+        bic:
+            expose: true
+            access_type: public_method
+            serialized_name: bic
+            accessor:
+                getter: getBic
+                setter: setBic
+            xml_attribute: true
+            type: string
+        correspAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: correspAcc
+            accessor:
+                getter: getCorrespAcc
+                setter: setCorrespAcc
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        bankSWIFT:
+            expose: true
+            access_type: public_method
+            serialized_name: BankSWIFT
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBankSWIFT
+                setter: setBankSWIFT
+            type: string
+        bankInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BankInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBankInfo
+                setter: setBankInfo
+            type: string

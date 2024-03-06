@@ -1,0 +1,34 @@
+common\models\raiffeisenxml\request\AccountRUType:
+    properties:
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: Bank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBank
+                setter: setBank
+            type: common\models\raiffeisenxml\request\BankType
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: AccNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            type: string
+        accType:
+            expose: true
+            access_type: public_method
+            serialized_name: AccType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccType
+                setter: setAccType
+            type: string

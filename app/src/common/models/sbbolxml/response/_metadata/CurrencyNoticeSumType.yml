@@ -1,0 +1,20 @@
+common\models\sbbolxml\response\CurrencyNoticeSumType:
+    properties:
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: docSum
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            xml_attribute: true
+            type: float
+        currCode:
+            expose: true
+            access_type: public_method
+            serialized_name: currCode
+            accessor:
+                getter: getCurrCode
+                setter: setCurrCode
+            xml_attribute: true
+            type: string

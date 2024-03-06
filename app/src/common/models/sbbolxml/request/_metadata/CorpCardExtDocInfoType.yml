@@ -1,0 +1,67 @@
+common\models\sbbolxml\request\CorpCardExtDocInfoType:
+    properties:
+        docKind:
+            expose: true
+            access_type: public_method
+            serialized_name: DocKind
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocKind
+                setter: setDocKind
+            type: string
+        docSeries:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSeries
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocSeries
+                setter: setDocSeries
+            type: string
+        docNumb:
+            expose: true
+            access_type: public_method
+            serialized_name: DocNumb
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocNumb
+                setter: setDocNumb
+            type: string
+        docIssueDt:
+            expose: true
+            access_type: public_method
+            serialized_name: DocIssueDt
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocIssueDt
+                setter: setDocIssueDt
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docIssuePlace:
+            expose: true
+            access_type: public_method
+            serialized_name: DocIssuePlace
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocIssuePlace
+                setter: setDocIssuePlace
+            type: string
+        docIssueCode:
+            expose: true
+            access_type: public_method
+            serialized_name: DocIssueCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocIssueCode
+                setter: setDocIssueCode
+            type: string

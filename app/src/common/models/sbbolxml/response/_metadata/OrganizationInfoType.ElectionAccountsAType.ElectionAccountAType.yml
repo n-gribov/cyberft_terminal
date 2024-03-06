@@ -1,0 +1,132 @@
+common\models\sbbolxml\response\OrganizationInfoType\ElectionAccountsAType\ElectionAccountAType:
+    properties:
+        accountNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccountNumber
+                setter: setAccountNumber
+            type: string
+        bik:
+            expose: true
+            access_type: public_method
+            serialized_name: Bik
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBik
+                setter: setBik
+            type: string
+        registerDate:
+            expose: true
+            access_type: public_method
+            serialized_name: RegisterDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRegisterDate
+                setter: setRegisterDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        closeDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CloseDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCloseDate
+                setter: setCloseDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        cur:
+            expose: true
+            access_type: public_method
+            serialized_name: Cur
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCur
+                setter: setCur
+            type: string
+        status:
+            expose: true
+            access_type: public_method
+            serialized_name: Status
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getStatus
+                setter: setStatus
+            type: string
+        candidateName:
+            expose: true
+            access_type: public_method
+            serialized_name: CandidateName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCandidateName
+                setter: setCandidateName
+            type: string
+        candidateType:
+            expose: true
+            access_type: public_method
+            serialized_name: CandidateType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCandidateType
+                setter: setCandidateType
+            type: string
+        campaignName:
+            expose: true
+            access_type: public_method
+            serialized_name: CampaignName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCampaignName
+                setter: setCampaignName
+            type: string
+        district:
+            expose: true
+            access_type: public_method
+            serialized_name: District
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDistrict
+                setter: setDistrict
+            type: string
+        bankReq:
+            expose: true
+            access_type: public_method
+            serialized_name: BankReq
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBankReq
+                setter: setBankReq
+            type: string
+        terBankNum:
+            expose: true
+            access_type: public_method
+            serialized_name: TerBankNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getTerBankNum
+                setter: setTerBankNum
+            type: string

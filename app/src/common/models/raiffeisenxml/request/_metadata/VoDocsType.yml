@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\request\VoDocsType:
+    properties:
+        voDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: VoDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVoDoc
+                setter: setVoDoc
+            xml_list:
+                inline: true
+                entry_name: VoDoc
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\VoDocType>

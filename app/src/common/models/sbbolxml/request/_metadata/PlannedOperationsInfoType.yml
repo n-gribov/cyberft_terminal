@@ -1,0 +1,20 @@
+common\models\sbbolxml\request\PlannedOperationsInfoType:
+    properties:
+        plannedOperationsQuantity:
+            expose: true
+            access_type: public_method
+            serialized_name: plannedOperationsQuantity
+            accessor:
+                getter: getPlannedOperationsQuantity
+                setter: setPlannedOperationsQuantity
+            xml_attribute: true
+            type: string
+        plannedOperationsSum:
+            expose: true
+            access_type: public_method
+            serialized_name: plannedOperationsSum
+            accessor:
+                getter: getPlannedOperationsSum
+                setter: setPlannedOperationsSum
+            xml_attribute: true
+            type: string

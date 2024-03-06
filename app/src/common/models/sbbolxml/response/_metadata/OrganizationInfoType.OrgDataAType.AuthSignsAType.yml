@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\AuthSignsAType:
+    properties:
+        authSign:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthSign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAuthSign
+                setter: setAuthSign
+            xml_list:
+                inline: true
+                entry_name: AuthSign
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\AuthSignsAType\AuthSignAType>

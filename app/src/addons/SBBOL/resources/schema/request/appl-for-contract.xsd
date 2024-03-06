@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="ApplForContract">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:attribute name="docDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата составления документа</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="docNum" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Номер документа</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="6"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="bankName">
+                                <xs:annotation>
+                                    <xs:documentation>Наименование подразделения банка получателя заявления</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="bankNum" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>Номер подразделения банка получателя заявления в ДБО</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OrgData" type="OrgData">
+                        <xs:annotation>
+                            <xs:documentation>Данные клиента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CardsInfo">
+                        <xs:annotation>
+                            <xs:documentation>Осн. информация о картах</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="VisaElectron_Maestro" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Количество банковских карт с типом Visa Electron / Maestro
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:simpleContent>
+                                            <xs:extension base="xs:int">
+                                                <xs:attribute name="marked" type="xs:boolean" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>1 - признак установлен, 0 - признак не устанволен
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:extension>
+                                        </xs:simpleContent>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element name="VisaClassic_MasterCardMass" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Количество банковских карт с типом Visa Classic / MasterCard Mass
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:simpleContent>
+                                            <xs:extension base="xs:int">
+                                                <xs:attribute name="marked" type="xs:boolean" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>1 - признак установлен, 0 - признак не устанволен
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:extension>
+                                        </xs:simpleContent>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element name="VisaGold_MasterCardGold" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Количество банковских карт с типом Visa Gold / MasterCard Gold (для
+                                            отдельных сотрудников предприятия)
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:simpleContent>
+                                            <xs:extension base="xs:int">
+                                                <xs:attribute name="marked" type="xs:boolean" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>1 - признак установлен, 0 - признак не устанволен
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:extension>
+                                        </xs:simpleContent>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element name="Deposits" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Количество счетов по вкладам</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:simpleContent>
+                                            <xs:extension base="xs:int">
+                                                <xs:attribute name="marked" type="xs:boolean" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>1 - признак установлен, 0 - признак не устанволен
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:extension>
+                                        </xs:simpleContent>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element name="Sbercard" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Количество банковских карт с типом Сберкарт</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:simpleContent>
+                                            <xs:extension base="xs:int">
+                                                <xs:attribute name="marked" type="xs:boolean" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>1 - признак установлен, 0 - признак не устанволен
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:extension>
+                                        </xs:simpleContent>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OtherInfo">
+                        <xs:annotation>
+                            <xs:documentation>Прочие данные</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Total" type="xs:int">
+                                    <xs:annotation>
+                                        <xs:documentation>Количество сотрудников предприятия
+                                            Целое положительное число
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="AdmissionsNumber" type="xs:int">
+                                    <xs:annotation>
+                                        <xs:documentation>Количество зачислений в месяц</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="FOT" type="xs:decimal">
+                                    <xs:annotation>
+                                        <xs:documentation>Среднемесячный ФОТ, руб</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ContactInfo">
+                        <xs:annotation>
+                            <xs:documentation>Контактная информация</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LinkedDocs" type="LinkedDocs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Связнные документы. Их наличие может влиять на особенности обработки документа в АБС
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

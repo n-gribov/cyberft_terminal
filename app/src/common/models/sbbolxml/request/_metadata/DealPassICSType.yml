@@ -1,0 +1,123 @@
+common\models\sbbolxml\request\DealPassICSType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\DocDataDealPassICSType
+        resInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ResInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getResInfo
+                setter: setResInfo
+            type: common\models\sbbolxml\request\ResInfoICSType
+        beneficiarInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiarInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiarInfo
+                setter: setBeneficiarInfo
+            type: array<common\models\sbbolxml\request\DealPassBeneficiarType>
+            xml_list:
+                inline: false
+                entry_name: Beneficiar
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        iCSData:
+            expose: true
+            access_type: public_method
+            serialized_name: ICSData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getICSData
+                setter: setICSData
+            type: common\models\sbbolxml\request\ICSDataType
+        trancheInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: TrancheInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTrancheInfo
+                setter: setTrancheInfo
+            type: array<common\models\sbbolxml\request\TrancheOperICSType>
+            xml_list:
+                inline: false
+                entry_name: Oper
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        numOtherBank:
+            expose: true
+            access_type: public_method
+            serialized_name: NumOtherBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNumOtherBank
+                setter: setNumOtherBank
+            type: string
+        specData:
+            expose: true
+            access_type: public_method
+            serialized_name: SpecData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSpecData
+                setter: setSpecData
+            type: common\models\sbbolxml\request\CredSpecDataICSV1Type
+        helpInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: HelpInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getHelpInfo
+                setter: setHelpInfo
+            type: common\models\sbbolxml\request\CredHelpInfoICSV1Type
+        bigFileAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFileAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBigFileAttachments
+                setter: setBigFileAttachments
+            type: array<common\models\sbbolxml\request\BigFileAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BigFileAttachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\request\AttachmentsType\AttachmentAType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

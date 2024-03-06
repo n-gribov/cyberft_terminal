@@ -1,0 +1,56 @@
+common\models\sbbolxml\request\ContractAddType\GOZContractAType:
+    properties:
+        contractNum:
+            expose: true
+            access_type: public_method
+            serialized_name: contractNum
+            accessor:
+                getter: getContractNum
+                setter: setContractNum
+            xml_attribute: true
+            type: string
+        createDate:
+            expose: true
+            access_type: public_method
+            serialized_name: createDate
+            accessor:
+                getter: getCreateDate
+                setter: setCreateDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        sendDate:
+            expose: true
+            access_type: public_method
+            serialized_name: sendDate
+            accessor:
+                getter: getSendDate
+                setter: setSendDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        changeDate:
+            expose: true
+            access_type: public_method
+            serialized_name: changeDate
+            accessor:
+                getter: getChangeDate
+                setter: setChangeDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endDate
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        contractSubjectType:
+            expose: true
+            access_type: public_method
+            serialized_name: contractSubjectType
+            accessor:
+                getter: getContractSubjectType
+                setter: setContractSubjectType
+            xml_attribute: true
+            type: integer

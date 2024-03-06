@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors',1);
+require(__DIR__ . '/app-include.php');
+
+//putenv('RESQUE_PHP=' . __DIR__ . '/resque');
+try {
+	require_once dirname(__DIR__) .'/vendor/chrisboulton/php-resque-scheduler/resque-scheduler.php';
+
+} catch(\Exception $e) {
+	var_dump($e->getTraceAsString());
+}

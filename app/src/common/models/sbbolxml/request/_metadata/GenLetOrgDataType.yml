@@ -1,0 +1,119 @@
+common\models\sbbolxml\request\GenLetOrgDataType:
+    properties:
+        kpp:
+            expose: true
+            access_type: public_method
+            serialized_name: kpp
+            accessor:
+                getter: getKpp
+                setter: setKpp
+            xml_attribute: true
+            type: string
+        okato:
+            expose: true
+            access_type: public_method
+            serialized_name: okato
+            accessor:
+                getter: getOkato
+                setter: setOkato
+            xml_attribute: true
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        orgName:
+            expose: true
+            access_type: public_method
+            serialized_name: orgName
+            accessor:
+                getter: getOrgName
+                setter: setOrgName
+            xml_attribute: true
+            type: string
+        okpo:
+            expose: true
+            access_type: public_method
+            serialized_name: okpo
+            accessor:
+                getter: getOkpo
+                setter: setOkpo
+            xml_attribute: true
+            type: string
+        orgOGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: orgOGRN
+            accessor:
+                getter: getOrgOGRN
+                setter: setOrgOGRN
+            xml_attribute: true
+            type: string
+        clientNameIntheGenitive:
+            expose: true
+            access_type: public_method
+            serialized_name: clientNameIntheGenitive
+            accessor:
+                getter: getClientNameIntheGenitive
+                setter: setClientNameIntheGenitive
+            xml_attribute: true
+            type: string
+        fullName:
+            expose: true
+            access_type: public_method
+            serialized_name: fullName
+            accessor:
+                getter: getFullName
+                setter: setFullName
+            xml_attribute: true
+            type: string
+        internationalName:
+            expose: true
+            access_type: public_method
+            serialized_name: internationalName
+            accessor:
+                getter: getInternationalName
+                setter: setInternationalName
+            xml_attribute: true
+            type: string
+        opf:
+            expose: true
+            access_type: public_method
+            serialized_name: opf
+            accessor:
+                getter: getOpf
+                setter: setOpf
+            xml_attribute: true
+            type: string
+        datOGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: datOGRN
+            accessor:
+                getter: getDatOGRN
+                setter: setDatOGRN
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        orgAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: orgAddress
+            accessor:
+                getter: getOrgAddress
+                setter: setOrgAddress
+            xml_attribute: true
+            type: string
+        resident:
+            expose: true
+            access_type: public_method
+            serialized_name: resident
+            accessor:
+                getter: getResident
+                setter: setResident
+            xml_attribute: true
+            type: boolean

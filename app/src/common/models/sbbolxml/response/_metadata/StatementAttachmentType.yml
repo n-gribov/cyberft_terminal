@@ -1,0 +1,49 @@
+common\models\sbbolxml\response\StatementAttachmentType:
+    properties:
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: account
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            xml_attribute: true
+            type: string
+        beginDate:
+            expose: true
+            access_type: public_method
+            serialized_name: beginDate
+            accessor:
+                getter: getBeginDate
+                setter: setBeginDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endDate
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        statementFormat:
+            expose: true
+            access_type: public_method
+            serialized_name: statementFormat
+            accessor:
+                getter: getStatementFormat
+                setter: setStatementFormat
+            xml_attribute: true
+            type: string
+        body:
+            expose: true
+            access_type: public_method
+            serialized_name: Body
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBody
+                setter: setBody
+            type: string

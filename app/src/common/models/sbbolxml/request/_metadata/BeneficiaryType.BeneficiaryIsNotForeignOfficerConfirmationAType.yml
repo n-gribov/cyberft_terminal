@@ -1,0 +1,19 @@
+common\models\sbbolxml\request\BeneficiaryType\BeneficiaryIsNotForeignOfficerConfirmationAType:
+    properties:
+        __value:
+            expose: true
+            xml_value: true
+            access_type: public_method
+            accessor:
+                getter: value
+                setter: value
+            type: boolean
+        beneficiaryIsForeignOfficerCase:
+            expose: true
+            access_type: public_method
+            serialized_name: beneficiaryIsForeignOfficerCase
+            accessor:
+                getter: getBeneficiaryIsForeignOfficerCase
+                setter: setBeneficiaryIsForeignOfficerCase
+            xml_attribute: true
+            type: string

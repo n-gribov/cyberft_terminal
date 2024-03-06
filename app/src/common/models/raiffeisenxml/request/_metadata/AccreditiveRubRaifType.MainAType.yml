@@ -1,0 +1,48 @@
+common\models\raiffeisenxml\request\AccreditiveRubRaifType\MainAType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: sum
+            accessor:
+                getter: getSum
+                setter: setSum
+            xml_attribute: true
+            type: float
+        term:
+            expose: true
+            access_type: public_method
+            serialized_name: term
+            accessor:
+                getter: getTerm
+                setter: setTerm
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        revocable:
+            expose: true
+            access_type: public_method
+            serialized_name: revocable
+            accessor:
+                getter: getRevocable
+                setter: setRevocable
+            xml_attribute: true
+            type: string
+        guaranteed:
+            expose: true
+            access_type: public_method
+            serialized_name: guaranteed
+            accessor:
+                getter: getGuaranteed
+                setter: setGuaranteed
+            xml_attribute: true
+            type: string
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            type: common\models\raiffeisenxml\request\AccreditiveRubRaifType\MainAType\AccountAType

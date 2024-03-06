@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CreditOrder">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:attribute name="docDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата составления документа</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="docNum" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Номер документа</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="6"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="bankName" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Наименование кредитующего подразделения банка</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OrgName">
+                        <xs:annotation>
+                            <xs:documentation>Полное наименование организации, берется из СББОЛа</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="250"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="ContractNum">
+                        <xs:annotation>
+                            <xs:documentation>Номер кредитного договора</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="40"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="ContractName" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Наименование кредитного договора</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="200"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="ContractDate" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата заключения договора</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CreditSum" type="CurrAmountLetterType">
+                        <xs:annotation>
+                            <xs:documentation>Сумма кредита (запрашиваемая сумма)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SettlementAcc" type="AccNumType">
+                        <xs:annotation>
+                            <xs:documentation>Номер расчетного счета для перечисления кредитных средств</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CreditAcc" type="AccNumType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Номер ссудного счета, привязанного к кредитному договору</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CreditDuration" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Срок пользования кредитными средствами, кол-во дней</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:maxInclusive value="99999"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="ExecutorPos" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Должность уполномоченного на распоряжение кредитными средствами лица организации
+                                (заемщика)
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="200"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="ExecutorName" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>ФИО уполномоченного на распоряжение кредитными средствами лица организации
+                                (заемщика
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="50"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="AccounterName" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>ФИО главного бухгалтера</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="50"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="CreditDate" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата предоставления кредитных средств</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CreditDeptID">
+                        <xs:annotation>
+                            <xs:documentation>ID кредитующего подразделения (Передается из АБС в составе поле Кредитного договора)</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="20"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="ContractEndDate" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата окончания договора</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SumAvailabilityEnd" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата окончания периода доступности лимитных средств</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SumRest" type="CurrAmountLetterType">
+                        <xs:annotation>
+                            <xs:documentation>Доступная сумма</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CurrAmountLetterType">
+        <xs:annotation>
+            <xs:documentation>Денежная сумма с указанием трёхбуквенного кода валюты</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docSum" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Сумма</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="currCode" type="CurrCodeLetterType" use="required">
+            <xs:annotation>
+                <xs:documentation>Трёхбуквенный код валюты</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

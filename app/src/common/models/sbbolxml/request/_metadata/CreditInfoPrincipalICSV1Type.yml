@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\CreditInfoPrincipalICSV1Type:
+    properties:
+        payment:
+            expose: true
+            access_type: public_method
+            serialized_name: Payment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayment
+                setter: setPayment
+            type: common\models\sbbolxml\request\CurrAmountTypeV1Type
+        credPercent:
+            expose: true
+            access_type: public_method
+            serialized_name: CredPercent
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCredPercent
+                setter: setCredPercent
+            type: float

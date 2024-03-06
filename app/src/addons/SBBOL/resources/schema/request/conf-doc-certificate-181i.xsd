@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="ConfDocCertificate181I">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocDataConf181I">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ConfDocCertificateDocs181I">
+                        <xs:annotation>
+                            <xs:documentation>Содержит данные табличных полей</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="ConfDocCertificateDoc181I" type="ConfDocCertificateDoc181I"
+                                            maxOccurs="unbounded">
+                                    <xs:annotation>
+                                        <xs:documentation>Информация о подтверждающем документе</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataConf181I">
+        <xs:sequence>
+            <xs:element name="OrgData" type="OrgDataCC">
+                <xs:annotation>
+                    <xs:documentation>Основные реквизиты организации, указываемые в документе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ContractNum" type="ContractNumFullType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер ПС (строка со слешами)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AuthPers" type="AuthPers" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Уполномоченный сотрудник организации клиента</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="docDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата составления документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docNumber" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер документа (клиентский)</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="6"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="statementFrom" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Справка от (дата справки)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="branchSystemName" type="BranchSystemName" use="required">
+            <xs:annotation>
+                <xs:documentation>Системное наименование подразделения банка</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="authBankName" type="AuthBankName">
+            <xs:annotation>
+                <xs:documentation>Наименование уполномоченного банка</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="authBankBIC" type="BicType">
+            <xs:annotation>
+                <xs:documentation>БИК уполномоченного банка</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="ConfDocCertificateDoc181I">
+        <xs:complexContent>
+            <xs:extension base="ConfDocCertificateDoc138I">
+                <xs:sequence>
+                    <xs:element name="AdjustmentDate" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Дата корректируемой СПД</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

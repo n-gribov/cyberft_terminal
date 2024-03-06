@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="OverdraftRequest">
+        <xs:sequence>
+            <xs:element name="Accounts">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Account" type="Account" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Номер счёта и БИК. По данному счёту АБС предоставит остатки и др.
+                                    данные
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

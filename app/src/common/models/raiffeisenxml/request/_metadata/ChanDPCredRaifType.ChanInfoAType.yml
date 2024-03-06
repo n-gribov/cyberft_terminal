@@ -1,0 +1,54 @@
+common\models\raiffeisenxml\request\ChanDPCredRaifType\ChanInfoAType:
+    properties:
+        checkNum:
+            expose: true
+            access_type: public_method
+            serialized_name: checkNum
+            accessor:
+                getter: getCheckNum
+                setter: setCheckNum
+            xml_attribute: true
+            type: bool
+        strNum:
+            expose: true
+            access_type: public_method
+            serialized_name: StrNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getStrNum
+                setter: setStrNum
+            type: string
+        docName:
+            expose: true
+            access_type: public_method
+            serialized_name: DocName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocName
+                setter: setDocName
+            type: string
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DocNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DocDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

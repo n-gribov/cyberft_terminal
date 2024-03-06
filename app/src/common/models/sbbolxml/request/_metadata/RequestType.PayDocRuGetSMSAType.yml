@@ -1,0 +1,23 @@
+common\models\sbbolxml\request\RequestType\PayDocRuGetSMSAType:
+    properties:
+        payDocRu:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocRu
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocRu
+                setter: setPayDocRu
+            type: common\models\sbbolxml\request\PayDocRuType
+        sessionId:
+            expose: true
+            access_type: public_method
+            serialized_name: SessionId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSessionId
+                setter: setSessionId
+            type: string

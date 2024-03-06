@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="DealPassRestruct">
+        <xs:annotation>
+            <xs:documentation>Заявление о переоформлении паспорта сделки 138И</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocDataCC">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа ВК ДБО</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DpRestruct" type="DpRestruct">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о переоформляемых ПС</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SheetsNum" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложения на x листах [не используется, оставлено для совместимости]</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="10"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Attach" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложения [не используется, оставлено для совместимости]</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="500"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DpRestruct">
+        <xs:annotation>
+            <xs:documentation>Сведения о переоформляемых ПС</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DpData" type="DpData" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Сведения о переоформляемом ПС</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="DpData">
+        <xs:annotation>
+            <xs:documentation>Сведения о переоформляемом ПС</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="StrNum" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Номер строки по порядку</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DpNum" type="DealPassNumFullType">
+                <xs:annotation>
+                    <xs:documentation>Номер ПС</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DpDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата ПС в формате ДД.ММ.ГГГГ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Contract" type="Contract" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Информация о контракте (кредитном договоре)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="GroundInfo" type="GroundInfo">
+                <xs:annotation>
+                    <xs:documentation>Сведения о документах, на основании которых должны быть внесены изменения ПС</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ChapterInfo" type="ChapterInfo">
+                <xs:annotation>
+                    <xs:documentation>Сведения о переоформляемых разделах/подразделах</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AttachInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сведения о приложении</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="500"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="GroundInfo">
+        <xs:annotation>
+            <xs:documentation>Сведения о документах, на основании которых должны быть внесены изменения ПС</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Ground" type="Ground" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Сведения о документе, на основании которого должны быть внесены изменения ПС</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ChapterInfo">
+        <xs:annotation>
+            <xs:documentation>Сведения о переоформляемых разделах/подразделах</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Chapter" type="Chapter" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Сведения о переоформляемом разделе/подразделе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Ground">
+        <xs:annotation>
+            <xs:documentation>Сведения о документе, на основании которого должны быть внесены изменения ПС</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="StrNum" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Номер строки по порядку</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocData" type="GroundDocData">
+                <xs:annotation>
+                    <xs:documentation>Информация о документе-основании</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Chapter">
+        <xs:annotation>
+            <xs:documentation>Сведения о переоформляемом разделе/подразделе</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="StrNum" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Номер строки по порядку</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DpChapter">
+                <xs:annotation>
+                    <xs:documentation>№ раздела</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DpSubchapter"  minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>№ подраздела</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DpParagraph"  minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>№ пункта</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DpSubparagraph"  minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>№ подпункта</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DpColumns"  minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>№ графы</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DpString"  minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>№ строки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DpAddInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Новое значение графы раздела ПС</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="AddInfo">
+                        <xs:maxLength value="350"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="GroundDocData">
+        <xs:attribute name="numCheck" type="BoolType" use="required">
+            <xs:annotation>
+                <xs:documentation>Документ: 0 - с номером, 1 - без номера</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docNum">
+            <xs:annotation>
+                <xs:documentation>Номер документа, являющегося основанием для переоформления ПС</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="50"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docName" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Название документа, на основании которого переоформляется ПС</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

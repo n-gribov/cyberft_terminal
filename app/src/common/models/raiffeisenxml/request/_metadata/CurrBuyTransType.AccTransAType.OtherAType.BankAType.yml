@@ -1,0 +1,24 @@
+common\models\raiffeisenxml\request\CurrBuyTransType\AccTransAType\OtherAType\BankAType:
+    properties:
+        bIC:
+            expose: true
+            access_type: public_method
+            serialized_name: BIC
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBIC
+                setter: setBIC
+            type: string
+        bankInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BankInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBankInfo
+                setter: setBankInfo
+            type: string

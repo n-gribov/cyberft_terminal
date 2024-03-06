@@ -1,0 +1,44 @@
+common\models\raiffeisenxml\response\DealPassCon138IType\ResInfoAType:
+    properties:
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: common\models\raiffeisenxml\response\DealPassCon138IType\ResInfoAType\AddressAType
+        oGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: OGRN
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOGRN
+                setter: setOGRN
+            type: string
+        innKpp:
+            expose: true
+            access_type: public_method
+            serialized_name: Inn_Kpp
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getInnKpp
+                setter: setInnKpp
+            type: common\models\raiffeisenxml\response\DealPassCon138IType\ResInfoAType\InnKppAType

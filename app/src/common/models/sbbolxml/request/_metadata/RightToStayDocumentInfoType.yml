@@ -1,0 +1,21 @@
+common\models\sbbolxml\request\RightToStayDocumentInfoType:
+    properties:
+        rightToStayDocumentNotRequired:
+            expose: true
+            access_type: public_method
+            serialized_name: rightToStayDocumentNotRequired
+            accessor:
+                getter: getRightToStayDocumentNotRequired
+                setter: setRightToStayDocumentNotRequired
+            xml_attribute: true
+            type: boolean
+        rightToStayDocumentType:
+            expose: true
+            access_type: public_method
+            serialized_name: RightToStayDocumentType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRightToStayDocumentType
+                setter: setRightToStayDocumentType
+            type: common\models\sbbolxml\request\RightToStayDocumentType

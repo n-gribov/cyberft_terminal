@@ -1,0 +1,62 @@
+p.breakhere {
+    page-break-after: always;
+    clear:both
+}
+
+.static-header {
+    display: block;
+    width: 100%;
+}
+
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+
+    .stamp {
+        margin: 0 auto;
+        margin-top: -15px;
+        width: 64%;
+    }
+
+    @page {
+        size: portrait;
+    }
+
+body {
+    zoom: 90%;
+}
+
+table {
+    padding:0;
+    width:100%;
+    margin:0;
+    border-collapse:collapse;
+}
+
+table td {
+    background:white;
+    color:black;
+    font-family:arial;
+}
+
+table.inner td {
+    padding: 0.3em;
+}
+
+.static-header {
+    width: 100%;
+}
+
+.budget-table td {
+    height: 25px !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.table-bottom-width {
+    /*width: 363px !important;*/
+    width: 388px !important;
+}

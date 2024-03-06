@@ -1,0 +1,11 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OrgBranchesAType\OrgBranchAType\SalaryContractsAType\SalaryContractAType:
+    properties:
+        contrID:
+            expose: true
+            access_type: public_method
+            serialized_name: contrID
+            accessor:
+                getter: getContrID
+                setter: setContrID
+            xml_attribute: true
+            type: string

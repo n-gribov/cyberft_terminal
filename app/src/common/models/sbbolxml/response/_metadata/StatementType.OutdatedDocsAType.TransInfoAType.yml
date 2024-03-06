@@ -1,0 +1,11 @@
+common\models\sbbolxml\response\StatementType\OutdatedDocsAType\TransInfoAType:
+    properties:
+        docAbcId:
+            expose: true
+            access_type: public_method
+            serialized_name: docAbcId
+            accessor:
+                getter: getDocAbcId
+                setter: setDocAbcId
+            xml_attribute: true
+            type: string

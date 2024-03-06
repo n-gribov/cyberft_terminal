@@ -1,0 +1,64 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\AuthSignsAType\AuthSignAType:
+    properties:
+        signDeviceId:
+            expose: true
+            access_type: public_method
+            serialized_name: SignDeviceId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSignDeviceId
+                setter: setSignDeviceId
+            type: string
+        signType:
+            expose: true
+            access_type: public_method
+            serialized_name: SignType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSignType
+                setter: setSignType
+            type: string
+        duration:
+            expose: true
+            access_type: public_method
+            serialized_name: Duration
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDuration
+                setter: setDuration
+            type: common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\AuthSignsAType\AuthSignAType\DurationAType
+        accept:
+            expose: true
+            access_type: public_method
+            serialized_name: Accept
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAccept
+                setter: setAccept
+            type: common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\AuthSignsAType\AuthSignAType\AcceptAType
+        accounts:
+            expose: true
+            access_type: public_method
+            serialized_name: Accounts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAccounts
+                setter: setAccounts
+            type: common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\AuthSignsAType\AuthSignAType\AccountsAType
+        docs:
+            expose: true
+            access_type: public_method
+            serialized_name: Docs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocs
+                setter: setDocs
+            type: common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\AuthSignsAType\AuthSignAType\DocsAType

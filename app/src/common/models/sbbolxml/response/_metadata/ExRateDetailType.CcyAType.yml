@@ -1,0 +1,38 @@
+common\models\sbbolxml\response\ExRateDetailType\CcyAType:
+    properties:
+        currName:
+            expose: true
+            access_type: public_method
+            serialized_name: currName
+            accessor:
+                getter: getCurrName
+                setter: setCurrName
+            xml_attribute: true
+            type: string
+        currIsoCode:
+            expose: true
+            access_type: public_method
+            serialized_name: currIsoCode
+            accessor:
+                getter: getCurrIsoCode
+                setter: setCurrIsoCode
+            xml_attribute: true
+            type: string
+        currCode:
+            expose: true
+            access_type: public_method
+            serialized_name: currCode
+            accessor:
+                getter: getCurrCode
+                setter: setCurrCode
+            xml_attribute: true
+            type: string
+        beginDate:
+            expose: true
+            access_type: public_method
+            serialized_name: beginDate
+            accessor:
+                getter: getBeginDate
+                setter: setBeginDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime

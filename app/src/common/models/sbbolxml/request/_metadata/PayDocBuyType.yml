@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\PayDocBuyType:
+    properties:
+        docAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: DocAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocAccount
+                setter: setDocAccount
+            type: common\models\sbbolxml\request\DocAccountType
+        recAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: RecAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRecAccount
+                setter: setRecAccount
+            type: common\models\sbbolxml\request\AccountRubType

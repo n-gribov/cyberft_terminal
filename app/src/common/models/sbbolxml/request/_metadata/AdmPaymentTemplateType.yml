@@ -1,0 +1,74 @@
+common\models\sbbolxml\request\AdmPaymentTemplateType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        genSMSSign:
+            expose: true
+            access_type: public_method
+            serialized_name: GenSMSSign
+            accessor:
+                getter: getGenSMSSign
+                setter: setGenSMSSign
+            xml_attribute: true
+            type: string
+        templateInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: TemplateInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTemplateInfo
+                setter: setTemplateInfo
+            type: common\models\sbbolxml\request\AdmPaymentTemplateType\TemplateInfoAType
+        payeeInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: PayeeInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayeeInfo
+                setter: setPayeeInfo
+            type: common\models\sbbolxml\request\AdmPaymentTemplateType\PayeeInfoAType
+        budget:
+            expose: true
+            access_type: public_method
+            serialized_name: Budget
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBudget
+                setter: setBudget
+            type: common\models\sbbolxml\request\AdmPaymentTemplateType\BudgetAType
+        cashSymbols:
+            expose: true
+            access_type: public_method
+            serialized_name: CashSymbols
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCashSymbols
+                setter: setCashSymbols
+            type: array<common\models\sbbolxml\request\AdmPaymentTemplateType\CashSymbolsAType\CashSymbolAType>
+            xml_list:
+                inline: false
+                entry_name: CashSymbol
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

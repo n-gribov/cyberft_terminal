@@ -1,0 +1,13 @@
+common\models\sbbolxml\response\ExchangeMessagesWithBankType:
+    properties:
+        messageHistory:
+            expose: true
+            access_type: public_method
+            serialized_name: MessageHistory
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getMessageHistory
+                setter: setMessageHistory
+            type: string

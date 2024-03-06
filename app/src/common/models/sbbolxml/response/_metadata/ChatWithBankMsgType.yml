@@ -1,0 +1,103 @@
+common\models\sbbolxml\response\ChatWithBankMsgType:
+    properties:
+        chatMsgExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: chatMsgExtId
+            accessor:
+                getter: getChatMsgExtId
+                setter: setChatMsgExtId
+            xml_attribute: true
+            type: string
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        chatMsgNum:
+            expose: true
+            access_type: public_method
+            serialized_name: chatMsgNum
+            accessor:
+                getter: getChatMsgNum
+                setter: setChatMsgNum
+            xml_attribute: true
+            type: integer
+        chatMsgDate:
+            expose: true
+            access_type: public_method
+            serialized_name: chatMsgDate
+            accessor:
+                getter: getChatMsgDate
+                setter: setChatMsgDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        creatorClient:
+            expose: true
+            access_type: public_method
+            serialized_name: creatorClient
+            accessor:
+                getter: getCreatorClient
+                setter: setCreatorClient
+            xml_attribute: true
+            type: boolean
+        bankName:
+            expose: true
+            access_type: public_method
+            serialized_name: bankName
+            accessor:
+                getter: getBankName
+                setter: setBankName
+            xml_attribute: true
+            type: string
+        authPers:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPers
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAuthPers
+                setter: setAuthPers
+            type: common\models\sbbolxml\response\AuthPersType
+        status:
+            expose: true
+            access_type: public_method
+            serialized_name: Status
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getStatus
+                setter: setStatus
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\response\AttachmentType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

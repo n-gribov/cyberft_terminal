@@ -1,0 +1,55 @@
+common\models\raiffeisenxml\response\DealPassCred138IType\RegInfoAType\RegAType:
+    properties:
+        refClose:
+            expose: true
+            access_type: public_method
+            serialized_name: RefClose
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRefClose
+                setter: setRefClose
+            type: string
+        bankRegNum:
+            expose: true
+            access_type: public_method
+            serialized_name: BankRegNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBankRegNum
+                setter: setBankRegNum
+            type: string
+        dateIn:
+            expose: true
+            access_type: public_method
+            serialized_name: DateIn
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDateIn
+                setter: setDateIn
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        dateClose:
+            expose: true
+            access_type: public_method
+            serialized_name: DateClose
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDateClose
+                setter: setDateClose
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        reqNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: ReqNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getReqNumber
+                setter: setReqNumber
+            type: string

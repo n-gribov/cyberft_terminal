@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CorrAdd">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="Bank" type="CorrBank">
+                        <xs:annotation>
+                            <xs:documentation>Банк контрагента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Purpose" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Назначение платежа</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="210"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="docId" type="UuidSeparated" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Идентификатор сущности в СББОЛ.
+                            При отсутствии идентификатора - в СББОЛ будет создана новая запись.
+                            При наличии идентификатора - в СББОЛ будет произведено изменение существующей
+                            записи с данным id
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Name" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Наименование организации корреспондента</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="350"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="INN" type="InnType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>ИНН организации корреспондента</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="KPP" type="KppType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>КПП организации корреспондента</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="PersonalAcc" type="AccNumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Реквизиты счёта контрагента</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Comment" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Комментарий</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="210"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="GenSMSSign" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Сгенерировать SMS-код для подтверждения записи?</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:length value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="importFromBank" type="BoolType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Признак загрузки Банком: 1 - установлен, 0 - не установлен</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CorrBank">
+        <xs:sequence>
+            <xs:element name="Name" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование банка контрагента</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="80"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="bic" type="BicType">
+                <xs:annotation>
+                    <xs:documentation>БИК банка контрагента</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="correspAcc" type="AccNumType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер корр. счёта банка контрагента</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

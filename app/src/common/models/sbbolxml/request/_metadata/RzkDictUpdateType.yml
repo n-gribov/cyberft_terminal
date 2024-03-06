@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\RzkDictUpdateType:
+    properties:
+        rzkId:
+            expose: true
+            access_type: public_method
+            serialized_name: rzkId
+            accessor:
+                getter: getRzkId
+                setter: setRzkId
+            xml_attribute: true
+            type: string

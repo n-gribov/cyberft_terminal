@@ -1,0 +1,62 @@
+common\models\sbbolxml\response\MandatorySaleTicketType:
+    properties:
+        totalSum:
+            expose: true
+            access_type: public_method
+            serialized_name: TotalSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getTotalSum
+                setter: setTotalSum
+            type: common\models\sbbolxml\response\CurrAmountType
+        totalEnrollSum:
+            expose: true
+            access_type: public_method
+            serialized_name: TotalEnrollSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getTotalEnrollSum
+                setter: setTotalEnrollSum
+            type: float
+        totalChargeSum:
+            expose: true
+            access_type: public_method
+            serialized_name: TotalChargeSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getTotalChargeSum
+                setter: setTotalChargeSum
+            type: common\models\sbbolxml\response\CurrAmountType
+        sell:
+            expose: true
+            access_type: public_method
+            serialized_name: Sell
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSell
+                setter: setSell
+            type: common\models\sbbolxml\response\MandatorySaleTicketType\SellAType
+        oSell:
+            expose: true
+            access_type: public_method
+            serialized_name: OSell
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOSell
+                setter: setOSell
+            type: common\models\sbbolxml\response\MandatorySaleTicketType\OSellAType
+        trans:
+            expose: true
+            access_type: public_method
+            serialized_name: Trans
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getTrans
+                setter: setTrans
+            type: common\models\sbbolxml\response\MandatorySaleTicketType\TransAType

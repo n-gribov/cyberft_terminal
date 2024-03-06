@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="IncomingDealConf">
+        <xs:annotation>
+            <xs:documentation>Запрос сообщений о подтверждении сделок</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="lastIncomingTime" type="xs:dateTime" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата и время последнего запроса (с час. поясами)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,75 @@
+/* Хак, чтобы шапка таблицы не дублировалась
+    при печати на каждой странице */
+
+#w0 thead {
+    display: table-row-group;
+}
+
+body {
+    font-size: 10px;
+    padding-top: 0;
+}
+
+.static-header {
+    display: block;
+    width: 100%;
+}
+
+tr {
+    page-break-inside: avoid;
+}
+
+.info-table {
+    margin-bottom: 20px;
+}
+
+@media print {
+    @page {
+        size: landscape;
+        margin: 5mm 5mm;
+    }
+}
+
+.table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.table td,
+.table th {
+    border: 1px #eee solid;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.received-block {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.grid-view table thead tr td,
+.grid-view table thead tr th,
+.grid-view table tbody tr td,
+.grid-view table tbody tr th,
+.grid-view table tfoot tr td,
+.grid-view table tfoot tr th{
+    border: 1px solid #999 !important;
+    padding: 1px 3px !important;
+}
+
+.grid-view .table {
+    border: 1px solid #999 !important;
+}
+
+.grid-view .table>thead>tr>th,
+.grid-view .table>thead>tr>td,
+.grid-view .table>tbody>tr>th,
+.grid-view .table>tbody>tr>td,
+.grid-view .table>tfoot>tr>th,
+.grid-view .table>tfoot>tr>td {
+    padding: 1px 3px !important;
+    border-color: #999 !important;
+}

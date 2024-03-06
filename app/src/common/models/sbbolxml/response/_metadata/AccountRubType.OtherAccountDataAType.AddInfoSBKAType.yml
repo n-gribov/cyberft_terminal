@@ -1,0 +1,125 @@
+common\models\sbbolxml\response\AccountRubType\OtherAccountDataAType\AddInfoSBKAType:
+    properties:
+        accClientInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AccClientInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAccClientInfo
+                setter: setAccClientInfo
+            type: boolean
+        controlOper:
+            expose: true
+            access_type: public_method
+            serialized_name: ControlOper
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getControlOper
+                setter: setControlOper
+            type: boolean
+        acceptPP:
+            expose: true
+            access_type: public_method
+            serialized_name: AcceptPP
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAcceptPP
+                setter: setAcceptPP
+            type: boolean
+        debetLimit:
+            expose: true
+            access_type: public_method
+            serialized_name: DebetLimit
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDebetLimit
+                setter: setDebetLimit
+            type: boolean
+        singleResidue:
+            expose: true
+            access_type: public_method
+            serialized_name: SingleResidue
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSingleResidue
+                setter: setSingleResidue
+            type: boolean
+        addAgree:
+            expose: true
+            access_type: public_method
+            serialized_name: AddAgree
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAddAgree
+                setter: setAddAgree
+            type: boolean
+        overdraft:
+            expose: true
+            access_type: public_method
+            serialized_name: Overdraft
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOverdraft
+                setter: setOverdraft
+            type: boolean
+        directControl:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectControl
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDirectControl
+                setter: setDirectControl
+            type: boolean
+        addDirectControl:
+            expose: true
+            access_type: public_method
+            serialized_name: AddDirectControl
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAddDirectControl
+                setter: setAddDirectControl
+            type: boolean
+        rzkId:
+            expose: true
+            access_type: public_method
+            serialized_name: RzkId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRzkId
+                setter: setRzkId
+            type: string
+        rzkOrgAccTypeId:
+            expose: true
+            access_type: public_method
+            serialized_name: RzkOrgAccTypeId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRzkOrgAccTypeId
+                setter: setRzkOrgAccTypeId
+            type: string
+        rzkOrgId:
+            expose: true
+            access_type: public_method
+            serialized_name: RzkOrgId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRzkOrgId
+                setter: setRzkOrgId
+            type: string

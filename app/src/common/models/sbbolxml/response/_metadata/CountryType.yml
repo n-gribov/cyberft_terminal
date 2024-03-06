@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\CountryType:
+    properties:
+        digital:
+            expose: true
+            access_type: public_method
+            serialized_name: digital
+            accessor:
+                getter: getDigital
+                setter: setDigital
+            xml_attribute: true
+            type: string
+        iso2:
+            expose: true
+            access_type: public_method
+            serialized_name: iso2
+            accessor:
+                getter: getIso2
+                setter: setIso2
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: name
+            accessor:
+                getter: getName
+                setter: setName
+            xml_attribute: true
+            type: string

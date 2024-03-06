@@ -1,0 +1,67 @@
+common\models\raiffeisenxml\request\Beneficiar59RaifNoNameType:
+    properties:
+        accBeneficiar:
+            expose: true
+            access_type: public_method
+            serialized_name: AccBeneficiar
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccBeneficiar
+                setter: setAccBeneficiar
+            type: string
+        sWIFT:
+            expose: true
+            access_type: public_method
+            serialized_name: SWIFT
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSWIFT
+                setter: setSWIFT
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: string
+        place:
+            expose: true
+            access_type: public_method
+            serialized_name: Place
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPlace
+                setter: setPlace
+            type: string
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: common\models\raiffeisenxml\request\CountryNoNameType

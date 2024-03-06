@@ -1,0 +1,20 @@
+common\models\raiffeisenxml\request\DealPassCon181IRaifType\ComDataAType\CurrAType:
+    properties:
+        digCode:
+            expose: true
+            access_type: public_method
+            serialized_name: digCode
+            accessor:
+                getter: getDigCode
+                setter: setDigCode
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: name
+            accessor:
+                getter: getName
+                setter: setName
+            xml_attribute: true
+            type: string

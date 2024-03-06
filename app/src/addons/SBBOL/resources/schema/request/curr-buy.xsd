@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CurrBuy">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="CurrComDocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты платёжного документа ДБО</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Trans" type="CurrBuyTrans">
+                        <xs:annotation>
+                            <xs:documentation>Сделка</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BankAgreement" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Соглашение с банком</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="3000"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="AddInfo" type="CurrBuyAddInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Дополнительная информация</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LinkedDocs" type="LinkedDocs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Связанные документы, например, платежное поручение или валютный перевод
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CurrBuyTrans">
+        <xs:sequence>
+            <xs:element name="Acc">
+                <xs:annotation>
+                    <xs:documentation>Расчетный счет списания средств на покупку валюты</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="BankName">
+                            <xs:annotation>
+                                <xs:documentation>Наименование подразделения банка</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="160"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="account" type="AccNumType" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Номер счёта списания (р/с)</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="bic" type="BicType" use="required">
+                        <xs:annotation>
+                            <xs:documentation>БИК банка счета списания рублей</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AmountTransf">
+                <xs:annotation>
+                    <xs:documentation>Сумма покупки</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="SumBuy" type="CurrAmountType">
+                            <xs:annotation>
+                                <xs:documentation>Сумма покупаемой валюты</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SumThrough" type="CurrAmountType" form="qualified" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>за счет средств</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TermBuy" type="TermDeal" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Условия покупки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AccountNumTransf">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты счёта зачисления валюты</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="AccountCurr">
+                            <xs:attribute name="type" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>0 - На наш счет в Сбербанке России,
+                                        1 - На счет в другом банке/ в других филиалах и отделениях Сбербанка России
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:length value="1"/>
+                                        <xs:pattern value="[0-1]{1}"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PayDocBuy">
+                <xs:annotation>
+                    <xs:documentation>Средства в продаваемой валюте списать со счета/ средства на покупку перечислены
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="PayDocBuy">
+                            <xs:attribute name="type" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>0 - Средства в продаваемой валюте списать со счета
+                                        1 - Перечислены с нашего счета в Сбербанке Росии
+                                        2 - Перечислены со счета в другом банке/ в других филиалах и отделениях Сбербанка России
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:length value="1"/>
+                                        <xs:pattern value="[0-2]{1}"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Commis" type="Commision" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Комиссионное вознаграждение (ComAcc ИЛИ ComOrder)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="CurrBuyAddInfo">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="AccountCurr">
+        <xs:annotation>
+            <xs:documentation/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Bank" type="AccCurrBank">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты банка зачисления валюты</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="accNum" type="AccNumType" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер счёта зачисления валюты</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="PayDocBuy">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="DocAccount" type="DocAccount" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Реквизиты счета списания продаваемой валюты</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RecAccount" type="AccountRub" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Реквизиты счёта перечисления средств на покупку</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AccCurrBank">
+        <xs:sequence>
+            <xs:element name="Name">
+                <xs:annotation>
+                    <xs:documentation>Наименование банка зачисления валюты (либо в соответствии с BNKSEEK либо наименование
+                        отделения СБРФ)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="140"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="BankSWIFT" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>SWIFT банка зачисления валюты</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="11"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="BankInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Иные реквизиты банка зачисления валюты</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="bic" type="BicType">
+            <xs:annotation>
+                <xs:documentation>БИК банка зачисления валюты</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="correspAcc" type="AccNumType">
+            <xs:annotation>
+                <xs:documentation>Коррсчёт банка зачисления валюты</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

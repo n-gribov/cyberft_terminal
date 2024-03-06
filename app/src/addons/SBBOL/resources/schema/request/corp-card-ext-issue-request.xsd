@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CorpCardExtIssueRequest">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocData" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа ДБО</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="OrgData" type="CorpCardExtOrgData" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты организации клиента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CommonDoc" type="CorpCardExtCommonDoc" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты электронного документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Account" type="CorpCardExtBusinessAccNumBicType" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты бизнес счёта клиента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ListCards" type="CorpCardExtListCards" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Список карт, которые требуется выпустить</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CardTypeCode" minOccurs="1" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Код продукта КК</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CorpCardExtOrgData">
+        <xs:annotation>
+            <xs:documentation>Реквизиты организации клиента</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="orgName" use="required">
+            <xs:annotation>
+                <xs:documentation>Наименование организации клиента</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="160"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="CorpCardExtCommonDoc">
+        <xs:annotation>
+            <xs:documentation>Общие реквизиты электронного документа</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Total" type="xs:integer" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество сотрудников</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="embossingMainText" use="required">
+            <xs:annotation>
+                <xs:documentation>Эмбоссированный текст(Общий текст на карте)</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="26"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="cardType" use="required">
+            <xs:annotation>
+                <xs:documentation>Тип карты</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="122"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="CorpCardExtBusinessAccNumBicType">
+        <xs:annotation>
+            <xs:documentation>Реквизиты бизнес-счёта клиента (Реквизиты счета и БИК)</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="accNum" type="AccNumType" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер бизнес-счёта</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="accBic" type="BicType" use="required">
+            <xs:annotation>
+                <xs:documentation>БИК банка бизнес-счёта</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="accCurr" type="CurrCodeLetterType" use="required">
+            <xs:annotation>
+                <xs:documentation>Код валюты бизнес-счёта</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="CorpCardExtListCards">
+        <xs:annotation>
+            <xs:documentation>Информация по списку карт, которые требуется выпустить</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="PersonInfo" type="CorpCardHolderPersonInfo" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Персональные Данные</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CorpCardHolderPersonInfo">
+        <xs:annotation>
+            <xs:documentation>Персональные Данные физического лица</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="SName" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Фамилия физического лица</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Name" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Имя физического лица</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="MiddleName" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Отчество физического лица</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Sex" minOccurs="1" maxOccurs="1" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Пол физического лица: 0 - мужской, 1 - женский</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BirthDt" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Дата рождения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:date"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Inn" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>ИНН физического лица</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[0-9]{10,12}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Accost" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Обращение</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="26"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Citizenship" type="Citizenship" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Гражданство</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!--<xs:element name="Citizenship" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Гражданство</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="25"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>-->
+            <xs:element name="Resident" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>1 - резидент, 0 - нерезидент.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Keyword" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Кодовое слово</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="25"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="EmbossingSName" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Эмбоссированная фамилия</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="26"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="EmbossingName" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Эмбоссированное имя</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="26"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="PostAddresses" type="Address" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Адреса</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ContactInfo" type="CorpCardExtContactInfo">
+                <xs:annotation>
+                    <xs:documentation>Контактная информация держателя КК</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocInfo" type="CorpCardExtDocInfo">
+                <xs:annotation>
+                    <xs:documentation>Информация по документам держателя КК (ДУЛ)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="lineNumber" use="optional" type="xs:integer">
+            <xs:annotation>
+                <xs:documentation>Номер в списке</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="extPersonId" use="optional" type="UuidSeparated">
+            <xs:annotation>
+                <xs:documentation>Идентификатор держателя КК в СББ</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="CorpCardExtContactInfo">
+        <xs:annotation>
+            <xs:documentation>Контактная информация держателя КК</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="PhoneHome" type="PhoneNumWithCode" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Домашний номер телефона</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PhoneWork" type="PhoneNumWithCode" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Рабочий номер телефона</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PhoneMobile" type="PhoneNumWithCode" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Мобильный номер телефона</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="EmailAddr" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Адрес электронной почты</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CorpCardExtDocInfo">
+        <xs:annotation>
+            <xs:documentation>Информация по документам держателя КК</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DocKind" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Тип удостоверения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="2"/>
+                        <xs:maxLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DocSeries" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Серия удостоверения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DocNumb" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Номер удостоверения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DocIssueDt" type="xs:date" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Дата выдачи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocIssuePlace" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Место выдачи</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DocIssueCode" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Код подразделения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PhoneNumWithCode">
+        <xs:sequence>
+            <xs:element name="Number">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:length value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="operatorCode" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Код оператора - 3 симв. (МТС, МЕГАФОН, БИЛАЙН, Другой)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,42 @@
+common\models\sbbolxml\request\PermBalanceDataType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\DocDataPermBalanceType
+        permBalance:
+            expose: true
+            access_type: public_method
+            serialized_name: PermBalance
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPermBalance
+                setter: setPermBalance
+            type: common\models\sbbolxml\request\PermBalanceType
+        docAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: DocAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocAccount
+                setter: setDocAccount
+            type: common\models\sbbolxml\request\AccountRubType
+        reqAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: ReqAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReqAccount
+                setter: setReqAccount
+            type: common\models\sbbolxml\request\AccountReturnType

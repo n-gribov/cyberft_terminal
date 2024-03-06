@@ -1,0 +1,63 @@
+common\models\raiffeisenxml\request\AccreditiveRubRaifType\ReceiverAType\IndividualAType:
+    properties:
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        birthDate:
+            expose: true
+            access_type: public_method
+            serialized_name: birthDate
+            accessor:
+                getter: getBirthDate
+                setter: setBirthDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        fio:
+            expose: true
+            access_type: public_method
+            serialized_name: Fio
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFio
+                setter: setFio
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: string
+        doc:
+            expose: true
+            access_type: public_method
+            serialized_name: Doc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDoc
+                setter: setDoc
+            type: common\models\raiffeisenxml\request\AccreditiveRubRaifType\ReceiverAType\IndividualAType\DocAType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

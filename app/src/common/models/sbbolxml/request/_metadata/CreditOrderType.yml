@@ -1,0 +1,181 @@
+common\models\sbbolxml\request\CreditOrderType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\CreditOrderType\DocDataAType
+        orgName:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOrgName
+                setter: setOrgName
+            type: string
+        contractNum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getContractNum
+                setter: setContractNum
+            type: string
+        contractName:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getContractName
+                setter: setContractName
+            type: string
+        contractDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractDate
+                setter: setContractDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        creditSum:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditSum
+                setter: setCreditSum
+            type: common\models\sbbolxml\request\CurrAmountLetterType
+        settlementAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: SettlementAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSettlementAcc
+                setter: setSettlementAcc
+            type: string
+        creditAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCreditAcc
+                setter: setCreditAcc
+            type: string
+        creditDuration:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditDuration
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditDuration
+                setter: setCreditDuration
+            type: integer
+        executorPos:
+            expose: true
+            access_type: public_method
+            serialized_name: ExecutorPos
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getExecutorPos
+                setter: setExecutorPos
+            type: string
+        executorName:
+            expose: true
+            access_type: public_method
+            serialized_name: ExecutorName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getExecutorName
+                setter: setExecutorName
+            type: string
+        accounterName:
+            expose: true
+            access_type: public_method
+            serialized_name: AccounterName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccounterName
+                setter: setAccounterName
+            type: string
+        creditDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditDate
+                setter: setCreditDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        creditDeptID:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditDeptID
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCreditDeptID
+                setter: setCreditDeptID
+            type: string
+        contractEndDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractEndDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractEndDate
+                setter: setContractEndDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        sumAvailabilityEnd:
+            expose: true
+            access_type: public_method
+            serialized_name: SumAvailabilityEnd
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumAvailabilityEnd
+                setter: setSumAvailabilityEnd
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        sumRest:
+            expose: true
+            access_type: public_method
+            serialized_name: SumRest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumRest
+                setter: setSumRest
+            type: common\models\sbbolxml\request\CurrAmountLetterType

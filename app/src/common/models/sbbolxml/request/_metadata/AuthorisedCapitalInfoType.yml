@@ -1,0 +1,24 @@
+common\models\sbbolxml\request\AuthorisedCapitalInfoType:
+    properties:
+        registered:
+            expose: true
+            access_type: public_method
+            serialized_name: Registered
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRegistered
+                setter: setRegistered
+            type: string
+        paid:
+            expose: true
+            access_type: public_method
+            serialized_name: Paid
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPaid
+                setter: setPaid
+            type: string

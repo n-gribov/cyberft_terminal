@@ -1,0 +1,38 @@
+common\models\sbbolxml\request\PayDocCurType\OptionsAType:
+    properties:
+        option50a:
+            expose: true
+            access_type: public_method
+            serialized_name: option50a
+            accessor:
+                getter: getOption50a
+                setter: setOption50a
+            xml_attribute: true
+            type: string
+        option56a:
+            expose: true
+            access_type: public_method
+            serialized_name: option56a
+            accessor:
+                getter: getOption56a
+                setter: setOption56a
+            xml_attribute: true
+            type: string
+        option57a:
+            expose: true
+            access_type: public_method
+            serialized_name: option57a
+            accessor:
+                getter: getOption57a
+                setter: setOption57a
+            xml_attribute: true
+            type: string
+        option59a:
+            expose: true
+            access_type: public_method
+            serialized_name: option59a
+            accessor:
+                getter: getOption59a
+                setter: setOption59a
+            xml_attribute: true
+            type: string

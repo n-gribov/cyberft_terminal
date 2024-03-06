@@ -1,0 +1,35 @@
+common\models\sbbolxml\request\BigFilesUploadLinksRequestType\BigFilesUploadLinkRequestAType:
+    properties:
+        essenceId:
+            expose: true
+            access_type: public_method
+            serialized_name: essenceId
+            accessor:
+                getter: getEssenceId
+                setter: setEssenceId
+            xml_attribute: true
+            type: string
+        essenceType:
+            expose: true
+            access_type: public_method
+            serialized_name: essenceType
+            accessor:
+                getter: getEssenceType
+                setter: setEssenceType
+            xml_attribute: true
+            type: string
+        bFAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BFAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBFAttachments
+                setter: setBFAttachments
+            type: array<common\models\sbbolxml\request\BFUploadAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BFAttachment
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'

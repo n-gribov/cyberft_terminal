@@ -1,0 +1,23 @@
+common\models\raiffeisenxml\request\TermsType:
+    properties:
+        termsType:
+            expose: true
+            access_type: public_method
+            serialized_name: TermsType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTermsType
+                setter: setTermsType
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: Date
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDate
+                setter: setDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

@@ -1,0 +1,83 @@
+common\models\sbbolxml\request\TypesOfContractsType:
+    properties:
+        householdContract:
+            expose: true
+            access_type: public_method
+            serialized_name: HouseholdContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getHouseholdContract
+                setter: setHouseholdContract
+            type: boolean
+        securitySalesContract:
+            expose: true
+            access_type: public_method
+            serialized_name: SecuritySalesContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSecuritySalesContract
+                setter: setSecuritySalesContract
+            type: boolean
+        loanAgreement:
+            expose: true
+            access_type: public_method
+            serialized_name: LoanAgreement
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLoanAgreement
+                setter: setLoanAgreement
+            type: boolean
+        hiringContract:
+            expose: true
+            access_type: public_method
+            serialized_name: HiringContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getHiringContract
+                setter: setHiringContract
+            type: boolean
+        foreignTradeAgreement:
+            expose: true
+            access_type: public_method
+            serialized_name: ForeignTradeAgreement
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getForeignTradeAgreement
+                setter: setForeignTradeAgreement
+            type: boolean
+        bankServiceAgreement:
+            expose: true
+            access_type: public_method
+            serialized_name: BankServiceAgreement
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBankServiceAgreement
+                setter: setBankServiceAgreement
+            type: boolean
+        otherContract:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOtherContract
+                setter: setOtherContract
+            type: boolean
+        otherContractText:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherContractText
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOtherContractText
+                setter: setOtherContractText
+            type: string

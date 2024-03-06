@@ -1,0 +1,127 @@
+version: "2.1"
+
+services:
+    redis:
+        image: redis:$REDIS_VERSION
+        volumes:
+            - $DEFAULT_PATH/:$DEFAULT_DOCKER_PATH
+            - $REDIS_PATH:/data
+            - $TIMEZONE:$TIMEZONE:ro
+            - $LOCALTIME:$LOCALTIME:ro
+        networks:
+            - cyberft
+        expose:
+            - "$REDIS_PORT"
+        container_name: cyberft-redis
+        hostname: redis
+        healthcheck:
+          disable: true
+
+    mysql:
+        image: mysql:$MYSQL_VERSION
+        command: mysqld --character-set-server=utf8 --innodb-flush-log-at-trx-commit=2
+        environment:
+            - MYSQL_ROOT_PASSWORD
+            - MYSQL_DATABASE
+            - MYSQL_USER
+            - MYSQL_PASSWORD
+        volumes:
+            - $MYSQL_PATH:/var/lib/mysql
+            - $MYSQL_CONFIG:/etc/mysql/
+            - $TIMEZONE:$TIMEZONE:ro
+            - $LOCALTIME:$LOCALTIME:ro
+        expose:
+            - "$MYSQL_PORT"
+        ports:
+            - $MYSQL_PORT:3306
+        networks:
+            - cyberft
+        container_name: cyberft-mysql
+        hostname: mysql
+        restart: always
+        healthcheck:
+          test: echo "use $MYSQL_DATABASE" | mysql -p$MYSQL_PASSWORD || exit 1
+          interval: 10s
+          retries: 2
+
+
+    elasticsearch:
+        image: elasticsearch:$ELASTTIC_VERSION
+        container_name: cyberft-elasticsearch
+        expose:
+            - "$ELASTIC_PORT"
+        restart: always
+        volumes:
+            - $TIMEZONE:$TIMEZONE:ro
+            - $LOCALTIME:$LOCALTIME:ro
+            - $ELASTIC_JAVA_CONF:/usr/share/elasticsearch/config/jvm.options
+        networks:
+            - cyberft
+        hostname: elasticsearch
+        healthcheck:
+          disable: true
+        mem_limit: 512M
+        memswap_limit: 1G
+
+    nginx:
+        image: nginx:$NGINX_VERSION
+        container_name: cyberft-nginx
+        ports:
+           - "$NGINX_HTTP_PORT:80"
+           - "$NGINX_HTTPS_PORT:443"
+        volumes:
+           - $NGINX_DEF_CONF:/etc/nginx/nginx.conf:ro
+           - $NGINX_COMPOSE_CONF:/etc/nginx/conf.d/cyberft.conf:ro
+           - $NGINX_CERT_PATH:/var/www/cyberft/openssl
+           - $DEFAULT_PATH:$DEFAULT_DOCKER_PATH
+           - $TIMEZONE:$TIMEZONE:ro
+           - $LOCALTIME:$LOCALTIME:ro
+        depends_on:
+           - php
+           - mysql
+           - redis
+           - elasticsearch
+        restart: on-failure
+        networks:
+          - cyberft
+        hostname: nginx
+
+    php:
+        image: cyberft:compose_v4
+        container_name: cyberft-app
+        volumes:
+          - $DEFAULT_PATH:$DEFAULT_DOCKER_PATH
+          - $PHP_CONF:/etc/php/7.3/fpm/php.ini
+          - $PHP_WWW_CONF:/etc/php/7.3/fpm/pool.d/www.conf
+          - $NGINX_COMPOSE_CONF:/etc/nginx/conf.d/cyberft.conf:ro
+          - $NGINX_CERT_PATH:/var/www/cyberft/openssl
+          - $STUNNEL_PATH:/etc/stunnel
+          - $INCRON_CONF:/etc/incron_cyberft.conf
+          - $CRYPTO_PRO_PATH:/var/opt/cprocsp/keys/www-data/
+          - $TIMEZONE:$TIMEZONE
+          - $LOCALTIME:$LOCALTIME
+          - /etc/apt/sources.list:/etc/apt/sources.list
+          - /etc/apt/apt.conf:/etc/apt/apt.conf
+        expose:
+          - "$PHP_PORT"
+        ports:
+          - "$PHP_PORT:9000"
+        depends_on:
+          - mysql
+          - elasticsearch
+          - redis
+        restart: always
+        networks:
+          - cyberft
+        hostname: app
+        tty: true
+        entrypoint: bash -c "sleep 1; /opt/start.sh; $DEFAULT_DOCKER_PATH/background-jobs start; /bin/bash"
+        environment:
+         - http_proxy
+         - https_proxy
+         - TZ=Europe/Moscow
+         - DEBIAN_FRONTEND=noninteractive
+
+networks:
+ cyberft:
+  driver: bridge

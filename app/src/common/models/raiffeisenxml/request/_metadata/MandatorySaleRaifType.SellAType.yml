@@ -1,0 +1,63 @@
+common\models\raiffeisenxml\request\MandatorySaleRaifType\SellAType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: float
+        dealType:
+            expose: true
+            access_type: public_method
+            serialized_name: DealType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealType
+                setter: setDealType
+            type: string
+        totalSellSum:
+            expose: true
+            access_type: public_method
+            serialized_name: TotalSellSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTotalSellSum
+                setter: setTotalSellSum
+            type: float
+        overSellSum:
+            expose: true
+            access_type: public_method
+            serialized_name: OverSellSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOverSellSum
+                setter: setOverSellSum
+            type: float
+        percent:
+            expose: true
+            access_type: public_method
+            serialized_name: Percent
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPercent
+                setter: setPercent
+            type: float
+        acc:
+            expose: true
+            access_type: public_method
+            serialized_name: Acc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcc
+                setter: setAcc
+            type: common\models\raiffeisenxml\request\AccountNoNameType

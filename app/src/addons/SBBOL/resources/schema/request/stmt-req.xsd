@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="StmtReqType">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="Accounts">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Account" type="Acc" maxOccurs="unbounded">
+                                    <xs:annotation>
+                                        <xs:documentation>Счёт, по которому запрашивается выписка
+                                            Желательно, чтобы на первом этапе было ограничение на одинаковый БИК у всех счетов
+                                            запроса
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="createTime" type="xs:dateTime" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Дата и время создания запроса (с час. поясами)</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="beginDate" type="xs:date" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Дата начала периода</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="endDate" type="xs:date" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Дата окончания периода</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="stmtType" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Тип запроса выписки: 101 - текущая выписка
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="3"/>
+                            <xs:enumeration value="101"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="orgName">
+                    <xs:annotation>
+                        <xs:documentation>Передается платежное наименование организации.
+                            СББОЛ при приеме должен проверить на соотв. справочнику и вернуть предупреждение о несоответствии
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="160"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,56 @@
+common\models\sbbolxml\response\CptyType:
+    properties:
+        uID:
+            expose: true
+            access_type: public_method
+            serialized_name: uID
+            accessor:
+                getter: getUID
+                setter: setUID
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: name
+            accessor:
+                getter: getName
+                setter: setName
+            xml_attribute: true
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: address
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            xml_attribute: true
+            type: string
+        newSIInd:
+            expose: true
+            access_type: public_method
+            serialized_name: newSIInd
+            accessor:
+                getter: getNewSIInd
+                setter: setNewSIInd
+            xml_attribute: true
+            type: boolean
+        genAgrNum:
+            expose: true
+            access_type: public_method
+            serialized_name: genAgrNum
+            accessor:
+                getter: getGenAgrNum
+                setter: setGenAgrNum
+            xml_attribute: true
+            type: string
+        genAgrDate:
+            expose: true
+            access_type: public_method
+            serialized_name: genAgrDate
+            accessor:
+                getter: getGenAgrDate
+                setter: setGenAgrDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

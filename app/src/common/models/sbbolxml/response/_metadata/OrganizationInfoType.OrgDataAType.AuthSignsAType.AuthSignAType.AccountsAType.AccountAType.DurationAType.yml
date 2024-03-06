@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\AuthSignsAType\AuthSignAType\AccountsAType\AccountAType\DurationAType:
+    properties:
+        beginDate:
+            expose: true
+            access_type: public_method
+            serialized_name: beginDate
+            accessor:
+                getter: getBeginDate
+                setter: setBeginDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endDate
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        unlimited:
+            expose: true
+            access_type: public_method
+            serialized_name: unlimited
+            accessor:
+                getter: getUnlimited
+                setter: setUnlimited
+            xml_attribute: true
+            type: boolean

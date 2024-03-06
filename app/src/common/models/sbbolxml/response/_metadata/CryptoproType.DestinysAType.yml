@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\CryptoproType\DestinysAType:
+    properties:
+        destiny:
+            expose: true
+            access_type: public_method
+            serialized_name: Destiny
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDestiny
+                setter: setDestiny
+            xml_list:
+                inline: true
+                entry_name: Destiny
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\CryptoproType\DestinysAType\DestinyAType>

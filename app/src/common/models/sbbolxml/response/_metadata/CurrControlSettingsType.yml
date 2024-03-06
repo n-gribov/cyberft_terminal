@@ -1,0 +1,38 @@
+common\models\sbbolxml\response\CurrControlSettingsType:
+    properties:
+        vbkInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: vbkInfo
+            accessor:
+                getter: getVbkInfo
+                setter: setVbkInfo
+            xml_attribute: true
+            type: boolean
+        vbkInfoFull:
+            expose: true
+            access_type: public_method
+            serialized_name: vbkInfoFull
+            accessor:
+                getter: getVbkInfoFull
+                setter: setVbkInfoFull
+            xml_attribute: true
+            type: boolean
+        cdInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: cdInfo
+            accessor:
+                getter: getCdInfo
+                setter: setCdInfo
+            xml_attribute: true
+            type: boolean
+        violationCurrLaw:
+            expose: true
+            access_type: public_method
+            serialized_name: violationCurrLaw
+            accessor:
+                getter: getViolationCurrLaw
+                setter: setViolationCurrLaw
+            xml_attribute: true
+            type: boolean

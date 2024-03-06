@@ -1,0 +1,165 @@
+common\models\sbbolxml\request\PayRequestType\PayReqInfoAType:
+    properties:
+        paytCondition:
+            expose: true
+            access_type: public_method
+            serialized_name: PaytCondition
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPaytCondition
+                setter: setPaytCondition
+            type: integer
+        docSend:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSend
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocSend
+                setter: setDocSend
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        acptTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: AcptTerm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcptTerm
+                setter: setAcptTerm
+            type: integer
+        docDispatchDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DocDispatchDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocDispatchDate
+                setter: setDocDispatchDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        receiptDateCollectBank:
+            expose: true
+            access_type: public_method
+            serialized_name: ReceiptDateCollectBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReceiptDateCollectBank
+                setter: setReceiptDateCollectBank
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        receiptDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ReceiptDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReceiptDate
+                setter: setReceiptDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        fileDate:
+            expose: true
+            access_type: public_method
+            serialized_name: FileDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFileDate
+                setter: setFileDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        chargeOffDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ChargeOffDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChargeOffDate
+                setter: setChargeOffDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        maturityDate:
+            expose: true
+            access_type: public_method
+            serialized_name: MaturityDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMaturityDate
+                setter: setMaturityDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        acptSum:
+            expose: true
+            access_type: public_method
+            serialized_name: AcptSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcptSum
+                setter: setAcptSum
+            type: integer
+        paytConditionRef:
+            expose: true
+            access_type: public_method
+            serialized_name: PaytConditionRef
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPaytConditionRef
+                setter: setPaytConditionRef
+            type: string
+        numPartPay:
+            expose: true
+            access_type: public_method
+            serialized_name: NumPartPay
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNumPartPay
+                setter: setNumPartPay
+            type: string
+        numPayOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: NumPayOrder
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNumPayOrder
+                setter: setNumPayOrder
+            type: string
+        payOrderDate:
+            expose: true
+            access_type: public_method
+            serialized_name: PayOrderDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayOrderDate
+                setter: setPayOrderDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        sumPartPay:
+            expose: true
+            access_type: public_method
+            serialized_name: SumPartPay
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumPartPay
+                setter: setSumPartPay
+            type: integer
+        balancePayDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: BalancePayDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBalancePayDoc
+                setter: setBalancePayDoc
+            type: integer

@@ -1,0 +1,38 @@
+common\models\raiffeisenxml\request\AccreditiveRubRaifType\ReceiverAType\IndividualAType\DocAType:
+    properties:
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: type
+            accessor:
+                getter: getType
+                setter: setType
+            xml_attribute: true
+            type: string
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: num
+            accessor:
+                getter: getNum
+                setter: setNum
+            xml_attribute: true
+            type: string
+        issuedBy:
+            expose: true
+            access_type: public_method
+            serialized_name: issuedBy
+            accessor:
+                getter: getIssuedBy
+                setter: setIssuedBy
+            xml_attribute: true
+            type: string
+        issuedDate:
+            expose: true
+            access_type: public_method
+            serialized_name: issuedDate
+            accessor:
+                getter: getIssuedDate
+                setter: setIssuedDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

@@ -1,0 +1,46 @@
+common\models\sbbolxml\response\InfoForStampType:
+    properties:
+        bankName:
+            expose: true
+            access_type: public_method
+            serialized_name: BankName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBankName
+                setter: setBankName
+            type: string
+        branchName:
+            expose: true
+            access_type: public_method
+            serialized_name: BranchName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBranchName
+                setter: setBranchName
+            type: string
+        subBranchName:
+            expose: true
+            access_type: public_method
+            serialized_name: SubBranchName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSubBranchName
+                setter: setSubBranchName
+            type: string
+        subBranchNum:
+            expose: true
+            access_type: public_method
+            serialized_name: SubBranchNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSubBranchNum
+                setter: setSubBranchNum
+            type: string

@@ -1,0 +1,11 @@
+common\models\sbbolxml\response\Charge71AType:
+    properties:
+        chargesParty:
+            expose: true
+            access_type: public_method
+            serialized_name: chargesParty
+            accessor:
+                getter: getChargesParty
+                setter: setChargesParty
+            xml_attribute: true
+            type: string

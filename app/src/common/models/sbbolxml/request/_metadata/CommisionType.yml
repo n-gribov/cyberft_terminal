@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\CommisionType:
+    properties:
+        comAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: ComAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getComAcc
+                setter: setComAcc
+            type: common\models\sbbolxml\request\ComAccType
+        comOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: ComOrder
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getComOrder
+                setter: setComOrder
+            type: common\models\sbbolxml\request\ComOrderType

@@ -1,0 +1,159 @@
+common\models\sbbolxml\response\OrganizationInfoType\SalaryContractsAType\SalaryContractAType:
+    properties:
+        contrID:
+            expose: true
+            access_type: public_method
+            serialized_name: contrID
+            accessor:
+                getter: getContrID
+                setter: setContrID
+            xml_attribute: true
+            type: string
+        contrNum:
+            expose: true
+            access_type: public_method
+            serialized_name: contrNum
+            accessor:
+                getter: getContrNum
+                setter: setContrNum
+            xml_attribute: true
+            type: string
+        contrDate:
+            expose: true
+            access_type: public_method
+            serialized_name: contrDate
+            accessor:
+                getter: getContrDate
+                setter: setContrDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        accept:
+            expose: true
+            access_type: public_method
+            serialized_name: accept
+            accessor:
+                getter: getAccept
+                setter: setAccept
+            xml_attribute: true
+            type: boolean
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        filialNum:
+            expose: true
+            access_type: public_method
+            serialized_name: filialNum
+            accessor:
+                getter: getFilialNum
+                setter: setFilialNum
+            xml_attribute: true
+            type: string
+        bic:
+            expose: true
+            access_type: public_method
+            serialized_name: bic
+            accessor:
+                getter: getBic
+                setter: setBic
+            xml_attribute: true
+            type: string
+        tBName:
+            expose: true
+            access_type: public_method
+            serialized_name: TBName
+            accessor:
+                getter: getTBName
+                setter: setTBName
+            xml_attribute: true
+            type: string
+        oSBName:
+            expose: true
+            access_type: public_method
+            serialized_name: OSBName
+            accessor:
+                getter: getOSBName
+                setter: setOSBName
+            xml_attribute: true
+            type: string
+        vSPName:
+            expose: true
+            access_type: public_method
+            serialized_name: VSPName
+            accessor:
+                getter: getVSPName
+                setter: setVSPName
+            xml_attribute: true
+            type: string
+        branchId:
+            expose: true
+            access_type: public_method
+            serialized_name: BranchId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBranchId
+                setter: setBranchId
+            type: string
+        contrName:
+            expose: true
+            access_type: public_method
+            serialized_name: ContrName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getContrName
+                setter: setContrName
+            type: string
+        placesOfService:
+            expose: true
+            access_type: public_method
+            serialized_name: PlacesOfService
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPlacesOfService
+                setter: setPlacesOfService
+            type: array<common\models\sbbolxml\response\OrganizationInfoType\SalaryContractsAType\SalaryContractAType\PlacesOfServiceAType\PlaceOfServiceAType>
+            xml_list:
+                inline: false
+                entry_name: PlaceOfService
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        salTypes:
+            expose: true
+            access_type: public_method
+            serialized_name: SalTypes
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSalTypes
+                setter: setSalTypes
+            type: array<common\models\sbbolxml\response\OrganizationInfoType\SalaryContractsAType\SalaryContractAType\SalTypesAType\SalTypeAType>
+            xml_list:
+                inline: false
+                entry_name: SalType
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        cardTypes:
+            expose: true
+            access_type: public_method
+            serialized_name: CardTypes
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCardTypes
+                setter: setCardTypes
+            type: array<common\models\sbbolxml\response\OrganizationInfoType\SalaryContractsAType\SalaryContractAType\CardTypesAType\CardTypeAType>
+            xml_list:
+                inline: false
+                entry_name: CardType
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

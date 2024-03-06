@@ -1,0 +1,67 @@
+common\models\raiffeisenxml\response\DealPassCred138IType\DpDataAType:
+    properties:
+        part1:
+            expose: true
+            access_type: public_method
+            serialized_name: Part1
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPart1
+                setter: setPart1
+            type: string
+        part2:
+            expose: true
+            access_type: public_method
+            serialized_name: Part2
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPart2
+                setter: setPart2
+            type: string
+        part3:
+            expose: true
+            access_type: public_method
+            serialized_name: Part3
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPart3
+                setter: setPart3
+            type: string
+        part4:
+            expose: true
+            access_type: public_method
+            serialized_name: Part4
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPart4
+                setter: setPart4
+            type: string
+        part5:
+            expose: true
+            access_type: public_method
+            serialized_name: Part5
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPart5
+                setter: setPart5
+            type: string
+        psDate:
+            expose: true
+            access_type: public_method
+            serialized_name: PsDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPsDate
+                setter: setPsDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

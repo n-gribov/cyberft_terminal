@@ -1,0 +1,57 @@
+common\models\sbbolxml\request\EssenceLinkType:
+    properties:
+        bigFilesJobType:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFilesJobType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBigFilesJobType
+                setter: setBigFilesJobType
+            type: string
+        bigFilesJobSubType:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFilesJobSubType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBigFilesJobSubType
+                setter: setBigFilesJobSubType
+            type: string
+        linkUUID:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkUUID
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLinkUUID
+                setter: setLinkUUID
+            type: string
+        cryptoProfileID:
+            expose: true
+            access_type: public_method
+            serialized_name: CryptoProfileID
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCryptoProfileID
+                setter: setCryptoProfileID
+            type: string
+        signAttachment:
+            expose: true
+            access_type: public_method
+            serialized_name: SignAttachment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSignAttachment
+                setter: setSignAttachment
+            type: string

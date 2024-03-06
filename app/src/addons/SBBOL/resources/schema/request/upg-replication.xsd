@@ -1,0 +1,2798 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    elementFormDefault="qualified" attributeFormDefault="unqualified" jaxb:version="2.0">
+
+    <xs:complexType name="UpgRplDictionary" abstract="true">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника</xs:documentation>
+        </xs:annotation>
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+                <xs:appinfo>
+                    <jaxb:property name="entry"/>
+                </xs:appinfo>
+            </xs:annotation>
+            <xs:choice>
+                <xs:element name="BicEntry" type="BicEntry"/>
+                <xs:element name="KladrEntry" type="KladrEntry"/>
+                <xs:element name="SwiftBicEntry" type="SwiftBicEntry"/>
+                <xs:element name="CountryEntry" type="CountryEntry"/>
+                <xs:element name="CurDictEntry" type="CurDictEntry"/>
+                <xs:element name="ContractTypeEntry" type="ContractTypeEntry"/>
+                <xs:element name="ResidDictEntry" type="ResidDictEntry"/>
+                <xs:element name="PaymentPeriodCodeEntry" type="PaymentPeriodCodeEntry"/>
+                <xs:element name="LiborCodeEntry" type="LiborCodeEntry"/>
+                <xs:element name="VOEntry" type="VOEntry"/>
+                <xs:element name="DocCodeEntry" type="DocCodeEntry"/>
+                <xs:element name="DelDirEntry" type="DelDirEntry"/>
+                <xs:element name="KeyWord70Entry" type="KeyWord70Entry"/>
+                <xs:element name="KeyWord72Entry" type="KeyWord72Entry"/>
+                <xs:element name="KeyWord77BEntry" type="KeyWord77BEntry"/>
+                <xs:element name="Teml70Entry" type="Teml70Entry"/>
+                <xs:element name="DANEntry" type="DANEntry"/>
+                <xs:element name="IBANEntry" type="IBANEntry"/>
+                <xs:element name="SBICEntry" type="SBICEntry"/>
+                <xs:element name="LoroEntry" type="LoroEntry"/>
+                <xs:element name="NostroEntry" type="NostroEntry"/>
+                <xs:element name="BalAccInFrgnBanksEntry" type="BalAccInFrgnBanksEntry"/>
+                <xs:element name="StateEntry" type="StateEntry"/>
+                <xs:element name="LetterTypeEntry" type="LetterTypeEntry"/>
+                <xs:element name="SalTypeEntry" type="SalTypeEntry"/>
+                <xs:element name="SalResultEntry" type="SalResultEntry"/>
+                <xs:element name="PaymentTypeEntry" type="PaymentTypeEntry"/>
+                <xs:element name="PaymentQueueEntry" type="PaymentQueueEntry"/>
+                <xs:element name="TaxKbkEntry" type="TaxKbkEntry"/>
+                <xs:element name="TaxStatEntry" type="TaxStatEntry"/>
+                <xs:element name="TaxOsnEntry" type="TaxOsnEntry"/>
+                <xs:element name="TaxTermEntry" type="TaxTermEntry"/>
+                <xs:element name="TaxPaymentTypeEntry" type="TaxPaymentTypeEntry"/>
+                <xs:element name="CurrencyStringsRuEntry" type="CurrencyStringsRuEntry"/>
+                <xs:element name="Instruction23Entry" type="Instruction23Entry"/>
+                <xs:element name="CliringStructureEntry" type="CliringStructureEntry"/>
+                <xs:element name="BankAgreementEntry" type="BankAgreementEntry"/>
+                <xs:element name="ArgumentDocEntry" type="ArgumentDocEntry"/>
+                <xs:element name="MzpCardTypeEntry" type="MzpCardTypeEntry"/>
+                <xs:element name="MzpPersonDocTypeEntry" type="MzpPersonDocTypeEntry"/>
+                <xs:element name="GroundDocsTypeEntry" type="GroundDocsTypeEntry"/>
+                <xs:element name="FailReasonsEntry" type="FailReasonsEntry"/>
+                <xs:element name="DealPassportEntry" type="DealPassportEntry"/>
+                <xs:element name="HintDictionaryFieldsEntry" type="HintDictionaryFieldsEntry"/>
+                <xs:element name="CommonSettingEntry" type="CommonSettingEntry"/>
+                <xs:element name="FileMaskEntry" type="FileMaskEntry"/>
+                <xs:element name="InquiryOrderTypeEntry" type="InquiryOrderTypeEntry"/>
+                <xs:element name="InquiryDeliveryTypeEntry" type="InquiryDeliveryTypeEntry"/>
+                <xs:element name="PlaceOfServiceEntry" type="PlaceOfServiceEntry"/>
+                <xs:element name="DocTypeParamEntry" type="DocTypeParamEntry"/>
+                <xs:element name="RzkBudgetEntry" type="RzkBudgetEntry"/>
+                <xs:element name="RzkEstimateEntry" type="RzkEstimateEntry"/>
+                <xs:element name="RzkKesrEntry" type="RzkKesrEntry"/>
+                <xs:element name="RzkClassifier1Entry" type="RzkClassifier1Entry"/>
+                <xs:element name="RzkOrgGroupEntry" type="RzkOrgGroupEntry"/>
+                <xs:element name="RzkPlanTermEntry" type="RzkPlanTermEntry"/>
+                <xs:element name="RzkPayCodeEntry" type="RzkPayCodeEntry"/>
+                <xs:element name="RzkFinanceTypeEntry" type="RzkFinanceTypeEntry"/>
+                <xs:element name="RzkPactEntry" type="RzkPactEntry"/>
+                <xs:element name="RzkPlanLimitEntry" type="RzkPlanLimitEntry"/>
+                <xs:element name="DirTypeEntry" type="DirTypeEntry"/>
+                <xs:element name="ConTypeEntry" type="ConTypeEntry"/>
+                <xs:element name="SubstDocEntry" type="SubstDocEntry"/>
+                <xs:element name="ContractSubjectTypeEntry" type="ContractSubjectTypeEntry"/>
+                <xs:element name="GozActEntry" type="GozActEntry"/>
+                <xs:element name="AdmTradePointEntry" type="AdmTradePointEntry"/>
+                <xs:element name="DepositorAndTemplatesEntry" type="DepositorAndTemplatesEntry"/>
+                <xs:element name="AdmCashSymbolsDict" type="AdmCashSymbolsDictEntry"/>
+                <xs:element name="GozContractEntry" type="GozContractEntry"/>
+                <xs:element name="SpravGisGkuEntry" type="SpravGisGkuEntry"/>
+                <xs:element name="ExpressToolsOptionsEntry" type="ExpressToolsOptionsEntry"/>
+                <xs:element name="DictsForDepositsEntry" type="DictsForDepositsEntry"/>
+                <xs:element name="ExclusiveDayEntry" type="ExclusiveDayEntry"/>
+                <xs:element name="BanknotesEntry" type="BanknotesEntry"/>
+                <xs:element name="IdCardTypeDictEntry" type="IdCardTypeDictEntry"/>
+                <xs:element name="CashSymbolCashOrderEntry" type="CashSymbolCashOrderEntry"/>
+                <xs:element name="CurCashDictEntry" type="CurCashDictEntry"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="ClearTable" default="false" type="xs:boolean"/>
+    </xs:complexType>
+
+    <xs:simpleType name="AccNumType">
+        <xs:annotation>
+            <xs:documentation>Номер счёта или корр. счёта, 20 цифр</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:length value="20"/>
+            <xs:pattern value="[0-9]{20}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CurrCodeDigitalType">
+        <xs:annotation>
+            <xs:documentation>Код валюты, 3 цифры</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:length value="3"/>
+            <xs:pattern value="[0-9]{3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Entry" abstract="true">
+        <xs:attribute name="version" type="xs:integer"/>
+        <xs:attribute name="operation" type="Operation"/>
+        <xs:attribute name="id" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:simpleType name="Operation">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="INSERT"/>
+            <xs:enumeration value="DELETE"/>
+            <xs:enumeration value="UPDATE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="CodeDescriptionEntry" abstract="true">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета справочника с полями Code, Description</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="description" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="BIC">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника БИК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+                <!--<xs:restriction base="UpgRplDictionary">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:choice>
+                            <xs:element name="BicEntry" type="BicEntry"/>
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:restriction>-->
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="BicEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета БИК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="address" type="xs:string"/>
+                <xs:attribute name="bic" type="xs:string"/>
+                <xs:attribute name="city" type="xs:string"/>
+                <xs:attribute name="cityOrig" type="xs:string"/>
+                <xs:attribute name="corrAccount" type="xs:string"/>
+                <xs:attribute name="electronic" type="xs:string"/>
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="status" type="xs:string"/>
+                <xs:attribute name="tnp" type="xs:string"/>
+                <xs:attribute name="type" type="xs:string"/>
+                <xs:attribute name="zipcode" type="xs:string"/>
+                <xs:attribute name="datech" type="xs:date"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="FailReasons">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета «справочника формализованных причин отказа» в ЕКС</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="FailReasonsEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета «справочника формализованных причин отказа» в ЕКС</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="xs:string" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Код причины</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="inPartDocsSubmitted" type="xs:boolean" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>В части представленных документов</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="docType" type="xs:string" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Тип документа валютного контроля</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="field" type="xs:string" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Поле документа</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="comment" type="xs:string" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Правило заполнения/замечания</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="KLADR">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника КЛАДР</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="KladrEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета КЛАДР</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="socr" type="xs:string"/>
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="index" type="xs:string"/>
+                <xs:attribute name="gninmb" type="xs:string"/>
+                <xs:attribute name="uno" type="xs:string"/>
+                <xs:attribute name="ocatd" type="xs:string"/>
+                <xs:attribute name="status" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="SwiftBic">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника SWIFT</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="SwiftBicEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета SWIFT</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="bicTypeNat" type="xs:string"/>
+                <xs:attribute name="bicNat" type="xs:string"/>
+                <xs:attribute name="bicTypeInt" type="xs:string"/>
+                <xs:attribute name="bicInt" type="xs:string"/>
+                <xs:attribute name="filialName" type="xs:string"/>
+                <xs:attribute name="account" type="xs:string"/>
+                <xs:attribute name="state" type="xs:string"/>
+                <xs:attribute name="place" type="xs:string"/>
+                <xs:attribute name="address" type="xs:string"/>
+                <xs:attribute name="zip" type="xs:string"/>
+                <xs:attribute name="abonent" type="xs:string"/>
+                <xs:attribute name="modflag" type="xs:string"/>
+                <xs:attribute name="countryCode" type="xs:string"/>
+                <xs:attribute name="countryNameShort" type="xs:string"/>
+                <xs:attribute name="countryNameInt" type="xs:string"/>
+                <xs:attribute name="mnem02" type="xs:string"/>
+                <xs:attribute name="mnem03" type="xs:string"/>
+                <xs:attribute name="location" type="xs:string"/>
+                <xs:attribute name="nationalId" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="Country">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника стран</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="CountryEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета стран</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="nameInt" type="xs:string"/>
+                <xs:attribute name="nameShort" type="xs:string"/>
+                <xs:attribute name="mnem02" type="xs:string"/>
+                <xs:attribute name="mnem03" type="xs:string"/>
+                <xs:attribute name="displayOrder" type="xs:integer"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="CurDict">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника валют</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="CurDictEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета валют</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:sequence>
+                    <xs:element ref="CurDict"/>
+                </xs:sequence>
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="isoCode" type="xs:string"/>
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="fractDigits" type="xs:integer"/>
+                <xs:attribute name="displayOrder" type="xs:integer"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="ContractType">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника видов контрактов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ContractTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета видов контрактов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="ResidDict">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника признаков резидентов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ResidDictEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета признаков резидентов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="PaymentPeriodCode">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника кодов срока привлечения</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="PaymentPeriodCodeEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета кодов срока привлечения</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="LiborCode">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника кодов ставок ЛИБОР</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="LiborCodeEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета кодов ставок ЛИБОР</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="VOCodes">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника кодов ВО</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="VOEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета кодов ВО</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="DocCode">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника кодов видов подтверждающих документов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="DocCodeEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета кодов видов подтверждающих документов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="DelDir">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника признаков поставки</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="DelDirEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета признаков поставки</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="KeyWord70">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для кодовых слов поля 70</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="KeyWord70Entry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета кодовых слов поля 70</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="codeWord" type="xs:string"/>
+                <xs:attribute name="description" type="xs:string"/>
+                <xs:attribute name="format" type="xs:string"/>
+                <xs:attribute name="jurPersonUsage" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="KeyWord72">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для кодовых слов поля 72</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="KeyWord72Entry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета кодовых слов поля 72</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="codeWord" type="xs:string"/>
+                <xs:attribute name="currCode" type="xs:string"/>
+                <xs:attribute name="description" type="xs:string"/>
+                <xs:attribute name="format" type="xs:string"/>
+                <xs:attribute name="jurPersonUsage" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="KeyWord77B">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для кодовых слов поля 77B</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="KeyWord77BEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета кодовых слов поля 77B</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="codeWord" type="xs:string"/>
+                <xs:attribute name="currCode" type="xs:string"/>
+                <xs:attribute name="description" type="xs:string"/>
+                <xs:attribute name="format" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="Teml70">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для шаблонов поля 70</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Teml70Entry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета шаблонов поля 70</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="destination" type="xs:string"/>
+                <xs:attribute name="description" type="xs:string"/>
+                <xs:attribute name="textRus1" type="xs:string"/>
+                <xs:attribute name="textRus2" type="xs:string"/>
+                <xs:attribute name="textRus3" type="xs:string"/>
+                <xs:attribute name="textRus4" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="DAN">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника структуры национальных номеров счетов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="DANEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета структуры национальных номеров счетов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="naIso" type="xs:string"/>
+                <xs:attribute name="naCodeBnk" type="xs:string"/>
+                <xs:attribute name="naCodeBrn" type="xs:string"/>
+                <xs:attribute name="naCondition" type="xs:string"/>
+                <xs:attribute name="naNum" type="xs:string"/>
+                <xs:attribute name="naKr" type="xs:string"/>
+                <xs:attribute name="naFrm" type="xs:string"/>
+                <xs:attribute name="naLen" type="xs:string"/>
+                <xs:attribute name="naComment" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="IBAN">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника структуры счетов IBAN/BBAN</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="IBANEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета структуры счетов IBAN/BBAN</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="ibnIsoBen" type="xs:string"/>
+                <xs:attribute name="ibnIso" type="xs:string"/>
+                <xs:attribute name="controlNumber" type="xs:string"/>
+                <xs:attribute name="ibnCodeBnk" type="xs:string"/>
+                <xs:attribute name="swiftPresence" type="xs:boolean"/>
+                <xs:attribute name="ibnCodeBrn" type="xs:string"/>
+                <xs:attribute name="filialList" type="xs:string"/>
+                <xs:attribute name="ibnNum" type="xs:string"/>
+                <xs:attribute name="bbnkr" type="xs:string"/>
+                <xs:attribute name="bbnkrList" type="xs:string"/>
+                <xs:attribute name="ibnFrm" type="xs:string"/>
+                <xs:attribute name="flFormat" type="xs:boolean"/>
+                <xs:attribute name="ibnLen" type="xs:string"/>
+                <xs:attribute name="ibnComment" type="xs:string"/>
+                <xs:attribute name="iban" type="xs:boolean"/>
+                <xs:attribute name="bban" type="xs:boolean"/>
+                <xs:attribute name="dan" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="SBIC">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника МФР и SBIC</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="SBICEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета МФР и SBIC</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="real1" type="xs:string"/>
+                <xs:attribute name="pzn" type="xs:string"/>
+                <xs:attribute name="uer" type="xs:string"/>
+                <xs:attribute name="rgn" type="xs:string"/>
+                <xs:attribute name="ind" type="xs:string"/>
+                <xs:attribute name="tnp" type="xs:string"/>
+                <xs:attribute name="nnp" type="xs:string"/>
+                <xs:attribute name="adr" type="xs:string"/>
+                <xs:attribute name="rkc" type="xs:string"/>
+                <xs:attribute name="nameP" type="xs:string"/>
+                <xs:attribute name="nameN" type="xs:string"/>
+                <xs:attribute name="newNum" type="xs:string"/>
+                <xs:attribute name="srok" type="xs:string"/>
+                <xs:attribute name="telef" type="xs:string"/>
+                <xs:attribute name="regn" type="xs:string"/>
+                <xs:attribute name="okpo" type="xs:string"/>
+                <xs:attribute name="dtizm" type="xs:string"/>
+                <xs:attribute name="ksnp" type="xs:string"/>
+                <xs:attribute name="dateIn" type="xs:string"/>
+                <xs:attribute name="dateCh" type="xs:string"/>
+                <xs:attribute name="inn" type="xs:string"/>
+                <xs:attribute name="kpp" type="xs:string"/>
+                <xs:attribute name="ident" type="xs:string"/>
+                <xs:attribute name="priz" type="xs:string"/>
+                <xs:attribute name="prLoro" type="xs:string"/>
+                <xs:attribute name="dataOn" type="xs:string"/>
+                <xs:attribute name="mmt" type="xs:string"/>
+                <xs:attribute name="ltime" type="xs:string"/>
+                <xs:attribute name="koduh" type="xs:string"/>
+                <xs:attribute name="swBic" type="xs:string"/>
+                <xs:attribute name="swBranch" type="xs:string"/>
+                <xs:attribute name="osnov" type="xs:string"/>
+                <xs:attribute name="bicGk" type="xs:string"/>
+                <xs:attribute name="bicTb" type="xs:string"/>
+                <xs:attribute name="hoffice" type="xs:string"/>
+                <xs:attribute name="koduhGk" type="xs:string"/>
+                <xs:attribute name="identGk" type="xs:string"/>
+                <xs:attribute name="chief" type="xs:string"/>
+                <xs:attribute name="clName" type="xs:string"/>
+                <xs:attribute name="nameing" type="xs:string"/>
+                <xs:attribute name="nameF1" type="xs:string"/>
+                <xs:attribute name="nnpIng" type="xs:string"/>
+                <xs:attribute name="typeCode" type="xs:string"/>
+                <xs:attribute name="besp" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="Loro">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника счетов Loro</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="LoroEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета справочника счетов Loro</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="newNum" type="xs:string"/>
+                <xs:attribute name="swBic" type="xs:string"/>
+                <xs:attribute name="swBranch" type="xs:string"/>
+                <xs:attribute name="newNum1" type="xs:string"/>
+                <xs:attribute name="identKo" type="xs:string"/>
+                <xs:attribute name="isoDig" type="xs:string"/>
+                <xs:attribute name="name1" type="xs:string"/>
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="state" type="xs:string"/>
+                <xs:attribute name="name2" type="xs:string"/>
+                <xs:attribute name="inn" type="xs:string"/>
+                <xs:attribute name="dton" type="xs:string"/>
+                <xs:attribute name="ks" type="xs:string"/>
+                <xs:attribute name="prizn" type="xs:string"/>
+                <xs:attribute name="koduh" type="xs:string"/>
+                <xs:attribute name="tml" type="xs:string"/>
+                <xs:attribute name="paySum" type="xs:string"/>
+                <xs:attribute name="lim" type="xs:string"/>
+                <xs:attribute name="nraspop" type="xs:string"/>
+                <xs:attribute name="info" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="Nostro">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника счетов Nostro</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="NostroEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета справочника счетов Nostro</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="adres" type="xs:string"/>
+                <xs:attribute name="bic" type="xs:string"/>
+                <xs:attribute name="state" type="xs:string"/>
+                <xs:attribute name="coders" type="xs:string"/>
+                <xs:attribute name="isoVal" type="xs:string"/>
+                <xs:attribute name="ksNostro" type="xs:string"/>
+                <xs:attribute name="nostro" type="xs:string"/>
+                <xs:attribute name="accTmn" type="xs:string"/>
+                <xs:attribute name="accAviso" type="xs:string"/>
+                <xs:attribute name="accSrok" type="xs:string"/>
+                <xs:attribute name="ksPay" type="xs:string"/>
+                <xs:attribute name="flOsn" type="xs:string"/>
+                <xs:attribute name="flMulti" type="xs:string"/>
+                <xs:attribute name="ksClnt" type="xs:string"/>
+                <xs:attribute name="flOwn" type="xs:string"/>
+                <xs:attribute name="flOper" type="xs:string"/>
+                <xs:attribute name="flJob" type="xs:string"/>
+                <xs:attribute name="accQmt" type="xs:string"/>
+                <xs:attribute name="loko" type="xs:string"/>
+                <xs:attribute name="scNostro" type="xs:string"/>
+                <xs:attribute name="isoCntr" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="BalAccInFrgnBanks">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника балансовых счетов в иностранных банках</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="BalAccInFrgnBanksEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета справочника балансовых счетов в иностранных банках</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="balAcc" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="State">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника административных единиц и стран</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="StateEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета административных единиц и стран</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="isoCountry" type="xs:string"/>
+                <xs:attribute name="fullName" type="xs:string"/>
+                <xs:attribute name="shortName" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="LetterType">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника типов писем</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="LetterTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета типов писем</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="messageType" type="xs:string"/>
+                <xs:attribute name="messageText" type="xs:string"/>
+                <xs:attribute name="systemName" type="xs:string"/>
+                <xs:attribute name="possibleDocType" type="xs:string"/>
+                <xs:attribute name="canSendToUser" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="SalType">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника видов зачисления</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="SalTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета видов зачисления</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="SalResult">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника значений, используемых при квитовании ЭР</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="SalResultEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета справочника значений, используемых при квитовании ЭР</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="sbrfValue" type="xs:string"/>
+                <xs:attribute name="ticketResult" type="xs:string"/>
+                <xs:attribute name="sbrfBanksMsg" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="PaymentType">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника видов платежа</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="PaymentTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета видов платежа</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="kind" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="PaymentQueue">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника очередностей платежа</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="PaymentQueueEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета очередностей платежа</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="TaxKbk">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника КБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TaxKbkEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета КБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="TaxStat">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника показателей статуса налогоплательщика</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TaxStatEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета показателей статуса налогоплательщика</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="TaxOsn">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника показателей основания платежа</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TaxOsnEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета показателей основания платежа</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="TaxTerm">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника показателей налогового периода</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TaxTermEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета показателей налогового периода</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="TaxPaymentType">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника показателей типа платежа</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TaxPaymentTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета показателей типа платежа</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="CodeDescriptionEntry"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:element name="CurrencyStringsRu">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника написания валют</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="CurrencyStringsRuEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета справочника написания валют по-русски</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Код валюты (цифровой)</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:length value="3"/>
+                            <xs:pattern value="[A-Z0-9]{1}[0-9]{2}"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="fractDigits" type="xs:integer" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Количество знаков дробных единиц в 1 целой единице</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="whole1" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Склонение одной целой единицы</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="30"/>
+                            <xs:minLength value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="whole2" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Склонение двух целых единиц</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="30"/>
+                            <xs:minLength value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="whole3" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Склонение пяти целых единиц</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="30"/>
+                            <xs:minLength value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="wholeGender" type="xs:integer" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Род наименования целой единицы</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="fract1" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Склонение одной дробной единицы</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="30"/>
+                            <xs:minLength value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="fract2" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Склонение двух дробных единиц</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="30"/>
+                            <xs:minLength value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="fract3" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Склонение пяти дробных единиц</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="30"/>
+                            <xs:minLength value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="fractGender" type="xs:integer" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Род наименования целой единицы</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="ArgumentDoc">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника обосновывающих</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ArgumentDocEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета справочника обосновывающих документов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="num" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>номер</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="docType" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Наименование типа документа</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="BankAgreement">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника соглашений с банком</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="BankAgreementEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета справочника соглашенйи с банком</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="text" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Текст соглашения с банком</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="docType" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Наименование типа документа</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="CliringStructure">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для структуры национальных клиринговых кодов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="CliringStructureEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета структуры национальных клиринговых кодов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="countryIso" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>ISO-код страны</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="countryNameRus" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Наименование страны на русском языке</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="note" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Обозначение национального клирингового кода</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="fullName" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Наименование</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="name" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Сокращение</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="format" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Формат</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="coyntryCode" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Код страны (цифровой)</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="Instruction23">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника кодов инструкции 23Е</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Instruction23Entry">
+        <xs:annotation>
+            <xs:documentation>Описание строки репликационного пакета кодов инструкций 23Е</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>код</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="desc" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>описание</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="compability" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>не допускать совместное использование с кодами</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="MzpCardType">
+        <xs:annotation>
+            <xs:documentation>Справочник типов пластиковых карт ЗП проект</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="MzpCardTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник типов пластиковых карт ЗП проект</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="typeCode" type="xs:string"/>
+                <xs:attribute name="typeName" type="xs:string"/>
+                <xs:attribute name="bonusProgramCode" type="xs:string"/>
+                <xs:attribute name="peopleGroupName" type="xs:string"/>
+                <xs:attribute name="peopleGroupCode" type="xs:string"/>
+                <xs:attribute name="depositTypeCode1C" type="xs:string"/>
+                <xs:attribute name="depositSubTypeCode1C" type="xs:string"/>
+                <xs:attribute name="uniqueDesign" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="MzpPersonDocType">
+        <xs:annotation>
+            <xs:documentation>Справочник видов документов, удостоверяющих личность</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="MzpPersonDocTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник видов документов, удостоверяющих личность</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="name" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="GroundDocsType">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника обосновывающих документов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="GroundDocsTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник типов обосновывающих документов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="number" type="xs:string"/>
+                <xs:attribute name="groundDocType" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="DealPassport">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника "Справочник паспортов сделок"</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="DealPassportEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник паспортов сделки</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="docGlobalId" type="xs:string"/>
+                <xs:attribute name="passport" type="xs:string"/>
+                <xs:attribute name="datePassport" type="xs:date"/>
+                <xs:attribute name="comment" type="xs:string"/>
+                <xs:attribute name="dealPassType" type="xs:string"/>
+                <xs:attribute name="dpContractNumCheck" type="xs:string"/>
+                <xs:attribute name="dpContractNumber" type="xs:string"/>
+                <xs:attribute name="dpContractDate" type="xs:date"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="CommonSetting">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника "Справочник паспортов сделок"</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="CommonSettingEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник паспортов сделки</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="comment" type="xs:string"/>
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="value" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="HintDictionaryFields">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника "Подсказки по заполнению полей документа"</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="HintDictionaryFieldsEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник подсказок по заполнению полей документа</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="docType" type="xs:string"/>
+                <xs:attribute name="documentFieldName" type="xs:string"/>
+                <xs:attribute name="hint" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="FileMask">
+        <xs:annotation>
+            <xs:documentation>Справочник масок файлов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="FileMaskEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник масок файлов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="mask" type="xs:string"/>
+                <xs:attribute name="maskGroup" type="xs:string"/>
+                <xs:attribute name="messageTypeSystemName" type="xs:string"/>
+                <xs:attribute name="messageTypeName" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="InquiryOrderType">
+        <xs:annotation>
+            <xs:documentation>Справочник типов справок</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="InquiryOrderTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник типов справок</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="messagetype" type="xs:string"/>
+                <xs:attribute name="messagetext" type="xs:string"/>
+                <xs:attribute name="messagetitle" type="xs:string"/>
+                <xs:attribute name="systemName" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="InquiryDeliveryType">
+        <xs:annotation>
+            <xs:documentation>Справочник способов предоставления справок</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="InquiryDeliveryTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник способов предоставления справок</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="deliveryName" type="xs:string"/>
+                <xs:attribute name="systemName" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="PlaceOfService">
+        <xs:annotation>
+            <xs:documentation>Справочник способов предоставления справок</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="PlaceOfServiceEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник способов предоставления справок</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="osb" type="xs:string"/>
+                <xs:attribute name="vsp" type="xs:string"/>
+                <xs:attribute name="tb" type="xs:string"/>
+                <xs:attribute name="branchCode" type="xs:string"/>
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="address" type="xs:string"/>
+                <xs:attribute name="federationSubject" type="xs:string"/>
+                <xs:attribute name="subway" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="DocTypeParam">
+        <xs:annotation>
+            <xs:documentation>Справочник параметров типов документов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="DocTypeParamEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник параметров типов документов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="docTypeId" type="xs:string"/>
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="systemName" type="xs:string"/>
+                <xs:attribute name="value" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="RzkBudget">
+        <xs:annotation>
+            <xs:documentation>Справочник структур СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="RzkBudgetEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник структур СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzk_id" type="xs:string"/>
+                <xs:attribute name="caption" type="xs:string"/>
+                <xs:attribute name="beginDate" type="xs:date"/>
+                <xs:attribute name="endDate" type="xs:date"/>
+                <xs:attribute name="finYear" type="xs:int"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="RzkEstimate">
+        <xs:annotation>
+            <xs:documentation>Справочник ЦО СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="RzkEstimateEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник ЦО СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzkId" type="xs:string"/>
+                <xs:attribute name="caption" type="xs:string"/>
+                <xs:attribute name="estKindCaption" type="xs:string"/>
+                <xs:attribute name="rzkBudgetCaption" type="xs:string"/>
+                <xs:attribute name="rzkBudgetId" type="xs:string"/>
+                <xs:attribute name="orgId" type="xs:string"/>
+                <xs:attribute name="checkLimitFlag" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="RzkKesr">
+        <xs:annotation>
+            <xs:documentation>Смета статей доходов и расходов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="RzkKesrEntry">
+        <xs:annotation>
+            <xs:documentation>Смета статей доходов и расходов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzkId" type="xs:string"/>
+                <xs:attribute name="description" type="xs:string"/>
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="budgetCaption" type="xs:string"/>
+                <xs:attribute name="budgetId" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="RzkClassifier1">
+        <xs:annotation>
+            <xs:documentation>Справочник смета доходов и расходов ЦО СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="RzkClassifier1Entry">
+        <xs:annotation>
+            <xs:documentation>Справочник смета доходов и расходов ЦО СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzkId" type="xs:string"/>
+                <xs:attribute name="description" type="xs:string"/>
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="budgetCaption" type="xs:string"/>
+                <xs:attribute name="budgetId" type="xs:string"/>
+                <xs:attribute name="estimateId" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="RzkOrgGroup">
+        <xs:annotation>
+            <xs:documentation>Справочник групп организаций СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="RzkOrgGroupEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник групп организаций СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzkId" type="xs:string"/>
+                <xs:attribute name="caption" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="RzkPayCode">
+        <xs:annotation>
+            <xs:documentation>Справочник видов расчетов СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="RzkPayCodeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник видов расчетов СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzkId" type="xs:string"/>
+                <xs:attribute name="description" type="xs:string"/>
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="budgetCaption" type="xs:string"/>
+                <xs:attribute name="budgetId" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="RzkPlanTerm">
+        <xs:annotation>
+            <xs:documentation>Справочник периодов планирования СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="RzkPlanTermEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник периодов планирования СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzkId" type="xs:string"/>
+                <xs:attribute name="caption" type="xs:string"/>
+                <xs:attribute name="termStart" type="xs:date"/>
+                <xs:attribute name="termEnd" type="xs:date"/>
+                <xs:attribute name="term" type="xs:string"/>
+                <xs:attribute name="budgetCaption" type="xs:string"/>
+                <xs:attribute name="budgetId" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="RzkFinanceType">
+        <xs:annotation>
+            <xs:documentation>Справочник видов финансирования</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="RzkFinanceTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник видов финансирования</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzkId" type="xs:string"/>
+                <xs:attribute name="description" type="xs:string"/>
+                <xs:attribute name="code" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="RzkPact">
+        <xs:annotation>
+            <xs:documentation>Справочник договоров СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="RzkPactEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник договоров СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzkId" type="xs:string"/>
+                <xs:attribute name="pactNum" type="xs:string"/>
+                <xs:attribute name="pactDate" type="xs:date"/>
+                <xs:attribute name="subject" type="xs:string"/>
+                <xs:attribute name="rzkBudgetCaption" type="xs:string"/>
+                <xs:attribute name="rzkBudgetId" type="xs:string"/>
+                <xs:attribute name="rzkEstimateCaption" type="xs:string"/>
+                <xs:attribute name="rzkEstimateId" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="RzkPlanLimit">
+        <xs:annotation>
+            <xs:documentation>Справочник оборотов по бюджетной строке СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="RzkPlanLimitEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник оборотов по бюджетной строке СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="rzkId" type="xs:string"/>
+                <xs:attribute name="orgAccountId" type="xs:string"/>
+                <xs:attribute name="budgetId" type="xs:string"/>
+                <xs:attribute name="estimateId" type="xs:string"/>
+                <xs:attribute name="stage" type="xs:string"/>
+                <xs:attribute name="term" type="xs:string"/>
+                <xs:attribute name="projectStdId" type="xs:string"/>
+                <xs:attribute name="pactId" type="xs:string"/>
+                <xs:attribute name="kesrCode" type="xs:string"/>
+                <xs:attribute name="classifier1Id" type="xs:string"/>
+                <xs:attribute name="financeTypeId" type="xs:string"/>
+                <xs:attribute name="orgGroupId" type="xs:string"/>
+                <xs:attribute name="entranceAmt" type="xs:string"/>
+                <xs:attribute name="financeAmt" type="xs:string"/>
+                <xs:attribute name="planIncomeAmt" type="xs:string"/>
+                <xs:attribute name="planAmt" type="xs:string"/>
+                <xs:attribute name="realAmt" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="DirType">
+        <xs:annotation>
+            <xs:documentation>Справочник типов списаний</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="DirTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник типов списаний</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="xs:int"/>
+                <xs:attribute name="name" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="ConType">
+        <xs:annotation>
+            <xs:documentation>Справочник типов подтверждающих документов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ConTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник типов подтверждающих документов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="xs:string"/>
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="active" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="ContractSubjectType">
+        <xs:annotation>
+            <xs:documentation>Справочник типов предметов договоров</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ContractSubjectTypeEntry">
+        <xs:annotation>
+            <xs:documentation>Справочник типов предметов договоров</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="xs:int"/>
+                <xs:attribute name="name" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="SubstDoc">
+        <xs:annotation>
+            <xs:documentation>Подтверждающий документ ГОЗ</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="SubstDocEntry">
+        <xs:annotation>
+            <xs:documentation>Подтверждающий документ ГОЗ</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:sequence>
+                    <xs:element name="BFAttachments" type="BFAttachment" maxOccurs="unbounded" minOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="docDate" type="xs:date"/>
+                <xs:attribute name="docNum" type="xs:string"/>
+                <xs:attribute name="substDocType" type="xs:string"/>
+                <xs:attribute name="name" type="xs:string"/>
+                <xs:attribute name="accountNumber" type="AccNumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>№ отдельного счета</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="BFAttachment">
+        <xs:sequence>
+            <xs:element name="attachmentName" type="xs:string"/>
+            <xs:element name="size" type="xs:int"/>
+            <xs:element name="uploadJobId" type="xs:string"/>
+            <xs:element name="fileNetId" type="xs:string"/>
+            <xs:element name="signed" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="GozAct">
+        <xs:annotation>
+            <xs:documentation>Акт ГОЗ</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="GozActEntry">
+        <xs:annotation>
+            <xs:documentation>Акт ГОЗ</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:sequence>
+                    <xs:element name="GOZAct">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты акта</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="ActSumm" maxOccurs="1" minOccurs="1">
+                                    <xs:annotation>
+                                        <xs:documentation>Сумма акта</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:attribute name="summ" type="xs:decimal" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Сумма</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="currIsoCode" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Код валюты, 3 буквы</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:length value="3"/>
+                                                    <xs:pattern value="[A-Z]{1}[A-Z0-9]{2}"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:attribute>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attribute name="actNum" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>№ акта</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="30"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="actDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата акта</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="actType" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Тип акта</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="30"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="sendDate" type="xs:date" use="optional">
+                                <xs:annotation>
+                                    <xs:documentation>Дата предоставления</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="actContent" use="optional">
+                                <xs:annotation>
+                                    <xs:documentation>Содержание акта</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="contractEssenceId" type="UuidSeparated" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Идентификатор контракта в СББОЛ</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Customer" type="Customer" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="Executor" type="Executor" minOccurs="1" maxOccurs="1"/>
+                    <xs:sequence>
+                        <xs:element name="BFAttachments" type="BFAttachment" maxOccurs="unbounded" minOccurs="1"/>
+                    </xs:sequence>
+                </xs:sequence>
+                <xs:attribute name="gozContractId" use="required">
+                    <xs:annotation>
+                        <xs:documentation>ID гос.контракта</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="30"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="GozContract">
+        <xs:annotation>
+            <xs:documentation>Контракт ГОЗ</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="GozContractEntry">
+        <xs:annotation>
+            <xs:documentation>Контракт ГОЗ</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:sequence>
+                    <xs:element name="GOZContract">
+                        <xs:complexType>
+                            <xs:attribute name="contractNum" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>№ контракта</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="createDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата заключения контракта</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="sendDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата предоставления контракта</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="changeDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата последнего изменения</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="endDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата завершения обязательств по контракту</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="contractSubjectType" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Предмет договора, заполняется кодом из справочника Типов предметов договоров UpgRplDictionary/ConTypeEntry/@code</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="3"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ContractAmount">
+                        <xs:complexType>
+                            <xs:all minOccurs="1">
+                                <xs:element name="ContractSumm">
+                                    <xs:annotation>
+                                        <xs:documentation>Сумма контракта</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:attribute name="summ" type="xs:decimal" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Сумма контракта</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="currIsoCode" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Трёхбуквенный код валюты</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:length value="3"/>
+                                                    <xs:pattern value="[A-Z]{1}[A-Z0-9]{2}"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:attribute>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element name="AdvanceSumm" type="xs:decimal">
+                                    <xs:annotation>
+                                        <xs:documentation>Сумма аванса</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="ProfitSumm" type="xs:decimal">
+                                    <xs:annotation>
+                                        <xs:documentation>Согласованный размер прибыли по контракту</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="ExpSumm" type="xs:decimal">
+                                    <xs:annotation>
+                                        <xs:documentation>Сумма расходов (возмещаемые расходы)</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:all>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="TermDeliverPay" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Условия поставки-оплаты</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="512"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="AddInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Дополнительная информация</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="512"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Customer" type="Customer"/>
+                    <xs:element name="Executor" type="Executor"/>
+                    <xs:sequence>
+                        <xs:element name="BFAttachments" type="BFAttachment" maxOccurs="unbounded" minOccurs="1"/>
+                    </xs:sequence>
+                </xs:sequence>
+                <xs:attribute name="gozContractId" use="required">
+                    <xs:annotation>
+                        <xs:documentation>ID гос.контракта</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="30"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="isCustExec" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Клиент является: 0 - Заказчиком, 1 - Исполнителем</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:boolean">
+                            <xs:pattern value="0|1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="Customer">
+        <xs:annotation>
+            <xs:documentation>Заказчик</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="custINN" use="required">
+            <xs:annotation>
+                <xs:documentation>ИНН заказчика</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="12"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="custKPP" use="required">
+            <xs:annotation>
+                <xs:documentation>КПП заказчика</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="9"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="custName" use="required">
+            <xs:annotation>
+                <xs:documentation>Наименование заказчика</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="custAcc" use="optional">
+            <xs:annotation>
+                <xs:documentation>№ отдельного счета заказчика</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="20"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="Executor">
+        <xs:annotation>
+            <xs:documentation>Исполнитель</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="extINN" use="required">
+            <xs:annotation>
+                <xs:documentation>ИНН исполнителя</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="12"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="extKPP" use="required">
+            <xs:annotation>
+                <xs:documentation>КПП исполнителя</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="9"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="extName" use="required">
+            <xs:annotation>
+                <xs:documentation>Наименование исполнителя</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="extAcc" use="optional">
+            <xs:annotation>
+                <xs:documentation>№ отдельного счета исполнителя</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="20"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:simpleType name="UuidSeparated">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="AdmTradePoint">
+        <xs:annotation>
+            <xs:documentation>Список торговых точек</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="AdmTradePointEntry">
+        <xs:annotation>
+            <xs:documentation>Список торговых точек</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="pointName" type="xs:string"/>
+                <xs:attribute name="orgId" type="xs:string"/>
+                <xs:attribute name="dailyLimit" type="xs:long"/>
+                <xs:attribute name="currentDailyLimit" type="xs:long"/>
+                <xs:attribute name="lastPaymentDate" type="xs:date"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="DepositorAndTemplates">
+        <xs:annotation>
+            <xs:documentation>История изменений вносителей средств и шаблонов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="DepositorAndTemplatesEntry">
+        <xs:annotation>
+            <xs:documentation>История изменений вносителей средств и шаблонов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="eventDateTime" type="xs:dateTime"/>
+                <xs:attribute name="eventUser" type="xs:string"/>
+                <xs:attribute name="eventType" type="xs:string"/>
+                <xs:attribute name="eventText" type="xs:string"/>
+
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="AdmCashSymbolsDict">
+        <xs:annotation>
+            <xs:documentation>Список торговых точек</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="AdmCashSymbolsDictEntry">
+        <xs:annotation>
+            <xs:documentation>Список торговых точек</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="cashSymbols" type="xs:long"/>
+                <xs:attribute name="nameSymbols" type="xs:string"/>
+                <xs:attribute name="comment" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="SpravGisGku">
+        <xs:annotation>
+            <xs:documentation>Справочник поставщиков ЖКУ</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="SpravGisGkuEntry">
+        <xs:annotation>
+            <xs:documentation>Запись справочника поставщиков ЖКУ</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="innPayeeGku" use="required">
+                    <xs:annotation>
+                        <xs:documentation>ИНН поставщика ЖКУ (до 12 цифр)</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[0-9]{0,12}"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="ExpressToolsOptions">
+        <xs:annotation>
+            <xs:documentation>История изменений видов срочных инструментов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ExpressToolsOptionsEntry">
+        <xs:annotation>
+            <xs:documentation>История изменений видов срочных инструментов</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="tool" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Наименование инструмента. Например, "Депозит Отзываемый Онлайн"</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="operationKind" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Наименование вида операции.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="350"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="daysFrom" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Кол-во дней, которое относится к началу диапазона доступности операции и участвует в алгоритме расчета даты начала диапазона</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="daysTo" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Кол-во дней, которое относится к началу диапазона доступности операции и участвует в алгоритме расчета даты начала диапазона</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="operPossibly" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Признак доступности операции для инструмента. Возможные значения: 0 - недоступна, 1 - доступна</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:boolean">
+                            <xs:pattern value="0|1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="sumMin" type="xs:decimal" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Размер минимальной суммы для операции</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="sumMax" type="xs:decimal" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Размер максимальной суммы для операции</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="DictsForDeposits">
+        <xs:annotation>
+            <xs:documentation>История изменений ставок по инструментам размещения</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="DictsForDepositsEntry">
+        <xs:annotation>
+            <xs:documentation>История изменений ставок по инструментам размещения</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="xmlFile" type="xs:base64Binary" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>XML-файл с данными ставок</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="dictType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Вид ставки</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="DEPOSIT">
+                                <xs:annotation>
+                                    <xs:documentation>Ставки по депозитам</xs:documentation>
+                                </xs:annotation>
+                            </xs:enumeration>
+                            <xs:enumeration value="NSO">
+                                <xs:annotation>
+                                    <xs:documentation>Ставки по НСО</xs:documentation>
+                                </xs:annotation>
+                            </xs:enumeration>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="actualDate" type="xs:dateTime" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Дата актуальности</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="ExclusiveDay">
+        <xs:annotation>
+            <xs:documentation>История изменений справочника дополнительных рабочих и выходных дней</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ExclusiveDayEntry">
+        <xs:annotation>
+            <xs:documentation>История изменений справочника дополнительных рабочих и выходных дней</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="calendarDate" type="xs:date" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Дата дополнительного рабочего или выходного дня</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="dayType" use="optional" type="xs:int" >
+                    <xs:annotation>
+                        <xs:documentation>Возможные значения: 1 - дополнительный рабочий, 2 - дополнительный выходной/праздничный дни</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="IdCardTypeDict">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для «Справочника типов документов»</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="IdCardTypeDictEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки справочника «Справочник типов документов»</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="documentTypeCode" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Код типа документа</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="10"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="documentTypeName" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Наименование типа документа</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="256"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="available" type="xs:boolean" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Признак доступности</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="Banknotes">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника «Банкноты, монеты для заказа наличных»</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="BanknotesEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки справочника «Банкноты, монеты для заказа наличных»</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="type" type="xs:integer" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Вид денежного знака</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="name" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Вид денежного знака</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="100"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="value" type="xs:decimal" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Размер минимальной суммы для операции</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="currencyCode" type="CurrCodeDigitalType" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="CashSymbolCashOrder">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника «Символы кассового оборота для заказа наличных»</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="CashSymbolCashOrderEntry">
+        <xs:annotation>
+            <xs:documentation>Описание строки справочника «Символы кассового оборота для заказа наличных»</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Код символа</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="3"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="name" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Наименование символа отчетности</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="nttkl" type="xs:integer" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Признак вхождения символа в итог строки Баланс: 0- не входит в итог строки "Баланс", 1 - входит в итог строки "Баланс"</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="CurCash">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника "Валюты, доступные для заказа наличных"</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="UpgRplDictionary"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="CurCashDictEntry">
+        <xs:annotation>
+            <xs:documentation>Описание репликационного пакета для справочника "Валюты, доступные для заказа наличных"</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Entry">
+                <xs:attribute name="code" type="CurrCodeDigitalType" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>

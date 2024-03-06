@@ -1,0 +1,56 @@
+common\models\sbbolxml\response\SuppleInfoType:
+    properties:
+        sendMethod:
+            expose: true
+            access_type: public_method
+            serialized_name: sendMethod
+            accessor:
+                getter: getSendMethod
+                setter: setSendMethod
+            xml_attribute: true
+            type: string
+        deliveryMethod:
+            expose: true
+            access_type: public_method
+            serialized_name: deliveryMethod
+            accessor:
+                getter: getDeliveryMethod
+                setter: setDeliveryMethod
+            xml_attribute: true
+            type: string
+        sendData:
+            expose: true
+            access_type: public_method
+            serialized_name: sendData
+            accessor:
+                getter: getSendData
+                setter: setSendData
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        deliveryData:
+            expose: true
+            access_type: public_method
+            serialized_name: deliveryData
+            accessor:
+                getter: getDeliveryData
+                setter: setDeliveryData
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        receiptDate:
+            expose: true
+            access_type: public_method
+            serialized_name: receiptDate
+            accessor:
+                getter: getReceiptDate
+                setter: setReceiptDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        valueDate:
+            expose: true
+            access_type: public_method
+            serialized_name: valueDate
+            accessor:
+                getter: getValueDate
+                setter: setValueDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

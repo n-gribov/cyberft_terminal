@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="BenefAdd">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="Beneficiar_59" type="Beneficiar_59">
+                        <xs:annotation>
+                            <xs:documentation>59: Бенефициар
+                                Beneficiary Customer
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ImediaBank_56" type="ImediaBank_56" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>56: Банк-посредник</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BankBeneficiar_57" type="BankBeneficiar_57" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Банк бенефициара</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Options" minOccurs="0">
+                        <xs:complexType>
+                            <xs:attribute name="option56a">
+                                <xs:annotation>
+                                    <xs:documentation>Опция "A" или "D" для поля 56а</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="1"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="option57a">
+                                <xs:annotation>
+                                    <xs:documentation>Опция A или D для поля 57а</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="1"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="option59a">
+                                <xs:annotation>
+                                    <xs:documentation>Опция "A" для поля 59а</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="1"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PayDocCurUse" type="BoolType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Платежное поручение в иностранной валюте
+                                по умолчанию чек выстален
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="OtherDoc" type="BoolType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Прочие документы</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="AddInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Примечание</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="2000"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="PaymentDetails_70" type="Max140Text" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Назначение платежа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Vo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Код вида валютной операции</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="OperCodeType">
+                                <xs:pattern value="[0-9]{5}"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="PaymentDirection" type="BoolType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Направление платежа (Платеж внутри или вне СБРФ):
+                                0-внутри
+                                1-вне
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

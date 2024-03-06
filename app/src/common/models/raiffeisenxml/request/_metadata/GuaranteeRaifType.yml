@@ -1,0 +1,81 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\DocDataAType
+        principal:
+            expose: true
+            access_type: public_method
+            serialized_name: Principal
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPrincipal
+                setter: setPrincipal
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\PrincipalAType
+        beneficiar:
+            expose: true
+            access_type: public_method
+            serialized_name: Beneficiar
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiar
+                setter: setBeneficiar
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\BeneficiarAType
+        guarantee:
+            expose: true
+            access_type: public_method
+            serialized_name: Guarantee
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGuarantee
+                setter: setGuarantee
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\GuaranteeAType
+        dealInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DealInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealInfo
+                setter: setDealInfo
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\AddInfoAType
+        guaranteeText:
+            expose: true
+            access_type: public_method
+            serialized_name: GuaranteeText
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGuaranteeText
+                setter: setGuaranteeText
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\GuaranteeTextAType

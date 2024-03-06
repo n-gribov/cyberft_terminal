@@ -1,0 +1,47 @@
+common\models\raiffeisenxml\request\DealPassCred181IRaifType\HelpInfoAType:
+    properties:
+        payments:
+            expose: true
+            access_type: public_method
+            serialized_name: Payments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayments
+                setter: setPayments
+            type: common\models\raiffeisenxml\request\DealPassCred181IRaifType\HelpInfoAType\PaymentsAType
+        directInvesting:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectInvesting
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDirectInvesting
+                setter: setDirectInvesting
+            type: common\models\raiffeisenxml\request\DealPassCred181IRaifType\HelpInfoAType\DirectInvestingAType
+        depositSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DepositSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDepositSum
+                setter: setDepositSum
+            type: float
+        credReceipt:
+            expose: true
+            access_type: public_method
+            serialized_name: CredReceipt
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCredReceipt
+                setter: setCredReceipt
+            type: array<common\models\raiffeisenxml\request\DealPassCred181IRaifType\HelpInfoAType\CredReceiptAType\OperAType>
+            xml_list:
+                inline: false
+                entry_name: Oper
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

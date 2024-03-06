@@ -1,0 +1,78 @@
+common\models\sbbolxml\request\UserDataType:
+    properties:
+        lastName:
+            expose: true
+            access_type: public_method
+            serialized_name: LastName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLastName
+                setter: setLastName
+            type: string
+        firstName:
+            expose: true
+            access_type: public_method
+            serialized_name: FirstName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFirstName
+                setter: setFirstName
+            type: string
+        middleName:
+            expose: true
+            access_type: public_method
+            serialized_name: MiddleName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getMiddleName
+                setter: setMiddleName
+            type: string
+        birthDate:
+            expose: true
+            access_type: public_method
+            serialized_name: BirthDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBirthDate
+                setter: setBirthDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        mobilePhone:
+            expose: true
+            access_type: public_method
+            serialized_name: MobilePhone
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getMobilePhone
+                setter: setMobilePhone
+            type: string
+        workPhone:
+            expose: true
+            access_type: public_method
+            serialized_name: WorkPhone
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getWorkPhone
+                setter: setWorkPhone
+            type: string
+        email:
+            expose: true
+            access_type: public_method
+            serialized_name: Email
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmail
+                setter: setEmail
+            type: string

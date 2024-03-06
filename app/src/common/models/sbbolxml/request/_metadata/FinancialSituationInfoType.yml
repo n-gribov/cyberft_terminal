@@ -1,0 +1,32 @@
+common\models\sbbolxml\request\FinancialSituationInfoType:
+    properties:
+        financialSituationInfoTypeOne:
+            expose: true
+            access_type: public_method
+            serialized_name: FinancialSituationInfoTypeOne
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFinancialSituationInfoTypeOne
+                setter: setFinancialSituationInfoTypeOne
+            type: common\models\sbbolxml\request\FinancialSituationInfoTypeOneType
+        financialSituationInfoTypeTwo:
+            expose: true
+            access_type: public_method
+            serialized_name: FinancialSituationInfoTypeTwo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFinancialSituationInfoTypeTwo
+                setter: setFinancialSituationInfoTypeTwo
+            type: common\models\sbbolxml\request\FinancialSituationInfoTypeTwoType
+        financialSituationInfoTypeThree:
+            expose: true
+            access_type: public_method
+            serialized_name: FinancialSituationInfoTypeThree
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFinancialSituationInfoTypeThree
+                setter: setFinancialSituationInfoTypeThree
+            type: common\models\sbbolxml\request\FinancialSituationInfoTypeThreeType

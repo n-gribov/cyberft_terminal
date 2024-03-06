@@ -1,0 +1,38 @@
+common\models\sbbolxml\response\ExRateDetailType:
+    properties:
+        regionId:
+            expose: true
+            access_type: public_method
+            serialized_name: RegionId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRegionId
+                setter: setRegionId
+            type: string
+        ccy:
+            expose: true
+            access_type: public_method
+            serialized_name: Ccy
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCcy
+                setter: setCcy
+            type: common\models\sbbolxml\response\ExRateDetailType\CcyAType
+        currencyRates:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrencyRates
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCurrencyRates
+                setter: setCurrencyRates
+            type: array<common\models\sbbolxml\response\CurrencyRateType>
+            xml_list:
+                inline: false
+                entry_name: CurrencyRate
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

@@ -1,0 +1,116 @@
+common\models\sbbolxml\request\BeneficiaryType:
+    properties:
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\OrgDataIPType
+        identificationDocumentInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentificationDocumentInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIdentificationDocumentInfo
+                setter: setIdentificationDocumentInfo
+            type: common\models\sbbolxml\request\IdentificationDocumentInfoType
+        migrationCardInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: MigrationCardInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMigrationCardInfo
+                setter: setMigrationCardInfo
+            type: common\models\sbbolxml\request\MigrationCardInfoType
+        rightToStayDocumentInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: RightToStayDocumentInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRightToStayDocumentInfo
+                setter: setRightToStayDocumentInfo
+            type: common\models\sbbolxml\request\RightToStayDocumentInfoType
+        addresses:
+            expose: true
+            access_type: public_method
+            serialized_name: Addresses
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAddresses
+                setter: setAddresses
+            type: common\models\sbbolxml\request\AddressesIPType
+        emailOrSite:
+            expose: true
+            access_type: public_method
+            serialized_name: EmailOrSite
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmailOrSite
+                setter: setEmailOrSite
+            type: string
+        telfax:
+            expose: true
+            access_type: public_method
+            serialized_name: Telfax
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTelfax
+                setter: setTelfax
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: Inn
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getInn
+                setter: setInn
+            type: string
+        authorizedCapitalShareSize:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthorizedCapitalShareSize
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAuthorizedCapitalShareSize
+                setter: setAuthorizedCapitalShareSize
+            type: string
+        beneficiaryReasonInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiaryReasonInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiaryReasonInfo
+                setter: setBeneficiaryReasonInfo
+            type: common\models\sbbolxml\request\BeneficiaryReasonInfoType
+        beneficiaryIsNotForeignOfficerConfirmation:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiaryIsNotForeignOfficerConfirmation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiaryIsNotForeignOfficerConfirmation
+                setter: setBeneficiaryIsNotForeignOfficerConfirmation
+            type: common\models\sbbolxml\request\BeneficiaryType\BeneficiaryIsNotForeignOfficerConfirmationAType

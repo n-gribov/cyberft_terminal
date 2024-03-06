@@ -1,0 +1,170 @@
+#!/usr/bin/env php
+<?php
+$frameworkPath = dirname(__FILE__) . '/vendor/yiisoft/yii2';
+
+
+require(__DIR__ . '/vendor/autoload.php');
+
+require_once($frameworkPath . '/requirements/YiiRequirementChecker.php');
+
+use yii\helpers\ArrayHelper;
+use yii\helpers\BaseConsole;
+
+/**
+ * Applying CLI arguments
+ */
+array_shift($argv);
+foreach ($argv as $index => $arg) {
+    $arg = explode('=', $arg);
+    switch ($arg[0]) {
+        case '-d':
+        case '--default':
+            define('MODE_INTERACTIVE', false);
+            break;
+
+        case '-q':
+        case '--quiet':
+            define('MODE_QUIET', true);
+            break;
+    }
+}
+
+
+define('APP_ENV_FILE', dirname(dirname(__FILE__)) . '/.env');
+define('APP_ENV_CONFIG', 'env-config.php');
+define('PROJECT_DIR', __DIR__);
+
+defined('MODE_INTERACTIVE') or define('MODE_INTERACTIVE', true);
+defined('MODE_QUIET') or define('MODE_QUIET', false);
+
+
+if (!is_dir($frameworkPath)) {
+    exit('Error! Path to framework seems to be incorrect.');
+}
+
+notice('Initializing application');
+
+notice('Requirements check');
+
+$requirementsChecker = new YiiRequirementChecker();
+$requirements        = require 'requirements.php';
+$requirementsChecker->checkYii()->check($requirements);
+if (!empty($requirementsChecker->result['summary']['errors'])) {
+    $requirementsChecker->render();
+    notice('Initialization interrupted');
+    exit;
+}
+
+
+notice('Setting environments');
+
+$envConfig = require(APP_ENV_CONFIG);
+
+$ENV     = [];
+$prevENV = [];
+if (file_exists(APP_ENV_FILE)) {
+    $prevENV = parse_ini_file(APP_ENV_FILE, false, INI_SCANNER_RAW);
+}
+
+$promptedEnvs = [];
+
+foreach ($envConfig as $envName => $config) {
+    if (!is_array($config)) {
+        $config = ['default' => $config];
+    }
+
+    if (isset($prevENV[$envName])) {
+        $config['default'] = $prevENV[$envName];
+    }
+
+    if (empty($config['skipOnPrompt']) && MODE_INTERACTIVE) {
+        $label                  = !empty($config['label']) ? $config['label'] : $envName;
+        $promptedEnvs[$envName] = $ENV[$envName]          = BaseConsole::prompt($label, $config);
+    } else {
+        $ENV[$envName] = isset($config['default']) ? $config['default'] : '';
+    }
+}
+
+if (!empty($prevENV)) {
+    $ENV = ArrayHelper::merge($prevENV, $ENV);
+}
+
+if (empty($ENV['COOKIE_VALIDATION_KEY']) || empty($ENV['ENCRYPTION_KEY'])) {
+    notice("Generating keys");
+
+    if (empty($ENV['COOKIE_VALIDATION_KEY'])) {
+        $ENV['COOKIE_VALIDATION_KEY'] = generateKey();
+    }
+
+    if (empty($ENV['ENCRYPTION_KEY'])) {
+        $ENV['ENCRYPTION_KEY'] = generateKey();
+    }
+}
+
+
+//Writing .env
+$envFileData = '';
+foreach ($ENV as $name => $value) {
+    $envFileData.= "{$name}={$value}" . PHP_EOL;
+}
+
+notice('Writing env file');
+file_put_contents(APP_ENV_FILE, $envFileData);
+
+
+/**
+ * Setting permissions for app resources
+ */
+$paths = [
+    '/yii' => 0755,
+    '/runtime' => 0755,
+    '/backend/config' => 0755,
+    '/common/config' => 0755,
+    '/console/config' => 0755,
+    '/backend/runtime' => 0755,
+    '/backend/web/assets' => 0755,
+];
+
+foreach ($paths as $path => $rights) {
+    chmod(PROJECT_DIR . $path, $rights);
+}
+
+/**
+ * Creating DB
+ */
+notice('Creating database');
+$cn = mysqli_connect($ENV['MYSQL_HOST'], $ENV['MYSQL_USERNAME'], $ENV['MYSQL_PASSWORD']);
+$result = mysqli_query($cn, 'SHOW DATABASES LIKE "' . $ENV['MYSQL_DBNAME'] . '"');
+
+if (!mysqli_fetch_assoc($result)) {
+    mysqli_query($cn, 'CREATE DATABASE ' . $ENV['MYSQL_DBNAME'] . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci');
+} else {
+    notice('Database ' . $ENV['MYSQL_DBNAME'] . ' already exists. Skipping DB creation.', 'red');
+}
+
+function notice($message, $color = '')
+{
+    if (MODE_QUIET) {
+        return;
+    }
+
+    switch ($color) {
+        case 'green':
+            $color = BaseConsole::FG_GREEN;
+            break;
+        case 'red':
+            $color = BaseConsole::FG_RED;
+            break;
+        default:
+            $color = BaseConsole::FG_YELLOW;
+            break;
+    }
+    BaseConsole::output(BaseConsole::ansiFormat($message, [$color]));
+}
+
+function generateKey($length = 32)
+{
+    $bytes  = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
+
+    return strtr(substr(base64_encode($bytes), 0, $length), '+/=', '_-.');
+}

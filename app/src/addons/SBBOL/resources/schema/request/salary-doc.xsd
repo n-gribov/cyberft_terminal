@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="SalaryDoc">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="SalaryDocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты платёжного документа ДБО</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Account" type="AccNumBicType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты расчётного счёта клиента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SalContract">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты зарплатного договора</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:attribute name="admissionValue">
+                                <xs:annotation>
+                                    <xs:documentation><![CDATA[Вид зачисления (цифровое значение вида зачисления)
+                    Возможные значения: заработная плата - 01, стипендия учащимся - 02, пенсия
+                    социальная - 03, пенсия негосударственных пенсионных фондов (кроме НПФ
+                    Сбербанка) - 04, пособия и другие выплаты по безработице - 05, пособия на
+                    детей - 06, прочие выплаты - 07.]]></xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="contrNum" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Номер договора</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="contrDate" type="xs:date" use="required" form="unqualified">
+                                <xs:annotation>
+                                    <xs:documentation>Дата договора</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="filialBankName">
+                                <xs:annotation>
+                                    <xs:documentation>Наименование филиала СБРФ, заключившего с клиентом договор о
+                                        зачислении денежных средств на счета физических лиц
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="filialBankNum" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Номер филиала СБРФ, заключившего с клиентом договор о зачислении
+                                        денежных средств на счета физических лиц
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="bankINN" type="InnType">
+                                <xs:annotation>
+                                    <xs:documentation>ИНН банка</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="corAcc" type="AccNumType">
+                                <xs:annotation>
+                                    <xs:documentation>Номер кор. счета</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Total" type="xs:integer" minOccurs="0"/>
+                    <xs:element name="TotalSum" type="CurrAmountType" minOccurs="0"/>
+                    <xs:element name="TransfInfo">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Transf" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="SName" type="xs:string">
+                                                <xs:annotation>
+                                                    <xs:documentation>Фамилия физического лица</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element name="Name" type="xs:string">
+                                                <xs:annotation>
+                                                    <xs:documentation>Имя физического лица</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element name="MiddleName" type="xs:string" minOccurs="0">
+                                                <xs:annotation>
+                                                    <xs:documentation>Отчество физического лица
+                                                        (у некоторых иностранцев нет отчества)
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element name="AccNum" type="AccNumType">
+                                                <xs:annotation>
+                                                    <xs:documentation>Номер счета физического лица</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element name="Sum" type="CurrAmountType">
+                                                <xs:annotation>
+                                                    <xs:documentation>Сумма платежа
+
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                        </xs:sequence>
+                                        <xs:attribute name="numSt" type="xs:integer">
+                                            <xs:annotation>
+                                                <xs:documentation>Номер п/п (может быть использован при подписи )
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PayDocs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Платежные документы, которыми перечисляется зар. плата</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="PayDocRu" type="SalaryPayDocRu" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="LinkedDocs" type="LinkedDocs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Связанные документы, например, реестр пополнения корп. карт, зарплатные ведомости
+                                и т.п.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ReportPeriod" type="ReportPeriod" minOccurs="0"/>
+                    <xs:element name="Rzk" type="Rzk" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Многострочная аналитика и параметры обработки платежного документа в РЦК (СБК)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SalaryDocData">
+        <xs:annotation>
+            <xs:documentation>Общие реквизиты зарплатной ведомости с требуемой длиной номера документа</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ComDocDataBase">
+                <xs:attribute name="docNum" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Номер документа</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="9"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ReportPeriod">
+        <xs:annotation>
+            <xs:documentation>Отчетный период</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="month" type="MonthType"/>
+        <xs:attribute name="year" type="xs:string"/>
+    </xs:complexType>
+</xs:schema>

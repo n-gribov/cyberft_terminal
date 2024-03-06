@@ -1,0 +1,20 @@
+common\models\raiffeisenxml\request\RequestType\DocIdsAType\DocIdAType:
+    properties:
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        docType:
+            expose: true
+            access_type: public_method
+            serialized_name: docType
+            accessor:
+                getter: getDocType
+                setter: setDocType
+            xml_attribute: true
+            type: string

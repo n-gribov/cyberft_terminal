@@ -1,0 +1,119 @@
+common\models\sbbolxml\request\AdmCashierType\CashierInfoAType\RegAddrAType:
+    properties:
+        regAddrCountryName:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrCountryName
+            accessor:
+                getter: getRegAddrCountryName
+                setter: setRegAddrCountryName
+            xml_attribute: true
+            type: string
+        regAddrCountryLetterCode:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrCountryLetterCode
+            accessor:
+                getter: getRegAddrCountryLetterCode
+                setter: setRegAddrCountryLetterCode
+            xml_attribute: true
+            type: string
+        regAddrCountryCode:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrCountryCode
+            accessor:
+                getter: getRegAddrCountryCode
+                setter: setRegAddrCountryCode
+            xml_attribute: true
+            type: string
+        regAddrZip:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrZip
+            accessor:
+                getter: getRegAddrZip
+                setter: setRegAddrZip
+            xml_attribute: true
+            type: string
+        regAddrSub:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrSub
+            accessor:
+                getter: getRegAddrSub
+                setter: setRegAddrSub
+            xml_attribute: true
+            type: string
+        regAddrArea:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrArea
+            accessor:
+                getter: getRegAddrArea
+                setter: setRegAddrArea
+            xml_attribute: true
+            type: string
+        regAddrCity:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrCity
+            accessor:
+                getter: getRegAddrCity
+                setter: setRegAddrCity
+            xml_attribute: true
+            type: string
+        regAddrSettl:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrSettl
+            accessor:
+                getter: getRegAddrSettl
+                setter: setRegAddrSettl
+            xml_attribute: true
+            type: string
+        regAddrStr:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrStr
+            accessor:
+                getter: getRegAddrStr
+                setter: setRegAddrStr
+            xml_attribute: true
+            type: string
+        regAddrHousenum:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrHousenum
+            accessor:
+                getter: getRegAddrHousenum
+                setter: setRegAddrHousenum
+            xml_attribute: true
+            type: string
+        regAddrCorp:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrCorp
+            accessor:
+                getter: getRegAddrCorp
+                setter: setRegAddrCorp
+            xml_attribute: true
+            type: string
+        regAddrFlat:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrFlat
+            accessor:
+                getter: getRegAddrFlat
+                setter: setRegAddrFlat
+            xml_attribute: true
+            type: string
+        regAddrFull:
+            expose: true
+            access_type: public_method
+            serialized_name: regAddrFull
+            accessor:
+                getter: getRegAddrFull
+                setter: setRegAddrFull
+            xml_attribute: true
+            type: string

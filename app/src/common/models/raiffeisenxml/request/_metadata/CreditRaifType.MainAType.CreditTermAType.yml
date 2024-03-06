@@ -1,0 +1,20 @@
+common\models\raiffeisenxml\request\CreditRaifType\MainAType\CreditTermAType:
+    properties:
+        term:
+            expose: true
+            access_type: public_method
+            serialized_name: term
+            accessor:
+                getter: getTerm
+                setter: setTerm
+            xml_attribute: true
+            type: float
+        termType:
+            expose: true
+            access_type: public_method
+            serialized_name: termType
+            accessor:
+                getter: getTermType
+                setter: setTermType
+            xml_attribute: true
+            type: string

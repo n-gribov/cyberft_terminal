@@ -1,0 +1,58 @@
+common\models\raiffeisenxml\request\AccreditiveRubRaifType\DocDataAType:
+    properties:
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: accNum
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            xml_attribute: true
+            type: string
+        bic:
+            expose: true
+            access_type: public_method
+            serialized_name: bic
+            accessor:
+                getter: getBic
+                setter: setBic
+            xml_attribute: true
+            type: string
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\raiffeisenxml\request\OrgDataType
+        authPers:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthPers
+                setter: setAuthPers
+            type: common\models\raiffeisenxml\request\AccreditiveRubRaifType\DocDataAType\AuthPersAType

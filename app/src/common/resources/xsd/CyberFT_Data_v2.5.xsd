@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://cyberft.ru/xsd/cftdata.02" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://cyberft.ru/xsd/cftdata.02" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+  <xs:element name="SignedDocument" type="SignedDocumentType">
+    <xs:annotation>
+      <xs:documentation>Контейнер для документа с детачной подписью</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="RawData" type="RawDataType">
+    <xs:annotation>
+      <xs:documentation>Контейнер для бинарных данных в текстовом представлении</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Attachments" type="AttachmentsType">
+    <xs:annotation>
+      <xs:documentation>Контейнер приложений к документу</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Attachment" type="AttachmentType">
+    <xs:annotation>
+      <xs:documentation>Приложение к документу</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AttachmentRef" type="AttachmentRefType">
+    <xs:annotation>
+      <xs:documentation>Ссылка на приложенние к документу</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="RefDoc" type="RefDocType">
+    <xs:annotation>
+      <xs:documentation>Ссылка на исходный документ</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Signatures" type="SignaturesType">
+    <xs:annotation>
+      <xs:documentation>Контейнер подписей</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <!-- //////////////////////////////////////////////////////////// -->
+  <xs:complexType name="RawDataType">
+    <xs:simpleContent>
+      <xs:extension base="xs:anySimpleType">
+        <xs:attribute name="Id" type="xs:ID" use="optional"/>
+        <xs:attribute name="mimeType" type="xs:string" use="optional"/>
+        <xs:attribute name="charSet" type="xs:string" use="optional"/>
+        <xs:attribute name="encoding" type="xs:string" use="optional" default="base64"/>
+        <xs:attribute name="filename" type="xs:string" use="optional"/>
+        <xs:attribute name="purpose" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="SignedDocumentType">
+    <xs:sequence>
+      <xs:element name="Header" type="SignedDocumentHeaderType">
+        <xs:annotation>
+          <xs:documentation>Заголовок документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Content" type="ContentType">
+        <xs:annotation>
+          <xs:documentation>Содержимое документа (призвольный тип данных)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element ref="Attachments" minOccurs="0"/>
+      <xs:element ref="Signatures"/>
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:ID" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="SignedDocumentHeaderType">
+    <xs:sequence>
+      <xs:element name="DocNum" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Номер документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocDate" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Дата документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Типа документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocDetails" type="AnyComplexContentType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дополнительная информация по документу</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:ID" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="SignaturesType">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:anyAttribute namespace="##any" processContents="lax"/>
+  </xs:complexType>
+  <xs:complexType name="AttachmentsType">
+    <xs:sequence>
+      <xs:element name="AttachmentRef" type="AttachmentRefType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Ссылка на приложение к реестру</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:ID" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="AttachmentType">
+    <xs:annotation>
+      <xs:documentation>Описание параметров приложенного документа</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DocNum" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Номер приложенного документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocDate" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Дата приложенного документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Типа приложенного документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocDetails" type="AnyComplexContentType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дополнительная информация по приложенному документу</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Content" type="ContentType">
+        <xs:annotation>
+          <xs:documentation>Содержимое приложенного документа (призвольный тип данных)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:ID" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="ContentType">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax"/>
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:ID" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="AttachmentRefType">
+    <xs:annotation>
+      <xs:documentation>Описание типа "ссылка на приложение"</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="FileDigest" type="FileDigestType">
+        <xs:annotation>
+          <xs:documentation>Хеш приложенного файла</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:ID" use="optional"/>
+    <xs:attribute name="URI" type="xs:anyURI" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="FileDigestType">
+    <xs:annotation>
+      <xs:documentation>Хеш документа</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="ds:DigestMethod"/>
+      <xs:element ref="ds:DigestValue"/>
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:ID" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="RefDocType">
+    <xs:annotation>
+      <xs:documentation>Ссылка на исходный документ</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RefDocId" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Id сообщений (DocId)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RefDocDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата сообщений (DocDate)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RefSenderId" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Id отрпавителя(инициатора) сообщения (SenderId)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AnyComplexContentType">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

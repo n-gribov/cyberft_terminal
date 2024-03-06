@@ -1,0 +1,24 @@
+common\models\sbbolxml\request\SettlType:
+    properties:
+        settlType:
+            expose: true
+            access_type: public_method
+            serialized_name: SettlType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSettlType
+                setter: setSettlType
+            type: string
+        settlName:
+            expose: true
+            access_type: public_method
+            serialized_name: SettlName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSettlName
+                setter: setSettlName
+            type: string

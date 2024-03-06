@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\EnableUseSignCorrDictType:
+    properties:
+        active:
+            expose: true
+            access_type: public_method
+            serialized_name: active
+            accessor:
+                getter: getActive
+                setter: setActive
+            xml_attribute: true
+            type: boolean

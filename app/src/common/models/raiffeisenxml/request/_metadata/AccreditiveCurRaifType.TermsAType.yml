@@ -1,0 +1,47 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\TermsAType:
+    properties:
+        deliveryTerms:
+            expose: true
+            access_type: public_method
+            serialized_name: deliveryTerms
+            accessor:
+                getter: getDeliveryTerms
+                setter: setDeliveryTerms
+            xml_attribute: true
+            type: string
+        delivery:
+            expose: true
+            access_type: public_method
+            serialized_name: Delivery
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDelivery
+                setter: setDelivery
+            xml_list:
+                inline: true
+                entry_name: Delivery
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\AccreditiveCurRaifType\TermsAType\DeliveryAType>
+        costs:
+            expose: true
+            access_type: public_method
+            serialized_name: Costs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCosts
+                setter: setCosts
+            type: string
+        confirmationCosts:
+            expose: true
+            access_type: public_method
+            serialized_name: ConfirmationCosts
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getConfirmationCosts
+                setter: setConfirmationCosts
+            type: string

@@ -1,0 +1,114 @@
+common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecDataAType:
+    properties:
+        intRate:
+            expose: true
+            access_type: public_method
+            serialized_name: IntRate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIntRate
+                setter: setIntRate
+            type: float
+        liborRateCode:
+            expose: true
+            access_type: public_method
+            serialized_name: LiborRateCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLiborRateCode
+                setter: setLiborRateCode
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecDataAType\LiborRateCodeAType
+        otherMethod:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherMethod
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOtherMethod
+                setter: setOtherMethod
+            type: string
+        percAllowance:
+            expose: true
+            access_type: public_method
+            serialized_name: PercAllowance
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPercAllowance
+                setter: setPercAllowance
+            type: float
+        otherPayments:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherPayments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOtherPayments
+                setter: setOtherPayments
+            type: string
+        fillingBase:
+            expose: true
+            access_type: public_method
+            serialized_name: FillingBase
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFillingBase
+                setter: setFillingBase
+            type: string
+        paymentSchedule:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentSchedule
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPaymentSchedule
+                setter: setPaymentSchedule
+            type: array<common\models\raiffeisenxml\request\PaymentType>
+            xml_list:
+                inline: false
+                entry_name: Payment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        directInv:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectInv
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDirectInv
+                setter: setDirectInv
+            type: bool
+        secSum:
+            expose: true
+            access_type: public_method
+            serialized_name: SecSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSecSum
+                setter: setSecSum
+            type: float
+        resCredInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ResCredInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getResCredInfo
+                setter: setResCredInfo
+            xml_list:
+                inline: true
+                entry_name: ResCredInfo
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecDataAType\ResCredInfoAType>

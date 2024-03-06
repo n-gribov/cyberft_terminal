@@ -1,0 +1,44 @@
+common\models\sbbolxml\request\LinkedDocsEMType\LDocAType:
+    properties:
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: type
+            accessor:
+                getter: getType
+                setter: setType
+            xml_attribute: true
+            type: string
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        params:
+            expose: true
+            access_type: public_method
+            serialized_name: Params
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getParams
+                setter: setParams
+            type: array<common\models\sbbolxml\request\ParamType>
+            xml_list:
+                inline: false
+                entry_name: Param
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

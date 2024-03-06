@@ -1,0 +1,22 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OtherOrgDataAType\AdmContractAType:
+    properties:
+        uSDetails:
+            expose: true
+            access_type: public_method
+            serialized_name: USDetails
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getUSDetails
+                setter: setUSDetails
+            type: common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OtherOrgDataAType\AdmContractAType\USDetailsAType
+        aDMDetails:
+            expose: true
+            access_type: public_method
+            serialized_name: ADMDetails
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getADMDetails
+                setter: setADMDetails
+            type: common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OtherOrgDataAType\AdmContractAType\ADMDetailsAType

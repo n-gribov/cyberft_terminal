@@ -1,0 +1,38 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\MainAType\AccreditiveTypeAType:
+    properties:
+        irrevocable:
+            expose: true
+            access_type: public_method
+            serialized_name: irrevocable
+            accessor:
+                getter: getIrrevocable
+                setter: setIrrevocable
+            xml_attribute: true
+            type: bool
+        transferable:
+            expose: true
+            access_type: public_method
+            serialized_name: transferable
+            accessor:
+                getter: getTransferable
+                setter: setTransferable
+            xml_attribute: true
+            type: bool
+        irrecvocableConfirmed:
+            expose: true
+            access_type: public_method
+            serialized_name: irrecvocableConfirmed
+            accessor:
+                getter: getIrrecvocableConfirmed
+                setter: setIrrecvocableConfirmed
+            xml_attribute: true
+            type: bool
+        standBy:
+            expose: true
+            access_type: public_method
+            serialized_name: standBy
+            accessor:
+                getter: getStandBy
+                setter: setStandBy
+            xml_attribute: true
+            type: bool

@@ -1,0 +1,27 @@
+/* Секция 3 */
+.contract-data {
+    border-spacing: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.contract-data td {
+    border: 1px solid #000;
+    text-align: center;
+}
+
+.contract-data tr:first-child td:nth-child(1) {
+    width: 15%;
+}
+
+.contract-data tr:first-child td:nth-child(2) {
+    width: 15%;
+}
+
+.contract-data tr:first-child td:nth-child(3) {
+    width: 27%;
+}
+
+.contract-data tr:first-child td:nth-child(4) {
+    width: 15%;
+}

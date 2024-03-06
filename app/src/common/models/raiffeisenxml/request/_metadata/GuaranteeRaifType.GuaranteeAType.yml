@@ -1,0 +1,55 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType\GuaranteeAType:
+    properties:
+        process:
+            expose: true
+            access_type: public_method
+            serialized_name: Process
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getProcess
+                setter: setProcess
+            type: string
+        swift:
+            expose: true
+            access_type: public_method
+            serialized_name: Swift
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSwift
+                setter: setSwift
+            type: string
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\GuaranteeAType\SumAType
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: Type
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getType
+                setter: setType
+            type: string
+        valid:
+            expose: true
+            access_type: public_method
+            serialized_name: Valid
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getValid
+                setter: setValid
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\GuaranteeAType\ValidAType

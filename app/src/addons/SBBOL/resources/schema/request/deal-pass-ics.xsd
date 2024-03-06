@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="DealPassICS">
+        <xs:annotation>
+            <xs:documentation>Ведомость банковского контроля</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocDataDealPassICS">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ResInfo" type="ResInfoICS" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о резиденте</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BeneficiarInfo" type="DealPassBeneficiarInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты иностранного контрагента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ICSData" type="ICSData">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о кредитном договоре/контракте</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TrancheInfo" type="TrancheInfoICS" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о сумме и сроках привлечения (предоставления) траншей
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NumOtherBank" type="DealPassNumFullType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Номер контракта/кредитного договора, ранее оформленного в другом
+                                уполномоченном банке
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SpecData" type="CredSpecDataICSV1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Специальные сведения о кредитном договоре</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="HelpInfo" type="CredHelpInfoICSV1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Справочная информация о кредитном договоре</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения - для АС БФ
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AuthPersICS">
+        <xs:annotation>
+            <xs:documentation>Данные ответственного исполнителя</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Name" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>ФИО</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="60"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Phone" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер телефона, факса</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="45"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Position" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Должность (Подпись)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataDealPassICS">
+        <xs:annotation>
+            <xs:documentation>Общие реквизиты ведомости банковского контроля</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AuthPers" type="AuthPersICS" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Данные ответственного исполнителя</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="docExtGuid" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>В случае досыла документов ссылка на первоначальный документ</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date"  use="required">
+            <xs:annotation>
+                <xs:documentation>Дата создания документа по местному времени в формате ДД.ММ.ГГГГ</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docNum" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер сформированного документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="6"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="transferDebtRights" type="BoolType">
+            <xs:annotation>
+                <xs:documentation>
+                    Признак перехода контракта (кредитного договора) по уступке:
+                    0 - признак не установлен
+                    1 - признак установлен
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="ICSData">
+        <xs:annotation>
+            <xs:documentation>Общие сведения о контракте/кредитном договоре</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Num" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер контракта/кредитного договора</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Date" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата контракта/кредитного договора</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ICSType">
+                <xs:annotation>
+                    <xs:documentation>Тип ВБК: OnContract - По Контракту, OnCredit - По кредитному договору
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="IcsCreationMode">
+                <xs:annotation>
+                    <xs:documentation>Режим создания ВБК (импорт/экспорт товаров и/или услуг, уступка)
+                        VbkConRegistration, VbkConInformation, VbkConLicenseLost, VbkConAnotherBank, VbkConAssignment,
+                        VbkCredRegistration, VbkCredLicenseLost, VbkCredAnotherBank, VbkCredAssignment
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ICSContractTypeCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код вида контракта, заполняемый для экспортных контрактов при представлении
+                        сведений по контракту без контракта (Режим создания ВБК - VbkConInformation)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ICSContractSubTypeCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Подтип документа "Ведомость банковского контроля".
+                        Возможные значения:
+                        SEND_DOCUMENTS - Досыл документов по контракту (кредитному договору)
+                        REGISTRATION - Постановка контракта (кредитного договора) на учет
+                        STATEMENT - ВБК по контракту (кредитному договору)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Curr" type="CurrencyType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Валюта суммы контракта/кредитного договора</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Sum" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сумма контракта/кредитного договора</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="docSum" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Сумма в единицах валюты кредитного договора (дробная величина)
+                                Формат XX.YY с двумя знаками после запятой
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="18"/>
+                                <xs:fractionDigits value="2"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="EndDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата завершения исполнения обязательств</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OtherPayments" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Иные платежи, предусмотренные кредитным договором (за исключением платежей по
+                        возврату основного долга)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="1024"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="AssignedConBankNum" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Уникальный номер контракта/кредитного договора, перешедшего резиденту по уступке
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="25"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="SpecConditions" type="SpecConditionsICS" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Особые условия</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="checkNum" type="BoolType" use="required">
+            <xs:annotation>
+                <xs:documentation>Признак наличия номера контракта/кредитного договора: 1-документ имеет номер, 0-документ без номера</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="checkSum" type="BoolType" use="required">
+            <xs:annotation>
+                <xs:documentation>Признак наличия суммы контракта/кредитного договора: 1-есть сумма, 0-нет суммы</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+</xs:schema>

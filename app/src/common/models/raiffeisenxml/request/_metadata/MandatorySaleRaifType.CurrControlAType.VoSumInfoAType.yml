@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\request\MandatorySaleRaifType\CurrControlAType\VoSumInfoAType:
+    properties:
+        voSum:
+            expose: true
+            access_type: public_method
+            serialized_name: VoSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVoSum
+                setter: setVoSum
+            xml_list:
+                inline: true
+                entry_name: VoSum
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\MandatorySaleRaifType\CurrControlAType\VoSumInfoAType\VoSumAType>

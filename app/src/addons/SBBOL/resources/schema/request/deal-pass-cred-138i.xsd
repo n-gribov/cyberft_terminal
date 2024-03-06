@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="DealPassCred138I">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocDataCCDealPassCred138I">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты паспорта сделки по кредиту 138И</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ResInfo" type="ResInfo">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о резиденте</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BeneficiarInfo" type="DealPassBeneficiarInfo">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты иностранного контрагента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ComDataCred" type="ComDataCred">
+                        <xs:annotation>
+                            <xs:documentation>Общие сведения о кредитном договоре</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TrancheInfo" type="TrancheInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о сумме и сроках привлечения (предоставления) траншей по кредитному договору</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NumPSOtherBank" type="DealPassNumFullType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о ранее оформленном паспорте сделки по контракту</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SpecData" type="CredSpecData">
+                        <xs:annotation>
+                            <xs:documentation>Специальные сведения о кредитном договоре</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="HelpInfo" type="CredHelpInfo">
+                        <xs:annotation>
+                            <xs:documentation>Справочная информация о кредитном договоре</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SuppleInfo" type="SuppleInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Справочная информация</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataCCDealPassCred138I">
+        <xs:annotation>
+            <xs:documentation>Общие реквизиты паспорта сделки по кредиту 138И</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocDataCC">
+                <xs:attribute name="transferDebtRights" type="BoolType">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Признак оформления ПС в случае уступки прав или перевода долга по контракту:
+                            0 - признак не установлен
+                            1 - признак установлен
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ComDataCred">
+        <xs:annotation>
+            <xs:documentation>Общие сведения о кредитном договоре</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ComData">
+                <xs:sequence>
+                    <xs:element name="SpecConditions" type="SpecConditions">
+                        <xs:annotation>
+                            <xs:documentation>Особые условия кредитного договора</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CredSpecData">
+        <xs:annotation>
+            <xs:documentation>Специальные сведения о кредитном договоре</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Percent" type="CredPercentPayments" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Процентные платежи, предусмотренные кредитным договором (за исключением платежей по возврату основного долга)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OtherPay" type="AddInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Иные платежи, предусмотренные кредитным договором (за искл. платежей по возврату основного долга и процентных платежей)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DebtSum" type="CurrAmountType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сумма задолженности по основному долгу на дату, предшествующую дате оформления ПС</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CredHelpInfo">
+        <xs:annotation>
+            <xs:documentation>Справочная информация о кредитном договоре</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="BasePay" type="CredBasePayments" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Основания заполнения графика платежей по возврату основного долга и процентных платежей</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PaymentLoan" type="CredPaymentLoan" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Описание графика платежей по возврату основного долга и процентных платежей</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DirectInvesting" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наличие прямого инвестирования (0 – признак не установлен; 1 – признак установлен)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BailSum" type="CurrAmountType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сумма залогового или другого обеспечения, предусмотренная условиями кредитного договора</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CreditInfos" type="CreditInfos" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Информация о привлечении резидентом кредита (займа), предоставленного нерезидентами на синдицированной (консорциональной) основе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SpecConditions">
+        <xs:annotation>
+            <xs:documentation>Особые условия кредитного договора</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="SumTransfer" type="CurrAmountType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сумма, подлежащая зачислению на счета за рубежом</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SumCurr" type="CurrAmountType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сумма, погашение которой предполагается за счет валютной выручки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Tranche" type="PaymentPeriodCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код срока привлечения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CredPercentPayments">
+        <xs:annotation>
+            <xs:documentation>Процентные платежи, предусмотренные кредитным договором (за исключением платежей по возврату основного долга)</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="PercentType" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Тип процентных платежей:
+                        1 - Фиксированный размер процентной ставки (% годовых)
+                        2 - Код ставки ЛИБОР
+                        3 - Другой метод определения процентной ставки
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="FixPercent" type="xs:decimal" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Фиксированный размер процентной ставки (% годовых)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="LIBOR" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код ставки LIBOR например, Л06978</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OtherMethod" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Другие методы определения процентной ставки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="IncPercent" type="xs:decimal" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Размер процентной надбавки (% годовых)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CredBasePayments">
+        <xs:annotation>
+            <xs:documentation>Основания заполнения графика платежей по возврату основного долга и процентных платежей</xs:documentation>
+        </xs:annotation>
+        <xs:sequence minOccurs="0">
+            <xs:element name="CredData" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сведения из кредитного договора (0 – признак не установлен; 1 – признак установлен)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="EvaluationData" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Оценочные данные (0 – признак не установлен; 1 – признак установлен)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

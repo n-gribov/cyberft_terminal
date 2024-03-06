@@ -1,0 +1,40 @@
+common\models\sbbolxml\request\MandatorySaleType\TransAType:
+    properties:
+        flagNSPut:
+            expose: true
+            access_type: public_method
+            serialized_name: flagNSPut
+            accessor:
+                getter: getFlagNSPut
+                setter: setFlagNSPut
+            xml_attribute: true
+            type: boolean
+        transTo:
+            expose: true
+            access_type: public_method
+            serialized_name: transTo
+            accessor:
+                getter: getTransTo
+                setter: setTransTo
+            xml_attribute: true
+            type: string
+        accTrans:
+            expose: true
+            access_type: public_method
+            serialized_name: AccTrans
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccTrans
+                setter: setAccTrans
+            type: common\models\sbbolxml\request\AccountCurrType
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\sbbolxml\request\CurrAmountType

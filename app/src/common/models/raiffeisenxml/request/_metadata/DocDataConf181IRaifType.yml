@@ -1,0 +1,108 @@
+common\models\raiffeisenxml\request\DocDataConf181IRaifType:
+    properties:
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: accNum
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            xml_attribute: true
+            type: string
+        bic:
+            expose: true
+            access_type: public_method
+            serialized_name: bic
+            accessor:
+                getter: getBic
+                setter: setBic
+            xml_attribute: true
+            type: string
+        authBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: authBankName
+            accessor:
+                getter: getAuthBankName
+                setter: setAuthBankName
+            xml_attribute: true
+            type: string
+        certificate181IDate:
+            expose: true
+            access_type: public_method
+            serialized_name: certificate181IDate
+            accessor:
+                getter: getCertificate181IDate
+                setter: setCertificate181IDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\raiffeisenxml\request\OrgDataCCType
+        authPers:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthPers
+                setter: setAuthPers
+            type: common\models\raiffeisenxml\request\AuthPersCCType
+        updating:
+            expose: true
+            access_type: public_method
+            serialized_name: Updating
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUpdating
+                setter: setUpdating
+            type: bool
+        dealPassNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealPassNum
+                setter: setDealPassNum
+            type: string
+        urgent:
+            expose: true
+            access_type: public_method
+            serialized_name: Urgent
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUrgent
+                setter: setUrgent
+            type: bool
+        outsource:
+            expose: true
+            access_type: public_method
+            serialized_name: Outsource
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOutsource
+                setter: setOutsource
+            type: bool

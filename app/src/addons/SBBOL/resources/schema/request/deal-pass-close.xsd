@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="DealPassClose">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocDataCC">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа ВК ДБО</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DpInfos" type="DpInfos">
+                        <xs:annotation>
+                            <xs:documentation>Информация по ПС</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DpInfos">
+        <xs:annotation>
+            <xs:documentation>Информация по ПС</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DpInfo" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Информация по ПС</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:choice>
+                        <xs:sequence>
+                            <xs:element name="DpNum" type="DealPassNumFullType">
+                                <xs:annotation>
+                                    <xs:documentation>Номер ПС</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="DpDate" type="xs:date" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Дата ПС</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Reasons">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Reason7111" type="BoolType" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Флаг Пункт инструкции 7.1.1 (перевод)
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Reason7112" type="BoolType" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Флаг Пункт инструкции 7.1.1 (закрытие)
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Reason712" type="BoolType" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Флаг Пункт инструкции 7.1.2</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Reason713" type="BoolType" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Флаг Пункт инструкции 7.1.3</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Reason714" type="BoolType" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Флаг Пункт инструкции 7.1.4</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Reason715" type="BoolType" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Флаг Пункт инструкции 7.1.5</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Reason716" type="BoolType" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Флаг Пункт инструкции 7.1.6</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Reason204" type="BoolType" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Флаг Пункт инструкции 20.4</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Attach" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Приложения</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="500"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="SheetsNum" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Приложения на x листах</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="10"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

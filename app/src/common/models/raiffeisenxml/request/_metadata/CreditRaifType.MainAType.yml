@@ -1,0 +1,74 @@
+common\models\raiffeisenxml\request\CreditRaifType\MainAType:
+    properties:
+        docName:
+            expose: true
+            access_type: public_method
+            serialized_name: DocName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocName
+                setter: setDocName
+            type: string
+        creditType:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCreditType
+                setter: setCreditType
+            type: string
+        agreement:
+            expose: true
+            access_type: public_method
+            serialized_name: Agreement
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAgreement
+                setter: setAgreement
+            type: common\models\raiffeisenxml\request\CreditRaifType\MainAType\AgreementAType
+        creditSum:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditSum
+                setter: setCreditSum
+            type: common\models\raiffeisenxml\request\CreditRaifType\MainAType\CreditSumAType
+        creditAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditAcc
+                setter: setCreditAcc
+            type: common\models\raiffeisenxml\request\CreditRaifType\MainAType\CreditAccAType
+        creditDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditDate
+                setter: setCreditDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        creditTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditTerm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditTerm
+                setter: setCreditTerm
+            type: common\models\raiffeisenxml\request\CreditRaifType\MainAType\CreditTermAType

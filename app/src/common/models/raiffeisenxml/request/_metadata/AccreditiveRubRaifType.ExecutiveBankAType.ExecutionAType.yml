@@ -1,0 +1,22 @@
+common\models\raiffeisenxml\request\AccreditiveRubRaifType\ExecutiveBankAType\ExecutionAType:
+    properties:
+        way:
+            expose: true
+            access_type: public_method
+            serialized_name: way
+            accessor:
+                getter: getWay
+                setter: setWay
+            xml_attribute: true
+            type: string
+        anotherWay:
+            expose: true
+            access_type: public_method
+            serialized_name: AnotherWay
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAnotherWay
+                setter: setAnotherWay
+            type: string

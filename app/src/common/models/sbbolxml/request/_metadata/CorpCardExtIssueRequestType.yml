@@ -1,0 +1,68 @@
+common\models\sbbolxml\request\CorpCardExtIssueRequestType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\DocDataType
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\CorpCardExtOrgDataType
+        commonDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: CommonDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCommonDoc
+                setter: setCommonDoc
+            type: common\models\sbbolxml\request\CorpCardExtCommonDocType
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            type: common\models\sbbolxml\request\CorpCardExtBusinessAccNumBicType
+        listCards:
+            expose: true
+            access_type: public_method
+            serialized_name: ListCards
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getListCards
+                setter: setListCards
+            type: array<common\models\sbbolxml\request\CorpCardHolderPersonInfoType>
+            xml_list:
+                inline: false
+                entry_name: PersonInfo
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
+        cardTypeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: CardTypeCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCardTypeCode
+                setter: setCardTypeCode
+            type: string

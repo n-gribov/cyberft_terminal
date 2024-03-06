@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\OrganizationInfoType\AuthPersonsAType\AuthPersonAType\EmployeeAType\CitizenshipAType:
+    properties:
+        countryName:
+            expose: true
+            access_type: public_method
+            serialized_name: countryName
+            accessor:
+                getter: getCountryName
+                setter: setCountryName
+            xml_attribute: true
+            type: string
+        countryNumCode:
+            expose: true
+            access_type: public_method
+            serialized_name: countryNumCode
+            accessor:
+                getter: getCountryNumCode
+                setter: setCountryNumCode
+            xml_attribute: true
+            type: string
+        countryCode:
+            expose: true
+            access_type: public_method
+            serialized_name: countryCode
+            accessor:
+                getter: getCountryCode
+                setter: setCountryCode
+            xml_attribute: true
+            type: string

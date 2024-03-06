@@ -1,0 +1,158 @@
+common\models\raiffeisenxml\response\DealPassCon138IType:
+    properties:
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\raiffeisenxml\response\DocDataCCType
+        dpData:
+            expose: true
+            access_type: public_method
+            serialized_name: DpData
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDpData
+                setter: setDpData
+            type: common\models\raiffeisenxml\response\DealPassCon138IType\DpDataAType
+        resInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ResInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getResInfo
+                setter: setResInfo
+            type: common\models\raiffeisenxml\response\DealPassCon138IType\ResInfoAType
+        beneficiarInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiarInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBeneficiarInfo
+                setter: setBeneficiarInfo
+            type: array<common\models\raiffeisenxml\response\BeneficiarInfoType>
+            xml_list:
+                inline: false
+                entry_name: Beneficiar
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/response'
+        response:
+            expose: true
+            access_type: public_method
+            serialized_name: Response
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getResponse
+                setter: setResponse
+            type: common\models\raiffeisenxml\response\DealPassCon138IType\ResponseAType
+        regInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: RegInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRegInfo
+                setter: setRegInfo
+            type: array<common\models\raiffeisenxml\response\DealPassCon138IType\RegInfoAType\RegAType>
+            xml_list:
+                inline: false
+                entry_name: Reg
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        restrInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: RestrInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRestrInfo
+                setter: setRestrInfo
+            type: array<common\models\raiffeisenxml\response\DealPassCon138IType\RestrInfoAType\RestrAType>
+            xml_list:
+                inline: false
+                entry_name: Restr
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        numPS:
+            expose: true
+            access_type: public_method
+            serialized_name: NumPS
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getNumPS
+                setter: setNumPS
+            type: string
+        refInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: RefInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRefInfo
+                setter: setRefInfo
+            type: common\models\raiffeisenxml\response\DealPassCon138IType\RefInfoAType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\raiffeisenxml\response\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\raiffeisenxml\response\AttachmentsType\AttachmentAType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

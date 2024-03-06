@@ -1,0 +1,82 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType\GroundsAType\GroundAType:
+    properties:
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: num
+            accessor:
+                getter: getNum
+                setter: setNum
+            xml_attribute: true
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: date
+            accessor:
+                getter: getDate
+                setter: setDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        term:
+            expose: true
+            access_type: public_method
+            serialized_name: term
+            accessor:
+                getter: getTerm
+                setter: setTerm
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        taxReturnDate:
+            expose: true
+            access_type: public_method
+            serialized_name: taxReturnDate
+            accessor:
+                getter: getTaxReturnDate
+                setter: setTaxReturnDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docType:
+            expose: true
+            access_type: public_method
+            serialized_name: DocType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocType
+                setter: setDocType
+            type: string
+        orderName:
+            expose: true
+            access_type: public_method
+            serialized_name: OrderName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOrderName
+                setter: setOrderName
+            type: string
+        period:
+            expose: true
+            access_type: public_method
+            serialized_name: Period
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPeriod
+                setter: setPeriod
+            type: string
+        otherDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOtherDoc
+                setter: setOtherDoc
+            type: string

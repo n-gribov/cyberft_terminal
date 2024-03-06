@@ -1,0 +1,13 @@
+common\models\sbbolxml\request\BFAttachmentType:
+    properties:
+        transferJobGUID:
+            expose: true
+            access_type: public_method
+            serialized_name: TransferJobGUID
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTransferJobGUID
+                setter: setTransferJobGUID
+            type: string

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="TicketCl">
+        <xs:sequence minOccurs="0">
+            <xs:element name="Info">
+                <xs:annotation>
+                    <xs:documentation/>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="AcceptDate" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Контролируемая дата, если не заполнено, то обрабатывать @createTime
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="statusStateCode" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Код состояния документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="docExtId" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Идентификатор документа в УС</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="OtherParams" type="Params" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Параметры произвольного вида</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="docId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Тикет СББОЛ (UUID документа)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="createTime" type="xs:dateTime" use="optional">
+            <xs:annotation>
+                <xs:documentation>Дата и время создания квитка (с час. поясами)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

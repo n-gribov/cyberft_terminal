@@ -1,0 +1,34 @@
+common\models\raiffeisenxml\request\Payer50Type:
+    properties:
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\raiffeisenxml\request\AccNumBicType
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: string

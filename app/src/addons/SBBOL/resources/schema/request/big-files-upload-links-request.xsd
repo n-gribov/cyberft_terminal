@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="BigFilesUploadLinksRequest">
+        <xs:annotation>
+            <xs:documentation>Запрос ссылки на загрузку файла в систему БФ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="BigFilesUploadLinkRequest" maxOccurs="unbounded" minOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="BFAttachments" type="BFUploadAttachments" minOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>Список запросов на ссылки в БФ</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="essenceId" type="UuidSeparated">
+                        <xs:annotation>
+                            <xs:documentation>Внешний идентификатор сущности</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="essenceType" type="BigFilesEssenceType">
+                        <xs:annotation>
+                            <xs:documentation>Тип сущности: SUBST_DOC - подтверждающий документ, ACT - акт, CONTRACT - контракт </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BFUploadAttachments">
+        <xs:annotation>
+            <xs:documentation>Список запросов на ссылки в БФ для запроса ссылки на загрузку вложения</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="BFAttachment" type="BFUploadAttachment" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

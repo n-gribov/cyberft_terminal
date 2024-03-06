@@ -1,0 +1,112 @@
+common\models\raiffeisenxml\request\MandatorySaleRaifType\CurrControlAType:
+    properties:
+        dealPassNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealPassNum
+                setter: setDealPassNum
+            type: string
+        dealPassDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassDate
+                setter: setDealPassDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        contractNum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getContractNum
+                setter: setContractNum
+            type: string
+        contractDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractDate
+                setter: setContractDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        vo:
+            expose: true
+            access_type: public_method
+            serialized_name: Vo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getVo
+                setter: setVo
+            type: string
+        servTypeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: ServTypeCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getServTypeCode
+                setter: setServTypeCode
+            type: string
+        noticeNum:
+            expose: true
+            access_type: public_method
+            serialized_name: NoticeNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNoticeNum
+                setter: setNoticeNum
+            type: string
+        noticeDate:
+            expose: true
+            access_type: public_method
+            serialized_name: NoticeDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getNoticeDate
+                setter: setNoticeDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        currDealInquiry:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDealInquiry
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrDealInquiry
+                setter: setCurrDealInquiry
+            type: common\models\raiffeisenxml\request\MandatorySaleRaifType\CurrControlAType\CurrDealInquiryAType
+        voSumInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: VoSumInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVoSumInfo
+                setter: setVoSumInfo
+            type: array<common\models\raiffeisenxml\request\MandatorySaleRaifType\CurrControlAType\VoSumInfoAType\VoSumAType>
+            xml_list:
+                inline: false
+                entry_name: VoSum
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

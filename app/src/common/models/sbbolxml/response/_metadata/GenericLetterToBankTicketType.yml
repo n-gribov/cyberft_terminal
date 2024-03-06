@@ -1,0 +1,20 @@
+common\models\sbbolxml\response\GenericLetterToBankTicketType:
+    properties:
+        crmNum:
+            expose: true
+            access_type: public_method
+            serialized_name: crmNum
+            accessor:
+                getter: getCrmNum
+                setter: setCrmNum
+            xml_attribute: true
+            type: string
+        crmId:
+            expose: true
+            access_type: public_method
+            serialized_name: crmId
+            accessor:
+                getter: getCrmId
+                setter: setCrmId
+            xml_attribute: true
+            type: string

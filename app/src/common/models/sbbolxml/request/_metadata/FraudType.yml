@@ -1,0 +1,79 @@
+common\models\sbbolxml\request\FraudType:
+    properties:
+        login:
+            expose: true
+            access_type: public_method
+            serialized_name: Login
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLogin
+                setter: setLogin
+            type: string
+        tokenInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: TokenInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTokenInfo
+                setter: setTokenInfo
+            type: string
+        httpAcceptLanguage:
+            expose: true
+            access_type: public_method
+            serialized_name: HttpAcceptLanguage
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getHttpAcceptLanguage
+                setter: setHttpAcceptLanguage
+            type: string
+        ipMACAddresses:
+            expose: true
+            access_type: public_method
+            serialized_name: IpMACAddresses
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIpMACAddresses
+                setter: setIpMACAddresses
+            type: string
+        geolocationInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: GeolocationInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getGeolocationInfo
+                setter: setGeolocationInfo
+            type: string
+        pcProp:
+            expose: true
+            access_type: public_method
+            serialized_name: PcProp
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPcProp
+                setter: setPcProp
+            type: string
+        devicePrint:
+            expose: true
+            access_type: public_method
+            serialized_name: DevicePrint
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDevicePrint
+                setter: setDevicePrint
+            type: string

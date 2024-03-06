@@ -1,0 +1,46 @@
+common\models\sbbolxml\response\DownloadLinkType:
+    properties:
+        linkUuid:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkUuid
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getLinkUuid
+                setter: setLinkUuid
+            type: string
+        downloadJobId:
+            expose: true
+            access_type: public_method
+            serialized_name: DownloadJobId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDownloadJobId
+                setter: setDownloadJobId
+            type: string
+        webDownloadLink:
+            expose: true
+            access_type: public_method
+            serialized_name: WebDownloadLink
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getWebDownloadLink
+                setter: setWebDownloadLink
+            type: string
+        state:
+            expose: true
+            access_type: public_method
+            serialized_name: State
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getState
+                setter: setState
+            type: string

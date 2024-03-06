@@ -1,0 +1,11 @@
+common\models\sbbolxml\response\ResponseType\CorrespondentAType:
+    properties:
+        correspUUID:
+            expose: true
+            access_type: public_method
+            serialized_name: correspUUID
+            accessor:
+                getter: getCorrespUUID
+                setter: setCorrespUUID
+            xml_attribute: true
+            type: string

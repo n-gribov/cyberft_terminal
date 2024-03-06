@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="PermBalanceData">
+        <xs:annotation>
+            <xs:documentation>Открытие НСО (заявление)</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocDataPermBalance" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PermBalance" type="PermBalanceType" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Данные по продукту</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DocAccount" type="AccountRubType" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Расчетный счет организации, Счет поддержания НСО</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ReqAccount" type="AccountReturn" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Cчет возврата вклада и %%</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataPermBalance">
+        <xs:annotation>
+            <xs:documentation>Реквизиты документа Заявление о присоединении к условиям размещения денежных средств в виде НСО</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ComDocData">
+                <xs:attribute name="branchSystemName" type="BranchSystemName" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Системное наименование подразделения банка</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="actualCard" type="UuidSeparated">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор карточки договора депозита. Заполняется при импорте договора, сформированного по заявлению</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="contractNum">
+                    <xs:annotation>
+                        <xs:documentation>Номер договора из карточки депозита. Заполняется при импорте договора, сформированного по заявлению</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="contractDate" type="xs:date">
+                    <xs:annotation>
+                        <xs:documentation>Дата договора из карточки депозита. Заполняется при импорте договора, сформированного по заявлению</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="confirming" type="BoolType" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Признак подтверждения согласия с условиями</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PermBalanceType">
+        <xs:annotation>
+            <xs:documentation>Данные по продукту</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="pbType" use="required">
+            <xs:annotation>
+                <xs:documentation>Наименование продукта</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="pbCondition">
+            <xs:annotation>
+                <xs:documentation>Специальные условия. Возможные значения:
+                    «Нет»
+                    «+ 5%»
+                    «+ 10%»
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="1024"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="pbSum" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Сумма неснижаемого остатка</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="pbSumFrom" type="xs:decimal">
+            <xs:annotation>
+                <xs:documentation>Сумма НСО от</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="pbSumTo" type="xs:decimal">
+            <xs:annotation>
+                <xs:documentation>Сумма НСО до</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="pbSumCurrCode" type="CurrCodeDigitalType" use="required">
+            <xs:annotation>
+                <xs:documentation>Цифровой код валюты суммы вклада </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="pbSumCurrCodeISO" type="CurrCodeLetterType" use="required">
+            <xs:annotation>
+                <xs:documentation>Буквенный код валюты суммы вклада</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="pbStartDate" type="xs:date">
+            <xs:annotation>
+                <xs:documentation>Дата начала диапазона срока поддержания НСО</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="pbEndDate" type="xs:date">
+            <xs:annotation>
+                <xs:documentation>Дата окончания диапазона срока поддержания НСО</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="pbTerm" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation>Срок поддержания НСО</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="pbTermFrom" type="xs:int">
+            <xs:annotation>
+                <xs:documentation>Допустимый срок поддержания НСО от</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="pbTermTo" type="xs:int">
+            <xs:annotation>
+                <xs:documentation>Допустимый срок поддержания НСО до</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="interestRate" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Процентная ставка</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,138 @@
+common\models\raiffeisenxml\response\AccountRubType\OtherAccountDataAType:
+    properties:
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        currencyCode:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrencyCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurrencyCode
+                setter: setCurrencyCode
+            type: string
+        currencyISOCode:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrencyISOCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurrencyISOCode
+                setter: setCurrencyISOCode
+            type: string
+        accountType:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccountType
+                setter: setAccountType
+            type: string
+        accountTypeP:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountTypeP
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAccountTypeP
+                setter: setAccountTypeP
+            type: bool
+        business:
+            expose: true
+            access_type: public_method
+            serialized_name: Business
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBusiness
+                setter: setBusiness
+            type: string
+        isNotDelay:
+            expose: true
+            access_type: public_method
+            serialized_name: IsNotDelay
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIsNotDelay
+                setter: setIsNotDelay
+            type: bool
+        isUrgent:
+            expose: true
+            access_type: public_method
+            serialized_name: IsUrgent
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIsUrgent
+                setter: setIsUrgent
+            type: bool
+        createDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CreateDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCreateDate
+                setter: setCreateDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        closeDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CloseDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCloseDate
+                setter: setCloseDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        closed:
+            expose: true
+            access_type: public_method
+            serialized_name: Closed
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getClosed
+                setter: setClosed
+            type: bool
+        sumOvd:
+            expose: true
+            access_type: public_method
+            serialized_name: SumOvd
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSumOvd
+                setter: setSumOvd
+            type: float
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

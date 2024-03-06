@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\DocTypeConfigType:
+    properties:
+        serviceId:
+            expose: true
+            access_type: public_method
+            serialized_name: serviceId
+            accessor:
+                getter: getServiceId
+                setter: setServiceId
+            xml_attribute: true
+            type: string
+        attachLimitedLength:
+            expose: true
+            access_type: public_method
+            serialized_name: attachLimitedLength
+            accessor:
+                getter: getAttachLimitedLength
+                setter: setAttachLimitedLength
+            xml_attribute: true
+            type: integer
+        attachLimitedNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: attachLimitedNumber
+            accessor:
+                getter: getAttachLimitedNumber
+                setter: setAttachLimitedNumber
+            xml_attribute: true
+            type: integer

@@ -1,0 +1,127 @@
+common\models\sbbolxml\request\AcceptInfoType:
+    properties:
+        numDocPayReq:
+            expose: true
+            access_type: public_method
+            serialized_name: NumDocPayReq
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNumDocPayReq
+                setter: setNumDocPayReq
+            type: string
+        dateDocPayReq:
+            expose: true
+            access_type: public_method
+            serialized_name: DateDocPayReq
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDateDocPayReq
+                setter: setDateDocPayReq
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        payer:
+            expose: true
+            access_type: public_method
+            serialized_name: Payer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayer
+                setter: setPayer
+            type: common\models\sbbolxml\request\ClientType
+        payee:
+            expose: true
+            access_type: public_method
+            serialized_name: Payee
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayee
+                setter: setPayee
+            type: common\models\sbbolxml\request\ContragentType
+        summaTreb:
+            expose: true
+            access_type: public_method
+            serialized_name: SummaTreb
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSummaTreb
+                setter: setSummaTreb
+            type: float
+        dateOD:
+            expose: true
+            access_type: public_method
+            serialized_name: DateOD
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDateOD
+                setter: setDateOD
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        punktDog:
+            expose: true
+            access_type: public_method
+            serialized_name: PunktDog
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPunktDog
+                setter: setPunktDog
+            type: string
+        numDog:
+            expose: true
+            access_type: public_method
+            serialized_name: NumDog
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNumDog
+                setter: setNumDog
+            type: string
+        dateDog:
+            expose: true
+            access_type: public_method
+            serialized_name: DateDog
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDateDog
+                setter: setDateDog
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: DocExtId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            type: string
+        comments:
+            expose: true
+            access_type: public_method
+            serialized_name: Comments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getComments
+                setter: setComments
+            type: string
+        dateOfReceipt:
+            expose: true
+            access_type: public_method
+            serialized_name: DateOfReceipt
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDateOfReceipt
+                setter: setDateOfReceipt
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime

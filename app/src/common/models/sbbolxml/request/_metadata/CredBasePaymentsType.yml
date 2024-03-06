@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\CredBasePaymentsType:
+    properties:
+        credData:
+            expose: true
+            access_type: public_method
+            serialized_name: CredData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCredData
+                setter: setCredData
+            type: boolean
+        evaluationData:
+            expose: true
+            access_type: public_method
+            serialized_name: EvaluationData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEvaluationData
+                setter: setEvaluationData
+            type: boolean

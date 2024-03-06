@@ -1,0 +1,99 @@
+common\models\raiffeisenxml\request\LetterOfDepositRaifType\MainAType:
+    properties:
+        depositDate:
+            expose: true
+            access_type: public_method
+            serialized_name: depositDate
+            accessor:
+                getter: getDepositDate
+                setter: setDepositDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        returnDate:
+            expose: true
+            access_type: public_method
+            serialized_name: returnDate
+            accessor:
+                getter: getReturnDate
+                setter: setReturnDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        term:
+            expose: true
+            access_type: public_method
+            serialized_name: term
+            accessor:
+                getter: getTerm
+                setter: setTerm
+            xml_attribute: true
+            type: float
+        interestRate:
+            expose: true
+            access_type: public_method
+            serialized_name: interestRate
+            accessor:
+                getter: getInterestRate
+                setter: setInterestRate
+            xml_attribute: true
+            type: float
+        payFrequency:
+            expose: true
+            access_type: public_method
+            serialized_name: payFrequency
+            accessor:
+                getter: getPayFrequency
+                setter: setPayFrequency
+            xml_attribute: true
+            type: string
+        agreement:
+            expose: true
+            access_type: public_method
+            serialized_name: Agreement
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAgreement
+                setter: setAgreement
+            type: string
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\request\CurrAmountType
+        writeOffAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: WriteOffAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getWriteOffAcc
+                setter: setWriteOffAcc
+            type: common\models\raiffeisenxml\request\WriteOfAccAccountType
+        transferAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: TransferAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTransferAcc
+                setter: setTransferAcc
+            type: common\models\raiffeisenxml\request\TransferAccAccountType
+        enrollmentAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: EnrollmentAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEnrollmentAcc
+                setter: setEnrollmentAcc
+            type: string

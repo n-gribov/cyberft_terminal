@@ -1,0 +1,40 @@
+common\models\raiffeisenxml\request\Charge71AType:
+    properties:
+        chargesParty:
+            expose: true
+            access_type: public_method
+            serialized_name: chargesParty
+            accessor:
+                getter: getChargesParty
+                setter: setChargesParty
+            xml_attribute: true
+            type: string
+        chargesPartyName:
+            expose: true
+            access_type: public_method
+            serialized_name: chargesPartyName
+            accessor:
+                getter: getChargesPartyName
+                setter: setChargesPartyName
+            xml_attribute: true
+            type: string
+        accCommis:
+            expose: true
+            access_type: public_method
+            serialized_name: AccCommis
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccCommis
+                setter: setAccCommis
+            type: common\models\raiffeisenxml\request\AccNumBicType
+        accConv:
+            expose: true
+            access_type: public_method
+            serialized_name: AccConv
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccConv
+                setter: setAccConv
+            type: common\models\raiffeisenxml\request\AccNumBicType

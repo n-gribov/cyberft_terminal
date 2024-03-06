@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://cyberft.ru/xsd/cftdata.01" targetNamespace="http://cyberft.ru/xsd/cftdata.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="StatusReport">
+    <xs:annotation>
+      <xs:documentation>Уведомление о результате обработки транспортного сообщения</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RefDocId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Ссылка(Id документа) на исходное транспортное сообщение</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="StatusCode">
+          <xs:annotation>
+            <xs:documentation>Код статуса сообщения</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="RCVD">
+                <xs:annotation>
+                  <xs:documentation>Received</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="ACTC">
+                <xs:annotation>
+                  <xs:documentation>AcceptedTechnicalValidation</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="ACCP">
+                <xs:annotation>
+                  <xs:documentation>AcceptedCustomerProfile</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="RJCT">
+                <xs:annotation>
+                  <xs:documentation>Rejected</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="PDNG">
+                <xs:annotation>
+                  <xs:documentation>Pending</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="ACDP">
+                <xs:annotation>
+                  <xs:documentation>AcceptedDocumentInProcess</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="ACDC">
+                <xs:annotation>
+                  <xs:documentation>AcceptedDocumentProcessCompleted</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="ErrorCode" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Код ошибки</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ErrorDescription" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Описание ошибки</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="StatusDetails" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Дополнительная информация о статусе</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any namespace="##any" processContents="lax" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:ID" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StatusRequest">
+    <xs:annotation>
+      <xs:documentation>Запрос на получение статуса сообщения</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RefDocId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Ссылка(Id документа) на транспортное сообщение, по которому запрашивается статус</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:ID" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Ack">
+    <xs:annotation>
+      <xs:documentation>Уведомление о получении сообщения. Сообщение пересылается между соседними узлами сети.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RefDocId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Id поученного сообщений</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="RefSenderId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Id отрпавителя(инициатора) сообщения</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:ID" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

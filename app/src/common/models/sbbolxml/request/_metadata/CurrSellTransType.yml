@@ -1,0 +1,52 @@
+common\models\sbbolxml\request\CurrSellTransType:
+    properties:
+        sumSell:
+            expose: true
+            access_type: public_method
+            serialized_name: SumSell
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumSell
+                setter: setSumSell
+            type: common\models\sbbolxml\request\CurrAmountType
+        termSell:
+            expose: true
+            access_type: public_method
+            serialized_name: TermSell
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTermSell
+                setter: setTermSell
+            type: common\models\sbbolxml\request\TermDealType
+        accountSell:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountSell
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccountSell
+                setter: setAccountSell
+            type: common\models\sbbolxml\request\AccountRubType
+        accountCredit:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountCredit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccountCredit
+                setter: setAccountCredit
+            type: common\models\sbbolxml\request\OurRubAccountType
+        commis:
+            expose: true
+            access_type: public_method
+            serialized_name: Commis
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCommis
+                setter: setCommis
+            type: common\models\sbbolxml\request\CommisionType

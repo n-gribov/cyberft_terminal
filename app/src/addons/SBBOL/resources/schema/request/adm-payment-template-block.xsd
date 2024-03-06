@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="AdmPaymentTemplateBlock">
+        <xs:annotation>
+            <xs:documentation>Блокировка\разблокировка элемента справочника Шаблоны внесения средств</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docId" use="required" type="UuidSeparated">
+            <xs:annotation>
+                <xs:documentation>Id элемента справочника в СББОЛ</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="blocked" use="required" type="xs:boolean">
+            <xs:annotation>
+                <xs:documentation>Признак блокировки шаблона, 1 - установить, 0 - снять</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

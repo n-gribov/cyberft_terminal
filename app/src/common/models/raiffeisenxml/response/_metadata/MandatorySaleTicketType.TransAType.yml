@@ -1,0 +1,22 @@
+common\models\raiffeisenxml\response\MandatorySaleTicketType\TransAType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\response\CurrAmountType
+        chargeSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ChargeSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getChargeSum
+                setter: setChargeSum
+            type: common\models\raiffeisenxml\response\CurrAmountType

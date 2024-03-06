@@ -1,0 +1,16 @@
+common\models\sbbolxml\request\RequestType\IncomingAType\OrgsAType:
+    properties:
+        org:
+            expose: true
+            access_type: public_method
+            serialized_name: Org
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrg
+                setter: setOrg
+            xml_list:
+                inline: true
+                entry_name: Org
+                namespace: 'http://bssys.com/upg/request'
+            type: array<string>

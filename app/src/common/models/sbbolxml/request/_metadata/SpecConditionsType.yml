@@ -1,0 +1,33 @@
+common\models\sbbolxml\request\SpecConditionsType:
+    properties:
+        sumTransfer:
+            expose: true
+            access_type: public_method
+            serialized_name: SumTransfer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumTransfer
+                setter: setSumTransfer
+            type: common\models\sbbolxml\request\CurrAmountType
+        sumCurr:
+            expose: true
+            access_type: public_method
+            serialized_name: SumCurr
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumCurr
+                setter: setSumCurr
+            type: common\models\sbbolxml\request\CurrAmountType
+        tranche:
+            expose: true
+            access_type: public_method
+            serialized_name: Tranche
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTranche
+                setter: setTranche
+            type: string

@@ -1,0 +1,90 @@
+common\models\raiffeisenxml\request\DigitalSignType:
+    properties:
+        sN:
+            expose: true
+            access_type: public_method
+            serialized_name: SN
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSN
+                setter: setSN
+            type: string
+        value:
+            expose: true
+            access_type: public_method
+            serialized_name: Value
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getValue
+                setter: setValue
+            type: string
+        issuer:
+            expose: true
+            access_type: public_method
+            serialized_name: Issuer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIssuer
+                setter: setIssuer
+            type: string
+        digestName:
+            expose: true
+            access_type: public_method
+            serialized_name: DigestName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDigestName
+                setter: setDigestName
+            type: string
+        digestVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: DigestVersion
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDigestVersion
+                setter: setDigestVersion
+            type: string
+        signType:
+            expose: true
+            access_type: public_method
+            serialized_name: SignType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSignType
+                setter: setSignType
+            type: string
+        fio:
+            expose: true
+            access_type: public_method
+            serialized_name: Fio
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFio
+                setter: setFio
+            type: string
+        position:
+            expose: true
+            access_type: public_method
+            serialized_name: Position
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPosition
+                setter: setPosition
+            type: string

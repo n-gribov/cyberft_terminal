@@ -1,0 +1,69 @@
+common\models\sbbolxml\response\OrganizationInfoType\SalaryContractsAType\SalaryContractAType\PlacesOfServiceAType\PlaceOfServiceAType:
+    properties:
+        branchCode:
+            expose: true
+            access_type: public_method
+            serialized_name: branchCode
+            accessor:
+                getter: getBranchCode
+                setter: setBranchCode
+            xml_attribute: true
+            type: string
+        bic:
+            expose: true
+            access_type: public_method
+            serialized_name: bic
+            accessor:
+                getter: getBic
+                setter: setBic
+            xml_attribute: true
+            type: string
+        tBNum:
+            expose: true
+            access_type: public_method
+            serialized_name: TBNum
+            accessor:
+                getter: getTBNum
+                setter: setTBNum
+            xml_attribute: true
+            type: string
+        oSBNum:
+            expose: true
+            access_type: public_method
+            serialized_name: OSBNum
+            accessor:
+                getter: getOSBNum
+                setter: setOSBNum
+            xml_attribute: true
+            type: string
+        branchOSBNum:
+            expose: true
+            access_type: public_method
+            serialized_name: BranchOSBNum
+            accessor:
+                getter: getBranchOSBNum
+                setter: setBranchOSBNum
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        adress:
+            expose: true
+            access_type: public_method
+            serialized_name: Adress
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAdress
+                setter: setAdress
+            type: string

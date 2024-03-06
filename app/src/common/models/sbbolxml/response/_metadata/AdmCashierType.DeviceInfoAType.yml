@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\AdmCashierType\DeviceInfoAType:
+    properties:
+        typeADM:
+            expose: true
+            access_type: public_method
+            serialized_name: typeADM
+            accessor:
+                getter: getTypeADM
+                setter: setTypeADM
+            xml_attribute: true
+            type: boolean
+        typeUS:
+            expose: true
+            access_type: public_method
+            serialized_name: typeUS
+            accessor:
+                getter: getTypeUS
+                setter: setTypeUS
+            xml_attribute: true
+            type: boolean
+        tradePointName:
+            expose: true
+            access_type: public_method
+            serialized_name: tradePointName
+            accessor:
+                getter: getTradePointName
+                setter: setTradePointName
+            xml_attribute: true
+            type: string

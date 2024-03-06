@@ -1,0 +1,32 @@
+common\models\sbbolxml\request\ApplForContractType\OtherInfoAType:
+    properties:
+        total:
+            expose: true
+            access_type: public_method
+            serialized_name: Total
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTotal
+                setter: setTotal
+            type: integer
+        admissionsNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmissionsNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdmissionsNumber
+                setter: setAdmissionsNumber
+            type: integer
+        fOT:
+            expose: true
+            access_type: public_method
+            serialized_name: FOT
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFOT
+                setter: setFOT
+            type: float

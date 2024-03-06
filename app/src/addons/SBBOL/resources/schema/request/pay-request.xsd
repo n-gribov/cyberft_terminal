@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="PayRequest">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="AccDoc" type="AccDoc">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты платёжного документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Payer" type="PayRequestClient">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты плательщика</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Payee" type="PayRequestClient">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты получателя</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DepartmentalInfo" type="BudgetDepartmentalInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Налоговая информация: поля 101, 104 - 110 платёжного поручения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PayReqInfo">
+                        <xs:annotation>
+                            <xs:documentation>Поля специфичные для платежного требования и инкасового поручения
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="PaytCondition" type="xs:int" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Условие оплаты (поле 35) Однозначный код значения реквизита. [Кодовые
+                                            значения реквизитов]. Цифровой, 1 значный:
+                                            1- с заранее данным акцептом
+                                            2- требуется получение акцепта
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="DocSend" type="xs:date" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Дата отсылки документа</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="AcptTerm" type="xs:int" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Срок для акцепта (поле 36). Количество дней для акцепта,
+                                            установленного договором, в случае, если платеж производится при условии акцепта
+                                            платежного требования плательщиком. Заполняется только для Платежного Требования
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="DocDispatchDate" type="xs:date" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Дата отсылки (вручения) плательщику предусмотренных договором
+                                            документов (поле 37). Проставляется в случае, если эти документы были отосланы
+                                            (вручены) получателем средств плательщику. Заполняется только для Платежного
+                                            Требования
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="ReceiptDateCollectBank" type="xs:date" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Дата представления документов в банк (поле 48). Дата представления
+                                            документов получателем в обслуживающий его банк
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="ReceiptDate" type="xs:date" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Поступило в банк плательщика (поле 62). Дата поступления расчетного
+                                            документа в банк плательщика.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="FileDate" type="xs:date" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Дата помещения в картотеку (поле 63).</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="ChargeOffDate" type="xs:date" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Списано со счета плательщика (поле 71).</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="MaturityDate" type="xs:date" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Окончание срока акцепта (поле 72).</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="AcptSum" type="xs:long" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Сумма исходного расчетного документа, предъявленного к акцепту (поле
+                                            150). Пока не используется.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="PaytConditionRef" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Условие оплаты (продолжение поля 35). При списании средств без акцепта
+                                            плательщика – ссылка на номер, дату принятия и статью закона или номер, дату и пункт
+                                            договора о праве безакцептного списания.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:minLength value="1"/>
+                                            <xs:maxLength value="130"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="NumPartPay" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Номер частичного платежа.</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:minLength value="1"/>
+                                            <xs:maxLength value="3"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="NumPayOrder" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Номер платежного ордера. Указывается номер платежного ордера
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:minLength value="1"/>
+                                            <xs:maxLength value="6"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="PayOrderDate" type="xs:date" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Дата платежного ордера. Указывается дата платежного ордера в порядке,
+                                            установленном для реквизита "Дата"
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="SumPartPay" type="xs:long" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Указывается сумма частичного платежа цифрами в порядке, установленном
+                                            для реквизита "Сумма"
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="BalancePayDoc" type="xs:long" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Указывается сумма остатка платежа цифрами в порядке, установленном для
+                                            реквизита "Сумма"
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="type" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Параметр, указывающий на тип докмента (integer): 06 – инкассовое поручение; 02 –
+                            платежное требование.
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="01"/>
+                            <xs:enumeration value="02"/>
+                            <xs:enumeration value="06"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PayRequestClient">
+        <xs:complexContent>
+            <xs:extension base="AbstractClient">
+                <xs:attribute name="inn">
+                    <xs:annotation>
+                        <xs:documentation>ИНН (от 5 до 12 или 0)</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[0]{1}|[0-9]{5,12}"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="kpp" type="KppType">
+                    <xs:annotation>
+                        <xs:documentation>КПП (до 9)</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CurrControlInfoRequest">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="CurrControlInfoRequestDocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="VBKInfos">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="VBKInfo" type="VBKInfo" minOccurs="1" maxOccurs="unbounded">
+                                    <xs:annotation>
+                                        <xs:documentation>Ведомость банковского контроля</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CustomsDeclaration" type="Period" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Запросить поступившую в банк информацию о зарегистрированных таможенными органами декларациях на товары
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ViolationCurrencyLaws" type="Period" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Запросить информацию о зарегистрированных банком нарушениях валютного законодательства
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CurrControlInfoRequestDocData">
+        <xs:complexContent>
+            <xs:extension base="ComDocDataBase">
+                <xs:attribute name="docNum" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Номер документа</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="7"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Period">
+        <xs:sequence>
+            <xs:element name="BeginDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation>Дата начала периода</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="EndDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation>Дата завершения периода</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="VBKInfo">
+        <xs:sequence>
+            <xs:element name="LineNumber" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Номер строки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DealPassNum" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Номер ПС</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Contract" type="Contract">
+                <xs:annotation>
+                    <xs:documentation>Информация о контракте/кредитном договоре</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="VBKInfoReqParam" type="VBKInfoReqParam">
+                <xs:annotation>
+                    <xs:documentation>Запросить информацию из ВБК</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="VBKInfoReqParam">
+        <xs:sequence>
+            <xs:element name="FullPart" type="BoolType">
+                <xs:annotation>
+                    <xs:documentation>Предоставить ВБК полностью или частично. Возможные значения: 1 - полностью, 0 - частично</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ContractCredit" type="BoolType">
+                <xs:annotation>
+                    <xs:documentation>Предоставить ВБК по контракту или кредитному договору. Возможные значения: 1 - по контракту, 0 - по кредитному
+                        договору
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Part2" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Раздел II. Сведения о платежах</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Part3Contract" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Раздел III. Сведения о подтвержающих документах</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Part5Contract" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Раздел V. Итоговые данные расчетов по контракту</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Part3Credit" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Раздел III. Сведения об исполнении обязательств по основному долгу по иным основаниям, отличным от проведения
+                        расчетов в денежной форме
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Part4Credit" type="BoolType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Раздел IV. Расчет задолженности по основному долгу</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

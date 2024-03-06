@@ -1,0 +1,42 @@
+common\models\sbbolxml\request\RightToStayDocumentType:
+    properties:
+        visa:
+            expose: true
+            access_type: public_method
+            serialized_name: Visa
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVisa
+                setter: setVisa
+            type: boolean
+        residencePermit:
+            expose: true
+            access_type: public_method
+            serialized_name: ResidencePermit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getResidencePermit
+                setter: setResidencePermit
+            type: boolean
+        temporaryResidencePermit:
+            expose: true
+            access_type: public_method
+            serialized_name: TemporaryResidencePermit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTemporaryResidencePermit
+                setter: setTemporaryResidencePermit
+            type: boolean
+        otherRightToStayDocument:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherRightToStayDocument
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOtherRightToStayDocument
+                setter: setOtherRightToStayDocument
+            type: common\models\sbbolxml\request\RightToStayDocumentType\OtherRightToStayDocumentAType

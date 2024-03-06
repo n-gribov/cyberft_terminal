@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CurrCourseEntry">
+        <xs:annotation>
+            <xs:documentation>Запрос обновления справочника курсов валют</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="lastRequestTime" type="xs:dateTime" use="optional">
+            <xs:annotation>
+                <xs:documentation>Дата и время последнего запроса обновления справочника(с час. поясами)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="beginDate" type="xs:date" use="optional">
+            <xs:annotation>
+                <xs:documentation>Дата начала периода</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="endDate" type="xs:date" use="optional">
+            <xs:annotation>
+                <xs:documentation>Дата конца периода</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="branchSystemName" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Системное наименование подразделения банка</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

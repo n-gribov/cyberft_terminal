@@ -1,0 +1,182 @@
+common\models\sbbolxml\request\CorpCardHolderPersonInfoType:
+    properties:
+        lineNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: lineNumber
+            accessor:
+                getter: getLineNumber
+                setter: setLineNumber
+            xml_attribute: true
+            type: integer
+        extPersonId:
+            expose: true
+            access_type: public_method
+            serialized_name: extPersonId
+            accessor:
+                getter: getExtPersonId
+                setter: setExtPersonId
+            xml_attribute: true
+            type: string
+        sName:
+            expose: true
+            access_type: public_method
+            serialized_name: SName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSName
+                setter: setSName
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        middleName:
+            expose: true
+            access_type: public_method
+            serialized_name: MiddleName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getMiddleName
+                setter: setMiddleName
+            type: string
+        sex:
+            expose: true
+            access_type: public_method
+            serialized_name: Sex
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSex
+                setter: setSex
+            type: boolean
+        birthDt:
+            expose: true
+            access_type: public_method
+            serialized_name: BirthDt
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBirthDt
+                setter: setBirthDt
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: Inn
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getInn
+                setter: setInn
+            type: string
+        accost:
+            expose: true
+            access_type: public_method
+            serialized_name: Accost
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccost
+                setter: setAccost
+            type: string
+        citizenship:
+            expose: true
+            access_type: public_method
+            serialized_name: Citizenship
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCitizenship
+                setter: setCitizenship
+            type: common\models\sbbolxml\request\CitizenshipType
+        resident:
+            expose: true
+            access_type: public_method
+            serialized_name: Resident
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getResident
+                setter: setResident
+            type: boolean
+        keyword:
+            expose: true
+            access_type: public_method
+            serialized_name: Keyword
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getKeyword
+                setter: setKeyword
+            type: string
+        embossingSName:
+            expose: true
+            access_type: public_method
+            serialized_name: EmbossingSName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmbossingSName
+                setter: setEmbossingSName
+            type: string
+        embossingName:
+            expose: true
+            access_type: public_method
+            serialized_name: EmbossingName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmbossingName
+                setter: setEmbossingName
+            type: string
+        postAddresses:
+            expose: true
+            access_type: public_method
+            serialized_name: PostAddresses
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPostAddresses
+                setter: setPostAddresses
+            xml_list:
+                inline: true
+                entry_name: PostAddresses
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\AddressType>
+        contactInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ContactInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContactInfo
+                setter: setContactInfo
+            type: common\models\sbbolxml\request\CorpCardExtContactInfoType
+        docInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DocInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocInfo
+                setter: setDocInfo
+            type: common\models\sbbolxml\request\CorpCardExtDocInfoType

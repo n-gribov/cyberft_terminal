@@ -1,0 +1,137 @@
+common\models\sbbolxml\request\ExchangeMessagesWithBankType:
+    properties:
+        docExtGuid:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtGuid
+            accessor:
+                getter: getDocExtGuid
+                setter: setDocExtGuid
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\ComDocData2Type
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: Type
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getType
+                setter: setType
+            type: string
+        theme:
+            expose: true
+            access_type: public_method
+            serialized_name: Theme
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTheme
+                setter: setTheme
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        templateDocumentType:
+            expose: true
+            access_type: public_method
+            serialized_name: TemplateDocumentType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTemplateDocumentType
+                setter: setTemplateDocumentType
+            type: string
+        templateDocumentNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: TemplateDocumentNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTemplateDocumentNumber
+                setter: setTemplateDocumentNumber
+            type: string
+        templateDocumentDate:
+            expose: true
+            access_type: public_method
+            serialized_name: TemplateDocumentDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTemplateDocumentDate
+                setter: setTemplateDocumentDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        templateDocumentName:
+            expose: true
+            access_type: public_method
+            serialized_name: TemplateDocumentName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTemplateDocumentName
+                setter: setTemplateDocumentName
+            type: string
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: common\models\sbbolxml\request\LinkedDocsEMType
+        bigFileAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFileAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBigFileAttachments
+                setter: setBigFileAttachments
+            type: array<common\models\sbbolxml\request\BigFileAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BigFileAttachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\request\AttachmentsType\AttachmentAType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

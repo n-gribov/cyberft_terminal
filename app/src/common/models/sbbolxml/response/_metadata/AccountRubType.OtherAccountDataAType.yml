@@ -1,0 +1,298 @@
+common\models\sbbolxml\response\AccountRubType\OtherAccountDataAType:
+    properties:
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        currencyCode:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrencyCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurrencyCode
+                setter: setCurrencyCode
+            type: string
+        currCode:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurrCode
+                setter: setCurrCode
+            type: string
+        useOrgNameInDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: UseOrgNameInDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getUseOrgNameInDoc
+                setter: setUseOrgNameInDoc
+            type: boolean
+        orgNameInDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgNameInDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOrgNameInDoc
+                setter: setOrgNameInDoc
+            type: string
+        accountType:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccountType
+                setter: setAccountType
+            type: string
+        accountTypeP:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountTypeP
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAccountTypeP
+                setter: setAccountTypeP
+            type: boolean
+        dBO:
+            expose: true
+            access_type: public_method
+            serialized_name: DBO
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDBO
+                setter: setDBO
+            type: boolean
+        business:
+            expose: true
+            access_type: public_method
+            serialized_name: Business
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBusiness
+                setter: setBusiness
+            type: string
+        isBusinessNewType:
+            expose: true
+            access_type: public_method
+            serialized_name: IsBusinessNewType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getIsBusinessNewType
+                setter: setIsBusinessNewType
+            type: string
+        isNotDelay:
+            expose: true
+            access_type: public_method
+            serialized_name: IsNotDelay
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIsNotDelay
+                setter: setIsNotDelay
+            type: boolean
+        isUrgent:
+            expose: true
+            access_type: public_method
+            serialized_name: IsUrgent
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIsUrgent
+                setter: setIsUrgent
+            type: boolean
+        isIntermed:
+            expose: true
+            access_type: public_method
+            serialized_name: IsIntermed
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIsIntermed
+                setter: setIsIntermed
+            type: boolean
+        createDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CreateDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCreateDate
+                setter: setCreateDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        closeDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CloseDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCloseDate
+                setter: setCloseDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        state:
+            expose: true
+            access_type: public_method
+            serialized_name: State
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getState
+                setter: setState
+            type: string
+        mode:
+            expose: true
+            access_type: public_method
+            serialized_name: Mode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getMode
+                setter: setMode
+            type: string
+        blockedFullInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BlockedFullInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBlockedFullInfo
+                setter: setBlockedFullInfo
+            type: common\models\sbbolxml\response\BlockedFullInfoType
+        cartotecaDocInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: CartotecaDocInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCartotecaDocInfo
+                setter: setCartotecaDocInfo
+            type: common\models\sbbolxml\response\CartotecaDocType
+        minBalance:
+            expose: true
+            access_type: public_method
+            serialized_name: MinBalance
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getMinBalance
+                setter: setMinBalance
+            type: float
+        sumOvd:
+            expose: true
+            access_type: public_method
+            serialized_name: SumOvd
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSumOvd
+                setter: setSumOvd
+            type: float
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        addInfoSBK:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfoSBK
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAddInfoSBK
+                setter: setAddInfoSBK
+            type: common\models\sbbolxml\response\AccountRubType\OtherAccountDataAType\AddInfoSBKAType
+        compensatingProducts:
+            expose: true
+            access_type: public_method
+            serialized_name: CompensatingProducts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCompensatingProducts
+                setter: setCompensatingProducts
+            type: common\models\sbbolxml\response\AccountRubType\OtherAccountDataAType\CompensatingProductsAType
+        creditContracts:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditContracts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCreditContracts
+                setter: setCreditContracts
+            type: array<common\models\sbbolxml\response\AccountRubType\OtherAccountDataAType\CreditContractsAType\CreditContractAType>
+            xml_list:
+                inline: false
+                entry_name: CreditContract
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        contractOfTheStateDefenseOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractOfTheStateDefenseOrder
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getContractOfTheStateDefenseOrder
+                setter: setContractOfTheStateDefenseOrder
+            type: string
+        adm:
+            expose: true
+            access_type: public_method
+            serialized_name: Adm
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAdm
+                setter: setAdm
+            type: boolean
+        selfEnCashment:
+            expose: true
+            access_type: public_method
+            serialized_name: SelfEnCashment
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSelfEnCashment
+                setter: setSelfEnCashment
+            type: boolean

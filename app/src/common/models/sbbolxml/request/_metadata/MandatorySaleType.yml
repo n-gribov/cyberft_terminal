@@ -1,0 +1,188 @@
+common\models\sbbolxml\request\MandatorySaleType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\ComDocDataType
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\sbbolxml\request\AccountRUType
+        advice:
+            expose: true
+            access_type: public_method
+            serialized_name: Advice
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdvice
+                setter: setAdvice
+            type: common\models\sbbolxml\request\MandatorySaleType\AdviceAType
+        totalSum:
+            expose: true
+            access_type: public_method
+            serialized_name: TotalSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTotalSum
+                setter: setTotalSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        subtract:
+            expose: true
+            access_type: public_method
+            serialized_name: Subtract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSubtract
+                setter: setSubtract
+            type: common\models\sbbolxml\request\MandatorySaleType\SubtractAType
+        obligatorySale:
+            expose: true
+            access_type: public_method
+            serialized_name: ObligatorySale
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getObligatorySale
+                setter: setObligatorySale
+            type: common\models\sbbolxml\request\MandatorySaleType\ObligatorySaleAType
+        sell:
+            expose: true
+            access_type: public_method
+            serialized_name: Sell
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSell
+                setter: setSell
+            type: common\models\sbbolxml\request\MandatorySaleType\SellAType
+        trans:
+            expose: true
+            access_type: public_method
+            serialized_name: Trans
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTrans
+                setter: setTrans
+            type: common\models\sbbolxml\request\MandatorySaleType\TransAType
+        commis:
+            expose: true
+            access_type: public_method
+            serialized_name: Commis
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCommis
+                setter: setCommis
+            type: common\models\sbbolxml\request\CommisionType
+        currDealInquiry:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDealInquiry
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrDealInquiry
+                setter: setCurrDealInquiry
+            type: common\models\sbbolxml\request\DocDataType
+        voSumInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: VoSumInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVoSumInfo
+                setter: setVoSumInfo
+            type: array<common\models\sbbolxml\request\VoInfoType>
+            xml_list:
+                inline: false
+                entry_name: VoInfo
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        voDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: VoDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVoDocs
+                setter: setVoDocs
+            type: array<common\models\sbbolxml\request\VoDocType>
+            xml_list:
+                inline: false
+                entry_name: VoDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\sbbolxml\request\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\request\AttachmentsType\AttachmentAType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        bigFileAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFileAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBigFileAttachments
+                setter: setBigFileAttachments
+            type: array<common\models\sbbolxml\request\BigFileAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BigFileAttachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

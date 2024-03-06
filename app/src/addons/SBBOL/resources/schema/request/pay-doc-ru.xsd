@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="PayDocRu">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="AccDoc" type="AccDoc">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты платёжного документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Payer" type="PayDocRuClient">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты плательщика</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Payee" type="Contragent">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты получателя</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DepartmentalInfo" type="BudgetDepartmentalInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Налоговая информация: поля 101, 104 - 110 платёжного поручения
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Information" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Информация получателю</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="210"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Credit" type="Credit" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Доп. реквизиты. Указываются для платёжных документов, проводимых за счёт
+                                предоставляемого банком кредита
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LinkedDocs" type="LinkedDocs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Связанные документы, например, реестр пополнения корп. карт, зарплатные
+                                ведомости
+                                и т.п.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Services" type="Services" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Продукты и услуги плательщика (доп. продукты РЦК, например, консолидация,
+                                финансирование и т.п.)
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CurrDealCertificateInfo" minOccurs="0">
+                        <xs:complexType>
+                            <xs:attribute name="number" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Номер документа (клиентский)</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="10"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="date" type="xs:date" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Rzk" type="Rzk" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Многострочная аналитика и параметры обработки платежного документа в РЦК
+                                (СБК)
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SuppDocs" type="SuppDocs" minOccurs="0"/>
+                </xs:sequence>
+                <xs:attribute name="cancType" type="xs:int">
+                    <xs:annotation>
+                        <xs:documentation>Тип списания.
+                            Заполняется значением UpgRplDictionary/DirTypeEntry/@code
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PayDocRuClient">
+        <xs:complexContent>
+            <xs:extension base="AbstractClient">
+                <xs:attribute name="inn">
+                    <xs:annotation>
+                        <xs:documentation>ИНН (от 5 до 12 или 0)</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[0]{1}|[0-9]{5,12}"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="kpp" type="KppType">
+                    <xs:annotation>
+                        <xs:documentation>КПП (до 9)</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

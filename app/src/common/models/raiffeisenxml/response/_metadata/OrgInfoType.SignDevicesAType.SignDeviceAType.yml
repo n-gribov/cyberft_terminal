@@ -1,0 +1,132 @@
+common\models\raiffeisenxml\response\OrgInfoType\SignDevicesAType\SignDeviceAType:
+    properties:
+        token:
+            expose: true
+            access_type: public_method
+            serialized_name: token
+            accessor:
+                getter: getToken
+                setter: setToken
+            xml_attribute: true
+            type: bool
+        tokenBss:
+            expose: true
+            access_type: public_method
+            serialized_name: tokenBss
+            accessor:
+                getter: getTokenBss
+                setter: setTokenBss
+            xml_attribute: true
+            type: bool
+        safeTouch:
+            expose: true
+            access_type: public_method
+            serialized_name: safeTouch
+            accessor:
+                getter: getSafeTouch
+                setter: setSafeTouch
+            xml_attribute: true
+            type: bool
+        signDeviceId:
+            expose: true
+            access_type: public_method
+            serialized_name: SignDeviceId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSignDeviceId
+                setter: setSignDeviceId
+            type: string
+        cryptotypeId:
+            expose: true
+            access_type: public_method
+            serialized_name: CryptotypeId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCryptotypeId
+                setter: setCryptotypeId
+            type: string
+        cryptoTypeName:
+            expose: true
+            access_type: public_method
+            serialized_name: CryptoTypeName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCryptoTypeName
+                setter: setCryptoTypeName
+            type: string
+        profileName:
+            expose: true
+            access_type: public_method
+            serialized_name: ProfileName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getProfileName
+                setter: setProfileName
+            type: string
+        telForSms:
+            expose: true
+            access_type: public_method
+            serialized_name: TelForSms
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getTelForSms
+                setter: setTelForSms
+            type: string
+        activeSertId:
+            expose: true
+            access_type: public_method
+            serialized_name: ActiveSertId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getActiveSertId
+                setter: setActiveSertId
+            type: string
+        sN:
+            expose: true
+            access_type: public_method
+            serialized_name: SN
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSN
+                setter: setSN
+            type: string
+        issuer:
+            expose: true
+            access_type: public_method
+            serialized_name: Issuer
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getIssuer
+                setter: setIssuer
+            type: string
+        certificates:
+            expose: true
+            access_type: public_method
+            serialized_name: Certificates
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCertificates
+                setter: setCertificates
+            type: array<common\models\raiffeisenxml\response\OrgInfoType\SignDevicesAType\SignDeviceAType\CertificatesAType\CertificateAType>
+            xml_list:
+                inline: false
+                entry_name: Certificate
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

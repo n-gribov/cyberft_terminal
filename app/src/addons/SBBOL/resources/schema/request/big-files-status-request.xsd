@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="BigFilesStatusRequest">
+        <xs:annotation>
+            <xs:documentation>Запрос статуса загруженных файлов</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="UploadJobId" type="UuidSeparated" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Уникальный идентификатор задачи на закачку файла в БФ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DownloadJobId" type="UuidSeparated" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Уникальный идентификатор задачи на скачивание файла из БФ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

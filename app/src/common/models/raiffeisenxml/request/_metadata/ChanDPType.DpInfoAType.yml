@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\request\ChanDPType\DpInfoAType:
+    properties:
+        oper:
+            expose: true
+            access_type: public_method
+            serialized_name: Oper
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOper
+                setter: setOper
+            xml_list:
+                inline: true
+                entry_name: Oper
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\ChanDPType\DpInfoAType\OperAType>

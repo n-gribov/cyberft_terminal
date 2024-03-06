@@ -1,0 +1,40 @@
+common\models\raiffeisenxml\request\CreditRaifType\MainAType\AgreementAType:
+    properties:
+        checkNum:
+            expose: true
+            access_type: public_method
+            serialized_name: checkNum
+            accessor:
+                getter: getCheckNum
+                setter: setCheckNum
+            xml_attribute: true
+            type: bool
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: num
+            accessor:
+                getter: getNum
+                setter: setNum
+            xml_attribute: true
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: date
+            accessor:
+                getter: getDate
+                setter: setDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        agreementType:
+            expose: true
+            access_type: public_method
+            serialized_name: AgreementType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAgreementType
+                setter: setAgreementType
+            type: string

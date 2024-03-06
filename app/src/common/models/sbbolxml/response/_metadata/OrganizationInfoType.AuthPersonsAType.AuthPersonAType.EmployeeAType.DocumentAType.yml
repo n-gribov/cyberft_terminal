@@ -1,0 +1,74 @@
+common\models\sbbolxml\response\OrganizationInfoType\AuthPersonsAType\AuthPersonAType\EmployeeAType\DocumentAType:
+    properties:
+        typeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: typeCode
+            accessor:
+                getter: getTypeCode
+                setter: setTypeCode
+            xml_attribute: true
+            type: string
+        typeName:
+            expose: true
+            access_type: public_method
+            serialized_name: typeName
+            accessor:
+                getter: getTypeName
+                setter: setTypeName
+            xml_attribute: true
+            type: string
+        series:
+            expose: true
+            access_type: public_method
+            serialized_name: series
+            accessor:
+                getter: getSeries
+                setter: setSeries
+            xml_attribute: true
+            type: string
+        number:
+            expose: true
+            access_type: public_method
+            serialized_name: number
+            accessor:
+                getter: getNumber
+                setter: setNumber
+            xml_attribute: true
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: date
+            accessor:
+                getter: getDate
+                setter: setDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        branch:
+            expose: true
+            access_type: public_method
+            serialized_name: branch
+            accessor:
+                getter: getBranch
+                setter: setBranch
+            xml_attribute: true
+            type: string
+        branchCode:
+            expose: true
+            access_type: public_method
+            serialized_name: branchCode
+            accessor:
+                getter: getBranchCode
+                setter: setBranchCode
+            xml_attribute: true
+            type: string
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endDate
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

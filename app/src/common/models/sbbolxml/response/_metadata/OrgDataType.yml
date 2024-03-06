@@ -1,0 +1,56 @@
+common\models\sbbolxml\response\OrgDataType:
+    properties:
+        kpp:
+            expose: true
+            access_type: public_method
+            serialized_name: kpp
+            accessor:
+                getter: getKpp
+                setter: setKpp
+            xml_attribute: true
+            type: string
+        okato:
+            expose: true
+            access_type: public_method
+            serialized_name: okato
+            accessor:
+                getter: getOkato
+                setter: setOkato
+            xml_attribute: true
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        orgName:
+            expose: true
+            access_type: public_method
+            serialized_name: orgName
+            accessor:
+                getter: getOrgName
+                setter: setOrgName
+            xml_attribute: true
+            type: string
+        okpo:
+            expose: true
+            access_type: public_method
+            serialized_name: okpo
+            accessor:
+                getter: getOkpo
+                setter: setOkpo
+            xml_attribute: true
+            type: string
+        orgOGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: orgOGRN
+            accessor:
+                getter: getOrgOGRN
+                setter: setOrgOGRN
+            xml_attribute: true
+            type: string

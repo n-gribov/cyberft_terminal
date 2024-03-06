@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\CreditInfoPrincipalType:
+    properties:
+        payment:
+            expose: true
+            access_type: public_method
+            serialized_name: Payment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayment
+                setter: setPayment
+            type: common\models\sbbolxml\request\CurrAmountType
+        share:
+            expose: true
+            access_type: public_method
+            serialized_name: Share
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getShare
+                setter: setShare
+            type: float

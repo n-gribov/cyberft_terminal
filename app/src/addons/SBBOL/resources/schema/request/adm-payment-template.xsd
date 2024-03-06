@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="AdmPaymentTemplate">
+        <xs:annotation>
+            <xs:documentation>Работа со справочником Шаблоны внесения средств</xs:documentation>
+        </xs:annotation>
+        <xs:all minOccurs="1">
+            <xs:element name="TemplateInfo">
+                <xs:annotation>
+                    <xs:documentation>Информация об устройстве внесения средств</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="deviceType" use="optional" type="AdmDeviceType">
+                        <xs:annotation>
+                            <xs:documentation>Устройства самообслуживания: ADM - "Устройства самообслуживания на территории Клиента (АДМ)", US - "Устройство самообслуживания (УС)"</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="name" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Наименование шаблона</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="128"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PayeeInfo">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="Account">
+                            <xs:annotation>
+                                <xs:documentation>Реквизиты счета</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element name="Bank">
+                                        <xs:annotation>
+                                            <xs:documentation>Реквизиты банка, в котором открыт счёт</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                            <xs:all>
+                                                <xs:element name="name" type="xs:string">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Наименование Банка</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                            </xs:all>
+                                            <xs:attribute name="bic" type="BicType" use="required">
+                                                <xs:annotation>
+                                                    <xs:documentation>БИК</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                            <xs:attribute name="correspAcc" type="AccNumType2023" use="optional">
+                                                <xs:annotation>
+                                                    <xs:documentation>кор счет</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:all>
+                                <xs:attribute name="accNum" type="AccNumType2023" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="payeeName" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Наименование</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="160"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="payeeInn" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>ИНН</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="payeeKpp" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>КПП</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="enrollmentForBudget" type="BoolType" use="required">
+                        <xs:annotation>
+                            <xs:documentation>признак "Зачисление для бюджетополучателя", 1 - признак установлен, 0 - признак не установлен</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="additionalInfo" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Дополнительная информация к назначению платежа</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Budget" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты бюджетополучателя</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="budgetAccount" use="optional" type="AccNumType2023">
+                        <xs:annotation>
+                            <xs:documentation>Лицевой счет бюджетополучателя</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="budgetInn" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>ИНН бюджетополучателя</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="12"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="budgetKbk" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>КБК бюджетополучателя</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="20"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="budgetKpp" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>КПП бюджетополучателя</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="9"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="budgetName" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Наименование бюджетополучателя</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="165"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="budgetOktmo" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>ОКТМО бюджетополучателя</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="11"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CashSymbols" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Кассовые символы</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="CashSymbol" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="CashSymbolId">
+                                    <xs:annotation>
+                                        <xs:documentation>Заполняется кодом кассового символа. Значение справочника UpgRplDictionary/ADMCashSymbolsDict/@cashSymbols</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="3"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="docExtId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Идентификатор сущности  в УС.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docId" type="UuidSeparated" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    Идентификатор сущности в
+                    СББОЛ. При отсутствии
+                    идентификатора - СББОЛ
+                    будет создана новая запись.
+                    При наличии
+                    идентификатора - в СББОЛ
+                    будет произведено
+                    изменение существующей
+                    записи с данным id
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="GenSMSSign" use="optional">
+            <xs:annotation>
+                <xs:documentation>Сгенерировать SMS-код для подтверждения записи?</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:length value="1"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

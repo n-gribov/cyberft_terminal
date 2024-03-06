@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="ContractAdd">
+        <xs:annotation>
+            <xs:documentation>Добавление контракта ГОЗ</xs:documentation>
+        </xs:annotation>
+        <xs:all minOccurs="1">
+            <xs:element name="GOZContract">
+                <xs:complexType>
+                    <xs:attribute name="contractNum" use="required">
+                        <xs:annotation>
+                            <xs:documentation>№ контракта</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="createDate" type="xs:date" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Дата заключения контракта</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="sendDate" type="xs:date" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Дата предоставления контракта</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="changeDate" type="xs:date" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Дата последнего изменения</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="endDate" type="xs:date" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Дата завершения обязательств по контракту</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="contractSubjectType" type="xs:int" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Код типа предмета договора, заполняется кодом из справочника Типов предметов договоров UpgRplDictionary/ContractSubjectTypeEntry/@code</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ContractAmount">
+                <xs:complexType>
+                    <xs:all minOccurs="1">
+                        <xs:element name="ContractSumm">
+                            <xs:annotation>
+                                <xs:documentation>Сумма контракта</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:attribute name="summ" type="xs:decimal" use="required">
+                                    <xs:annotation>
+                                        <xs:documentation>Сумма контракта</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="currIsoCode" type="CurrCodeLetterType" use="required">
+                                    <xs:annotation>
+                                        <xs:documentation>Трёхбуквенный код валюты</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="AdvanceSumm" type="xs:decimal">
+                            <xs:annotation>
+                                <xs:documentation>Сумма аванса</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="ProfitSumm" type="xs:decimal">
+                            <xs:annotation>
+                                <xs:documentation>Согласованный размер прибыли по контракту</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="ExpSumm" type="xs:decimal">
+                            <xs:annotation>
+                                <xs:documentation>Сумма расходов (возмещаемые расходы)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TermDeliverPay" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Условия поставки-оплаты</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="512"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="AddInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дополнительная информация</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="512"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Customer" type="GozCustomer"/>
+            <xs:element name="Executor" type="GozExecutor"/>
+            <xs:element name="BFAttachments" type="BFAttachments">
+                <xs:annotation>
+                    <xs:documentation>Ссылки на вложенные файлы</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="essenceId" type="UuidSeparated" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    Идентификатор документа в СББОЛ. При отсутствии идентификатора - в СББОЛ будет создана новая запись.
+                    При наличии идентификатора - в СББОЛ будет произведено изменение существующей записи с данным id
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="id_GC" type="GozContractId" use="required"/>
+        <xs:attribute name="isCustExec" type="BoolType" use="required">
+            <xs:annotation>
+                <xs:documentation>Клиент является: 1 - Заказчиком, 2 - Исполнителем</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:simpleType name="GozContractId">
+        <xs:annotation>
+            <xs:documentation>ID гос.контракта</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

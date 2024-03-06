@@ -1,0 +1,184 @@
+common\models\sbbolxml\request\ISKForULType:
+    properties:
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\OrgDataType
+        registrationData:
+            expose: true
+            access_type: public_method
+            serialized_name: RegistrationData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRegistrationData
+                setter: setRegistrationData
+            type: common\models\sbbolxml\request\RegistrationDataType
+        addressInformation:
+            expose: true
+            access_type: public_method
+            serialized_name: AddressInformation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAddressInformation
+                setter: setAddressInformation
+            type: common\models\sbbolxml\request\RealAdressType
+        emailOrSite:
+            expose: true
+            access_type: public_method
+            serialized_name: EmailOrSite
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmailOrSite
+                setter: setEmailOrSite
+            type: string
+        telfax:
+            expose: true
+            access_type: public_method
+            serialized_name: Telfax
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTelfax
+                setter: setTelfax
+            type: string
+        authorisedCapitalInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthorisedCapitalInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthorisedCapitalInfo
+                setter: setAuthorisedCapitalInfo
+            type: common\models\sbbolxml\request\AuthorisedCapitalInfoType
+        branchOfProduction:
+            expose: true
+            access_type: public_method
+            serialized_name: BranchOfProduction
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBranchOfProduction
+                setter: setBranchOfProduction
+            type: common\models\sbbolxml\request\BranchOfProductionType
+        licensesInformation:
+            expose: true
+            access_type: public_method
+            serialized_name: LicensesInformation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLicensesInformation
+                setter: setLicensesInformation
+            type: common\models\sbbolxml\request\LicensesInformationType
+        nonResidentOperations:
+            expose: true
+            access_type: public_method
+            serialized_name: NonResidentOperations
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getNonResidentOperations
+                setter: setNonResidentOperations
+            type: boolean
+        businessStanding:
+            expose: true
+            access_type: public_method
+            serialized_name: BusinessStanding
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBusinessStanding
+                setter: setBusinessStanding
+            type: common\models\sbbolxml\request\BusinessStandingType
+        businessRelationsInformation:
+            expose: true
+            access_type: public_method
+            serialized_name: BusinessRelationsInformation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBusinessRelationsInformation
+                setter: setBusinessRelationsInformation
+            type: common\models\sbbolxml\request\BusinessRelationsInformationType
+        typesOfContracts:
+            expose: true
+            access_type: public_method
+            serialized_name: TypesOfContracts
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTypesOfContracts
+                setter: setTypesOfContracts
+            type: common\models\sbbolxml\request\TypesOfContractsType
+        plannedOperationsInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: PlannedOperationsInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPlannedOperationsInfo
+                setter: setPlannedOperationsInfo
+            type: common\models\sbbolxml\request\PlannedOperationsInfoType
+        keyContractors:
+            expose: true
+            access_type: public_method
+            serialized_name: KeyContractors
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getKeyContractors
+                setter: setKeyContractors
+            type: common\models\sbbolxml\request\KeyContractorsType
+        financialSituationInfoAndDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: FinancialSituationInfoAndDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFinancialSituationInfoAndDocs
+                setter: setFinancialSituationInfoAndDocs
+            type: common\models\sbbolxml\request\FinancialSituationInfoAndDocsType
+        profitAcquirers:
+            expose: true
+            access_type: public_method
+            serialized_name: ProfitAcquirers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getProfitAcquirers
+                setter: setProfitAcquirers
+            type: common\models\sbbolxml\request\ProfitAcquirersType
+        orgManagement:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgManagement
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgManagement
+                setter: setOrgManagement
+            type: common\models\sbbolxml\request\OrgManagementType
+        beneficiar:
+            expose: true
+            access_type: public_method
+            serialized_name: Beneficiar
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiar
+                setter: setBeneficiar
+            type: common\models\sbbolxml\request\BeneficiarType

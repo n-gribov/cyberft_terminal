@@ -1,0 +1,71 @@
+common\models\raiffeisenxml\request\ChanDPCredRaifType\CredDataAType:
+    properties:
+        checkNum:
+            expose: true
+            access_type: public_method
+            serialized_name: checkNum
+            accessor:
+                getter: getCheckNum
+                setter: setCheckNum
+            xml_attribute: true
+            type: bool
+        checkSum:
+            expose: true
+            access_type: public_method
+            serialized_name: checkSum
+            accessor:
+                getter: getCheckSum
+                setter: setCheckSum
+            xml_attribute: true
+            type: bool
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: Num
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNum
+                setter: setNum
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: Date
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDate
+                setter: setDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        curr:
+            expose: true
+            access_type: public_method
+            serialized_name: Curr
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurr
+                setter: setCurr
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType\CredDataAType\CurrAType
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: float
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: EndDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

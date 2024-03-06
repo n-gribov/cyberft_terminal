@@ -1,0 +1,84 @@
+common\models\sbbolxml\request\SalaryPayDocRuType:
+    properties:
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        payerAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: payerAcc
+            accessor:
+                getter: getPayerAcc
+                setter: setPayerAcc
+            xml_attribute: true
+            type: string
+        payerBic:
+            expose: true
+            access_type: public_method
+            serialized_name: payerBic
+            accessor:
+                getter: getPayerBic
+                setter: setPayerBic
+            xml_attribute: true
+            type: string
+        payeeAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: payeeAcc
+            accessor:
+                getter: getPayeeAcc
+                setter: setPayeeAcc
+            xml_attribute: true
+            type: string
+        payeeBic:
+            expose: true
+            access_type: public_method
+            serialized_name: payeeBic
+            accessor:
+                getter: getPayeeBic
+                setter: setPayeeBic
+            xml_attribute: true
+            type: string
+        pur:
+            expose: true
+            access_type: public_method
+            serialized_name: pur
+            accessor:
+                getter: getPur
+                setter: setPur
+            xml_attribute: true
+            type: string
+        numSt:
+            expose: true
+            access_type: public_method
+            serialized_name: numSt
+            accessor:
+                getter: getNumSt
+                setter: setNumSt
+            xml_attribute: true
+            type: integer
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\sbbolxml\request\SalaryCurrAmountType

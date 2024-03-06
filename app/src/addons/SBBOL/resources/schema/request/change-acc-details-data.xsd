@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="ChangeAccDetailsData">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocDataChangeAccDetails"/>
+                    <xs:element name="Deposit" type="DepositType"/>
+                    <xs:element name="DocAccount" type="AccountRubType" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="OldReqAccount" type="AccountReturn"/>
+                    <xs:element name="ReqAccount" type="AccountReturn"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataChangeAccDetails">
+        <xs:annotation>
+            <xs:documentation>Общие реквизиты заявления на изменение реквизитов расчетного счета</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OrgData" type="OrgData"/>
+        </xs:sequence>
+        <xs:attribute name="docNum" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{1,50}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата составления документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="branchSystemName" type="BranchSystemName" use="required">
+            <xs:annotation>
+                <xs:documentation>Системное наименование подразделения банка</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="initialCard" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор договора депозита</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="contractNum" use="required">
+            <xs:annotation>
+                <xs:documentation>Договор №, из карточки депозита</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="50"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="contractDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата договора (от), из карточки депозита</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="depositAccNum" type="AccNumType">
+            <xs:annotation>
+                <xs:documentation>Номер депозитного счета</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docToChangeType" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Тип карточки:
+                    AppForDepositNew - для заявлений на изменение реквизитов р/с возврата по депозиту
+                    PermBalanceNew - для заявлений на изменение реквизитов р/с возврата по НСО
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="50"/>
+                    <xs:enumeration value="AppForDepositNew"/>
+                    <xs:enumeration value="PermBalanceNew"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

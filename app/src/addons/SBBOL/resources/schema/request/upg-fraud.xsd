@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg"
+           targetNamespace="http://bssys.com/upg" elementFormDefault="qualified">
+    <xs:element name="FraudParams">
+        <xs:annotation>
+            <xs:documentation>Сессионные параметры для Fraud-мониторинга</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="DevicePrint" minOccurs="1" maxOccurs="1" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Закодированное значение, полученное из скрипта "rsa.js" (Фрод)
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ChannelIndicator" minOccurs="1" maxOccurs="1" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Индикатор канала во фрод-мониторинге:
+                            1. SBB – Толстый клиент
+                            2. UPGCOMMON - клиент УПШ, у которого есть авторизация по логину/паролю
+                            3. UPGLIGHT - клиент УПШ, у которого нет авторизации по логину/паролю (в данный момент это 1С)
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IpMACAddresses" minOccurs="1" maxOccurs="1" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>IP и Mac адреса компьютера устанавливающего связь с банком. Первым идет внешний ip-адрес
+                            Формат: «remoteIP;remoteMac;ip1;mac1;ip2;mac2»</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="GeolocationInfo" minOccurs="1" maxOccurs="1" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Геопозиционирование компьютера устанавливающего связь с банком.
+                            Формат: «Longitude;Latitude;HorizontalAccuracy;Timestamp;Status»</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="PcProp" minOccurs="1" maxOccurs="1" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Уникальные свойтсва компьютера устанавливающего связь с банком.
+                            Формат: «UUID;Идентификатор процессора;Серийный номер BIOS;Серийный номер жесткого диска».</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="TokenInfo" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Данные токена Отображение в запросе (разделитель «;»):
+                            TOKEN;IС1_A10D0010L_C1_VT01KA02;2012-04-13 09:44:59.003;TLS00041485B;100;1
+                            Отображение в интерфейсе:
+                            1. Тип токена: TOKEN
+                            2. Информация о конфигурации токена: IС1_A10D0010L_C1_VT01KA02
+                            3. Дата конфигурации: 2012-04-13 09:44:59.003
+                            4. Серийный номер токена: TLS00041485B
+                            5. Номер сборки токена: 100
+                            6. Текущая учетная запись (ПИН): 1
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="HttpAcceptLanguage" minOccurs="1" maxOccurs="1" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Список поддерживаемых естественных языков Требуется указать локализацию ОС
+                            компьютера, на котором установлен БК, Например, для английской локализации в качестве
+                            значения атрибута указывается - 'en-US', для русской локализации указывается - 'ru-RU'.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

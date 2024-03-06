@@ -1,0 +1,162 @@
+common\models\sbbolxml\request\DealPassFromAnotherBankType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\DocDataCCType
+        xmlFileNamePs:
+            expose: true
+            access_type: public_method
+            serialized_name: XmlFileNamePs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getXmlFileNamePs
+                setter: setXmlFileNamePs
+            type: string
+        fileHashPs:
+            expose: true
+            access_type: public_method
+            serialized_name: FileHashPs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFileHashPs
+                setter: setFileHashPs
+            type: string
+        xmlFileNameVbk:
+            expose: true
+            access_type: public_method
+            serialized_name: XmlFileNameVbk
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getXmlFileNameVbk
+                setter: setXmlFileNameVbk
+            type: string
+        fileHashVbk:
+            expose: true
+            access_type: public_method
+            serialized_name: FileHashVbk
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFileHashVbk
+                setter: setFileHashVbk
+            type: string
+        dpNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DpNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpNum
+                setter: setDpNum
+            type: string
+        dpDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DpDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDpDate
+                setter: setDpDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        conCheck:
+            expose: true
+            access_type: public_method
+            serialized_name: ConCheck
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConCheck
+                setter: setConCheck
+            type: boolean
+        contract:
+            expose: true
+            access_type: public_method
+            serialized_name: Contract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContract
+                setter: setContract
+            type: common\models\sbbolxml\request\ContractType
+        unprintable:
+            expose: true
+            access_type: public_method
+            serialized_name: Unprintable
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUnprintable
+                setter: setUnprintable
+            type: boolean
+        hasUnreadMessages:
+            expose: true
+            access_type: public_method
+            serialized_name: HasUnreadMessages
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getHasUnreadMessages
+                setter: setHasUnreadMessages
+            type: boolean
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\sbbolxml\request\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\request\AttachmentsType\AttachmentAType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        bigFileAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFileAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBigFileAttachments
+                setter: setBigFileAttachments
+            type: array<common\models\sbbolxml\request\BigFileAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BigFileAttachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

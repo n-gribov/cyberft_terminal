@@ -1,0 +1,81 @@
+common\models\sbbolxml\request\AttachmentsType\AttachmentAType:
+    properties:
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: Type
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getType
+                setter: setType
+            type: string
+        attachmentName:
+            expose: true
+            access_type: public_method
+            serialized_name: AttachmentName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAttachmentName
+                setter: setAttachmentName
+            type: string
+        description:
+            expose: true
+            access_type: public_method
+            serialized_name: Description
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDescription
+                setter: setDescription
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: Date
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDate
+                setter: setDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        size:
+            expose: true
+            access_type: public_method
+            serialized_name: Size
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSize
+                setter: setSize
+            type: integer
+        body:
+            expose: true
+            access_type: public_method
+            serialized_name: Body
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBody
+                setter: setBody
+            type: string
+        attachmentSign:
+            expose: true
+            access_type: public_method
+            serialized_name: AttachmentSign
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAttachmentSign
+                setter: setAttachmentSign
+            type: array<common\models\sbbolxml\request\DigitalSignType>
+            xml_list:
+                inline: false
+                entry_name: Sign
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

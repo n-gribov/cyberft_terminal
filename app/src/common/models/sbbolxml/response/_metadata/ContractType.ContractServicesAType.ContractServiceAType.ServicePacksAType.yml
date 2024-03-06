@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\ContractType\ContractServicesAType\ContractServiceAType\ServicePacksAType:
+    properties:
+        servicePack:
+            expose: true
+            access_type: public_method
+            serialized_name: ServicePack
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getServicePack
+                setter: setServicePack
+            xml_list:
+                inline: true
+                entry_name: ServicePack
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\ContractType\ContractServicesAType\ContractServiceAType\ServicePacksAType\ServicePackAType>

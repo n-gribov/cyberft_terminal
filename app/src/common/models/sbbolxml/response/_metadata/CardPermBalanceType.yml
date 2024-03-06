@@ -1,0 +1,21 @@
+common\models\sbbolxml\response\CardPermBalanceType:
+    properties:
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        cardPermBalanceInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: CardPermBalanceInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCardPermBalanceInfo
+                setter: setCardPermBalanceInfo
+            type: common\models\sbbolxml\response\CardPermBalanceType\CardPermBalanceInfoAType

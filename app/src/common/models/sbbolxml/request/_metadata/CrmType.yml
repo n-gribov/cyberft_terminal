@@ -1,0 +1,45 @@
+common\models\sbbolxml\request\CrmType:
+    properties:
+        extOfferId:
+            expose: true
+            access_type: public_method
+            serialized_name: ExtOfferId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getExtOfferId
+                setter: setExtOfferId
+            type: string
+        userID:
+            expose: true
+            access_type: public_method
+            serialized_name: UserID
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUserID
+                setter: setUserID
+            type: integer
+        userGuid:
+            expose: true
+            access_type: public_method
+            serialized_name: UserGuid
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getUserGuid
+                setter: setUserGuid
+            type: string
+        userTimeZone:
+            expose: true
+            access_type: public_method
+            serialized_name: UserTimeZone
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getUserTimeZone
+                setter: setUserTimeZone
+            type: string

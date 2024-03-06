@@ -1,0 +1,139 @@
+common\models\sbbolxml\request\AccDocType:
+    properties:
+        uip:
+            expose: true
+            access_type: public_method
+            serialized_name: uip
+            accessor:
+                getter: getUip
+                setter: setUip
+            xml_attribute: true
+            type: string
+        accDocNo:
+            expose: true
+            access_type: public_method
+            serialized_name: accDocNo
+            accessor:
+                getter: getAccDocNo
+                setter: setAccDocNo
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: docSum
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            xml_attribute: true
+            type: float
+        transKind:
+            expose: true
+            access_type: public_method
+            serialized_name: transKind
+            accessor:
+                getter: getTransKind
+                setter: setTransKind
+            xml_attribute: true
+            type: string
+        paytKind:
+            expose: true
+            access_type: public_method
+            serialized_name: paytKind
+            accessor:
+                getter: getPaytKind
+                setter: setPaytKind
+            xml_attribute: true
+            type: string
+        priority:
+            expose: true
+            access_type: public_method
+            serialized_name: priority
+            accessor:
+                getter: getPriority
+                setter: setPriority
+            xml_attribute: true
+            type: integer
+        codeVO:
+            expose: true
+            access_type: public_method
+            serialized_name: codeVO
+            accessor:
+                getter: getCodeVO
+                setter: setCodeVO
+            xml_attribute: true
+            type: string
+        psNum:
+            expose: true
+            access_type: public_method
+            serialized_name: psNum
+            accessor:
+                getter: getPsNum
+                setter: setPsNum
+            xml_attribute: true
+            type: string
+        urgentSBRF:
+            expose: true
+            access_type: public_method
+            serialized_name: urgentSBRF
+            accessor:
+                getter: getUrgentSBRF
+                setter: setUrgentSBRF
+            xml_attribute: true
+            type: string
+        vat:
+            expose: true
+            access_type: public_method
+            serialized_name: vat
+            accessor:
+                getter: getVat
+                setter: setVat
+            xml_attribute: true
+            type: string
+        vatSum:
+            expose: true
+            access_type: public_method
+            serialized_name: vatSum
+            accessor:
+                getter: getVatSum
+                setter: setVatSum
+            xml_attribute: true
+            type: float
+        vatRate:
+            expose: true
+            access_type: public_method
+            serialized_name: vatRate
+            accessor:
+                getter: getVatRate
+                setter: setVatRate
+            xml_attribute: true
+            type: float
+        initialCard:
+            expose: true
+            access_type: public_method
+            serialized_name: initialCard
+            accessor:
+                getter: getInitialCard
+                setter: setInitialCard
+            xml_attribute: true
+            type: string
+        purpose:
+            expose: true
+            access_type: public_method
+            serialized_name: Purpose
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPurpose
+                setter: setPurpose
+            type: string

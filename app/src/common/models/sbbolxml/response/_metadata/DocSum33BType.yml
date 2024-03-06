@@ -1,0 +1,72 @@
+common\models\sbbolxml\response\DocSum33BType:
+    properties:
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            type: common\models\sbbolxml\response\CurrAmountType
+        docSumTransfer:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSumTransfer
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocSumTransfer
+                setter: setDocSumTransfer
+            type: common\models\sbbolxml\response\CurrAmountType
+        rate:
+            expose: true
+            access_type: public_method
+            serialized_name: Rate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRate
+                setter: setRate
+            type: float
+        rateAgree:
+            expose: true
+            access_type: public_method
+            serialized_name: RateAgree
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRateAgree
+                setter: setRateAgree
+            type: boolean
+        multiCurr:
+            expose: true
+            access_type: public_method
+            serialized_name: MultiCurr
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getMultiCurr
+                setter: setMultiCurr
+            type: boolean
+        acceptRate:
+            expose: true
+            access_type: public_method
+            serialized_name: AcceptRate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAcceptRate
+                setter: setAcceptRate
+            type: boolean
+        differentCurrencies:
+            expose: true
+            access_type: public_method
+            serialized_name: DifferentCurrencies
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDifferentCurrencies
+                setter: setDifferentCurrencies
+            type: boolean

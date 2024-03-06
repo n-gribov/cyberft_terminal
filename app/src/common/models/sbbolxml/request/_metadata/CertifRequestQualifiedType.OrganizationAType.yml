@@ -1,0 +1,177 @@
+common\models\sbbolxml\request\CertifRequestQualifiedType\OrganizationAType:
+    properties:
+        shortName:
+            expose: true
+            access_type: public_method
+            serialized_name: ShortName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getShortName
+                setter: setShortName
+            type: string
+        fullName:
+            expose: true
+            access_type: public_method
+            serialized_name: FullName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFullName
+                setter: setFullName
+            type: string
+        oGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: OGRN
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOGRN
+                setter: setOGRN
+            type: string
+        iNN:
+            expose: true
+            access_type: public_method
+            serialized_name: INN
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getINN
+                setter: setINN
+            type: string
+        oKATO:
+            expose: true
+            access_type: public_method
+            serialized_name: OKATO
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOKATO
+                setter: setOKATO
+            type: string
+        bIC:
+            expose: true
+            access_type: public_method
+            serialized_name: BIC
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBIC
+                setter: setBIC
+            type: string
+        email:
+            expose: true
+            access_type: public_method
+            serialized_name: Email
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmail
+                setter: setEmail
+            type: string
+        regCert:
+            expose: true
+            access_type: public_method
+            serialized_name: RegCert
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRegCert
+                setter: setRegCert
+            type: string
+        mailIndex:
+            expose: true
+            access_type: public_method
+            serialized_name: MailIndex
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getMailIndex
+                setter: setMailIndex
+            type: string
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: string
+        countryName:
+            expose: true
+            access_type: public_method
+            serialized_name: CountryName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCountryName
+                setter: setCountryName
+            type: string
+        codeKladr:
+            expose: true
+            access_type: public_method
+            serialized_name: CodeKladr
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCodeKladr
+                setter: setCodeKladr
+            type: string
+        region:
+            expose: true
+            access_type: public_method
+            serialized_name: Region
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRegion
+                setter: setRegion
+            type: string
+        locality:
+            expose: true
+            access_type: public_method
+            serialized_name: Locality
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLocality
+                setter: setLocality
+            type: string
+        street:
+            expose: true
+            access_type: public_method
+            serialized_name: Street
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getStreet
+                setter: setStreet
+            type: string
+        regSignHolderAgree:
+            expose: true
+            access_type: public_method
+            serialized_name: RegSignHolderAgree
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRegSignHolderAgree
+                setter: setRegSignHolderAgree
+            type: integer

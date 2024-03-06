@@ -1,0 +1,147 @@
+common\models\sbbolxml\response\TicketType\InfoAType\AddInfoAType:
+    properties:
+        holdingInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: HoldingInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getHoldingInfo
+                setter: setHoldingInfo
+            type: common\models\sbbolxml\response\HoldingInfoTicketType
+        payDocRu:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocRu
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayDocRu
+                setter: setPayDocRu
+            type: common\models\sbbolxml\response\PayDocRuTicketType
+        payDocCur:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocCur
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayDocCur
+                setter: setPayDocCur
+            type: common\models\sbbolxml\response\PayDocCurTicketType
+        currConv:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrConv
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCurrConv
+                setter: setCurrConv
+            type: common\models\sbbolxml\response\CurrConvTicketType
+        mandatorySale:
+            expose: true
+            access_type: public_method
+            serialized_name: MandatorySale
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getMandatorySale
+                setter: setMandatorySale
+            type: common\models\sbbolxml\response\MandatorySaleTicketType
+        remainResponse:
+            expose: true
+            access_type: public_method
+            serialized_name: RemainResponse
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRemainResponse
+                setter: setRemainResponse
+            type: common\models\sbbolxml\response\RemainResponseType
+        implSalaryDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: ImplSalaryDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getImplSalaryDoc
+                setter: setImplSalaryDoc
+            type: common\models\sbbolxml\response\ImplSalaryDocType
+        regOfIssCards:
+            expose: true
+            access_type: public_method
+            serialized_name: RegOfIssCards
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRegOfIssCards
+                setter: setRegOfIssCards
+            type: common\models\sbbolxml\response\ImplRegOfIssCardsType
+        certifRequestQualified:
+            expose: true
+            access_type: public_method
+            serialized_name: CertifRequestQualified
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCertifRequestQualified
+                setter: setCertifRequestQualified
+            type: common\models\sbbolxml\response\CertiRequestTicketType
+        currControlInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrControlInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCurrControlInfo
+                setter: setCurrControlInfo
+            type: common\models\sbbolxml\response\CurrControlInfoType
+        contragentAddTicket:
+            expose: true
+            access_type: public_method
+            serialized_name: ContragentAddTicket
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContragentAddTicket
+                setter: setContragentAddTicket
+            type: common\models\sbbolxml\response\ContragentAddTicketType
+        cashOrderTicket:
+            expose: true
+            access_type: public_method
+            serialized_name: CashOrderTicket
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCashOrderTicket
+                setter: setCashOrderTicket
+            type: common\models\sbbolxml\response\CashOrderTicketType
+        bigFilesStatuses:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFilesStatuses
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBigFilesStatuses
+                setter: setBigFilesStatuses
+            type: array<common\models\sbbolxml\response\BigFilesStatusType>
+            xml_list:
+                inline: false
+                entry_name: BigFilesStatus
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        genericLetterToBankTicket:
+            expose: true
+            access_type: public_method
+            serialized_name: GenericLetterToBankTicket
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getGenericLetterToBankTicket
+                setter: setGenericLetterToBankTicket
+            type: common\models\sbbolxml\response\GenericLetterToBankTicketType

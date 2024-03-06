@@ -1,0 +1,55 @@
+common\models\sbbolxml\response\AttachmentType:
+    properties:
+        attachmentName:
+            expose: true
+            access_type: public_method
+            serialized_name: AttachmentName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAttachmentName
+                setter: setAttachmentName
+            type: string
+        description:
+            expose: true
+            access_type: public_method
+            serialized_name: Description
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDescription
+                setter: setDescription
+            type: string
+        body:
+            expose: true
+            access_type: public_method
+            serialized_name: Body
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBody
+                setter: setBody
+            type: string
+        fileSize:
+            expose: true
+            access_type: public_method
+            serialized_name: FileSize
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFileSize
+                setter: setFileSize
+            type: integer
+        fileDate:
+            expose: true
+            access_type: public_method
+            serialized_name: FileDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFileDate
+                setter: setFileDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime

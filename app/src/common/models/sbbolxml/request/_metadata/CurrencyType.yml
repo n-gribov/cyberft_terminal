@@ -1,0 +1,29 @@
+common\models\sbbolxml\request\CurrencyType:
+    properties:
+        currCode:
+            expose: true
+            access_type: public_method
+            serialized_name: currCode
+            accessor:
+                getter: getCurrCode
+                setter: setCurrCode
+            xml_attribute: true
+            type: string
+        currIsoCode:
+            expose: true
+            access_type: public_method
+            serialized_name: currIsoCode
+            accessor:
+                getter: getCurrIsoCode
+                setter: setCurrIsoCode
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: name
+            accessor:
+                getter: getName
+                setter: setName
+            xml_attribute: true
+            type: string

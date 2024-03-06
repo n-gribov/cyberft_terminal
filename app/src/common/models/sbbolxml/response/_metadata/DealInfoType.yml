@@ -1,0 +1,137 @@
+common\models\sbbolxml\response\DealInfoType:
+    properties:
+        dealIDDD:
+            expose: true
+            access_type: public_method
+            serialized_name: dealIDDD
+            accessor:
+                getter: getDealIDDD
+                setter: setDealIDDD
+            xml_attribute: true
+            type: string
+        dealConfID:
+            expose: true
+            access_type: public_method
+            serialized_name: dealConfID
+            accessor:
+                getter: getDealConfID
+                setter: setDealConfID
+            xml_attribute: true
+            type: string
+        instr:
+            expose: true
+            access_type: public_method
+            serialized_name: instr
+            accessor:
+                getter: getInstr
+                setter: setInstr
+            xml_attribute: true
+            type: integer
+        dealDateTime:
+            expose: true
+            access_type: public_method
+            serialized_name: dealDateTime
+            accessor:
+                getter: getDealDateTime
+                setter: setDealDateTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        bankName:
+            expose: true
+            access_type: public_method
+            serialized_name: BankName
+            accessor:
+                getter: getBankName
+                setter: setBankName
+            xml_attribute: true
+            type: string
+        clientName:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientName
+            accessor:
+                getter: getClientName
+                setter: setClientName
+            xml_attribute: true
+            type: string
+        tradeType:
+            expose: true
+            access_type: public_method
+            serialized_name: TradeType
+            accessor:
+                getter: getTradeType
+                setter: setTradeType
+            xml_attribute: true
+            type: string
+        dealerSB:
+            expose: true
+            access_type: public_method
+            serialized_name: DealerSB
+            accessor:
+                getter: getDealerSB
+                setter: setDealerSB
+            xml_attribute: true
+            type: string
+        rate:
+            expose: true
+            access_type: public_method
+            serialized_name: Rate
+            accessor:
+                getter: getRate
+                setter: setRate
+            xml_attribute: true
+            type: string
+        otherDetails:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherDetails
+            accessor:
+                getter: getOtherDetails
+                setter: setOtherDetails
+            xml_attribute: true
+            type: string
+        dealQuantity:
+            expose: true
+            access_type: public_method
+            serialized_name: DealQuantity
+            accessor:
+                getter: getDealQuantity
+                setter: setDealQuantity
+            xml_attribute: true
+            type: string
+        swap:
+            expose: true
+            access_type: public_method
+            serialized_name: Swap
+            accessor:
+                getter: getSwap
+                setter: setSwap
+            xml_attribute: true
+            type: boolean
+        payeeAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: PayeeAccount
+            accessor:
+                getter: getPayeeAccount
+                setter: setPayeeAccount
+            xml_attribute: true
+            type: string
+        bic:
+            expose: true
+            access_type: public_method
+            serialized_name: Bic
+            accessor:
+                getter: getBic
+                setter: setBic
+            xml_attribute: true
+            type: string
+        swift:
+            expose: true
+            access_type: public_method
+            serialized_name: Swift
+            accessor:
+                getter: getSwift
+                setter: setSwift
+            xml_attribute: true
+            type: string

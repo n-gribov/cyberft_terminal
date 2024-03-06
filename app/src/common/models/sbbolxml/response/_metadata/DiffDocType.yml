@@ -1,0 +1,137 @@
+common\models\sbbolxml\response\DiffDocType:
+    properties:
+        payingCondition:
+            expose: true
+            access_type: public_method
+            serialized_name: payingCondition
+            accessor:
+                getter: getPayingCondition
+                setter: setPayingCondition
+            xml_attribute: true
+            type: string
+        letterOfCreditType:
+            expose: true
+            access_type: public_method
+            serialized_name: letterOfCreditType
+            accessor:
+                getter: getLetterOfCreditType
+                setter: setLetterOfCreditType
+            xml_attribute: true
+            type: string
+        operContent:
+            expose: true
+            access_type: public_method
+            serialized_name: operContent
+            accessor:
+                getter: getOperContent
+                setter: setOperContent
+            xml_attribute: true
+            type: string
+        letterOfCreditPaymCond:
+            expose: true
+            access_type: public_method
+            serialized_name: letterOfCreditPaymCond
+            accessor:
+                getter: getLetterOfCreditPaymCond
+                setter: setLetterOfCreditPaymCond
+            xml_attribute: true
+            type: string
+        letterOfCreditDemandDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: letterOfCreditDemandDocs
+            accessor:
+                getter: getLetterOfCreditDemandDocs
+                setter: setLetterOfCreditDemandDocs
+            xml_attribute: true
+            type: string
+        letterOfCreditAddCond:
+            expose: true
+            access_type: public_method
+            serialized_name: letterOfCreditAddCond
+            accessor:
+                getter: getLetterOfCreditAddCond
+                setter: setLetterOfCreditAddCond
+            xml_attribute: true
+            type: string
+        letterOfCreditPeriodVal:
+            expose: true
+            access_type: public_method
+            serialized_name: letterOfCreditPeriodVal
+            accessor:
+                getter: getLetterOfCreditPeriodVal
+                setter: setLetterOfCreditPeriodVal
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        letterOfCreditPayAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: letterOfCreditPayAcc
+            accessor:
+                getter: getLetterOfCreditPayAcc
+                setter: setLetterOfCreditPayAcc
+            xml_attribute: true
+            type: string
+        docShifr:
+            expose: true
+            access_type: public_method
+            serialized_name: docShifr
+            accessor:
+                getter: getDocShifr
+                setter: setDocShifr
+            xml_attribute: true
+            type: string
+        docDateCard:
+            expose: true
+            access_type: public_method
+            serialized_name: docDateCard
+            accessor:
+                getter: getDocDateCard
+                setter: setDocDateCard
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNumberCard:
+            expose: true
+            access_type: public_method
+            serialized_name: docNumberCard
+            accessor:
+                getter: getDocNumberCard
+                setter: setDocNumberCard
+            xml_attribute: true
+            type: string
+        sumRestCard:
+            expose: true
+            access_type: public_method
+            serialized_name: sumRestCard
+            accessor:
+                getter: getSumRestCard
+                setter: setSumRestCard
+            xml_attribute: true
+            type: float
+        numPaymentCard:
+            expose: true
+            access_type: public_method
+            serialized_name: numPaymentCard
+            accessor:
+                getter: getNumPaymentCard
+                setter: setNumPaymentCard
+            xml_attribute: true
+            type: string
+        letterOfCreditAcceptDate:
+            expose: true
+            access_type: public_method
+            serialized_name: letterOfCreditAcceptDate
+            accessor:
+                getter: getLetterOfCreditAcceptDate
+                setter: setLetterOfCreditAcceptDate
+            xml_attribute: true
+            type: integer
+        endAcceptDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endAcceptDate
+            accessor:
+                getter: getEndAcceptDate
+                setter: setEndAcceptDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

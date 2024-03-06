@@ -1,0 +1,43 @@
+common\models\raiffeisenxml\request\MandatorySaleBoxType\TransAType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\request\CurrAmountType
+        vo:
+            expose: true
+            access_type: public_method
+            serialized_name: Vo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getVo
+                setter: setVo
+            type: string
+        accTrans:
+            expose: true
+            access_type: public_method
+            serialized_name: AccTrans
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccTrans
+                setter: setAccTrans
+            type: common\models\raiffeisenxml\request\AccCURType
+        acc:
+            expose: true
+            access_type: public_method
+            serialized_name: Acc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcc
+                setter: setAcc
+            type: common\models\raiffeisenxml\request\AccountRUType

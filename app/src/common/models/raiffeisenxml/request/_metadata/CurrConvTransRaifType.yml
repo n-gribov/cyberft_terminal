@@ -1,0 +1,63 @@
+common\models\raiffeisenxml\request\CurrConvTransRaifType:
+    properties:
+        sellAmount:
+            expose: true
+            access_type: public_method
+            serialized_name: SellAmount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSellAmount
+                setter: setSellAmount
+            type: common\models\raiffeisenxml\request\CurrConvTransRaifType\SellAmountAType
+        buyAmount:
+            expose: true
+            access_type: public_method
+            serialized_name: BuyAmount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBuyAmount
+                setter: setBuyAmount
+            type: common\models\raiffeisenxml\request\CurrConvTransRaifType\BuyAmountAType
+        writeOffDate:
+            expose: true
+            access_type: public_method
+            serialized_name: WriteOffDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getWriteOffDate
+                setter: setWriteOffDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        dealType:
+            expose: true
+            access_type: public_method
+            serialized_name: DealType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealType
+                setter: setDealType
+            type: string
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\raiffeisenxml\request\AccountType
+        enrollAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: EnrollAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEnrollAcc
+                setter: setEnrollAcc
+            type: common\models\raiffeisenxml\request\AccountType

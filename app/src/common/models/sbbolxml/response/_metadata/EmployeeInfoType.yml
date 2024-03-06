@@ -1,0 +1,107 @@
+common\models\sbbolxml\response\EmployeeInfoType:
+    properties:
+        noRef:
+            expose: true
+            access_type: public_method
+            serialized_name: NoRef
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getNoRef
+                setter: setNoRef
+            type: string
+        sName:
+            expose: true
+            access_type: public_method
+            serialized_name: SName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSName
+                setter: setSName
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        middleName:
+            expose: true
+            access_type: public_method
+            serialized_name: MiddleName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getMiddleName
+                setter: setMiddleName
+            type: string
+        dateOfBirth:
+            expose: true
+            access_type: public_method
+            serialized_name: DateOfBirth
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDateOfBirth
+                setter: setDateOfBirth
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: AccNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            type: string
+        issCard:
+            expose: true
+            access_type: public_method
+            serialized_name: IssCard
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIssCard
+                setter: setIssCard
+            type: boolean
+        identityDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentityDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIdentityDoc
+                setter: setIdentityDoc
+            type: common\models\sbbolxml\response\IdentityDocType
+        salaryContract:
+            expose: true
+            access_type: public_method
+            serialized_name: SalaryContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSalaryContract
+                setter: setSalaryContract
+            type: integer
+        regType:
+            expose: true
+            access_type: public_method
+            serialized_name: RegType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRegType
+                setter: setRegType
+            type: integer

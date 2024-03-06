@@ -1,0 +1,318 @@
+path_prefix: /Response/OrganizationsInfo/OrganizationInfo
+document_path: ''
+attributes:
+  OrgData.ShortName:              /OrgData/ShortName
+  OrgData.FullName:               /OrgData/FullName
+  OrgData.VkFullName:             /OrgData/VkFullName
+  OrgData.StateType:              /OrgData/StateType
+  OrgData.StateCode:              /OrgData/StateCode
+  OrgData.OGRN:                   /OrgData/OGRN
+  OrgData.DateOGRN:               /OrgData/DateOGRN
+  OrgData.INN:                    /OrgData/INN
+  OrgData.OKPO:                   /OrgData/OKPO
+  OrgData.OKATO:                  /OrgData/OKATO
+  OrgData.BranchId:               /OrgData/BranchId
+  OtherOrgData.InternationalName: /OrgData/OtherOrgData/InternationalName
+  OtherOrgData.IntShortName:      /OrgData/OtherOrgData/IntShortName
+  OtherOrgData.NameInDocs:        /OrgData/OtherOrgData/NameInDocs
+  OtherOrgData.UseNameInDocs:     /OrgData/OtherOrgData/UseNameInDocs
+  OtherOrgData.Locked:            /OrgData/OtherOrgData/Locked
+  OtherOrgData.DboUse:            /OrgData/OtherOrgData/DboUse
+  OtherOrgData.DictContrUse:      /OrgData/OtherOrgData/DictContrUse
+  OtherOrgData.Frod:              /OrgData/OtherOrgData/Frod
+  OtherOrgData.CertAuthId:        /OrgData/OtherOrgData/CertAuthId
+  OtherOrgData.LastCertifNum:     /OrgData/OtherOrgData/LastCertifNum
+  Contacts.DirectorFio:           /OrgData/OtherOrgData/Contacts/DirectorFio
+  Contacts.DirectorTel:           /OrgData/OtherOrgData/Contacts/DirectorTel
+  Contacts.AccountantFio:         /OrgData/OtherOrgData/Contacts/AccountantFio
+  Contacts.AccountantTel:         /OrgData/OtherOrgData/Contacts/AccountantTel
+  Contacts.Fax:                   /OrgData/OtherOrgData/Contacts/Fax
+  Contacts.Email:                 /OrgData/OtherOrgData/Contacts/Email
+  Contacts.AddInfo:               /OrgData/OtherOrgData/Contacts/AddInfo
+
+tables:
+- name: OrgKpp
+  path: /OrgData/OtherOrgData
+  fields:
+    KPPIndex: /OrgKpp/KPPIndex
+    CheckKPP: /OrgKpp/CheckKPP
+
+- name: Accounts
+  path: /OrgData/Accounts
+  fields:
+    AccountId:                                    /Account/@accountId
+    AccountType:                                  /Account/@accountType
+    AccNum:                                       /Account/@accNum
+    Bank.Bic:                                     /Account/Bank/@bic
+    Bank.Obsnum:                                  /Account/Bank/@obsnum
+    Bank.Name:                                    /Account/Bank/Name
+    Bank.BankName:                                /Account/Bank/BankName
+    Bank.BankCity:                                /Account/Bank/BankCity
+    Bank.SettlementType:                          /Account/Bank/SettlementType
+    OtherAccountData.Name:                        /Account/OtherAccountData/Name
+    OtherAccountData.CurrencyCode:                /Account/OtherAccountData/CurrencyCode
+    OtherAccountData.CurrCode:                    /Account/OtherAccountData/CurrCode
+    OtherAccountData.UseOrgNameInDoc:             /Account/OtherAccountData/UseOrgNameInDoc
+    OtherAccountData.OrgNameInDoc:                /Account/OtherAccountData/OrgNameInDoc
+    OtherAccountData.AccountType:                 /Account/OtherAccountData/AccountType
+    OtherAccountData.AccountTypeP:                /Account/OtherAccountData/AccountTypeP
+    OtherAccountData.DBO:                         /Account/OtherAccountData/DBO
+    OtherAccountData.Business:                    /Account/OtherAccountData/Business
+    OtherAccountData.IsNotDelay:                  /Account/OtherAccountData/IsNotDelay
+    OtherAccountData.IsUrgent:                    /Account/OtherAccountData/IsUrgent
+    OtherAccountData.IsIntermed:                  /Account/OtherAccountData/IsIntermed
+    OtherAccountData.CreateDate:                  /Account/OtherAccountData/CreateDate
+    OtherAccountData.CloseDate:                   /Account/OtherAccountData/CloseDate
+    OtherAccountData.State:                       /Account/OtherAccountData/State
+    OtherAccountData.Mode:                        /Account/OtherAccountData/Mode
+    OtherAccountData.MinBalance:                  /Account/OtherAccountData/MinBalance
+    OtherAccountData.SumOvd:                      /Account/OtherAccountData/SumOvd
+    OtherAccountData.AddInfo:                     /Account/OtherAccountData/AddInfo
+    OtherAccountData.AddInfoSBK.DirectControl:    /Account/OtherAccountData/AddInfoSBK/DirectControl
+    OtherAccountData.AddInfoSBK.AddDirectControl: /Account/OtherAccountData/AddInfoSBK/AddDirectControl
+    OtherAccountData.AddInfoSBK.TRzkId:           /Account/OtherAccountData/AddInfoSBK/TRzkId
+    OtherAccountData.AddInfoSBK.RzkOrgAccTypeId:  /Account/OtherAccountData/AddInfoSBK/RzkOrgAccTypeId
+    OtherAccountData.AddInfoSBK.RzkOrgId:         /Account/OtherAccountData/AddInfoSBK/RzkOrgId
+
+- name: Addresses
+  path: /OrgData/Addresses
+  fields:
+    AddressTypeCode:  /Address/AddressTypeCode
+    AddressType:      /Address/AddressType
+    Country:          /Address/Country
+    CountryName:      /Address/CountryName
+    CountryShortName: /Address/CountryShortName
+    Zip:              /Address/Zip
+    Sub:              /Address/Sub
+    Area:             /Address/Area
+    City:             /Address/City
+    SettlType:        /Address/SettlType
+    SettlName:        /Address/SettlName
+    Str:              /Address/Str
+    HNumber:          /Address/HNumber
+    Corp:             /Address/Corp
+    Office:           /Address/Office
+    FullAddress:      /Address/FullAddress
+    AddInfoAddress:   /Address/AddInfoAddress
+
+- name: AuthSigns
+  path: /OrgData/AuthSigns
+  fields:
+    SignDeviceId: /AuthSign/SignDeviceId
+    SignType:     /AuthSign/SignType
+    BeginDate:    /AuthSign/Duration/@beginDate
+    EndDate:      /AuthSign/Duration/@endDate
+    Unlimited:    /AuthSign/Duration/@unlimited
+    AllAccounts:  /AuthSign/Accounts/All
+    AllDocs:      /AuthSign/Docs/All
+  tables:
+  - name: AuthSigns.Accounts
+    path: /Accounts
+    fields:
+      AccountId: /Account/@accountId
+  - name: AuthSigns.Docs
+    path: /Docs
+    fields:
+      DocType: /Doc/DocType
+
+- name: Correspondents
+  path: /OrgData/Correspondents
+  fields:
+    DocExtId:        /Correspondent/@docExtId
+    Name:            /Correspondent/@name
+    Inn:             /Correspondent/@inn
+    Kpp:             /Correspondent/@kpp
+    PersonalAcc:     /Correspondent/@personalAcc
+    Comment:         /Correspondent/@comment
+    Signed:          /Correspondent/@signed
+    BankConfirm:     /Correspondent/@bankConfirm
+    Bank.Name:       /Correspondent/Bank/@name
+    Bank.Bic:        /Correspondent/Bank/@bic
+    Bank.CorrespAcc: /Correspondent/Bank/@correspAcc
+
+- name: Branches
+  path: /Branches
+  fields:
+    Bic:      /Branch/@bic
+    BranchId: /Branch/BranchId
+    BankName: /Branch/BankName
+    ParentId: /Branch/ParentId
+  tables:
+  - name: Branches.Addresses
+    path: /Branch/Addresses
+    fields:
+      AddressTypeCode:  /Address/AddressTypeCode
+      AddressType:      /Address/AddressType
+      Country:          /Address/Country
+      CountryName:      /Address/CountryName
+      CountryShortName: /Address/CountryShortName
+      Zip:              /Address/Zip
+      Sub:              /Address/Sub
+      Area:             /Address/Area
+      City:             /Address/City
+      SettlType:        /Address/SettlType
+      SettlName:        /Address/SettlName
+      Str:              /Address/Str
+      HNumber:          /Address/HNumber
+      Corp:             /Address/Corp
+      Office:           /Address/Office
+      FullAddress:      /Address/FullAddress
+      AddInfoAddress:   /Address/AddInfoAddress
+  - name: Branches.Params
+    path: /Branch/Params
+    fields:
+      Name:  /Param/Name
+      Value: /Param/Value
+
+- name: ServicePackages
+  path: /ServicePackages
+  fields:
+    PackageId:   /ServicePackage/PackageId
+    PackageName: /ServicePackage/PackageName
+  tables:
+  - name: ServicePackages.Service
+    path: /ServicePackage
+    fields:
+      ServiceId:   /Service/ServiceId
+      ServiceName: /Service/ServiceName
+
+- name: CreditContracts
+  path: /CreditContracts
+  fields:
+    CredContrtId:          /CreditContract/@credContrtId
+    OrgId:                 /CreditContract/OrgId
+    BranchId:              /CreditContract/BranchId
+    ContractNum:           /CreditContract/ContractNum
+    ContractName:          /CreditContract/ContractName
+    ContractDate:          /CreditContract/ContractDate
+    CreditDeptID:          /CreditContract/CreditDeptID
+    CreditDeptName:        /CreditContract/CreditDeptName
+    CreditDuration:        /CreditContract/CreditDuration
+    ContractSum.Sum:       /CreditContract/ContractSum/@docSum
+    ContractSum.CurrCode:  /CreditContract/ContractSum/@currCode
+    AvailableSum.Sum:      /CreditContract/AvailableSum/@docSum
+    AvailableSum.CurrCode: /CreditContract/AvailableSum/@currCode
+    ContractCurr:          /CreditContract/ContractCurr
+    ContractRate:          /CreditContract/ContractRate
+    ContractStatus:        /CreditContract/ContractStatus
+    CreditDate:            /CreditContract/CreditDate
+    LimitDate:             /CreditContract/LimitDate
+    CreditCurr:            /CreditContract/CreditCurr
+    FinishDate:            /CreditContract/FinishDate
+    DebtSum:               /CreditContract/DebtSum/@docSum
+  tables:
+  - name: CreditContracts.AvailableAccs
+    path: /CreditContract/AvailableAccs
+    fields:
+      AccNum: /AccNum
+
+- name: SalaryContracts
+  path: /SalaryContracts
+  fields:
+    ContrID:   /SalaryContract/@contrID
+    ContrNum:  /SalaryContract/@contrNum
+    ContrDate: /SalaryContract/@contrDate
+    Accept:    /SalaryContract/@accept
+    Inn:       /SalaryContract/@inn
+    FilialNum: /SalaryContract/@filialNum
+    Bic:       /SalaryContract/@bic
+    BranchId:  /SalaryContract/BranchId
+    ContrName: /SalaryContract/ContrName
+  tables:
+  - name: SalaryContracts.PlacesOfService
+    path: /SalaryContract/PlacesOfService
+    fields:
+      BranchCode: /PlaceOfService/@branchCode
+      Bic:        /PlaceOfService/@bic
+      Name:       /PlaceOfService/Name
+      Adress:     /PlaceOfService/Adress
+
+- name: SignDevices
+  path: /SignDevices
+  fields:
+    SignDeviceId:   /SignDevice/SignDeviceId
+    ProfileName:    /SignDevice/ProfileName
+    CryptotypeId:   /SignDevice/CryptotypeId
+    CryptoTypeName: /SignDevice/CryptoTypeName
+    Post:           /SignDevice/Post
+    ActiveSertId:   /SignDevice/ActiveSertId
+    SN:             /SignDevice/SN
+    Issuer:         /SignDevice/Issuer
+  tables:
+  - name: SignDevices.Certificates
+    path: /SignDevice/Certificates
+    fields:
+      Certificate: /Certificate
+      Active:      /Certificate/@active
+
+- name: AuthPersons
+  path: /AuthPersons
+  fields:
+    Login: /AuthPerson/Login
+    FIO:   /AuthPerson/FIO
+    OrgId: /AuthPerson/OrgId
+  tables:
+  - name: AuthPersons.SignDevice
+    path: /AuthPerson/SignDevices
+    fields:
+      SignDeviceId: /SignDevice/SignDeviceId
+
+- name: Beneficiars
+  path: /OrgData/Beneficiars
+  fields:
+    DocExtId: /Beneficiar/@docExtId
+    Beneficiar_59.AccBeneficiar: /Beneficiar/Beneficiar_59/AccBeneficiar
+    Beneficiar_59.CurrIsoCode: /Beneficiar/Beneficiar_59/CurrIsoCode
+    Beneficiar_59.Name: /Beneficiar/Beneficiar_59/Name
+    Beneficiar_59.Address: /Beneficiar/Beneficiar_59/Address
+    Beneficiar_59.Place: /Beneficiar/Beneficiar_59/Place
+    Beneficiar_59.CountryIso2: /Beneficiar/Beneficiar_59/Country/@iso2
+    Beneficiar_59.CountryName: /Beneficiar/Beneficiar_59/Country/@name
+    Beneficiar_59.StateCode:   /Beneficiar/Beneficiar_59/State/@code
+    Beneficiar_59.StateName:   /Beneficiar/Beneficiar_59/State/@name
+    Beneficiar_59.Text: /Beneficiar/Beneficiar_59/Text
+    Beneficiar_59.Zip: /Beneficiar/Beneficiar_59/Zip
+    Beneficiar_59.Inn: /Beneficiar/Beneficiar_59/Inn
+    Beneficiar_59.BankName: /Beneficiar/Beneficiar_59/BankName
+    ImediaBank_56.BIC: /Beneficiar/ImediaBank_56/BIC
+    ImediaBank_56.ClirCountryCode: /Beneficiar/ImediaBank_56/CliringCode/@countryCode
+    ImediaBank_56.ClirName: /Beneficiar/ImediaBank_56/CliringCode/@name
+    ImediaBank_56.ClirNote: /Beneficiar/ImediaBank_56/CliringCode/@note
+    ImediaBank_56.ClirCode: /Beneficiar/ImediaBank_56/CliringCode/@code
+    ImediaBank_56.Name: /Beneficiar/ImediaBank_56/Name
+    ImediaBank_56.BranchName: /Beneficiar/ImediaBank_56/BranchName
+    ImediaBank_56.Address: /Beneficiar/ImediaBank_56/Address
+    ImediaBank_56.Place: /Beneficiar/ImediaBank_56/Place
+    ImediaBank_56.CountryDigital: /Beneficiar/ImediaBank_56/Country/@digital
+    ImediaBank_56.CountryIso2: /Beneficiar/ImediaBank_56/Country/@iso2
+    ImediaBank_56.CountryName: /Beneficiar/ImediaBank_56/Country/@name
+    ImediaBank_56.StateCode: /Beneficiar/ImediaBank_56/State/@code
+    ImediaBank_56.StateName: /Beneficiar/ImediaBank_56/State/@name
+    ImediaBank_56.Zip: /Beneficiar/ImediaBank_56/Zip
+    ImediaBank_56.Text: /Beneficiar/ImediaBank_56/Text
+    BankBeneficiar_57.BIC: /Beneficiar/BankBeneficiar_57/BIC
+    BankBeneficiar_57.ClirCountryCode: /Beneficiar/BankBeneficiar_57/CliringCode/@countryCode
+    BankBeneficiar_57.ClirName: /Beneficiar/BankBeneficiar_57/CliringCode/@name
+    BankBeneficiar_57.ClirNote: /Beneficiar/BankBeneficiar_57/CliringCode/@note
+    BankBeneficiar_57.ClirCode: /Beneficiar/BankBeneficiar_57/CliringCode/@code
+    BankBeneficiar_57.CorrAcc: /Beneficiar/BankBeneficiar_57/CorrAcc
+    BankBeneficiar_57.Name: /Beneficiar/BankBeneficiar_57/Name
+    BankBeneficiar_57.BranchName: /Beneficiar/BankBeneficiar_57/BranchName
+    BankBeneficiar_57.Address: /Beneficiar/BankBeneficiar_57/Address
+    BankBeneficiar_57.Place: /Beneficiar/BankBeneficiar_57/Place
+    BankBeneficiar_57.CountryDigital: /Beneficiar/BankBeneficiar_57/Country/@digital
+    BankBeneficiar_57.CountryIso2: /Beneficiar/BankBeneficiar_57/Country/@iso2
+    BankBeneficiar_57.CountryName: /Beneficiar/BankBeneficiar_57/Country/@name
+    BankBeneficiar_57.StateCode: /Beneficiar/BankBeneficiar_57/State/@code
+    BankBeneficiar_57.StateName: /Beneficiar/BankBeneficiar_57/State/@name
+    BankBeneficiar_57.Zip: /Beneficiar/BankBeneficiar_57/Zip
+    BankBeneficiar_57.Text: /Beneficiar/BankBeneficiar_57/Text
+    Option56a: /Beneficiar/Options/@option56a
+    Option57a: /Beneficiar/Options/@option57a
+    Option59a: /Beneficiar/Options/@option59a
+    PayDocCurUse: /Beneficiar/PayDocCurUse
+    OtherDoc: /Beneficiar/OtherDoc
+    AddInfo: /Beneficiar/AddInfo
+    PaymentDetails_70: /Beneficiar/PaymentDetails_70
+    Vo: /Beneficiar/Vo
+    PaymentDirection: /Beneficiar/PaymentDirection

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="RzkDictUpdate">
+        <xs:annotation>
+            <xs:documentation>Запрос репликации справочников СБК</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Dict">
+                <xs:attribute name="rzkId" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор счета в РЦК (во внешней системе)</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[0-9]+" />
+                            <xs:maxLength value="160"/>
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

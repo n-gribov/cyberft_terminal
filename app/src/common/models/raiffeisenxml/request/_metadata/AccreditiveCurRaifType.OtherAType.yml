@@ -1,0 +1,75 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\OtherAType:
+    properties:
+        expDate:
+            expose: true
+            access_type: public_method
+            serialized_name: expDate
+            accessor:
+                getter: getExpDate
+                setter: setExpDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        expPlace:
+            expose: true
+            access_type: public_method
+            serialized_name: expPlace
+            accessor:
+                getter: getExpPlace
+                setter: setExpPlace
+            xml_attribute: true
+            type: string
+        executionWay:
+            expose: true
+            access_type: public_method
+            serialized_name: ExecutionWay
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getExecutionWay
+                setter: setExecutionWay
+            type: string
+        defPaymentTermType:
+            expose: true
+            access_type: public_method
+            serialized_name: DefPaymentTermType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDefPaymentTermType
+                setter: setDefPaymentTermType
+            type: string
+        defPaymentTermOther:
+            expose: true
+            access_type: public_method
+            serialized_name: DefPaymentTermOther
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDefPaymentTermOther
+                setter: setDefPaymentTermOther
+            type: string
+        defPaymentTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: DefPaymentTerm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDefPaymentTerm
+                setter: setDefPaymentTerm
+            type: string
+        details:
+            expose: true
+            access_type: public_method
+            serialized_name: Details
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDetails
+                setter: setDetails
+            type: string

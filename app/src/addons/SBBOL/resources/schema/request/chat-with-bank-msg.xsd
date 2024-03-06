@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="ChatWithBankMsg">
+        <xs:annotation>
+            <xs:documentation>Обмен сообщениями с банком (в Банк)</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AuthPers" type="AuthPers">
+                <xs:annotation>
+                    <xs:documentation>Уполномоченный сотрудник организации клиента</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AddInfo">
+                <xs:annotation>
+                    <xs:documentation>Текст сообщения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="AddInfo">
+                        <xs:maxLength value="8000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="chatMsgExtId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор сообщения чата в УС</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор документа, к которому относится сообщение чата, в СББОЛ</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="chatMsgNum" type="xs:integer" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер сообщения чата</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="chatMsgDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата создания сообщения чата</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="bankName" use="required">
+            <xs:annotation>
+                <xs:documentation>Наименование подразделения банка
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,57 @@
+common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType\CardInfoAType:
+    properties:
+        cardType:
+            expose: true
+            access_type: public_method
+            serialized_name: CardType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCardType
+                setter: setCardType
+            type: string
+        cardTypeName:
+            expose: true
+            access_type: public_method
+            serialized_name: CardTypeName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCardTypeName
+                setter: setCardTypeName
+            type: string
+        bonusNum:
+            expose: true
+            access_type: public_method
+            serialized_name: BonusNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBonusNum
+                setter: setBonusNum
+            type: string
+        bonusId:
+            expose: true
+            access_type: public_method
+            serialized_name: BonusId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBonusId
+                setter: setBonusId
+            type: string
+        cardCurrName:
+            expose: true
+            access_type: public_method
+            serialized_name: CardCurrName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCardCurrName
+                setter: setCardCurrName
+            type: string

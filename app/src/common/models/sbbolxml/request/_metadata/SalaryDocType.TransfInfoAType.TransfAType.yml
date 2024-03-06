@@ -1,0 +1,65 @@
+common\models\sbbolxml\request\SalaryDocType\TransfInfoAType\TransfAType:
+    properties:
+        numSt:
+            expose: true
+            access_type: public_method
+            serialized_name: numSt
+            accessor:
+                getter: getNumSt
+                setter: setNumSt
+            xml_attribute: true
+            type: integer
+        sName:
+            expose: true
+            access_type: public_method
+            serialized_name: SName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSName
+                setter: setSName
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        middleName:
+            expose: true
+            access_type: public_method
+            serialized_name: MiddleName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getMiddleName
+                setter: setMiddleName
+            type: string
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: AccNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            type: string
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\sbbolxml\request\CurrAmountType

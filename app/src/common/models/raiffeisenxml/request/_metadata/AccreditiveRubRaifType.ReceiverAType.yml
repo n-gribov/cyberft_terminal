@@ -1,0 +1,32 @@
+common\models\raiffeisenxml\request\AccreditiveRubRaifType\ReceiverAType:
+    properties:
+        individual:
+            expose: true
+            access_type: public_method
+            serialized_name: Individual
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIndividual
+                setter: setIndividual
+            type: common\models\raiffeisenxml\request\AccreditiveRubRaifType\ReceiverAType\IndividualAType
+        legalEntity:
+            expose: true
+            access_type: public_method
+            serialized_name: LegalEntity
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLegalEntity
+                setter: setLegalEntity
+            type: common\models\raiffeisenxml\request\AccreditiveRubRaifType\ReceiverAType\LegalEntityAType
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            type: common\models\raiffeisenxml\request\AccreditiveRubRaifType\ReceiverAType\AccountAType

@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\response\DealPassCon138IType\RestrInfoAType:
+    properties:
+        restr:
+            expose: true
+            access_type: public_method
+            serialized_name: Restr
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRestr
+                setter: setRestr
+            xml_list:
+                inline: true
+                entry_name: Restr
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\DealPassCon138IType\RestrInfoAType\RestrAType>

@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\response\DealPassCred138IType\RerInfoAType:
+    properties:
+        rer:
+            expose: true
+            access_type: public_method
+            serialized_name: Rer
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRer
+                setter: setRer
+            xml_list:
+                inline: true
+                entry_name: Rer
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\DealPassCred138IType\RerInfoAType\RerAType>

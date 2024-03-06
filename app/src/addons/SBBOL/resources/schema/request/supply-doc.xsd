@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="SupplyDoc">
+        <xs:annotation>
+            <xs:documentation>Досылаемые документы</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="PayDocRuId" type="UuidSeparated" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Внешний идентификатор документы, которому досылаются сущности ГОЗ</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SuppDocs" type="SuppDocs"/>
+                </xs:sequence>
+                <xs:attribute name="docDate" type="xs:date" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Дата составления документа</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="docNum" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Номер документа</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="6"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="bankName" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Значение Response/OrganizationsInfo/OrganizationsInfo/Branches/Branch/SystemName – системное имя подразделения банка, которое передается в рамках OrganizationsInfo </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

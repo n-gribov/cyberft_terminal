@@ -1,0 +1,45 @@
+common\models\sbbolxml\request\IndividualEnterpriseRegInfoType:
+    properties:
+        regNumORGRNIP:
+            expose: true
+            access_type: public_method
+            serialized_name: RegNumORGRNIP
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRegNumORGRNIP
+                setter: setRegNumORGRNIP
+            type: string
+        stateRegDate:
+            expose: true
+            access_type: public_method
+            serialized_name: StateRegDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getStateRegDate
+                setter: setStateRegDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        regAuthorityName:
+            expose: true
+            access_type: public_method
+            serialized_name: RegAuthorityName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRegAuthorityName
+                setter: setRegAuthorityName
+            type: string
+        regPlace:
+            expose: true
+            access_type: public_method
+            serialized_name: RegPlace
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRegPlace
+                setter: setRegPlace
+            type: string

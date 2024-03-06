@@ -1,0 +1,40 @@
+common\models\raiffeisenxml\request\RevocationRequestType\DocDataAType:
+    properties:
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\raiffeisenxml\request\RevocationRequestType\DocDataAType\OrgDataAType
+        docInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DocInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocInfo
+                setter: setDocInfo
+            type: common\models\raiffeisenxml\request\RevocationRequestType\DocDataAType\DocInfoAType

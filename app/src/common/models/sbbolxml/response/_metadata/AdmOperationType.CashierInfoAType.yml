@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\AdmOperationType\CashierInfoAType:
+    properties:
+        cashierFio:
+            expose: true
+            access_type: public_method
+            serialized_name: cashierFio
+            accessor:
+                getter: getCashierFio
+                setter: setCashierFio
+            xml_attribute: true
+            type: string
+        cashierId:
+            expose: true
+            access_type: public_method
+            serialized_name: cashierId
+            accessor:
+                getter: getCashierId
+                setter: setCashierId
+            xml_attribute: true
+            type: string
+        templateName:
+            expose: true
+            access_type: public_method
+            serialized_name: templateName
+            accessor:
+                getter: getTemplateName
+                setter: setTemplateName
+            xml_attribute: true
+            type: string

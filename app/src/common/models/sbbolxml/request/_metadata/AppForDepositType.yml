@@ -1,0 +1,42 @@
+common\models\sbbolxml\request\AppForDepositType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\DocDataAppForDepositType
+        deposit:
+            expose: true
+            access_type: public_method
+            serialized_name: Deposit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDeposit
+                setter: setDeposit
+            type: common\models\sbbolxml\request\DepositType
+        docAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: DocAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocAccount
+                setter: setDocAccount
+            type: common\models\sbbolxml\request\AccountRubType
+        reqAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: ReqAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReqAccount
+                setter: setReqAccount
+            type: common\models\sbbolxml\request\AccountReturnType

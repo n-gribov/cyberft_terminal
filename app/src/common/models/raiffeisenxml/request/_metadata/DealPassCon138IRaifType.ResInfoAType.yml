@@ -1,0 +1,65 @@
+common\models\raiffeisenxml\request\DealPassCon138IRaifType\ResInfoAType:
+    properties:
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: common\models\raiffeisenxml\request\DealPassCon138IRaifType\ResInfoAType\AddressAType
+        oGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: OGRN
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOGRN
+                setter: setOGRN
+            type: string
+        dataReg:
+            expose: true
+            access_type: public_method
+            serialized_name: DataReg
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDataReg
+                setter: setDataReg
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        innKpp:
+            expose: true
+            access_type: public_method
+            serialized_name: Inn_Kpp
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getInnKpp
+                setter: setInnKpp
+            type: common\models\raiffeisenxml\request\DealPassCon138IRaifType\ResInfoAType\InnKppAType
+        cnum:
+            expose: true
+            access_type: public_method
+            serialized_name: Cnum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCnum
+                setter: setCnum
+            type: string

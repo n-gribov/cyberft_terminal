@@ -1,0 +1,14 @@
+FROM cyberft:v3.9_3
+
+COPY compose_deps/php.ini /etc/php/7.0/fpm/
+COPY compose_deps/www.conf /etc/php/7.0/fpm/pool.d/
+COPY compose_deps/start.sh /opt/
+COPY compose_deps/connection.sh /opt/
+RUN chmod -R 0777 /opt/start.sh \
+&& chmod -R 0777  /opt/connection.sh
+LABEL CyberFT="compose_v3"
+EXPOSE 80
+EXPOSE 443
+WORKDIR /var/www/cyberft/app/src
+ENV LD_LIBRARY_PATH "/usr/local/openssl-1.1.1/lib/"
+CMD ["/bin/bash"]

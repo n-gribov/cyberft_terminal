@@ -1,0 +1,94 @@
+common\models\sbbolxml\request\ProfitAcquirerULType:
+    properties:
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\OrgDataType
+        registrationData:
+            expose: true
+            access_type: public_method
+            serialized_name: RegistrationData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRegistrationData
+                setter: setRegistrationData
+            type: common\models\sbbolxml\request\RegistrationDataType
+        addressInformation:
+            expose: true
+            access_type: public_method
+            serialized_name: AddressInformation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAddressInformation
+                setter: setAddressInformation
+            type: common\models\sbbolxml\request\RealAdressType
+        emailOrSite:
+            expose: true
+            access_type: public_method
+            serialized_name: EmailOrSite
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmailOrSite
+                setter: setEmailOrSite
+            type: string
+        telfax:
+            expose: true
+            access_type: public_method
+            serialized_name: Telfax
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTelfax
+                setter: setTelfax
+            type: string
+        authorisedCapitalInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthorisedCapitalInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthorisedCapitalInfo
+                setter: setAuthorisedCapitalInfo
+            type: common\models\sbbolxml\request\AuthorisedCapitalInfoType
+        licensesInformation:
+            expose: true
+            access_type: public_method
+            serialized_name: LicensesInformation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLicensesInformation
+                setter: setLicensesInformation
+            type: common\models\sbbolxml\request\LicensesInformationType
+        orgManagement:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgManagement
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgManagement
+                setter: setOrgManagement
+            type: common\models\sbbolxml\request\OrgManagementType
+        profitReasonInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ProfitReasonInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getProfitReasonInfo
+                setter: setProfitReasonInfo
+            type: common\models\sbbolxml\request\ProfitReasonInfoType

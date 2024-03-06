@@ -1,0 +1,434 @@
+.container {
+    width: 770px;
+    margin: 0 auto;
+}
+
+.top-1 {
+    text-align: right;
+    margin-bottom: 8px;
+}
+
+.top-2 {
+    text-align: right;
+    margin-bottom: 5px;
+}
+
+.bank-field-block {
+    border: 1px solid #000;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.bank-title-block {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.document-header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.document-header-title {
+    font-weight: 700;
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.document-header-date {
+    font-size: 20px;
+    display: flex;
+}
+
+.document-header-date-label {
+    margin-right: 10px;
+}
+
+.document-header-date-field {
+    width: 100px;
+    height: 20px;
+    border-bottom: 1px solid #000;
+    text-align: center;
+}
+
+.document-header-number {
+    display: flex;
+    margin-left: auto;
+}
+
+.document-header-number-label {
+    font-size: 18px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 10px;
+}
+
+.document-header-number-field table {
+    border-spacing: 0;
+}
+
+.document-header-number-field td {
+    border: 1px solid #000;
+    border-left: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    width: 9px;
+    text-align: center;
+}
+
+.document-header-number-field td:first-child {
+    border-left: 1px solid #000;
+}
+
+.section-header {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.section-header {
+    margin-bottom: 3px;
+}
+
+.section-subheader {
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 3px;
+}
+
+.section {
+    margin-bottom: 10px;
+}
+
+/* Секция 1 */
+
+.section-1 {
+    margin-bottom: 15px;
+}
+
+.section-1 .section-header {
+    margin-bottom: 8px;
+}
+
+.section-1-item-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-1-item-1-field {
+    border: 1px solid #000;
+    height: 20px;
+    width: 480px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.section-1-item-address {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-1-item-address-label-1 {
+    width: 75px;
+}
+
+.section-1-item-address-label-2 {
+    width: 227px;
+}
+
+.section-1-item-address-field {
+    border: 1px solid #000;
+    border-top: 0;
+    height: 16px;
+    width: 360px;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 16px;
+}
+
+.section-1-item-3,
+.section-1-item-4,
+.section-1-item-5,
+.section-1-item-6,
+.section-1-item-address-label-2-data-1 {
+    margin-top: -1px;
+}
+
+.section-1-item-6 .section-1-item-address-label-2 {
+    width: 652px;
+    display: flex;
+}
+
+.section-1-item-address-label-2-data {
+    display: flex;
+}
+
+.section-1-item-address-label-2-data-1 {
+    margin-right: 10px;
+}
+
+.section-1-item-address-label-2-data-1-label {
+    margin-right: 57px;
+}
+
+.section-1-item-address-label-2-data-1-field {
+    border: 1px solid #000;
+    height: 16px;
+    width: 45px;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 16px;
+}
+
+.section-1-item-address-label-2-data-2-label {
+    margin-right: 5px;
+}
+
+.section-1-item-address-label-2-data-2-field {
+    border: 1px solid #000;
+    border-top: 0;
+    height: 16px;
+    width: 37px;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 16px;
+}
+
+.section-1-item-address-label-2-data-3 {
+    margin-left: auto;
+}
+
+.section-1-item-address-label-2-data-3-label {
+    margin-right: 5px;
+}
+
+.section-1-item-address-label-2-data-3-field {
+    border: 1px solid #000;
+    border-top: 0;
+    height: 16px;
+    width: 45px;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 16px;
+}
+
+.section-1-item-6 {
+    margin-bottom: 5px;
+}
+
+.section-1-item-7 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-1-item-7-field table {
+    border-spacing: 0;
+}
+
+.section-1-item-7-field td {
+    border: 1px solid #000;
+    border-left: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 9px;
+    text-align: center;
+}
+
+.section-1-item-7-field td:first-child {
+    border-left: 1px solid #000;
+}
+
+.section-1-item-8 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-1-item-8-field table {
+    border-spacing: 0;
+}
+
+.section-1-item-8-field td {
+    border: 1px solid #000;
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 9px;
+    text-align: center;
+}
+
+.section-1-item-8-field td:first-child {
+    border-left: 1px solid #000;
+}
+
+.section-1-item-9 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-1-item-9-field table {
+    border-spacing: 0;
+}
+
+.section-1-item-9-field td {
+    border: 1px solid #000;
+    border-left: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 9px;
+    text-align: center;
+}
+
+.section-1-item-9-field td:first-child {
+    border-left: 1px solid #000;
+}
+
+/* Секция 2 */
+
+.section-header {
+    margin-bottom: 3px;
+}
+
+.nonresidents-table {
+    border-spacing: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.nonresidents-table tr:first-child td {
+    width: 5%;
+}
+
+.nonresidents-table tr:first-child td:first-child {
+    width: 35%;
+}
+
+.nonresidents-table td {
+    border: 1px solid #000;
+    text-align: center;
+}
+
+
+
+/* Секция 4 */
+.crr-data {
+    border-spacing: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.crr-data td {
+    border: 1px solid #000;
+    text-align: center;
+}
+
+.crr-data tr:first-child td:nth-child(2) {
+    width: 26.2%;
+}
+
+.crr-data tr:first-child td:nth-child(3) {
+    width: 27%;
+}
+
+/* Секция 5 */
+.crr-data-2 {
+    border-spacing: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.crr-data-2 td {
+    border: 1px solid #000;
+    text-align: center;
+}
+
+.crr-data-2 tr:nth-child(1) td:nth-child(1) {
+    width: 4%;
+}
+
+.crr-data-2 tr:nth-child(1) td:nth-child(2) {
+    width: 20%;
+}
+
+.crr-data-2 tr:nth-child(2) td:nth-child(1) {
+    width: 51%;
+}
+
+/* Секция 6 */
+.section-6 {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.section-6-header {
+    font-size: 18px;
+    font-weight: 700;
+    width: 284px;
+    position: relative;
+    padding-left: 18px;
+}
+
+.section-6-header .number {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.section-6-field table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.section-6-field {
+    margin-top: 12px;
+}
+
+.section-6-field td {
+    border: 1px solid #000;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    width: 9px;
+    text-align: center;
+}
+
+.section-7-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.section-7-content-title {
+    width: 536px;
+}
+
+.section-7-content-field {
+    display: flex;
+    justify-content: space-between;
+    width: 219px;
+}
+
+.section-7-content-field-1 {
+    border: 1px solid #000;
+    height: 20px;
+    width: 51px;
+}
+
+.section-7-content-field-2 {
+    border: 1px solid #000;
+    height: 20px;
+    width: 145px;
+}

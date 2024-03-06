@@ -1,0 +1,163 @@
+common\models\sbbolxml\request\CertifRequestType:
+    properties:
+        requestId:
+            expose: true
+            access_type: public_method
+            serialized_name: requestId
+            accessor:
+                getter: getRequestId
+                setter: setRequestId
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        idCrypto:
+            expose: true
+            access_type: public_method
+            serialized_name: idCrypto
+            accessor:
+                getter: getIdCrypto
+                setter: setIdCrypto
+            xml_attribute: true
+            type: string
+        containerName:
+            expose: true
+            access_type: public_method
+            serialized_name: containerName
+            accessor:
+                getter: getContainerName
+                setter: setContainerName
+            xml_attribute: true
+            type: string
+        cryptoAlgorithmStandard:
+            expose: true
+            access_type: public_method
+            serialized_name: cryptoAlgorithmStandard
+            accessor:
+                getter: getCryptoAlgorithmStandard
+                setter: setCryptoAlgorithmStandard
+            xml_attribute: true
+            type: string
+        commonName:
+            expose: true
+            access_type: public_method
+            serialized_name: CommonName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCommonName
+                setter: setCommonName
+            type: string
+        organization:
+            expose: true
+            access_type: public_method
+            serialized_name: Organization
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOrganization
+                setter: setOrganization
+            type: string
+        organizationUnit:
+            expose: true
+            access_type: public_method
+            serialized_name: OrganizationUnit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOrganizationUnit
+                setter: setOrganizationUnit
+            type: string
+        locality:
+            expose: true
+            access_type: public_method
+            serialized_name: Locality
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLocality
+                setter: setLocality
+            type: string
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: string
+        email:
+            expose: true
+            access_type: public_method
+            serialized_name: Email
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getEmail
+                setter: setEmail
+            type: string
+        position:
+            expose: true
+            access_type: public_method
+            serialized_name: Position
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPosition
+                setter: setPosition
+            type: string
+        params:
+            expose: true
+            access_type: public_method
+            serialized_name: Params
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getParams
+                setter: setParams
+            type: array<common\models\sbbolxml\request\ParamType>
+            xml_list:
+                inline: false
+                entry_name: Param
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        docs:
+            expose: true
+            access_type: public_method
+            serialized_name: Docs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocs
+                setter: setDocs
+            type: array<common\models\sbbolxml\request\CertifRequestType\DocsAType\DocAType>
+            xml_list:
+                inline: false
+                entry_name: Doc
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'

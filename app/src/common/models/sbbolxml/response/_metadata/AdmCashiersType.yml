@@ -1,0 +1,35 @@
+common\models\sbbolxml\response\AdmCashiersType:
+    properties:
+        stepId:
+            expose: true
+            access_type: public_method
+            serialized_name: stepId
+            accessor:
+                getter: getStepId
+                setter: setStepId
+            xml_attribute: true
+            type: integer
+        admCashier:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmCashier
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAdmCashier
+                setter: setAdmCashier
+            xml_list:
+                inline: true
+                entry_name: AdmCashier
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\AdmCashierType>
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

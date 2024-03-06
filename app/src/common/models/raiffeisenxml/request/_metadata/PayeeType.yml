@@ -1,0 +1,70 @@
+common\models\raiffeisenxml\request\PayeeType:
+    properties:
+        personalAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: personalAcc
+            accessor:
+                getter: getPersonalAcc
+                setter: setPersonalAcc
+            xml_attribute: true
+            type: string
+        kpp:
+            expose: true
+            access_type: public_method
+            serialized_name: kpp
+            accessor:
+                getter: getKpp
+                setter: setKpp
+            xml_attribute: true
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        uip:
+            expose: true
+            access_type: public_method
+            serialized_name: uip
+            accessor:
+                getter: getUip
+                setter: setUip
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: Bank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBank
+                setter: setBank
+            type: common\models\raiffeisenxml\request\BankNoNameType
+        filial:
+            expose: true
+            access_type: public_method
+            serialized_name: Filial
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFilial
+                setter: setFilial
+            type: string

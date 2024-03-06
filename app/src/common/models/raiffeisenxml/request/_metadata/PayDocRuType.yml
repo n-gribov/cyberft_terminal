@@ -1,0 +1,91 @@
+common\models\raiffeisenxml\request\PayDocRuType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\raiffeisenxml\request\AccDocType
+        payer:
+            expose: true
+            access_type: public_method
+            serialized_name: Payer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayer
+                setter: setPayer
+            type: common\models\raiffeisenxml\request\PayerNoNameType
+        payee:
+            expose: true
+            access_type: public_method
+            serialized_name: Payee
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayee
+                setter: setPayee
+            type: common\models\raiffeisenxml\request\PayeeType
+        departmentalInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DepartmentalInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDepartmentalInfo
+                setter: setDepartmentalInfo
+            type: common\models\raiffeisenxml\request\DepartmentalInfoType
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\raiffeisenxml\request\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\raiffeisenxml\request\AttachmentsType\AttachmentAType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        services:
+            expose: true
+            access_type: public_method
+            serialized_name: Services
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getServices
+                setter: setServices
+            type: common\models\raiffeisenxml\request\ServicesType

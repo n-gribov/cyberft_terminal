@@ -1,0 +1,123 @@
+common\models\raiffeisenxml\request\CurrBuyTransType:
+    properties:
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\raiffeisenxml\request\AccountRUType
+        accBank:
+            expose: true
+            access_type: public_method
+            serialized_name: AccBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccBank
+                setter: setAccBank
+            type: common\models\raiffeisenxml\request\AccountRUType
+        payDocRu:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocRu
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocRu
+                setter: setPayDocRu
+            type: common\models\raiffeisenxml\request\DocDataType
+        accTrans:
+            expose: true
+            access_type: public_method
+            serialized_name: AccTrans
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccTrans
+                setter: setAccTrans
+            type: common\models\raiffeisenxml\request\CurrBuyTransType\AccTransAType
+        amountSell:
+            expose: true
+            access_type: public_method
+            serialized_name: AmountSell
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAmountSell
+                setter: setAmountSell
+            type: common\models\raiffeisenxml\request\CurrAmountType
+        amountBuy:
+            expose: true
+            access_type: public_method
+            serialized_name: AmountBuy
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAmountBuy
+                setter: setAmountBuy
+            type: common\models\raiffeisenxml\request\CurrAmountType
+        dealType:
+            expose: true
+            access_type: public_method
+            serialized_name: DealType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealType
+                setter: setDealType
+            type: string
+        rateCurs:
+            expose: true
+            access_type: public_method
+            serialized_name: RateCurs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRateCurs
+                setter: setRateCurs
+            type: float
+        terms:
+            expose: true
+            access_type: public_method
+            serialized_name: Terms
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTerms
+                setter: setTerms
+            type: common\models\raiffeisenxml\request\TermsType
+        accCom:
+            expose: true
+            access_type: public_method
+            serialized_name: AccCom
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccCom
+                setter: setAccCom
+            type: common\models\raiffeisenxml\request\AccountRUType
+        amount:
+            expose: true
+            access_type: public_method
+            serialized_name: Amount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAmount
+                setter: setAmount
+            type: bool
+        payDocRuComis:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocRuComis
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocRuComis
+                setter: setPayDocRuComis
+            type: common\models\raiffeisenxml\request\DocDataType

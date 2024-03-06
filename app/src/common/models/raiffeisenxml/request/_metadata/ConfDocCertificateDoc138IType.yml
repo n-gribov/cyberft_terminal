@@ -1,0 +1,129 @@
+common\models\raiffeisenxml\request\ConfDocCertificateDoc138IType:
+    properties:
+        strNum:
+            expose: true
+            access_type: public_method
+            serialized_name: strNum
+            accessor:
+                getter: getStrNum
+                setter: setStrNum
+            xml_attribute: true
+            type: string
+        confDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: ConfDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConfDoc
+                setter: setConfDoc
+            type: common\models\raiffeisenxml\request\ConfDocType
+        docCode:
+            expose: true
+            access_type: public_method
+            serialized_name: DocCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocCode
+                setter: setDocCode
+            type: string
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            type: common\models\raiffeisenxml\request\CurrAmountType
+        contrSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContrSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContrSum
+                setter: setContrSum
+            type: common\models\raiffeisenxml\request\CurrAmountType
+        delDir:
+            expose: true
+            access_type: public_method
+            serialized_name: DelDir
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDelDir
+                setter: setDelDir
+            type: string
+        delDirSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DelDirSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDelDirSum
+                setter: setDelDirSum
+            type: common\models\raiffeisenxml\request\CurrAmountType
+        delDirSumContr:
+            expose: true
+            access_type: public_method
+            serialized_name: DelDirSumContr
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDelDirSumContr
+                setter: setDelDirSumContr
+            type: common\models\raiffeisenxml\request\CurrAmountType
+        term:
+            expose: true
+            access_type: public_method
+            serialized_name: Term
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTerm
+                setter: setTerm
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: common\models\raiffeisenxml\request\CountryType
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\raiffeisenxml\request\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

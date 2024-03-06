@@ -1,0 +1,26 @@
+common\models\raiffeisenxml\response\OrgInfoType\AuthPersonsAType\AuthPersonAType\AuthSignsAType\AuthSignAType\SignDevicesAType:
+    properties:
+        signDevice:
+            expose: true
+            access_type: public_method
+            serialized_name: SignDevice
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSignDevice
+                setter: setSignDevice
+            xml_list:
+                inline: true
+                entry_name: SignDevice
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\OrgInfoType\AuthPersonsAType\AuthPersonAType\AuthSignsAType\AuthSignAType\SignDevicesAType\SignDeviceAType>
+        all:
+            expose: true
+            access_type: public_method
+            serialized_name: All
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAll
+                setter: setAll
+            type: bool

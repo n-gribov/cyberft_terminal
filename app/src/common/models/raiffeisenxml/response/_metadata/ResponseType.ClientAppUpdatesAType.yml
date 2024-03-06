@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\response\ResponseType\ClientAppUpdatesAType:
+    properties:
+        clientAppUpdates:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientAppUpdates
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getClientAppUpdates
+                setter: setClientAppUpdates
+            xml_list:
+                inline: true
+                entry_name: ClientAppUpdates
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\ClientAppUpdateType>

@@ -1,0 +1,172 @@
+common\models\sbbolxml\response\CurrencyNoticeType:
+    properties:
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        bankName:
+            expose: true
+            access_type: public_method
+            serialized_name: bankName
+            accessor:
+                getter: getBankName
+                setter: setBankName
+            xml_attribute: true
+            type: string
+        orgId:
+            expose: true
+            access_type: public_method
+            serialized_name: orgId
+            accessor:
+                getter: getOrgId
+                setter: setOrgId
+            xml_attribute: true
+            type: string
+        orgName:
+            expose: true
+            access_type: public_method
+            serialized_name: orgName
+            accessor:
+                getter: getOrgName
+                setter: setOrgName
+            xml_attribute: true
+            type: string
+        author:
+            expose: true
+            access_type: public_method
+            serialized_name: author
+            accessor:
+                getter: getAuthor
+                setter: setAuthor
+            xml_attribute: true
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: Inn
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getInn
+                setter: setInn
+            type: string
+        kpp:
+            expose: true
+            access_type: public_method
+            serialized_name: Kpp
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getKpp
+                setter: setKpp
+            type: string
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\sbbolxml\response\AccNumBicType
+        receiveDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ReceiveDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getReceiveDate
+                setter: setReceiveDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        deadLine:
+            expose: true
+            access_type: public_method
+            serialized_name: DeadLine
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDeadLine
+                setter: setDeadLine
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        currencyNoticeSum:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrencyNoticeSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCurrencyNoticeSum
+                setter: setCurrencyNoticeSum
+            type: common\models\sbbolxml\response\CurrencyNoticeSumType
+        message:
+            expose: true
+            access_type: public_method
+            serialized_name: Message
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getMessage
+                setter: setMessage
+            type: string
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\response\AttachmentType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

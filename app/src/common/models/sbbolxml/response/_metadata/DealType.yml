@@ -1,0 +1,32 @@
+common\models\sbbolxml\response\DealType:
+    properties:
+        cpty:
+            expose: true
+            access_type: public_method
+            serialized_name: Cpty
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCpty
+                setter: setCpty
+            type: common\models\sbbolxml\response\CptyType
+        dealInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DealInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDealInfo
+                setter: setDealInfo
+            type: common\models\sbbolxml\response\DealInfoType
+        dealLegs:
+            expose: true
+            access_type: public_method
+            serialized_name: DealLegs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDealLegs
+                setter: setDealLegs
+            type: common\models\sbbolxml\response\DealLegsInfoType

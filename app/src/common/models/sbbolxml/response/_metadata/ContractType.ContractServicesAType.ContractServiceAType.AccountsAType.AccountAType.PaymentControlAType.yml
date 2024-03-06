@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\ContractType\ContractServicesAType\ContractServiceAType\AccountsAType\AccountAType\PaymentControlAType:
+    properties:
+        sum1:
+            expose: true
+            access_type: public_method
+            serialized_name: sum1
+            accessor:
+                getter: getSum1
+                setter: setSum1
+            xml_attribute: true
+            type: float
+        sum2:
+            expose: true
+            access_type: public_method
+            serialized_name: sum2
+            accessor:
+                getter: getSum2
+                setter: setSum2
+            xml_attribute: true
+            type: float
+        sum3:
+            expose: true
+            access_type: public_method
+            serialized_name: sum3
+            accessor:
+                getter: getSum3
+                setter: setSum3
+            xml_attribute: true
+            type: float

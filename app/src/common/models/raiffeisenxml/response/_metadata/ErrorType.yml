@@ -1,0 +1,46 @@
+common\models\raiffeisenxml\response\ErrorType:
+    properties:
+        code:
+            expose: true
+            access_type: public_method
+            serialized_name: Code
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCode
+                setter: setCode
+            type: string
+        identifier:
+            expose: true
+            access_type: public_method
+            serialized_name: Identifier
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getIdentifier
+                setter: setIdentifier
+            type: string
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: Type
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getType
+                setter: setType
+            type: string
+        desc:
+            expose: true
+            access_type: public_method
+            serialized_name: Desc
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDesc
+                setter: setDesc
+            type: string

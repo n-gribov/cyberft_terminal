@@ -1,0 +1,23 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType\AddInfoAType\AccWriteOffCoverAType:
+    properties:
+        acc:
+            expose: true
+            access_type: public_method
+            serialized_name: Acc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcc
+                setter: setAcc
+            type: common\models\raiffeisenxml\request\AccNumBicType
+        bankName:
+            expose: true
+            access_type: public_method
+            serialized_name: BankName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBankName
+                setter: setBankName
+            type: string

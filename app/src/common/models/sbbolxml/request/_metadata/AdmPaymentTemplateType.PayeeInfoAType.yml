@@ -1,0 +1,57 @@
+common\models\sbbolxml\request\AdmPaymentTemplateType\PayeeInfoAType:
+    properties:
+        payeeName:
+            expose: true
+            access_type: public_method
+            serialized_name: payeeName
+            accessor:
+                getter: getPayeeName
+                setter: setPayeeName
+            xml_attribute: true
+            type: string
+        payeeInn:
+            expose: true
+            access_type: public_method
+            serialized_name: payeeInn
+            accessor:
+                getter: getPayeeInn
+                setter: setPayeeInn
+            xml_attribute: true
+            type: string
+        payeeKpp:
+            expose: true
+            access_type: public_method
+            serialized_name: payeeKpp
+            accessor:
+                getter: getPayeeKpp
+                setter: setPayeeKpp
+            xml_attribute: true
+            type: string
+        enrollmentForBudget:
+            expose: true
+            access_type: public_method
+            serialized_name: enrollmentForBudget
+            accessor:
+                getter: getEnrollmentForBudget
+                setter: setEnrollmentForBudget
+            xml_attribute: true
+            type: boolean
+        additionalInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: additionalInfo
+            accessor:
+                getter: getAdditionalInfo
+                setter: setAdditionalInfo
+            xml_attribute: true
+            type: string
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            type: common\models\sbbolxml\request\AdmPaymentTemplateType\PayeeInfoAType\AccountAType

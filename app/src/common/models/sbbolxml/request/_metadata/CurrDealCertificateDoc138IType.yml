@@ -1,0 +1,183 @@
+common\models\sbbolxml\request\CurrDealCertificateDoc138IType:
+    properties:
+        lineNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: lineNumber
+            accessor:
+                getter: getLineNumber
+                setter: setLineNumber
+            xml_attribute: true
+            type: integer
+        documentNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: DocumentNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocumentNumber
+                setter: setDocumentNumber
+            type: string
+        numCheck:
+            expose: true
+            access_type: public_method
+            serialized_name: NumCheck
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getNumCheck
+                setter: setNumCheck
+            type: boolean
+        documentDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DocumentDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocumentDate
+                setter: setDocumentDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        paymentDirection:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentDirection
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPaymentDirection
+                setter: setPaymentDirection
+            type: string
+        currDocType:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDocType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCurrDocType
+                setter: setCurrDocType
+            type: string
+        operCode:
+            expose: true
+            access_type: public_method
+            serialized_name: OperCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOperCode
+                setter: setOperCode
+            type: string
+        operName:
+            expose: true
+            access_type: public_method
+            serialized_name: OperName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOperName
+                setter: setOperName
+            type: string
+        paymentSum:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPaymentSum
+                setter: setPaymentSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        transactionDate:
+            expose: true
+            access_type: public_method
+            serialized_name: TransactionDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTransactionDate
+                setter: setTransactionDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        contract:
+            expose: true
+            access_type: public_method
+            serialized_name: Contract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContract
+                setter: setContract
+            type: common\models\sbbolxml\request\ContractDateOptionalType
+        dealPassNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealPassNum
+                setter: setDealPassNum
+            type: string
+        contractSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractSum
+                setter: setContractSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        expectedTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: ExpectedTerm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExpectedTerm
+                setter: setExpectedTerm
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        prepaymentDate:
+            expose: true
+            access_type: public_method
+            serialized_name: PrepaymentDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPrepaymentDate
+                setter: setPrepaymentDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\sbbolxml\request\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

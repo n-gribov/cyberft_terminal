@@ -1,0 +1,43 @@
+common\models\sbbolxml\request\BFUploadAttachmentType:
+    properties:
+        linkUUID:
+            expose: true
+            access_type: public_method
+            serialized_name: linkUUID
+            accessor:
+                getter: getLinkUUID
+                setter: setLinkUUID
+            xml_attribute: true
+            type: string
+        fileName:
+            expose: true
+            access_type: public_method
+            serialized_name: FileName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFileName
+                setter: setFileName
+            type: string
+        fileSize:
+            expose: true
+            access_type: public_method
+            serialized_name: FileSize
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFileSize
+                setter: setFileSize
+            type: integer
+        comment:
+            expose: true
+            access_type: public_method
+            serialized_name: Comment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getComment
+                setter: setComment
+            type: string

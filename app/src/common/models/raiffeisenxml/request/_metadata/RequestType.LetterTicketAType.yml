@@ -1,0 +1,21 @@
+common\models\raiffeisenxml\request\RequestType\LetterTicketAType:
+    properties:
+        doctId:
+            expose: true
+            access_type: public_method
+            serialized_name: doctId
+            accessor:
+                getter: getDoctId
+                setter: setDoctId
+            xml_attribute: true
+            type: string
+        readLetter:
+            expose: true
+            access_type: public_method
+            serialized_name: ReadLetter
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReadLetter
+                setter: setReadLetter
+            type: common\models\raiffeisenxml\request\RequestType\LetterTicketAType\ReadLetterAType

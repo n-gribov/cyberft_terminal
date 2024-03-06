@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="RevocationCertifRequest">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:attribute name="docDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата составления документа</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="docNum" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Номер документа</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="6"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OrgData" type="OrgData">
+                        <xs:annotation>
+                            <xs:documentation>Данные организации</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="IdCrypto" type="UuidSeparated">
+                        <xs:annotation>
+                            <xs:documentation>Уникальный идентификатор средства подписи, для которого производится отзыв
+                                активного сертификата.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Reason" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Причина отзыва</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,13 @@
+common\models\sbbolxml\response\OrgInfoType\CreditContractsAType\CreditContractAType\AvailableAccsAType:
+    properties:
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: AccNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            type: string

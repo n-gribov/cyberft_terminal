@@ -1,0 +1,24 @@
+common\models\sbbolxml\request\KeyContractorsType:
+    properties:
+        keyContractorPayer:
+            expose: true
+            access_type: public_method
+            serialized_name: KeyContractorPayer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getKeyContractorPayer
+                setter: setKeyContractorPayer
+            type: string
+        keyContractorPayee:
+            expose: true
+            access_type: public_method
+            serialized_name: KeyContractorPayee
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getKeyContractorPayee
+                setter: setKeyContractorPayee
+            type: string

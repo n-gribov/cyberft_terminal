@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="ISKForUL">
+        <xs:annotation>
+            <xs:documentation>Информационные сведения юридического лица (филиала)</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="OrgData" type="OrgData"/>
+                    <xs:element name="RegistrationData" type="RegistrationData" minOccurs="0"/>
+                    <xs:element name="AddressInformation" type="RealAdress">
+                        <xs:annotation>
+                            <xs:documentation>Корневой элемент для Адреса местонахождения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EmailOrSite">
+                        <xs:annotation>
+                            <xs:documentation>Адрес электронной почты/сайт</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Telfax">
+                        <xs:annotation>
+                            <xs:documentation>Номера контактных телефонов и факсов (с указанием кода города)</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="AuthorisedCapitalInfo" type="AuthorisedCapitalInfo"/>
+                    <xs:element name="BranchOfProduction" type="BranchOfProduction">
+                        <xs:annotation>
+                            <xs:documentation>Сфера деятельности/отрасль производства</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LicensesInformation" type="LicensesInformation" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о лицензиях на право осуществления деятельности, подлежащей лицензированию</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NonResidentOperations" type="BoolType">
+                        <xs:annotation>
+                            <xs:documentation>Планируется ли осуществление операции(й) по переводу денежных средств на счета контрагентов –
+                                нерезидентов, не
+                                являющихся резидентами Республики Беларусь или Республики Казахстан, и действующих в своих интересах или по поручению
+                                третьих
+                                лиц, по заключенным с ними внешнеторговым договорам (контрактам), по которым будет осуществляться ввоз товаров,
+                                приобретенных
+                                у резидентов Республики Беларусь или Республики Казахстан соответственно, с территории Республики Беларусь или
+                                Республики
+                                Казахстан, по товарно-транспортным накладным (товарно-сопроводительным документам), оформленным грузоотправителями
+                                Республики
+                                Беларусь или Республики Казахстан
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BusinessStanding" type="BusinessStanding">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о деловой репутации</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BusinessRelationsInformation" type="BusinessRelationsInformation">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о целях установления и предполагаемом характере деловых отношений с Банком</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TypesOfContracts" type="TypesOfContracts" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Виды договоров (контрактов), расчеты по которым планируется осуществлять через Банк (нужное отметить)
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PlannedOperationsInfo" type="PlannedOperationsInfo">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о планируемых операциях по счету в месяц</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="KeyContractors" type="KeyContractors" minOccurs="0"/>
+                    <xs:element name="FinancialSituationInfoAndDocs" type="FinancialSituationInfoAndDocs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Сведения (документы) о финансовом положении</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ProfitAcquirers" type="ProfitAcquirers" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Выгодоприобретатели
+                                True, если выбрано «Есть», False, если выбрано «Нет»
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="OrgManagement" type="OrgManagement"/>
+                    <xs:element name="Beneficiar" type="Beneficiar" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

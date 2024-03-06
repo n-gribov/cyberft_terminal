@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="OfferResponses">
+        <xs:annotation>
+            <xs:documentation>Отклики на персональное предложение</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OfferResponse" type="OfferResponse" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Отклик на персональное предложение</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OfferResponse">
+        <xs:annotation>
+            <xs:documentation>Отклик на персональное предложение </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="UserID" type="xs:int" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Индентификатор пользователя</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UserGuid" type="UuidSeparated" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Глобальный индентификатор пользователя</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ExtOfferId" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Глобальный идентификатор предложения в SAS</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ResponseDtTm" type="xs:dateTime" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Дата/время в которое клиент совершил отклик</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ResponseTypeCd" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Тип отклика</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

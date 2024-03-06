@@ -1,0 +1,11 @@
+common\models\sbbolxml\response\CurrVBKType:
+    properties:
+        isoCode:
+            expose: true
+            access_type: public_method
+            serialized_name: isoCode
+            accessor:
+                getter: getIsoCode
+                setter: setIsoCode
+            xml_attribute: true
+            type: string

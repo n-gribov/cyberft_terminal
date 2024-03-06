@@ -1,0 +1,35 @@
+common\models\sbbolxml\response\OrganizationInfoType\BranchesAType\BranchAType\BranchDataAType:
+    properties:
+        fullName:
+            expose: true
+            access_type: public_method
+            serialized_name: FullName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFullName
+                setter: setFullName
+            type: string
+        intFullName:
+            expose: true
+            access_type: public_method
+            serialized_name: IntFullName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getIntFullName
+                setter: setIntFullName
+            type: string
+        intShortName:
+            expose: true
+            access_type: public_method
+            serialized_name: IntShortName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getIntShortName
+                setter: setIntShortName
+            type: string

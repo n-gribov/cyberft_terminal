@@ -1,0 +1,29 @@
+common\models\sbbolxml\request\CashOrderPurposeType:
+    properties:
+        cashSymbolCode:
+            expose: true
+            access_type: public_method
+            serialized_name: cashSymbolCode
+            accessor:
+                getter: getCashSymbolCode
+                setter: setCashSymbolCode
+            xml_attribute: true
+            type: string
+        cashSymbolName:
+            expose: true
+            access_type: public_method
+            serialized_name: cashSymbolName
+            accessor:
+                getter: getCashSymbolName
+                setter: setCashSymbolName
+            xml_attribute: true
+            type: string
+        amount:
+            expose: true
+            access_type: public_method
+            serialized_name: amount
+            accessor:
+                getter: getAmount
+                setter: setAmount
+            xml_attribute: true
+            type: float

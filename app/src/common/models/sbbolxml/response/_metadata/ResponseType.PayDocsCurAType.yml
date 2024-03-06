@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\ResponseType\PayDocsCurAType:
+    properties:
+        payDocCur:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocCur
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayDocCur
+                setter: setPayDocCur
+            xml_list:
+                inline: true
+                entry_name: PayDocCur
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\RZKPayDocCurType>

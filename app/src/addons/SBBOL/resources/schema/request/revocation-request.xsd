@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="RevocationRequest">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="OrgData" type="OrgDataCC">
+                                    <xs:annotation>
+                                        <xs:documentation>Основные реквизиты организации, указываемые в документе
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="DocInfo">
+                                    <xs:annotation>
+                                        <xs:documentation>Информация об отзываемом документе</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="AddInfo" type="xs:string">
+                                                <xs:annotation>
+                                                    <xs:documentation>Причина отзыва</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element name="OtherInfo" minOccurs="0">
+                                                <xs:annotation>
+                                                    <xs:documentation>Прочая информация об отзываемом документе
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:sequence minOccurs="0">
+                                                        <xs:element name="DocumentInfo" type="xs:string">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Краткая информация об отзываемом документе</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                        <xs:element name="DocumentInfo2" type="xs:string" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Дополнительная информация об отзываемом документе</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                    <xs:attribute name="docType" type="xs:string">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Тип отзываемого документа</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:attribute>
+                                                    <xs:attribute name="docNumber" type="xs:string">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Номер отзываемого документа</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:attribute>
+                                                    <xs:attribute name="docDate" type="xs:date">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Дата отзываемого документа</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:attribute>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:sequence>
+                                        <xs:attribute name="docId" type="UuidSeparated" use="optional">
+                                            <xs:annotation>
+                                                <xs:documentation>Идентификатор отзываемого документа в Correqts
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="docExtId" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Идентификатор документа в Системе клиента</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attribute name="docDate" type="xs:date" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Дата составления документа</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="docNum" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>Номер документа</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="6"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="LinkedDoc" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Связанный документ</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Params" type="Params" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Дополнительные параметры связанного документа</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attribute name="type">
+                                <xs:annotation>
+                                    <xs:documentation>Тип связанного документа</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="50"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="docExtId" type="xs:string" use="optional">
+                                <xs:annotation>
+                                    <xs:documentation>Идентификатор документа в Системе клиента</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

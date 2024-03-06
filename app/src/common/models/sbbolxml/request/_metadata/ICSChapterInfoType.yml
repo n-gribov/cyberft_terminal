@@ -1,0 +1,93 @@
+common\models\sbbolxml\request\ICSChapterInfoType:
+    properties:
+        resInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ResInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getResInfo
+                setter: setResInfo
+            type: common\models\sbbolxml\request\ResInfoICSType
+        beneficiarInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiarInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiarInfo
+                setter: setBeneficiarInfo
+            type: array<common\models\sbbolxml\request\BeneficiarInfoISCType>
+            xml_list:
+                inline: false
+                entry_name: Beneficiar
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        conCredInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ConCredInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConCredInfo
+                setter: setConCredInfo
+            type: common\models\sbbolxml\request\ConCredInfoType
+        specConditions:
+            expose: true
+            access_type: public_method
+            serialized_name: SpecConditions
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSpecConditions
+                setter: setSpecConditions
+            type: common\models\sbbolxml\request\SpecConditionsICSType
+        trancheInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: TrancheInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTrancheInfo
+                setter: setTrancheInfo
+            type: array<common\models\sbbolxml\request\TrancheOperType>
+            xml_list:
+                inline: false
+                entry_name: Oper
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        numOtherBank:
+            expose: true
+            access_type: public_method
+            serialized_name: NumOtherBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNumOtherBank
+                setter: setNumOtherBank
+            type: string
+        specData:
+            expose: true
+            access_type: public_method
+            serialized_name: SpecData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSpecData
+                setter: setSpecData
+            type: common\models\sbbolxml\request\CredSpecDataICSType
+        helpInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: HelpInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getHelpInfo
+                setter: setHelpInfo
+            type: common\models\sbbolxml\request\CredHelpInfoICSType

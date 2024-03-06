@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\OffersType\DeletedOffersAType:
+    properties:
+        offerId:
+            expose: true
+            access_type: public_method
+            serialized_name: OfferId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOfferId
+                setter: setOfferId
+            xml_list:
+                inline: true
+                entry_name: OfferId
+                namespace: 'http://bssys.com/upg/response'
+            type: array<string>

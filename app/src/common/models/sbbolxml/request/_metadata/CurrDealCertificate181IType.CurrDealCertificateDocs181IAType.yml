@@ -1,0 +1,16 @@
+common\models\sbbolxml\request\CurrDealCertificate181IType\CurrDealCertificateDocs181IAType:
+    properties:
+        currDealCertificateDoc181I:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDealCertificateDoc181I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrDealCertificateDoc181I
+                setter: setCurrDealCertificateDoc181I
+            xml_list:
+                inline: true
+                entry_name: CurrDealCertificateDoc181I
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\CurrDealCertificateDoc181IType>

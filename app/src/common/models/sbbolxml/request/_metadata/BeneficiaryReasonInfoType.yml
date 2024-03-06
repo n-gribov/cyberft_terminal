@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\BeneficiaryReasonInfoType:
+    properties:
+        beneficiaryReason:
+            expose: true
+            access_type: public_method
+            serialized_name: beneficiaryReason
+            accessor:
+                getter: getBeneficiaryReason
+                setter: setBeneficiaryReason
+            xml_attribute: true
+            type: string

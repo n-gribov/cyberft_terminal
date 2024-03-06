@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="AppForDeposit">
+        <xs:annotation>
+            <xs:documentation>Открытие депозита (заявление)</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocDataAppForDeposit" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Deposit" type="DepositType" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Данные по депозиту</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DocAccount" type="AccountRubType" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Р/с списания</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ReqAccount" type="AccountReturn" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Cчет возврата вклада и %%</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataAppForDeposit">
+        <xs:annotation>
+            <xs:documentation>Реквизиты документа Заявление на пролонгацию вклада (депозита)</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ComDocData">
+                <xs:attribute name="bankSystemName" type="BranchSystemName" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Системное наименование подразделения банка</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="actualCard" type="UuidSeparated">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор карточки договора депозита. Заполняется при импорте договора, сформированного по заявлению</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="contractNum">
+                    <xs:annotation>
+                        <xs:documentation>Номер договора из карточки депозита. Заполняется при импорте договора, сформированного по заявлению</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="contractDate" type="xs:date">
+                    <xs:annotation>
+                        <xs:documentation>Дата договора из карточки депозита. Заполняется при импорте договора, сформированного по заявлению</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="confirming" type="BoolType" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Признак подтверждения согласия с условиями.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="transferType" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Способ перечисления денежных средств. Возможные значения: bank – клиент дает поручение банку на списание средств, client – клиент перечисляет средства самостоятельно.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="bank"/>
+                            <xs:enumeration value="client"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="prolongation" type="BoolType" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Признак пролонгации, для заявления на пролонгацию . (для заявления на открытие не заполняется)</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="prolongationNum">
+                    <xs:annotation>
+                        <xs:documentation>Номер договора из карточки депозита, для заявления на пролонгацию (для заявления на открытие не заполняется)</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="50"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="prolongationDate" type="xs:date">
+                    <xs:annotation>
+                        <xs:documentation>Дата договора из карточки депозита, для заявления на пролонгацию (для заявления на открытие не заполняется)</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

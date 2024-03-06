@@ -1,0 +1,97 @@
+common\models\raiffeisenxml\response\OrgInfoType:
+    properties:
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\raiffeisenxml\response\OrgInfoType\OrgDataAType
+        branches:
+            expose: true
+            access_type: public_method
+            serialized_name: Branches
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBranches
+                setter: setBranches
+            type: array<common\models\raiffeisenxml\response\OrgInfoType\BranchesAType\BranchAType>
+            xml_list:
+                inline: false
+                entry_name: Branch
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        signDevices:
+            expose: true
+            access_type: public_method
+            serialized_name: SignDevices
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSignDevices
+                setter: setSignDevices
+            type: array<common\models\raiffeisenxml\response\OrgInfoType\SignDevicesAType\SignDeviceAType>
+            xml_list:
+                inline: false
+                entry_name: SignDevice
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        servicePackages:
+            expose: true
+            access_type: public_method
+            serialized_name: ServicePackages
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getServicePackages
+                setter: setServicePackages
+            type: array<common\models\raiffeisenxml\response\ServicePackageType>
+            xml_list:
+                inline: false
+                entry_name: ServicePackage
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        contracts:
+            expose: true
+            access_type: public_method
+            serialized_name: Contracts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContracts
+                setter: setContracts
+            type: array<common\models\raiffeisenxml\response\ContractType>
+            xml_list:
+                inline: false
+                entry_name: Contract
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        authPersons:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPersons
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAuthPersons
+                setter: setAuthPersons
+            type: array<common\models\raiffeisenxml\response\OrgInfoType\AuthPersonsAType\AuthPersonAType>
+            xml_list:
+                inline: false
+                entry_name: AuthPerson
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\raiffeisenxml\response\DigitalSignType

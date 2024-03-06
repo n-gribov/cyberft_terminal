@@ -1,0 +1,111 @@
+common\models\sbbolxml\response\ClientAppUpdateType:
+    properties:
+        postFix:
+            expose: true
+            access_type: public_method
+            serialized_name: PostFix
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPostFix
+                setter: setPostFix
+            type: string
+        fileName:
+            expose: true
+            access_type: public_method
+            serialized_name: FileName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFileName
+                setter: setFileName
+            type: string
+        clientAppVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientAppVersion
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getClientAppVersion
+                setter: setClientAppVersion
+            type: string
+        clientAppType:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientAppType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getClientAppType
+                setter: setClientAppType
+            type: string
+        clientOS:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientOS
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getClientOS
+                setter: setClientOS
+            type: string
+        clientOSArh:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientOSArh
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getClientOSArh
+                setter: setClientOSArh
+            type: string
+        clientOSVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientOSVersion
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getClientOSVersion
+                setter: setClientOSVersion
+            type: string
+        jvmVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: JvmVersion
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getJvmVersion
+                setter: setJvmVersion
+            type: string
+        clientOSLocale:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientOSLocale
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getClientOSLocale
+                setter: setClientOSLocale
+            type: string
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

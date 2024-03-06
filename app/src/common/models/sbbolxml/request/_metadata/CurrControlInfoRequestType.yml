@@ -1,0 +1,47 @@
+common\models\sbbolxml\request\CurrControlInfoRequestType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\CurrControlInfoRequestDocDataType
+        vBKInfos:
+            expose: true
+            access_type: public_method
+            serialized_name: VBKInfos
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVBKInfos
+                setter: setVBKInfos
+            type: array<common\models\sbbolxml\request\VBKInfoType>
+            xml_list:
+                inline: false
+                entry_name: VBKInfo
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
+        customsDeclaration:
+            expose: true
+            access_type: public_method
+            serialized_name: CustomsDeclaration
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCustomsDeclaration
+                setter: setCustomsDeclaration
+            type: common\models\sbbolxml\request\PeriodType
+        violationCurrencyLaws:
+            expose: true
+            access_type: public_method
+            serialized_name: ViolationCurrencyLaws
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getViolationCurrencyLaws
+                setter: setViolationCurrencyLaws
+            type: common\models\sbbolxml\request\PeriodType

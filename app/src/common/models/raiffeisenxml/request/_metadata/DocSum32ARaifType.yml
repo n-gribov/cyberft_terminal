@@ -1,0 +1,21 @@
+common\models\raiffeisenxml\request\DocSum32ARaifType:
+    properties:
+        multiCurr:
+            expose: true
+            access_type: public_method
+            serialized_name: MultiCurr
+            accessor:
+                getter: getMultiCurr
+                setter: setMultiCurr
+            xml_attribute: true
+            type: bool
+        transSum:
+            expose: true
+            access_type: public_method
+            serialized_name: TransSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTransSum
+                setter: setTransSum
+            type: common\models\raiffeisenxml\request\DocSum32ARaifType\TransSumAType

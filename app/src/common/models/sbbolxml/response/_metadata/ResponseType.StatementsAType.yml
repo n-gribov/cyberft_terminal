@@ -1,0 +1,44 @@
+common\models\sbbolxml\response\ResponseType\StatementsAType:
+    properties:
+        statement:
+            expose: true
+            access_type: public_method
+            serialized_name: Statement
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getStatement
+                setter: setStatement
+            xml_list:
+                inline: true
+                entry_name: Statement
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\StatementType>
+        statementAttachment:
+            expose: true
+            access_type: public_method
+            serialized_name: StatementAttachment
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getStatementAttachment
+                setter: setStatementAttachment
+            xml_list:
+                inline: true
+                entry_name: StatementAttachment
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\StatementAttachmentType>
+        error:
+            expose: true
+            access_type: public_method
+            serialized_name: Error
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getError
+                setter: setError
+            xml_list:
+                inline: true
+                entry_name: Error
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\ErrorStatementType>

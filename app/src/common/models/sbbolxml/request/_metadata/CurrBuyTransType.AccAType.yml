@@ -1,0 +1,31 @@
+common\models\sbbolxml\request\CurrBuyTransType\AccAType:
+    properties:
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: account
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            xml_attribute: true
+            type: string
+        bic:
+            expose: true
+            access_type: public_method
+            serialized_name: bic
+            accessor:
+                getter: getBic
+                setter: setBic
+            xml_attribute: true
+            type: string
+        bankName:
+            expose: true
+            access_type: public_method
+            serialized_name: BankName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBankName
+                setter: setBankName
+            type: string

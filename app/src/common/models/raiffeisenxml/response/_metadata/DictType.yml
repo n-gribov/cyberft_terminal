@@ -1,0 +1,25 @@
+common\models\raiffeisenxml\response\DictType:
+    properties:
+        dictId:
+            expose: true
+            access_type: public_method
+            serialized_name: dictId
+            accessor:
+                getter: getDictId
+                setter: setDictId
+            xml_attribute: true
+            type: string
+        step:
+            expose: true
+            access_type: public_method
+            serialized_name: Step
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getStep
+                setter: setStep
+            xml_list:
+                inline: true
+                entry_name: Step
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\StepType>

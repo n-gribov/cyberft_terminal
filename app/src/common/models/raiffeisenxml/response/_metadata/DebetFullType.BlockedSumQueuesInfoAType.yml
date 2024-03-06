@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\response\DebetFullType\BlockedSumQueuesInfoAType:
+    properties:
+        blockedSumQueues:
+            expose: true
+            access_type: public_method
+            serialized_name: BlockedSumQueues
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBlockedSumQueues
+                setter: setBlockedSumQueues
+            xml_list:
+                inline: true
+                entry_name: BlockedSumQueues
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\BlockedSumQueuesFullType>

@@ -1,0 +1,39 @@
+common\models\raiffeisenxml\response\StepType:
+    properties:
+        postFix:
+            expose: true
+            access_type: public_method
+            serialized_name: postFix
+            accessor:
+                getter: getPostFix
+                setter: setPostFix
+            xml_attribute: true
+            type: string
+        stepId:
+            expose: true
+            access_type: public_method
+            serialized_name: stepId
+            accessor:
+                getter: getStepId
+                setter: setStepId
+            xml_attribute: true
+            type: string
+        order:
+            expose: true
+            access_type: public_method
+            serialized_name: order
+            accessor:
+                getter: getOrder
+                setter: setOrder
+            xml_attribute: true
+            type: int
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\raiffeisenxml\response\DigitalSignType

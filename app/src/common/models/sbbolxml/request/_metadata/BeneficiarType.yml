@@ -1,0 +1,57 @@
+common\models\sbbolxml\request\BeneficiarType:
+    properties:
+        publicAuthority:
+            expose: true
+            access_type: public_method
+            serialized_name: PublicAuthority
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPublicAuthority
+                setter: setPublicAuthority
+            type: boolean
+        stateCorporation:
+            expose: true
+            access_type: public_method
+            serialized_name: StateCorporation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getStateCorporation
+                setter: setStateCorporation
+            type: boolean
+        internationalOrganization:
+            expose: true
+            access_type: public_method
+            serialized_name: InternationalOrganization
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getInternationalOrganization
+                setter: setInternationalOrganization
+            type: boolean
+        issuerOfSecurities:
+            expose: true
+            access_type: public_method
+            serialized_name: IssuerOfSecurities
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIssuerOfSecurities
+                setter: setIssuerOfSecurities
+            type: boolean
+        beneficiaryes:
+            expose: true
+            access_type: public_method
+            serialized_name: Beneficiaryes
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiaryes
+                setter: setBeneficiaryes
+            type: array<common\models\sbbolxml\request\BeneficiaryType>
+            xml_list:
+                inline: false
+                entry_name: Beneficiary
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

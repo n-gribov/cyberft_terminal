@@ -1,0 +1,81 @@
+common\models\sbbolxml\request\GenericLetterToBankType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\GenLetDocDataType
+        userData:
+            expose: true
+            access_type: public_method
+            serialized_name: UserData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUserData
+                setter: setUserData
+            type: common\models\sbbolxml\request\UserDataType
+        pSFType:
+            expose: true
+            access_type: public_method
+            serialized_name: PSFType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPSFType
+                setter: setPSFType
+            type: string
+        pSFTypeSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: PSFTypeSystemName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPSFTypeSystemName
+                setter: setPSFTypeSystemName
+            type: string
+        text:
+            expose: true
+            access_type: public_method
+            serialized_name: Text
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getText
+                setter: setText
+            type: string
+        channel:
+            expose: true
+            access_type: public_method
+            serialized_name: Channel
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getChannel
+                setter: setChannel
+            type: string
+        bigFileAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFileAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBigFileAttachments
+                setter: setBigFileAttachments
+            type: array<common\models\sbbolxml\request\BigFileAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BigFileAttachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

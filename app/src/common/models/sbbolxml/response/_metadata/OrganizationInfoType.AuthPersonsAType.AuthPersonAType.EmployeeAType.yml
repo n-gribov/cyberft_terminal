@@ -1,0 +1,94 @@
+common\models\sbbolxml\response\OrganizationInfoType\AuthPersonsAType\AuthPersonAType\EmployeeAType:
+    properties:
+        dateOfBirth:
+            expose: true
+            access_type: public_method
+            serialized_name: dateOfBirth
+            accessor:
+                getter: getDateOfBirth
+                setter: setDateOfBirth
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        birthPlace:
+            expose: true
+            access_type: public_method
+            serialized_name: birthPlace
+            accessor:
+                getter: getBirthPlace
+                setter: setBirthPlace
+            xml_attribute: true
+            type: string
+        sex:
+            expose: true
+            access_type: public_method
+            serialized_name: sex
+            accessor:
+                getter: getSex
+                setter: setSex
+            xml_attribute: true
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        snils:
+            expose: true
+            access_type: public_method
+            serialized_name: snils
+            accessor:
+                getter: getSnils
+                setter: setSnils
+            xml_attribute: true
+            type: string
+        position:
+            expose: true
+            access_type: public_method
+            serialized_name: position
+            accessor:
+                getter: getPosition
+                setter: setPosition
+            xml_attribute: true
+            type: string
+        branchName:
+            expose: true
+            access_type: public_method
+            serialized_name: branchName
+            accessor:
+                getter: getBranchName
+                setter: setBranchName
+            xml_attribute: true
+            type: string
+        isIdentified:
+            expose: true
+            access_type: public_method
+            serialized_name: isIdentified
+            accessor:
+                getter: getIsIdentified
+                setter: setIsIdentified
+            xml_attribute: true
+            type: boolean
+        citizenship:
+            expose: true
+            access_type: public_method
+            serialized_name: Citizenship
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCitizenship
+                setter: setCitizenship
+            type: common\models\sbbolxml\response\OrganizationInfoType\AuthPersonsAType\AuthPersonAType\EmployeeAType\CitizenshipAType
+        document:
+            expose: true
+            access_type: public_method
+            serialized_name: Document
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocument
+                setter: setDocument
+            type: common\models\sbbolxml\response\OrganizationInfoType\AuthPersonsAType\AuthPersonAType\EmployeeAType\DocumentAType

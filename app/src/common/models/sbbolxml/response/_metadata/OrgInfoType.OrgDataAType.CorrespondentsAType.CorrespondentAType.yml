@@ -1,0 +1,79 @@
+common\models\sbbolxml\response\OrgInfoType\OrgDataAType\CorrespondentsAType\CorrespondentAType:
+    properties:
+        corrName:
+            expose: true
+            access_type: public_method
+            serialized_name: CorrName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCorrName
+                setter: setCorrName
+            type: string
+        iNN:
+            expose: true
+            access_type: public_method
+            serialized_name: INN
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getINN
+                setter: setINN
+            type: string
+        kPP:
+            expose: true
+            access_type: public_method
+            serialized_name: KPP
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getKPP
+                setter: setKPP
+            type: string
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            type: string
+        bIC:
+            expose: true
+            access_type: public_method
+            serialized_name: BIC
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBIC
+                setter: setBIC
+            type: string
+        purpose:
+            expose: true
+            access_type: public_method
+            serialized_name: Purpose
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPurpose
+                setter: setPurpose
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

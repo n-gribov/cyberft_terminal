@@ -1,0 +1,62 @@
+common\models\sbbolxml\request\DocSum33BType:
+    properties:
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        docSumTransfer:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSumTransfer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocSumTransfer
+                setter: setDocSumTransfer
+            type: common\models\sbbolxml\request\CurrAmountType
+        rate:
+            expose: true
+            access_type: public_method
+            serialized_name: Rate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRate
+                setter: setRate
+            type: float
+        rateAgree:
+            expose: true
+            access_type: public_method
+            serialized_name: RateAgree
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRateAgree
+                setter: setRateAgree
+            type: boolean
+        multiCurr:
+            expose: true
+            access_type: public_method
+            serialized_name: MultiCurr
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMultiCurr
+                setter: setMultiCurr
+            type: boolean
+        differentCurrencies:
+            expose: true
+            access_type: public_method
+            serialized_name: DifferentCurrencies
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDifferentCurrencies
+                setter: setDifferentCurrencies
+            type: boolean

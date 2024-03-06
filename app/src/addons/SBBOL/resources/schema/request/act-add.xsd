@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="ActAdd">
+        <xs:annotation>
+            <xs:documentation>Добавление акта ГОЗ</xs:documentation>
+        </xs:annotation>
+        <xs:all minOccurs="1">
+            <xs:element name="GOZAct">
+                <xs:complexType>
+                    <xs:all minOccurs="1">
+                        <xs:element name="ActSumm">
+                            <xs:annotation>
+                                <xs:documentation>Сумма акта </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:attribute name="summ" type="xs:decimal" use="required">
+                                    <xs:annotation>
+                                        <xs:documentation>Сумма акта </xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="currIsoCode" type="CurrCodeLetterType" use="required">
+                                    <xs:annotation>
+                                        <xs:documentation>Трёхбуквенный код валюты</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="actNum" use="required">
+                        <xs:annotation>
+                            <xs:documentation>№ акта</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="30"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="actDate" type="xs:date" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Дата акта</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="actType" type="SubstDocType" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Тип акта, заполняется кодом из справочника Типов предметов договоров UpgRplDictionary/ConTypeEntry/@code</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="sendDate" type="xs:date" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Дата предоставления акта</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="actContent" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Содержание акта</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="512"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="contractEssenceId" type="UuidSeparated" use="required">
+                        <xs:annotation>
+                            <xs:documentation>№ контракта</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Customer" type="GozCustomer"/>
+            <xs:element name="Executor" type="GozExecutor"/>
+            <xs:element name="BFAttachments" type="BFAttachments">
+                <xs:annotation>
+                    <xs:documentation>Ссылки на вложенные файлы</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="essenceId" type="UuidSeparated" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    Идентификатор документа в СББОЛ. При отсутствии идентификатора - в СББОЛ будет создана новая запись.
+                    При наличии идентификатора - в СББОЛ будет произведено изменение существующей записи с данным id
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

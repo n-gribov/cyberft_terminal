@@ -1,0 +1,140 @@
+common\models\sbbolxml\request\InquiryInfoType:
+    properties:
+        inquiryCode:
+            expose: true
+            access_type: public_method
+            serialized_name: InquiryCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getInquiryCode
+                setter: setInquiryCode
+            type: string
+        inquiryGet:
+            expose: true
+            access_type: public_method
+            serialized_name: InquiryGet
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getInquiryGet
+                setter: setInquiryGet
+            type: string
+        secType:
+            expose: true
+            access_type: public_method
+            serialized_name: SecType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSecType
+                setter: setSecType
+            type: string
+        inquiryGetAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: InquiryGetAddress
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getInquiryGetAddress
+                setter: setInquiryGetAddress
+            type: string
+        amount:
+            expose: true
+            access_type: public_method
+            serialized_name: Amount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAmount
+                setter: setAmount
+            type: string
+        beginDate:
+            expose: true
+            access_type: public_method
+            serialized_name: BeginDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeginDate
+                setter: setBeginDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: EndDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        typeOfFilling:
+            expose: true
+            access_type: public_method
+            serialized_name: TypeOfFilling
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTypeOfFilling
+                setter: setTypeOfFilling
+            type: string
+        payDocsInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocsInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocsInfo
+                setter: setPayDocsInfo
+            type: array<common\models\sbbolxml\request\PayDocInfoType>
+            xml_list:
+                inline: false
+                entry_name: PayDocInfo
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        requiredFor:
+            expose: true
+            access_type: public_method
+            serialized_name: RequiredFor
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRequiredFor
+                setter: setRequiredFor
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        accounts:
+            expose: true
+            access_type: public_method
+            serialized_name: Accounts
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccounts
+                setter: setAccounts
+            type: array<common\models\sbbolxml\request\AccNumBicType>
+            xml_list:
+                inline: false
+                entry_name: Account
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

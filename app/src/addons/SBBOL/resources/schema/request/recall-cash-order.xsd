@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="RecallCashOrder">
+        <xs:annotation>
+            <xs:documentation>Отмена заявки на получение наличных средств</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocDataRecallCashOrder" type="DocDataRecallCashOrder">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="recallDocRef" type="UuidSeparated" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор отменяемого документа</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataRecallCashOrder">
+        <xs:annotation>
+            <xs:documentation>Реквизиты отмены заявки на получение наличных средств</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docNumber" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="50"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата создания документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="recallDocDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата отменяемого документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="recallDocNum" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер отменяемого документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="50"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="reason" use="optional">
+            <xs:annotation>
+                <xs:documentation>Причина отмены</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+
+</xs:schema>

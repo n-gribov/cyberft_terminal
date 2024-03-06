@@ -1,0 +1,35 @@
+common\models\raiffeisenxml\response\OrgInfoType\BranchesAType\BranchAType\ParamsAType\ParamAType:
+    properties:
+        paramId:
+            expose: true
+            access_type: public_method
+            serialized_name: ParamId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getParamId
+                setter: setParamId
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        value:
+            expose: true
+            access_type: public_method
+            serialized_name: Value
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getValue
+                setter: setValue
+            type: string

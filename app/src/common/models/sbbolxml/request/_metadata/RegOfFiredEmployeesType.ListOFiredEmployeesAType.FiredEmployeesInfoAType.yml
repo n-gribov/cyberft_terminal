@@ -1,0 +1,86 @@
+common\models\sbbolxml\request\RegOfFiredEmployeesType\ListOFiredEmployeesAType\FiredEmployeesInfoAType:
+    properties:
+        numSt:
+            expose: true
+            access_type: public_method
+            serialized_name: numSt
+            accessor:
+                getter: getNumSt
+                setter: setNumSt
+            xml_attribute: true
+            type: string
+        noRef:
+            expose: true
+            access_type: public_method
+            serialized_name: NoRef
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNoRef
+                setter: setNoRef
+            type: string
+        sName:
+            expose: true
+            access_type: public_method
+            serialized_name: SName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSName
+                setter: setSName
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        middleName:
+            expose: true
+            access_type: public_method
+            serialized_name: MiddleName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getMiddleName
+                setter: setMiddleName
+            type: string
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            type: string
+        identityDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentityDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIdentityDoc
+                setter: setIdentityDoc
+            type: common\models\sbbolxml\request\RegOfFiredEmployeesType\ListOFiredEmployeesAType\FiredEmployeesInfoAType\IdentityDocAType
+        dateOfDismissal:
+            expose: true
+            access_type: public_method
+            serialized_name: DateOfDismissal
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDateOfDismissal
+                setter: setDateOfDismissal
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

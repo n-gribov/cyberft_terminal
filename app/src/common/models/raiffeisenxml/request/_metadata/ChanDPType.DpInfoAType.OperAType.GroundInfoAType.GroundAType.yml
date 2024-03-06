@@ -1,0 +1,23 @@
+common\models\raiffeisenxml\request\ChanDPType\DpInfoAType\OperAType\GroundInfoAType\GroundAType:
+    properties:
+        strNum:
+            expose: true
+            access_type: public_method
+            serialized_name: StrNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getStrNum
+                setter: setStrNum
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\raiffeisenxml\request\ChanDPType\DpInfoAType\OperAType\GroundInfoAType\GroundAType\DocDataAType

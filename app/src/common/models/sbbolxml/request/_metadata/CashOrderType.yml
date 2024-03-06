@@ -1,0 +1,71 @@
+common\models\sbbolxml\request\CashOrderType:
+    properties:
+        changeDocRef:
+            expose: true
+            access_type: public_method
+            serialized_name: changeDocRef
+            accessor:
+                getter: getChangeDocRef
+                setter: setChangeDocRef
+            xml_attribute: true
+            type: string
+        docDataCashOrder:
+            expose: true
+            access_type: public_method
+            serialized_name: DocDataCashOrder
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocDataCashOrder
+                setter: setDocDataCashOrder
+            type: common\models\sbbolxml\request\DocDataCashOrderType
+        docAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: DocAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocAccount
+                setter: setDocAccount
+            type: common\models\sbbolxml\request\AccountRubType
+        recipientInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: RecipientInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRecipientInfo
+                setter: setRecipientInfo
+            type: common\models\sbbolxml\request\CashOrderRecipientInfoType
+        cashTokenReqs:
+            expose: true
+            access_type: public_method
+            serialized_name: CashTokenReqs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCashTokenReqs
+                setter: setCashTokenReqs
+            type: array<common\models\sbbolxml\request\CashTokenReqType>
+            xml_list:
+                inline: false
+                entry_name: CashTokenReq
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        purposes:
+            expose: true
+            access_type: public_method
+            serialized_name: Purposes
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPurposes
+                setter: setPurposes
+            type: array<common\models\sbbolxml\request\CashOrderPurposeType>
+            xml_list:
+                inline: false
+                entry_name: CashOrderPurpose
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

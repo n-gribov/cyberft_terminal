@@ -1,0 +1,24 @@
+common\models\sbbolxml\request\AddressesIPType:
+    properties:
+        residentialAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: ResidentialAddress
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getResidentialAddress
+                setter: setResidentialAddress
+            type: string
+        stayAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: StayAddress
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getStayAddress
+                setter: setStayAddress
+            type: string

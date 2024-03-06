@@ -1,0 +1,64 @@
+common\models\sbbolxml\request\CredDebtPaymentLoanICSType:
+    properties:
+        currIsoCode:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrIsoCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCurrIsoCode
+                setter: setCurrIsoCode
+            type: string
+        principalPayment:
+            expose: true
+            access_type: public_method
+            serialized_name: PrincipalPayment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPrincipalPayment
+                setter: setPrincipalPayment
+            type: float
+        principalDate:
+            expose: true
+            access_type: public_method
+            serialized_name: PrincipalDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPrincipalDate
+                setter: setPrincipalDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        sumPay:
+            expose: true
+            access_type: public_method
+            serialized_name: SumPay
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSumPay
+                setter: setSumPay
+            type: float
+        datePay:
+            expose: true
+            access_type: public_method
+            serialized_name: DatePay
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDatePay
+                setter: setDatePay
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        payComments:
+            expose: true
+            access_type: public_method
+            serialized_name: PayComments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPayComments
+                setter: setPayComments
+            type: string

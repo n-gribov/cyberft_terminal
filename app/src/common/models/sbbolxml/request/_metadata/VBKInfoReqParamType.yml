@@ -1,0 +1,72 @@
+common\models\sbbolxml\request\VBKInfoReqParamType:
+    properties:
+        fullPart:
+            expose: true
+            access_type: public_method
+            serialized_name: FullPart
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFullPart
+                setter: setFullPart
+            type: boolean
+        contractCredit:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractCredit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractCredit
+                setter: setContractCredit
+            type: boolean
+        part2:
+            expose: true
+            access_type: public_method
+            serialized_name: Part2
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPart2
+                setter: setPart2
+            type: boolean
+        part3Contract:
+            expose: true
+            access_type: public_method
+            serialized_name: Part3Contract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPart3Contract
+                setter: setPart3Contract
+            type: boolean
+        part5Contract:
+            expose: true
+            access_type: public_method
+            serialized_name: Part5Contract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPart5Contract
+                setter: setPart5Contract
+            type: boolean
+        part3Credit:
+            expose: true
+            access_type: public_method
+            serialized_name: Part3Credit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPart3Credit
+                setter: setPart3Credit
+            type: boolean
+        part4Credit:
+            expose: true
+            access_type: public_method
+            serialized_name: Part4Credit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPart4Credit
+                setter: setPart4Credit
+            type: boolean

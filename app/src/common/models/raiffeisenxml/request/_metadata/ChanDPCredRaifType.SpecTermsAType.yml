@@ -1,0 +1,33 @@
+common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecTermsAType:
+    properties:
+        enrollAbroadSum:
+            expose: true
+            access_type: public_method
+            serialized_name: EnrollAbroadSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEnrollAbroadSum
+                setter: setEnrollAbroadSum
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecTermsAType\EnrollAbroadSumAType
+        revenueWriteOffSum:
+            expose: true
+            access_type: public_method
+            serialized_name: RevenueWriteOffSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRevenueWriteOffSum
+                setter: setRevenueWriteOffSum
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecTermsAType\RevenueWriteOffSumAType
+        attractTermCode:
+            expose: true
+            access_type: public_method
+            serialized_name: AttractTermCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAttractTermCode
+                setter: setAttractTermCode
+            type: string

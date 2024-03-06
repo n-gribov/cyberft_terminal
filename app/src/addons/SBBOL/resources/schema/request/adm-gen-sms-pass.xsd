@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="AdmGenSMSPass">
+        <xs:annotation>
+            <xs:documentation>Запрос на генерацию пароля «Вносителю средств»</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор сущности «Вноситель средств»</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="login" use="required">
+            <xs:annotation>
+                <xs:documentation>Логин вносителя</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="9"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

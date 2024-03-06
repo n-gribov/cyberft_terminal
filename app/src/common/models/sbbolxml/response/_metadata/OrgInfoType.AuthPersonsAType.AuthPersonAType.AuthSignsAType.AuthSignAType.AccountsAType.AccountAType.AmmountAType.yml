@@ -1,0 +1,20 @@
+common\models\sbbolxml\response\OrgInfoType\AuthPersonsAType\AuthPersonAType\AuthSignsAType\AuthSignAType\AccountsAType\AccountAType\AmmountAType:
+    properties:
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: docSum
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            xml_attribute: true
+            type: float
+        noLimit:
+            expose: true
+            access_type: public_method
+            serialized_name: noLimit
+            accessor:
+                getter: getNoLimit
+                setter: setNoLimit
+            xml_attribute: true
+            type: boolean

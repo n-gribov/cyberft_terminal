@@ -1,0 +1,47 @@
+common\models\sbbolxml\request\SMSSignReqParamsType:
+    properties:
+        objId:
+            expose: true
+            access_type: public_method
+            serialized_name: objId
+            accessor:
+                getter: getObjId
+                setter: setObjId
+            xml_attribute: true
+            type: string
+        objExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: objExtId
+            accessor:
+                getter: getObjExtId
+                setter: setObjExtId
+            xml_attribute: true
+            type: string
+        docType:
+            expose: true
+            access_type: public_method
+            serialized_name: docType
+            accessor:
+                getter: getDocType
+                setter: setDocType
+            xml_attribute: true
+            type: string
+        dictName:
+            expose: true
+            access_type: public_method
+            serialized_name: dictName
+            accessor:
+                getter: getDictName
+                setter: setDictName
+            xml_attribute: true
+            type: string
+        numSt:
+            expose: true
+            access_type: public_method
+            serialized_name: numSt
+            accessor:
+                getter: getNumSt
+                setter: setNumSt
+            xml_attribute: true
+            type: integer

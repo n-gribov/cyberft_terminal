@@ -1,0 +1,19 @@
+common\models\sbbolxml\request\RequestType\CryptoIncomingAType\RevocationCertificatesAType:
+    properties:
+        __value:
+            expose: true
+            xml_value: true
+            access_type: public_method
+            accessor:
+                getter: value
+                setter: value
+            type: boolean
+        updateTime:
+            expose: true
+            access_type: public_method
+            serialized_name: updateTime
+            accessor:
+                getter: getUpdateTime
+                setter: setUpdateTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime

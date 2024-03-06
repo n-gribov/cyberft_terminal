@@ -1,0 +1,44 @@
+common\models\sbbolxml\request\RightToStayDocumentType\OtherRightToStayDocumentAType:
+    properties:
+        rightToStayDocumentName:
+            expose: true
+            access_type: public_method
+            serialized_name: RightToStayDocumentName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRightToStayDocumentName
+                setter: setRightToStayDocumentName
+            type: string
+        rightToStayDocumentSeriesOrNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: RightToStayDocumentSeriesOrNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRightToStayDocumentSeriesOrNumber
+                setter: setRightToStayDocumentSeriesOrNumber
+            type: string
+        durationOfStayBeginDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DurationOfStayBeginDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDurationOfStayBeginDate
+                setter: setDurationOfStayBeginDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        durationOfStayEndDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DurationOfStayEndDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDurationOfStayEndDate
+                setter: setDurationOfStayEndDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

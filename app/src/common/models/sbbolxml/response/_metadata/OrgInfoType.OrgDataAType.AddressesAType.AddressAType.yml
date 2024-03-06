@@ -1,0 +1,200 @@
+common\models\sbbolxml\response\OrgInfoType\OrgDataAType\AddressesAType\AddressAType:
+    properties:
+        addressTypeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: AddressTypeCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddressTypeCode
+                setter: setAddressTypeCode
+            type: string
+        addressType:
+            expose: true
+            access_type: public_method
+            serialized_name: AddressType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddressType
+                setter: setAddressType
+            type: string
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: string
+        countryName:
+            expose: true
+            access_type: public_method
+            serialized_name: CountryName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCountryName
+                setter: setCountryName
+            type: string
+        countryShortName:
+            expose: true
+            access_type: public_method
+            serialized_name: CountryShortName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCountryShortName
+                setter: setCountryShortName
+            type: string
+        zip:
+            expose: true
+            access_type: public_method
+            serialized_name: Zip
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getZip
+                setter: setZip
+            type: string
+        sub:
+            expose: true
+            access_type: public_method
+            serialized_name: Sub
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSub
+                setter: setSub
+            type: string
+        area:
+            expose: true
+            access_type: public_method
+            serialized_name: Area
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getArea
+                setter: setArea
+            type: string
+        city:
+            expose: true
+            access_type: public_method
+            serialized_name: City
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCity
+                setter: setCity
+            type: string
+        settlType:
+            expose: true
+            access_type: public_method
+            serialized_name: SettlType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSettlType
+                setter: setSettlType
+            type: string
+        settlName:
+            expose: true
+            access_type: public_method
+            serialized_name: SettlName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getSettlName
+                setter: setSettlName
+            type: string
+        str:
+            expose: true
+            access_type: public_method
+            serialized_name: Str
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getStr
+                setter: setStr
+            type: string
+        hNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: HNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getHNumber
+                setter: setHNumber
+            type: string
+        corp:
+            expose: true
+            access_type: public_method
+            serialized_name: Corp
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCorp
+                setter: setCorp
+            type: string
+        office:
+            expose: true
+            access_type: public_method
+            serialized_name: Office
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOffice
+                setter: setOffice
+            type: string
+        mailBox:
+            expose: true
+            access_type: public_method
+            serialized_name: MailBox
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getMailBox
+                setter: setMailBox
+            type: string
+        fullAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: FullAddress
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFullAddress
+                setter: setFullAddress
+            type: string
+        addInfoAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfoAddress
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfoAddress
+                setter: setAddInfoAddress
+            type: string

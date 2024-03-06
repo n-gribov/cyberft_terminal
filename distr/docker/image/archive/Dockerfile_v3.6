@@ -1,0 +1,133 @@
+#Dockerfile CyberFT system
+#version 3.6
+
+#step 1 - core and tools
+FROM debian:jessie
+RUN echo "deb http://httpredir.debian.org/debian wheezy main" >> /etc/apt/sources.list \
+&& apt-get update \
+&& apt-get -y install libnss3-1d libnspr4-0d apt-utils debconf-utils sudo wget autoconf libtool liblzma-dev python-dev openjdk-7-jre software-properties-common python-software-properties locales libc6-i386 lib32z1 \
+&& apt-get -y install alien locales libc6-i386 lib32z1 \
+&& apt-get -y -t=jessie install lsb-security lsb-core \
+&& apt-mark hold lsb lsb-base lsb-core lsb-security \
+&& apt-get -y upgrade \
+&& apt-get -y dist-upgrade
+
+#step 2 - mysql
+RUN wget https://www.dotdeb.org/dotdeb.gpg \
+&& sudo apt-key add dotdeb.gpg \
+&& echo "deb http://packages.dotdeb.org jessie all"  >> /etc/apt/sources.list \
+&& echo "deb-src http://packages.dotdeb.org jessie all" >> /etc/apt/sources.list \
+&& echo "mysql-server mysql-server/root_password password 123qwe" | debconf-set-selections \
+&& echo "mysql-server mysql-server/root_password_again password 123qwe" | debconf-set-selections \
+&& apt-get -y install mysql-server
+
+#step3 - php
+RUN apt-get -y install php5-fpm php5-common php5-cli php5-mcrypt php5-mysqlnd php5-curl php5-intl libssh2-php php5-curl curl php5-fpm php5-common php5-cli php5-mcrypt php5-mysqlnd php5-curl php5-intl libssh2-php
+
+#step4 - nginx
+RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list \
+&& echo "deb-src http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list \
+&& wget https://nginx.ru/keys/nginx_signing.key \
+&& sudo apt-key add nginx_signing.key \
+&& apt-get update \
+&& apt-get install nginx \
+&& rm -rf /etc/nginx/sites-enabled/default
+
+#step 5 - elasticsearch
+COPY deps/elasticsearch-2.4.1.deb /root
+RUN dpkg -i /root/elasticsearch-2.4.1.deb
+
+
+#step 6 - redis-server
+RUN apt-get -y install redis-server
+
+#step 7 - stunnel4
+RUN apt-get install -y stunnel4 \
+&& sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/stunnel4
+
+
+#step 8 - incrontab
+COPY deps/incron_0.5.10-1_amd64.deb /root/
+COPY deps/incron.conf /etc/incron_cyberft.conf
+RUN dpkg -i /root/incron_0.5.10-1_amd64.deb \
+&& echo "root" >> "/etc/incron.allow" \
+&& incrontab /etc/incron_cyberft.conf
+
+#step 9 - openssl
+RUN cd /root \
+&& apt-get install make \
+&& wget https://www.openssl.org/source/old/1.0.2/openssl-1.0.2.tar.gz \
+&& tar xvf openssl-1.0.2.tar.gz \
+&& cd ./openssl-1.0.2 \
+&& ./config --prefix=/usr/local/openssl-1.0.2 shared \
+&& make \
+&& make install \
+&& echo "openssl_conf = openssl_def\n$(cat /usr/local/openssl-1.0.2/ssl/openssl.cnf)" > /usr/local/openssl-1.0.2/ssl/openssl.cnf \
+&& echo "[openssl_def]\nengines = engine_section\n[engine_section]\ngost = gost_section\n[gost_section]\nengine_id = gost\ndynamic_path = /usr/local/openssl-1.0.2/lib/engines/libgost.so\ndefault_algorithms = ALL\nCRYPT_PARAMS = id-Gost28147-89-CryptoPro-A-ParamSet" >> /usr/local/openssl-1.0.2/ssl/openssl.cnf \
+&& echo 'export OPENSSL_CONF="/usr/local/openssl-1.0.2/ssl/openssl.cnf"' >  /etc/environment \
+&& export OPENSSL_CONF="/usr/local/openssl-1.0.2/ssl/openssl.cnf" \
+&& mv /usr/lib/ssl/openssl.cnf /usr/lib/ssl/openssl.cnf_bak \
+&& rm -rf /usr/bin/opensssl \
+&& ln -sf /usr/local/openssl-1.0.2/openssl /usr/bin/opensssl \
+&& ln -sf /usr/local/openssl-1.0.2/ssl/openssl.cnf /usr/lib/ssl/openssl.cnf
+
+#step 10 - libxml
+RUN cd /root \
+&& wget --no-check-certificate http://xmlsoft.org/sources/libxml2-2.9.4.tar.gz \
+&& tar xvf libxml2-2.9.4.tar.gz && cd libxml2-2.9.4 \
+&& sudo ./configure --prefix=/usr/local/libxml2-2.9.4 \
+&& sudo make \
+&& sudo make install
+
+#step 10 - xmlsec
+RUN /root \
+&& wget --no-check-certificate https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.23.tar.gz \
+&& tar xvzf xmlsec1-1.2.23.tar.gz \
+&& cd xmlsec1-1.2.23 \
+&& ./configure --prefix=/usr/local/xmlsec1-1.2.23 --enable-gost --disable-crypto-dl --with-openssl=/usr/local/openssl-1.0.2 --with-libxml=/usr/local/libxml2-2.9.4 --without-gcrypt --without-gnutls --without-libxslt \
+&& make \
+&& make install \
+&& ln -sf ./usr/local/xmlsec1-1.2.23/lib/* /usr/lib/ \
+&& ln -sf ./usr/local/xmlsec1-1.2.23/lib/* /usr/lib32/
+
+#step 11 - crypto-pro
+COPY deps/linux-amd64.tgz /root
+RUN cd /root/ \
+&& tar -xf linux-amd64.tgz \
+&& cd linux-amd64 \
+&& alien -kci cprocsp-compat-altlinux-64-1.0.0-1.noarch.rpm \
+&& alien -kci lsb-cprocsp-base-3.9.0-4.noarch.rpm \
+&& alien -kci lsb-cprocsp-rdr-64-3.9.0-4.x86_64.rpm \
+&& alien -kci lsb-cprocsp-capilite-64-3.9.0-4.x86_64.rpm \
+&& alien -kci lsb-cprocsp-kc1-64-3.9.0-4.x86_64.rpm \
+&& alien -kci cprocsp-stunnel-64-3.9.0-4.x86_64.rpm
+
+#step 12 - configure and clean
+COPY deps/sudoers /etc/sudoers
+COPY deps/cyberft-crypt /usr/bin/
+RUN cd /root \
+&& apt-get install ccze \
+&& apt-get -y autoremove \
+&& rm -rf /etc/apt/apt.conf \
+&& rm -rf /etc/apt/sources.list \
+&& rm -rf /var/lib/apt/lists/* \
+&& rm -rf  /var/lib/apt/* \
+&& rm -rf /root/* \
+&& chmod -R 0644 /etc/sudoers \
+&& echo 'LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/usr/local/xmlsec1-1.2.23/lib:/usr/local/openssl-1.0.2/lib:/usr/local/libxml2-2.9.4/lib:${LD_LIBRARY_PATH}"' >>  /etc/environment \
+&& echo "alias logs='tail -f /var/www/cyberft/app/logs/* | ccze -A'" >> /root/.bashrc \
+&& echo "alias services='/var/www/cyberft/app/background-jobs stop && /var/www/cyberft/app/src/yii resque/purge && /var/www/cyberft/app/src/yii app/update && /var/www/cyberft/app/background-jobs start'" >> /root/.bashrc \
+&& echo "alias src='cd /var/www/cyberft/app/src'" >> /root/.bashrc \
+&& chown mysql:mysql /var/lib/mysql \
+&& chown redis:redis /var/lib/redis \
+&& usermod -G www-data nginx \
+&& chmod -R 0755 /etc/nginx/* \
+&& chmod -R 0755 /etc/nginx/ \
+&& chown www-data:www-data /etc/nginx/* \
+&& chown www-data:www-data /etc/nginx/
+
+
+MAINTAINER nikolashin@cyberplat.com
+LABEL CyberFT="3.6"
+ENV LD_LIBRARY_PATH "/usr/lib/x86_64-linux-gnu:/usr/local/xmlsec1-1.2.23/lib:/usr/local/openssl-1.0.2/lib:/usr/local/libxml2-2.9.4/lib:${LD_LIBRARY_PATH}"
+CMD ["/bin/bash"]

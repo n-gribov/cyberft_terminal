@@ -1,0 +1,159 @@
+common\models\sbbolxml\response\FeesRegistriesType\FeesRegistryAType:
+    properties:
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            type: string
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            type: string
+        docState:
+            expose: true
+            access_type: public_method
+            serialized_name: docState
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDocState
+                setter: setDocState
+            type: string
+        fileName:
+            expose: true
+            access_type: public_method
+            serialized_name: fileName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFileName
+                setter: setFileName
+            type: string
+        registryName:
+            expose: true
+            access_type: public_method
+            serialized_name: registryName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRegistryName
+                setter: setRegistryName
+            type: string
+        dateLoad:
+            expose: true
+            access_type: public_method
+            serialized_name: dateLoad
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDateLoad
+                setter: setDateLoad
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        dateBegin:
+            expose: true
+            access_type: public_method
+            serialized_name: dateBegin
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDateBegin
+                setter: setDateBegin
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        dateEnd:
+            expose: true
+            access_type: public_method
+            serialized_name: dateEnd
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDateEnd
+                setter: setDateEnd
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        uploadedRecords:
+            expose: true
+            access_type: public_method
+            serialized_name: uploadedRecords
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getUploadedRecords
+                setter: setUploadedRecords
+            type: integer
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: float
+        sumBring:
+            expose: true
+            access_type: public_method
+            serialized_name: sumBring
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSumBring
+                setter: setSumBring
+            type: float
+        curAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: curAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurAccount
+                setter: setCurAccount
+            type: string
+        valueDate:
+            expose: true
+            access_type: public_method
+            serialized_name: valueDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getValueDate
+                setter: setValueDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docComment:
+            expose: true
+            access_type: public_method
+            serialized_name: docComment
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDocComment
+                setter: setDocComment
+            type: string

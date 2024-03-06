@@ -1,0 +1,23 @@
+common\models\sbbolxml\request\MandatorySaleType\SubtractAType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        substantiation:
+            expose: true
+            access_type: public_method
+            serialized_name: Substantiation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSubstantiation
+                setter: setSubstantiation
+            type: string

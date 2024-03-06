@@ -1,0 +1,147 @@
+common\models\sbbolxml\request\SalaryDocType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\SalaryDocDataType
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            type: common\models\sbbolxml\request\AccSalaryDocType
+        salContract:
+            expose: true
+            access_type: public_method
+            serialized_name: SalContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSalContract
+                setter: setSalContract
+            type: common\models\sbbolxml\request\SalaryDocType\SalContractAType
+        total:
+            expose: true
+            access_type: public_method
+            serialized_name: Total
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTotal
+                setter: setTotal
+            type: integer
+        totalSum:
+            expose: true
+            access_type: public_method
+            serialized_name: TotalSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTotalSum
+                setter: setTotalSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        transfInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: TransfInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTransfInfo
+                setter: setTransfInfo
+            type: array<common\models\sbbolxml\request\SalaryDocType\TransfInfoAType\TransfAType>
+            xml_list:
+                inline: false
+                entry_name: Transf
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
+        payDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocs
+                setter: setPayDocs
+            type: array<common\models\sbbolxml\request\SalaryPayDocRuType>
+            xml_list:
+                inline: false
+                entry_name: PayDocRu
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\sbbolxml\request\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\request\AttachmentsType\AttachmentAType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        bigFileAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BigFileAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBigFileAttachments
+                setter: setBigFileAttachments
+            type: array<common\models\sbbolxml\request\BigFileAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BigFileAttachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        reportPeriod:
+            expose: true
+            access_type: public_method
+            serialized_name: ReportPeriod
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReportPeriod
+                setter: setReportPeriod
+            type: common\models\sbbolxml\request\ReportPeriodType
+        rzk:
+            expose: true
+            access_type: public_method
+            serialized_name: Rzk
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRzk
+                setter: setRzk
+            type: common\models\sbbolxml\request\RzkType

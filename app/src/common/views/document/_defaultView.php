@@ -1,0 +1,1 @@
+<?=Yii::t('doc', 'View for this document is not defined')?>

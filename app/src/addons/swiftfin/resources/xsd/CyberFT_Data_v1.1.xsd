@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://cyberft.ru/xsd/cftdata.01" targetNamespace="http://cyberft.ru/xsd/cftdata.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="StatusReport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RefDocId" type="xs:string"/>
+        <xs:element name="StatusCode">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="RCVD">
+                <xs:annotation>
+                  <xs:documentation>Received</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="ACTC">
+                <xs:annotation>
+                  <xs:documentation>AcceptedTechnicalValidation</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="ACCP">
+                <xs:annotation>
+                  <xs:documentation>AcceptedCustomerProfile</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="RJCT">
+                <xs:annotation>
+                  <xs:documentation>Rejected</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="PDNG">
+                <xs:annotation>
+                  <xs:documentation>Pending</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="ACDP">
+                <xs:annotation>
+                  <xs:documentation>AcceptedDocumentInProcess</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+              <xs:enumeration value="ACDC">
+                <xs:annotation>
+                  <xs:documentation>AcceptedDocumentProcessCompleted</xs:documentation>
+                </xs:annotation>
+              </xs:enumeration>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="ErrorCode" type="xs:string" minOccurs="0"/>
+        <xs:element name="ErrorDescription" type="xs:string" minOccurs="0"/>
+        <xs:element name="StatusDetails" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any namespace="##any" processContents="lax" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StatusRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RefDocId" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Statement">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="StatementNumber" type="xs:string"/>
+        <xs:element name="CreateDate" type="xs:dateTime"/>
+        <xs:element name="AccountNumber" type="xs:string"/>
+        <xs:element name="StatementPeriod" type="ReportPeriodType"/>
+        <xs:element name="OpeningBalance" type="xs:decimal"/>
+        <xs:element name="DebitTurnover" type="xs:decimal"/>
+        <xs:element name="CreditTurnover" type="xs:decimal"/>
+        <xs:element name="ClosingBalance" type="xs:decimal"/>
+        <xs:element name="RefDocId" type="xs:string" minOccurs="0"/>
+        <xs:element name="Transaction" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Reference" type="xs:string" minOccurs="0"/>
+              <xs:element name="EntryDate" type="xs:dateTime"/>
+              <xs:element name="ValueDate" type="xs:dateTime"/>
+              <xs:element name="DocDate" type="xs:date"/>
+              <xs:element name="Number" type="xs:integer"/>
+              <xs:element name="Correspondent">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Reference" type="xs:string" minOccurs="0"/>
+                    <xs:element name="AccountNumber" type="xs:string"/>
+                    <xs:element name="Name" type="xs:string" minOccurs="0"/>
+                    <xs:element name="INN" type="xs:string" minOccurs="0"/>
+                    <xs:element name="KPP" type="xs:string" minOccurs="0"/>
+                    <xs:element name="BIK" type="xs:string" minOccurs="0"/>
+                    <xs:element name="BankName" type="xs:string" minOccurs="0"/>
+                    <xs:element name="BankAccountNumber" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Purpose" type="xs:string"/>
+              <xs:element name="Amount" type="xs:string"/>
+              <xs:element name="DCMark">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="D"/>
+                    <xs:enumeration value="C"/>
+                    <xs:enumeration value="RD"/>
+                    <xs:enumeration value="RC"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Ack">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RefDocId" type="xs:string"/>
+        <xs:element name="RefSenderId" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StatementRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="AccountNumber" type="xs:string"/>
+        <xs:element name="StatementPeriod" type="ReportPeriodType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ReportPeriodType">
+    <xs:sequence>
+      <xs:element name="StartDate" type="xs:date"/>
+      <xs:element name="EndDate" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

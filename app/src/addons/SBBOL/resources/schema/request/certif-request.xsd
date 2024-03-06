@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CertifRequest">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="CommonName" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>ФИО - фамилия, имя и отчество уполномоченного лица клиента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Organization" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Краткое наименование организации</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="OrganizationUnit" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Наименование подразделения банка, где заключен контракт с организацией. Для СБ РФ
+                                должно передаваться значение Response/OrgsInfo/Branches/Branch/BankName, соответствующее
+                                Response/OrgsInfo/Contracts/ContractInfo/BranchId
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Locality" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Город местонахождения ЮЛ</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Country">
+                        <xs:annotation>
+                            <xs:documentation>Страна. Должен передаваться 2-х символьный код страны из справочника стран. RU
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:length value="2"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Email" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Е-мейл</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Position" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Должность физического лица. Должно передаваться значение из
+                                Response/OrgsInfo/AuthPersons/AuthPerson/Position
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Params" type="Params" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Дополнительные параметры. Для СБ РФ будут передаваться следующие параметры:
+                                Response/OrgsInfo/OrgsData/OrgData/OtherOrgData/CertAuthId ), следующие символы до 8 - это
+                                порядковый код ключа (необходимо генерить следующий порядковый номер сертификата в УЦ; последний
+                                порядковый номер сертификата в УЦ передается в теге:
+                                Response/OrgsInfo/OrgsData/OrgData/OtherOrgData/LastCertifNum). Не разрешается использовать
+                                пробел в начале и в конце текста),
+                                tokenId - идентификатор токена,
+                                tokenTlsVersion - версия прошивки токена,
+                                pin- пин, под которым был сделан запрос.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Docs">
+                        <xs:annotation>
+                            <xs:documentation>Содержит данные одного клиентского документа "Запрос на новый сертификат"
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Doc" maxOccurs="unbounded">
+                                    <xs:annotation>
+                                        <xs:documentation>Содержит данные одного запроса сертификата, которые создаются по в
+                                            рамках одного клиенского запроса (запрос сертификата для подписи/запрос сертификата
+                                            TLS и т.д.)
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="Attachment">
+                                                <xs:annotation>
+                                                    <xs:documentation>Отдельное вложение</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="AttachmentName" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Имя файла вложения</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:minLength value="1"/>
+                                                                    <xs:maxLength value="64"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
+                                                        </xs:element>
+                                                        <xs:element name="Description" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Пользовательское описание файла вложения
+                                                                </xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:simpleType>
+                                                                <xs:restriction base="xs:string">
+                                                                    <xs:minLength value="1"/>
+                                                                    <xs:maxLength value="1024"/>
+                                                                </xs:restriction>
+                                                            </xs:simpleType>
+                                                        </xs:element>
+                                                        <xs:element name="Body" type="xs:base64Binary">
+                                                            <xs:annotation>
+                                                                <xs:documentation>В бинарном представлении в сжатом и несжатом
+                                                                    виде
+                                                                </xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="Params" type="Params" minOccurs="1">
+                                                <xs:annotation>
+                                                    <xs:documentation>Дополнительные параметры. Для СБ РФ будут передаваться следующие параметры:
+                                                        Response/OrgsInfo/OrgsData/OrgData/OtherOrgData/CertAuthId ), следующие символы до 8 - это
+                                                        порядковый код ключа (необходимо генерить следующий порядковый номер сертификата в УЦ;
+                                                        последний
+                                                        порядковый номер сертификата в УЦ передается в теге:
+                                                        Response/OrgsInfo/OrgsData/OrgData/OtherOrgData/LastCertifNum). Не разрешается использовать
+                                                        пробел в начале и в конце текста),
+                                                        tokenId - идентификатор токена,
+                                                        tokenTlsVersion - версия прошивки токена,
+                                                        pin- пин, под которым был сделан запрос.
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                        </xs:sequence>
+                                        <xs:attribute name="type" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Тип запроса, передается константа:
+                                                    «sign» - для запроса сертификата для подписи,
+                                                    «tls» - для запроса сертификата tls.
+                                                    При необходимости список может быть расширен.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="requestId" type="xs:string" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор запроса на сертификат для идентификации запроса при загрузке сертификата
+                            из УЦ
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="docDate" type="xs:date" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Дата составления документа</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="docNum" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Номер документа</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="6"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="idCrypto" type="UuidSeparated" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Уникальный идентификатор средства подписи. Соответствует значению атрибута из ответа
+                            Responce/OrgsInfo/SignDevices/SignDevice/SignDeviceId
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="containerName" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Ссылка на закрытый ключ</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

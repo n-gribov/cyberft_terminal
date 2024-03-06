@@ -1,0 +1,103 @@
+common\models\sbbolxml\request\BusinessRelationsInformationType:
+    properties:
+        businessRelationsDuration:
+            expose: true
+            access_type: public_method
+            serialized_name: BusinessRelationsDuration
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBusinessRelationsDuration
+                setter: setBusinessRelationsDuration
+            type: common\models\sbbolxml\request\BusinessRelationsDurationType
+        activeBankRelations:
+            expose: true
+            access_type: public_method
+            serialized_name: ActiveBankRelations
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getActiveBankRelations
+                setter: setActiveBankRelations
+            type: boolean
+        paymentAndCashServices:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentAndCashServices
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPaymentAndCashServices
+                setter: setPaymentAndCashServices
+            type: boolean
+        crediting:
+            expose: true
+            access_type: public_method
+            serialized_name: Crediting
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCrediting
+                setter: setCrediting
+            type: boolean
+        documentaryOperations:
+            expose: true
+            access_type: public_method
+            serialized_name: DocumentaryOperations
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocumentaryOperations
+                setter: setDocumentaryOperations
+            type: boolean
+        depositoryServices:
+            expose: true
+            access_type: public_method
+            serialized_name: DepositoryServices
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDepositoryServices
+                setter: setDepositoryServices
+            type: boolean
+        remoteBanking:
+            expose: true
+            access_type: public_method
+            serialized_name: RemoteBanking
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRemoteBanking
+                setter: setRemoteBanking
+            type: boolean
+        deposits:
+            expose: true
+            access_type: public_method
+            serialized_name: Deposits
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDeposits
+                setter: setDeposits
+            type: boolean
+        otherBusinessRelationsInformation:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherBusinessRelationsInformation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOtherBusinessRelationsInformation
+                setter: setOtherBusinessRelationsInformation
+            type: boolean
+        otherBusinessRelationsInformationText:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherBusinessRelationsInformationText
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOtherBusinessRelationsInformationText
+                setter: setOtherBusinessRelationsInformationText
+            type: string

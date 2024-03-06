@@ -1,0 +1,33 @@
+common\models\raiffeisenxml\response\DealPassRequisitesType:
+    properties:
+        numFull:
+            expose: true
+            access_type: public_method
+            serialized_name: NumFull
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getNumFull
+                setter: setNumFull
+            type: string
+        numParts:
+            expose: true
+            access_type: public_method
+            serialized_name: NumParts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getNumParts
+                setter: setNumParts
+            type: common\models\raiffeisenxml\response\DealPassRequisitesType\NumPartsAType
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: Date
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDate
+                setter: setDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

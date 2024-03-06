@@ -1,0 +1,24 @@
+common\models\sbbolxml\response\OrgKppType:
+    properties:
+        kPPIndex:
+            expose: true
+            access_type: public_method
+            serialized_name: KPPIndex
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getKPPIndex
+                setter: setKPPIndex
+            type: string
+        checkKPP:
+            expose: true
+            access_type: public_method
+            serialized_name: CheckKPP
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCheckKPP
+                setter: setCheckKPP
+            type: string

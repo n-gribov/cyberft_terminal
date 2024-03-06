@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="RegOfCorpCards">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="ComDocData">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты платёжного документа ДБО</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Account" type="AccNumBicType">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты бизнес-счета клиента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TransfInfo">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Transf" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="SName">
+                                                <xs:annotation>
+                                                    <xs:documentation>Фамилия физического лица</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:maxLength value="50"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:element>
+                                            <xs:element name="Name">
+                                                <xs:annotation>
+                                                    <xs:documentation>Имя физического лица</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:maxLength value="50"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:element>
+                                            <xs:element name="MiddleName" minOccurs="0">
+                                                <xs:annotation>
+                                                    <xs:documentation>Отчество физического лица
+                                                        (у некоторых иностранцев нет отчества)
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:maxLength value="50"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:element>
+                                            <xs:element name="CardNum" type="CardNum">
+                                                <xs:annotation>
+                                                    <xs:documentation>Номер карты</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element name="Sum" type="CurrAmountType">
+                                                <xs:annotation>
+                                                    <xs:documentation>Сумма, которую необходимо зачислить на данную карту
+
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                        </xs:sequence>
+                                        <xs:attribute name="numSt" type="xs:integer">
+                                            <xs:annotation>
+                                                <xs:documentation>Номер п/п (может быть использован при подписи )
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Total" type="xs:integer" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Общее количество сотрудников (количество строк в таблице)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TotalSum" type="CurrAmountType">
+                        <xs:annotation>
+                            <xs:documentation>Общая сумма, вычисляемое поле (рассчитывается как сумма для зачисления по всем
+                                строкам таблицы)
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PayDocRu" type="SalaryPayDocRu">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты платежного поручения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LinkedDocs" type="LinkedDocs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Связанные документы, например, реестр пополнения корп. карт, зарплатные ведомости
+                                и т.п.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="AddInfo" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Дополнительная информация</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

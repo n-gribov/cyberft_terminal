@@ -1,0 +1,56 @@
+common\models\sbbolxml\request\CashOrderRecipientDocInfoType:
+    properties:
+        docTypeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: docTypeCode
+            accessor:
+                getter: getDocTypeCode
+                setter: setDocTypeCode
+            xml_attribute: true
+            type: string
+        docTypeName:
+            expose: true
+            access_type: public_method
+            serialized_name: docTypeName
+            accessor:
+                getter: getDocTypeName
+                setter: setDocTypeName
+            xml_attribute: true
+            type: string
+        docSerial:
+            expose: true
+            access_type: public_method
+            serialized_name: docSerial
+            accessor:
+                getter: getDocSerial
+                setter: setDocSerial
+            xml_attribute: true
+            type: string
+        docNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: docNumber
+            accessor:
+                getter: getDocNumber
+                setter: setDocNumber
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        persInfoConsent:
+            expose: true
+            access_type: public_method
+            serialized_name: persInfoConsent
+            accessor:
+                getter: getPersInfoConsent
+                setter: setPersInfoConsent
+            xml_attribute: true
+            type: boolean

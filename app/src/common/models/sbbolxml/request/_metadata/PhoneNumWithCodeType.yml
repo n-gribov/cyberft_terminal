@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\PhoneNumWithCodeType:
+    properties:
+        operatorCode:
+            expose: true
+            access_type: public_method
+            serialized_name: operatorCode
+            accessor:
+                getter: getOperatorCode
+                setter: setOperatorCode
+            xml_attribute: true
+            type: string
+        number:
+            expose: true
+            access_type: public_method
+            serialized_name: Number
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNumber
+                setter: setNumber
+            type: string

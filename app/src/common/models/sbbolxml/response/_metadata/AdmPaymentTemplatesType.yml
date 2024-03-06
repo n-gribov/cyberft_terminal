@@ -1,0 +1,35 @@
+common\models\sbbolxml\response\AdmPaymentTemplatesType:
+    properties:
+        stepId:
+            expose: true
+            access_type: public_method
+            serialized_name: stepId
+            accessor:
+                getter: getStepId
+                setter: setStepId
+            xml_attribute: true
+            type: string
+        admPayTemplate:
+            expose: true
+            access_type: public_method
+            serialized_name: AdmPayTemplate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAdmPayTemplate
+                setter: setAdmPayTemplate
+            xml_list:
+                inline: true
+                entry_name: AdmPayTemplate
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\AdmPaymentTemplateType>
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

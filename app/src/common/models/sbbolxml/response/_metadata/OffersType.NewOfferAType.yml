@@ -1,0 +1,110 @@
+common\models\sbbolxml\response\OffersType\NewOfferAType:
+    properties:
+        userId:
+            expose: true
+            access_type: public_method
+            serialized_name: UserId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getUserId
+                setter: setUserId
+            type: integer
+        userGuid:
+            expose: true
+            access_type: public_method
+            serialized_name: UserGuid
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getUserGuid
+                setter: setUserGuid
+            type: string
+        offerId:
+            expose: true
+            access_type: public_method
+            serialized_name: OfferId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOfferId
+                setter: setOfferId
+            type: integer
+        extOfferId:
+            expose: true
+            access_type: public_method
+            serialized_name: ExtOfferId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getExtOfferId
+                setter: setExtOfferId
+            type: string
+        offerType:
+            expose: true
+            access_type: public_method
+            serialized_name: OfferType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOfferType
+                setter: setOfferType
+            type: string
+        priority:
+            expose: true
+            access_type: public_method
+            serialized_name: Priority
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPriority
+                setter: setPriority
+            type: integer
+        startDate:
+            expose: true
+            access_type: public_method
+            serialized_name: StartDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getStartDate
+                setter: setStartDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: EndDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        loadDate:
+            expose: true
+            access_type: public_method
+            serialized_name: LoadDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLoadDate
+                setter: setLoadDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        offerAttributes:
+            expose: true
+            access_type: public_method
+            serialized_name: OfferAttributes
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOfferAttributes
+                setter: setOfferAttributes
+            type: array<common\models\sbbolxml\response\OffersType\NewOfferAType\OfferAttributesAType\OfferAttributeAType>
+            xml_list:
+                inline: false
+                entry_name: OfferAttribute
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

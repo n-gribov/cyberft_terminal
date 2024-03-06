@@ -1,0 +1,12 @@
+common\models\sbbolxml\response\ComDataType:
+    properties:
+        curr:
+            expose: true
+            access_type: public_method
+            serialized_name: Curr
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCurr
+                setter: setCurr
+            type: common\models\sbbolxml\response\DPCurrType

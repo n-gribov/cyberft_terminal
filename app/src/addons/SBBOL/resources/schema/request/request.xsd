@@ -1,0 +1,1053 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+    <xs:include schemaLocation="debt-registry.xsd"/>
+    <xs:include schemaLocation="cash-order.xsd"/>
+    <xs:include schemaLocation="recall-cash-order.xsd"/>
+    <xs:include schemaLocation="curr-deal-certificate-181i.xsd"/>
+    <xs:include schemaLocation="deal-pass-ics.xsd"/>
+    <xs:include schemaLocation="restruct-ics.xsd"/>
+    <xs:include schemaLocation="int-ctrl-statement-xml.xsd"/>
+    <xs:include schemaLocation="pay-doc-ru.xsd"/>
+    <xs:include schemaLocation="ticket-cl.xsd"/>
+    <xs:include schemaLocation="stmt-req.xsd"/>
+    <xs:include schemaLocation="salary-doc.xsd"/>
+    <xs:include schemaLocation="accept.xsd"/>
+    <xs:include schemaLocation="letter-in-bank.xsd"/>
+    <xs:include schemaLocation="curr-deal-certificate-138i.xsd"/>
+    <xs:include schemaLocation="conf-doc-certificate-138i.xsd"/>
+    <xs:include schemaLocation="conf-doc-certificate-181i.xsd"/>
+    <xs:include schemaLocation="deal-pass-con-138i.xsd"/>
+    <xs:include schemaLocation="deal-pass-cred-138i.xsd"/>
+    <xs:include schemaLocation="deal-pass-restruct.xsd"/>
+    <xs:include schemaLocation="deal-pass-close.xsd"/>
+    <xs:include schemaLocation="certif-request-qualified.xsd"/>
+    <xs:include schemaLocation="certif-request.xsd"/>
+    <xs:include schemaLocation="revocation-certif-request.xsd"/>
+    <xs:include schemaLocation="pay-doc-cur.xsd"/>
+    <xs:include schemaLocation="curr-buy.xsd"/>
+    <xs:include schemaLocation="curr-sell.xsd"/>
+    <xs:include schemaLocation="mandatory-sale.xsd"/>
+    <xs:include schemaLocation="reg-of-corp-cards.xsd"/>
+    <xs:include schemaLocation="appl-for-contract.xsd"/>
+    <xs:include schemaLocation="reg-of-iss-cards.xsd"/>
+    <xs:include schemaLocation="reg-of-fired-employees.xsd"/>
+    <xs:include schemaLocation="rzk-dict-update.xsd"/>
+    <xs:include schemaLocation="personal-info.xsd"/>
+    <xs:include schemaLocation="update-request.xsd"/>
+    <xs:include schemaLocation="pay-request.xsd"/>
+    <xs:include schemaLocation="credit-order.xsd"/>
+    <xs:include schemaLocation="revocation-request.xsd"/>
+    <xs:include schemaLocation="overdraft-request.xsd"/>
+    <xs:include schemaLocation="firmware-update-request.xsd"/>
+    <xs:include schemaLocation="corr-add.xsd"/>
+    <xs:include schemaLocation="subst-doc-add.xsd"/>
+    <xs:include schemaLocation="verify-sms-sign.xsd"/>
+    <xs:include schemaLocation="benef-add.xsd"/>
+    <xs:include schemaLocation="corp-card-ext-issue-request.xsd"/>
+    <xs:include schemaLocation="exchange-messages-with-bank.xsd"/>
+    <xs:include schemaLocation="curr-control-info-request.xsd"/>
+    <xs:include schemaLocation="isk-for-ip.xsd"/>
+    <xs:include schemaLocation="isk-for-ul.xsd"/>
+    <xs:include schemaLocation="incoming-request-isk.xsd"/>
+    <xs:include schemaLocation="deal-pass-from-another-bank.xsd"/>
+    <xs:include schemaLocation="chat-with-bank-msg.xsd"/>
+    <xs:include schemaLocation="inquiry-order.xsd"/>
+    <xs:include schemaLocation="account-statement.xsd"/>
+    <xs:include schemaLocation="supply-doc.xsd"/>
+    <xs:include schemaLocation="big-files-upload-links-request.xsd"/>
+    <xs:include schemaLocation="chat-with-bank-msg-status.xsd"/>
+    <xs:include schemaLocation="incoming-deal-conf.xsd"/>
+    <xs:include schemaLocation="deal-ans.xsd"/>
+    <xs:include schemaLocation="pay-cust-doc.xsd"/>
+    <xs:include schemaLocation="contract-add.xsd"/>
+    <xs:include schemaLocation="act-add.xsd"/>
+    <xs:include schemaLocation="incoming-user-roles.xsd"/>
+    <xs:include schemaLocation="incoming-offers.xsd"/>
+    <xs:include schemaLocation="offer-responses.xsd"/>
+    <xs:include schemaLocation="crms.xsd"/>
+    <xs:include schemaLocation="call-backs.xsd"/>
+    <xs:include schemaLocation="adm-payment-template.xsd"/>
+    <xs:include schemaLocation="adm-cashier.xsd"/>
+    <xs:include schemaLocation="audit-letter.xsd"/>
+    <xs:include schemaLocation="early-recall-data.xsd"/>
+    <xs:include schemaLocation="change-acc-details-data.xsd"/>
+    <xs:include schemaLocation="app-for-deposit.xsd"/>
+    <xs:include schemaLocation="perm-balance-data.xsd"/>
+    <xs:include schemaLocation="essence-links.xsd"/>
+    <xs:include schemaLocation="activate-cert.xsd"/>
+    <xs:include schemaLocation="corr-del.xsd"/>
+    <xs:include schemaLocation="benef-del.xsd"/>
+    <xs:include schemaLocation="enable-use-sign-corr-dict.xsd"/>
+    <xs:include schemaLocation="update-list-of-employees.xsd"/>
+    <xs:include schemaLocation="rzk-pay-docs-ru.xsd"/>
+    <xs:include schemaLocation="curr-course-entry.xsd"/>
+    <xs:include schemaLocation="adm-payment-template-block.xsd"/>
+    <xs:include schemaLocation="adm-payment-template-del.xsd"/>
+    <xs:include schemaLocation="adm-payment-template-list.xsd"/>
+    <xs:include schemaLocation="adm-cashier-list.xsd"/>
+    <xs:include schemaLocation="adm-operation-list.xsd"/>
+    <xs:include schemaLocation="adm-gen-sms-pass.xsd"/>
+    <xs:include schemaLocation="adm-cashier-get-login.xsd"/>
+    <xs:include schemaLocation="card-deposits.xsd"/>
+    <xs:include schemaLocation="card-perm-balance.xsd"/>
+    <xs:include schemaLocation="verify-auth-sms-sign.xsd"/>
+    <xs:include schemaLocation="audit.xsd"/>
+    <xs:include schemaLocation="fees-registry.xsd"/>
+    <xs:include schemaLocation="fees-registry-download.xsd"/>
+    <xs:include schemaLocation="fees-registry-accept.xsd"/>
+    <xs:include schemaLocation="request-chat-from-bank-msgs.xsd"/>
+    <xs:include schemaLocation="big-files-status-request.xsd"/>
+    <xs:include schemaLocation="big-files-download-printform-link.xsd"/>
+    <xs:include schemaLocation="dzo-acc-attach.xsd"/>
+
+    <xs:element name="Request" type="Request">
+        <xs:annotation>
+            <xs:documentation>Запрос УС к СББОЛ</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:complexType name="Request">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="DocIds">
+                    <xs:annotation>
+                        <xs:documentation>Запрос информации о результатах обработки документов (подпись будем проверять
+                            в соответствии с порядком
+                            в строк е)
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="DocId" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation/>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="docId" type="UuidSeparated">
+                                        <xs:annotation>
+                                            <xs:documentation>Тикет СББОЛ (UUID документа)</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="docExtId" type="UuidSeparated">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Идентификатор документа в УС.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="format">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Формат получения ответа Response/Tickets. По умолчанию используется значение Full.
+                                                Подробное описание версии каждого формата(и возможность его использования) содержится в каждом отдельном документе.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="Full">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Полный формат ответа</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:enumeration>
+                                                <xs:enumeration value="Short">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Сокращенный формат ответа</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:enumeration>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="PayDocRu" type="PayDocRu">
+                    <xs:annotation>
+                        <xs:documentation>Платёжное поручение рублёвое</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Ticket" type="TicketCl">
+                    <xs:annotation>
+                        <xs:documentation>Квитанция о получении документа на стороне УС</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Incoming">
+                    <xs:annotation>
+                        <xs:documentation>Запрос о получении данных, подготовленных для УС ("ночных выписок", выписок,
+                            тикетов после отказа в РС, новостей)
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Accounts" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Счёта, подготовленные выписки по котором нужно выгрузить. Для счетов не вошедших в список
+                                        предоставлять выписки по запросу с данным элементом не требуется
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Account" type="Account" maxOccurs="1000"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Orgs" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Организации, письма по которым нужно выгрузить.
+                                    Если список пуст, возвращаются только письма по организации, указанной в верхнем элементе
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Org" type="UuidSeparated" maxOccurs="1000"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="correspondentDictStepId" type="xs:long">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор последнего обновления справочника корреспондентов</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="bicDictStepId" type="xs:long">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор последнего обновления справочника БИК</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="lastIncomingTime" type="xs:dateTime" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Дата и время последнего запроса Incoming(с час. поясами)</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="beneficiarDictStepId" type="xs:long">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор последнего обновления справочника бенефициаров</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeRZKPayDocsRu" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать рублевые платежные поручения</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeRZKPayDocsCurr" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать валютные платежные поручения</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeRZKSalaryDocs" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать зарплатную ведомость</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeStatements" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать выписки</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeExchangeMessageFromBank" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать сообщения из банка</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeNews" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать новости</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeLetterFromBanks" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать сообщения из банка</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includePayRequests" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать платежные требования</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeChangedDocs" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать информацию об измененных документах</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeOrgSettings" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать информацию об организации</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeIntCtrlStatement" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать ведомости банковского контроля
+                                    по контрактам, кредитным договорам</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeDealPassCon138I" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать паспорта сделок по контракту</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeDealPassCred138I" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать паспорта сделок по кредиту</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="includeCurrencyNotice" type="BoolType" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Признак того, что необходимо выгружать уведомления о поступлении денежных средств на транзитный валютный счет</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="dictsForDepositsDictStepId" type="xs:long">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор последнего обновления справочника актуальных ставок</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="cardDepositDictStepId" type="xs:long">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор последнего обновления справочника карточек депозита</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="cardPermBalanceDictStepId" type="xs:long">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор последнего обновления справочника карточек НСО</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="CryptoIncoming">
+                    <xs:annotation>
+                        <xs:documentation>Запрос криптографической информации (криптопрофилей, сертификатов)
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Certificates" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Запрос информации о сертификатах.
+                                        Если проставлен признак @client, передавать только клиентские сертификаты.
+                                        Если стоит признак @bank, передавать только последний действительный банковский
+                                        сертификат.
+                                        Если стоят оба признака, передавать и клиенские сертификаты и банковский.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="client" type="BoolType">
+                                        <xs:annotation>
+                                            <xs:documentation>Запрос клиентских сертификатов для данной организации
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="bank" type="BoolType">
+                                        <xs:annotation>
+                                            <xs:documentation>Признак запроса последнего действительного банковского
+                                                сертификата
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="root" type="BoolType">
+                                        <xs:annotation>
+                                            <xs:documentation>Признак запроса сертификатов УЦ и корневых сертификатов
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ContractAccessCodes" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>ТОЛЬКО ДЛЯ ТК. Идентификатор, который используется для получения
+                                        персональных данных.
+                                        (DBOContractChannel.accessCode)
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ContractAccessCode" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>ТОЛЬКО ДЛЯ ТК. Идентификатор, который используется для
+                                                    получения персональных данных.
+                                                    (DBOContractChannel.accessCode)
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="RevocationCertificates" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Признак запроса списка отозванных сертикатов</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="BoolType">
+                                            <xs:attribute name="updateTime" type="xs:dateTime" use="optional">
+                                                <xs:annotation>
+                                                    <xs:documentation>Дата и время используемого обновления списка отозванных сертификатов</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="cryptopro" type="BoolType">
+                            <xs:annotation>
+                                <xs:documentation>Запрос информации о новых криптопрофилях для данной организации.
+                                    1- признак активен
+                                    0- не активен
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="ActivateCert" type="ActivateCert"/>
+                <xs:element name="StmtReq" type="StmtReqType">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на получение информации о движении ден. средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="PayDocRuGetSMS">
+                    <xs:annotation>
+                        <xs:documentation>Запрос СМС-пароля</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="PayDocRu" type="PayDocRu">
+                                <xs:annotation>
+                                    <xs:documentation>Платёжное поручение рублёвое</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="SessionId" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="PayDocRuSMS">
+                    <xs:annotation>
+                        <xs:documentation>Отправка платежки с паролем</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="SessionId" type="xs:string"/>
+                            <xs:element name="OneTimePassword" type="xs:string"/>
+                            <xs:element name="PayDocRu" type="PayDocRu">
+                                <xs:annotation>
+                                    <xs:documentation>Платёжное поручение рублёвое</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="SalaryDoc" type="SalaryDoc">
+                    <xs:annotation>
+                        <xs:documentation>Зарплатная ведомость</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Accept" type="Accept">
+                    <xs:annotation>
+                        <xs:documentation>Заявление об акцепте/отказ от акцепта</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="LetterInBank" type="LetterInBank">
+                    <xs:annotation>
+                        <xs:documentation>Письмо в банк</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CurrDealCertificate138I" type="CurrDealCertificate138I">
+                    <xs:annotation>
+                        <xs:documentation>Справка о валютных операциях 138</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ConfDocCertificate138I" type="ConfDocCertificate138I">
+                    <xs:annotation>
+                        <xs:documentation>Справка о подтверждающих документах 138И</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ConfDocCertificate181I" type="ConfDocCertificate181I">
+                    <xs:annotation>
+                        <xs:documentation>Справка о подтверждающих документах 181И</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IcsRestruct181I" type="IcsRestruct181I">
+                    <xs:annotation>
+                        <xs:documentation>Заявление о переоформлении ПС</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DzoAccAttach" type="DzoAccAttach">
+                    <xs:annotation>
+                        <xs:documentation>Прикрепление счетов дочерней организации к головной компании холдинга</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DealPassICS" type="DealPassICS">
+                    <xs:annotation>
+                        <xs:documentation>Ведомость банковского контроля</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DealPassCon138I" type="DealPassCon138I">
+                    <xs:annotation>
+                        <xs:documentation>Паспорт сделки по контракту 138И</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DealPassCred138I" type="DealPassCred138I">
+                    <xs:annotation>
+                        <xs:documentation>Паспорт сделки по кредитному договору 138И</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DealPassRestruct" type="DealPassRestruct">
+                    <xs:annotation>
+                        <xs:documentation>Заявление о переоформлении паспорта сделки 138И</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DealPassClose" type="DealPassClose">
+                    <xs:annotation>
+                        <xs:documentation>Заявление о закрытии паспорта сделки 138И</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CertifRequestQualified" type="CertifRequestQualified">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на выпуск нового сертификата</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CertifRequest" type="CertifRequest">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на выпуск нового сертификата</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RevocationCertifRequest" type="RevocationCertifRequest">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на отзыв сертификата</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="PayDocCur" type="PayDocCur">
+                    <xs:annotation>
+                        <xs:documentation>Поручение на перевод валюты</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CurrBuy" type="CurrBuy">
+                    <xs:annotation>
+                        <xs:documentation>Поручение на покупку валюты</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CurrSell" type="CurrSell">
+                    <xs:annotation>
+                        <xs:documentation>Поручение на продажу валюты</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="MandatorySale" type="MandatorySale">
+                    <xs:annotation>
+                        <xs:documentation>Распоряжение об осуществлении обязательной продажи</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RegOfCorpCards" type="RegOfCorpCards">
+                    <xs:annotation>
+                        <xs:documentation>Реестр на пополнение средств по корпоративным картам</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ApplForContract" type="ApplForContract">
+                    <xs:annotation>
+                        <xs:documentation>Заявка на зарплатный договор</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RegOfIssCards" type="RegOfIssCards">
+                    <xs:annotation>
+                        <xs:documentation>Реестр на открытие счетов и выпуск карт</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RegOfFiredEmployees" type="RegOfFiredEmployees">
+                    <xs:annotation>
+                        <xs:documentation>Реестр на увольнение сотрудников</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Dict" type="Dict" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Репликация справочников</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RzkDictUpdate" type="RzkDictUpdate" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Запрос репликации справочника СБК</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="PersonalInfo" type="PersonalInfo">
+                    <xs:annotation>
+                        <xs:documentation>Запрос персональных данных</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DocTypeConfigInfo" type="DocTypeConfigInfo">
+                    <xs:annotation>
+                        <xs:documentation>Запрос данных о типах документов</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ClientAppUpdateRequest" type="UpdateRequest">
+                    <xs:annotation>
+                        <xs:documentation>Запрос обновлений для Offline-клиента</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="PayRequest" type="PayRequest">
+                    <xs:annotation>
+                        <xs:documentation>Платежное требование и Инкассовое поручение</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CreditOrder" type="CreditOrder">
+                    <xs:annotation>
+                        <xs:documentation>Распоряжение на перевод кредитных средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RevocationRequest" type="RevocationRequest">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на отзыв документов</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RemainRequest" type="OverdraftRequest">
+                    <xs:annotation>
+                        <xs:documentation>Запрос информации об остатках по счетам</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="FirmwareUpdateRequest" type="FirmwareUpdateRequest">
+                    <xs:annotation>
+                        <xs:documentation>Запрос обновления прошивки токена</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CorrAdd" type="CorrAdd">
+                    <xs:annotation>
+                        <xs:documentation>ЭД на добавление записи с подтвержденным контрагентом</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SubstDocAdd" type="SubstDocAdd">
+                    <xs:annotation>
+                        <xs:documentation>Добавление  подтверждающего документа</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CorrDel" type="CorrDel">
+                    <xs:annotation>
+                        <xs:documentation>ЭД удаление записи подтвержденного контрагента</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="GenSMSSign" type="SMSSignReqParams">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на генерацию SMS с кодом для подписи</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="VerifySMSSign" type="VerifySMSSign">
+                    <xs:annotation>
+                        <xs:documentation>Получение SMS с кодом для подписи</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="BenefAdd" type="BenefAdd">
+                    <xs:annotation>
+                        <xs:documentation>ЭД на добавление записи бенефициара</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="BenefDel" type="BenefDel">
+                    <xs:annotation>
+                        <xs:documentation>ЭД удаление записи бенефициара
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="EnableUseSignCorrDict" type="EnableUseSignCorrDict">
+                    <xs:annotation>
+                        <xs:documentation>Передача признака «Использовать подтвержденный справочник контрагентов»</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CorpCardExtIssueRequest" type="CorpCardExtIssueRequest">
+                    <xs:annotation>
+                        <xs:documentation>Заявление на выпуск КК</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="UpdateListOfEmployees" type="UpdateListOfEmployees">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на получение (обновление) списка сотрудников</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ExchangeMessagesWithBank" type="ExchangeMessagesWithBank">
+                    <xs:annotation>
+                        <xs:documentation>Запрос ТК к СББОЛ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CurrControlInfoRequest" type="CurrControlInfoRequest">
+                    <xs:annotation>
+                        <xs:documentation>Запрос информации ВК</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IskForUL" type="ISKForUL">
+                    <xs:annotation>
+                        <xs:documentation>Информационные сведения юридического лица</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IskForIP" type="ISKForIP">
+                    <xs:annotation>
+                        <xs:documentation>Информационные сведения индивидуального предпринимателя</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IncomingRequestISK" type="IncomingRequestISK">
+                    <xs:annotation>
+                        <xs:documentation>Проверка наличия запроса на получение сведений об организации</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DealPassFromAnotherBank" type="DealPassFromAnotherBank">
+                    <xs:annotation>
+                        <xs:documentation>Паспорт сделки из другого банка</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ChatWithBank" type="ChatWithBankMsg">
+                    <xs:annotation>
+                        <xs:documentation>Сообщение чата с банком (от клиента)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RequestChatFromBankMsgs" type="RequestChatFromBankMsgs">
+                    <xs:annotation>
+                        <xs:documentation>Запрос сообщений чата с банком (из банка)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ChatWithBankMsgStatus" type="ChatWithBankMsgStatus">
+                    <xs:annotation>
+                        <xs:documentation>Сообщение чата с банком (от клиента)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="InquiryOrder" type="InquiryOrder">
+                    <xs:annotation>
+                        <xs:documentation>Запрос справки</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AccountStatement" type="AccountStatement">
+                    <xs:annotation>
+                        <xs:documentation>Запрос сформированных выписок по счетам</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RzkPayDocsRu" type="RzkPayDocsRu">
+                    <xs:annotation>
+                        <xs:documentation>Запрос рублевых платежных поручений</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CurrCourseEntry" type="CurrCourseEntry">
+                    <xs:annotation>
+                        <xs:documentation>Запрос справочника валют</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="GozDocUpdate" type="Dict" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Запрос списка документов по госконтракту</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmDictUpdate" type="Dict" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Запрос репликации справочников самоинкассации</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SupplyDoc" type="SupplyDoc">
+                    <xs:annotation>
+                        <xs:documentation>Досылаемые документы</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="BigFilesUploadLinksRequest" type="BigFilesUploadLinksRequest">
+                    <xs:annotation>
+                        <xs:documentation>Запрос ссылок на загрузку в систему БФ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="BigFilesStatusRequest" type="BigFilesStatusRequest">
+                    <xs:annotation>
+                        <xs:documentation>Запрос статуса загруженных файлов</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IncomingDealConf" type="IncomingDealConf">
+                    <xs:annotation>
+                        <xs:documentation>Запрос сообщений о подтверждении сделок</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DealAns" type="DealAns">
+                    <xs:annotation>
+                        <xs:documentation>Ответ о подтверждении сделки</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SmsTimeouts">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на получение таймаутов действия смс-пароля</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="PayCustDoc" type="PayCustDoc">
+                    <xs:annotation>
+                        <xs:documentation>Заявка на оплату документа таможни</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ContractAdd" type="ContractAdd">
+                    <xs:annotation>
+                        <xs:documentation>Добавление контракта ГОЗ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ActAdd" type="ActAdd">
+                    <xs:annotation>
+                        <xs:documentation>Добавление акта ГОЗ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IncomingRoles">
+                    <xs:annotation>
+                        <xs:documentation>Запрос ролей</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Role" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="IncomingUserRoles" type="IncomingUserRoles">
+                    <xs:annotation>
+                        <xs:documentation>Запрос ролей по пользователям</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IncomingOffers" type="IncomingOffers">
+                    <xs:annotation>
+                        <xs:documentation>Запрос предложений</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="OfferResponses" type="OfferResponses">
+                    <xs:annotation>
+                        <xs:documentation>Отклики на персональное предложение</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Crms" type="Crms">
+                    <xs:annotation>
+                        <xs:documentation>Заявки в CRM</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CallBacks" type="CallBacks">
+                    <xs:annotation>
+                        <xs:documentation>Заявки на обратный звонок</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmPayTemplate" type="AdmPaymentTemplate">
+                    <xs:annotation>
+                        <xs:documentation>Шаблоны внесения средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmPayTemplateBlock" type="AdmPaymentTemplateBlock">
+                    <xs:annotation>
+                        <xs:documentation>Блокировка\разблокировка Шаблона внесения средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmCashierDel">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на удаление сущности «Вноситель средств»</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:attribute name="docId" type="UuidSeparated" use="required"/>
+                        <xs:attribute name="docExtId" type="UuidSeparated" use="required">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Идентификатор сущности  в УС.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="AdmPayTemplateDel" type="AdmPaymentTemplateDel">
+                    <xs:annotation>
+                        <xs:documentation>Удаление документа вносители средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmCashierAdd" type="AdmCashier">
+                    <xs:annotation>
+                        <xs:documentation>Вносители средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmPayTemplateList" type="AdmPaymentTemplateList">
+                    <xs:annotation>
+                        <xs:documentation>Запрос списка документов вносители средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmCashierList" type="AdmCashierList">
+                    <xs:annotation>
+                        <xs:documentation>Запрос списка документов вносители средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmOperationList" type="AdmOperationList">
+                    <xs:annotation>
+                        <xs:documentation>Запрос списка операций внесения средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmGenSMSPass" type="AdmGenSMSPass">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на генерацию пароля «Вносителю средств»</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AdmCashierGetLogin" type="AdmCashierGetLogin">
+                    <xs:annotation>
+                        <xs:documentation>Запрос логина «Вносителя средств»</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AuditLetter" type="AuditLetter">
+                    <xs:annotation>
+                        <xs:documentation>Письмо с данными аудита</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="EarlyRecall" type="EarlyRecallData">
+                    <xs:annotation>
+                        <xs:documentation>Заявление на отзыв вклада (депозита)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ChangeAccDetails" type="ChangeAccDetailsData">
+                    <xs:annotation>
+                        <xs:documentation>Заявление на изменение реквизитов расчетного счета</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CardDeposits" type="CardDeposits">
+                    <xs:annotation>
+                        <xs:documentation>Запрос списка карточек депозитов организации клиента</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AppForDepositNew" type="AppForDeposit">
+                    <xs:annotation>
+                        <xs:documentation>Запрос отправки заявления на пролонгацию вклада (депозита)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="PermBalanceNew" type="PermBalanceData">
+                    <xs:annotation>
+                        <xs:documentation>Запрос отправки заявления на пролонгацию вклада (депозита)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CardPermBalance" type="CardPermBalance">
+                    <xs:annotation>
+                        <xs:documentation>Запрос списка договоров НСО</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="GenAuthSMSSign">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на генерацию SMS с кодом подтверждения сброса пароля Администратору СББ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="VerifyAuthSMSSign" type="VerifyAuthSMSSign">
+                    <xs:annotation>
+                        <xs:documentation>Отправка кода подтверждения сброса пароля Администратору СББ, полученного по SMS, на проверку</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Audit" type="Audit">
+                    <xs:annotation>
+                        <xs:documentation>Информация для фиксирования в журнале аудита СББОЛ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="FeesRegistry" type="FeesRegistry">
+                    <xs:annotation>
+                        <xs:documentation>Реестр задолженностей</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="FeesRegistryDownload" type="FeesRegistryDownload">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на скачивание реестра платежей</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="FeesRegistryAccept" type="FeesRegistryAccept">
+                    <xs:annotation>
+                        <xs:documentation>Запрос изменения статуса Реестра платежей при выгрузке вложений</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="EssenceLinks" type="EssenceLinks">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на получение ссылок для загрузки файлов в систему 'Большие Файлы'</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DebtRegistry" type="DebtRegistry">
+                    <xs:annotation>
+                        <xs:documentation>Реестр задолженностей</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CashOrder" type="CashOrder">
+                    <xs:annotation>
+                        <xs:documentation>Заявка на получение наличных средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RecallCashOrder" type="RecallCashOrder">
+                    <xs:annotation>
+                        <xs:documentation>Отмена заявки на получение наличных средств</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CurrDealCertificate181I" type="CurrDealCertificate181I">
+                    <xs:annotation>
+                        <xs:documentation>Справка о валютных операциях</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IntCtrlStatementXML181I" type="IntCtrlStatementXML181I">
+                    <xs:annotation>
+                        <xs:documentation>Запрос о получении данных по ведомости банковского контроля</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="BigFilesDownloadPrintFormLink" type="BigFilesDownloadPrintFormLinkType">
+                    <xs:annotation>
+                        <xs:documentation>Запрос на создание печатной формы выписки на Банке</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+            <xs:element name="Sign" type="DigitalSign" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>ЭП клиента</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Fraud" type="Fraud" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Данные для fraud-мониторинга. Информация об отправившем документ в банк</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="requestId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Уникальный идентификатор запроса</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="orgId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор организации в ДБО (может быть использован сторонней системой для
+                    дополнительной идентификации)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="version" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер версии формата обмена</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9\.]{1,20}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="sender" use="required">
+            <xs:annotation>
+                <xs:documentation>Система-отправитель</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[-a-zA-Zа-яА-Я0-9: _]{1,20}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="receiver">
+            <xs:annotation>
+                <xs:documentation>Система-получатель
+                    Если система получатель СББОЛ, то SBBOL_DBO
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[-a-zA-Zа-яА-Я0-9: _]{1,20}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="senderKey" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Ключ системы-отправителя</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="bankOnly" type="BoolType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Флаг сообщения для банка</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="protocolVersion" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Версия протокола</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="DocTypeConfigInfo"/>
+</xs:schema>

@@ -1,0 +1,38 @@
+common\models\raiffeisenxml\response\ServicePackageType:
+    properties:
+        packageId:
+            expose: true
+            access_type: public_method
+            serialized_name: PackageId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPackageId
+                setter: setPackageId
+            type: string
+        packageName:
+            expose: true
+            access_type: public_method
+            serialized_name: PackageName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPackageName
+                setter: setPackageName
+            type: string
+        service:
+            expose: true
+            access_type: public_method
+            serialized_name: Service
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getService
+                setter: setService
+            xml_list:
+                inline: true
+                entry_name: Service
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\ServicePackageType\ServiceAType>

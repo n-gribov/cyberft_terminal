@@ -1,0 +1,101 @@
+common\models\sbbolxml\response\DebetFullType:
+    properties:
+        check:
+            expose: true
+            access_type: public_method
+            serialized_name: check
+            accessor:
+                getter: getCheck
+                setter: setCheck
+            xml_attribute: true
+            type: boolean
+        annotation:
+            expose: true
+            access_type: public_method
+            serialized_name: annotation
+            accessor:
+                getter: getAnnotation
+                setter: setAnnotation
+            xml_attribute: true
+            type: string
+        arrestedBy:
+            expose: true
+            access_type: public_method
+            serialized_name: arrestedBy
+            accessor:
+                getter: getArrestedBy
+                setter: setArrestedBy
+            xml_attribute: true
+            type: string
+        arestedByNum:
+            expose: true
+            access_type: public_method
+            serialized_name: arestedByNum
+            accessor:
+                getter: getArestedByNum
+                setter: setArestedByNum
+            xml_attribute: true
+            type: string
+        beginDate:
+            expose: true
+            access_type: public_method
+            serialized_name: beginDate
+            accessor:
+                getter: getBeginDate
+                setter: setBeginDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endDate
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        blockedSumInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BlockedSumInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBlockedSumInfo
+                setter: setBlockedSumInfo
+            type: array<common\models\sbbolxml\response\DebetFullType\BlockedSumInfoAType\BlockedSumAType>
+            xml_list:
+                inline: false
+                entry_name: BlockedSum
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        blockedQueuesInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BlockedQueuesInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBlockedQueuesInfo
+                setter: setBlockedQueuesInfo
+            type: array<common\models\sbbolxml\response\DebetFullType\BlockedQueuesInfoAType\BlockedQueuesAType>
+            xml_list:
+                inline: false
+                entry_name: BlockedQueues
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        blockedSumQueuesInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BlockedSumQueuesInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBlockedSumQueuesInfo
+                setter: setBlockedSumQueuesInfo
+            type: array<common\models\sbbolxml\response\BlockedSumQueuesFullType>
+            xml_list:
+                inline: false
+                entry_name: BlockedSumQueues
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

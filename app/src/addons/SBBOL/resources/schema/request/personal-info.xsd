@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="PersonalInfo">
+        <xs:all>
+            <xs:element name="BeneficiariesStepId" type="xs:long" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор последнего имеющегося редактирования справочника бенефициаров</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CorrespondentsStepId" type="xs:long" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор последнего имеющегося редактирования справочника корреспондентов</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="contractAccessCode" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>ТОЛЬКО ДЛЯ ТК. Идентификатор, который используется для получения персональных данных.
+                    (DBOContractChannel.accessCode)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="orgId" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Идентификатор организации (для холдингов)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="includeEmployees" type="BoolType">
+            <xs:annotation>
+                <xs:documentation>Признак того, что необходимо выгружать информацию о сотрудниках организации
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

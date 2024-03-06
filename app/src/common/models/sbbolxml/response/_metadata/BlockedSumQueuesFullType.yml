@@ -1,0 +1,65 @@
+common\models\sbbolxml\response\BlockedSumQueuesFullType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: float
+        queues:
+            expose: true
+            access_type: public_method
+            serialized_name: Queues
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getQueues
+                setter: setQueues
+            type: integer
+        annotation:
+            expose: true
+            access_type: public_method
+            serialized_name: Annotation
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAnnotation
+                setter: setAnnotation
+            type: string
+        arrestedBy:
+            expose: true
+            access_type: public_method
+            serialized_name: ArrestedBy
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getArrestedBy
+                setter: setArrestedBy
+            type: string
+        arestedByNum:
+            expose: true
+            access_type: public_method
+            serialized_name: ArestedByNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getArestedByNum
+                setter: setArestedByNum
+            type: string
+        limitationPeriod:
+            expose: true
+            access_type: public_method
+            serialized_name: LimitationPeriod
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLimitationPeriod
+                setter: setLimitationPeriod
+            type: common\models\sbbolxml\response\LimitationPeriodType

@@ -1,0 +1,23 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\DocumentsAType:
+    properties:
+        requiredDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: RequiredDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRequiredDocs
+                setter: setRequiredDocs
+            type: string
+        submissionPeriod:
+            expose: true
+            access_type: public_method
+            serialized_name: SubmissionPeriod
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSubmissionPeriod
+                setter: setSubmissionPeriod
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\DocumentsAType\SubmissionPeriodAType

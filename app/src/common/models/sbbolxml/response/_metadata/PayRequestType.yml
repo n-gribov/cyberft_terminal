@@ -1,0 +1,70 @@
+common\models\sbbolxml\response\PayRequestType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        orgId:
+            expose: true
+            access_type: public_method
+            serialized_name: orgId
+            accessor:
+                getter: getOrgId
+                setter: setOrgId
+            xml_attribute: true
+            type: string
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\sbbolxml\response\AccDocType
+        payer:
+            expose: true
+            access_type: public_method
+            serialized_name: Payer
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayer
+                setter: setPayer
+            type: common\models\sbbolxml\response\ContragentType
+        payee:
+            expose: true
+            access_type: public_method
+            serialized_name: Payee
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayee
+                setter: setPayee
+            type: common\models\sbbolxml\response\ClientType
+        payReqInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: PayReqInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayReqInfo
+                setter: setPayReqInfo
+            type: common\models\sbbolxml\response\PayRequestType\PayReqInfoAType
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

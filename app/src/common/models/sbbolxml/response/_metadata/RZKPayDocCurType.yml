@@ -1,0 +1,309 @@
+common\models\sbbolxml\response\RZKPayDocCurType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        orgId:
+            expose: true
+            access_type: public_method
+            serialized_name: orgId
+            accessor:
+                getter: getOrgId
+                setter: setOrgId
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\response\ComDocDataType
+        urgent:
+            expose: true
+            access_type: public_method
+            serialized_name: Urgent
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getUrgent
+                setter: setUrgent
+            type: boolean
+        payer50:
+            expose: true
+            access_type: public_method
+            serialized_name: Payer_50
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayer50
+                setter: setPayer50
+            type: common\models\sbbolxml\response\Payer50Type
+        docSum33B:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSum_33B
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocSum33B
+                setter: setDocSum33B
+            type: common\models\sbbolxml\response\DocSum33BType
+        beneficiar59:
+            expose: true
+            access_type: public_method
+            serialized_name: Beneficiar_59
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBeneficiar59
+                setter: setBeneficiar59
+            type: common\models\sbbolxml\response\Beneficiar59Type
+        bankPayer52:
+            expose: true
+            access_type: public_method
+            serialized_name: BankPayer_52
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBankPayer52
+                setter: setBankPayer52
+            type: common\models\sbbolxml\response\BankPayer52Type
+        imediaBank56:
+            expose: true
+            access_type: public_method
+            serialized_name: ImediaBank_56
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getImediaBank56
+                setter: setImediaBank56
+            type: common\models\sbbolxml\response\ImediaBank56Type
+        bankBeneficiar57:
+            expose: true
+            access_type: public_method
+            serialized_name: BankBeneficiar_57
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBankBeneficiar57
+                setter: setBankBeneficiar57
+            type: common\models\sbbolxml\response\BankBeneficiar57Type
+        paymentDetails70:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentDetails_70
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPaymentDetails70
+                setter: setPaymentDetails70
+            type: string
+        charge71A:
+            expose: true
+            access_type: public_method
+            serialized_name: Charge_71A
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCharge71A
+                setter: setCharge71A
+            type: common\models\sbbolxml\response\Charge71AType
+        addInfo72:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo_72
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo72
+                setter: setAddInfo72
+            type: string
+        options:
+            expose: true
+            access_type: public_method
+            serialized_name: Options
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOptions
+                setter: setOptions
+            type: common\models\sbbolxml\response\RZKPayDocCurType\OptionsAType
+        sheme:
+            expose: true
+            access_type: public_method
+            serialized_name: Sheme
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSheme
+                setter: setSheme
+            type: boolean
+        currDealInquiry:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDealInquiry
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCurrDealInquiry
+                setter: setCurrDealInquiry
+            type: common\models\sbbolxml\response\DocDataType
+        voSumInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: VoSumInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getVoSumInfo
+                setter: setVoSumInfo
+            type: array<common\models\sbbolxml\response\VoInfoType>
+            xml_list:
+                inline: false
+                entry_name: VoInfo
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        voDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: VoDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getVoDocs
+                setter: setVoDocs
+            type: array<common\models\sbbolxml\response\VoDocType>
+            xml_list:
+                inline: false
+                entry_name: VoDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        paymentDirection:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentDirection
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPaymentDirection
+                setter: setPaymentDirection
+            type: boolean
+        b77Info:
+            expose: true
+            access_type: public_method
+            serialized_name: B77Info
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getB77Info
+                setter: setB77Info
+            type: string
+        credit:
+            expose: true
+            access_type: public_method
+            serialized_name: Credit
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCredit
+                setter: setCredit
+            type: common\models\sbbolxml\response\CreditType
+        codes23e:
+            expose: true
+            access_type: public_method
+            serialized_name: Codes23e
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCodes23e
+                setter: setCodes23e
+            type: array<common\models\sbbolxml\response\RZKPayDocCurType\Codes23eAType\Code23eAType>
+            xml_list:
+                inline: false
+                entry_name: Code23e
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        services:
+            expose: true
+            access_type: public_method
+            serialized_name: Services
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getServices
+                setter: setServices
+            type: common\models\sbbolxml\response\ServicesType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        rzk:
+            expose: true
+            access_type: public_method
+            serialized_name: Rzk
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRzk
+                setter: setRzk
+            type: common\models\sbbolxml\response\RZKPayDocCurType\RzkAType
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\response\AttachmentType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        linkedDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: LinkedDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLinkedDocs
+                setter: setLinkedDocs
+            type: array<common\models\sbbolxml\response\LinkedDocsType\LDocAType>
+            xml_list:
+                inline: false
+                entry_name: LDoc
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

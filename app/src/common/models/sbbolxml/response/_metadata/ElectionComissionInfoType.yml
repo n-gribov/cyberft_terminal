@@ -1,0 +1,196 @@
+common\models\sbbolxml\response\ElectionComissionInfoType:
+    properties:
+        documentCLNT:
+            expose: true
+            access_type: public_method
+            serialized_name: DocumentCLNT
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDocumentCLNT
+                setter: setDocumentCLNT
+            type: string
+        dateCLNT:
+            expose: true
+            access_type: public_method
+            serialized_name: DateCLNT
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDateCLNT
+                setter: setDateCLNT
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        operationTypeText:
+            expose: true
+            access_type: public_method
+            serialized_name: OperationTypeText
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOperationTypeText
+                setter: setOperationTypeText
+            type: string
+        typeGround:
+            expose: true
+            access_type: public_method
+            serialized_name: TypeGround
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getTypeGround
+                setter: setTypeGround
+            type: string
+        dogovor:
+            expose: true
+            access_type: public_method
+            serialized_name: Dogovor
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDogovor
+                setter: setDogovor
+            type: string
+        isCorrPhys:
+            expose: true
+            access_type: public_method
+            serialized_name: IsCorrPhys
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIsCorrPhys
+                setter: setIsCorrPhys
+            type: boolean
+        datePers:
+            expose: true
+            access_type: public_method
+            serialized_name: DatePers
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDatePers
+                setter: setDatePers
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        dType:
+            expose: true
+            access_type: public_method
+            serialized_name: D_Type
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDType
+                setter: setDType
+            type: string
+        dTypeCaption:
+            expose: true
+            access_type: public_method
+            serialized_name: D_Type_Caption
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDTypeCaption
+                setter: setDTypeCaption
+            type: string
+        dTypeFull:
+            expose: true
+            access_type: public_method
+            serialized_name: D_Type_Full
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDTypeFull
+                setter: setDTypeFull
+            type: string
+        dSer:
+            expose: true
+            access_type: public_method
+            serialized_name: D_Ser
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDSer
+                setter: setDSer
+            type: string
+        dNum:
+            expose: true
+            access_type: public_method
+            serialized_name: D_Num
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDNum
+                setter: setDNum
+            type: string
+        dDate:
+            expose: true
+            access_type: public_method
+            serialized_name: D_Date
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDDate
+                setter: setDDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        dWho:
+            expose: true
+            access_type: public_method
+            serialized_name: D_Who
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDWho
+                setter: setDWho
+            type: string
+        codeRegion:
+            expose: true
+            access_type: public_method
+            serialized_name: Code_Region
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCodeRegion
+                setter: setCodeRegion
+            type: string
+        codeAlpha3:
+            expose: true
+            access_type: public_method
+            serialized_name: Code_Alpha_3
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCodeAlpha3
+                setter: setCodeAlpha3
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: string
+        klPlat:
+            expose: true
+            access_type: public_method
+            serialized_name: Kl_Plat
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getKlPlat
+                setter: setKlPlat
+            type: string

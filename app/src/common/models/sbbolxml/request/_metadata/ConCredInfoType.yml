@@ -1,0 +1,136 @@
+common\models\sbbolxml\request\ConCredInfoType:
+    properties:
+        checkNum:
+            expose: true
+            access_type: public_method
+            serialized_name: checkNum
+            accessor:
+                getter: getCheckNum
+                setter: setCheckNum
+            xml_attribute: true
+            type: boolean
+        checkSum:
+            expose: true
+            access_type: public_method
+            serialized_name: checkSum
+            accessor:
+                getter: getCheckSum
+                setter: setCheckSum
+            xml_attribute: true
+            type: boolean
+        num:
+            expose: true
+            access_type: public_method
+            serialized_name: Num
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNum
+                setter: setNum
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: Date
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDate
+                setter: setDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        iCSType:
+            expose: true
+            access_type: public_method
+            serialized_name: ICSType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getICSType
+                setter: setICSType
+            type: string
+        icsCreationMode:
+            expose: true
+            access_type: public_method
+            serialized_name: IcsCreationMode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIcsCreationMode
+                setter: setIcsCreationMode
+            type: string
+        iCSContractTypeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: ICSContractTypeCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getICSContractTypeCode
+                setter: setICSContractTypeCode
+            type: integer
+        iCSContractSubTypeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: ICSContractSubTypeCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getICSContractSubTypeCode
+                setter: setICSContractSubTypeCode
+            type: string
+        curr:
+            expose: true
+            access_type: public_method
+            serialized_name: Curr
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurr
+                setter: setCurr
+            type: common\models\sbbolxml\request\CurrencyType
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\sbbolxml\request\ConCredInfoType\SumAType
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: EndDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        otherPayments:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherPayments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOtherPayments
+                setter: setOtherPayments
+            type: string
+        assignedConBankNum:
+            expose: true
+            access_type: public_method
+            serialized_name: AssignedConBankNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAssignedConBankNum
+                setter: setAssignedConBankNum
+            type: string

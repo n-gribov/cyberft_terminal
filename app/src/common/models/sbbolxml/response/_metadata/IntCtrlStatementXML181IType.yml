@@ -1,0 +1,71 @@
+common\models\sbbolxml\response\IntCtrlStatementXML181IType:
+    properties:
+        docExtGuid:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtGuid
+            accessor:
+                getter: getDocExtGuid
+                setter: setDocExtGuid
+            xml_attribute: true
+            type: string
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        xmlBody:
+            expose: true
+            access_type: public_method
+            serialized_name: XmlBody
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getXmlBody
+                setter: setXmlBody
+            type: string
+        finalTransact:
+            expose: true
+            access_type: public_method
+            serialized_name: FinalTransact
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFinalTransact
+                setter: setFinalTransact
+            type: array<common\models\sbbolxml\response\FinalTransactDataType>
+            xml_list:
+                inline: false
+                entry_name: FinalTransactData
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/response'
+        finalDebtPrincipal:
+            expose: true
+            access_type: public_method
+            serialized_name: FinalDebtPrincipal
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFinalDebtPrincipal
+                setter: setFinalDebtPrincipal
+            type: array<common\models\sbbolxml\response\FinalDebtPrincipalDataType>
+            xml_list:
+                inline: false
+                entry_name: FinalDebtPrincipalData
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/response'
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\response\DigitalSignType

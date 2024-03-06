@@ -1,0 +1,96 @@
+common\models\sbbolxml\response\ResponseType\FirmwareUpdateAType:
+    properties:
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: name
+            accessor:
+                getter: getName
+                setter: setName
+            xml_attribute: true
+            type: string
+        app:
+            expose: true
+            access_type: public_method
+            serialized_name: app
+            accessor:
+                getter: getApp
+                setter: setApp
+            xml_attribute: true
+            type: string
+        version:
+            expose: true
+            access_type: public_method
+            serialized_name: version
+            accessor:
+                getter: getVersion
+                setter: setVersion
+            xml_attribute: true
+            type: integer
+        build:
+            expose: true
+            access_type: public_method
+            serialized_name: build
+            accessor:
+                getter: getBuild
+                setter: setBuild
+            xml_attribute: true
+            type: integer
+        link:
+            expose: true
+            access_type: public_method
+            serialized_name: link
+            accessor:
+                getter: getLink
+                setter: setLink
+            xml_attribute: true
+            type: string
+        versionString:
+            expose: true
+            access_type: public_method
+            serialized_name: versionString
+            accessor:
+                getter: getVersionString
+                setter: setVersionString
+            xml_attribute: true
+            type: string
+        typeRule:
+            expose: true
+            access_type: public_method
+            serialized_name: typeRule
+            accessor:
+                getter: getTypeRule
+                setter: setTypeRule
+            xml_attribute: true
+            type: integer
+        availableVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: AvailableVersion
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAvailableVersion
+                setter: setAvailableVersion
+            type: string
+        internalLink:
+            expose: true
+            access_type: public_method
+            serialized_name: InternalLink
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getInternalLink
+                setter: setInternalLink
+            type: common\models\sbbolxml\response\ResponseType\FirmwareUpdateAType\InternalLinkAType
+        externalLink:
+            expose: true
+            access_type: public_method
+            serialized_name: ExternalLink
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getExternalLink
+                setter: setExternalLink
+            type: common\models\sbbolxml\response\ResponseType\FirmwareUpdateAType\ExternalLinkAType

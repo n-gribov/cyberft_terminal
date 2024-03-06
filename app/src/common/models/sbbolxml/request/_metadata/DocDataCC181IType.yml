@@ -1,0 +1,114 @@
+common\models\sbbolxml\request\DocDataCC181IType:
+    properties:
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        dealNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DealNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealNum
+                setter: setDealNum
+            type: string
+        accountInOtherBank:
+            expose: true
+            access_type: public_method
+            serialized_name: AccountInOtherBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccountInOtherBank
+                setter: setAccountInOtherBank
+            type: boolean
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            type: string
+        payment:
+            expose: true
+            access_type: public_method
+            serialized_name: Payment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayment
+                setter: setPayment
+            type: common\models\sbbolxml\request\PaymentType
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\OrgDataCCType
+        adjustment:
+            expose: true
+            access_type: public_method
+            serialized_name: Adjustment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdjustment
+                setter: setAdjustment
+            type: boolean
+        adjustmentNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: AdjustmentNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdjustmentNumber
+                setter: setAdjustmentNumber
+            type: integer
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: common\models\sbbolxml\request\CountryNameType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        authPers:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthPers
+                setter: setAuthPers
+            type: common\models\sbbolxml\request\AuthPersType

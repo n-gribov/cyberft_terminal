@@ -1,0 +1,207 @@
+#!/usr/bin/env php
+<?php
+try {
+    require(__DIR__ . '/app-include.php');
+
+    Resque_Event::listen('afterEnqueue', ['My_Resque_Plugin', 'afterEnqueue']);
+    Resque_Event::listen('beforeFirstFork', ['My_Resque_Plugin', 'beforeFirstFork']);
+    Resque_Event::listen('beforeFork', ['My_Resque_Plugin', 'beforeFork']);
+    Resque_Event::listen('afterFork', ['My_Resque_Plugin', 'afterFork']);
+    Resque_Event::listen('beforePerform', ['My_Resque_Plugin', 'beforePerform']);
+    Resque_Event::listen('afterPerform', ['My_Resque_Plugin', 'afterPerform']);
+    Resque_Event::listen('onFailure', ['My_Resque_Plugin', 'onFailure']);
+
+    class My_Resque_Plugin
+    {
+        public static function afterEnqueue($class, $arguments)
+        {
+            // echo "Job was queued for " . $class . ". Arguments:";
+            // print_r($arguments);
+        }
+
+        public static function beforeFirstFork($worker)
+        {
+
+        }
+
+        public static function beforeFork($job)
+        {
+            //echo 'Just about to fork to run ' . $job;
+        }
+
+        public static function afterFork($job)
+        {
+            //echo 'Forked to run ' . $job . ". This is the child process.\n";
+        }
+
+        public static function beforePerform($job)
+        {
+            global $app, $config;
+
+            /**
+             * Инициализация консольного приложения _каждый раз_ (CYB-1441) перед запуском джоба
+             * Теперь джобы видят актуальные данные приложения
+             */
+            $app = new yii\console\Application($config);
+
+            ob_start();
+        }
+
+        public static function afterPerform($job)
+        {
+            global $app;
+
+            /**
+             * Освобождаем память, занятую приложением, инициализированным перед выполнением джоба.
+             */
+            unset($app);
+
+            if ($output = ob_get_clean()) {
+                Yii::info($job . PHP_EOL . $output . PHP_EOL, 'debug');
+            }
+            // echo "Just performed " . $job . "\n";
+        }
+
+        public static function onFailure($exception, $job)
+        {
+            Yii::error('Resque job failed ' . PHP_EOL . $job . PHP_EOL . $exception);
+        }
+
+        public static function addWorker($queues, $logger, $interval, $BLOCKING)
+        {
+            $worker = new Resque_Worker($queues);
+            $worker->setLogger($logger);
+
+            $logger->log(Psr\Log\LogLevel::NOTICE, 'Starting worker {worker} on queues {queues}',
+                [
+                    'worker' => $worker,
+                    'queues' => implode(', ', $queues)
+                ]
+            );
+
+            $worker->work($interval, $BLOCKING);
+        }
+    }
+
+    class MyLogger extends Resque_Log
+    {
+        protected $_formatter;
+
+        public function log($level, $message, array $context = array())
+        {
+            if (is_null($this->_formatter)) {
+                $this->_formatter = new yii\i18n\MessageFormatter();
+            }
+
+            $logLevel = 0;
+            switch ($level) {
+                case 'error':
+                    $logLevel = \yii\log\Logger::LEVEL_ERROR;
+                    break;
+                case 'warning':
+                    $logLevel = \yii\log\Logger::LEVEL_WARNING;
+                    break;
+                case 'notice':
+                default :
+                    $logLevel = \yii\log\Logger::LEVEL_INFO;
+                    break;
+            }
+
+            if ($logLevel) {
+                Yii::getLogger()->log(
+                    "($level)" . $this->_formatter->format($message, $context, 'en-US'),
+                    $logLevel,
+                    'resque'
+                );
+            }
+        }
+    }
+
+    /**
+     * REDIS_BACKEND can have simple 'host:port' format or use a DSN-style format like this:
+     * - redis://user:pass@host:port
+     *
+     * Note: the 'user' part of the DSN URI is required but is not used.
+     */
+    $REDIS_BACKEND = getenv('REDIS_HOSTNAME') . ':' . getenv('REDIS_PORT');
+
+// A redis database number
+    $REDIS_BACKEND_DB = getenv('REDIS_DATABASE');
+    if (!empty($REDIS_BACKEND)) {
+        if (empty($REDIS_BACKEND_DB)) {
+            Resque::setBackend($REDIS_BACKEND);
+        } else {
+            Resque::setBackend($REDIS_BACKEND, $REDIS_BACKEND_DB);
+        }
+    }
+
+    $logLevel = false;
+    $LOGGING  = getenv('LOGGING');
+    $VERBOSE  = getenv('VERBOSE');
+    $VVERBOSE = getenv('VVERBOSE');
+    $loglevel = (!empty($LOGGING) || !empty($VERBOSE) || !empty($VVERBOSE));
+
+    $APP_INCLUDE = getenv('APP_INCLUDE');
+
+    if ($APP_INCLUDE) {
+        if (!file_exists($APP_INCLUDE)) {
+            die('APP_INCLUDE (' . $APP_INCLUDE . ") does not exist.\n");
+        }
+
+        require_once $APP_INCLUDE;
+    }
+
+    $logger = new MyLogger($logLevel);
+
+    $QUEUE = getenv('QUEUE');
+    if (empty($QUEUE)) {
+        $logger->log('QUEUE env var is not set.');
+
+        die("Set QUEUE env var containing the list of queues to work.\n");
+    }
+
+    $BLOCKING = getenv('BLOCKING') !== false;
+
+    $INTERVAL = (int) getenv('INTERVAL');
+    $interval = $INTERVAL ?: 5;
+
+    $COUNT = (int) getenv('COUNT');
+    $count = $COUNT ?: 1;
+
+    $PREFIX = getenv('PREFIX');
+    if (!empty($PREFIX)) {
+        $logger->log(Psr\Log\LogLevel::INFO, 'Prefix set to {prefix}', ['prefix' => $PREFIX]);
+        Resque_Redis::prefix($PREFIX);
+    }
+
+    $queues = explode(',', $QUEUE);
+
+    if ($count > 1) {
+        for ($i = 0; $i < $count; ++$i) {
+            $pid = Resque::fork();
+            if ($pid == -1) {
+                $logger->log(Psr\Log\LogLevel::EMERGENCY, 'Could not fork worker {count}', array('count' => $i));
+
+                die();
+            }
+            // Child, start the worker
+            else if (!$pid) {
+                My_Resque_Plugin::addWorker($queues, $logger, $interval, $BLOCKING);
+
+                break;
+            }
+        }
+    } else {
+// Start a single worker
+
+//        $PIDFILE = getenv('PIDFILE');
+//        if ($PIDFILE) {
+//            file_put_contents($PIDFILE, getmypid()) or
+//                die('Could not write PID information to ' . $PIDFILE);
+//        }
+
+        My_Resque_Plugin::addWorker($queues, $logger, $interval, $BLOCKING);
+    }
+} catch (Exception $e) {
+    echo $e->getTraceAsString();
+}

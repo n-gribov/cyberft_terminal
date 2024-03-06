@@ -1,0 +1,13 @@
+common\models\sbbolxml\response\OrganizationInfoType\AuthPersonsAType\AuthPersonAType\UserRolesAType\UserRoleAType:
+    properties:
+        userRoleName:
+            expose: true
+            access_type: public_method
+            serialized_name: UserRoleName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getUserRoleName
+                setter: setUserRoleName
+            type: string

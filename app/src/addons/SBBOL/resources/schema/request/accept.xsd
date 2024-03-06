@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="Accept">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="AccDocAccept" type="AccDocAccept">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты заявления на Акцепт</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="AcceptInfo" type="AcceptInfo">
+                        <xs:annotation>
+                            <xs:documentation>Информация об акцепте / отказе от акцепта / частичном акцепте</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LinkedDocs" type="LinkedDocs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Связанные документы, например, реестр пополнения корп. карт, зарплатные ведомости
+                                и т.п.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AccDocAccept">
+        <xs:attribute name="bankName">
+            <xs:annotation>
+                <xs:documentation>Наименование подразделения получателя платежа/код участника расчетов
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docNum" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="6"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата составления документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docSum" type="xs:decimal">
+            <xs:annotation>
+                <xs:documentation>Сумма платежа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="type">
+            <xs:annotation>
+                <xs:documentation>Тип заявления - указывается значение "Акцепт" или "Отказ от акцепта"
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string"/>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="AcceptInfo">
+        <xs:sequence>
+            <xs:element name="NumDocPayReq">
+                <xs:annotation>
+                    <xs:documentation>Номер платежного требования</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DateDocPayReq" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата платежного требования</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Payer" type="Client">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты плательщика</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Payee" type="Contragent">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты получателя</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SummaTreb" type="xs:decimal" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сумма исходного платежного требования</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DateOD" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата окончания акцепта по платежному требованию</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PunktDog" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Нарушен пункт договора</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="NumDog" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер договора</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DateDog" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата договора</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocExtId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор исходного платежного требования в АБС</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Comments" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Комментарии к заявлению на акцепт. Заполняется при отказе от акцепта, указывается
+                        причина отказа от акцепта.я
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="700"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DateOfReceipt" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата поступления платежного требования в Банк</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Client">
+        <xs:complexContent>
+            <xs:extension base="AbstractClient">
+                <xs:attributeGroup ref="OrgDataAttr"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:attributeGroup name="OrgDataAttr">
+        <xs:annotation>
+            <xs:documentation>ИНН, КПП в виде атрибутов</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="inn" type="InnType" use="required">
+            <xs:annotation>
+                <xs:documentation>ИНН (до 12)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="kpp" type="KppType">
+            <xs:annotation>
+                <xs:documentation>КПП (до 9)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
+</xs:schema>

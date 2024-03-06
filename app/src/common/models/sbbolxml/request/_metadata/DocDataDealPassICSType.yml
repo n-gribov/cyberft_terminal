@@ -1,0 +1,48 @@
+common\models\sbbolxml\request\DocDataDealPassICSType:
+    properties:
+        docExtGuid:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtGuid
+            accessor:
+                getter: getDocExtGuid
+                setter: setDocExtGuid
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        transferDebtRights:
+            expose: true
+            access_type: public_method
+            serialized_name: transferDebtRights
+            accessor:
+                getter: getTransferDebtRights
+                setter: setTransferDebtRights
+            xml_attribute: true
+            type: boolean
+        authPers:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthPers
+                setter: setAuthPers
+            type: common\models\sbbolxml\request\AuthPersICSType

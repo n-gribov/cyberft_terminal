@@ -1,0 +1,56 @@
+common\models\sbbolxml\request\ActAddType:
+    properties:
+        essenceId:
+            expose: true
+            access_type: public_method
+            serialized_name: essenceId
+            accessor:
+                getter: getEssenceId
+                setter: setEssenceId
+            xml_attribute: true
+            type: string
+        gOZAct:
+            expose: true
+            access_type: public_method
+            serialized_name: GOZAct
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGOZAct
+                setter: setGOZAct
+            type: common\models\sbbolxml\request\ActAddType\GOZActAType
+        customer:
+            expose: true
+            access_type: public_method
+            serialized_name: Customer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCustomer
+                setter: setCustomer
+            type: common\models\sbbolxml\request\GozCustomerType
+        executor:
+            expose: true
+            access_type: public_method
+            serialized_name: Executor
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExecutor
+                setter: setExecutor
+            type: common\models\sbbolxml\request\GozExecutorType
+        bFAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BFAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBFAttachments
+                setter: setBFAttachments
+            type: array<common\models\sbbolxml\request\BFAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BFAttachment
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'

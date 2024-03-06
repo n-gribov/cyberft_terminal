@@ -1,0 +1,574 @@
+common\models\raiffeisenxml\request\RequestType:
+    properties:
+        requestId:
+            expose: true
+            access_type: public_method
+            serialized_name: requestId
+            accessor:
+                getter: getRequestId
+                setter: setRequestId
+            xml_attribute: true
+            type: string
+        version:
+            expose: true
+            access_type: public_method
+            serialized_name: version
+            accessor:
+                getter: getVersion
+                setter: setVersion
+            xml_attribute: true
+            type: string
+        sender:
+            expose: true
+            access_type: public_method
+            serialized_name: sender
+            accessor:
+                getter: getSender
+                setter: setSender
+            xml_attribute: true
+            type: string
+        receiver:
+            expose: true
+            access_type: public_method
+            serialized_name: receiver
+            accessor:
+                getter: getReceiver
+                setter: setReceiver
+            xml_attribute: true
+            type: string
+        docIds:
+            expose: true
+            access_type: public_method
+            serialized_name: DocIds
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocIds
+                setter: setDocIds
+            type: array<common\models\raiffeisenxml\request\RequestType\DocIdsAType\DocIdAType>
+            xml_list:
+                inline: false
+                entry_name: DocId
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        payDocRu:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocRu
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocRu
+                setter: setPayDocRu
+            type: common\models\raiffeisenxml\request\PayDocRuType
+        letterInBank:
+            expose: true
+            access_type: public_method
+            serialized_name: LetterInBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLetterInBank
+                setter: setLetterInBank
+            type: common\models\raiffeisenxml\request\LetterInBankType
+        confDocCertificate138I:
+            expose: true
+            access_type: public_method
+            serialized_name: ConfDocCertificate138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConfDocCertificate138I
+                setter: setConfDocCertificate138I
+            type: common\models\raiffeisenxml\request\ConfDocCertificate138IType
+        confDocCertificate138IRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: ConfDocCertificate138IRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConfDocCertificate138IRaif
+                setter: setConfDocCertificate138IRaif
+            type: common\models\raiffeisenxml\request\ConfDocCertificate138IRaifType
+        confDocCertificate181IRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: ConfDocCertificate181IRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConfDocCertificate181IRaif
+                setter: setConfDocCertificate181IRaif
+            type: common\models\raiffeisenxml\request\ConfDocCertificate181IRaifType
+        currDealCertificate138I:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDealCertificate138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrDealCertificate138I
+                setter: setCurrDealCertificate138I
+            type: common\models\raiffeisenxml\request\CurrDealCertificate138IType
+        currDealCertificate138IRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrDealCertificate138IRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrDealCertificate138IRaif
+                setter: setCurrDealCertificate138IRaif
+            type: common\models\raiffeisenxml\request\CurrDealCertificate138IRaifType
+        dealPassCon138I:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCon138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassCon138I
+                setter: setDealPassCon138I
+            type: common\models\raiffeisenxml\request\DealPassCon138IType
+        dealPassCon138IRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCon138IRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassCon138IRaif
+                setter: setDealPassCon138IRaif
+            type: common\models\raiffeisenxml\request\DealPassCon138IRaifType
+        dealPassCon181IRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCon181IRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassCon181IRaif
+                setter: setDealPassCon181IRaif
+            type: common\models\raiffeisenxml\request\DealPassCon181IRaifType
+        dealPassCred138I:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCred138I
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassCred138I
+                setter: setDealPassCred138I
+            type: common\models\raiffeisenxml\request\DealPassCred138IType
+        dealPassCred138IRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCred138IRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassCred138IRaif
+                setter: setDealPassCred138IRaif
+            type: common\models\raiffeisenxml\request\DealPassCred138IRaifType
+        dealPassCred181IRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassCred181IRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassCred181IRaif
+                setter: setDealPassCred181IRaif
+            type: common\models\raiffeisenxml\request\DealPassCred181IRaifType
+        chanDP:
+            expose: true
+            access_type: public_method
+            serialized_name: ChanDP
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChanDP
+                setter: setChanDP
+            type: common\models\raiffeisenxml\request\ChanDPType
+        chanDPConRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: ChanDPConRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChanDPConRaif
+                setter: setChanDPConRaif
+            type: common\models\raiffeisenxml\request\ChanDPConRaifType
+        chanDPCredRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: ChanDPCredRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChanDPCredRaif
+                setter: setChanDPCredRaif
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType
+        clDP:
+            expose: true
+            access_type: public_method
+            serialized_name: ClDP
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getClDP
+                setter: setClDP
+            type: common\models\raiffeisenxml\request\ClDPType
+        cIDPRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: CIDPRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCIDPRaif
+                setter: setCIDPRaif
+            type: common\models\raiffeisenxml\request\CIDPRaifType
+        cIDPRaif181i:
+            expose: true
+            access_type: public_method
+            serialized_name: CIDPRaif181i
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCIDPRaif181i
+                setter: setCIDPRaif181i
+            type: common\models\raiffeisenxml\request\CIDPRaif181iType
+        cCInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: CCInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCCInfo
+                setter: setCCInfo
+            type: common\models\raiffeisenxml\request\LetterInBankRaifType
+        payDocCur:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocCur
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocCur
+                setter: setPayDocCur
+            type: common\models\raiffeisenxml\request\PayDocCurType
+        payDocCurRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocCurRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocCurRaif
+                setter: setPayDocCurRaif
+            type: common\models\raiffeisenxml\request\PayDocCurRaifType
+        currSell:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrSell
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrSell
+                setter: setCurrSell
+            type: common\models\raiffeisenxml\request\CurrSellType
+        currSellRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrSellRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrSellRaif
+                setter: setCurrSellRaif
+            type: common\models\raiffeisenxml\request\CurrSellRaifType
+        currBuy:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrBuy
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrBuy
+                setter: setCurrBuy
+            type: common\models\raiffeisenxml\request\CurrBuyType
+        currBuyRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrBuyRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrBuyRaif
+                setter: setCurrBuyRaif
+            type: common\models\raiffeisenxml\request\CurrBuyRaifType
+        currConv:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrConv
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrConv
+                setter: setCurrConv
+            type: common\models\raiffeisenxml\request\CurrConvType
+        currConvRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrConvRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCurrConvRaif
+                setter: setCurrConvRaif
+            type: common\models\raiffeisenxml\request\CurrConvRaifType
+        mandatorySale:
+            expose: true
+            access_type: public_method
+            serialized_name: MandatorySale
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMandatorySale
+                setter: setMandatorySale
+            type: common\models\raiffeisenxml\request\MandatorySaleBoxType
+        mandatorySaleRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: MandatorySaleRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMandatorySaleRaif
+                setter: setMandatorySaleRaif
+            type: common\models\raiffeisenxml\request\MandatorySaleRaifType
+        accreditiveRubRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: AccreditiveRubRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccreditiveRubRaif
+                setter: setAccreditiveRubRaif
+            type: common\models\raiffeisenxml\request\AccreditiveRubRaifType
+        accreditiveCurRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: AccreditiveCurRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccreditiveCurRaif
+                setter: setAccreditiveCurRaif
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType
+        letterOfDepositRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: LetterOfDepositRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLetterOfDepositRaif
+                setter: setLetterOfDepositRaif
+            type: common\models\raiffeisenxml\request\LetterOfDepositRaifType
+        creditRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditRaif
+                setter: setCreditRaif
+            type: common\models\raiffeisenxml\request\CreditRaifType
+        guaranteeRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: GuaranteeRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGuaranteeRaif
+                setter: setGuaranteeRaif
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType
+        incoming:
+            expose: true
+            access_type: public_method
+            serialized_name: Incoming
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIncoming
+                setter: setIncoming
+            type: common\models\raiffeisenxml\request\RequestType\IncomingAType
+        cryptoIncoming:
+            expose: true
+            access_type: public_method
+            serialized_name: CryptoIncoming
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCryptoIncoming
+                setter: setCryptoIncoming
+            type: common\models\raiffeisenxml\request\RequestType\CryptoIncomingAType
+        stmtReq:
+            expose: true
+            access_type: public_method
+            serialized_name: StmtReq
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getStmtReq
+                setter: setStmtReq
+            type: common\models\raiffeisenxml\request\StmtReqType
+        stmtReqRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: StmtReqRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getStmtReqRaif
+                setter: setStmtReqRaif
+            type: common\models\raiffeisenxml\request\StmtReqTypeRaifType
+        personalInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: PersonalInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPersonalInfo
+                setter: setPersonalInfo
+            type: common\models\raiffeisenxml\request\RequestType\PersonalInfoAType
+        stamps:
+            expose: true
+            access_type: public_method
+            serialized_name: Stamps
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getStamps
+                setter: setStamps
+            type: common\models\raiffeisenxml\request\RequestType\StampsAType
+        dicts:
+            expose: true
+            access_type: public_method
+            serialized_name: Dicts
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDicts
+                setter: setDicts
+            type: array<common\models\raiffeisenxml\request\DictType>
+            xml_list:
+                inline: false
+                entry_name: Dict
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        certifRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: CertifRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCertifRequest
+                setter: setCertifRequest
+            type: common\models\raiffeisenxml\request\CertifRequestType
+        clientAppUpdateRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientAppUpdateRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getClientAppUpdateRequest
+                setter: setClientAppUpdateRequest
+            type: common\models\raiffeisenxml\request\UpdateRequestType
+        changePasswordRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: ChangePasswordRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChangePasswordRequest
+                setter: setChangePasswordRequest
+            type: common\models\raiffeisenxml\request\ChangePasswordRequestType
+        logoutRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: LogoutRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLogoutRequest
+                setter: setLogoutRequest
+            type: common\models\raiffeisenxml\request\RequestType\LogoutRequestAType
+        revocationRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: RevocationRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRevocationRequest
+                setter: setRevocationRequest
+            type: common\models\raiffeisenxml\request\RevocationRequestType
+        ticketRaif:
+            expose: true
+            access_type: public_method
+            serialized_name: TicketRaif
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTicketRaif
+                setter: setTicketRaif
+            type: common\models\raiffeisenxml\request\RequestType\TicketRaifAType
+        letterTicket:
+            expose: true
+            access_type: public_method
+            serialized_name: LetterTicket
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLetterTicket
+                setter: setLetterTicket
+            type: common\models\raiffeisenxml\request\RequestType\LetterTicketAType
+        signs:
+            expose: true
+            access_type: public_method
+            serialized_name: Signs
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSigns
+                setter: setSigns
+            type: array<common\models\raiffeisenxml\request\DigitalSignType>
+            xml_list:
+                inline: false
+                entry_name: Sign
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        devicePrint:
+            expose: true
+            access_type: public_method
+            serialized_name: DevicePrint
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDevicePrint
+                setter: setDevicePrint
+            type: string

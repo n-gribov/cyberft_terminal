@@ -1,0 +1,60 @@
+common\models\sbbolxml\response\ResponseType\RevocationCertificatesAType:
+    properties:
+        updDate:
+            expose: true
+            access_type: public_method
+            serialized_name: updDate
+            accessor:
+                getter: getUpdDate
+                setter: setUpdDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        startDate:
+            expose: true
+            access_type: public_method
+            serialized_name: startDate
+            accessor:
+                getter: getStartDate
+                setter: setStartDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endDate
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        postFix:
+            expose: true
+            access_type: public_method
+            serialized_name: postFix
+            accessor:
+                getter: getPostFix
+                setter: setPostFix
+            xml_attribute: true
+            type: string
+        errorCode:
+            expose: true
+            access_type: public_method
+            serialized_name: ErrorCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getErrorCode
+                setter: setErrorCode
+            type: string
+        errorMsg:
+            expose: true
+            access_type: public_method
+            serialized_name: ErrorMsg
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getErrorMsg
+                setter: setErrorMsg
+            type: string

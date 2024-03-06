@@ -1,0 +1,54 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\AddTermsAType:
+    properties:
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        accrCosts:
+            expose: true
+            access_type: public_method
+            serialized_name: AccrCosts
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccrCosts
+                setter: setAccrCosts
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\AddTermsAType\AccrCostsAType
+        accrPaymentAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccrPaymentAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccrPaymentAcc
+                setter: setAccrPaymentAcc
+            type: common\models\raiffeisenxml\request\AccountType
+        accrCoverAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccrCoverAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccrCoverAcc
+                setter: setAccrCoverAcc
+            type: common\models\raiffeisenxml\request\AccountType
+        comments:
+            expose: true
+            access_type: public_method
+            serialized_name: Comments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getComments
+                setter: setComments
+            type: string

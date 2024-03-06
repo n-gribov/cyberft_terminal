@@ -1,0 +1,24 @@
+common\models\sbbolxml\request\RegistrationDataType:
+    properties:
+        registeredBy:
+            expose: true
+            access_type: public_method
+            serialized_name: RegisteredBy
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRegisteredBy
+                setter: setRegisteredBy
+            type: string
+        registrationPlace:
+            expose: true
+            access_type: public_method
+            serialized_name: RegistrationPlace
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getRegistrationPlace
+                setter: setRegistrationPlace
+            type: string

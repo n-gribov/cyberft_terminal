@@ -1,0 +1,132 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\DocDataAType
+        main:
+            expose: true
+            access_type: public_method
+            serialized_name: Main
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMain
+                setter: setMain
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\MainAType
+        applicant:
+            expose: true
+            access_type: public_method
+            serialized_name: Applicant
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getApplicant
+                setter: setApplicant
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\ApplicantAType
+        beneficiary:
+            expose: true
+            access_type: public_method
+            serialized_name: Beneficiary
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiary
+                setter: setBeneficiary
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\BeneficiaryAType
+        benefBank:
+            expose: true
+            access_type: public_method
+            serialized_name: BenefBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBenefBank
+                setter: setBenefBank
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\BenefBankAType
+        accrSum:
+            expose: true
+            access_type: public_method
+            serialized_name: AccrSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccrSum
+                setter: setAccrSum
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\AccrSumAType
+        other:
+            expose: true
+            access_type: public_method
+            serialized_name: Other
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOther
+                setter: setOther
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\OtherAType
+        shipping:
+            expose: true
+            access_type: public_method
+            serialized_name: Shipping
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getShipping
+                setter: setShipping
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\ShippingAType
+        goods:
+            expose: true
+            access_type: public_method
+            serialized_name: Goods
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getGoods
+                setter: setGoods
+            type: string
+        terms:
+            expose: true
+            access_type: public_method
+            serialized_name: Terms
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTerms
+                setter: setTerms
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\TermsAType
+        documents:
+            expose: true
+            access_type: public_method
+            serialized_name: Documents
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocuments
+                setter: setDocuments
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\DocumentsAType
+        addTerms:
+            expose: true
+            access_type: public_method
+            serialized_name: AddTerms
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAddTerms
+                setter: setAddTerms
+            type: common\models\raiffeisenxml\request\AccreditiveCurRaifType\AddTermsAType

@@ -1,0 +1,56 @@
+common\models\sbbolxml\request\RegOfIssCardsType\SalaryContractAType:
+    properties:
+        contrID:
+            expose: true
+            access_type: public_method
+            serialized_name: contrID
+            accessor:
+                getter: getContrID
+                setter: setContrID
+            xml_attribute: true
+            type: string
+        number:
+            expose: true
+            access_type: public_method
+            serialized_name: number
+            accessor:
+                getter: getNumber
+                setter: setNumber
+            xml_attribute: true
+            type: string
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: date
+            accessor:
+                getter: getDate
+                setter: setDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        filialName:
+            expose: true
+            access_type: public_method
+            serialized_name: filialName
+            accessor:
+                getter: getFilialName
+                setter: setFilialName
+            xml_attribute: true
+            type: string
+        branchName:
+            expose: true
+            access_type: public_method
+            serialized_name: branchName
+            accessor:
+                getter: getBranchName
+                setter: setBranchName
+            xml_attribute: true
+            type: string
+        branchNum:
+            expose: true
+            access_type: public_method
+            serialized_name: branchNum
+            accessor:
+                getter: getBranchNum
+                setter: setBranchNum
+            xml_attribute: true
+            type: string

@@ -1,0 +1,23 @@
+common\models\sbbolxml\request\ManageCodeType:
+    properties:
+        code:
+            expose: true
+            access_type: public_method
+            serialized_name: Code
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCode
+                setter: setCode
+            type: integer
+        param:
+            expose: true
+            access_type: public_method
+            serialized_name: Param
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getParam
+                setter: setParam
+            type: string

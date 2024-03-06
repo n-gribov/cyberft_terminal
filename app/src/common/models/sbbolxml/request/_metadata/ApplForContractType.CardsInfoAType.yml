@@ -1,0 +1,52 @@
+common\models\sbbolxml\request\ApplForContractType\CardsInfoAType:
+    properties:
+        visaElectronMaestro:
+            expose: true
+            access_type: public_method
+            serialized_name: VisaElectron_Maestro
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVisaElectronMaestro
+                setter: setVisaElectronMaestro
+            type: common\models\sbbolxml\request\ApplForContractType\CardsInfoAType\VisaElectronMaestroAType
+        visaClassicMasterCardMass:
+            expose: true
+            access_type: public_method
+            serialized_name: VisaClassic_MasterCardMass
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVisaClassicMasterCardMass
+                setter: setVisaClassicMasterCardMass
+            type: common\models\sbbolxml\request\ApplForContractType\CardsInfoAType\VisaClassicMasterCardMassAType
+        visaGoldMasterCardGold:
+            expose: true
+            access_type: public_method
+            serialized_name: VisaGold_MasterCardGold
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVisaGoldMasterCardGold
+                setter: setVisaGoldMasterCardGold
+            type: common\models\sbbolxml\request\ApplForContractType\CardsInfoAType\VisaGoldMasterCardGoldAType
+        deposits:
+            expose: true
+            access_type: public_method
+            serialized_name: Deposits
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDeposits
+                setter: setDeposits
+            type: common\models\sbbolxml\request\ApplForContractType\CardsInfoAType\DepositsAType
+        sbercard:
+            expose: true
+            access_type: public_method
+            serialized_name: Sbercard
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSbercard
+                setter: setSbercard
+            type: common\models\sbbolxml\request\ApplForContractType\CardsInfoAType\SbercardAType

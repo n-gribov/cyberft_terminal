@@ -1,0 +1,1332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/response"
+           targetNamespace="http://bssys.com/upg/response" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:complexType name="AccountRubType">
+        <xs:annotation>
+            <xs:documentation>Реквизиты счёта</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Bank" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты банка зачисления</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Name" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Наименование банка (наименование отделения СБРФ)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="BankName" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Наименование банка по БИК РФ</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="BankCity" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Населённый пункт банка зачисления</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SettlementType" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Тип населённого пункта банка зачисления</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="bic" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>БИК банка зачисления рублей</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="obsnum" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>OBSNUM</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="OtherAccountData" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Прочие данные по счетам</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Name" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Наименование счета</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="CurrencyCode" type="CurrCodeDigitalType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Числовой код валюты счета
+
+                                    Если не пришло, то вычисляем по номеру счета
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="CurrCode" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>ISO-код валюты договора (3-х буквенный код валюты)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="UseOrgNameInDoc" type="BoolType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Использовать наименование организации в документах
+                                    1 - использовать
+                                    0 - не использовать
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="OrgNameInDoc" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Наименование орагнизации в документах</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="AccountType" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Тип счёта: 01 – расчетный, 02 – бюджетный, 03 – транзитный, 04- специальный транзитный валютный счет, 05 - ссудный, 06 - счет по учету обеспечения.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="AccountTypeP" type="BoolType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Тип счёта: 0 – активный, 1 – пассивный (по умолчанию)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="DBO" type="BoolType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Обслуживание в ДБО
+                                    1 - обслуживается
+                                    0 - не обслуживается
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Business" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Признак бизнес-счёта</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IsBusinessNewType" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Признак бизнес-счёта "нового" типа</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IsNotDelay" type="BoolType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Признак возможности проведения неотложных платежей: 0 - не установлен, 1 - установлен</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IsUrgent" type="BoolType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Признак проведения срочных платежей
+                                    Возможные значения: 0 - не установлен, 1 - установлен
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IsIntermed" type="BoolType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Признак возможности предоставления информации о платежах по счету третьим лицам: 0 - не установлен, 1 - установлен</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="CreateDate" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Дата открытия счета</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="CloseDate" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Дата закрытия счёта</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="State" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Состояние счета:
+                                    OPEN - открыт;
+                                    BLOCKED - заблокирован;
+                                    CLOSED - закрыт.
+                                    По умолчанию - OPEN
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Mode" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Режим:
+                                    1 - стандартный;
+                                    2 - разрешена подготовка только выписок по счету (запрещен прием документов);
+                                    3 - разрешен только прием документов (запрещено формирование выписок).
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="BlockedFullInfo" type="BlockedFullInfo" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Блокировки средств на счетах</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="CartotecaDocInfo" type="CartotecaDoc" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Информация о документах, поставленных в Картотеку 1 и 2 к счету</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="MinBalance" type="xs:decimal" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Минимальный поддерживаемый остаток на счете (неснижаемый остаток)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SumOvd" type="xs:decimal" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Сумма общего лимита овердрафта в валюте счёта</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="AddInfo" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Дополнительная информация</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="AddInfoSBK" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="AccClientInfo" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Подключение счета к договору о предосталении информации по счетам клиента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="ControlOper" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Подключение счета к договору о предосталении информации для контроля операций по счетам клиента</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="AcceptPP" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Подключение счета к дополнителдьному согласшению к договору банковского счета о контроле и акцепте платежных документов</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="DebetLimit" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Подключение счета к соглашению о лимите дебетового счета</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="SingleResidue" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Подключение счета к соглашению о предосталении услуги "Единый остаток"</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="AddAgree" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Заключено доп соглашение к договору банковского счета по Единому остатку</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="Overdraft" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Подключение счета к соглашению о предосталении услуги овердрафт с общим лимитом</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="DirectControl" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Подключение счета к договору о прямом управлении счетами</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="AddDirectControl" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Подключение счета к дополнительному соглашению к договору банковского счета о прямом управлении счетами</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="RzkId" type="xs:string" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Идентификатор счета в РЦК (во внешней системе)</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="RzkOrgAccTypeId" type="xs:string" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Идентификатор типа счета в РЦК (во внешней системе)</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="RzkOrgId" type="xs:string" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Идентификатор организации счета в РЦК (во внешней системе)</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="CompensatingProducts" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="AccContract" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Подключение счета к договору компенсационного продукта</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="CreditLimitSum" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Залючено допоонительное соглашение по компенсационному продукту "Начисление процентов на сумму кредитного остатка"</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="MiddleLimit" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Залючено допоонительное соглашение по компенсационному продукту "Начисление процентов на совокупный (среднехронологический) остаток"</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="MinimumBalance" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Залючено допоонительное соглашение по компенсационному продукту "Начисление процентов на совокупный неснижаемый остаток"</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="Overdraft" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Залючено допоонительное соглашение по компенсационному продукту "Начисление процентов на сумму остатка овердрафтного кредита"</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="CreditLimit" type="BoolType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Залючено допоонительное соглашение по компенсационному продукту "Начисление процентов на сумму кредитного остатка и остатка овердрафтного кредита"</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="CreditContracts" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Если счет является ссудным, дополнительно может передаваться информация по кредитным договорам.</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="CreditContract" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="credContrtId" type="xs:string" use="required">
+                                                <xs:annotation>
+                                                    <xs:documentation>Идентификатор кредитного договора</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="ContractOfTheStateDefenseOrder" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Номер договора государственного оборонного заказа (ГОЗ)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Adm" type="BoolType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Счет подключен к устройству
+                                    самообслуживания на территории
+                                    Клиента (АДМ)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SelfEnCashment" type="BoolType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Счет подключен к устройству
+                                    самообслуживания (УС)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="accountId" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор счета</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="accountType" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Тип счета</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="accNum" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер счёта зачисления</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="CartotecaDoc">
+        <xs:sequence minOccurs="0">
+            <xs:element name="PermitionOperDocs" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Содержит информацию о расчетных документах, ожидающих разрешения на проведение
+                        операции
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="quantity" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Количество документов</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="sum" type="xs:decimal" use="required">
+                        <xs:annotation>
+                            <xs:documentation>На сумму.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AcceptDocs" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Содержит информацию о расчетных документах, ожидающих акцепта</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="quantity" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Количество документов</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="sum" type="xs:decimal" use="required">
+                        <xs:annotation>
+                            <xs:documentation>На сумму.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Cartoteca2" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Содержит информацию о расчетных документах, помещённых в картотеку к счету 90902
+                        (картотека 2)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="quantity" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Количество документов</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="sum" type="xs:decimal" use="required">
+                        <xs:annotation>
+                            <xs:documentation>На сумму.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="OperAccept" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Документы, ожидающих разрешения на проведение операции в рублях РФ (картотека 1) –
+                        Только для валютных счетов.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="quantity" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Количество документов</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="sum" type="xs:decimal" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Сумма в валюте Рубли РФ</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="NoMoney" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Документы, помещённые в картотеку из-за отсутствия\недостаточности денежных
+                        средств на счете клиента в рублях РФ(картотека 2) – Только для валютных счетов.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="quantity" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Количество документов</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="sum" type="xs:decimal" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Сумма в валюте Рубли РФ</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BlockedFullInfo">
+        <xs:sequence>
+            <xs:element name="Debet" type="DebetFull" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Блокировки по дебету</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Cred" type="CredFull" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Блокировки по кредиту</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CredFull">
+        <xs:attribute name="check" type="BoolType">
+            <xs:annotation>
+                <xs:documentation>1 - установлена блокировка по кредиту, 0 - не установлена</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="annotation" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Основание ареста</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="arrestedBy" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Наименование органа, наложившего арест</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="arestedByNum" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Код налогового органа, наложившего арест</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="beginDate" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation>Дата начала действия ограничения</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="endDate" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation>Дата снятия ограничения</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="DebetFull">
+        <xs:sequence>
+            <xs:element name="BlockedSumInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Аресты по счету (Блокировки по сумме)</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="BlockedSum" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Заблокированные (арестованные) суммы на счёте.</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence minOccurs="0">
+                                    <xs:element name="LimitationPeriod" type="LimitationPeriod" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Период органичения</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="sum" type="xs:decimal" use="required" form="unqualified">
+                                    <xs:annotation>
+                                        <xs:documentation>Заблокированная (арестованная) сумма на счёте.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="annotation" type="xs:string">
+                                    <xs:annotation>
+                                        <xs:documentation>Основание ареста.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="arrestedBy" type="xs:string">
+                                    <xs:annotation>
+                                        <xs:documentation>Наименование органа, наложившего арест</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="arestedByNum" type="xs:string">
+                                    <xs:annotation>
+                                        <xs:documentation>Код налогового органа, наложившего арест</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="BlockedQueuesInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Приотстановление операций по счету выше очередности(блокировки по очередности)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="BlockedQueues" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Наибольшая разрешённая очерёдность платежей (от 1 до 5). Указывается,
+                                    если есть блокировка по очерёдности. Пример: значение 3 означает, что заблокированы
+                                    очерёдности 4 - 6
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence minOccurs="0">
+                                    <xs:element name="LimitationPeriod" type="LimitationPeriod" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Период органичения</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="queues" use="optional">
+                                    <xs:annotation>
+                                        <xs:documentation>Наибольшая разрешённая очерёдность платежей (от 1 до 5).
+                                            Указывается, если есть блокировка по очерёдности. Пример: значение 3
+                                            означает, что заблокированы очерёдности 4 - 6
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:int">
+                                            <xs:minInclusive value="0"/>
+                                            <xs:maxInclusive value="5"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="annotation" type="xs:string">
+                                    <xs:annotation>
+                                        <xs:documentation>Основание ареста</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="arrestedBy" type="xs:string">
+                                    <xs:annotation>
+                                        <xs:documentation>Наименование органа, наложившего арест</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="arestedByNum" type="xs:string">
+                                    <xs:annotation>
+                                        <xs:documentation>Код налогового органа, наложившего арест</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="BlockedSumQueuesInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Приостановления операций по счету выше очердности на сумму</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="BlockedSumQueues" type="BlockedSumQueuesFull" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Блокировка по сумме и очерёдности платежей</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="check" type="BoolType" use="required">
+            <xs:annotation>
+                <xs:documentation>1 - на счёт наложена полная блокировка дебету. 0 -полной блокировки по дебету нет.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="annotation" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Основание ареста</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="arrestedBy" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Наименование органа, наложившего арест</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="arestedByNum" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Код налогового органа, наложившего арест</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="beginDate" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation>Дата начала действия ограничения</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="endDate" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation>Дата снятия ограничения</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="BlockedSumQueuesFull">
+        <xs:sequence>
+            <xs:element name="Sum" type="xs:decimal" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сумма блокировки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Queues" type="xs:int" form="qualified">
+                <xs:annotation>
+                    <xs:documentation>Наибольшая разрешённая очерёдность платежей (от 1 до 5). Указывается, если есть
+                        блокировка по очерёдности. Пример: значение 3 означает, что заблокированы очерёдности 4 - 6
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Annotation" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Основание ареста</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ArrestedBy" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование органа, наложившего арест</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ArestedByNum" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код налогового органа, наложившего арест</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="LimitationPeriod" type="LimitationPeriod" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Период органичения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LimitationPeriod">
+        <xs:attribute name="beginDate" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation>Дата начала действия ограничения</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="endDate" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation>Дата снятия ограничения</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="DigitalSign">
+        <xs:sequence>
+            <xs:element name="Issuer" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор поставщика сертификата
+                        Например, " issuer="E=IdleCA, C=RU, S=Idle CA, L=Idle CA, O=Idle CA, OU=Idle CA, CN=Idle CA" "
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SN" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Серийный номер сертификата</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Value" type="xs:base64Binary" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Значение ЭП</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DigestName" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Имя схемы подписи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DigestVersion" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Версия схемы подписи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UserRestriction">
+        <xs:annotation>
+            <xs:documentation>Ограничение учетной записи</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Account" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Информация о счете. Передается информация
+                        только о
+                        подключенных счетах данному уполномоченному лицу
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="accountId" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Идентификатор счета</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="accNum" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Номер счёта зачисления</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="restrictionAccountId" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Идентификатор счета</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="type" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Тип ограничения</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="replicationGUID" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Уникальный ID ограничения</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="Certificate">
+        <xs:annotation>
+            <xs:documentation>Данные одного сертификата
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:base64Binary">
+                <xs:attribute name="SN" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Серийный номер сертификата
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="signDeviceId" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор средства подписи. Заполнять ВСЕГДА
+                            ДЛЯ ТК
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="cryptoTypeId" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Тип криптографии</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="client" type="BoolType">
+                    <xs:annotation>
+                        <xs:documentation>клиентский сертификат</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="bank" type="BoolType">
+                    <xs:annotation>
+                        <xs:documentation>Банковский сертификат</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="root" type="BoolType">
+                    <xs:annotation>
+                        <xs:documentation>Сертификат УЦ или корневой сертификат
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="format" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Формат сертификата:
+                            X509 - сертфикат в формате X.509 (по умолчанию)
+                            P7S - сертфикат в CMS -контейнере
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="active" type="BoolType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Признак активности
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="valid" type="BoolType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Признак действительности
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="containerName" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Сслылка на контейнер хранения закрытого ключа</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="bicryptId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор Бикрипт</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="CurrAmountType">
+        <xs:annotation>
+            <xs:documentation>Денежная сумма с указанием трёхзначного кода валюты (сумма может отсутствовать)
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docSum" type="xs:decimal" use="optional">
+            <xs:annotation>
+                <xs:documentation>Сумма</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="currCode" type="CurrCodeDigitalType" use="required">
+            <xs:annotation>
+                <xs:documentation>Цифровой код валюты</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="currIsoCode" type="CurrCodeLetterType" use="optional">
+            <xs:annotation>
+                <xs:documentation>ISO код валюты</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="ServicePackage">
+        <xs:sequence>
+            <xs:element name="PackageId" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор пакета услуг</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PackageName" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование пакета услуг</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Service" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Информация об услуге в пакете услуг</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ServiceId" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор услуги в Corrects</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="ServiceName" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Наименование услуги</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="AvailableInStandIn9999" type="xs:boolean" minOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>Признак доступности услуги в режиме Stand-in 99,99</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Attachment">
+        <xs:annotation>
+            <xs:documentation>Отдельное вложение</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AttachmentName" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Имя файла вложения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Description" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Пользовательское описание файла вложения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Body" type="xs:base64Binary" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>В бинарном представлении в сжатом и несжатом виде</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="FileSize" type="xs:long" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Размер вложенного файла в байтах</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="FileDate" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата создания файла</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AttachmentsType">
+        <xs:annotation>
+            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Attachment" type="Attachment" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OrgUPGLogsRequestType">
+        <xs:annotation>
+            <xs:documentation>Запрос логов с ТК</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="beginDate" type="xs:date">
+            <xs:annotation>
+                <xs:documentation>Начало периода, за который запращиваются логи с ТК</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="endDate" type="xs:date">
+            <xs:annotation>
+                <xs:documentation>Окончание периода, за который запращиваются логи с ТК</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:simpleType name="UuidSeparated">
+        <xs:annotation>
+            <xs:documentation>UUID с разделителями в виде дефисов. Набор из 32 символов [0-9], [a-f] или [A-F] и
+                дефисов
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="BoolType">
+        <xs:annotation>
+            <xs:documentation>Двоичное значение: 0 или 1</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:boolean">
+            <xs:pattern value="0|1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CurrCodeDigitalType">
+        <xs:annotation>
+            <xs:documentation>Код валюты, 3 цифры</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:length value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CurrCodeLetterType">
+        <xs:annotation>
+            <xs:documentation>Код валюты, 3 буквы</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:length value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="InnType">
+        <xs:annotation>
+            <xs:documentation>ИНН юридического или физического лица РФ, до 12 цифр или 0</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="OgrnType">
+        <xs:annotation>
+            <xs:documentation>ОГРН, от 13 до 15 цифр</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="OkpoType">
+        <xs:annotation>
+            <xs:documentation>ОКПО, от 8 до 10 цифр</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="OkatoType">
+        <xs:annotation>
+            <xs:documentation>ОКАТО, от 1 до 11 цифр (иногда заполняется нулём)</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:complexType name="Credit">
+        <xs:sequence>
+            <xs:element name="CredConNum" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер кредитного договора (в базе varchar(255), на ввод ограничили до пока 30)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="flagTargetAssignment" type="BoolType" use="required">
+            <xs:annotation>
+                <xs:documentation>Признак «Целевое поручение» : 0 - не установлен, 1 - установлен</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="flagUseOwnMeans" type="BoolType" use="required">
+            <xs:annotation>
+                <xs:documentation>Признак «Использовать собственные средства»: 0 - не установлен, 1 - установлен
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:simpleType name="BranchSystemName">
+        <xs:annotation>
+            <xs:documentation>Системное наименование подразделения банка</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="OrgKpp">
+        <xs:sequence>
+            <xs:element name="KPPIndex" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>КПП</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CheckKPP" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Признак, использовать ли КПП по умолчанию, заполняем значением "1" только в том
+                        случае, если для данного КПП стоит такой признак. Иначе- не передаем.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrControlSettings">
+        <xs:annotation>
+            <xs:documentation>Настройки валютного контроля</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="vbkInfo" type="BoolType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Запросить информацию из ВБК, 0 - не установлен, 1 - установлен</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="vbkInfoFull" type="BoolType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Запросить информацию из ВБК (полностью): 0 - не установлен, 1 - установлен
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="cdInfo" type="BoolType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Запрос деклораций на товары, 0 - не установлен, 1 - установлен</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="violationCurrLaw" type="BoolType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Запрос информации о нарушениях валютного законодательств, 0 - не установлен, 1 -
+                    установлен
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="Beneficiar_59">
+        <xs:sequence>
+            <xs:element name="AccBeneficiar" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Счет бенефицира</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CurrIsoCode" type="CurrCodeLetterType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Iso-код валюты счета</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Name" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование бенефицира</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Address" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Адрес бенефицира</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Place" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Город (месторасположение) бенефицира</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Country" type="Country" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Страна бенефицира</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="State" type="State" minOccurs="0"/>
+            <xs:element name="Text" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Если потребуется передача наименования и местонахождения перевододателя как 4х35
+                        Customer name
+                        По умолчанию - не используется
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Zip" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>zip-код</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Inn" type="InnType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>ИНН (заполняется в случае внутрибанковского перевода)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BeiCode" type="xs:string" minOccurs="0"/>
+            <xs:element name="BankName" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ImediaBank_56">
+        <xs:sequence>
+            <xs:element name="BIC" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>SWIFT-код банка-посредника
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CliringCode" type="CliringCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Клиринговый код банка-посредника
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Name" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование банка-посредника</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BranchName" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование филиала банка-посредника</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Address" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Адрес банка-посредника</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Place" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Местонахождение банка-посредника</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Country" type="Country" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код страны банка-посредника</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="State" type="State" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Штат</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Zip" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Zip-код</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Text" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Если потребуется передача наименования и местонахождения как 4х35
+                        Name and Address
+                        По умолчанию - не используется
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BankBeneficiar_57">
+        <xs:sequence>
+            <xs:element name="BIC" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>SWIFT-код банка бенефициара</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CliringCode" type="CliringCode" minOccurs="0"/>
+            <xs:element name="CorrAcc" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Корреспондентский счёт банка бенефициара</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Name" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование банка бенефициара</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BranchName" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование филиала банка бенефициара</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Address" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Адрес банка бенефициара</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Place" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Местонахождение банка бенефициара</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Country" type="Country" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код страны банка бенефициара</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="State" type="State" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Штат</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Zip" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Zip-код</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Text" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Если потребуется передача наименования и местонахождения как 4х35
+                        Name and Address
+                        По умолчанию - не используется
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Country">
+        <xs:attribute name="digital" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Цифровой код страны, например 840</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="iso2" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Двухбуквенный код страны, например, US</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Наименование страны на русском языке (краткое наименование)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="CorrBank">
+        <xs:attribute name="name" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Наименование банка контрагента</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="bic" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>БИК банка контрагента</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="correspAcc" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Номер корр. счёта банка контрагента</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="CliringCode">
+        <xs:attribute name="countryCode" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>2-х символьный код страны</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>сокращение</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="note" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>обозначение</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="code" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>клиринговый код
+                    Клиринговый код банка бенефициара
+                    National Code
+                    например, FW123456789 или FW
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="State">
+        <xs:attribute name="code" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Код административной единицы</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Наименование административной единицы</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:simpleType name="AccNumType">
+        <xs:annotation>
+            <xs:documentation>Номер счёта или корр. счёта, 20 цифр</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:length value="20"/>
+            <xs:pattern value="[0-9]{20}"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,21 @@
+common\models\raiffeisenxml\request\RequestType\CryptoIncomingAType:
+    properties:
+        cryptopro:
+            expose: true
+            access_type: public_method
+            serialized_name: cryptopro
+            accessor:
+                getter: getCryptopro
+                setter: setCryptopro
+            xml_attribute: true
+            type: bool
+        certificates:
+            expose: true
+            access_type: public_method
+            serialized_name: Certificates
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCertificates
+                setter: setCertificates
+            type: common\models\raiffeisenxml\request\RequestType\CryptoIncomingAType\CertificatesAType

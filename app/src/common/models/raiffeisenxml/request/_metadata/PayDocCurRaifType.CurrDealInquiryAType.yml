@@ -1,0 +1,29 @@
+common\models\raiffeisenxml\request\PayDocCurRaifType\CurrDealInquiryAType:
+    properties:
+        bankName:
+            expose: true
+            access_type: public_method
+            serialized_name: bankName
+            accessor:
+                getter: getBankName
+                setter: setBankName
+            xml_attribute: true
+            type: string
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\VerifyAuthSMSSignType:
+    properties:
+        smsCode:
+            expose: true
+            access_type: public_method
+            serialized_name: smsCode
+            accessor:
+                getter: getSmsCode
+                setter: setSmsCode
+            xml_attribute: true
+            type: string

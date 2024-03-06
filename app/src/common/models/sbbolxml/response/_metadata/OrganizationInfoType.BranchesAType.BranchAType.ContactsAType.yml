@@ -1,0 +1,90 @@
+common\models\sbbolxml\response\OrganizationInfoType\BranchesAType\BranchAType\ContactsAType:
+    properties:
+        tel:
+            expose: true
+            access_type: public_method
+            serialized_name: Tel
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getTel
+                setter: setTel
+            type: string
+        fax:
+            expose: true
+            access_type: public_method
+            serialized_name: Fax
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFax
+                setter: setFax
+            type: string
+        workTime:
+            expose: true
+            access_type: public_method
+            serialized_name: WorkTime
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getWorkTime
+                setter: setWorkTime
+            type: string
+        directorName:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectorName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDirectorName
+                setter: setDirectorName
+            type: string
+        directorTel:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectorTel
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDirectorTel
+                setter: setDirectorTel
+            type: string
+        directorFax:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectorFax
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDirectorFax
+                setter: setDirectorFax
+            type: string
+        directorEmail:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectorEmail
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDirectorEmail
+                setter: setDirectorEmail
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

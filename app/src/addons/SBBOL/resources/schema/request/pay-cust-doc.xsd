@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="PayCustDoc">
+        <xs:annotation>
+            <xs:documentation>Заявка на оплату документа таможни</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="AccDoc" type="PayCustDocAccDoc">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты платёжного документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PayCustDocParams" type="PayCustDocParams">
+                        <xs:annotation>
+                            <xs:documentation>Параметры таможенного платежа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DepartmentalInfo" type="DepartmentalInfo">
+                        <xs:annotation>
+                            <xs:documentation>Налоговая информация: поля 101, 104 - 110 платёжного поручения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="customCardId" use="required">
+                    <xs:annotation>
+                        <xs:documentation>ID таможенной карты</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="16"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="customOperatorID" use="required">
+                    <xs:annotation>
+                        <xs:documentation>ID ТО (идентификатор Таможенного Оператора) в СББОЛ</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="10"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="deadLine" type="xs:dateTime" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Время, в течение которого ИС Банка может отправить в ИС ТО Сообщение об акцепте по конкретной Заявке</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PayCustDocAccDoc">
+        <xs:sequence>
+            <xs:element name="Purpose">
+                <xs:annotation>
+                    <xs:documentation>Назначение платежа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="210"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="docDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата создания документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docSum" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Сумма платежа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="transKind" use="required">
+            <xs:annotation>
+                <xs:documentation>Вид операции</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:length value="2"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="paytKind" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Вид платежа Возможные значения: «почтой», «электронно», «телеграфом» («срочно» временно недоступно). Если не указано, заполняется: «0»
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="25"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="priority" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Очерёдность списания денежных средств со счёта: число от 1 до 5
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="1"/>
+                    <xs:maxInclusive value="5"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="urgentSBRF" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Дополнительная услуга СБРФ. Срочность: 0 - срочный, 1 - срочный с УВ, 2 - неотложный
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:length value="1"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="PayCustDocParams">
+        <xs:annotation>
+            <xs:documentation>Параметры таможенного платежа</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docNo" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер документа основания платежа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="50"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date" use="optional">
+            <xs:annotation>
+                <xs:documentation>Дата документа основания платежа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="procCode" use="required">
+            <xs:annotation>
+                <xs:documentation>Код (идентификатор) таможенной процедуры</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="36"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="depCode" use="required">
+            <xs:annotation>
+                <xs:documentation>Код таможенного органа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{5}|[0-9]{8}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="payingType" use="required">
+            <xs:annotation>
+                <xs:documentation>Код вида платежа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{1,4}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="DepartmentalInfo">
+        <xs:complexContent>
+            <xs:extension base="DepartmentalInfoBase">
+                <xs:attribute name="cbc" type="CbcType" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Код бюджетной классификации (104)</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,274 @@
+common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType:
+    properties:
+        numSt:
+            expose: true
+            access_type: public_method
+            serialized_name: numSt
+            accessor:
+                getter: getNumSt
+                setter: setNumSt
+            xml_attribute: true
+            type: string
+        sName:
+            expose: true
+            access_type: public_method
+            serialized_name: SName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSName
+                setter: setSName
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        middleName:
+            expose: true
+            access_type: public_method
+            serialized_name: MiddleName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getMiddleName
+                setter: setMiddleName
+            type: string
+        citizenship:
+            expose: true
+            access_type: public_method
+            serialized_name: Citizenship
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCitizenship
+                setter: setCitizenship
+            type: common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType\CitizenshipAType
+        resident:
+            expose: true
+            access_type: public_method
+            serialized_name: Resident
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getResident
+                setter: setResident
+            type: boolean
+        dateOfBirth:
+            expose: true
+            access_type: public_method
+            serialized_name: DateOfBirth
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDateOfBirth
+                setter: setDateOfBirth
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        birthPlace:
+            expose: true
+            access_type: public_method
+            serialized_name: BirthPlace
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBirthPlace
+                setter: setBirthPlace
+            type: string
+        sex:
+            expose: true
+            access_type: public_method
+            serialized_name: Sex
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSex
+                setter: setSex
+            type: boolean
+        registrAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: RegistrAddress
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRegistrAddress
+                setter: setRegistrAddress
+            type: common\models\sbbolxml\request\AddressType
+        sameAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: SameAddress
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSameAddress
+                setter: setSameAddress
+            type: boolean
+        placeOfResidence:
+            expose: true
+            access_type: public_method
+            serialized_name: PlaceOfResidence
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPlaceOfResidence
+                setter: setPlaceOfResidence
+            type: common\models\sbbolxml\request\AddressType
+        iNN:
+            expose: true
+            access_type: public_method
+            serialized_name: INN
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getINN
+                setter: setINN
+            type: string
+        textCard:
+            expose: true
+            access_type: public_method
+            serialized_name: TextCard
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTextCard
+                setter: setTextCard
+            type: common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType\TextCardAType
+        identityDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentityDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIdentityDoc
+                setter: setIdentityDoc
+            type: common\models\sbbolxml\request\IdentityDocType
+        position:
+            expose: true
+            access_type: public_method
+            serialized_name: Position
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPosition
+                setter: setPosition
+            type: string
+        category:
+            expose: true
+            access_type: public_method
+            serialized_name: Category
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCategory
+                setter: setCategory
+            type: string
+        contactInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ContactInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContactInfo
+                setter: setContactInfo
+            type: common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType\ContactInfoAType
+        cardInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: CardInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCardInfo
+                setter: setCardInfo
+            type: common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType\CardInfoAType
+        oSBNum:
+            expose: true
+            access_type: public_method
+            serialized_name: OSBNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOSBNum
+                setter: setOSBNum
+            type: string
+        branchOSBNum:
+            expose: true
+            access_type: public_method
+            serialized_name: BranchOSBNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBranchOSBNum
+                setter: setBranchOSBNum
+            type: string
+        tBNum:
+            expose: true
+            access_type: public_method
+            serialized_name: TBNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTBNum
+                setter: setTBNum
+            type: string
+        serviceBranchCode:
+            expose: true
+            access_type: public_method
+            serialized_name: ServiceBranchCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getServiceBranchCode
+                setter: setServiceBranchCode
+            type: string
+        serviceBranchName:
+            expose: true
+            access_type: public_method
+            serialized_name: ServiceBranchName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getServiceBranchName
+                setter: setServiceBranchName
+            type: string
+        sendReport:
+            expose: true
+            access_type: public_method
+            serialized_name: SendReport
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSendReport
+                setter: setSendReport
+            type: boolean
+        designID:
+            expose: true
+            access_type: public_method
+            serialized_name: DesignID
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDesignID
+                setter: setDesignID
+            type: string

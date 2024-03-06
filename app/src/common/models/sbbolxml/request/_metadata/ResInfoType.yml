@@ -1,0 +1,54 @@
+common\models\sbbolxml\request\ResInfoType:
+    properties:
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: common\models\sbbolxml\request\FullAddressType
+        oGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: OGRN
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOGRN
+                setter: setOGRN
+            type: string
+        dateOGRN:
+            expose: true
+            access_type: public_method
+            serialized_name: DateOGRN
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDateOGRN
+                setter: setDateOGRN
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        innKpp:
+            expose: true
+            access_type: public_method
+            serialized_name: Inn_Kpp
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getInnKpp
+                setter: setInnKpp
+            type: common\models\sbbolxml\request\InnKppType

@@ -1,0 +1,101 @@
+common\models\sbbolxml\request\FullAddressType:
+    properties:
+        state:
+            expose: true
+            access_type: public_method
+            serialized_name: State
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getState
+                setter: setState
+            type: string
+        district:
+            expose: true
+            access_type: public_method
+            serialized_name: District
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDistrict
+                setter: setDistrict
+            type: string
+        city:
+            expose: true
+            access_type: public_method
+            serialized_name: City
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCity
+                setter: setCity
+            type: string
+        placeType:
+            expose: true
+            access_type: public_method
+            serialized_name: PlaceType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPlaceType
+                setter: setPlaceType
+            type: string
+        place:
+            expose: true
+            access_type: public_method
+            serialized_name: Place
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPlace
+                setter: setPlace
+            type: string
+        street:
+            expose: true
+            access_type: public_method
+            serialized_name: Street
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getStreet
+                setter: setStreet
+            type: string
+        building:
+            expose: true
+            access_type: public_method
+            serialized_name: Building
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBuilding
+                setter: setBuilding
+            type: string
+        block:
+            expose: true
+            access_type: public_method
+            serialized_name: Block
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBlock
+                setter: setBlock
+            type: string
+        office:
+            expose: true
+            access_type: public_method
+            serialized_name: Office
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOffice
+                setter: setOffice
+            type: string

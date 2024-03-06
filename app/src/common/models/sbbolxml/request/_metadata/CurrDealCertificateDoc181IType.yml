@@ -1,0 +1,116 @@
+common\models\sbbolxml\request\CurrDealCertificateDoc181IType:
+    properties:
+        lineNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: lineNumber
+            accessor:
+                getter: getLineNumber
+                setter: setLineNumber
+            xml_attribute: true
+            type: integer
+        operInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: OperInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOperInfo
+                setter: setOperInfo
+            type: common\models\sbbolxml\request\OperInfoType
+        paymentSum:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPaymentSum
+                setter: setPaymentSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        contract:
+            expose: true
+            access_type: public_method
+            serialized_name: Contract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContract
+                setter: setContract
+            type: common\models\sbbolxml\request\ContractDateOptionalType
+        dealPassNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealPassNum
+                setter: setDealPassNum
+            type: string
+        contractSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractSum
+                setter: setContractSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        expectedTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: ExpectedTerm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExpectedTerm
+                setter: setExpectedTerm
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        operationBase:
+            expose: true
+            access_type: public_method
+            serialized_name: OperationBase
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOperationBase
+                setter: setOperationBase
+            type: string
+        dataComposition:
+            expose: true
+            access_type: public_method
+            serialized_name: DataComposition
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDataComposition
+                setter: setDataComposition
+            type: string
+        termOfPayment:
+            expose: true
+            access_type: public_method
+            serialized_name: TermOfPayment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTermOfPayment
+                setter: setTermOfPayment
+            type: string

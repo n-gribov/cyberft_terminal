@@ -1,0 +1,76 @@
+common\models\sbbolxml\request\DocDataCCType:
+    properties:
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        branchSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: branchSystemName
+            accessor:
+                getter: getBranchSystemName
+                setter: setBranchSystemName
+            xml_attribute: true
+            type: string
+        authBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: authBankName
+            accessor:
+                getter: getAuthBankName
+                setter: setAuthBankName
+            xml_attribute: true
+            type: string
+        authBankBIC:
+            expose: true
+            access_type: public_method
+            serialized_name: authBankBIC
+            accessor:
+                getter: getAuthBankBIC
+                setter: setAuthBankBIC
+            xml_attribute: true
+            type: string
+        urgent:
+            expose: true
+            access_type: public_method
+            serialized_name: urgent
+            accessor:
+                getter: getUrgent
+                setter: setUrgent
+            xml_attribute: true
+            type: boolean
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\OrgDataCCType
+        authPers:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthPers
+                setter: setAuthPers
+            type: common\models\sbbolxml\request\AuthPersType

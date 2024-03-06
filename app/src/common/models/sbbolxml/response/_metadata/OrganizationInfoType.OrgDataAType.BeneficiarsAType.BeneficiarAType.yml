@@ -1,0 +1,114 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\BeneficiarsAType\BeneficiarAType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        beneficiar59:
+            expose: true
+            access_type: public_method
+            serialized_name: Beneficiar_59
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBeneficiar59
+                setter: setBeneficiar59
+            type: common\models\sbbolxml\response\Beneficiar59Type
+        imediaBank56:
+            expose: true
+            access_type: public_method
+            serialized_name: ImediaBank_56
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getImediaBank56
+                setter: setImediaBank56
+            type: common\models\sbbolxml\response\ImediaBank56Type
+        bankBeneficiar57:
+            expose: true
+            access_type: public_method
+            serialized_name: BankBeneficiar_57
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBankBeneficiar57
+                setter: setBankBeneficiar57
+            type: common\models\sbbolxml\response\BankBeneficiar57Type
+        options:
+            expose: true
+            access_type: public_method
+            serialized_name: Options
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOptions
+                setter: setOptions
+            type: common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\BeneficiarsAType\BeneficiarAType\OptionsAType
+        payDocCurUse:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocCurUse
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayDocCurUse
+                setter: setPayDocCurUse
+            type: boolean
+        otherDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOtherDoc
+                setter: setOtherDoc
+            type: boolean
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        paymentDetails70:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentDetails_70
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPaymentDetails70
+                setter: setPaymentDetails70
+            type: string
+        vo:
+            expose: true
+            access_type: public_method
+            serialized_name: Vo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getVo
+                setter: setVo
+            type: string
+        paymentDirection:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentDirection
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPaymentDirection
+                setter: setPaymentDirection
+            type: boolean

@@ -1,0 +1,120 @@
+common\models\sbbolxml\request\ImediaBank56Type:
+    properties:
+        bIC:
+            expose: true
+            access_type: public_method
+            serialized_name: BIC
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBIC
+                setter: setBIC
+            type: string
+        cliringCode:
+            expose: true
+            access_type: public_method
+            serialized_name: CliringCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCliringCode
+                setter: setCliringCode
+            type: common\models\sbbolxml\request\CliringCodeType
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        branchName:
+            expose: true
+            access_type: public_method
+            serialized_name: BranchName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBranchName
+                setter: setBranchName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: string
+        place:
+            expose: true
+            access_type: public_method
+            serialized_name: Place
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPlace
+                setter: setPlace
+            type: string
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: common\models\sbbolxml\request\CountryType
+        state:
+            expose: true
+            access_type: public_method
+            serialized_name: State
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getState
+                setter: setState
+            type: common\models\sbbolxml\request\StateType
+        zip:
+            expose: true
+            access_type: public_method
+            serialized_name: Zip
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getZip
+                setter: setZip
+            type: string
+        text:
+            expose: true
+            access_type: public_method
+            serialized_name: Text
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getText
+                setter: setText
+            type: string
+        filial:
+            expose: true
+            access_type: public_method
+            serialized_name: Filial
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFilial
+                setter: setFilial
+            type: string

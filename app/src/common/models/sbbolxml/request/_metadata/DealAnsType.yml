@@ -1,0 +1,75 @@
+common\models\sbbolxml\request\DealAnsType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        decision:
+            expose: true
+            access_type: public_method
+            serialized_name: Decision
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDecision
+                setter: setDecision
+            type: boolean
+        siId:
+            expose: true
+            access_type: public_method
+            serialized_name: SiId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSiId
+                setter: setSiId
+            type: string
+        nsiText:
+            expose: true
+            access_type: public_method
+            serialized_name: NsiText
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNsiText
+                setter: setNsiText
+            type: string
+        siId2:
+            expose: true
+            access_type: public_method
+            serialized_name: SiId2
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSiId2
+                setter: setSiId2
+            type: string
+        nsiText2:
+            expose: true
+            access_type: public_method
+            serialized_name: NsiText2
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNsiText2
+                setter: setNsiText2
+            type: string
+        sign:
+            expose: true
+            access_type: public_method
+            serialized_name: Sign
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSign
+                setter: setSign
+            type: common\models\sbbolxml\request\DigitalSignType

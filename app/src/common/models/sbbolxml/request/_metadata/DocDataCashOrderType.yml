@@ -1,0 +1,65 @@
+common\models\sbbolxml\request\DocDataCashOrderType:
+    properties:
+        docNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: docNumber
+            accessor:
+                getter: getDocNumber
+                setter: setDocNumber
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: docSum
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            xml_attribute: true
+            type: float
+        docSumCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: docSumCurrCode
+            accessor:
+                getter: getDocSumCurrCode
+                setter: setDocSumCurrCode
+            xml_attribute: true
+            type: string
+        withdrawalPlannedDate:
+            expose: true
+            access_type: public_method
+            serialized_name: withdrawalPlannedDate
+            accessor:
+                getter: getWithdrawalPlannedDate
+                setter: setWithdrawalPlannedDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        moneySource:
+            expose: true
+            access_type: public_method
+            serialized_name: moneySource
+            accessor:
+                getter: getMoneySource
+                setter: setMoneySource
+            xml_attribute: true
+            type: string
+        blockAmountFlag:
+            expose: true
+            access_type: public_method
+            serialized_name: blockAmountFlag
+            accessor:
+                getter: getBlockAmountFlag
+                setter: setBlockAmountFlag
+            xml_attribute: true
+            type: boolean

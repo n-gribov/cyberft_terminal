@@ -1,0 +1,25 @@
+common\models\sbbolxml\request\LicensesInformationType:
+    properties:
+        licensesQuantity:
+            expose: true
+            access_type: public_method
+            serialized_name: licensesQuantity
+            accessor:
+                getter: getLicensesQuantity
+                setter: setLicensesQuantity
+            xml_attribute: true
+            type: integer
+        licenseInformation:
+            expose: true
+            access_type: public_method
+            serialized_name: LicenseInformation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLicenseInformation
+                setter: setLicenseInformation
+            xml_list:
+                inline: true
+                entry_name: LicenseInformation
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\sbbolxml\request\LicenseInformationType>

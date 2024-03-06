@@ -1,0 +1,11 @@
+common\models\sbbolxml\response\ResponseType\FirmwareUpdateAType\ExternalLinkAType:
+    properties:
+        extLink:
+            expose: true
+            access_type: public_method
+            serialized_name: extLink
+            accessor:
+                getter: getExtLink
+                setter: setExtLink
+            xml_attribute: true
+            type: string

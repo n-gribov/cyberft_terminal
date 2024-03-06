@@ -1,0 +1,43 @@
+common\models\sbbolxml\request\VBKInfoType:
+    properties:
+        lineNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: LineNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLineNumber
+                setter: setLineNumber
+            type: integer
+        dealPassNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealPassNum
+                setter: setDealPassNum
+            type: string
+        contract:
+            expose: true
+            access_type: public_method
+            serialized_name: Contract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContract
+                setter: setContract
+            type: common\models\sbbolxml\request\ContractType
+        vBKInfoReqParam:
+            expose: true
+            access_type: public_method
+            serialized_name: VBKInfoReqParam
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getVBKInfoReqParam
+                setter: setVBKInfoReqParam
+            type: common\models\sbbolxml\request\VBKInfoReqParamType

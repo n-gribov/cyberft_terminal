@@ -1,0 +1,48 @@
+common\models\raiffeisenxml\response\OrgInfoType\SignDevicesAType\SignDeviceAType\CertificatesAType\CertificateAType:
+    properties:
+        __value:
+            expose: true
+            xml_value: true
+            access_type: public_method
+            accessor:
+                getter: value
+                setter: value
+            type: string
+            xml_element:
+                cdata: false
+        active:
+            expose: true
+            access_type: public_method
+            serialized_name: active
+            accessor:
+                getter: getActive
+                setter: setActive
+            xml_attribute: true
+            type: bool
+        privateKeyRef:
+            expose: true
+            access_type: public_method
+            serialized_name: privateKeyRef
+            accessor:
+                getter: getPrivateKeyRef
+                setter: setPrivateKeyRef
+            xml_attribute: true
+            type: string
+        validFrom:
+            expose: true
+            access_type: public_method
+            serialized_name: validFrom
+            accessor:
+                getter: getValidFrom
+                setter: setValidFrom
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        validTill:
+            expose: true
+            access_type: public_method
+            serialized_name: validTill
+            accessor:
+                getter: getValidTill
+                setter: setValidTill
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime

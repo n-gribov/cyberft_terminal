@@ -1,0 +1,192 @@
+.foreigncurrencypayment-currency {
+    margin-top: 23px;
+    /* border: 0 !important; */
+    box-shadow: none !important;
+}
+
+.foreigncurrencypayment-currency-commission {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.foreigncurrencypayment-immediatepayment {
+    margin-top: 33px !important;
+}
+
+.fcp-payer-account-select + .select2-container {
+    margin-bottom: 15px !important;
+}
+
+.fcp-payer-block input {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.fcp-payer-block label {
+    width: 100px;
+}
+
+.fcp-payer-bank-block input {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.fcp-payer-bank-block label {
+    width: 110px;
+}
+
+.field-foreigncurrencypaymenttemplate-intermediarybank,
+.field-foreigncurrencypaymenttype-intermediarybank {
+    width: 197px;
+}
+
+.fcp-beneficiary-account-select + .select2-container {
+    margin-bottom: 15px !important;
+}
+
+.fcp-beneficiary-block label {
+    width: 127px;
+}
+
+.fcp-beneficiary-block .form-group {
+    width: 100%;
+}
+
+.fcp-beneficiary-block input[type=text],
+.fcp-beneficiary-block textarea {
+    width: 50% !important;
+}
+
+.fcp-beneficiary-block textarea,
+.fcp-beneficiary-bank-block textarea {
+    resize: none;
+}
+
+.field-foreigncurrencypaymenttemplate-beneficiarybank,
+.field-foreigncurrencypaymenttype-beneficiarybank {
+    width: 197px;
+}
+
+.fcp-payer-info .form-group {
+    width: 100%;
+}
+
+.fcp-payer-info .form-group input[type=text] {
+    width: 82%;
+}
+
+.fcp-intermediary-bank-title {
+    cursor: pointer;
+}
+
+.fcp-alert-info {
+    display: none;
+}
+
+.field-foreigncurrencypaymenttemplate-intermediarybank,
+.field-foreigncurrencypaymenttype-intermediarybank {
+    width: 442px;
+}
+
+.fcp-intermediary-bank-block input[type="text"], .fcp-intermediary-bank-block textarea,
+.fcp-beneficiary-bank-block input[type="text"], .fcp-beneficiary-bank-block textarea {
+    width: 50% !important;
+}
+
+.field-foreigncurrencypaymenttemplate-beneficiarybank,
+.field-foreigncurrencypaymenttype-beneficiarybank {
+    width: 442px;
+}
+
+.field-foreigncurrencypaymenttemplate-beneficiarybankname,
+.field-foreigncurrencypaymenttype-beneficiarybankname {
+    width: 78%;
+}
+
+.field-foreigncurrencypaymenttemplate-beneficiarybankname input[type="text"],
+.field-foreigncurrencypaymenttype-beneficiarybankname input[type="text"] {
+    width: 442px;
+}
+
+.field-foreigncurrencypaymenttemplate-beneficiarybankaddress,
+.field-foreigncurrencypaymenttype-beneficiarybankaddress {
+    width: 78%;
+}
+
+.field-foreigncurrencypaymenttemplate-beneficiarybankaddress input[type="text"],
+.field-foreigncurrencypaymenttype-beneficiarybankaddress input[type="text"] {
+    width: 442px;
+}
+
+#foreigncurrencypaymenttemplate-beneficiarybankaddress,
+#foreigncurrencypaymenttype-beneficiarybankaddress {
+    width: 442px;
+}
+
+#foreigncurrencypaymenttemplate-beneficiaryaddress,
+#foreigncurrencypaymenttype-beneficiaryaddress,
+#foreigncurrencypaymenttemplate-beneficiarybankaddress,
+#foreigncurrencypaymenttype-beneficiarybankaddress,
+#foreigncurrencypaymenttemplate-information,
+#foreigncurrencypaymenttype-information,
+#foreigncurrencypaymenttemplate-additionalinformation,
+#foreigncurrencypaymenttype-additionalinformation {
+    resize: none;
+}
+
+.fcp-intermediary-bank-radio-block {
+    margin-bottom: 10px;
+}
+
+.fcp-intermediary-bank-radio-block label {
+    margin-right: 15px;
+}
+
+.fcp-intermediary-bank-block .form-group,
+.fcp-beneficiary-bank-block .form-group {
+    width: 100%;
+}
+
+.fcp-intermediary-bank-block .form-group label,
+.fcp-beneficiary-bank-block .form-group label {
+    width: 127px;
+}
+
+.fcp-beneficiary-bank-radio-block {
+    margin-bottom: 10px;
+}
+
+.fcp-beneficiary-bank-radio-block label {
+    margin-right: 15px;
+}
+
+#edmTemplateFCPModal .modal-body,
+#fcoCreateModal .modal-body,
+#fcoUpdateModal .modal-body {
+    padding-top: 9px;
+}
+
+.fcp-main-header {
+    margin-top: 0;
+}
+
+.fcp-hr {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.fcp-margin-top-10 {
+    margin-top: 10px;
+}
+
+.fcp-padding-left-20 {
+    padding-left: 20px;
+}
+
+.fcp-beneficiary-bank-block .bank-info,
+.fcp-intermediary-bank-block .bank-info {
+    padding-left: 130px;
+    display: block;
+    font-size: 11px;
+    margin-bottom: 20px;
+}

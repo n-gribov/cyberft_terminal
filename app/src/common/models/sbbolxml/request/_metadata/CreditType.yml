@@ -1,0 +1,31 @@
+common\models\sbbolxml\request\CreditType:
+    properties:
+        flagTargetAssignment:
+            expose: true
+            access_type: public_method
+            serialized_name: flagTargetAssignment
+            accessor:
+                getter: getFlagTargetAssignment
+                setter: setFlagTargetAssignment
+            xml_attribute: true
+            type: boolean
+        flagUseOwnMeans:
+            expose: true
+            access_type: public_method
+            serialized_name: flagUseOwnMeans
+            accessor:
+                getter: getFlagUseOwnMeans
+                setter: setFlagUseOwnMeans
+            xml_attribute: true
+            type: boolean
+        credConNum:
+            expose: true
+            access_type: public_method
+            serialized_name: CredConNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCredConNum
+                setter: setCredConNum
+            type: string

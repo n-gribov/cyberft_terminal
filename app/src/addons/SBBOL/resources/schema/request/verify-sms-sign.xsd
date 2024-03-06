@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="VerifySMSSign">
+        <xs:sequence>
+            <xs:element name="SMSSignReqParams" type="SMSSignReqParams">
+                <xs:annotation>
+                    <xs:documentation>Параметры запроса на подпись с помощью SMS</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="smsCode" use="required">
+            <xs:annotation>
+                <xs:documentation>Код для подписи, при использовании открытого канала передается хеш по ГОСТ 3411</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="64"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="smsId" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Идентификатор смс</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="cryptoProfileID" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>GUID криптопрофиля</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

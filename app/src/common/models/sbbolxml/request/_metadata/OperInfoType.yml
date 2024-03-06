@@ -1,0 +1,24 @@
+common\models\sbbolxml\request\OperInfoType:
+    properties:
+        operCode:
+            expose: true
+            access_type: public_method
+            serialized_name: OperCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOperCode
+                setter: setOperCode
+            type: string
+        operName:
+            expose: true
+            access_type: public_method
+            serialized_name: OperName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOperName
+                setter: setOperName
+            type: string

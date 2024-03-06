@@ -1,0 +1,104 @@
+common\models\sbbolxml\response\ViolationCurrLawType:
+    properties:
+        currCode:
+            expose: true
+            access_type: public_method
+            serialized_name: currCode
+            accessor:
+                getter: getCurrCode
+                setter: setCurrCode
+            xml_attribute: true
+            type: string
+        currIsoCode:
+            expose: true
+            access_type: public_method
+            serialized_name: currIsoCode
+            accessor:
+                getter: getCurrIsoCode
+                setter: setCurrIsoCode
+            xml_attribute: true
+            type: string
+        lineNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: LineNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLineNumber
+                setter: setLineNumber
+            type: integer
+        violationDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ViolationDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getViolationDate
+                setter: setViolationDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        violationSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ViolationSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getViolationSum
+                setter: setViolationSum
+            type: integer
+        normLegalAct:
+            expose: true
+            access_type: public_method
+            serialized_name: NormLegalAct
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getNormLegalAct
+                setter: setNormLegalAct
+            type: string
+        violationNorm:
+            expose: true
+            access_type: public_method
+            serialized_name: ViolationNorm
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getViolationNorm
+                setter: setViolationNorm
+            type: string
+        comment:
+            expose: true
+            access_type: public_method
+            serialized_name: Comment
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getComment
+                setter: setComment
+            type: string
+        dealPassNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDealPassNum
+                setter: setDealPassNum
+            type: string
+        contract:
+            expose: true
+            access_type: public_method
+            serialized_name: Contract
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContract
+                setter: setContract
+            type: common\models\sbbolxml\response\VBKInfoContractType

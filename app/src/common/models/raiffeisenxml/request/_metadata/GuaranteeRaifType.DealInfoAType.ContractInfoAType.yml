@@ -1,0 +1,87 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType\ContractInfoAType:
+    properties:
+        subject:
+            expose: true
+            access_type: public_method
+            serialized_name: Subject
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSubject
+                setter: setSubject
+            type: string
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType\ContractInfoAType\SumAType
+        delTermsType:
+            expose: true
+            access_type: public_method
+            serialized_name: DelTermsType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDelTermsType
+                setter: setDelTermsType
+            type: string
+        delTerms:
+            expose: true
+            access_type: public_method
+            serialized_name: DelTerms
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDelTerms
+                setter: setDelTerms
+            type: string
+        payTerms:
+            expose: true
+            access_type: public_method
+            serialized_name: PayTerms
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPayTerms
+                setter: setPayTerms
+            type: string
+        guaranteeReceiver:
+            expose: true
+            access_type: public_method
+            serialized_name: GuaranteeReceiver
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGuaranteeReceiver
+                setter: setGuaranteeReceiver
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType\ContractInfoAType\GuaranteeReceiverAType
+        guaranteeAimed:
+            expose: true
+            access_type: public_method
+            serialized_name: GuaranteeAimed
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGuaranteeAimed
+                setter: setGuaranteeAimed
+            type: common\models\raiffeisenxml\request\GuaranteeRaifType\DealInfoAType\ContractInfoAType\GuaranteeAimedAType
+        commission:
+            expose: true
+            access_type: public_method
+            serialized_name: Commission
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCommission
+                setter: setCommission
+            type: string

@@ -1,0 +1,146 @@
+common\models\sbbolxml\request\DepositType:
+    properties:
+        depositType:
+            expose: true
+            access_type: public_method
+            serialized_name: depositType
+            accessor:
+                getter: getDepositType
+                setter: setDepositType
+            xml_attribute: true
+            type: string
+        depositConditions:
+            expose: true
+            access_type: public_method
+            serialized_name: depositConditions
+            accessor:
+                getter: getDepositConditions
+                setter: setDepositConditions
+            xml_attribute: true
+            type: string
+        depositSum:
+            expose: true
+            access_type: public_method
+            serialized_name: depositSum
+            accessor:
+                getter: getDepositSum
+                setter: setDepositSum
+            xml_attribute: true
+            type: float
+        depositSumFrom:
+            expose: true
+            access_type: public_method
+            serialized_name: depositSumFrom
+            accessor:
+                getter: getDepositSumFrom
+                setter: setDepositSumFrom
+            xml_attribute: true
+            type: float
+        depositSumTo:
+            expose: true
+            access_type: public_method
+            serialized_name: depositSumTo
+            accessor:
+                getter: getDepositSumTo
+                setter: setDepositSumTo
+            xml_attribute: true
+            type: float
+        depositSumCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: depositSumCurrCode
+            accessor:
+                getter: getDepositSumCurrCode
+                setter: setDepositSumCurrCode
+            xml_attribute: true
+            type: string
+        depositSumCurrCodeISO:
+            expose: true
+            access_type: public_method
+            serialized_name: depositSumCurrCodeISO
+            accessor:
+                getter: getDepositSumCurrCodeISO
+                setter: setDepositSumCurrCodeISO
+            xml_attribute: true
+            type: string
+        depositStartDate:
+            expose: true
+            access_type: public_method
+            serialized_name: depositStartDate
+            accessor:
+                getter: getDepositStartDate
+                setter: setDepositStartDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        depositEndDate:
+            expose: true
+            access_type: public_method
+            serialized_name: depositEndDate
+            accessor:
+                getter: getDepositEndDate
+                setter: setDepositEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        depositTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: depositTerm
+            accessor:
+                getter: getDepositTerm
+                setter: setDepositTerm
+            xml_attribute: true
+            type: integer
+        depositTermFrom:
+            expose: true
+            access_type: public_method
+            serialized_name: depositTermFrom
+            accessor:
+                getter: getDepositTermFrom
+                setter: setDepositTermFrom
+            xml_attribute: true
+            type: integer
+        depositTermTo:
+            expose: true
+            access_type: public_method
+            serialized_name: depositTermTo
+            accessor:
+                getter: getDepositTermTo
+                setter: setDepositTermTo
+            xml_attribute: true
+            type: integer
+        depositTermDateReq:
+            expose: true
+            access_type: public_method
+            serialized_name: depositTermDateReq
+            accessor:
+                getter: getDepositTermDateReq
+                setter: setDepositTermDateReq
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        interestRate:
+            expose: true
+            access_type: public_method
+            serialized_name: interestRate
+            accessor:
+                getter: getInterestRate
+                setter: setInterestRate
+            xml_attribute: true
+            type: float
+        depositRecallDate:
+            expose: true
+            access_type: public_method
+            serialized_name: depositRecallDate
+            accessor:
+                getter: getDepositRecallDate
+                setter: setDepositRecallDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        interestRateOnClose:
+            expose: true
+            access_type: public_method
+            serialized_name: interestRateOnClose
+            accessor:
+                getter: getInterestRateOnClose
+                setter: setInterestRateOnClose
+            xml_attribute: true
+            type: float

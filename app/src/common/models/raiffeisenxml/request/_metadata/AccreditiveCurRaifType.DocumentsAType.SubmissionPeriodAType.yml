@@ -1,0 +1,33 @@
+common\models\raiffeisenxml\request\AccreditiveCurRaifType\DocumentsAType\SubmissionPeriodAType:
+    properties:
+        days:
+            expose: true
+            access_type: public_method
+            serialized_name: days
+            accessor:
+                getter: getDays
+                setter: setDays
+            xml_attribute: true
+            type: string
+        period:
+            expose: true
+            access_type: public_method
+            serialized_name: Period
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPeriod
+                setter: setPeriod
+            type: string
+        other:
+            expose: true
+            access_type: public_method
+            serialized_name: Other
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOther
+                setter: setOther
+            type: string

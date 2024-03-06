@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\UserRestrictionType\AccountAType:
+    properties:
+        accountId:
+            expose: true
+            access_type: public_method
+            serialized_name: accountId
+            accessor:
+                getter: getAccountId
+                setter: setAccountId
+            xml_attribute: true
+            type: string
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: accNum
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            xml_attribute: true
+            type: string
+        restrictionAccountId:
+            expose: true
+            access_type: public_method
+            serialized_name: restrictionAccountId
+            accessor:
+                getter: getRestrictionAccountId
+                setter: setRestrictionAccountId
+            xml_attribute: true
+            type: string

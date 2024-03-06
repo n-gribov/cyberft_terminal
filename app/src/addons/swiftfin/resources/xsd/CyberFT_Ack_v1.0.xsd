@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://cyberft.ru/xsd/cftdata.01" targetNamespace="http://cyberft.ru/xsd/cftdata.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:element name="Ack">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="RefDocId" type="xs:string"/>
+                <xs:element name="StatusCode">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="RJCT">
+                                <xs:annotation>
+                                    <xs:documentation>Rejected</xs:documentation>
+                                </xs:annotation>
+                            </xs:enumeration>
+                            <xs:enumeration value="ACDP">
+                                <xs:annotation>
+                                    <xs:documentation>AcceptedDocumentInProcess</xs:documentation>
+                                </xs:annotation>
+                            </xs:enumeration>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="ErrorCode" type="xs:string" minOccurs="0"/>
+                <xs:element name="ErrorDescription" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

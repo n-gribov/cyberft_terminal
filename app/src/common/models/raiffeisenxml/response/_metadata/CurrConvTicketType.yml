@@ -1,0 +1,52 @@
+common\models\raiffeisenxml\response\CurrConvTicketType:
+    properties:
+        valueDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ValueDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getValueDate
+                setter: setValueDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        rate:
+            expose: true
+            access_type: public_method
+            serialized_name: Rate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRate
+                setter: setRate
+            type: float
+        chargeSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ChargeSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getChargeSum
+                setter: setChargeSum
+            type: common\models\raiffeisenxml\response\CurrAmountType
+        dealSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DealSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDealSum
+                setter: setDealSum
+            type: common\models\raiffeisenxml\response\CurrAmountType
+        revSum:
+            expose: true
+            access_type: public_method
+            serialized_name: RevSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRevSum
+                setter: setRevSum
+            type: common\models\raiffeisenxml\response\CurrAmountType

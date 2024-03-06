@@ -1,0 +1,47 @@
+common\models\raiffeisenxml\request\ClDPType\DpInfoAType:
+    properties:
+        dpNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DpNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpNum
+                setter: setDpNum
+            type: string
+        dpDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DpDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDpDate
+                setter: setDpDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        reasons:
+            expose: true
+            access_type: public_method
+            serialized_name: Reasons
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReasons
+                setter: setReasons
+            type: common\models\raiffeisenxml\request\ClDPType\DpInfoAType\ReasonsAType
+        oper:
+            expose: true
+            access_type: public_method
+            serialized_name: Oper
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOper
+                setter: setOper
+            xml_list:
+                inline: true
+                entry_name: Oper
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\ClDPType\DpInfoAType\OperAType>

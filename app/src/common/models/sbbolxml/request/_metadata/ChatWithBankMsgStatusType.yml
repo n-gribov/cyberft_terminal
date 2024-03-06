@@ -1,0 +1,29 @@
+common\models\sbbolxml\request\ChatWithBankMsgStatusType:
+    properties:
+        chatMsgExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: chatMsgExtId
+            accessor:
+                getter: getChatMsgExtId
+                setter: setChatMsgExtId
+            xml_attribute: true
+            type: string
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        status:
+            expose: true
+            access_type: public_method
+            serialized_name: status
+            accessor:
+                getter: getStatus
+                setter: setStatus
+            xml_attribute: true
+            type: string

@@ -1,0 +1,24 @@
+#edmTemplatePOViewModal .modal-body {
+    height: 740px;
+    overflow: auto;
+}
+
+#edmTemplatePOViewModal .modal-dialog {
+    width: 900px;
+}
+
+#edmTemplatePOViewModal .modal-content {
+    background-color: #eee;
+}
+
+#edmTemplatePOViewModal .modal-body {
+    background-color: #fff;
+}
+
+#edmTemplatePOViewModal .modal-header {
+    border-bottom: 0;
+}
+
+#edmTemplatePOViewModal .modal-footer {
+    border-top: 0;
+}

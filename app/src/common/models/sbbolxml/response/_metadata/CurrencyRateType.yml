@@ -1,0 +1,62 @@
+common\models\sbbolxml\response\CurrencyRateType:
+    properties:
+        currBaseCode:
+            expose: true
+            access_type: public_method
+            serialized_name: currBaseCode
+            accessor:
+                getter: getCurrBaseCode
+                setter: setCurrBaseCode
+            xml_attribute: true
+            type: string
+        currUnits:
+            expose: true
+            access_type: public_method
+            serialized_name: currUnits
+            accessor:
+                getter: getCurrUnits
+                setter: setCurrUnits
+            xml_attribute: true
+            type: string
+        courseDateTime:
+            expose: true
+            access_type: public_method
+            serialized_name: courseDateTime
+            accessor:
+                getter: getCourseDateTime
+                setter: setCourseDateTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        valueRate:
+            expose: true
+            access_type: public_method
+            serialized_name: ValueRate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getValueRate
+                setter: setValueRate
+            type: string
+        rateBuyRate:
+            expose: true
+            access_type: public_method
+            serialized_name: RateBuyRate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRateBuyRate
+                setter: setRateBuyRate
+            type: string
+        rateSellRate:
+            expose: true
+            access_type: public_method
+            serialized_name: RateSellRate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getRateSellRate
+                setter: setRateSellRate
+            type: string

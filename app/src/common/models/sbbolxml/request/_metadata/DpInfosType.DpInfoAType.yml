@@ -1,0 +1,55 @@
+common\models\sbbolxml\request\DpInfosType\DpInfoAType:
+    properties:
+        dpNum:
+            expose: true
+            access_type: public_method
+            serialized_name: DpNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDpNum
+                setter: setDpNum
+            type: string
+        dpDate:
+            expose: true
+            access_type: public_method
+            serialized_name: DpDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDpDate
+                setter: setDpDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        reasons:
+            expose: true
+            access_type: public_method
+            serialized_name: Reasons
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReasons
+                setter: setReasons
+            type: common\models\sbbolxml\request\DpInfosType\DpInfoAType\ReasonsAType
+        attach:
+            expose: true
+            access_type: public_method
+            serialized_name: Attach
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAttach
+                setter: setAttach
+            type: string
+        sheetsNum:
+            expose: true
+            access_type: public_method
+            serialized_name: SheetsNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSheetsNum
+                setter: setSheetsNum
+            type: string

@@ -1,0 +1,66 @@
+common\models\sbbolxml\request\LicenseInformationType:
+    properties:
+        licenseType:
+            expose: true
+            access_type: public_method
+            serialized_name: LicenseType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLicenseType
+                setter: setLicenseType
+            type: string
+        licenseNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: LicenseNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLicenseNumber
+                setter: setLicenseNumber
+            type: string
+        licenseDateOfIssue:
+            expose: true
+            access_type: public_method
+            serialized_name: LicenseDateOfIssue
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLicenseDateOfIssue
+                setter: setLicenseDateOfIssue
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        licenseIssueOrg:
+            expose: true
+            access_type: public_method
+            serialized_name: LicenseIssueOrg
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLicenseIssueOrg
+                setter: setLicenseIssueOrg
+            type: string
+        licenseExpirationDate:
+            expose: true
+            access_type: public_method
+            serialized_name: LicenseExpirationDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLicenseExpirationDate
+                setter: setLicenseExpirationDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        licenseLinesOfBusinessList:
+            expose: true
+            access_type: public_method
+            serialized_name: LicenseLinesOfBusinessList
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLicenseLinesOfBusinessList
+                setter: setLicenseLinesOfBusinessList
+            type: string

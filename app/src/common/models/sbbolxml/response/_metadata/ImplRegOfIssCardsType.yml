@@ -1,0 +1,25 @@
+common\models\sbbolxml\response\ImplRegOfIssCardsType:
+    properties:
+        annotation:
+            expose: true
+            access_type: public_method
+            serialized_name: annotation
+            accessor:
+                getter: getAnnotation
+                setter: setAnnotation
+            xml_attribute: true
+            type: string
+        issCardInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: IssCardInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIssCardInfo
+                setter: setIssCardInfo
+            xml_list:
+                inline: true
+                entry_name: IssCardInfo
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\IssCardInfoType>

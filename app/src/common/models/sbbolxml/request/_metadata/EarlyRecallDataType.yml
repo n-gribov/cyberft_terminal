@@ -1,0 +1,32 @@
+common\models\sbbolxml\request\EarlyRecallDataType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\DocDataEarlyRecallType
+        deposit:
+            expose: true
+            access_type: public_method
+            serialized_name: Deposit
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDeposit
+                setter: setDeposit
+            type: common\models\sbbolxml\request\DepositType
+        reqAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: ReqAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getReqAccount
+                setter: setReqAccount
+            type: common\models\sbbolxml\request\AccountReturnType

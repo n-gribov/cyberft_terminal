@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\response\ResponseType\CryptoprosAType:
+    properties:
+        cryptopro:
+            expose: true
+            access_type: public_method
+            serialized_name: Cryptopro
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCryptopro
+                setter: setCryptopro
+            xml_list:
+                inline: true
+                entry_name: Cryptopro
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\CryptoproType>

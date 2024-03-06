@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CashOrder">
+        <xs:annotation>
+            <xs:documentation>Заявка на получение наличных средств</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocDataCashOrder" type="DocDataCashOrder">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DocAccount" type="AccountRubType">
+                        <xs:annotation>
+                            <xs:documentation>Р/с</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RecipientInfo" type="CashOrderRecipientInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные получателя</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CashTokenReqs" type="CashTokenReqs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Заказы купюрности</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Purposes" type="CashOrderPurposes" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Цели снятия</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="changeDocRef" type="UuidSeparated" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор изменяемой заявки</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataCashOrder">
+        <xs:annotation>
+            <xs:documentation>Реквизиты заявки на получение наличных средств</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docNumber" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="50"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата создания документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docSum" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Сумма заказа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docSumCurrCode" type="CurrCodeLetterType" use="required">
+            <xs:annotation>
+                <xs:documentation>Буквенный код валюты суммы заказа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="withdrawalPlannedDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Планируемая дата выдачи документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="moneySource" use="optional">
+            <xs:annotation>
+                <xs:documentation>Источник происхождения денежных средств</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="blockAmountFlag" type="xs:boolean" use="required">
+            <xs:annotation>
+                <xs:documentation>Признак поручения на блокировку средств</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="CashOrderRecipientInfo">
+        <xs:annotation>
+            <xs:documentation>Данные получателя заяки на получение наличных средств</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DocInfo" type="CashOrderRecipientDocInfo">
+                <xs:annotation>
+                    <xs:documentation>Реквизиты документа, удостоверяющего личность</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="lastName" use="required">
+            <xs:annotation>
+                <xs:documentation>Фамилия физического лица</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="100"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="firstName" use="required">
+            <xs:annotation>
+                <xs:documentation>Имя физического лица</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="100"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="patronimic" use="optional">
+            <xs:annotation>
+                <xs:documentation>Отчество физического лица</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="100"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="dateOfBirth" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата рождения</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="CashOrderRecipientDocInfo">
+        <xs:annotation>
+            <xs:documentation>Реквизиты документа, удостоверяющего личность получателя заяки на получение наличных
+                средств
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docTypeCode" use="required">
+            <xs:annotation>
+                <xs:documentation>Код типа документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="50"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docTypeName" use="required">
+            <xs:annotation>
+                <xs:documentation>Наименование типа документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docSerial" use="optional">
+            <xs:annotation>
+                <xs:documentation>Серия документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="14"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docNumber" use="required">
+            <xs:annotation>
+                <xs:documentation>Серия документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="14"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date" use="optional">
+            <xs:annotation>
+                <xs:documentation>Дата выдачи документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="persInfoConsent" type="xs:boolean" use="required">
+            <xs:annotation>
+                <xs:documentation>Согласие на обработку данных</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="CashTokenReqs">
+        <xs:annotation>
+            <xs:documentation>Заказы купюрности</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CashTokenReq" type="CashTokenReq" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Заказ купюрности</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CashTokenReq">
+        <xs:annotation>
+            <xs:documentation>Заказ купюрности</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="count" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation>Количество</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="cashTokenValue" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Номинал купюры/монеты</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="cashTokenName" use="optional">
+            <xs:annotation>
+                <xs:documentation>Наименование купюры/монеты</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="cashTokenCurrCode" type="CurrCodeDigitalType" use="required">
+            <xs:annotation>
+                <xs:documentation>Цифровой код валюты</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="cashTokenType" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation>Тип денежного знака</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="CashOrderPurposes">
+        <xs:annotation>
+            <xs:documentation>Цели снятия</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CashOrderPurpose" type="CashOrderPurpose" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Цель снятия</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CashOrderPurpose">
+        <xs:annotation>
+            <xs:documentation>Цель снятия</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="cashSymbolCode" use="required">
+            <xs:annotation>
+                <xs:documentation>Код символа кассовой отчетности</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="3"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="cashSymbolName" use="required">
+            <xs:annotation>
+                <xs:documentation>Наименование символа кассовой отчетности</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="255"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="amount" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Сумма</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

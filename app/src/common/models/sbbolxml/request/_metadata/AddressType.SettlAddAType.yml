@@ -1,0 +1,24 @@
+common\models\sbbolxml\request\AddressType\SettlAddAType:
+    properties:
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        shortName:
+            expose: true
+            access_type: public_method
+            serialized_name: ShortName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getShortName
+                setter: setShortName
+            type: string

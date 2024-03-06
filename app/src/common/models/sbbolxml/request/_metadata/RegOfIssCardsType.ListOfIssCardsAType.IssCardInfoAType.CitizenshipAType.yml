@@ -1,0 +1,24 @@
+common\models\sbbolxml\request\RegOfIssCardsType\ListOfIssCardsAType\IssCardInfoAType\CitizenshipAType:
+    properties:
+        code:
+            expose: true
+            access_type: public_method
+            serialized_name: Code
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCode
+                setter: setCode
+            type: string
+        letterCode:
+            expose: true
+            access_type: public_method
+            serialized_name: LetterCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLetterCode
+                setter: setLetterCode
+            type: string

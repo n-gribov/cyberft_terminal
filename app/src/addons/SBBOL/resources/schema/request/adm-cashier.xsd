@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="AdmCashier">
+        <xs:annotation>
+            <xs:documentation>Запрос на добавление/редактирование документа Вносители средств</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CashierInfo">
+                <xs:complexType>
+                    <xs:annotation>
+                        <xs:documentation>Данные вносителя</xs:documentation>
+                    </xs:annotation>
+                    <xs:sequence>
+                        <xs:element name="DocInfo" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Реквизиты вносителя для УС</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:attribute name="docType">
+                                    <xs:annotation>
+                                        <xs:documentation>
+                                            Вид документа, содержит следующие значения:
+                                            PassportOfRussia - Паспорт гражданина РФ
+                                            ForeignPassport- Паспорт иностранного гражданина
+                                            OtherKindOfDocument - Другой вид документа.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:enumeration value="PassportOfRussia"/>
+                                            <xs:enumeration value="ForeignPassport"/>
+                                            <xs:enumeration value="OtherKindOfDocument"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="docName">
+                                    <xs:annotation>
+                                        <xs:documentation>Наименование другого документа</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:minLength value="1"/>
+                                            <xs:maxLength value="100"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="docNumb">
+                                    <xs:annotation>
+                                        <xs:documentation>Номер документа</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:minLength value="1"/>
+                                            <xs:maxLength value="20"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="docSeries">
+                                    <xs:annotation>
+                                        <xs:documentation>Серия документа</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:minLength value="1"/>
+                                            <xs:maxLength value="20"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="docIssueDt" type="xs:date">
+                                    <xs:annotation>
+                                        <xs:documentation>Дата выдачи</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="docIssuePlace">
+                                    <xs:annotation>
+                                        <xs:documentation>Кем выдан</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:minLength value="1"/>
+                                            <xs:maxLength value="100"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="docIssueCode">
+                                    <xs:annotation>
+                                        <xs:documentation>Код подразделения</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:minLength value="1"/>
+                                            <xs:maxLength value="15"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="citizenship">
+                                    <xs:annotation>
+                                        <xs:documentation>
+                                            Цифровой Код в соответствии с Общероссийским классификатором
+                                            стран мира OK (MK (ИСО 3166) 004-97) 025-2001 (ОКСМ)
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:minLength value="1"/>
+                                            <xs:maxLength value="3"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="citizenshipCountryName">
+                                    <xs:annotation>
+                                        <xs:documentation>Наменование страны гражданства вносителя.</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="100"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="RegAddr" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Адрес регистрации
+                                    Группа полей доступна для редактирования, после первого подписания документа
+                                    ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                    Версия 1</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:attribute name="regAddrCountryName">
+                                    <xs:annotation>
+                                        <xs:documentation>Страна
+                                            ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="80"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrCountryLetterCode">
+                                    <xs:annotation>
+                                        <xs:documentation>Код страны буквенный
+                                            ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:length value="3"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrCountryCode">
+                                    <xs:annotation>
+                                        <xs:documentation>Код страны цифровой
+                                            ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:length value="3"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrZip">
+                                    <xs:annotation>
+                                        <xs:documentation>Индекс
+                                            ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="30"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrSub">
+                                    <xs:annotation>
+                                        <xs:documentation>Регион
+                                            ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="100"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrArea">
+                                    <xs:annotation>
+                                        <xs:documentation>Район
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="100"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrCity">
+                                    <xs:annotation>
+                                        <xs:documentation>Город
+                                            ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ, ЕСЛИ НЕ ЗАПОЛНЕН @regAddrSettl
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="100"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrSettl">
+                                    <xs:annotation>
+                                        <xs:documentation>Населенный пункт
+                                            ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ, ЕСЛИ НЕ ЗАПОЛНЕН @regAddrCity
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="100"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrStr">
+                                    <xs:annotation>
+                                        <xs:documentation>Улица
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="100"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrHousenum">
+                                    <xs:annotation>
+                                        <xs:documentation>Номер дома
+                                            ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="10"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrCorp">
+                                    <xs:annotation>
+                                        <xs:documentation>Номер корпуса
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="10"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrFlat">
+                                    <xs:annotation>
+                                        <xs:documentation>Номер квартиры
+                                            Версия 1</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="10"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="regAddrFull">
+                                    <xs:annotation>
+                                        <xs:documentation>
+                                            Полный адрес регистрации
+                                            Заполняется как « Страна, Индекс, Регион, Район, Город, Населенный пункт, Улица, Номер дома, Номер корпуса, Номер квартиры»
+                                            ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                            Версия 11</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="1000"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="lastName">
+                        <xs:annotation>
+                            <xs:documentation>Фамилия
+                                ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                Версия 1</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="50"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="firstName">
+                        <xs:annotation>
+                            <xs:documentation>Имя
+                                ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                Версия 1</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="50"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="middleName">
+                        <xs:annotation>
+                            <xs:documentation>Отчество
+                                ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                Версия 1</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="50"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="fullName">
+                        <xs:annotation>
+                            <xs:documentation>ФИО вносителя
+                                ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ(В версии 1)</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="fullNameUC">
+                        <xs:annotation>
+                            <xs:documentation>ФИО в верхнем регистре
+                                ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                Версия 1</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="dateOfBirth" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата рождения</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="birthPlace">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Место рождения
+                                ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                Версия 1</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="500"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="phone" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Номер телефона
+                                Доступно для редактирования, после первого подписания документа(правило актуально для версии 1)</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                                <xs:maxLength value="11"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="blocked" type="BoolType" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Блокировка вносителя, 1 - признак установлен, 0 - признак не установлен.
+                                Доступно для редактирования, после первого подписания документа(правило актуально для версии 1)</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="agreedAdmOperation" type="BoolType">
+                        <xs:annotation>
+                            <xs:documentation>Согласие с условиями приёма денежной наличности через устройства самообслуживания.
+                                ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                                Версия 1</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="agreeSavePD" type="BoolType">
+                        <xs:annotation>
+                            <xs:documentation>Согласие на обработку персональных данных</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Empowerment" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Информация о полномочиях
+                        Группа полей доступна для редактирования, после первого подписания документа(правило актуально для версии 1)</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="empowermentStart" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата начала наделения полномочий
+                                Версия 1</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="empowermentEnd" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата окончания наделения полномочий
+                                Версия 1</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="currentLimit" type="xs:decimal">
+                        <xs:annotation>
+                            <xs:documentation>Суточный лимит вносителя (оставшийся)</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="limit" type="xs:decimal">
+                        <xs:annotation>
+                            <xs:documentation>Суточный лимит вносителя</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="byAttorney" type="BoolType">
+                        <xs:annotation>
+                            <xs:documentation>Наличие доверенности
+                                1 – Да
+                                0 – Нет
+                                Версия 1</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="number">
+                        <xs:annotation>
+                            <xs:documentation>Номер доверенности</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="1000"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="beginDate" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата начала действия доверенности</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="endDate" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата окончания действия доверенности</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="DeviceInfo">
+                <xs:annotation>
+                    <xs:documentation>Информация об устройстве внесения средств</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="deviceType" use="required" type="AdmDeviceType">
+                        <xs:annotation>
+                            <xs:documentation>Устройства самообслуживания: ADM - "Устройства самообслуживания на территории Клиента (АДМ)", US - "Устройство самообслуживания (УС)"</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="tradePointName">
+                        <xs:annotation>
+                            <xs:documentation>Торговая точка для устройства самообслуживания</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="128"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ADMTemplates">
+                <xs:annotation>
+                    <xs:documentation>Шаблоны внесения средств</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Template" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Шаблоны внесения средств</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:attribute name="templateId" type="UuidSeparated">
+                                    <xs:annotation>
+                                        <xs:documentation>Идентификатор шаблона внесения средств</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="docVersion">
+            <xs:annotation>
+                <xs:documentation>Версия документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9\.]{1,20}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="docId" type="UuidSeparated">
+            <xs:annotation>
+                <xs:documentation>
+                    Идентификатор сущности  в СББОЛ.
+                    При отсутствии идентификатора -  СББОЛ будет создана новая запись.
+                    При наличии идентификатора - в СББОЛ будет произведено изменение существующей записи с данным id
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docExtId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Уникальный* идентификатор документа в учетной системе (УС) Клиента.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docNum" type="xs:long">
+            <xs:annotation>
+                <xs:documentation>Номер заявления
+                    Заполняется при редактировании вносителя,
+                    подставить значение из AdmCashiers/AdmCashier/@docNum
+                    Версия 1</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docDate" type="xs:date">
+            <xs:annotation>
+                <xs:documentation>Дата заявления
+                    ОБЯЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ
+                    Версия 1
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

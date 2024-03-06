@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\ResponseType\PayRequestsAType:
+    properties:
+        payRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: PayRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPayRequest
+                setter: setPayRequest
+            xml_list:
+                inline: true
+                entry_name: PayRequest
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\PayRequestType>

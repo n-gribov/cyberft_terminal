@@ -1,0 +1,93 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\CorrespondentsAType\CorrespondentAType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: name
+            accessor:
+                getter: getName
+                setter: setName
+            xml_attribute: true
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        kpp:
+            expose: true
+            access_type: public_method
+            serialized_name: kpp
+            accessor:
+                getter: getKpp
+                setter: setKpp
+            xml_attribute: true
+            type: string
+        personalAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: personalAcc
+            accessor:
+                getter: getPersonalAcc
+                setter: setPersonalAcc
+            xml_attribute: true
+            type: string
+        comment:
+            expose: true
+            access_type: public_method
+            serialized_name: comment
+            accessor:
+                getter: getComment
+                setter: setComment
+            xml_attribute: true
+            type: string
+        signed:
+            expose: true
+            access_type: public_method
+            serialized_name: signed
+            accessor:
+                getter: getSigned
+                setter: setSigned
+            xml_attribute: true
+            type: boolean
+        bankConfirm:
+            expose: true
+            access_type: public_method
+            serialized_name: bankConfirm
+            accessor:
+                getter: getBankConfirm
+                setter: setBankConfirm
+            xml_attribute: true
+            type: boolean
+        importfrombank:
+            expose: true
+            access_type: public_method
+            serialized_name: importfrombank
+            accessor:
+                getter: getImportfrombank
+                setter: setImportfrombank
+            xml_attribute: true
+            type: boolean
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: Bank
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBank
+                setter: setBank
+            type: common\models\sbbolxml\response\CorrBankType

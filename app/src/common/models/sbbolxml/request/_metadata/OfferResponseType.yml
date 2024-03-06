@@ -1,0 +1,55 @@
+common\models\sbbolxml\request\OfferResponseType:
+    properties:
+        userID:
+            expose: true
+            access_type: public_method
+            serialized_name: UserID
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUserID
+                setter: setUserID
+            type: integer
+        userGuid:
+            expose: true
+            access_type: public_method
+            serialized_name: UserGuid
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getUserGuid
+                setter: setUserGuid
+            type: string
+        extOfferId:
+            expose: true
+            access_type: public_method
+            serialized_name: ExtOfferId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getExtOfferId
+                setter: setExtOfferId
+            type: string
+        responseDtTm:
+            expose: true
+            access_type: public_method
+            serialized_name: ResponseDtTm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getResponseDtTm
+                setter: setResponseDtTm
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        responseTypeCd:
+            expose: true
+            access_type: public_method
+            serialized_name: ResponseTypeCd
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getResponseTypeCd
+                setter: setResponseTypeCd
+            type: string

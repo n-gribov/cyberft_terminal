@@ -1,0 +1,143 @@
+common\models\sbbolxml\response\CurrControlInfoType:
+    properties:
+        valueDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ValueDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getValueDate
+                setter: setValueDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        rejectionCauses:
+            expose: true
+            access_type: public_method
+            serialized_name: RejectionCauses
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRejectionCauses
+                setter: setRejectionCauses
+            type: common\models\sbbolxml\response\RejectionCausesType
+        numPsFull:
+            expose: true
+            access_type: public_method
+            serialized_name: NumPsFull
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getNumPsFull
+                setter: setNumPsFull
+            type: string
+        numPs:
+            expose: true
+            access_type: public_method
+            serialized_name: NumPs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getNumPs
+                setter: setNumPs
+            type: common\models\sbbolxml\response\DealPassNumType
+        dPRe:
+            expose: true
+            access_type: public_method
+            serialized_name: DPRe
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDPRe
+                setter: setDPRe
+            type: array<common\models\sbbolxml\response\DPReissueDataType>
+            xml_list:
+                inline: false
+                entry_name: DPReissueData
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        dPEnd:
+            expose: true
+            access_type: public_method
+            serialized_name: DPEnd
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDPEnd
+                setter: setDPEnd
+            type: array<common\models\sbbolxml\response\DPEndDataType>
+            xml_list:
+                inline: false
+                entry_name: DPEndData
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        changeICSInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ChangeICSInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getChangeICSInfo
+                setter: setChangeICSInfo
+            type: array<common\models\sbbolxml\response\ChangeICSInfoDataType>
+            xml_list:
+                inline: false
+                entry_name: ChangeICSInfoData
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        suppleInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: SuppleInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSuppleInfo
+                setter: setSuppleInfo
+            type: common\models\sbbolxml\response\SuppleInfoType
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\sbbolxml\response\AttachmentType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        currControlInfoRequest:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrControlInfoRequest
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCurrControlInfoRequest
+                setter: setCurrControlInfoRequest
+            type: common\models\sbbolxml\response\CurrControlInfoRequestType
+        dealPassUpdateResult:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassUpdateResult
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDealPassUpdateResult
+                setter: setDealPassUpdateResult
+            type: common\models\sbbolxml\response\DealPassUpdateResultType
+        exchangeMessagesWithBank:
+            expose: true
+            access_type: public_method
+            serialized_name: ExchangeMessagesWithBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getExchangeMessagesWithBank
+                setter: setExchangeMessagesWithBank
+            type: common\models\sbbolxml\response\ExchangeMessagesWithBankType

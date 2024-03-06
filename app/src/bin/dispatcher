@@ -1,0 +1,52 @@
+#!/usr/bin/env php
+<?php
+require(__DIR__ . '/app-include.php');
+
+$DEBUG = getenv('DEBUG') ? true : false;
+
+class DispatcherDaemon extends \common\base\Daemon
+{
+    const DAEMON_NAME = 'Dispatcher';
+
+    protected function perform()
+    {
+        passthru('php ' . __DIR__ . '/include/dispatcher.php ' . $this->interval);
+    }
+
+    private function getMemoryUsage()
+    {
+        $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
+        $size = memory_get_usage(true);
+
+        return round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
+    }
+
+}
+
+if (!$DEBUG) {
+	$child_pid = pcntl_fork();
+	if ($child_pid) {
+		// Выходим из родительского, привязанного к консоли, процесса
+		exit();
+	}
+	// Делаем основным процессом дочерний.
+	posix_setsid();
+	declare(ticks = 1)
+
+	$baseDir = dirname(dirname(__FILE__));
+    ini_set('error_log', $baseDir . '/logs/error.log');
+	fclose(STDIN);
+	fclose(STDOUT);
+	fclose(STDERR);
+	$STDIN = fopen('/dev/null', 'r');
+	$STDOUT = fopen(\Yii::getAlias('@logs/dispatcher.log'), 'ab');
+	$STDERR = fopen(\Yii::getAlias('@logs/dispatcher-error.log'), 'ab');
+}
+
+try {
+	$daemon = new DispatcherDaemon();
+	$daemon->run();
+    echo date('[Y-m-d H:i:s]') . " Regular dispatcher exited.\n";
+} catch (Exception $ex) {
+    echo date('[Y-m-d H:i:s]') . " Stopping regular dispatcher:\n" . $ex->getTraceAsString() . "\n";
+}

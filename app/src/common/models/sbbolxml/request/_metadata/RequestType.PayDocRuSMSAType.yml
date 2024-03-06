@@ -1,0 +1,34 @@
+common\models\sbbolxml\request\RequestType\PayDocRuSMSAType:
+    properties:
+        sessionId:
+            expose: true
+            access_type: public_method
+            serialized_name: SessionId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSessionId
+                setter: setSessionId
+            type: string
+        oneTimePassword:
+            expose: true
+            access_type: public_method
+            serialized_name: OneTimePassword
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOneTimePassword
+                setter: setOneTimePassword
+            type: string
+        payDocRu:
+            expose: true
+            access_type: public_method
+            serialized_name: PayDocRu
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayDocRu
+                setter: setPayDocRu
+            type: common\models\sbbolxml\request\PayDocRuType

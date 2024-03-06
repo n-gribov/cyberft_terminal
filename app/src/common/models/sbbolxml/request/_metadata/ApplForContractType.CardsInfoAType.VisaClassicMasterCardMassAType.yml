@@ -1,0 +1,19 @@
+common\models\sbbolxml\request\ApplForContractType\CardsInfoAType\VisaClassicMasterCardMassAType:
+    properties:
+        __value:
+            expose: true
+            xml_value: true
+            access_type: public_method
+            accessor:
+                getter: value
+                setter: value
+            type: integer
+        marked:
+            expose: true
+            access_type: public_method
+            serialized_name: marked
+            accessor:
+                getter: getMarked
+                setter: setMarked
+            xml_attribute: true
+            type: boolean

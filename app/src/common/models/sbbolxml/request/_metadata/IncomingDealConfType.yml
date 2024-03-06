@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\IncomingDealConfType:
+    properties:
+        lastIncomingTime:
+            expose: true
+            access_type: public_method
+            serialized_name: lastIncomingTime
+            accessor:
+                getter: getLastIncomingTime
+                setter: setLastIncomingTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime

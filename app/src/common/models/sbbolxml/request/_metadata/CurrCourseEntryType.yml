@@ -1,0 +1,38 @@
+common\models\sbbolxml\request\CurrCourseEntryType:
+    properties:
+        lastRequestTime:
+            expose: true
+            access_type: public_method
+            serialized_name: lastRequestTime
+            accessor:
+                getter: getLastRequestTime
+                setter: setLastRequestTime
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\DateTime
+        beginDate:
+            expose: true
+            access_type: public_method
+            serialized_name: beginDate
+            accessor:
+                getter: getBeginDate
+                setter: setBeginDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        endDate:
+            expose: true
+            access_type: public_method
+            serialized_name: endDate
+            accessor:
+                getter: getEndDate
+                setter: setEndDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        branchSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: branchSystemName
+            accessor:
+                getter: getBranchSystemName
+                setter: setBranchSystemName
+            xml_attribute: true
+            type: string

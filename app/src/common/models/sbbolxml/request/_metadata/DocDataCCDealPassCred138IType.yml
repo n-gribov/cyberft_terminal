@@ -1,0 +1,11 @@
+common\models\sbbolxml\request\DocDataCCDealPassCred138IType:
+    properties:
+        transferDebtRights:
+            expose: true
+            access_type: public_method
+            serialized_name: transferDebtRights
+            accessor:
+                getter: getTransferDebtRights
+                setter: setTransferDebtRights
+            xml_attribute: true
+            type: boolean

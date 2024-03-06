@@ -1,0 +1,47 @@
+common\models\sbbolxml\request\DocDataPermBalanceType:
+    properties:
+        branchSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: branchSystemName
+            accessor:
+                getter: getBranchSystemName
+                setter: setBranchSystemName
+            xml_attribute: true
+            type: string
+        actualCard:
+            expose: true
+            access_type: public_method
+            serialized_name: actualCard
+            accessor:
+                getter: getActualCard
+                setter: setActualCard
+            xml_attribute: true
+            type: string
+        contractNum:
+            expose: true
+            access_type: public_method
+            serialized_name: contractNum
+            accessor:
+                getter: getContractNum
+                setter: setContractNum
+            xml_attribute: true
+            type: string
+        contractDate:
+            expose: true
+            access_type: public_method
+            serialized_name: contractDate
+            accessor:
+                getter: getContractDate
+                setter: setContractDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        confirming:
+            expose: true
+            access_type: public_method
+            serialized_name: confirming
+            accessor:
+                getter: getConfirming
+                setter: setConfirming
+            xml_attribute: true
+            type: boolean

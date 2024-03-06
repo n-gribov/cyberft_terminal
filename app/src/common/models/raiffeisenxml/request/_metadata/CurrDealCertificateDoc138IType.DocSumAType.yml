@@ -1,0 +1,20 @@
+common\models\raiffeisenxml\request\CurrDealCertificateDoc138IType\DocSumAType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: sum
+            accessor:
+                getter: getSum
+                setter: setSum
+            xml_attribute: true
+            type: float
+        code:
+            expose: true
+            access_type: public_method
+            serialized_name: code
+            accessor:
+                getter: getCode
+                setter: setCode
+            xml_attribute: true
+            type: string

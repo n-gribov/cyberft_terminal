@@ -1,0 +1,47 @@
+common\models\sbbolxml\request\GozExecutorType:
+    properties:
+        extINN:
+            expose: true
+            access_type: public_method
+            serialized_name: extINN
+            accessor:
+                getter: getExtINN
+                setter: setExtINN
+            xml_attribute: true
+            type: string
+        extKPP:
+            expose: true
+            access_type: public_method
+            serialized_name: extKPP
+            accessor:
+                getter: getExtKPP
+                setter: setExtKPP
+            xml_attribute: true
+            type: string
+        extAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: extAcc
+            accessor:
+                getter: getExtAcc
+                setter: setExtAcc
+            xml_attribute: true
+            type: string
+        extName:
+            expose: true
+            access_type: public_method
+            serialized_name: extName
+            accessor:
+                getter: getExtName
+                setter: setExtName
+            xml_attribute: true
+            type: string
+        resident:
+            expose: true
+            access_type: public_method
+            serialized_name: resident
+            accessor:
+                getter: getResident
+                setter: setResident
+            xml_attribute: true
+            type: boolean

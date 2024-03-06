@@ -1,0 +1,29 @@
+common\models\raiffeisenxml\request\CurrBuyTransRaifType\AmountBuyAType:
+    properties:
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: sum
+            accessor:
+                getter: getSum
+                setter: setSum
+            xml_attribute: true
+            type: float
+        code:
+            expose: true
+            access_type: public_method
+            serialized_name: code
+            accessor:
+                getter: getCode
+                setter: setCode
+            xml_attribute: true
+            type: string
+        codeISO:
+            expose: true
+            access_type: public_method
+            serialized_name: codeISO
+            accessor:
+                getter: getCodeISO
+                setter: setCodeISO
+            xml_attribute: true
+            type: string

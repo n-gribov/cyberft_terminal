@@ -1,0 +1,119 @@
+common\models\raiffeisenxml\request\AccDocType:
+    properties:
+        purpose:
+            expose: true
+            access_type: public_method
+            serialized_name: purpose
+            accessor:
+                getter: getPurpose
+                setter: setPurpose
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: docSum
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            xml_attribute: true
+            type: float
+        vatSum:
+            expose: true
+            access_type: public_method
+            serialized_name: vatSum
+            accessor:
+                getter: getVatSum
+                setter: setVatSum
+            xml_attribute: true
+            type: float
+        vatRate:
+            expose: true
+            access_type: public_method
+            serialized_name: vatRate
+            accessor:
+                getter: getVatRate
+                setter: setVatRate
+            xml_attribute: true
+            type: float
+        vat:
+            expose: true
+            access_type: public_method
+            serialized_name: vat
+            accessor:
+                getter: getVat
+                setter: setVat
+            xml_attribute: true
+            type: string
+        transKind:
+            expose: true
+            access_type: public_method
+            serialized_name: transKind
+            accessor:
+                getter: getTransKind
+                setter: setTransKind
+            xml_attribute: true
+            type: string
+        paytKind:
+            expose: true
+            access_type: public_method
+            serialized_name: paytKind
+            accessor:
+                getter: getPaytKind
+                setter: setPaytKind
+            xml_attribute: true
+            type: string
+        paytCode:
+            expose: true
+            access_type: public_method
+            serialized_name: paytCode
+            accessor:
+                getter: getPaytCode
+                setter: setPaytCode
+            xml_attribute: true
+            type: string
+        priority:
+            expose: true
+            access_type: public_method
+            serialized_name: priority
+            accessor:
+                getter: getPriority
+                setter: setPriority
+            xml_attribute: true
+            type: int
+        codeVO:
+            expose: true
+            access_type: public_method
+            serialized_name: codeVO
+            accessor:
+                getter: getCodeVO
+                setter: setCodeVO
+            xml_attribute: true
+            type: string
+        nodocs:
+            expose: true
+            access_type: public_method
+            serialized_name: nodocs
+            accessor:
+                getter: getNodocs
+                setter: setNodocs
+            xml_attribute: true
+            type: bool

@@ -1,0 +1,45 @@
+common\models\sbbolxml\request\TermDealType:
+    properties:
+        dealType:
+            expose: true
+            access_type: public_method
+            serialized_name: DealType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDealType
+                setter: setDealType
+            type: string
+        uSDEUR:
+            expose: true
+            access_type: public_method
+            serialized_name: USD_EUR
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getUSDEUR
+                setter: setUSDEUR
+            type: string
+        tODTOM:
+            expose: true
+            access_type: public_method
+            serialized_name: TOD_TOM
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTODTOM
+                setter: setTODTOM
+            type: string
+        rate:
+            expose: true
+            access_type: public_method
+            serialized_name: Rate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRate
+                setter: setRate
+            type: common\models\sbbolxml\request\TermDealType\RateAType

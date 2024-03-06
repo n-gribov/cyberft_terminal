@@ -1,0 +1,205 @@
+common\models\sbbolxml\response\DealLegsInfoType:
+    properties:
+        curSumA:
+            expose: true
+            access_type: public_method
+            serialized_name: CurSumA
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurSumA
+                setter: setCurSumA
+            type: string
+        curSumB:
+            expose: true
+            access_type: public_method
+            serialized_name: CurSumB
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurSumB
+                setter: setCurSumB
+            type: string
+        valueDateA:
+            expose: true
+            access_type: public_method
+            serialized_name: ValueDateA
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getValueDateA
+                setter: setValueDateA
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        valueDateB:
+            expose: true
+            access_type: public_method
+            serialized_name: ValueDateB
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getValueDateB
+                setter: setValueDateB
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        bankDetailsA:
+            expose: true
+            access_type: public_method
+            serialized_name: BankDetailsA
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBankDetailsA
+                setter: setBankDetailsA
+            type: string
+        bankDetailsB:
+            expose: true
+            access_type: public_method
+            serialized_name: BankDetailsB
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBankDetailsB
+                setter: setBankDetailsB
+            type: string
+        firstPaymentRateSwap:
+            expose: true
+            access_type: public_method
+            serialized_name: FirstPaymentRateSwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getFirstPaymentRateSwap
+                setter: setFirstPaymentRateSwap
+            type: string
+        lastPaymentRateSwap:
+            expose: true
+            access_type: public_method
+            serialized_name: LastPaymentRateSwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getLastPaymentRateSwap
+                setter: setLastPaymentRateSwap
+            type: string
+        curSumASwap:
+            expose: true
+            access_type: public_method
+            serialized_name: CurSumASwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurSumASwap
+                setter: setCurSumASwap
+            type: string
+        curSumBSwap:
+            expose: true
+            access_type: public_method
+            serialized_name: CurSumBSwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurSumBSwap
+                setter: setCurSumBSwap
+            type: string
+        fistPaymentDateASwap:
+            expose: true
+            access_type: public_method
+            serialized_name: FistPaymentDateASwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFistPaymentDateASwap
+                setter: setFistPaymentDateASwap
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        fistPaymentDateBSwap:
+            expose: true
+            access_type: public_method
+            serialized_name: FistPaymentDateBSwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFistPaymentDateBSwap
+                setter: setFistPaymentDateBSwap
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        paymentDetailsASwap:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentDetailsASwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPaymentDetailsASwap
+                setter: setPaymentDetailsASwap
+            type: string
+        paymentDetailsBSwap:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentDetailsBSwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getPaymentDetailsBSwap
+                setter: setPaymentDetailsBSwap
+            type: string
+        lastPaymentDateASwap:
+            expose: true
+            access_type: public_method
+            serialized_name: LastPaymentDateASwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLastPaymentDateASwap
+                setter: setLastPaymentDateASwap
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        lastPaymentDateBSwap:
+            expose: true
+            access_type: public_method
+            serialized_name: LastPaymentDateBSwap
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLastPaymentDateBSwap
+                setter: setLastPaymentDateBSwap
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        currency1:
+            expose: true
+            access_type: public_method
+            serialized_name: Currency1
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurrency1
+                setter: setCurrency1
+            type: string
+        currency2:
+            expose: true
+            access_type: public_method
+            serialized_name: Currency2
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurrency2
+                setter: setCurrency2
+            type: string
+        currencies:
+            expose: true
+            access_type: public_method
+            serialized_name: Currencies
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCurrencies
+                setter: setCurrencies
+            type: string

@@ -1,0 +1,42 @@
+common\models\sbbolxml\request\ContractAddType\ContractAmountAType:
+    properties:
+        contractSumm:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractSumm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractSumm
+                setter: setContractSumm
+            type: common\models\sbbolxml\request\ContractAddType\ContractAmountAType\ContractSummAType
+        advanceSumm:
+            expose: true
+            access_type: public_method
+            serialized_name: AdvanceSumm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdvanceSumm
+                setter: setAdvanceSumm
+            type: float
+        profitSumm:
+            expose: true
+            access_type: public_method
+            serialized_name: ProfitSumm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getProfitSumm
+                setter: setProfitSumm
+            type: float
+        expSumm:
+            expose: true
+            access_type: public_method
+            serialized_name: ExpSumm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExpSumm
+                setter: setExpSumm
+            type: float

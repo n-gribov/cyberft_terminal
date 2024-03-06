@@ -1,0 +1,137 @@
+common\models\sbbolxml\response\SIInfoType:
+    properties:
+        sIID:
+            expose: true
+            access_type: public_method
+            serialized_name: sIID
+            accessor:
+                getter: getSIID
+                setter: setSIID
+            xml_attribute: true
+            type: string
+        isSSI:
+            expose: true
+            access_type: public_method
+            serialized_name: isSSI
+            accessor:
+                getter: getIsSSI
+                setter: setIsSSI
+            xml_attribute: true
+            type: boolean
+        sIName:
+            expose: true
+            access_type: public_method
+            serialized_name: sIName
+            accessor:
+                getter: getSIName
+                setter: setSIName
+            xml_attribute: true
+            type: string
+        sIFullName:
+            expose: true
+            access_type: public_method
+            serialized_name: sIFullName
+            accessor:
+                getter: getSIFullName
+                setter: setSIFullName
+            xml_attribute: true
+            type: string
+        correspondentBankDetails:
+            expose: true
+            access_type: public_method
+            serialized_name: CorrespondentBankDetails
+            accessor:
+                getter: getCorrespondentBankDetails
+                setter: setCorrespondentBankDetails
+            xml_attribute: true
+            type: string
+        bankDetails:
+            expose: true
+            access_type: public_method
+            serialized_name: BankDetails
+            accessor:
+                getter: getBankDetails
+                setter: setBankDetails
+            xml_attribute: true
+            type: string
+        sICcy:
+            expose: true
+            access_type: public_method
+            serialized_name: sICcy
+            accessor:
+                getter: getSICcy
+                setter: setSICcy
+            xml_attribute: true
+            type: string
+        sIType:
+            expose: true
+            access_type: public_method
+            serialized_name: sIType
+            accessor:
+                getter: getSIType
+                setter: setSIType
+            xml_attribute: true
+            type: string
+        sIAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: sIAcc
+            accessor:
+                getter: getSIAcc
+                setter: setSIAcc
+            xml_attribute: true
+            type: string
+        cptyName:
+            expose: true
+            access_type: public_method
+            serialized_name: cptyName
+            accessor:
+                getter: getCptyName
+                setter: setCptyName
+            xml_attribute: true
+            type: string
+        sICorAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: sICorAcc
+            accessor:
+                getter: getSICorAcc
+                setter: setSICorAcc
+            xml_attribute: true
+            type: string
+        sIBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: sIBankName
+            accessor:
+                getter: getSIBankName
+                setter: setSIBankName
+            xml_attribute: true
+            type: string
+        sIBankSWIFT:
+            expose: true
+            access_type: public_method
+            serialized_name: sIBankSWIFT
+            accessor:
+                getter: getSIBankSWIFT
+                setter: setSIBankSWIFT
+            xml_attribute: true
+            type: string
+        sICorBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: sICorBankName
+            accessor:
+                getter: getSICorBankName
+                setter: setSICorBankName
+            xml_attribute: true
+            type: string
+        sICorBankSWIFT:
+            expose: true
+            access_type: public_method
+            serialized_name: sICorBankSWIFT
+            accessor:
+                getter: getSICorBankSWIFT
+                setter: setSICorBankSWIFT
+            xml_attribute: true
+            type: string

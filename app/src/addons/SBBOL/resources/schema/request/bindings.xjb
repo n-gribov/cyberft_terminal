@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+               jaxb:version="2.0">
+    <jaxb:globalBindings>
+        <!-- Use java.util.Calendar instead of javax.xml.datatype.XMLGregorianCalendar for xs:dateTime -->
+        <jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime"
+                       parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
+                       printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+
+        <!-- Use java.util.Calendar instead of javax.xml.datatype.XMLGregorianCalendar for xs:date -->
+        <jaxb:javaType name="java.util.Calendar" xmlType="xs:date"
+                       parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+                       printMethod="com.bssys.sbns.integration.jaxb.DateConverter.printDate"/>
+
+        <!-- Force all classes implements Serializable -->
+        <xjc:serializable/>
+        <xjc:simple/>
+    </jaxb:globalBindings>
+
+    <jaxb:bindings schemaLocation="common-types.xsd">
+        <jaxb:bindings node="//xs:complexType[@name='DocBase']">
+            <inheritance:implements>com.bssys.sbns.base.request.DocBase</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='ClientState']">
+            <inheritance:implements>com.bssys.sbns.base.request.ClientState</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='ManageCode']">
+            <inheritance:implements>com.bssys.sbns.base.request.ManageCode</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='DigitalSign']">
+            <inheritance:implements>com.bssys.sbns.base.request.DigitalSign</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='Fraud']">
+            <inheritance:implements>com.bssys.sbns.base.request.Fraud</inheritance:implements>
+        </jaxb:bindings>
+
+        <jaxb:bindings node="//xs:complexType[@name='AttachmentsType']">
+            <inheritance:implements>com.bssys.sbns.base.request.AttachmentsType</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings
+                node="//xs:complexType[@name='AttachmentsType']/xs:sequence/xs:element[@name='Attachment']/xs:complexType">
+            <inheritance:implements>com.bssys.sbns.base.request.Attachment</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='AttachmentSign']">
+            <inheritance:implements>com.bssys.sbns.base.request.AttachmentSign</inheritance:implements>
+        </jaxb:bindings>
+
+        <jaxb:bindings node="//xs:complexType[@name='LinkedDocs']">
+            <inheritance:implements>com.bssys.sbns.base.request.LinkedDocs</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='LinkedDocs']/xs:sequence/xs:element[@name='LDoc']/xs:complexType">
+            <inheritance:implements>com.bssys.sbns.base.request.LinkedDoc</inheritance:implements>
+        </jaxb:bindings>
+
+        <jaxb:bindings node="//xs:complexType[@name='Params']">
+            <inheritance:implements>com.bssys.sbns.base.request.Params</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='Param']">
+            <inheritance:implements>com.bssys.sbns.base.request.Param</inheritance:implements>
+        </jaxb:bindings>
+
+        <jaxb:bindings node="//xs:complexType[@name='BigFileAttachments']">
+            <inheritance:implements>com.bssys.sbns.base.request.BigFileAttachments</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='BigFileAttachment']">
+            <inheritance:implements>com.bssys.sbns.base.request.BigFileAttachment</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='BFAttachment']">
+            <inheritance:implements>com.bssys.sbns.base.request.BFAttachment</inheritance:implements>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="request.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.bssys.sbns.upg.common.v30.request"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:complexType[@name='Request']">
+            <inheritance:implements>com.bssys.sbns.base.request.Request</inheritance:implements>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
+</jaxb:bindings>

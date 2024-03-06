@@ -1,0 +1,231 @@
+/* cuprum-regular - latin-ext_cyrillic-ext_latin_cyrillic */
+@font-face {
+    font-family: 'Cuprum';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/cuprum/cuprum-v10-latin-ext_cyrillic-ext_latin_cyrillic-regular.eot'); /* IE9 Compat Modes */
+    src: local('Cuprum Regular'), local('Cuprum-Regular'),
+    url('../fonts/cuprum/cuprum-v10-latin-ext_cyrillic-ext_latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/cuprum/cuprum-v10-latin-ext_cyrillic-ext_latin_cyrillic-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/cuprum/cuprum-v10-latin-ext_cyrillic-ext_latin_cyrillic-regular.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/cuprum/cuprum-v10-latin-ext_cyrillic-ext_latin_cyrillic-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/cuprum/cuprum-v10-latin-ext_cyrillic-ext_latin_cyrillic-regular.svg#Cuprum') format('svg'); /* Legacy iOS */
+}
+
+#login-page {
+    background-color: #f5f5f5;
+    color: #77838f;
+    font-size: 16px;
+    padding: 0;
+    font-family: 'Cuprum', sans-serif;
+    height: 100%;
+}
+
+#login-page h4 {
+    color: #77838f;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+#login-page .navbar .container-fluid {
+    padding: 0;
+}
+
+#login-page .navbar-inverse {
+    background-color: #f5f5f5;
+}
+
+#login-page .navbar-inverse .navbar-nav > li > a {
+    color: #00529c;
+}
+
+#login-page .navbar-inverse .navbar-nav > li.open > a,
+#login-page .navbar-inverse .navbar-nav > li.open > a:hover,
+#login-page .navbar-inverse .navbar-nav > li.open > a:focus {
+    color: #fff;
+}
+
+#login-page .navbar-inverse .navbar-nav > li > a:hover,
+#login-page .navbar-inverse .navbar-nav > li > a:focus {
+    color: #002a50;
+}
+
+#login-page .content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+#login-page .container {
+    min-width: 400px;
+    padding-bottom: 50px;
+    width: 400px;
+}
+
+#login-page .logo {
+    background-image: url("../img/cyberft/logo.svg");
+    background-size: 170px;
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 0;
+    padding-top: 120px;
+}
+
+#login-page .btn {
+    font-size: 20px;
+    height: 50px;
+    padding: 10px 11px;
+}
+
+#login-page .form-group {
+    margin-bottom: 16px;
+    position: relative;
+}
+
+#login-page .links {
+    font-size: 16px;
+    padding-top: 13px;
+}
+
+#login-page form {
+    height: 250px;
+    margin-top: 25px;
+}
+
+#login-page .alert {
+    padding: 15px 35px 15px 15px;
+}
+
+#login-page .navbar {
+    border: none;
+    width: 100%;
+}
+
+#login-page .navbar .dropdown-menu {
+    box-shadow: none;
+}
+
+#login-page .form-group > label {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    display: block;
+    width: 100%;
+    line-height: 1.5;
+    color: #495057;
+    transition: all .1s ease-in-out;
+    font-weight: normal;
+    padding-top: 13px;
+}
+
+#login-page [class^="flag-"] {
+    border: 1px solid #103994;
+    box-sizing: content-box;
+}
+
+#login-page .form-group input::-webkit-input-placeholder {
+    color: transparent;
+}
+
+#login-page .form-group input:-ms-input-placeholder {
+    color: transparent;
+}
+
+#login-page .form-group input::-ms-input-placeholder {
+    color: transparent;
+}
+
+#login-page .form-group input::-moz-placeholder {
+    color: transparent;
+}
+
+#login-page .form-group input::placeholder {
+    color: transparent;
+}
+
+#login-page .form-group input:not(.placeholder-shown),
+#login-page .form-group input:focus {
+    padding-top: 21px;
+}
+
+#login-page .form-group input:not(.placeholder-shown) ~ label,
+#login-page .form-group input:focus ~ label {
+    padding-top: 4px;
+    font-size: 12px;
+}
+
+#login-page .form-control {
+    font-size: 16px;
+    height: 50px;
+    border: 1px solid #ced4da;
+    box-shadow: none;
+}
+
+#login-page .has-error input,
+#login-page .has-success input {
+    border: 1px solid #ced4da;;
+}
+
+#login-page .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, .25) !important;
+}
+
+#login-page .alert.alert-danger {
+    background-color: #fff;
+    border-color: #b72625;
+    color: #b72625;
+}
+
+#login-page .alert.alert-success {
+    background-color: #fff;
+    border-color: #2b8f0e;
+    color: #2b8f0e;
+}
+
+#login-page .alert.alert-info {
+    background-color: #fff;
+    border-color: #00529c;
+    color: #00529c;
+}
+
+#login-page .alert a,
+#login-page .alert a:active,
+#login-page .alert a:hover,
+#login-page .alert a:visited {
+    text-decoration: underline;
+}
+
+#login-page .alert-danger a,
+#login-page .alert-danger a:active,
+#login-page .alert-danger a:visited,
+#login-page .alert-danger.alert-dismissible .close:focus,
+#login-page .alert-danger.alert-dismissible .close:hover {
+    color: #b72625;
+}
+
+#login-page .alert-danger a:hover {
+    color: #991f33;
+}
+
+#login-page .alert-success a,
+#login-page .alert-success a:active,
+#login-page .alert-success a:visited,
+#login-page .alert-success.alert-dismissible .close:focus,
+#login-page .alert-success.alert-dismissible .close:hover {
+    color: #2b8f0e;
+}
+
+#login-page .alert-success a:hover {
+    color: #326e0b;
+}
+
+#login-page .alert-info.alert-dismissible .close:focus,
+#login-page .alert-info.alert-dismissible .close:hover {
+    color: #002a50;
+}

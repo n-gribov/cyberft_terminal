@@ -1,0 +1,30 @@
+common\models\sbbolxml\request\BigFilesStatusRequestType:
+    properties:
+        uploadJobId:
+            expose: true
+            access_type: public_method
+            serialized_name: UploadJobId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUploadJobId
+                setter: setUploadJobId
+            xml_list:
+                inline: true
+                entry_name: UploadJobId
+                namespace: 'http://bssys.com/upg/request'
+            type: array<string>
+        downloadJobId:
+            expose: true
+            access_type: public_method
+            serialized_name: DownloadJobId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDownloadJobId
+                setter: setDownloadJobId
+            xml_list:
+                inline: true
+                entry_name: DownloadJobId
+                namespace: 'http://bssys.com/upg/request'
+            type: array<string>

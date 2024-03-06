@@ -1,0 +1,79 @@
+common\models\raiffeisenxml\request\UpdateRequestType:
+    properties:
+        clientAppType:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientAppType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getClientAppType
+                setter: setClientAppType
+            type: string
+        clientAppVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientAppVersion
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getClientAppVersion
+                setter: setClientAppVersion
+            type: string
+        clientOS:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientOS
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getClientOS
+                setter: setClientOS
+            type: string
+        clientOSArh:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientOSArh
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getClientOSArh
+                setter: setClientOSArh
+            type: string
+        clientOSVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientOSVersion
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getClientOSVersion
+                setter: setClientOSVersion
+            type: string
+        jvmVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: JvmVersion
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getJvmVersion
+                setter: setJvmVersion
+            type: string
+        clientOSLocale:
+            expose: true
+            access_type: public_method
+            serialized_name: ClientOSLocale
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getClientOSLocale
+                setter: setClientOSLocale
+            type: string

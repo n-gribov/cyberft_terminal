@@ -1,0 +1,33 @@
+common\models\raiffeisenxml\response\DealPassTicketType\DPEndAType:
+    properties:
+        date:
+            expose: true
+            access_type: public_method
+            serialized_name: Date
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDate
+                setter: setDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        reason:
+            expose: true
+            access_type: public_method
+            serialized_name: Reason
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getReason
+                setter: setReason
+            type: string
+        dPIs:
+            expose: true
+            access_type: public_method
+            serialized_name: DPIs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDPIs
+                setter: setDPIs
+            type: common\models\raiffeisenxml\response\DealPassRequisitesType

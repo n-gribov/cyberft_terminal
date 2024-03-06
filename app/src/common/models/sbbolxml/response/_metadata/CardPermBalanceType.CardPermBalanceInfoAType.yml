@@ -1,0 +1,103 @@
+common\models\sbbolxml\response\CardPermBalanceType\CardPermBalanceInfoAType:
+    properties:
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        status:
+            expose: true
+            access_type: public_method
+            serialized_name: status
+            accessor:
+                getter: getStatus
+                setter: setStatus
+            xml_attribute: true
+            type: string
+        contractStatus:
+            expose: true
+            access_type: public_method
+            serialized_name: contractStatus
+            accessor:
+                getter: getContractStatus
+                setter: setContractStatus
+            xml_attribute: true
+            type: string
+        depositId:
+            expose: true
+            access_type: public_method
+            serialized_name: depositId
+            accessor:
+                getter: getDepositId
+                setter: setDepositId
+            xml_attribute: true
+            type: string
+        initialCardGuid:
+            expose: true
+            access_type: public_method
+            serialized_name: initialCardGuid
+            accessor:
+                getter: getInitialCardGuid
+                setter: setInitialCardGuid
+            xml_attribute: true
+            type: string
+        pbAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: pbAccount
+            accessor:
+                getter: getPbAccount
+                setter: setPbAccount
+            xml_attribute: true
+            type: string
+        actual:
+            expose: true
+            access_type: public_method
+            serialized_name: actual
+            accessor:
+                getter: getActual
+                setter: setActual
+            xml_attribute: true
+            type: boolean
+        commentary:
+            expose: true
+            access_type: public_method
+            serialized_name: commentary
+            accessor:
+                getter: getCommentary
+                setter: setCommentary
+            xml_attribute: true
+            type: string
+        permBalance:
+            expose: true
+            access_type: public_method
+            serialized_name: PermBalance
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPermBalance
+                setter: setPermBalance
+            type: common\models\sbbolxml\response\PermBalanceType
+        reqAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: ReqAccount
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getReqAccount
+                setter: setReqAccount
+            type: common\models\sbbolxml\response\AccountReturnType

@@ -1,0 +1,12 @@
+common\models\sbbolxml\request\FinancialSituationInfoTypeTwoType:
+    properties:
+        defaultOnAnObligation:
+            expose: true
+            access_type: public_method
+            serialized_name: DefaultOnAnObligation
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDefaultOnAnObligation
+                setter: setDefaultOnAnObligation
+            type: boolean

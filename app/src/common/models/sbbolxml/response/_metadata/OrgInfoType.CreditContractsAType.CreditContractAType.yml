@@ -1,0 +1,200 @@
+common\models\sbbolxml\response\OrgInfoType\CreditContractsAType\CreditContractAType:
+    properties:
+        credContrtId:
+            expose: true
+            access_type: public_method
+            serialized_name: credContrtId
+            accessor:
+                getter: getCredContrtId
+                setter: setCredContrtId
+            xml_attribute: true
+            type: string
+        contractId:
+            expose: true
+            access_type: public_method
+            serialized_name: contractId
+            accessor:
+                getter: getContractId
+                setter: setContractId
+            xml_attribute: true
+            type: string
+        contractNum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getContractNum
+                setter: setContractNum
+            type: string
+        contractName:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getContractName
+                setter: setContractName
+            type: string
+        contractDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContractDate
+                setter: setContractDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        creditDeptID:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditDeptID
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCreditDeptID
+                setter: setCreditDeptID
+            type: string
+        creditDeptName:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditDeptName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCreditDeptName
+                setter: setCreditDeptName
+            type: string
+        creditDuration:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditDuration
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCreditDuration
+                setter: setCreditDuration
+            type: integer
+        contractSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContractSum
+                setter: setContractSum
+            type: common\models\sbbolxml\response\CurrAmountType
+        availableSum:
+            expose: true
+            access_type: public_method
+            serialized_name: AvailableSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAvailableSum
+                setter: setAvailableSum
+            type: common\models\sbbolxml\response\CurrAmountType
+        contractCurr:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractCurr
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getContractCurr
+                setter: setContractCurr
+            type: string
+        contractRate:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractRate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContractRate
+                setter: setContractRate
+            type: float
+        contractStatus:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractStatus
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContractStatus
+                setter: setContractStatus
+            type: boolean
+        creditDate:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCreditDate
+                setter: setCreditDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        availableAccs:
+            expose: true
+            access_type: public_method
+            serialized_name: AvailableAccs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAvailableAccs
+                setter: setAvailableAccs
+            xml_list:
+                inline: true
+                entry_name: AvailableAccs
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\OrgInfoType\CreditContractsAType\CreditContractAType\AvailableAccsAType>
+        limitDate:
+            expose: true
+            access_type: public_method
+            serialized_name: LimitDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getLimitDate
+                setter: setLimitDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        creditCurr:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditCurr
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCreditCurr
+                setter: setCreditCurr
+            type: string
+        finishDate:
+            expose: true
+            access_type: public_method
+            serialized_name: FinishDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getFinishDate
+                setter: setFinishDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        debtSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DebtSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDebtSum
+                setter: setDebtSum
+            type: common\models\sbbolxml\response\CurrAmountType

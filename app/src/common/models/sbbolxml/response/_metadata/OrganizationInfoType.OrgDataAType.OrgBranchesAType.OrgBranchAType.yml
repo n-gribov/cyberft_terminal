@@ -1,0 +1,103 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OrgBranchesAType\OrgBranchAType:
+    properties:
+        branchId:
+            expose: true
+            access_type: public_method
+            serialized_name: branchId
+            accessor:
+                getter: getBranchId
+                setter: setBranchId
+            xml_attribute: true
+            type: string
+        contractNum:
+            expose: true
+            access_type: public_method
+            serialized_name: contractNum
+            accessor:
+                getter: getContractNum
+                setter: setContractNum
+            xml_attribute: true
+            type: string
+        contractDate:
+            expose: true
+            access_type: public_method
+            serialized_name: contractDate
+            accessor:
+                getter: getContractDate
+                setter: setContractDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        connectionDate:
+            expose: true
+            access_type: public_method
+            serialized_name: connectionDate
+            accessor:
+                getter: getConnectionDate
+                setter: setConnectionDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        blockInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BlockInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBlockInfo
+                setter: setBlockInfo
+            type: common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OrgBranchesAType\OrgBranchAType\BlockInfoAType
+        servicePacks:
+            expose: true
+            access_type: public_method
+            serialized_name: ServicePacks
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getServicePacks
+                setter: setServicePacks
+            type: array<common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OrgBranchesAType\OrgBranchAType\ServicePacksAType\ServicePackAType>
+            xml_list:
+                inline: false
+                entry_name: ServicePack
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        creditContracts:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditContracts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCreditContracts
+                setter: setCreditContracts
+            type: array<common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OrgBranchesAType\OrgBranchAType\CreditContractsAType\CreditContractAType>
+            xml_list:
+                inline: false
+                entry_name: CreditContract
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        salaryContracts:
+            expose: true
+            access_type: public_method
+            serialized_name: SalaryContracts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getSalaryContracts
+                setter: setSalaryContracts
+            type: array<common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\OrgBranchesAType\OrgBranchAType\SalaryContractsAType\SalaryContractAType>
+            xml_list:
+                inline: false
+                entry_name: SalaryContract
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'
+        imprestAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: ImprestAcc
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getImprestAcc
+                setter: setImprestAcc
+            type: boolean

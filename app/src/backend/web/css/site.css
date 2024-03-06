@@ -1,0 +1,401 @@
+html,
+body {
+    height: 100%;
+    font-size: 12px;
+}
+
+
+/** Shortcuts **/
+.mt20 {margin-top: 20px;}
+
+.input-narrow {max-width: 300px;}
+
+/*.wrap {*/
+	/*min-height: 100%;*/
+	/*height: auto;*/
+	/*margin: 0 auto -60px;*/
+	/*padding: 0 0 30px;*/
+	/*background: #EEEEEE;*/
+/*}*/
+
+/*.wrap > .container {*/
+	/*padding: 70px 15px 20px;*/
+/*}*/
+
+/*.wrap > .container > h1 {*/
+	/*background-image: url('/img/logoClearMedium.png');*/
+	/*background-repeat: no-repeat;*/
+	/*padding-left: 110px;*/
+	/*line-height: 65px;*/
+	/*margin: 0 0 5px;*/
+/*}*/
+
+/*.wrap > .container > .index {*/
+	/*background-color: #ffffff;*/
+	/*padding: 20px;*/
+	/*border-radius: 5px;*/
+	/*-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);*/
+	/*box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);*/
+/*}*/
+
+/*.footer {*/
+	/*height: 30px;*/
+	/*padding-top: 30px;*/
+/*}*/
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+
+/*@media (min-width: 1600px) {*/
+  /*.container {*/
+    /*width: 1570px;*/
+  /*}*/
+/*}*/
+/*@media (min-width: 1800px) {*/
+  /*.container {*/
+    /*width: 1770px;*/
+  /*}*/
+/*}*/
+/*@media (min-width: 2000px) {*/
+  /*.container {*/
+    /*width: 1970px;*/
+  /*}*/
+/*}*/
+/*@media (min-width: 2250px) {*/
+  /*.container {*/
+    /*width: 2220px;*/
+  /*}*/
+/*}*/
+/*@media (min-width: 2600px) {*/
+  /*.container {*/
+    /*width: 2570px;*/
+  /*}*/
+/*}*/
+/*@media (min-width: 3000px) {*/
+  /*.container {*/
+    /*width: 2970px;*/
+  /*}*/
+/*}*/
+
+/*.search {*/
+    /*border-radius: 4px;*/
+    /*list-style: none outside none;*/
+    /*margin-bottom: 20px;*/
+    /*padding: 8px 15px;*/
+/*}*/
+/*.search {*/
+	/*display: table;*/
+	/*clear: right;*/
+	/*width: 500px;*/
+/*}*/
+/*.search .form-group > div > label {*/
+	/*display: block;*/
+/*}*/
+/*.search.inline .form-group {*/
+	/*float: left;*/
+	/*margin-right: 20px;*/
+/*}*/
+
+li.bootstro-highlight > a.username {color: black;}
+li.bootstro-highlight > a.username:hover {background-color : darkgrey;}
+/*.bootstro-highlight + div.popover {max-width: 350px;}*/
+
+/* Patch for Modal dialogs grayed below fade-in backdrop */
+.modal-dialog {
+  z-index: 1050;
+}
+
+/* 6лядский datepicker */
+.ui-datepicker {
+	z-index: 999 !important;
+}
+
+.grid-view table {
+    margin-top:10px;
+}
+.navbar-nav,
+.navbar-nav li a {
+    font-size: 13px!important;
+}
+
+.navbar-nav li a i {
+    padding-right:3px;
+}
+
+.navbar-brand {
+    margin-top:1px;
+}
+
+.select2-selection__placeholder {
+    padding-top:5px;
+}
+
+.select2-selection__rendered {
+    font-size: 12px!important;
+    padding-top: 2px!important;
+}
+
+h1 {
+    font-size: 20px!important;
+}
+
+h2 {
+    font-size: 18px!important;
+}
+
+h3 {
+    font-size: 16px!important;
+}
+
+.pagination > li > a, .pagination > li span {
+    padding: 2px 8px;
+    color: #4c4c4c;
+}
+
+.table-log-auto-width {
+    width: auto;
+}
+
+.table-log-auto-width td,
+.table-log-auto-width th {
+    padding-left:10px!important;
+    padding-right:20px!important;
+}
+
+.table-log {
+    color:#000;
+}
+
+.table-log th {
+    background-color: #487bc2;
+    color: #fff!important;
+    text-shadow:1px 1px rgba(0,0,0, 0.3);
+}
+
+.table-log .filters {
+    background-color: #4f9ae8;
+}
+
+.table-log th a,
+.table-log th a:hover,
+.table-log th a:visited {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.table-log thead td input,
+.table-log thead td .form-control {
+    height:18px!important;
+    padding:0 0!important;
+    font-size: 12px!important;
+    border: 1px solid #487bc2;
+}
+
+.datepicker {
+    font-size: 12px!important;
+}
+
+.input-group-addon {
+    font-size: 12px!important;
+}
+
+#User:hover > ul {
+    display: block;
+}
+
+.table > thead > tr.bg-alert-danger:hover > td,
+.table > tbody > tr.bg-alert-danger:hover > td,
+.table > tfoot > tr.bg-alert-danger:hover > td {
+    background: #fddcdd;
+}
+
+.table > thead > tr.bg-alert-warning:hover > td,
+.table > tbody > tr.bg-alert-warning:hover > td,
+.table > tfoot > tr.bg-alert-warning:hover > td {
+    background: #fce098;
+}
+
+.table > thead > tr.bg-alert-success:hover > td,
+.table > tbody > tr.bg-alert-success:hover > td,
+.table > tfoot > tr.bg-alert-success:hover > td {
+    background: #d9f6b2 ;
+}
+.table > thead > tr.bg-alert-info:hover > td,
+.table > tbody > tr.bg-alert-info:hover > td,
+.table > tfoot > tr.bg-alert-info:hover > td {
+    background: #b6e9fa;
+}
+
+.mt-new-ui {
+    padding: 10px 20px;
+    max-width:800px;
+    color:#000!important;
+    margin-bottom:20px;
+    -moz-box-shadow: 5px 5px 0 #ddd;
+    -webkit-box-shadow: 5px 5px 0 #ddd;
+    box-shadow: 5px 5px 0 #ddd;
+    position: relative;
+}
+
+.mt-new-ui,
+.mt-new-ui .panel-body,
+.mt-new-ui .form-group {
+    background-color: #E8E8E8!important;
+}
+
+.mt-new-ui input,
+.mt-new-ui select,
+.mt-new-ui textarea {
+    color:#000!important;
+}
+
+.mt-required-input {
+    border:2px solid #79CBFF;
+    color:#000!important;
+}
+
+.mt-new-ui .form-group {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.swt-tag-name {
+    font-weight: bold;
+    text-align: center;
+    font-size: 110%;
+}
+
+.swt-tag-name > div {
+    padding-top:7px;
+    padding-bottom: 7px;
+    border: 1px solid #A8A8A8;
+    min-width: 30px;
+    cursor: default;
+}
+
+.swt-tag-name .mt-required {
+    background-color: #95DFFF;
+    color:#000!important;
+}
+
+.mt-new-ui .input-group-addon {
+    background-color: transparent!important;
+    border: none!important;
+    min-width:20px;
+    color: #000!important;
+    font-size: 16px!important;
+}
+
+.swt-help-btn {
+    position: absolute;
+    right:10px;
+    top:10px;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 999;
+}
+
+.swt-help-btn > span {
+    padding: 2px 7px;
+    border: 1px solid #797979;
+    color: #797979;
+}
+
+.swt-help-btn > span:hover {
+    color: #fff;
+    background-color: #000;
+}
+
+.swt-help-btn:hover .swt-help-data {
+    display: block;
+}
+
+.swt-help-data {
+    background-color: #fff;
+    border:1px solid #ddd;
+    padding: 10px;
+    width: 450px;
+    left: -470px;
+    top:0;
+    position: absolute;
+    display: none;
+    font-size: 12px!important;
+}
+
+.log-search span.kv-date-calendar {display: none;}
+.log-search .form-control,
+.log-search .input-group-addon {height:25px!important;}
+.log-search .input-group-addon {padding:3px 1px!important; min-width: 33px;}
+.log-search .btn {padding: 3px 10px;}
+
+#statusGroup label {
+	width: 49%;
+}

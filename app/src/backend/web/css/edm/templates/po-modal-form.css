@@ -1,0 +1,8 @@
+#edmTemplatePOModal .modal-body {
+    height: 800px;
+    overflow: auto;
+}
+
+#edmTemplatePOModal {
+    margin-top: -15px;
+}

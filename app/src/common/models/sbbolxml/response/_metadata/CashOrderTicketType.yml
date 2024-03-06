@@ -1,0 +1,53 @@
+common\models\sbbolxml\response\CashOrderTicketType:
+    properties:
+        reqNumberBase36:
+            expose: true
+            access_type: public_method
+            serialized_name: reqNumberBase36
+            accessor:
+                getter: getReqNumberBase36
+                setter: setReqNumberBase36
+            xml_attribute: true
+            type: string
+        qrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: qrCode
+            accessor:
+                getter: getQrCode
+                setter: setQrCode
+            xml_attribute: true
+            type: string
+        chargeWithdraw:
+            expose: true
+            access_type: public_method
+            serialized_name: chargeWithdraw
+            accessor:
+                getter: getChargeWithdraw
+                setter: setChargeWithdraw
+            xml_attribute: true
+            type: string
+        chargeBanknotes:
+            expose: true
+            access_type: public_method
+            serialized_name: chargeBanknotes
+            accessor:
+                getter: getChargeBanknotes
+                setter: setChargeBanknotes
+            xml_attribute: true
+            type: string
+        notifs:
+            expose: true
+            access_type: public_method
+            serialized_name: Notifs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getNotifs
+                setter: setNotifs
+            type: array<common\models\sbbolxml\response\CashOrderTicketNotifType>
+            xml_list:
+                inline: false
+                entry_name: CashOrderTicketNotif
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/response'

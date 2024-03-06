@@ -1,0 +1,62 @@
+common\models\raiffeisenxml\request\LetterOfDepositRaifType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\raiffeisenxml\request\LetterOfDepositRaifType\DocDataAType
+        main:
+            expose: true
+            access_type: public_method
+            serialized_name: Main
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMain
+                setter: setMain
+            type: common\models\raiffeisenxml\request\LetterOfDepositRaifType\MainAType
+        refund:
+            expose: true
+            access_type: public_method
+            serialized_name: Refund
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getRefund
+                setter: setRefund
+            type: common\models\raiffeisenxml\request\LetterOfDepositRaifType\RefundAType
+        percentsRefund:
+            expose: true
+            access_type: public_method
+            serialized_name: PercentsRefund
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPercentsRefund
+                setter: setPercentsRefund
+            type: common\models\raiffeisenxml\request\LetterOfDepositRaifType\PercentsRefundAType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

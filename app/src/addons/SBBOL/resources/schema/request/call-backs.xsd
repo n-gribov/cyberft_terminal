@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="CallBacks">
+        <xs:annotation>
+            <xs:documentation>Заявки на обратный звонок</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CallBack" type="CallBack" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Заявки на обратный звонок</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CallBack">
+        <xs:annotation>
+            <xs:documentation>Заявка на обратный звонок</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ExtOfferId">
+                <xs:annotation>
+                    <xs:documentation>Глобальный идентификатор предложения в SAS</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="UserID" type="xs:long" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор пользователя в СББОЛ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UserGuid" type="UuidSeparated" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Глобальный идентификатор пользователя в СББОЛ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CreatedDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation>Дата создания</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Phone" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер телефона для обратного звонка</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="200"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="CallDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation>Предпочтительная дата обратного звонка</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CallTime">
+                <xs:annotation>
+                    <xs:documentation>Предпочтительное время обратного звонка</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="200"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="UserTimeZone" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Часовой пояс пользователя, например GMT+3</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="200"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="UserComment" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Комментарий пользователя</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="1050"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

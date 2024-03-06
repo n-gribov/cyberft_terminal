@@ -1,0 +1,66 @@
+common\models\sbbolxml\request\ActAddType\GOZActAType:
+    properties:
+        actNum:
+            expose: true
+            access_type: public_method
+            serialized_name: actNum
+            accessor:
+                getter: getActNum
+                setter: setActNum
+            xml_attribute: true
+            type: string
+        actDate:
+            expose: true
+            access_type: public_method
+            serialized_name: actDate
+            accessor:
+                getter: getActDate
+                setter: setActDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        actType:
+            expose: true
+            access_type: public_method
+            serialized_name: actType
+            accessor:
+                getter: getActType
+                setter: setActType
+            xml_attribute: true
+            type: string
+        sendDate:
+            expose: true
+            access_type: public_method
+            serialized_name: sendDate
+            accessor:
+                getter: getSendDate
+                setter: setSendDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        actContent:
+            expose: true
+            access_type: public_method
+            serialized_name: actContent
+            accessor:
+                getter: getActContent
+                setter: setActContent
+            xml_attribute: true
+            type: string
+        contractEssenceId:
+            expose: true
+            access_type: public_method
+            serialized_name: contractEssenceId
+            accessor:
+                getter: getContractEssenceId
+                setter: setContractEssenceId
+            xml_attribute: true
+            type: string
+        actSumm:
+            expose: true
+            access_type: public_method
+            serialized_name: ActSumm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getActSumm
+                setter: setActSumm
+            type: common\models\sbbolxml\request\ActAddType\GOZActAType\ActSummAType

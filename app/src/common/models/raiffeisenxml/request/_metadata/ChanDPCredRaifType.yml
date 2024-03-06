@@ -1,0 +1,156 @@
+common\models\raiffeisenxml\request\ChanDPCredRaifType:
+    properties:
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\raiffeisenxml\request\DocDataCCPassRaifType
+        dealPassports:
+            expose: true
+            access_type: public_method
+            serialized_name: DealPassports
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDealPassports
+                setter: setDealPassports
+            type: array<common\models\raiffeisenxml\request\ChanDPCredRaifType\DealPassportsAType\DealPassAType>
+            xml_list:
+                inline: false
+                entry_name: DealPass
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
+        resInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ResInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getResInfo
+                setter: setResInfo
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType\ResInfoAType
+        beneficiarInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiarInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiarInfo
+                setter: setBeneficiarInfo
+            type: array<common\models\raiffeisenxml\request\BeneficiarInfoChanDPRaifType>
+            xml_list:
+                inline: false
+                entry_name: Beneficiar
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        credData:
+            expose: true
+            access_type: public_method
+            serialized_name: CredData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCredData
+                setter: setCredData
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType\CredDataAType
+        specTerms:
+            expose: true
+            access_type: public_method
+            serialized_name: SpecTerms
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSpecTerms
+                setter: setSpecTerms
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecTermsAType
+        tranchesInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: TranchesInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTranchesInfo
+                setter: setTranchesInfo
+            type: array<common\models\raiffeisenxml\request\TrancheInfoType>
+            xml_list:
+                inline: false
+                entry_name: TrancheInfo
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        chanInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: ChanInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getChanInfo
+                setter: setChanInfo
+            xml_list:
+                inline: true
+                entry_name: ChanInfo
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\ChanDPCredRaifType\ChanInfoAType>
+        specData:
+            expose: true
+            access_type: public_method
+            serialized_name: SpecData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSpecData
+                setter: setSpecData
+            type: common\models\raiffeisenxml\request\ChanDPCredRaifType\SpecDataAType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        urgent:
+            expose: true
+            access_type: public_method
+            serialized_name: Urgent
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getUrgent
+                setter: setUrgent
+            type: bool
+        attachments:
+            expose: true
+            access_type: public_method
+            serialized_name: Attachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAttachments
+                setter: setAttachments
+            type: array<common\models\raiffeisenxml\request\AttachmentsType\AttachmentAType>
+            xml_list:
+                inline: false
+                entry_name: Attachment
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

@@ -1,0 +1,81 @@
+common\models\sbbolxml\FraudParams:
+    xml_root_name: FraudParams
+    xml_root_namespace: 'http://bssys.com/upg'
+    properties:
+        devicePrint:
+            expose: true
+            access_type: public_method
+            serialized_name: DevicePrint
+            xml_element:
+                namespace: 'http://bssys.com/upg'
+                cdata: false
+            accessor:
+                getter: getDevicePrint
+                setter: setDevicePrint
+            type: string
+        channelIndicator:
+            expose: true
+            access_type: public_method
+            serialized_name: ChannelIndicator
+            xml_element:
+                namespace: 'http://bssys.com/upg'
+                cdata: false
+            accessor:
+                getter: getChannelIndicator
+                setter: setChannelIndicator
+            type: string
+        ipMACAddresses:
+            expose: true
+            access_type: public_method
+            serialized_name: IpMACAddresses
+            xml_element:
+                namespace: 'http://bssys.com/upg'
+                cdata: false
+            accessor:
+                getter: getIpMACAddresses
+                setter: setIpMACAddresses
+            type: string
+        geolocationInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: GeolocationInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg'
+                cdata: false
+            accessor:
+                getter: getGeolocationInfo
+                setter: setGeolocationInfo
+            type: string
+        pcProp:
+            expose: true
+            access_type: public_method
+            serialized_name: PcProp
+            xml_element:
+                namespace: 'http://bssys.com/upg'
+                cdata: false
+            accessor:
+                getter: getPcProp
+                setter: setPcProp
+            type: string
+        tokenInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: TokenInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg'
+                cdata: false
+            accessor:
+                getter: getTokenInfo
+                setter: setTokenInfo
+            type: string
+        httpAcceptLanguage:
+            expose: true
+            access_type: public_method
+            serialized_name: HttpAcceptLanguage
+            xml_element:
+                namespace: 'http://bssys.com/upg'
+                cdata: false
+            accessor:
+                getter: getHttpAcceptLanguage
+                setter: setHttpAcceptLanguage
+            type: string

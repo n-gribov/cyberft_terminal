@@ -1,0 +1,44 @@
+common\models\raiffeisenxml\request\DealPassCred138IType\HelpInfoAType\PaymentsAType\ReturnAType:
+    properties:
+        strNum:
+            expose: true
+            access_type: public_method
+            serialized_name: strNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getStrNum
+                setter: setStrNum
+            type: string
+        percentInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: PercentInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPercentInfo
+                setter: setPercentInfo
+            type: common\models\raiffeisenxml\request\DealPassCred138IType\HelpInfoAType\PaymentsAType\ReturnAType\PercentInfoAType
+        debtInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DebtInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDebtInfo
+                setter: setDebtInfo
+            type: common\models\raiffeisenxml\request\DealPassCred138IType\HelpInfoAType\PaymentsAType\ReturnAType\DebtInfoAType
+        specConditions:
+            expose: true
+            access_type: public_method
+            serialized_name: SpecConditions
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSpecConditions
+                setter: setSpecConditions
+            type: string

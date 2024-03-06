@@ -1,0 +1,32 @@
+common\models\raiffeisenxml\response\DealPassTicketType:
+    properties:
+        dPIs:
+            expose: true
+            access_type: public_method
+            serialized_name: DPIs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDPIs
+                setter: setDPIs
+            type: common\models\raiffeisenxml\response\DealPassRequisitesType
+        dPRe:
+            expose: true
+            access_type: public_method
+            serialized_name: DPRe
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDPRe
+                setter: setDPRe
+            type: common\models\raiffeisenxml\response\DealPassTicketType\DPReAType
+        dPEnd:
+            expose: true
+            access_type: public_method
+            serialized_name: DPEnd
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDPEnd
+                setter: setDPEnd
+            type: common\models\raiffeisenxml\response\DealPassTicketType\DPEndAType

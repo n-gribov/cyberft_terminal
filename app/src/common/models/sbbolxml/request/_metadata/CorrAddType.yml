@@ -1,0 +1,95 @@
+common\models\sbbolxml\request\CorrAddType:
+    properties:
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            accessor:
+                getter: getName
+                setter: setName
+            xml_attribute: true
+            type: string
+        iNN:
+            expose: true
+            access_type: public_method
+            serialized_name: INN
+            accessor:
+                getter: getINN
+                setter: setINN
+            xml_attribute: true
+            type: string
+        kPP:
+            expose: true
+            access_type: public_method
+            serialized_name: KPP
+            accessor:
+                getter: getKPP
+                setter: setKPP
+            xml_attribute: true
+            type: string
+        personalAcc:
+            expose: true
+            access_type: public_method
+            serialized_name: PersonalAcc
+            accessor:
+                getter: getPersonalAcc
+                setter: setPersonalAcc
+            xml_attribute: true
+            type: string
+        comment:
+            expose: true
+            access_type: public_method
+            serialized_name: Comment
+            accessor:
+                getter: getComment
+                setter: setComment
+            xml_attribute: true
+            type: string
+        genSMSSign:
+            expose: true
+            access_type: public_method
+            serialized_name: GenSMSSign
+            accessor:
+                getter: getGenSMSSign
+                setter: setGenSMSSign
+            xml_attribute: true
+            type: string
+        importFromBank:
+            expose: true
+            access_type: public_method
+            serialized_name: importFromBank
+            accessor:
+                getter: getImportFromBank
+                setter: setImportFromBank
+            xml_attribute: true
+            type: boolean
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: Bank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBank
+                setter: setBank
+            type: common\models\sbbolxml\request\CorrBankType
+        purpose:
+            expose: true
+            access_type: public_method
+            serialized_name: Purpose
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPurpose
+                setter: setPurpose
+            type: string

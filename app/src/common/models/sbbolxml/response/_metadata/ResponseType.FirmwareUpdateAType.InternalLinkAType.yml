@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\ResponseType\FirmwareUpdateAType\InternalLinkAType:
+    properties:
+        intBFLink:
+            expose: true
+            access_type: public_method
+            serialized_name: intBFLink
+            accessor:
+                getter: getIntBFLink
+                setter: setIntBFLink
+            xml_attribute: true
+            type: string
+        errorMessage:
+            expose: true
+            access_type: public_method
+            serialized_name: errorMessage
+            accessor:
+                getter: getErrorMessage
+                setter: setErrorMessage
+            xml_attribute: true
+            type: string
+        extLink:
+            expose: true
+            access_type: public_method
+            serialized_name: extLink
+            accessor:
+                getter: getExtLink
+                setter: setExtLink
+            xml_attribute: true
+            type: string

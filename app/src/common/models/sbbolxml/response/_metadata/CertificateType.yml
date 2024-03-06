@@ -1,0 +1,102 @@
+common\models\sbbolxml\response\CertificateType:
+    properties:
+        __value:
+            expose: true
+            xml_value: true
+            access_type: public_method
+            accessor:
+                getter: value
+                setter: value
+            type: string
+            xml_element:
+                cdata: false
+        sN:
+            expose: true
+            access_type: public_method
+            serialized_name: SN
+            accessor:
+                getter: getSN
+                setter: setSN
+            xml_attribute: true
+            type: string
+        signDeviceId:
+            expose: true
+            access_type: public_method
+            serialized_name: signDeviceId
+            accessor:
+                getter: getSignDeviceId
+                setter: setSignDeviceId
+            xml_attribute: true
+            type: string
+        cryptoTypeId:
+            expose: true
+            access_type: public_method
+            serialized_name: cryptoTypeId
+            accessor:
+                getter: getCryptoTypeId
+                setter: setCryptoTypeId
+            xml_attribute: true
+            type: string
+        client:
+            expose: true
+            access_type: public_method
+            serialized_name: client
+            accessor:
+                getter: getClient
+                setter: setClient
+            xml_attribute: true
+            type: boolean
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: bank
+            accessor:
+                getter: getBank
+                setter: setBank
+            xml_attribute: true
+            type: boolean
+        root:
+            expose: true
+            access_type: public_method
+            serialized_name: root
+            accessor:
+                getter: getRoot
+                setter: setRoot
+            xml_attribute: true
+            type: boolean
+        format:
+            expose: true
+            access_type: public_method
+            serialized_name: format
+            accessor:
+                getter: getFormat
+                setter: setFormat
+            xml_attribute: true
+            type: string
+        active:
+            expose: true
+            access_type: public_method
+            serialized_name: active
+            accessor:
+                getter: getActive
+                setter: setActive
+            xml_attribute: true
+            type: boolean
+        valid:
+            expose: true
+            access_type: public_method
+            serialized_name: valid
+            accessor:
+                getter: getValid
+                setter: setValid
+            xml_attribute: true
+            type: boolean
+        containerName:
+            expose: true
+            access_type: public_method
+            serialized_name: containerName
+            accessor:
+                getter: getContainerName
+                setter: setContainerName
+            xml_attribute: true
+            type: string

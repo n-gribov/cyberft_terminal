@@ -1,0 +1,13 @@
+common\models\sbbolxml\request\BoardOfDirectorsType:
+    properties:
+        orgManagementMembers:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgManagementMembers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOrgManagementMembers
+                setter: setOrgManagementMembers
+            type: string

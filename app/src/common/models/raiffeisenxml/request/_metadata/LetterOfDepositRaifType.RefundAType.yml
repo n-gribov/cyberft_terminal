@@ -1,0 +1,72 @@
+common\models\raiffeisenxml\request\LetterOfDepositRaifType\RefundAType:
+    properties:
+        acc:
+            expose: true
+            access_type: public_method
+            serialized_name: Acc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcc
+                setter: setAcc
+            type: common\models\raiffeisenxml\request\AccountType
+        beneficiar:
+            expose: true
+            access_type: public_method
+            serialized_name: Beneficiar
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiar
+                setter: setBeneficiar
+            type: common\models\raiffeisenxml\request\Beneficiar59RaifType
+        beneficiarBank:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiarBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiarBank
+                setter: setBeneficiarBank
+            type: common\models\raiffeisenxml\request\BankBeneficiar57DepoType
+        imediaBank:
+            expose: true
+            access_type: public_method
+            serialized_name: ImediaBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getImediaBank
+                setter: setImediaBank
+            type: common\models\raiffeisenxml\request\ImediaBank56Type
+        payee:
+            expose: true
+            access_type: public_method
+            serialized_name: Payee
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayee
+                setter: setPayee
+            type: common\models\raiffeisenxml\request\LetterOfDepositRaifType\RefundAType\PayeeAType
+        payeeBank:
+            expose: true
+            access_type: public_method
+            serialized_name: PayeeBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayeeBank
+                setter: setPayeeBank
+            type: common\models\raiffeisenxml\request\LetterOfDepositRaifType\RefundAType\PayeeBankAType
+        mediaBank:
+            expose: true
+            access_type: public_method
+            serialized_name: MediaBank
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getMediaBank
+                setter: setMediaBank
+            type: common\models\raiffeisenxml\request\LetterOfDepositRaifType\RefundAType\MediaBankAType

@@ -1,0 +1,61 @@
+common\models\sbbolxml\request\PayRequestType:
+    properties:
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: type
+            accessor:
+                getter: getType
+                setter: setType
+            xml_attribute: true
+            type: string
+        accDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: AccDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccDoc
+                setter: setAccDoc
+            type: common\models\sbbolxml\request\AccDocType
+        payer:
+            expose: true
+            access_type: public_method
+            serialized_name: Payer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayer
+                setter: setPayer
+            type: common\models\sbbolxml\request\PayRequestClientType
+        payee:
+            expose: true
+            access_type: public_method
+            serialized_name: Payee
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayee
+                setter: setPayee
+            type: common\models\sbbolxml\request\PayRequestClientType
+        departmentalInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DepartmentalInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDepartmentalInfo
+                setter: setDepartmentalInfo
+            type: common\models\sbbolxml\request\BudgetDepartmentalInfoType
+        payReqInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: PayReqInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPayReqInfo
+                setter: setPayReqInfo
+            type: common\models\sbbolxml\request\PayRequestType\PayReqInfoAType

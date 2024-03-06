@@ -1,0 +1,20 @@
+common\models\sbbolxml\response\AdmCashierLoginType:
+    properties:
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        login:
+            expose: true
+            access_type: public_method
+            serialized_name: login
+            accessor:
+                getter: getLogin
+                setter: setLogin
+            xml_attribute: true
+            type: string

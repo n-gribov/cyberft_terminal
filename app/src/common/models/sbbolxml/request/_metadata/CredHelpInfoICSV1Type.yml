@@ -1,0 +1,62 @@
+common\models\sbbolxml\request\CredHelpInfoICSV1Type:
+    properties:
+        basePay:
+            expose: true
+            access_type: public_method
+            serialized_name: BasePay
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBasePay
+                setter: setBasePay
+            type: boolean
+        paymentLoan:
+            expose: true
+            access_type: public_method
+            serialized_name: PaymentLoan
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPaymentLoan
+                setter: setPaymentLoan
+            type: array<common\models\sbbolxml\request\CredDebtPaymentLoanICSType>
+            xml_list:
+                inline: false
+                entry_name: DebtPaymentLoan
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'
+        directInvesting:
+            expose: true
+            access_type: public_method
+            serialized_name: DirectInvesting
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDirectInvesting
+                setter: setDirectInvesting
+            type: boolean
+        bailSum:
+            expose: true
+            access_type: public_method
+            serialized_name: BailSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBailSum
+                setter: setBailSum
+            type: common\models\sbbolxml\request\CredHelpInfoICSV1Type\BailSumAType
+        creditInfos:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditInfos
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCreditInfos
+                setter: setCreditInfos
+            type: array<common\models\sbbolxml\request\CreditInfoICSV1Type>
+            xml_list:
+                inline: false
+                entry_name: CreditInfo
+                skip_when_empty: true
+                namespace: 'http://bssys.com/upg/request'

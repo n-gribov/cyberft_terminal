@@ -1,0 +1,101 @@
+common\models\sbbolxml\request\AdmCashierType:
+    properties:
+        docVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: docVersion
+            accessor:
+                getter: getDocVersion
+                setter: setDocVersion
+            xml_attribute: true
+            type: string
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            xml_attribute: true
+            type: string
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: integer
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        genSMSSign:
+            expose: true
+            access_type: public_method
+            serialized_name: GenSMSSign
+            accessor:
+                getter: getGenSMSSign
+                setter: setGenSMSSign
+            xml_attribute: true
+            type: string
+        cashierInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: CashierInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCashierInfo
+                setter: setCashierInfo
+            type: common\models\sbbolxml\request\AdmCashierType\CashierInfoAType
+        empowerment:
+            expose: true
+            access_type: public_method
+            serialized_name: Empowerment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getEmpowerment
+                setter: setEmpowerment
+            type: common\models\sbbolxml\request\AdmCashierType\EmpowermentAType
+        deviceInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DeviceInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDeviceInfo
+                setter: setDeviceInfo
+            type: common\models\sbbolxml\request\AdmCashierType\DeviceInfoAType
+        aDMTemplates:
+            expose: true
+            access_type: public_method
+            serialized_name: ADMTemplates
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getADMTemplates
+                setter: setADMTemplates
+            type: array<common\models\sbbolxml\request\AdmCashierType\ADMTemplatesAType\TemplateAType>
+            xml_list:
+                inline: false
+                entry_name: Template
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'

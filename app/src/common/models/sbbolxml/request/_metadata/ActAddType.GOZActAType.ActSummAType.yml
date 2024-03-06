@@ -1,0 +1,20 @@
+common\models\sbbolxml\request\ActAddType\GOZActAType\ActSummAType:
+    properties:
+        summ:
+            expose: true
+            access_type: public_method
+            serialized_name: summ
+            accessor:
+                getter: getSumm
+                setter: setSumm
+            xml_attribute: true
+            type: float
+        currIsoCode:
+            expose: true
+            access_type: public_method
+            serialized_name: currIsoCode
+            accessor:
+                getter: getCurrIsoCode
+                setter: setCurrIsoCode
+            xml_attribute: true
+            type: string

@@ -1,0 +1,119 @@
+common\models\sbbolxml\response\DocDataVBKType:
+    properties:
+        branchSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: branchSystemName
+            accessor:
+                getter: getBranchSystemName
+                setter: setBranchSystemName
+            xml_attribute: true
+            type: string
+        authBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: authBankName
+            accessor:
+                getter: getAuthBankName
+                setter: setAuthBankName
+            xml_attribute: true
+            type: string
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        author:
+            expose: true
+            access_type: public_method
+            serialized_name: author
+            accessor:
+                getter: getAuthor
+                setter: setAuthor
+            xml_attribute: true
+            type: string
+        isActual:
+            expose: true
+            access_type: public_method
+            serialized_name: isActual
+            accessor:
+                getter: getIsActual
+                setter: setIsActual
+            xml_attribute: true
+            type: boolean
+        iCSType:
+            expose: true
+            access_type: public_method
+            serialized_name: iCSType
+            accessor:
+                getter: getICSType
+                setter: setICSType
+            xml_attribute: true
+            type: string
+        icsCreationMode:
+            expose: true
+            access_type: public_method
+            serialized_name: icsCreationMode
+            accessor:
+                getter: getIcsCreationMode
+                setter: setIcsCreationMode
+            xml_attribute: true
+            type: string
+        iCSContractTypeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: iCSContractTypeCode
+            accessor:
+                getter: getICSContractTypeCode
+                setter: setICSContractTypeCode
+            xml_attribute: true
+            type: integer
+        iCSContractSubTypeCode:
+            expose: true
+            access_type: public_method
+            serialized_name: iCSContractSubTypeCode
+            accessor:
+                getter: getICSContractSubTypeCode
+                setter: setICSContractSubTypeCode
+            xml_attribute: true
+            type: string
+        isAssignmentOfRights:
+            expose: true
+            access_type: public_method
+            serialized_name: isAssignmentOfRights
+            accessor:
+                getter: getIsAssignmentOfRights
+                setter: setIsAssignmentOfRights
+            xml_attribute: true
+            type: boolean
+        hasUnreadMessages:
+            expose: true
+            access_type: public_method
+            serialized_name: hasUnreadMessages
+            accessor:
+                getter: getHasUnreadMessages
+                setter: setHasUnreadMessages
+            xml_attribute: true
+            type: boolean
+        hasSentDocument:
+            expose: true
+            access_type: public_method
+            serialized_name: hasSentDocument
+            accessor:
+                getter: getHasSentDocument
+                setter: setHasSentDocument
+            xml_attribute: true
+            type: boolean

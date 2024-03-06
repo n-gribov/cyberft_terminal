@@ -1,0 +1,75 @@
+attributes:
+  OrgId:  /Request/@orgId
+  Sender: /Request/@sender
+  ExtId:  /Request/PayDocRu/@docExtId
+fields:
+  AccDoc.AccDocNo:               /Request/PayDocRu/AccDoc/@accDocNo
+  AccDoc.CodeVO:                 /Request/PayDocRu/AccDoc/@codeVO
+  AccDoc.DocDate:                /Request/PayDocRu/AccDoc/@docDate
+  AccDoc.DocSum:                 /Request/PayDocRu/AccDoc/@docSum:currency
+  AccDoc.PaytKind:               /Request/PayDocRu/AccDoc/@paytKind
+  AccDoc.Priority:               /Request/PayDocRu/AccDoc/@priority
+  AccDoc.PsNum:                  /Request/PayDocRu/AccDoc/@psNum
+  AccDoc.Purpose:                /Request/PayDocRu/AccDoc/Purpose
+  AccDoc.TransKind:              /Request/PayDocRu/AccDoc/@transKind
+  AccDoc.UIP:                    /Request/PayDocRu/AccDoc/@uip
+  AccDoc.UrgentSBRF:             /Request/PayDocRu/AccDoc/@urgentSBRF
+  Credit.CredConNum:             /Request/PayDocRu/Credit/CredConNum
+  Credit.FlagTargetAssignment:   /Request/PayDocRu/Credit/@flagTargetAssignment
+  Credit.FlagUseOwnMeans:        /Request/PayDocRu/Credit/@flagUseOwnMeans
+  DepartmentalInfo.CBC:          /Request/PayDocRu/DepartmentalInfo/@cbc
+  DepartmentalInfo.DocDate:      /Request/PayDocRu/DepartmentalInfo/@docDate
+  DepartmentalInfo.DocNo:        /Request/PayDocRu/DepartmentalInfo/@docNo
+  DepartmentalInfo.DrawerStatus: /Request/PayDocRu/DepartmentalInfo/@drawerStatus
+  DepartmentalInfo.OKATO:        /Request/PayDocRu/DepartmentalInfo/@okato
+  DepartmentalInfo.PaytReason:   /Request/PayDocRu/DepartmentalInfo/@paytReason
+  DepartmentalInfo.TaxPaytKind:  /Request/PayDocRu/DepartmentalInfo/@taxPaytKind
+  DepartmentalInfo.TaxPeriod:    /Request/PayDocRu/DepartmentalInfo/@taxPeriod
+  Payee.Bank.Name:               /Request/PayDocRu/Payee/Bank/Name
+  Payee.Bank.BankCity:           /Request/PayDocRu/Payee/Bank/BankCity
+  Payee.Bank.SettlementType:     /Request/PayDocRu/Payee/Bank/SettlementType
+  Payee.Bank.Bic:                /Request/PayDocRu/Payee/Bank/@bic
+  Payee.Bank.CorrespAcc:         /Request/PayDocRu/Payee/Bank/@correspAcc
+  Payee.INN:                     /Request/PayDocRu/Payee/@inn
+  Payee.KPP:                     /Request/PayDocRu/Payee/@kpp
+  Payee.Name:                    /Request/PayDocRu/Payee/Name
+  Payee.PersonalAcc:             /Request/PayDocRu/Payee/@personalAcc
+  Payer.Bank.Name:               /Request/PayDocRu/Payer/Bank/Name
+  Payer.Bank.BankCity:           /Request/PayDocRu/Payer/Bank/BankCity
+  Payer.Bank.SettlementType:     /Request/PayDocRu/Payer/Bank/SettlementType
+  Payer.Bank.Bic:                /Request/PayDocRu/Payer/Bank/@bic
+  Payer.Bank.CorrespAcc:         /Request/PayDocRu/Payer/Bank/@correspAcc
+  Payer.INN:                     /Request/PayDocRu/Payer/@inn
+  Payer.KPP:                     /Request/PayDocRu/Payer/@kpp
+  Payer.Name:                    /Request/PayDocRu/Payer/Name
+  Payer.PersonalAcc:             /Request/PayDocRu/Payer/@personalAcc
+  BudgetCaption:                 /Request/PayDocRu/Rzk/RzkParams/BudgetСaption
+  EstimateCaption:               /Request/PayDocRu/Rzk/RzkParams/EstimateCaption
+  Product:                       /Request/PayDocRu/Rzk/RzkParams/Product
+tables:
+- name: RzkDocanalytics
+  path: /Request/PayDocRu/Rzk/RzkDocAnalytics
+  fields:
+    Amount:                 /RzkDocAnalytic/Amount
+    Class1Code:             /RzkDocAnalytic/Class1Code
+    Class1Description:      /RzkDocAnalytic/Class1Description
+    FinanceTypeDescription: /RzkDocAnalytic/FinanceTypeDescription
+    KesrCode:               /RzkDocAnalytic/KesrCode
+    KesrDescription:        /RzkDocAnalytic/KesrDescription
+    OrgGroupCaption:        /RzkDocAnalytic/OrgGroupCaption
+    PactDate:               /RzkDocAnalytic/PactDate
+    PactNum:                /RzkDocAnalytic/PactNum
+    PactSubject:            /RzkDocAnalytic/PactSubject
+    PayCodeCode:            /RzkDocAnalytic/PayCodeCode
+    PayCodeDescription:     /RzkDocAnalytic/PayCodeDescription
+    PayСodeId:              /RzkDocAnalytic/PayCodeId
+    ProjectStdCode:         /RzkDocAnalytic/ProjectStdCode
+    ProjectStdDescription:  /RzkDocAnalytic/ProjectStdDescription
+    ReasonDate:             /RzkDocAnalytic/ReasonDate
+    ReasonNum:              /RzkDocAnalytic/ReasonNum
+    ReasonType:             /RzkDocAnalytic/ReasonType
+- name: BigFileAttachments
+  path: /Request/PayDocRu/BigFileAttachments
+  fields:
+    UploadJobId: /BigFileAttachment/UploadJobId
+#    TODO add FileHash

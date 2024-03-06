@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="AuditLetter">
+        <xs:annotation>
+            <xs:documentation>Письмо с данными аудита</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Отдельное вложение</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="beginDate" type="xs:date" use="optional">
+            <xs:annotation>
+                <xs:documentation>Начало периода, за который запрашиваются логи с ТК</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="endDate" type="xs:date" use="optional">
+            <xs:annotation>
+                <xs:documentation>Окончание периода, за который запрашиваются логи с ТК</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

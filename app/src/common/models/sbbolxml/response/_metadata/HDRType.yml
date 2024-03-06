@@ -1,0 +1,76 @@
+common\models\sbbolxml\response\HDRType:
+    properties:
+        mesUID:
+            expose: true
+            access_type: public_method
+            serialized_name: mesUID
+            accessor:
+                getter: getMesUID
+                setter: setMesUID
+            xml_attribute: true
+            type: string
+        confType:
+            expose: true
+            access_type: public_method
+            serialized_name: confType
+            accessor:
+                getter: getConfType
+                setter: setConfType
+            xml_attribute: true
+            type: integer
+        sICnt:
+            expose: true
+            access_type: public_method
+            serialized_name: sICnt
+            accessor:
+                getter: getSICnt
+                setter: setSICnt
+            xml_attribute: true
+            type: integer
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: docSum
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            xml_attribute: true
+            type: float
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docSumCurrency:
+            expose: true
+            access_type: public_method
+            serialized_name: docSumCurrency
+            accessor:
+                getter: getDocSumCurrency
+                setter: setDocSumCurrency
+            xml_attribute: true
+            type: string
+        docAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: docAccount
+            accessor:
+                getter: getDocAccount
+                setter: setDocAccount
+            xml_attribute: true
+            type: string
+        extID:
+            expose: true
+            access_type: public_method
+            serialized_name: ExtID
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getExtID
+                setter: setExtID
+            type: string

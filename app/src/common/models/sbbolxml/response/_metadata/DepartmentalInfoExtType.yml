@@ -1,0 +1,92 @@
+common\models\sbbolxml\response\DepartmentalInfoExtType:
+    properties:
+        drawerStatus:
+            expose: true
+            access_type: public_method
+            serialized_name: drawerStatus
+            accessor:
+                getter: getDrawerStatus
+                setter: setDrawerStatus
+            xml_attribute: true
+            type: string
+        cbc:
+            expose: true
+            access_type: public_method
+            serialized_name: cbc
+            accessor:
+                getter: getCbc
+                setter: setCbc
+            xml_attribute: true
+            type: string
+        okato:
+            expose: true
+            access_type: public_method
+            serialized_name: okato
+            accessor:
+                getter: getOkato
+                setter: setOkato
+            xml_attribute: true
+            type: string
+        paytReason:
+            expose: true
+            access_type: public_method
+            serialized_name: paytReason
+            accessor:
+                getter: getPaytReason
+                setter: setPaytReason
+            xml_attribute: true
+            type: string
+        taxPeriod:
+            expose: true
+            access_type: public_method
+            serialized_name: taxPeriod
+            accessor:
+                getter: getTaxPeriod
+                setter: setTaxPeriod
+            xml_attribute: true
+            type: string
+        docNo:
+            expose: true
+            access_type: public_method
+            serialized_name: docNo
+            accessor:
+                getter: getDocNo
+                setter: setDocNo
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: string
+        taxPaytKind:
+            expose: true
+            access_type: public_method
+            serialized_name: taxPaytKind
+            accessor:
+                getter: getTaxPaytKind
+                setter: setTaxPaytKind
+            xml_attribute: true
+            type: string
+        kpp103:
+            expose: true
+            access_type: public_method
+            serialized_name: kpp103
+            accessor:
+                getter: getKpp103
+                setter: setKpp103
+            xml_attribute: true
+            type: string
+        kpp102:
+            expose: true
+            access_type: public_method
+            serialized_name: kpp102
+            accessor:
+                getter: getKpp102
+                setter: setKpp102
+            xml_attribute: true
+            type: string

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="BigFilesDownloadPrintFormLinkType">
+        <xs:annotation>
+            <xs:documentation>Запрос на создание печатной формы выписки на Банке</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="Statement" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Печатная форма выписки</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="beginDate" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата начала периода</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="endDate" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Дата окончания периода</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="type">
+                        <xs:annotation>
+                            <xs:documentation>Тип выписки:
+                                1 - Выписка из лицевого счета
+                                2 - Выписка из лицевого счета с арестами и ограничениями
+                                3 - Выписка из лицевого счета (расширенная)
+                                4 - Выписка с приложениями
+                                5 - Выписка из лицевого счета (расширенная) с приложениями
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <!--Выписка из лицевого счета-->
+                                <xs:enumeration value="1"/>
+                                <!--Выписка из лицевого счета с арестами и ограничениями -->
+                                <xs:enumeration value="2"/>
+                                <!--Выписка из лицевого счета (расширенная) -->
+                                <xs:enumeration value="3"/>
+                                <!--Выписка с приложениями -->
+                                <xs:enumeration value="4"/>
+                                <!--Выписка из лицевого счета (расширенная) с приложениями -->
+                                <xs:enumeration value="5"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="account" type="AccNumType"/>
+                    <xs:attribute name="bic" type="BicType"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Document" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Печатная форма документа</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="docId" type="UuidSeparated">
+                        <xs:annotation>
+                            <xs:documentation>Глобальный UUID документа СББОЛ, по которому нужно
+                                сформировать печатную форму(Не указывается для выписки)
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+        <xs:attribute name="extension">
+            <xs:annotation>
+                <xs:documentation>Расширение получаемого файла: pdf, rtf, docx, html, xls</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="pdf"/>
+                    <xs:enumeration value="rtf"/>
+                    <xs:enumeration value="docx"/>
+                    <xs:enumeration value="html"/>
+                    <xs:enumeration value="xls"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

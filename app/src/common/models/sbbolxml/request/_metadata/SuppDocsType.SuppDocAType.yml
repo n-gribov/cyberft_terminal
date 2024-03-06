@@ -1,0 +1,20 @@
+common\models\sbbolxml\request\SuppDocsType\SuppDocAType:
+    properties:
+        essenceId:
+            expose: true
+            access_type: public_method
+            serialized_name: essenceId
+            accessor:
+                getter: getEssenceId
+                setter: setEssenceId
+            xml_attribute: true
+            type: string
+        essenceType:
+            expose: true
+            access_type: public_method
+            serialized_name: essenceType
+            accessor:
+                getter: getEssenceType
+                setter: setEssenceType
+            xml_attribute: true
+            type: string

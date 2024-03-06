@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="DzoAccAttach">
+        <xs:annotation>
+            <xs:documentation>Заявка на оплату документа таможни</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DzoAccAttachDocData">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты документа</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DzoOrgData" type="DzoOrgData">
+                        <xs:annotation>
+                            <xs:documentation>Основные реквизиты дочерней организации</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Accounts" type="Accs">
+                        <xs:annotation>
+                            <xs:documentation>Счета ДЗО, прикрепляемые к головной компании холдинга</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="operationType" use="required" type="DzoAccAttachOperationType">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Тип действия, возможные значения:
+                            add - прикрепление счетов
+                            rem - открепление счетов
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DzoOrgData">
+        <xs:attribute name="orgId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор организации в ДБО</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="orgName" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Наименование организации</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="inn" type="InnType" use="required">
+            <xs:annotation>
+                <xs:documentation>ИНН</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="kpp" type="KppType" use="required">
+            <xs:annotation>
+                <xs:documentation>КПП</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="orgAddress" use="required">
+            <xs:annotation>
+                <xs:documentation>Почтовый или юридический адрес организации Клиента</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="1024"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="DzoAccAttachDocData">
+        <xs:annotation>
+            <xs:documentation>Реквизиты документа</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docDate" type="xs:date" use="required">
+            <xs:annotation>
+                <xs:documentation>Дата создания документа по местному времени</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="docNum" use="required">
+            <xs:annotation>
+                <xs:documentation>Номер сформированного документа</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="6"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:simpleType name="DzoAccAttachOperationType" final="restriction">
+        <xs:annotation>
+            <xs:documentation>
+                Тип действия, возможные значения:
+                add - прикрепление счетов
+                rem - открепление счетов
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="add" />
+            <xs:enumeration value="rem" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

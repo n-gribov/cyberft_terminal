@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+               xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+               jaxb:version="2.0">
+    <jaxb:globalBindings>
+        <!--Use java.util.Calendar instead of javax.xml.datatype.XMLGregorianCalendar for xs:dateTime -->
+        <jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime"
+                       parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
+                       printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+
+        <!-- Use java.util.Calendar instead of javax.xml.datatype.XMLGregorianCalendar for xs:date -->
+        <jaxb:javaType name="java.util.Calendar" xmlType="xs:date"
+                       parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+                       printMethod="com.bssys.sbns.integration.jaxb.DateConverter.printDate"/>
+
+
+        <!-- Force all classes implements Serializable -->
+        <xjc:serializable/>
+        <xjc:simple/>
+    </jaxb:globalBindings>
+
+    <jaxb:bindings schemaLocation="common-types.xsd">
+        <jaxb:bindings node="//xs:complexType[@name='DigitalSign']">
+            <inheritance:implements>com.bssys.sbns.base.response.DigitalSign</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='Certificate']">
+            <inheritance:implements>com.bssys.sbns.base.response.Certificate</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='AttachmentsType']">
+            <inheritance:implements>com.bssys.sbns.base.response.AttachmentsType</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='Attachment']">
+            <inheritance:implements>com.bssys.sbns.base.response.Attachment</inheritance:implements>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="response.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.bssys.sbns.upg.common.v30.response"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:complexType[@name='Response']">
+            <inheritance:implements>com.bssys.sbns.base.response.Response</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='ResponsePart']">
+            <inheritance:implements>com.bssys.sbns.base.response.ResponsePart</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='Ticket']">
+            <inheritance:implements>com.bssys.sbns.base.response.Ticket</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='Tickets']">
+            <inheritance:implements>com.bssys.sbns.base.response.Tickets</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='Ticket']/xs:sequence/xs:element[@name='Info']/xs:complexType">
+            <inheritance:implements>com.bssys.sbns.base.response.TicketInfo</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='LinkToBigFile']">
+            <inheritance:implements>com.bssys.sbns.base.response.LinkToBigFile</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='StatementAttachmentType']">
+            <inheritance:implements>com.bssys.sbns.base.response.StatementAttachmentType</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='DepartmentalInfoExt']">
+            <inheritance:implements>com.bssys.sbns.base.response.DepartmentalInfoExt</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='StatementType']">
+            <inheritance:implements>com.bssys.sbns.base.response.StatementType</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='TransInfo']">
+            <inheritance:implements>com.bssys.sbns.base.response.TransInfo</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='StatementType']/xs:sequence/xs:element[@name='Docs']/xs:complexType">
+            <inheritance:implements>com.bssys.sbns.base.response.Docs</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='Response']/xs:choice/xs:element[@name='Errors']/xs:complexType">
+            <inheritance:implements>com.bssys.sbns.base.response.Errors</inheritance:implements>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='ErrorType']">
+            <inheritance:implements>com.bssys.sbns.base.response.ErrorType</inheritance:implements>
+        </jaxb:bindings>
+    </jaxb:bindings>
+</jaxb:bindings>

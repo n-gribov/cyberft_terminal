@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\AdmOperationType\OrgInfoAType:
+    properties:
+        orgName:
+            expose: true
+            access_type: public_method
+            serialized_name: orgName
+            accessor:
+                getter: getOrgName
+                setter: setOrgName
+            xml_attribute: true
+            type: string
+        payeeBic:
+            expose: true
+            access_type: public_method
+            serialized_name: payeeBic
+            accessor:
+                getter: getPayeeBic
+                setter: setPayeeBic
+            xml_attribute: true
+            type: string
+        payeeAccount:
+            expose: true
+            access_type: public_method
+            serialized_name: payeeAccount
+            accessor:
+                getter: getPayeeAccount
+                setter: setPayeeAccount
+            xml_attribute: true
+            type: string

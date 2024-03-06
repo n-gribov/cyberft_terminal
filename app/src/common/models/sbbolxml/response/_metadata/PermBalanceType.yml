@@ -1,0 +1,92 @@
+common\models\sbbolxml\response\PermBalanceType:
+    properties:
+        pbType:
+            expose: true
+            access_type: public_method
+            serialized_name: pbType
+            accessor:
+                getter: getPbType
+                setter: setPbType
+            xml_attribute: true
+            type: string
+        pbCondition:
+            expose: true
+            access_type: public_method
+            serialized_name: pbCondition
+            accessor:
+                getter: getPbCondition
+                setter: setPbCondition
+            xml_attribute: true
+            type: string
+        pbSum:
+            expose: true
+            access_type: public_method
+            serialized_name: pbSum
+            accessor:
+                getter: getPbSum
+                setter: setPbSum
+            xml_attribute: true
+            type: float
+        pbSumCurrCode:
+            expose: true
+            access_type: public_method
+            serialized_name: pbSumCurrCode
+            accessor:
+                getter: getPbSumCurrCode
+                setter: setPbSumCurrCode
+            xml_attribute: true
+            type: string
+        pbTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: pbTerm
+            accessor:
+                getter: getPbTerm
+                setter: setPbTerm
+            xml_attribute: true
+            type: integer
+        pbFromDate:
+            expose: true
+            access_type: public_method
+            serialized_name: pbFromDate
+            accessor:
+                getter: getPbFromDate
+                setter: setPbFromDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        pbToDate:
+            expose: true
+            access_type: public_method
+            serialized_name: pbToDate
+            accessor:
+                getter: getPbToDate
+                setter: setPbToDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        interestRate:
+            expose: true
+            access_type: public_method
+            serialized_name: interestRate
+            accessor:
+                getter: getInterestRate
+                setter: setInterestRate
+            xml_attribute: true
+            type: float
+        paymentAmount:
+            expose: true
+            access_type: public_method
+            serialized_name: paymentAmount
+            accessor:
+                getter: getPaymentAmount
+                setter: setPaymentAmount
+            xml_attribute: true
+            type: float
+        accruedAmount:
+            expose: true
+            access_type: public_method
+            serialized_name: accruedAmount
+            accessor:
+                getter: getAccruedAmount
+                setter: setAccruedAmount
+            xml_attribute: true
+            type: float

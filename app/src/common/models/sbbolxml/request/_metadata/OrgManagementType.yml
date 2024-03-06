@@ -1,0 +1,42 @@
+common\models\sbbolxml\request\OrgManagementType:
+    properties:
+        annualGeneralMeeting:
+            expose: true
+            access_type: public_method
+            serialized_name: AnnualGeneralMeeting
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAnnualGeneralMeeting
+                setter: setAnnualGeneralMeeting
+            type: common\models\sbbolxml\request\AnnualGeneralMeetingType
+        boardOfDirectors:
+            expose: true
+            access_type: public_method
+            serialized_name: BoardOfDirectors
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBoardOfDirectors
+                setter: setBoardOfDirectors
+            type: common\models\sbbolxml\request\BoardOfDirectorsType
+        soleExecutiveBody:
+            expose: true
+            access_type: public_method
+            serialized_name: SoleExecutiveBody
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSoleExecutiveBody
+                setter: setSoleExecutiveBody
+            type: common\models\sbbolxml\request\SoleExecutiveBodyType
+        collectiveBody:
+            expose: true
+            access_type: public_method
+            serialized_name: CollectiveBody
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCollectiveBody
+                setter: setCollectiveBody
+            type: common\models\sbbolxml\request\CollectiveBodyType

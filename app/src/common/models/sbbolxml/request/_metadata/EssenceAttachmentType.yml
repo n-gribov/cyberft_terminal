@@ -1,0 +1,34 @@
+common\models\sbbolxml\request\EssenceAttachmentType:
+    properties:
+        uploadJobId:
+            expose: true
+            access_type: public_method
+            serialized_name: UploadJobId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getUploadJobId
+                setter: setUploadJobId
+            type: string
+        fileName:
+            expose: true
+            access_type: public_method
+            serialized_name: FileName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getFileName
+                setter: setFileName
+            type: string
+        fileSize:
+            expose: true
+            access_type: public_method
+            serialized_name: FileSize
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFileSize
+                setter: setFileSize
+            type: integer

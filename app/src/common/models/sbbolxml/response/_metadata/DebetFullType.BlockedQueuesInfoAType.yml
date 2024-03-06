@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\DebetFullType\BlockedQueuesInfoAType:
+    properties:
+        blockedQueues:
+            expose: true
+            access_type: public_method
+            serialized_name: BlockedQueues
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBlockedQueues
+                setter: setBlockedQueues
+            xml_list:
+                inline: true
+                entry_name: BlockedQueues
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\DebetFullType\BlockedQueuesInfoAType\BlockedQueuesAType>

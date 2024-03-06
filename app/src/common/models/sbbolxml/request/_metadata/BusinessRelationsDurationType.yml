@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\BusinessRelationsDurationType:
+    properties:
+        shortTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: ShortTerm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getShortTerm
+                setter: setShortTerm
+            type: boolean
+        longTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: LongTerm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getLongTerm
+                setter: setLongTerm
+            type: boolean

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="FeesRegistryAccept">
+        <xs:annotation>
+            <xs:documentation>Запрос изменения статуса Реестра платежей при выгрузке вложений</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="docId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор документа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

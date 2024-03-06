@@ -1,0 +1,57 @@
+common\models\sbbolxml\request\RegOfFiredEmployeesType:
+    properties:
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\request\RegOfFiredEmployeesType\DocDataAType
+        authPers2:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPers2
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthPers2
+                setter: setAuthPers2
+            type: common\models\sbbolxml\request\RegOfFiredEmployeesType\AuthPers2AType
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\RegOfFiredEmployeesType\OrgDataAType
+        listOFiredEmployees:
+            expose: true
+            access_type: public_method
+            serialized_name: ListOFiredEmployees
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getListOFiredEmployees
+                setter: setListOFiredEmployees
+            type: array<common\models\sbbolxml\request\RegOfFiredEmployeesType\ListOFiredEmployeesAType\FiredEmployeesInfoAType>
+            xml_list:
+                inline: false
+                entry_name: FiredEmployeesInfo
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
+        total:
+            expose: true
+            access_type: public_method
+            serialized_name: Total
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getTotal
+                setter: setTotal
+            type: integer

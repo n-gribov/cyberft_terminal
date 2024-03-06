@@ -1,0 +1,77 @@
+common\models\sbbolxml\response\IssCardInfoType:
+    properties:
+        numSt:
+            expose: true
+            access_type: public_method
+            serialized_name: numSt
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getNumSt
+                setter: setNumSt
+            type: integer
+        result:
+            expose: true
+            access_type: public_method
+            serialized_name: Result
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getResult
+                setter: setResult
+            type: string
+        result1C:
+            expose: true
+            access_type: public_method
+            serialized_name: Result1C
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getResult1C
+                setter: setResult1C
+            type: string
+        annotation:
+            expose: true
+            access_type: public_method
+            serialized_name: Annotation
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAnnotation
+                setter: setAnnotation
+            type: string
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: AccNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            type: string
+        noRef:
+            expose: true
+            access_type: public_method
+            serialized_name: NoRef
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getNoRef
+                setter: setNoRef
+            type: string
+        issCard:
+            expose: true
+            access_type: public_method
+            serialized_name: IssCard
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getIssCard
+                setter: setIssCard
+            type: boolean

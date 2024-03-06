@@ -1,0 +1,75 @@
+common\models\sbbolxml\request\DocDataEarlyRecallType:
+    properties:
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        bankSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: bankSystemName
+            accessor:
+                getter: getBankSystemName
+                setter: setBankSystemName
+            xml_attribute: true
+            type: string
+        depositID:
+            expose: true
+            access_type: public_method
+            serialized_name: depositID
+            accessor:
+                getter: getDepositID
+                setter: setDepositID
+            xml_attribute: true
+            type: string
+        contractNum:
+            expose: true
+            access_type: public_method
+            serialized_name: contractNum
+            accessor:
+                getter: getContractNum
+                setter: setContractNum
+            xml_attribute: true
+            type: string
+        contractDate:
+            expose: true
+            access_type: public_method
+            serialized_name: contractDate
+            accessor:
+                getter: getContractDate
+                setter: setContractDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        accNum:
+            expose: true
+            access_type: public_method
+            serialized_name: accNum
+            accessor:
+                getter: getAccNum
+                setter: setAccNum
+            xml_attribute: true
+            type: string
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\OrgDataType

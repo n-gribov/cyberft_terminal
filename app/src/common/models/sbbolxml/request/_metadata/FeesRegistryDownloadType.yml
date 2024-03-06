@@ -1,0 +1,22 @@
+common\models\sbbolxml\request\FeesRegistryDownloadType:
+    properties:
+        linkUUID:
+            expose: true
+            access_type: public_method
+            serialized_name: linkUUID
+            accessor:
+                getter: getLinkUUID
+                setter: setLinkUUID
+            xml_attribute: true
+            type: string
+        docId:
+            expose: true
+            access_type: public_method
+            serialized_name: docId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocId
+                setter: setDocId
+            type: string

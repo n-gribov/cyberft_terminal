@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\OrganizationInfoType\OrgDataAType\HoldingOrgsAType:
+    properties:
+        org:
+            expose: true
+            access_type: public_method
+            serialized_name: Org
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOrg
+                setter: setOrg
+            xml_list:
+                inline: true
+                entry_name: Org
+                namespace: 'http://bssys.com/upg/response'
+            type: array<string>

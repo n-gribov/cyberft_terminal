@@ -1,0 +1,60 @@
+common\models\raiffeisenxml\request\GuaranteeRaifType\BeneficiarAType:
+    properties:
+        ogrn:
+            expose: true
+            access_type: public_method
+            serialized_name: ogrn
+            accessor:
+                getter: getOgrn
+                setter: setOgrn
+            xml_attribute: true
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: inn
+            accessor:
+                getter: getInn
+                setter: setInn
+            xml_attribute: true
+            type: string
+        okpo:
+            expose: true
+            access_type: public_method
+            serialized_name: okpo
+            accessor:
+                getter: getOkpo
+                setter: setOkpo
+            xml_attribute: true
+            type: string
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: type
+            accessor:
+                getter: getType
+                setter: setType
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: string

@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\request\ChanDPType\DpInfoAType\OperAType\GroundInfoAType:
+    properties:
+        ground:
+            expose: true
+            access_type: public_method
+            serialized_name: Ground
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGround
+                setter: setGround
+            xml_list:
+                inline: true
+                entry_name: Ground
+                namespace: 'http://bssys.com/upg/request'
+            type: array<common\models\raiffeisenxml\request\ChanDPType\DpInfoAType\OperAType\GroundInfoAType\GroundAType>

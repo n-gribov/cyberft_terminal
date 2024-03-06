@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="DealPassCon138I">
+        <xs:complexContent>
+            <xs:extension base="DocBase">
+                <xs:sequence>
+                    <xs:element name="DocData" type="DocDataCCDealPassCon138I">
+                        <xs:annotation>
+                            <xs:documentation>Общие реквизиты паспорта сделки по контракту 138И</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ResInfo" type="ResInfo">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о резиденте</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BeneficiarInfo" type="DealPassBeneficiarInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Реквизиты иностранного контрагента</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ComData" type="ComData">
+                        <xs:annotation>
+                            <xs:documentation>3. Общие сведения о контракте</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NumPSOtherBank" type="DealPassNumFullType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о ранее оформленном паспорте сделки по контракту</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SuppleInfo" type="SuppleInfo" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>7. Справочная информация</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Attachments" type="AttachmentsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Приложенные к документу отсканированные образы-вложения</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BigFileAttachments" type="BigFileAttachments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Данные о больших файлах, связанных с сущностью</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocDataCCDealPassCon138I">
+        <xs:annotation>
+            <xs:documentation>Общие реквизиты паспорта сделки по контракту 138И</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DocDataCC">
+                <xs:attribute name="transferDebtRights" type="BoolType">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Признак оформления ПС в случае уступки прав или перевода долга по контракту:
+                            0 - признак не установлен
+                            1 - признак установлен
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

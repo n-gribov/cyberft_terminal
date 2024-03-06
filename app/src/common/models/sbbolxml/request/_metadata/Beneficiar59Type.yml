@@ -1,0 +1,132 @@
+common\models\sbbolxml\request\Beneficiar59Type:
+    properties:
+        accBeneficiar:
+            expose: true
+            access_type: public_method
+            serialized_name: AccBeneficiar
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAccBeneficiar
+                setter: setAccBeneficiar
+            type: string
+        currIsoCode:
+            expose: true
+            access_type: public_method
+            serialized_name: CurrIsoCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getCurrIsoCode
+                setter: setCurrIsoCode
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: Name
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getName
+                setter: setName
+            type: string
+        address:
+            expose: true
+            access_type: public_method
+            serialized_name: Address
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddress
+                setter: setAddress
+            type: string
+        place:
+            expose: true
+            access_type: public_method
+            serialized_name: Place
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getPlace
+                setter: setPlace
+            type: string
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: common\models\sbbolxml\request\CountryType
+        state:
+            expose: true
+            access_type: public_method
+            serialized_name: State
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getState
+                setter: setState
+            type: common\models\sbbolxml\request\StateType
+        text:
+            expose: true
+            access_type: public_method
+            serialized_name: Text
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getText
+                setter: setText
+            type: string
+        zip:
+            expose: true
+            access_type: public_method
+            serialized_name: Zip
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getZip
+                setter: setZip
+            type: string
+        inn:
+            expose: true
+            access_type: public_method
+            serialized_name: Inn
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getInn
+                setter: setInn
+            type: string
+        beiCode:
+            expose: true
+            access_type: public_method
+            serialized_name: BeiCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBeiCode
+                setter: setBeiCode
+            type: string
+        bankName:
+            expose: true
+            access_type: public_method
+            serialized_name: BankName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getBankName
+                setter: setBankName
+            type: string

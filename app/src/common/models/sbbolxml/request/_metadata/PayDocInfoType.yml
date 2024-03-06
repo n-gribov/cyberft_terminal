@@ -1,0 +1,56 @@
+common\models\sbbolxml\request\PayDocInfoType:
+    properties:
+        docNum:
+            expose: true
+            access_type: public_method
+            serialized_name: docNum
+            accessor:
+                getter: getDocNum
+                setter: setDocNum
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: account
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            xml_attribute: true
+            type: string
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: docSum
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            xml_attribute: true
+            type: float
+        regNum:
+            expose: true
+            access_type: public_method
+            serialized_name: regNum
+            accessor:
+                getter: getRegNum
+                setter: setRegNum
+            xml_attribute: true
+            type: string
+        fileFormat:
+            expose: true
+            access_type: public_method
+            serialized_name: fileFormat
+            accessor:
+                getter: getFileFormat
+                setter: setFileFormat
+            xml_attribute: true
+            type: string

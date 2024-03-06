@@ -1,0 +1,29 @@
+common\models\sbbolxml\request\AuditType:
+    properties:
+        eventTypeSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: eventTypeSystemName
+            accessor:
+                getter: getEventTypeSystemName
+                setter: setEventTypeSystemName
+            xml_attribute: true
+            type: string
+        userLogin:
+            expose: true
+            access_type: public_method
+            serialized_name: userLogin
+            accessor:
+                getter: getUserLogin
+                setter: setUserLogin
+            xml_attribute: true
+            type: string
+        ipAddress:
+            expose: true
+            access_type: public_method
+            serialized_name: ipAddress
+            accessor:
+                getter: getIpAddress
+                setter: setIpAddress
+            xml_attribute: true
+            type: string

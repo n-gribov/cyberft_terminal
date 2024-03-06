@@ -1,0 +1,48 @@
+common\models\sbbolxml\request\CashOrderRecipientInfoType:
+    properties:
+        lastName:
+            expose: true
+            access_type: public_method
+            serialized_name: lastName
+            accessor:
+                getter: getLastName
+                setter: setLastName
+            xml_attribute: true
+            type: string
+        firstName:
+            expose: true
+            access_type: public_method
+            serialized_name: firstName
+            accessor:
+                getter: getFirstName
+                setter: setFirstName
+            xml_attribute: true
+            type: string
+        patronimic:
+            expose: true
+            access_type: public_method
+            serialized_name: patronimic
+            accessor:
+                getter: getPatronimic
+                setter: setPatronimic
+            xml_attribute: true
+            type: string
+        dateOfBirth:
+            expose: true
+            access_type: public_method
+            serialized_name: dateOfBirth
+            accessor:
+                getter: getDateOfBirth
+                setter: setDateOfBirth
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: DocInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocInfo
+                setter: setDocInfo
+            type: common\models\sbbolxml\request\CashOrderRecipientDocInfoType

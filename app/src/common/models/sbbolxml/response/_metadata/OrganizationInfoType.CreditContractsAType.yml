@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\OrganizationInfoType\CreditContractsAType:
+    properties:
+        creditContract:
+            expose: true
+            access_type: public_method
+            serialized_name: CreditContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCreditContract
+                setter: setCreditContract
+            xml_list:
+                inline: true
+                entry_name: CreditContract
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\OrganizationInfoType\CreditContractsAType\CreditContractAType>

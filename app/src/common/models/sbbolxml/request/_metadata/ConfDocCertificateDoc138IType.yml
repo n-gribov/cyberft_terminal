@@ -1,0 +1,125 @@
+common\models\sbbolxml\request\ConfDocCertificateDoc138IType:
+    properties:
+        lineNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: lineNumber
+            accessor:
+                getter: getLineNumber
+                setter: setLineNumber
+            xml_attribute: true
+            type: integer
+        confDoc:
+            expose: true
+            access_type: public_method
+            serialized_name: ConfDoc
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getConfDoc
+                setter: setConfDoc
+            type: common\models\sbbolxml\request\ConfDocType
+        docCode:
+            expose: true
+            access_type: public_method
+            serialized_name: DocCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocCode
+                setter: setDocCode
+            type: string
+        docName:
+            expose: true
+            access_type: public_method
+            serialized_name: DocName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDocName
+                setter: setDocName
+            type: string
+        docSum:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocSum
+                setter: setDocSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        contractSum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractSum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractSum
+                setter: setContractSum
+            type: common\models\sbbolxml\request\CurrAmountType
+        delDir:
+            expose: true
+            access_type: public_method
+            serialized_name: DelDir
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getDelDir
+                setter: setDelDir
+            type: string
+        expectedTerm:
+            expose: true
+            access_type: public_method
+            serialized_name: ExpectedTerm
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExpectedTerm
+                setter: setExpectedTerm
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: common\models\sbbolxml\request\CountryNameType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        docSumDel:
+            expose: true
+            access_type: public_method
+            serialized_name: DocSumDel
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDocSumDel
+                setter: setDocSumDel
+            type: float
+        contractSumDel:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractSumDel
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractSumDel
+                setter: setContractSumDel
+            type: float

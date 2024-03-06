@@ -1,0 +1,67 @@
+common\models\sbbolxml\request\IdentificationDocumentInfoType:
+    properties:
+        identificationDocumentName:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentificationDocumentName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIdentificationDocumentName
+                setter: setIdentificationDocumentName
+            type: string
+        identificationDocumentSeries:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentificationDocumentSeries
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIdentificationDocumentSeries
+                setter: setIdentificationDocumentSeries
+            type: string
+        identificationDocumentNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentificationDocumentNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIdentificationDocumentNumber
+                setter: setIdentificationDocumentNumber
+            type: string
+        identificationDocumentIssueDate:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentificationDocumentIssueDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIdentificationDocumentIssueDate
+                setter: setIdentificationDocumentIssueDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        identificationDocumentIssueOrgName:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentificationDocumentIssueOrgName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIdentificationDocumentIssueOrgName
+                setter: setIdentificationDocumentIssueOrgName
+            type: string
+        identificationDocumentIssueOrgCode:
+            expose: true
+            access_type: public_method
+            serialized_name: IdentificationDocumentIssueOrgCode
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIdentificationDocumentIssueOrgCode
+                setter: setIdentificationDocumentIssueOrgCode
+            type: string

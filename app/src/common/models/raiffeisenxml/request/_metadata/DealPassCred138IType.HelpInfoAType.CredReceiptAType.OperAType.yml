@@ -1,0 +1,43 @@
+common\models\raiffeisenxml\request\DealPassCred138IType\HelpInfoAType\CredReceiptAType\OperAType:
+    properties:
+        strNum:
+            expose: true
+            access_type: public_method
+            serialized_name: strNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getStrNum
+                setter: setStrNum
+            type: string
+        beneficiarInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BeneficiarInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBeneficiarInfo
+                setter: setBeneficiarInfo
+            type: common\models\raiffeisenxml\request\BeneficiarInfoType
+        sum:
+            expose: true
+            access_type: public_method
+            serialized_name: Sum
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getSum
+                setter: setSum
+            type: common\models\raiffeisenxml\request\CurrAmountType
+        percent:
+            expose: true
+            access_type: public_method
+            serialized_name: Percent
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getPercent
+                setter: setPercent
+            type: float

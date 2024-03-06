@@ -1,0 +1,66 @@
+common\models\sbbolxml\response\ContractInfoType:
+    properties:
+        contractId:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getContractId
+                setter: setContractId
+            type: string
+        orgName:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getOrgName
+                setter: setOrgName
+            type: string
+        branchId:
+            expose: true
+            access_type: public_method
+            serialized_name: BranchId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getBranchId
+                setter: setBranchId
+            type: string
+        contractNum:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getContractNum
+                setter: setContractNum
+            type: string
+        contractDate:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContractDate
+                setter: setContractDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        blockInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: BlockInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBlockInfo
+                setter: setBlockInfo
+            type: common\models\sbbolxml\response\ContractInfoType\BlockInfoAType

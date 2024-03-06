@@ -1,0 +1,70 @@
+common\models\sbbolxml\response\OrgInfoType\OrgDataAType\OtherOrgDataAType:
+    properties:
+        locked:
+            expose: true
+            access_type: public_method
+            serialized_name: Locked
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getLocked
+                setter: setLocked
+            type: string
+        orgKpp:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgKpp
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOrgKpp
+                setter: setOrgKpp
+            xml_list:
+                inline: true
+                entry_name: OrgKpp
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\OrgKppType>
+        internationalName:
+            expose: true
+            access_type: public_method
+            serialized_name: InternationalName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getInternationalName
+                setter: setInternationalName
+            type: string
+        certAuthId:
+            expose: true
+            access_type: public_method
+            serialized_name: CertAuthId
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getCertAuthId
+                setter: setCertAuthId
+            type: string
+        lastCertifNum:
+            expose: true
+            access_type: public_method
+            serialized_name: LastCertifNum
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getLastCertifNum
+                setter: setLastCertifNum
+            type: string
+        contacts:
+            expose: true
+            access_type: public_method
+            serialized_name: Contacts
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getContacts
+                setter: setContacts
+            type: common\models\sbbolxml\response\OrgInfoType\OrgDataAType\OtherOrgDataAType\ContactsAType

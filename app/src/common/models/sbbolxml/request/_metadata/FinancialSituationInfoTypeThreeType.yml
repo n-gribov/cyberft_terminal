@@ -1,0 +1,13 @@
+common\models\sbbolxml\request\FinancialSituationInfoTypeThreeType:
+    properties:
+        agencyAndRatingIndex:
+            expose: true
+            access_type: public_method
+            serialized_name: AgencyAndRatingIndex
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAgencyAndRatingIndex
+                setter: setAgencyAndRatingIndex
+            type: string

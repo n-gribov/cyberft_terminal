@@ -1,0 +1,29 @@
+common\models\sbbolxml\request\RequestType\CryptoIncomingAType\CertificatesAType:
+    properties:
+        client:
+            expose: true
+            access_type: public_method
+            serialized_name: client
+            accessor:
+                getter: getClient
+                setter: setClient
+            xml_attribute: true
+            type: boolean
+        bank:
+            expose: true
+            access_type: public_method
+            serialized_name: bank
+            accessor:
+                getter: getBank
+                setter: setBank
+            xml_attribute: true
+            type: boolean
+        root:
+            expose: true
+            access_type: public_method
+            serialized_name: root
+            accessor:
+                getter: getRoot
+                setter: setRoot
+            xml_attribute: true
+            type: boolean

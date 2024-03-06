@@ -1,0 +1,23 @@
+common\models\sbbolxml\response\IntCtrlStatementNumType:
+    properties:
+        bankDate:
+            expose: true
+            access_type: public_method
+            serialized_name: BankDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getBankDate
+                setter: setBankDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        numFull:
+            expose: true
+            access_type: public_method
+            serialized_name: NumFull
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getNumFull
+                setter: setNumFull
+            type: string

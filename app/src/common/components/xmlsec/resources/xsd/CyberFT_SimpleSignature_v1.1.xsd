@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://cyberft.ru/xsd/cftsign.01" targetNamespace="http://cyberft.ru/xsd/cftsign.01" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="Signature" type="SignatureType"/>
+  <xs:complexType name="SignatureType">
+    <xs:sequence>
+      <xs:element name="SignatureMethod" type="xs:string"/>
+      <xs:element name="SignatureValue" type="xs:base64Binary"/>
+      <xs:element name="KeyInfo" type="KeyInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KeyInfo">
+    <xs:all>
+      <xs:element name="KeyName" type="xs:string" minOccurs="0"/>
+      <xs:element name="X509Data" type="X509DataType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="X509DataType">
+    <xs:sequence>
+      <xs:element name="X509SubjectName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

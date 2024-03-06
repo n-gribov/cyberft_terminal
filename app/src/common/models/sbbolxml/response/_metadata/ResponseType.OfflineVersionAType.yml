@@ -1,0 +1,29 @@
+common\models\sbbolxml\response\ResponseType\OfflineVersionAType:
+    properties:
+        currentVersion:
+            expose: true
+            access_type: public_method
+            serialized_name: currentVersion
+            accessor:
+                getter: getCurrentVersion
+                setter: setCurrentVersion
+            xml_attribute: true
+            type: string
+        link:
+            expose: true
+            access_type: public_method
+            serialized_name: link
+            accessor:
+                getter: getLink
+                setter: setLink
+            xml_attribute: true
+            type: string
+        critical:
+            expose: true
+            access_type: public_method
+            serialized_name: critical
+            accessor:
+                getter: getCritical
+                setter: setCritical
+            xml_attribute: true
+            type: boolean

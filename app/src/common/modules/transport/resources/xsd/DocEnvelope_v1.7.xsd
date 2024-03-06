@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://cyberft.ru/xsd/cftdoc.01" targetNamespace="http://cyberft.ru/xsd/cftdoc.01" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="Document">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="HeaderType"/>
+        <xs:element name="Body" type="BodyType"/>
+        <xs:element name="TraceList" type="TraceListType" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:ID" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="HeaderType">
+    <xs:sequence>
+      <xs:element name="DocId" type="xs:string"/>
+      <xs:element name="DocDate" type="xs:dateTime"/>
+      <xs:element name="SenderId" type="xs:string"/>
+      <xs:element name="ReceiverId" type="xs:string"/>
+      <xs:element name="DocType" type="xs:string"/>
+      <xs:element name="DocDetails" type="DocDetailsType" minOccurs="0"/>
+      <xs:element name="Priority" type="xs:int" minOccurs="0"/>
+      <xs:element name="ValidUntil" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="SignatureContainer" type="SignatureContainerType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocDetailsType">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SignatureContainerType">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BodyType">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="RawData" type="RawDataType" maxOccurs="unbounded"/>
+        <xs:any namespace="##other" processContents="lax" maxOccurs="unbounded"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:ID" use="optional"/>
+    <xs:attribute name="mimeType" type="xs:string" use="required"/>
+    <xs:attribute name="encoding" type="xs:string" use="optional"/>
+    <xs:attribute name="filename" type="xs:string" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="TraceListType">
+    <xs:sequence>
+      <xs:element name="Trace" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Date" type="xs:dateTime"/>
+            <xs:element name="SignerId" type="xs:string"/>
+            <xs:element name="ReceivedFrom">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SenderId" type="xs:string"/>
+                  <xs:element name="SenderIP" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="SendingTo">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ReceiverId" type="xs:string"/>
+                  <xs:element name="ReceiverIP" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="SignatureContainer" type="SignatureContainerType"/>
+          </xs:sequence>
+          <xs:attribute name="Id" type="xs:ID" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RawDataType">
+    <xs:simpleContent>
+      <xs:extension base="xs:base64Binary">
+        <xs:attribute name="Id" type="xs:ID" use="optional"/>
+        <xs:attribute name="mimeType" type="xs:string" use="optional"/>
+        <xs:attribute name="encoding" type="xs:string" use="optional"/>
+        <xs:attribute name="filename" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>
+

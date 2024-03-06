@@ -1,0 +1,269 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 15, 2016, 1:00:20 PM
+    Author     : fuzz
+*/
+
+.kv-container-from, .kv-container-to {padding: 0; border: 0;}
+.kv-container-from .input-group-addon i,
+.kv-container-to .input-group-addon i {
+    font-size: 14px;
+}
+/* .fileinput input[type="file"] {position: absolute; top: 0; left: -99999px;} */
+
+.has-success .input-group-addon {
+    background-color: #dff0d8;
+}
+
+.modal-dialog .close {
+    font-size: 0;
+}
+
+/*
+* For font awesome icons used in alerts and tiles
+*/
+.media-left [class*="fa-"] {
+    font-size: 48px;
+    margin-right: 10px;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.media-body a {
+    color: inherit;
+}
+
+/**
+Swiftfin style fix below
+*/
+.mt-new-ui {
+    padding: 10px 20px;
+    max-width:800px;
+    color:#000!important;
+    margin-bottom:20px;
+    -moz-box-shadow: 5px 5px 0 #ddd;
+    -webkit-box-shadow: 5px 5px 0 #ddd;
+    box-shadow: 5px 5px 0 #ddd;
+    position: relative;
+}
+
+.mt-new-ui,
+.mt-new-ui .panel-body,
+.mt-new-ui .form-group {
+    background-color: #E8E8E8!important;
+}
+
+.mt-new-ui input,
+.mt-new-ui select,
+.mt-new-ui textarea {
+    color:#000!important;
+}
+
+.mt-required-input {
+    border:2px solid #79CBFF;
+    color:#000!important;
+}
+
+input:not([readonly]):focus::-webkit-input-placeholder {color:transparent!important;}
+input:not([readonly]):focus:-moz-placeholder {color:transparent!important;}
+
+textarea:not([readonly]):focus::-webkit-input-placeholder {color:transparent!important;}
+textarea:not([readonly]):focus:-moz-placeholder {color:transparent!important;}
+
+.mt-new-ui .form-group {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.swt-tag-name {
+    font-weight: bold;
+    text-align: center;
+    font-size: 110%;
+}
+
+.swt-tag-name > div {
+    padding-top:7px;
+    padding-bottom: 7px;
+    border: 1px solid #A8A8A8;
+    min-width: 30px;
+    cursor: default;
+}
+
+.swt-tag-name .mt-required {
+    background-color: #95DFFF;
+    color:#000!important;
+}
+
+.mt-new-ui .input-group-addon {
+    background-color: transparent!important;
+    border: none!important;
+    min-width:20px;
+    color: #000!important;
+    font-size: 16px!important;
+}
+
+.swt-help-btn {
+    position: absolute;
+    right:10px;
+    top:10px;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 999;
+}
+
+.swt-help-btn > span {
+    padding: 2px 7px;
+    border: 1px solid #797979;
+    color: #797979;
+}
+
+.swt-help-btn > span:hover {
+    color: #fff;
+    background-color: #000;
+}
+
+.swt-help-btn:hover .swt-help-data {
+    display: block;
+}
+
+.swt-help-data {
+    background-color: #fff;
+    border:1px solid #ddd;
+    padding: 10px;
+    width: 450px;
+    left: -470px;
+    top:0;
+    position: absolute;
+    display: none;
+    font-size: 12px!important;
+}
+
+.btn-group>.btn+.dropdown-toggle {
+    padding-bottom: 4px;
+}
+
+.stamp {
+    padding:1em; border:1px solid #000; font-family:arial; text-align:center;
+}
+
+/* Выпадающее меню переключателя основного терминала */
+.navbar-inverse {
+    border-bottom: none;
+}
+.navbar-text {
+    margin-left: 3px;
+}
+.brand-dropdown .navbar-brand {
+    padding-right: 6px;
+}
+.brand-dropdown.open .navbar-brand {
+    background-color: #1062b0;
+}
+.brand-dropdown .navbar-brand:hover {
+    background-color: #2476c4;
+}
+.brand-dropdown .dropdown-menu {
+    background-color: #1062b0;
+    border: none;
+    border-radius: 0;
+    top: 48px;
+    width: 100%;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+.brand-dropdown .dropdown-menu li {
+    background-color: #1062b0;
+}
+.brand-dropdown .dropdown-menu li:nth-child(odd) {
+    background-color: #1769b7;
+}
+.brand-dropdown .dropdown-menu li a {
+    color: white;
+    font-size: 18px;
+    padding-left: 10px;
+}
+.brand-dropdown .dropdown-menu li:hover a {
+    background-color: #2476c4;
+}
+.brand-dropdown li .description {
+    color: #ccd;
+    display: block;
+    font-size: 12px;
+    white-space: normal
+}
+
+.navbar-header .brand-dropdown .navbar-text {
+    border-left: 0;
+}
+
+.panel-left {
+    margin-right: 30px;
+}
+
+.edm-journal-wiki-widget {
+    margin-left: 5px;
+}
+
+.bt-alert-warning {
+    background-color: #f0ad4e;
+    color: #fff;
+}
+
+.badge-danger {
+    background-color: #d9534f;
+}
+
+.badge-primary {
+    background-color: #337ab7;;
+}
+
+.fcp-print-commission-field {
+    border: 2px solid black;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.fcp-print-commission-block {
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.fcp-print-commission-field .line1 {
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 1px;
+    border-bottom: 1px solid #000;
+    -webkit-transform: translateY(8px) translateX(-3.5px) rotate(45deg);
+    position: absolute;
+}
+
+.fcp-print-commission-field .line2 {
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 1px;
+    border-bottom: 1px solid #000;
+    -webkit-transform: translateY(7px) translateX(-3.5px) rotate(-45deg);
+    position: absolute;
+}
+
+.sidebar-left .accordion li ul a {
+    padding-right: 25px;
+}
+
+.alert.alert-danger a {
+    color: white;
+    text-decoration: underline;
+}
+
+.accordion li a.menu-active {
+    background-color: #e0e0e0;
+}

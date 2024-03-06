@@ -1,0 +1,35 @@
+common\models\sbbolxml\request\MobPhoneType:
+    properties:
+        number:
+            expose: true
+            access_type: public_method
+            serialized_name: Number
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getNumber
+                setter: setNumber
+            type: string
+        operType:
+            expose: true
+            access_type: public_method
+            serialized_name: OperType
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOperType
+                setter: setOperType
+            type: string
+        operName:
+            expose: true
+            access_type: public_method
+            serialized_name: OperName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOperName
+                setter: setOperName
+            type: string

@@ -1,0 +1,16 @@
+common\models\raiffeisenxml\response\ResponseType\StatementsAType:
+    properties:
+        statement:
+            expose: true
+            access_type: public_method
+            serialized_name: Statement
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getStatement
+                setter: setStatement
+            xml_list:
+                inline: true
+                entry_name: Statement
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\raiffeisenxml\response\StatementType>

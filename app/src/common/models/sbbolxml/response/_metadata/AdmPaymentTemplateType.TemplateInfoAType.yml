@@ -1,0 +1,38 @@
+common\models\sbbolxml\response\AdmPaymentTemplateType\TemplateInfoAType:
+    properties:
+        deviceType:
+            expose: true
+            access_type: public_method
+            serialized_name: deviceType
+            accessor:
+                getter: getDeviceType
+                setter: setDeviceType
+            xml_attribute: true
+            type: string
+        name:
+            expose: true
+            access_type: public_method
+            serialized_name: name
+            accessor:
+                getter: getName
+                setter: setName
+            xml_attribute: true
+            type: string
+        blocked:
+            expose: true
+            access_type: public_method
+            serialized_name: blocked
+            accessor:
+                getter: getBlocked
+                setter: setBlocked
+            xml_attribute: true
+            type: boolean
+        signed:
+            expose: true
+            access_type: public_method
+            serialized_name: signed
+            accessor:
+                getter: getSigned
+                setter: setSigned
+            xml_attribute: true
+            type: boolean

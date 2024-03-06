@@ -1,0 +1,42 @@
+package CyberFT::SWIFT::Types::MTN90;
+use CyberFT::SWIFT::Types::Utils;
+use strict;
+
+our $ValidationProfile = {
+
+    fields => [
+        {
+            key => '20',
+            required => 1,
+        },
+        {
+            key => '21',
+            required => 1,
+        },
+        {
+            key => '25',
+            required => 1,
+        },
+        {
+            key => '32a',
+            key_regexp => '32[CD]',
+            required => 1,
+        },
+        {
+            key => '52a',
+            key_regexp => '52[AD]',
+            required => 0,
+        },
+        {
+            key => '71B',
+            required => 1,
+        },
+        {
+            key => '72',
+            required => 0,
+        },
+    ],
+
+};
+
+1;

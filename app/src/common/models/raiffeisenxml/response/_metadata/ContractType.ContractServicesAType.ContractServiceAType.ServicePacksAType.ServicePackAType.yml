@@ -1,0 +1,11 @@
+common\models\raiffeisenxml\response\ContractType\ContractServicesAType\ContractServiceAType\ServicePacksAType\ServicePackAType:
+    properties:
+        packageId:
+            expose: true
+            access_type: public_method
+            serialized_name: packageId
+            accessor:
+                getter: getPackageId
+                setter: setPackageId
+            xml_attribute: true
+            type: string

@@ -1,0 +1,12 @@
+common\models\sbbolxml\response\StatementType\BlockedInfoAType:
+    properties:
+        debet:
+            expose: true
+            access_type: public_method
+            serialized_name: Debet
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDebet
+                setter: setDebet
+            type: common\models\sbbolxml\response\DebetFullType

@@ -1,0 +1,64 @@
+common\models\sbbolxml\request\CredPercentPaymentsICSType:
+    properties:
+        fixPercent:
+            expose: true
+            access_type: public_method
+            serialized_name: FixPercent
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getFixPercent
+                setter: setFixPercent
+            type: float
+        lIBOR:
+            expose: true
+            access_type: public_method
+            serialized_name: LIBOR
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getLIBOR
+                setter: setLIBOR
+            type: string
+        otherMethod:
+            expose: true
+            access_type: public_method
+            serialized_name: OtherMethod
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getOtherMethod
+                setter: setOtherMethod
+            type: string
+        incPercent:
+            expose: true
+            access_type: public_method
+            serialized_name: IncPercent
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getIncPercent
+                setter: setIncPercent
+            type: float
+        debtCode1:
+            expose: true
+            access_type: public_method
+            serialized_name: DebtCode1
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDebtCode1
+                setter: setDebtCode1
+            type: integer
+        debtCode2:
+            expose: true
+            access_type: public_method
+            serialized_name: DebtCode2
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getDebtCode2
+                setter: setDebtCode2
+            type: integer

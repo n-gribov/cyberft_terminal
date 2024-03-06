@@ -1,0 +1,11 @@
+common\models\raiffeisenxml\request\PersonalInfoType:
+    properties:
+        hash:
+            expose: true
+            access_type: public_method
+            serialized_name: Hash
+            accessor:
+                getter: getHash
+                setter: setHash
+            xml_attribute: true
+            type: string

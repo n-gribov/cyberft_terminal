@@ -1,0 +1,30 @@
+common\models\sbbolxml\request\TicketClType\InfoAType:
+    properties:
+        statusStateCode:
+            expose: true
+            access_type: public_method
+            serialized_name: statusStateCode
+            accessor:
+                getter: getStatusStateCode
+                setter: setStatusStateCode
+            xml_attribute: true
+            type: string
+        docExtId:
+            expose: true
+            access_type: public_method
+            serialized_name: docExtId
+            accessor:
+                getter: getDocExtId
+                setter: setDocExtId
+            xml_attribute: true
+            type: string
+        acceptDate:
+            expose: true
+            access_type: public_method
+            serialized_name: AcceptDate
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAcceptDate
+                setter: setAcceptDate
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date

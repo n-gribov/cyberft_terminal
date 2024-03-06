@@ -1,0 +1,16 @@
+common\models\sbbolxml\response\IncomingRolesType\CurrentRolesAType:
+    properties:
+        rolePermission:
+            expose: true
+            access_type: public_method
+            serialized_name: RolePermission
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getRolePermission
+                setter: setRolePermission
+            xml_list:
+                inline: true
+                entry_name: RolePermission
+                namespace: 'http://bssys.com/upg/response'
+            type: array<common\models\sbbolxml\response\IncomingRolesType\CurrentRolesAType\RolePermissionAType>

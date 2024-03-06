@@ -1,0 +1,52 @@
+common\models\raiffeisenxml\response\CartotecaDocType:
+    properties:
+        permitionOperDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: PermitionOperDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getPermitionOperDocs
+                setter: setPermitionOperDocs
+            type: common\models\raiffeisenxml\response\CartotecaDocType\PermitionOperDocsAType
+        acceptDocs:
+            expose: true
+            access_type: public_method
+            serialized_name: AcceptDocs
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getAcceptDocs
+                setter: setAcceptDocs
+            type: common\models\raiffeisenxml\response\CartotecaDocType\AcceptDocsAType
+        cartoteca2:
+            expose: true
+            access_type: public_method
+            serialized_name: Cartoteca2
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getCartoteca2
+                setter: setCartoteca2
+            type: common\models\raiffeisenxml\response\CartotecaDocType\Cartoteca2AType
+        operAccept:
+            expose: true
+            access_type: public_method
+            serialized_name: OperAccept
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getOperAccept
+                setter: setOperAccept
+            type: common\models\raiffeisenxml\response\CartotecaDocType\OperAcceptAType
+        noMoney:
+            expose: true
+            access_type: public_method
+            serialized_name: NoMoney
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getNoMoney
+                setter: setNoMoney
+            type: common\models\raiffeisenxml\response\CartotecaDocType\NoMoneyAType

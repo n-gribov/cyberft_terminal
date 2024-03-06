@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bssys.com/upg/request"
+           targetNamespace="http://bssys.com/upg/request" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0">
+
+    <xs:include schemaLocation="common-types.xsd"/>
+
+    <xs:complexType name="DealAns">
+        <xs:annotation>
+            <xs:documentation>Ответ о подтверждении сделки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Decision" type="BoolType">
+                <xs:annotation>
+                    <xs:documentation>Решение о подтверждении сделки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:choice>
+                <xs:element name="SiId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор платежной инструкции для сделки или для первой ноги</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="NsiText" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Комментарий к новой платежной инструкции для сделки или для первой ноги</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+            <xs:choice minOccurs="0">
+                <xs:element name="SiId2" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор платежной инструкции для второй ноги</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="NsiText2" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Комментарий к новой платежной инструкции для сделки или для первой ноги</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+            <xs:element name="Sign" type="DigitalSign">
+                <xs:annotation>
+                    <xs:documentation>Подпись документа "Сообщение о подтверждении сделки"</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="docExtId" type="UuidSeparated" use="required">
+            <xs:annotation>
+                <xs:documentation>Идентификатор сообщения о подтверждении сделки АС СББОЛ</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

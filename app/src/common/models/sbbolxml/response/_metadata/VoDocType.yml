@@ -1,0 +1,45 @@
+common\models\sbbolxml\response\VoDocType:
+    properties:
+        docType:
+            expose: true
+            access_type: public_method
+            serialized_name: DocType
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDocType
+                setter: setDocType
+            type: string
+        docName:
+            expose: true
+            access_type: public_method
+            serialized_name: DocName
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getDocName
+                setter: setDocName
+            type: string
+        docData:
+            expose: true
+            access_type: public_method
+            serialized_name: DocData
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+            accessor:
+                getter: getDocData
+                setter: setDocData
+            type: common\models\sbbolxml\response\DocDataType
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/response'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string

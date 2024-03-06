@@ -1,0 +1,47 @@
+common\models\sbbolxml\request\PayCustDocParamsType:
+    properties:
+        docNo:
+            expose: true
+            access_type: public_method
+            serialized_name: docNo
+            accessor:
+                getter: getDocNo
+                setter: setDocNo
+            xml_attribute: true
+            type: string
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        procCode:
+            expose: true
+            access_type: public_method
+            serialized_name: procCode
+            accessor:
+                getter: getProcCode
+                setter: setProcCode
+            xml_attribute: true
+            type: string
+        depCode:
+            expose: true
+            access_type: public_method
+            serialized_name: depCode
+            accessor:
+                getter: getDepCode
+                setter: setDepCode
+            xml_attribute: true
+            type: string
+        payingType:
+            expose: true
+            access_type: public_method
+            serialized_name: payingType
+            accessor:
+                getter: getPayingType
+                setter: setPayingType
+            xml_attribute: true
+            type: string

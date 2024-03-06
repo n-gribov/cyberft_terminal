@@ -1,0 +1,407 @@
+common\models\raiffeisenxml\response\CurType:
+    properties:
+        sType:
+            expose: true
+            access_type: public_method
+            serialized_name: s_Type
+            accessor:
+                getter: getSType
+                setter: setSType
+            xml_attribute: true
+            type: string
+        sOriginator:
+            expose: true
+            access_type: public_method
+            serialized_name: s_Originator
+            accessor:
+                getter: getSOriginator
+                setter: setSOriginator
+            xml_attribute: true
+            type: string
+        sDestinator:
+            expose: true
+            access_type: public_method
+            serialized_name: s_Destinator
+            accessor:
+                getter: getSDestinator
+                setter: setSDestinator
+            xml_attribute: true
+            type: string
+        sOriginatorE:
+            expose: true
+            access_type: public_method
+            serialized_name: s_OriginatorE
+            accessor:
+                getter: getSOriginatorE
+                setter: setSOriginatorE
+            xml_attribute: true
+            type: string
+        sDestinatorE:
+            expose: true
+            access_type: public_method
+            serialized_name: s_DestinatorE
+            accessor:
+                getter: getSDestinatorE
+                setter: setSDestinatorE
+            xml_attribute: true
+            type: string
+        sNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: s_Number
+            accessor:
+                getter: getSNumber
+                setter: setSNumber
+            xml_attribute: true
+            type: string
+        sSent:
+            expose: true
+            access_type: public_method
+            serialized_name: s_Sent
+            accessor:
+                getter: getSSent
+                setter: setSSent
+            xml_attribute: true
+            type: string
+        sRcpt:
+            expose: true
+            access_type: public_method
+            serialized_name: s_Rcpt
+            accessor:
+                getter: getSRcpt
+                setter: setSRcpt
+            xml_attribute: true
+            type: string
+        s30:
+            expose: true
+            access_type: public_method
+            serialized_name: s_30
+            accessor:
+                getter: getS30
+                setter: setS30
+            xml_attribute: true
+            type: string
+        s32A:
+            expose: true
+            access_type: public_method
+            serialized_name: s_32A
+            accessor:
+                getter: getS32A
+                setter: setS32A
+            xml_attribute: true
+            type: string
+        s32B:
+            expose: true
+            access_type: public_method
+            serialized_name: s_32B
+            accessor:
+                getter: getS32B
+                setter: setS32B
+            xml_attribute: true
+            type: string
+        s33B:
+            expose: true
+            access_type: public_method
+            serialized_name: s_33B
+            accessor:
+                getter: getS33B
+                setter: setS33B
+            xml_attribute: true
+            type: string
+        s71A:
+            expose: true
+            access_type: public_method
+            serialized_name: s_71A
+            accessor:
+                getter: getS71A
+                setter: setS71A
+            xml_attribute: true
+            type: string
+        s71F:
+            expose: true
+            access_type: public_method
+            serialized_name: s_71F
+            accessor:
+                getter: getS71F
+                setter: setS71F
+            xml_attribute: true
+            type: string
+        s71G:
+            expose: true
+            access_type: public_method
+            serialized_name: s_71G
+            accessor:
+                getter: getS71G
+                setter: setS71G
+            xml_attribute: true
+            type: string
+        s77T:
+            expose: true
+            access_type: public_method
+            serialized_name: s_77T
+            accessor:
+                getter: getS77T
+                setter: setS77T
+            xml_attribute: true
+            type: string
+        sSA:
+            expose: true
+            access_type: public_method
+            serialized_name: s_SA
+            accessor:
+                getter: getSSA
+                setter: setSSA
+            xml_attribute: true
+            type: string
+        sS3:
+            expose: true
+            access_type: public_method
+            serialized_name: s_S3
+            accessor:
+                getter: getSS3
+                setter: setSS3
+            xml_attribute: true
+            type: string
+        sRA:
+            expose: true
+            access_type: public_method
+            serialized_name: s_RA
+            accessor:
+                getter: getSRA
+                setter: setSRA
+            xml_attribute: true
+            type: string
+        sS4:
+            expose: true
+            access_type: public_method
+            serialized_name: s_S4
+            accessor:
+                getter: getSS4
+                setter: setSS4
+            xml_attribute: true
+            type: string
+        sS2:
+            expose: true
+            access_type: public_method
+            serialized_name: s_S2
+            accessor:
+                getter: getSS2
+                setter: setSS2
+            xml_attribute: true
+            type: string
+        sR3:
+            expose: true
+            access_type: public_method
+            serialized_name: s_R3
+            accessor:
+                getter: getSR3
+                setter: setSR3
+            xml_attribute: true
+            type: string
+        sR4:
+            expose: true
+            access_type: public_method
+            serialized_name: s_R4
+            accessor:
+                getter: getSR4
+                setter: setSR4
+            xml_attribute: true
+            type: string
+        sR2:
+            expose: true
+            access_type: public_method
+            serialized_name: s_R2
+            accessor:
+                getter: getSR2
+                setter: setSR2
+            xml_attribute: true
+            type: string
+        sB3:
+            expose: true
+            access_type: public_method
+            serialized_name: s_B3
+            accessor:
+                getter: getSB3
+                setter: setSB3
+            xml_attribute: true
+            type: string
+        sB2:
+            expose: true
+            access_type: public_method
+            serialized_name: s_B2
+            accessor:
+                getter: getSB2
+                setter: setSB2
+            xml_attribute: true
+            type: string
+        s20:
+            expose: true
+            access_type: public_method
+            serialized_name: s_20
+            accessor:
+                getter: getS20
+                setter: setS20
+            xml_attribute: true
+            type: string
+        s21:
+            expose: true
+            access_type: public_method
+            serialized_name: s_21
+            accessor:
+                getter: getS21
+                setter: setS21
+            xml_attribute: true
+            type: string
+        s23:
+            expose: true
+            access_type: public_method
+            serialized_name: s_23
+            accessor:
+                getter: getS23
+                setter: setS23
+            xml_attribute: true
+            type: string
+        s23B:
+            expose: true
+            access_type: public_method
+            serialized_name: s_23B
+            accessor:
+                getter: getS23B
+                setter: setS23B
+            xml_attribute: true
+            type: string
+        s23E:
+            expose: true
+            access_type: public_method
+            serialized_name: s_23E
+            accessor:
+                getter: getS23E
+                setter: setS23E
+            xml_attribute: true
+            type: string
+        s26T:
+            expose: true
+            access_type: public_method
+            serialized_name: s_26T
+            accessor:
+                getter: getS26T
+                setter: setS26T
+            xml_attribute: true
+            type: string
+        s25:
+            expose: true
+            access_type: public_method
+            serialized_name: s_25
+            accessor:
+                getter: getS25
+                setter: setS25
+            xml_attribute: true
+            type: string
+        s36:
+            expose: true
+            access_type: public_method
+            serialized_name: s_36
+            accessor:
+                getter: getS36
+                setter: setS36
+            xml_attribute: true
+            type: string
+        s72:
+            expose: true
+            access_type: public_method
+            serialized_name: s_72
+            accessor:
+                getter: getS72
+                setter: setS72
+            xml_attribute: true
+            type: string
+        sSI:
+            expose: true
+            access_type: public_method
+            serialized_name: s_SI
+            accessor:
+                getter: getSSI
+                setter: setSSI
+            xml_attribute: true
+            type: string
+        sPAYERNAME:
+            expose: true
+            access_type: public_method
+            serialized_name: s_PAYERNAME
+            accessor:
+                getter: getSPAYERNAME
+                setter: setSPAYERNAME
+            xml_attribute: true
+            type: string
+        sSS:
+            expose: true
+            access_type: public_method
+            serialized_name: s_SS
+            accessor:
+                getter: getSSS
+                setter: setSSS
+            xml_attribute: true
+            type: string
+        sPAYERBANKNAME:
+            expose: true
+            access_type: public_method
+            serialized_name: s_PAYERBANKNAME
+            accessor:
+                getter: getSPAYERBANKNAME
+                setter: setSPAYERBANKNAME
+            xml_attribute: true
+            type: string
+        sIS:
+            expose: true
+            access_type: public_method
+            serialized_name: s_IS
+            accessor:
+                getter: getSIS
+                setter: setSIS
+            xml_attribute: true
+            type: string
+        sIB:
+            expose: true
+            access_type: public_method
+            serialized_name: s_IB
+            accessor:
+                getter: getSIB
+                setter: setSIB
+            xml_attribute: true
+            type: string
+        sRS:
+            expose: true
+            access_type: public_method
+            serialized_name: s_RS
+            accessor:
+                getter: getSRS
+                setter: setSRS
+            xml_attribute: true
+            type: string
+        sRECEIVERBANKNAME:
+            expose: true
+            access_type: public_method
+            serialized_name: s_RECEIVERBANKNAME
+            accessor:
+                getter: getSRECEIVERBANKNAME
+                setter: setSRECEIVERBANKNAME
+            xml_attribute: true
+            type: string
+        sRECEIVERNAME:
+            expose: true
+            access_type: public_method
+            serialized_name: s_RECEIVERNAME
+            accessor:
+                getter: getSRECEIVERNAME
+                setter: setSRECEIVERNAME
+            xml_attribute: true
+            type: string
+        s77B:
+            expose: true
+            access_type: public_method
+            serialized_name: s_77B
+            accessor:
+                getter: getS77B
+                setter: setS77B
+            xml_attribute: true
+            type: string

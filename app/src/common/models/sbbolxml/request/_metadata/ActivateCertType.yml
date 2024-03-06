@@ -1,0 +1,24 @@
+common\models\sbbolxml\request\ActivateCertType:
+    properties:
+        issuer:
+            expose: true
+            access_type: public_method
+            serialized_name: Issuer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getIssuer
+                setter: setIssuer
+            type: string
+        sN:
+            expose: true
+            access_type: public_method
+            serialized_name: SN
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getSN
+                setter: setSN
+            type: string

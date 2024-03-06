@@ -1,0 +1,24 @@
+common\models\raiffeisenxml\request\RecipientGroupType:
+    properties:
+        groupName:
+            expose: true
+            access_type: public_method
+            serialized_name: GroupName
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getGroupName
+                setter: setGroupName
+            type: string
+        userId:
+            expose: true
+            access_type: public_method
+            serialized_name: UserId
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getUserId
+                setter: setUserId
+            type: string

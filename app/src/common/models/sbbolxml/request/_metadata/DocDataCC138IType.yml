@@ -1,0 +1,116 @@
+common\models\sbbolxml\request\DocDataCC138IType:
+    properties:
+        docDate:
+            expose: true
+            access_type: public_method
+            serialized_name: docDate
+            accessor:
+                getter: getDocDate
+                setter: setDocDate
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        docNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: docNumber
+            accessor:
+                getter: getDocNumber
+                setter: setDocNumber
+            xml_attribute: true
+            type: string
+        statementFrom:
+            expose: true
+            access_type: public_method
+            serialized_name: statementFrom
+            accessor:
+                getter: getStatementFrom
+                setter: setStatementFrom
+            xml_attribute: true
+            type: GoetasWebservices\Xsd\XsdToPhp\XMLSchema\Date
+        branchSystemName:
+            expose: true
+            access_type: public_method
+            serialized_name: branchSystemName
+            accessor:
+                getter: getBranchSystemName
+                setter: setBranchSystemName
+            xml_attribute: true
+            type: string
+        authBankName:
+            expose: true
+            access_type: public_method
+            serialized_name: authBankName
+            accessor:
+                getter: getAuthBankName
+                setter: setAuthBankName
+            xml_attribute: true
+            type: string
+        authBankBIC:
+            expose: true
+            access_type: public_method
+            serialized_name: authBankBIC
+            accessor:
+                getter: getAuthBankBIC
+                setter: setAuthBankBIC
+            xml_attribute: true
+            type: string
+        orgData:
+            expose: true
+            access_type: public_method
+            serialized_name: OrgData
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getOrgData
+                setter: setOrgData
+            type: common\models\sbbolxml\request\OrgDataCCType
+        adjustment:
+            expose: true
+            access_type: public_method
+            serialized_name: Adjustment
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdjustment
+                setter: setAdjustment
+            type: boolean
+        adjustmentNumber:
+            expose: true
+            access_type: public_method
+            serialized_name: AdjustmentNumber
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAdjustmentNumber
+                setter: setAdjustmentNumber
+            type: integer
+        country:
+            expose: true
+            access_type: public_method
+            serialized_name: Country
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCountry
+                setter: setCountry
+            type: common\models\sbbolxml\request\CountryNameType
+        account:
+            expose: true
+            access_type: public_method
+            serialized_name: Account
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAccount
+                setter: setAccount
+            type: common\models\sbbolxml\request\AccNumBicType
+        authPers:
+            expose: true
+            access_type: public_method
+            serialized_name: AuthPers
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getAuthPers
+                setter: setAuthPers
+            type: common\models\sbbolxml\request\AuthPersType

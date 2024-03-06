@@ -1,0 +1,106 @@
+common\models\sbbolxml\request\ContractAddType:
+    properties:
+        essenceId:
+            expose: true
+            access_type: public_method
+            serialized_name: essenceId
+            accessor:
+                getter: getEssenceId
+                setter: setEssenceId
+            xml_attribute: true
+            type: string
+        idGC:
+            expose: true
+            access_type: public_method
+            serialized_name: id_GC
+            accessor:
+                getter: getIdGC
+                setter: setIdGC
+            xml_attribute: true
+            type: string
+        isCustExec:
+            expose: true
+            access_type: public_method
+            serialized_name: isCustExec
+            accessor:
+                getter: getIsCustExec
+                setter: setIsCustExec
+            xml_attribute: true
+            type: boolean
+        gOZContract:
+            expose: true
+            access_type: public_method
+            serialized_name: GOZContract
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getGOZContract
+                setter: setGOZContract
+            type: common\models\sbbolxml\request\ContractAddType\GOZContractAType
+        contractAmount:
+            expose: true
+            access_type: public_method
+            serialized_name: ContractAmount
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getContractAmount
+                setter: setContractAmount
+            type: common\models\sbbolxml\request\ContractAddType\ContractAmountAType
+        termDeliverPay:
+            expose: true
+            access_type: public_method
+            serialized_name: TermDeliverPay
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getTermDeliverPay
+                setter: setTermDeliverPay
+            type: string
+        addInfo:
+            expose: true
+            access_type: public_method
+            serialized_name: AddInfo
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+                cdata: false
+            accessor:
+                getter: getAddInfo
+                setter: setAddInfo
+            type: string
+        customer:
+            expose: true
+            access_type: public_method
+            serialized_name: Customer
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getCustomer
+                setter: setCustomer
+            type: common\models\sbbolxml\request\GozCustomerType
+        executor:
+            expose: true
+            access_type: public_method
+            serialized_name: Executor
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getExecutor
+                setter: setExecutor
+            type: common\models\sbbolxml\request\GozExecutorType
+        bFAttachments:
+            expose: true
+            access_type: public_method
+            serialized_name: BFAttachments
+            xml_element:
+                namespace: 'http://bssys.com/upg/request'
+            accessor:
+                getter: getBFAttachments
+                setter: setBFAttachments
+            type: array<common\models\sbbolxml\request\BFAttachmentType>
+            xml_list:
+                inline: false
+                entry_name: BFAttachment
+                skip_when_empty: false
+                namespace: 'http://bssys.com/upg/request'
