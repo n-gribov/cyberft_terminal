@@ -16,17 +16,15 @@ CyberFT позволяет обмениваться структурирован
 
 [О компании Киберплат и проекте CyberFT](./about.md)
 ---
-[Сравнение MS Exchange Server и CyberFT Exchange Server](./docs/msex_cyftex_comparison.pdf)
----
-[Руководство по установке Терминала CyberFT](./install.md)
+[Сравнение MS Exchange Server и CyberFT Exchange Server](./docs/msex_cftex_comparison.pdf)
 ---
 Документация проекта CyberFT
 ===
 - [Руководство по установке ПО "Терминал сети CyberFT"](./docs/cyberft_terminal_install.doc)
 - [Руководство пользователя Терминала сети CyberFT](./docs/cyberft_terminal_user_manual.doc)
 - [Руководство администратора Терминала сети CyberFT](./docs/cyberft_terminal_admin_manual.doc)
-- [Порядок подключения к Просессингу CyberFT](./docs/cyberft_processing_signup.doc)
-- [Создание ключа подписанта системы CyberFT](./docs/cyberft_signer_key_creation.doc)
-- [Руководство по использованию сервиса подписания CyberFT](./docs/cyberft_cybersignservice_manual.doc)
+- [Порядок подключения к Просессингу CyberFT](./docs/cyberft_processing_signup.pdf)
+- [Создание ключа подписанта системы CyberFT](./docs/cyberft_signer_key_creation.pdf)
+- [Руководство по использованию сервиса подписания CyberFT](./docs/cyberft_cybersignservice_manual.pdf)
 - [Список поддерживаемых форматов](./docs/cyberft_supported_formats.xls)
-- [CyberFT FAQ](./docs/cyberft_faq.doc)
+- [CyberFT FAQ](./docs/cyberft_faq.pdf)
